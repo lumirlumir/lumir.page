@@ -26,8 +26,8 @@ import Links from '@/components/aside/links';
 import Profile from '@/components/aside/profile';
 
 import DarkModeToggle from '@/components/header/dark-mode-toggle';
-import DocSearch from '@/components/header/doc-search';
 import FlexContainer from '@/components/header/flex-container';
+import Search from '@/components/header/search';
 import Title from '@/components/header/title';
 
 import { GOOGLE_GA_ID } from '@/constants';
@@ -66,7 +66,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
           <Header>
             <Title />
             <FlexContainer>
-              <DocSearch />
+              <Search />
               <DarkModeToggle />
             </FlexContainer>
           </Header>

@@ -15,8 +15,6 @@
     "count-docs": "ls -R src/posts/docs | grep .md | wc -l"
   },
   "dependencies": {
-    "@docsearch/css": "^3.9.0",
-    "@docsearch/react": "^3.9.0",
     "@giscus/react": "^3.1.0",
     "@lumir/react-kit": "*",
     "@lumir/rehype-plugins": "*",
@@ -29,6 +27,7 @@
     "babel-plugin-react-compiler": "^1.0.0",
     "katex": "^0.16.45",
     "mdast-util-to-string": "^4.0.0",
+    "minisearch": "^7.2.0",
     "next": "^16.2.4",
     "react": "^19.2.5",
     "react-dom": "^19.2.5",
