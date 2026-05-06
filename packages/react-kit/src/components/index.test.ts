@@ -7,7 +7,7 @@
 // --------------------------------------------------------------------------------
 
 import { assert, describe, it } from 'vitest';
-import { SVGWrapper, Typewriter } from './index.js';
+import { BackToTopButton, SVGWrapper, Typewriter } from './index.js';
 
 // --------------------------------------------------------------------------------
 // Test
@@ -15,6 +15,11 @@ import { SVGWrapper, Typewriter } from './index.js';
 
 describe('index', () => {
   describe('exports', () => {
+    it('`BackToTopButton` should be defined', () => {
+      assert.isDefined(BackToTopButton);
+      assert.strictEqual(typeof BackToTopButton, 'function');
+    });
+
     it('`SVGWrapper` should be defined', () => {
       assert.isDefined(SVGWrapper);
       assert.strictEqual(typeof SVGWrapper, 'function');

@@ -58,3 +58,9 @@ window.addEventListener('load', () => {
     }
   });
 });
+
+<ButtonSingle
+  click={() => {
+    window.open('https://github.com/');
+  }}
+></ButtonSingle>;
