@@ -64,10 +64,11 @@ export function useToggle(
 
 /**
  * `useToggle` is a React hook that simplifies managing a state with two
- * explicit values. It initializes the state with the first value and provides
+ * explicit values. It initializes the state with the initial value and provides
  * a function to toggle it between the first and second value.
  *
- * @param firstValue The initial state value.
+ * @param initialValue The initial state value.
+ * @param firstValue The first state value.
  * @param secondValue The second state value to toggle to.
  * @returns Current state and a function that toggles it.
  * @example
@@ -77,7 +78,7 @@ export function useToggle(
  * type Theme = 'dark' | 'light';
  *
  * function Component() {
- *   const [theme, toggleTheme] = useToggle<Theme>('dark', 'light');
+ *   const [theme, toggleTheme] = useToggle<Theme>('light', 'dark', 'light');
  *
  *   return (
  *     <button type="button" onClick={toggleTheme}>
@@ -88,6 +89,7 @@ export function useToggle(
  * ```
  */
 export function useToggle<const T>(
+  initialValue: NoInfer<T>,
   firstValue: T,
   secondValue: T,
 ): readonly [state: T, toggle: () => void];
@@ -97,12 +99,13 @@ export function useToggle<const T>(
 // --------------------------------------------------------------------------------
 
 export function useToggle<const T>(
-  firstValue: boolean | T = false,
-  ...rest: [] | [secondValue: T]
+  initialValue: boolean | T = false,
+  ...rest: [] | [firstValue: T, secondValue: T]
 ): readonly [state: boolean | T, toggle: () => void] {
-  const [state, setState] = useState<boolean | T>(firstValue);
+  const [state, setState] = useState<boolean | T>(initialValue);
 
-  const secondValue = rest.length !== 0 ? rest[0] : !firstValue;
+  const firstValue = rest.length !== 0 ? rest[0] : initialValue;
+  const secondValue = rest.length !== 0 ? rest[1] : !initialValue;
 
   const toggle = useCallback(() => {
     setState(prevState => (Object.is(prevState, secondValue) ? firstValue : secondValue));
