@@ -19,7 +19,7 @@ references:
 ---
 
 <!-- markdownlint-disable MD003 MD004 MD024 MD029 MD033 MD035 MD046 MD049 MD050 MD055 MD060 -->
-<!-- eslint-disable -- TODO -->
+
 마크다운<sup>Markdown</sup> 파일의 확장자는 `.md`로 끝난다. 개발을 하다 보면 `README.md`라는 이름의 파일을 한 번쯤 만나게 되는데, 이것이 가장 대표적인 마크다운 파일이라 할 수 있다.
 
 마크다운과 비슷하지만 문법이 좀 더 복잡한 `.adoc` 확장자의 AsciiDoc 문법도 있으며, 좀 더 다양한 형태의 문서를 만들 수 있다. 다만, 문법이 훨씬 복잡하고 지원 플랫폼이 적어 사용에 제약이 많다.
@@ -555,6 +555,8 @@ HTML에서 이용하는 `<!-- -->` 기호를 사용한다.
       + 파랑
   ```
 
+<!-- eslint-disable md/consistent-unordered-list-style -- Used for example -->
+
 - 출력
 
   - 빨강
@@ -567,6 +569,8 @@ HTML에서 이용하는 `<!-- -->` 기호를 사용한다.
     + 녹색
       + 파랑
 
+<!-- eslint-enable md/consistent-unordered-list-style -- Used for example -->
+
 - 입력
 
   ```md
@@ -576,12 +580,16 @@ HTML에서 이용하는 `<!-- -->` 기호를 사용한다.
         + 4단계
   ```
 
+<!-- eslint-disable md/consistent-unordered-list-style -- Used for example -->
+
 - 출력
 
   * 1단계
     - 2단계
       + 3단계
         + 4단계
+
+<!-- eslint-enable md/consistent-unordered-list-style -- Used for example -->
 
 ### 2-8. 링크(Links, Anchor)
 
@@ -892,6 +900,8 @@ Markdown style은 사이즈 조절 기능이 없기 때문에, HTML `<img src=""
   end code block.
   ```
 
+<!-- eslint-disable md/consistent-code-style -- Used for example -->
+
 - 출력
 
   This is a normal paragraph:
@@ -899,6 +909,8 @@ Markdown style은 사이즈 조절 기능이 없기 때문에, HTML `<img src=""
       This is a code block.
 
   end code block.
+
+<!-- eslint-enable md/consistent-code-style -- Used for example -->  
 
 한줄 띄어쓰지 않으면 인식이 제대로 안되는 문제가 발생한다.
 
@@ -973,6 +985,8 @@ Markdown style은 사이즈 조절 기능이 없기 때문에, HTML `<img src=""
   \- 특수문자 출력
   ```
 
+<!-- eslint-disable md/consistent-unordered-list-style -- Used for example -->
+
 - 출력
 
   * 특수문자 출력안됨
@@ -981,6 +995,8 @@ Markdown style은 사이즈 조절 기능이 없기 때문에, HTML `<img src=""
   \* 특수문자 출력
 
   \- 특수문자 출력
+
+<!-- eslint-enable md/consistent-unordered-list-style -- Used for example -->
 
 - 입력
 
