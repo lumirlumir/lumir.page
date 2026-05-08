@@ -13,7 +13,8 @@
   ],
   "scripts": {
     "prepare": "husky",
-    "test": "vitest run --coverage",
+    "test": "npm run test:types && vitest run --coverage",
+    "test:types": "tsgo",
     "test:a:b": "npm run test -w apps/blog",
     "test:pkg:rk": "npm run test -w packages/react-kit",
     "test:pkg:rhp": "npm run test -w packages/rehype-plugins",
