@@ -12,14 +12,8 @@
 // Import
 // --------------------------------------------------------------------------------
 
-import {
-  createContext,
-  useCallback,
-  useContext,
-  useEffect,
-  useState,
-  type PropsWithChildren,
-} from 'react';
+import { createContext, useContext, useEffect, type PropsWithChildren } from 'react';
+import { useToggle } from '@lumir/react-kit/hooks';
 
 // --------------------------------------------------------------------------------
 // Typedef
@@ -109,14 +103,18 @@ export function useThemeContext(): ThemeContextValue {
  * ```
  */
 export function ThemeProvider({ children }: PropsWithChildren) {
-  const [theme, setTheme] = useState<Theme>(() => {
-    // During server-side rendering, `document` is not available, so we return the default theme.
-    if (typeof document === 'undefined') {
-      return defaultTheme;
-    }
+  const [theme, toggleTheme] = useToggle<Theme>(
+    () => {
+      // During server-side rendering, `document` is not available, so we return the default theme.
+      if (typeof document === 'undefined') {
+        return defaultTheme;
+      }
 
-    return (document.documentElement.getAttribute(themeKey) ?? defaultTheme) as Theme;
-  });
+      return (document.documentElement.getAttribute(themeKey) ?? defaultTheme) as Theme;
+    },
+    'dark',
+    'light',
+  );
 
   useEffect(() => {
     // 1. Update the `data-theme` attribute on the root document element to apply the theme globally.
@@ -127,10 +125,6 @@ export function ThemeProvider({ children }: PropsWithChildren) {
     // protocols, or ports. It can only collide with other apps running on the same origin.
     localStorage.setItem(themeKey, theme);
   }, [theme]);
-
-  const toggleTheme = useCallback(() => {
-    setTheme(previousTheme => (previousTheme === 'dark' ? 'light' : 'dark'));
-  }, []);
 
   // eslint-disable-next-line react/jsx-no-constructed-context-values -- React Compiler automatically optimizes context values.
   return <ThemeContext value={[theme, toggleTheme]}>{children}</ThemeContext>;
