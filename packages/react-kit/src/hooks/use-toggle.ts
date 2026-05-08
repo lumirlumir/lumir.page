@@ -64,10 +64,11 @@ export function useToggle(
 
 /**
  * `useToggle` is a React hook that simplifies managing a state with two
- * explicit values. It initializes the state with the initial value and provides
- * a function to toggle it between the first and second value.
+ * explicit values. It initializes the state with the initial value or a
+ * function that returns it, and provides a function to toggle it between the
+ * first and second value.
  *
- * @param initialValue The initial state value.
+ * @param initialValue The initial state value or a function that returns it.
  * @param firstValue The first state value.
  * @param secondValue The second state value to toggle to.
  * @returns Current state and a function that toggles it.
@@ -78,7 +79,7 @@ export function useToggle(
  * type Theme = 'dark' | 'light';
  *
  * function Component() {
- *   const [theme, toggleTheme] = useToggle<Theme>('light', 'dark', 'light');
+ *   const [theme, toggleTheme] = useToggle<Theme>(() => 'light', 'dark', 'light');
  *
  *   return (
  *     <button type="button" onClick={toggleTheme}>
@@ -89,7 +90,7 @@ export function useToggle(
  * ```
  */
 export function useToggle<const T>(
-  initialValue: NoInfer<T>,
+  initialValue: NoInfer<T> | (() => NoInfer<T>),
   firstValue: T,
   secondValue: T,
 ): readonly [state: T, toggle: () => void];
@@ -99,13 +100,13 @@ export function useToggle<const T>(
 // --------------------------------------------------------------------------------
 
 export function useToggle<const T>(
-  initialValue: boolean | T = false,
+  initialValue: boolean | T | (() => T) = false,
   ...rest: [] | [firstValue: T, secondValue: T]
 ): readonly [state: boolean | T, toggle: () => void] {
   const [state, setState] = useState<boolean | T>(initialValue);
 
-  const firstValue = rest.length !== 0 ? rest[0] : initialValue;
-  const secondValue = rest.length !== 0 ? rest[1] : !initialValue;
+  const firstValue = rest.length === 2 ? rest[0] : !!initialValue;
+  const secondValue = rest.length === 2 ? rest[1] : !initialValue;
 
   const toggle = useCallback(() => {
     setState(prevState => (Object.is(prevState, secondValue) ? firstValue : secondValue));
