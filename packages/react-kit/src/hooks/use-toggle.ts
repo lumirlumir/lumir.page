@@ -10,14 +10,38 @@
 import { useCallback, useState } from 'react';
 
 // --------------------------------------------------------------------------------
-// Export
+// Overload
 // --------------------------------------------------------------------------------
 
 /**
  * `useToggle` is a React hook that simplifies managing a boolean state.
- * It provides a function to toggle the state between `true` and `false`.
+ * It initializes the state to `false` and provides a function to toggle it
+ * between `true` and `false`.
  *
- * @param initialValue The initial state value. Defaults to `false`.
+ * @returns Current boolean state and a function that toggles it.
+ * @example
+ * ```tsx
+ * import { useToggle } from '@lumir/react-kit/hooks';
+ *
+ * function Component() {
+ *   const [isOpen, toggleIsOpen] = useToggle();
+ *
+ *   return (
+ *     <button type="button" onClick={toggleIsOpen}>
+ *       {isOpen ? 'Close' : 'Open'}
+ *     </button>
+ *   );
+ * }
+ * ```
+ */
+export function useToggle(): readonly [state: boolean, toggle: () => void];
+
+/**
+ * `useToggle` is a React hook that simplifies managing a boolean state.
+ * It initializes the state with the provided boolean value and provides a
+ * function to toggle it between `true` and `false`.
+ *
+ * @param initialValue The initial boolean state value.
  * @returns Current boolean state and a function that toggles it.
  * @example
  * ```tsx
@@ -27,22 +51,62 @@ import { useCallback, useState } from 'react';
  *   const [isOpen, toggleIsOpen] = useToggle(false);
  *
  *   return (
- *     <div>
- *       <p>Bottom Sheet state: {isOpen ? 'opened' : 'closed'}</p>
- *       <button onClick={toggleIsOpen}>Toggle</button>
- *     </div>
+ *     <button type="button" onClick={toggleIsOpen}>
+ *       {isOpen ? 'Close' : 'Open'}
+ *     </button>
  *   );
  * }
  * ```
  */
 export function useToggle(
-  initialValue = false,
-): readonly [state: boolean, toggle: () => void] {
-  const [state, setState] = useState<boolean>(initialValue);
+  initialValue: boolean,
+): readonly [state: boolean, toggle: () => void];
+
+/**
+ * `useToggle` is a React hook that simplifies managing a state with two
+ * explicit values. It initializes the state with the first value and provides
+ * a function to toggle it between the first and second value.
+ *
+ * @param firstValue The initial state value.
+ * @param secondValue The second state value to toggle to.
+ * @returns Current state and a function that toggles it.
+ * @example
+ * ```tsx
+ * import { useToggle } from '@lumir/react-kit/hooks';
+ *
+ * type Theme = 'dark' | 'light';
+ *
+ * function Component() {
+ *   const [theme, toggleTheme] = useToggle<Theme>('dark', 'light');
+ *
+ *   return (
+ *     <button type="button" onClick={toggleTheme}>
+ *       {theme}
+ *     </button>
+ *   );
+ * }
+ * ```
+ */
+export function useToggle<const T>(
+  firstValue: T,
+  secondValue: T,
+): readonly [state: T, toggle: () => void];
+
+// --------------------------------------------------------------------------------
+// Export
+// --------------------------------------------------------------------------------
+
+export function useToggle<const T>(
+  firstValue: boolean | T = false,
+  ...rest: [] | [secondValue: T]
+): readonly [state: boolean | T, toggle: () => void] {
+  const [state, setState] = useState<boolean | T>(firstValue);
+
+  const secondValue = rest.length !== 0 ? rest[0] : !firstValue;
 
   const toggle = useCallback(() => {
-    setState(prevState => !prevState);
-  }, []);
+    setState(prevState => (Object.is(prevState, secondValue) ? firstValue : secondValue));
+  }, [firstValue, secondValue]);
 
   return [state, toggle] as const;
 }
