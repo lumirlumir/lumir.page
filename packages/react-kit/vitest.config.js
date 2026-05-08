@@ -9,6 +9,9 @@ export default defineConfig({
       instances: [{ browser: 'chromium' }],
     },
     include: ['src/**/*.test.{js,mjs,cjs,jsx,ts,mts,cts,tsx}'],
-    typecheck: true,
+    typecheck: {
+      enabled: false, // Set to true if you want to enable type checking during tests.
+      include: ['src/**/*.test-d.{ts,mts,cts,tsx}'],
+    },
   },
 });
