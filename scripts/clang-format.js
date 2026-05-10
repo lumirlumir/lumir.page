@@ -8,9 +8,11 @@ const args = process.argv[2] === '--fix' ? ['-i'] : ['-n', '-Werror'];
 const apps = join(import.meta.dirname, '..', 'apps', 'blog', 'src');
 const archives = join(import.meta.dirname, '..', 'archives');
 
-const appsPaths = readdirSync(apps, { recursive: true }).map(path => join(apps, path));
-const archivesPaths = readdirSync(archives, { recursive: true }).map(path =>
-  join(archives, path),
+const appsPaths = readdirSync(apps, { encoding: 'utf8', recursive: true }).map(path =>
+  join(apps, path),
+);
+const archivesPaths = readdirSync(archives, { encoding: 'utf8', recursive: true }).map(
+  path => join(archives, path),
 );
 
 const paths = [...appsPaths, ...archivesPaths].filter(path =>
