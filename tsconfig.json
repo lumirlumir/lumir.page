@@ -6,7 +6,10 @@
     "**/*.config.cjs",
     "**/*.config.ts",
     "**/*.config.mts",
-    "**/*.config.cts"
+    "**/*.config.cts",
+    "scripts/**/*.js",
+    "scripts/**/*.mjs",
+    "scripts/**/*.cjs"
   ],
   "compilerOptions": {
     /* Modules */
