@@ -28,7 +28,7 @@
     "paths": {
       "@/*": ["./src/*"] // Map the '@' alias to the 'src' directory.
     },
-    "types": ["@lumir/types/global", "node", "react", "react-dom", "vite/client"],
+    "types": ["@lumir/types/global", "vite/client"],
 
     /* Emit */
     "noEmit": true,
