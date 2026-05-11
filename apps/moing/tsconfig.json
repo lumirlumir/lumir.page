@@ -31,7 +31,7 @@
     "paths": {
       "@/*": ["./src/*"] // Map the '@' alias to the 'src' directory.
     },
-    "types": ["@lumir/types/global", "vite/client"],
+    "types": ["@lumir/types/global", "node", "vite/client"],
 
     /* Emit */
     "noEmit": true,
