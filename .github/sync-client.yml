@@ -1,4 +1,4 @@
-lumirlumir/lumirlumir:
+lumir/lumir:
   - source: ./.github/sync-client.yml
     dest: ./clients/lumir.page.yml
   # ./.github/workflows

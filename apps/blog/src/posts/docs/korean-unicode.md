@@ -11,7 +11,7 @@ references: []
 
 <!-- markdownlint-disable MD028 -->
 
-자바스크립트는 [UTF-16 인코딩](https://developer.mozilla.org/ko/docs/Glossary/Code_unit)을 활용하여 문자열을 표현한다. [`koregexp`](https://github.com/lumirlumir/koregexp)에 기여하기 위해 알아두면 좋은 한글 유니코드(Unicode) 관련 지식들은 아래와 같다.
+자바스크립트는 [UTF-16 인코딩](https://developer.mozilla.org/ko/docs/Glossary/Code_unit)을 활용하여 문자열을 표현한다. [`koregexp`](https://github.com/lumir/koregexp)에 기여하기 위해 알아두면 좋은 한글 유니코드(Unicode) 관련 지식들은 아래와 같다.
 
 1. [***호환용 한글 자모***](#1-호환용-한글-자모)
 1. [***현대 한글 자모***](#2-현대-한글-자모)
@@ -118,7 +118,7 @@ references: []
 
 > [!IMPORTANT]
 >
-> ***현대 한글 자모***는 [`koregexp`](https://github.com/lumirlumir/koregexp)에서 직접적으로 이용하는 개념이 아니므로, 참고만 하자.
+> ***현대 한글 자모***는 [`koregexp`](https://github.com/lumir/koregexp)에서 직접적으로 이용하는 개념이 아니므로, 참고만 하자.
 
 ***현대 한글 자모***로 나타낼 수 있는 문자의 유니코드 값은 `\u1100`부터 `\u11FF`까지며, 총 **256**개의 코드로 한글을 표현할 수 있다.
 

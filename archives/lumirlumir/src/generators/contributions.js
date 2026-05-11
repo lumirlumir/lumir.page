@@ -55,7 +55,7 @@ export default function generateContributions(contributions) {
 
 Every contribution I have made to open source projects is listed here.
 
-Copyright © 2024-${new Date().getFullYear()} [루밀LuMir(lumirlumir)](${URL_GITHUB_LUMIR}). All rights reserved.
+Copyright © 2024-${new Date().getFullYear()} [lumir](${URL_GITHUB_LUMIR}). All rights reserved.
 
 ## Overview
 

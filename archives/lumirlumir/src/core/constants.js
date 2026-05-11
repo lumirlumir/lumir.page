@@ -9,7 +9,7 @@
 /** @type {string} */
 export const URL_GITHUB = 'https://github.com';
 /** @type {string} */
-export const URL_GITHUB_LUMIR = `${URL_GITHUB}/lumirlumir`;
+export const URL_GITHUB_LUMIR = `${URL_GITHUB}/lumir`;
 /** @param {string} organization */
 export const URL_GITHUB_ORGANIZATION = organization => `${URL_GITHUB}/${organization}`;
 /** @param {string} organization @param {string} repository */

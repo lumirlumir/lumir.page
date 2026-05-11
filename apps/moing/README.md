@@ -2,7 +2,7 @@
 
 > Moing💬 - Mock interview service using ChatGPT / 모잉💬 - ChatGPT를 활용한 모의 인터뷰 서비스
 
-이 문서는 '전북대학교' '산학실전캡스톤2(2분반)' '김용현 김영수 김영아' 팀의 'ChatGPT를 활용한 인터뷰 서비스 개발' 프로젝트에 관한 문서입니다. 해당 프로젝트에 대한 모든 내용들은 [***GitHub Repository***](https://github.com/lumirlumir/lumir.page/tree/main/apps/moing)를 통해 관리합니다.
+이 문서는 '전북대학교' '산학실전캡스톤2(2분반)' '김용현 김영수 김영아' 팀의 'ChatGPT를 활용한 인터뷰 서비스 개발' 프로젝트에 관한 문서입니다. 해당 프로젝트에 대한 모든 내용들은 [***GitHub Repository***](https://github.com/lumir/lumir.page/tree/main/apps/moing)를 통해 관리합니다.
 
 ## 0. Index
 
@@ -29,10 +29,10 @@
 ### 1-1. Links
 
 - [***GitHub Pages***](https://moing.lumir.page): 웹 사이트
-- [***GitHub Repository***](https://github.com/lumirlumir/lumir.page/tree/main/apps/moing)
-- [***GitHub PR***](https://github.com/lumirlumir/lumir.page/pulls)
-- [***GitHub Issues***](https://github.com/lumirlumir/lumir.page/issues?q=is%3Aissue%20state%3Aclosed)
-- [***GitHub Projects***](https://github.com/users/lumirlumir/projects/2)
+- [***GitHub Repository***](https://github.com/lumir/lumir.page/tree/main/apps/moing)
+- [***GitHub PR***](https://github.com/lumir/lumir.page/pulls)
+- [***GitHub Issues***](https://github.com/lumir/lumir.page/issues?q=is%3Aissue%20state%3Aclosed)
+- [***GitHub Projects***](https://github.com/users/lumir/projects/2)
 - [***PPT Midterm***](https://www.miricanvas.com/v/134hi5w): 중간 발표 PPT
 - [***PPT Final***](https://www.miricanvas.com/v/13bnjrd): 최종 발표 PPT
 - [***PPT Contest***](https://www.miricanvas.com/v/13d3dql): 대회 발표 PPT
@@ -71,8 +71,8 @@
 
 ***GitHub Issues***와 ***GitHub Projects***를 활용한 세부적인 스케쥴 관리 진행.
 
-- [***GitHub Issues***](https://github.com/lumirlumir/lumir.page/issues?q=is%3Aissue%20state%3Aclosed)
-- [***GitHub Projects***](https://github.com/users/lumirlumir/projects/2)
+- [***GitHub Issues***](https://github.com/lumir/lumir.page/issues?q=is%3Aissue%20state%3Aclosed)
+- [***GitHub Projects***](https://github.com/users/lumir/projects/2)
 
 개략적인 일정은 아래와 같다.
 
@@ -89,9 +89,9 @@ Common_Feedback | | | | | | O
 
 ***GitHub Issues***를 통한 팀 활동 내역 및 주간 회의 내역 관리 진행. (`docs` 디렉터리 내부의 문서들은 행정 처리를 위해 기존 내용들을 따로 가공하여 처리한 `.hwp` 및 `.pdf` 문서들이다.)
 
-1. [***GitHub Issues***](https://github.com/lumirlumir/lumir.page/issues?q=is%3Aissue%20state%3Aclosed%20%ED%9A%8C%EC%9D%98%EB%A1%9D): ***GitHub Issues***를 통한 팀 활동 내역 및 주간 회의 내역 관리 진행. (작성용)
+1. [***GitHub Issues***](https://github.com/lumir/lumir.page/issues?q=is%3Aissue%20state%3Aclosed%20%ED%9A%8C%EC%9D%98%EB%A1%9D): ***GitHub Issues***를 통한 팀 활동 내역 및 주간 회의 내역 관리 진행. (작성용)
 
-1. [**`docs`**](https://github.com/lumirlumir/lumir.page/tree/main/apps/moing/docs): `docs` 디렉토리를 통한 대학 행정 처리 문서 관리 진행. 팀 활동 내역 및 주간 회의 내역을 `.hwp` 및 `.pdf`로 가공한 문서들도 포함된다. 모든 파일은 암호화 되어있다. (제출용)
+1. [**`docs`**](https://github.com/lumir/lumir.page/tree/main/apps/moing/docs): `docs` 디렉토리를 통한 대학 행정 처리 문서 관리 진행. 팀 활동 내역 및 주간 회의 내역을 `.hwp` 및 `.pdf`로 가공한 문서들도 포함된다. 모든 파일은 암호화 되어있다. (제출용)
 
 ## 2. Requirements Specification
 

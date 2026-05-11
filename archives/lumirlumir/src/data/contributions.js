@@ -1253,7 +1253,7 @@ export default [
       {
         name: 'tidory.github.io',
         description:
-          'NOTE: The original repository has been deleted. You can check the original commits in my forked repository. [fork-tidory.github.io](https://github.com/lumirlumir/fork-tidory.github.io)',
+          'NOTE: The original repository has been deleted. You can check the original commits in my forked repository. [fork-tidory.github.io](https://github.com/lumir/fork-tidory.github.io)',
         role: 'contributor',
         pullRequests: [
           {
@@ -1261,7 +1261,7 @@ export default [
             type: 'docs',
             title: 'docs(typo): typo in framework.md',
             description:
-              '[forked-commit](https://github.com/lumirlumir/fork-tidory.github.io/commit/51300808a4abac516b201e87c9a9c58ba658d518)',
+              '[forked-commit](https://github.com/lumir/fork-tidory.github.io/commit/51300808a4abac516b201e87c9a9c58ba658d518)',
             merged: true,
           },
         ],
