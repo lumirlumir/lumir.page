@@ -64,10 +64,10 @@
     "lint:clangformat": "node scripts/clang-format.js"
   },
   "devDependencies": {
-    "@types/node": "^20.19.40",
-    "@typescript/native-preview": "^7.0.0-dev.20260510.1",
+    "@types/node": "^20.19.41",
+    "@typescript/native-preview": "^7.0.0-dev.20260511.1",
     "@vitest/coverage-v8": "^4.1.4",
-    "clang-format-node": "^3.0.3",
+    "clang-format-node": "^3.0.4",
     "editorconfig-checker": "^6.1.1",
     "eslint": "^9.39.4",
     "eslint-config-bananass": "^0.6.1",
