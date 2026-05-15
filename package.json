@@ -65,7 +65,7 @@
   },
   "devDependencies": {
     "@types/node": "^20.19.41",
-    "@typescript/native-preview": "^7.0.0-dev.20260511.1",
+    "@typescript/native-preview": "^7.0.0-dev.20260514.1",
     "@vitest/coverage-v8": "^4.1.4",
     "clang-format-node": "^3.0.4",
     "editorconfig-checker": "^6.1.1",
