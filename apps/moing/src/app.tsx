@@ -7,7 +7,7 @@
 // --------------------------------------------------------------------------------
 
 import { useEffect } from 'react';
-import { useScroll } from '@lumir/react-kit/hooks';
+import { useCountdown, useScroll } from '@lumir/react-kit/hooks';
 import { cn } from '@lumir/utils';
 
 import Button from '@/components/button';
@@ -27,7 +27,6 @@ import {
 import useScenario from '@/hooks/use-scenario';
 import useConfig from '@/hooks/use-config';
 import useInterview from '@/hooks/use-interview';
-import useTimer from '@/hooks/use-timer';
 
 import './app.css';
 
@@ -39,7 +38,10 @@ export default function App() {
   const scenario = useScenario();
   const config = useConfig();
   const interview = useInterview();
-  const timer = useTimer(interview.submit);
+  const timer = useCountdown({
+    durationMs: config.configState.time * 60 * 1_000,
+    onComplete: interview.submit,
+  });
   const [scrollRef, scroll] = useScroll<HTMLDivElement>({ behavior: 'smooth' });
 
   useEffect(() => {
@@ -83,7 +85,7 @@ export default function App() {
         scenario={scenario}
         onClick={() => {
           interview.submit();
-          timer.stopTimer();
+          timer[1].stop();
         }}
       />
 

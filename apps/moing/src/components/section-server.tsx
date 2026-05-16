@@ -8,14 +8,13 @@
 
 import { useEffect, useLayoutEffect, useMemo } from 'react';
 import { Typewriter } from '@lumir/react-kit/components';
-import { useScroll } from '@lumir/react-kit/hooks';
+import { useCountdown, useScroll } from '@lumir/react-kit/hooks';
 import { cn } from '@lumir/utils';
 
 import NeonDiv from '@/components/neon-div';
 import useScenario from '@/hooks/use-scenario';
 import useConfig from '@/hooks/use-config';
 import useInterview from '@/hooks/use-interview';
-import useTimer from '@/hooks/use-timer';
 import useHistoryState from '@/hooks/use-history-state';
 
 import './section-server.css';
@@ -28,7 +27,7 @@ interface Props {
   scenario: ReturnType<typeof useScenario>;
   config: ReturnType<typeof useConfig>;
   interview: ReturnType<typeof useInterview>;
-  timer: ReturnType<typeof useTimer>;
+  timer: ReturnType<typeof useCountdown>;
 }
 
 // --------------------------------------------------------------------------------
@@ -41,7 +40,7 @@ export default function SectionServer({ scenario, config, interview, timer }: Pr
   const { configState } = config;
   const { getInterviewInfo, getQuestion, isInterviewDone, getInterviewHistory } =
     interview;
-  const { resetTimer } = timer;
+  const [, countdown] = timer;
   const [scrollRef, scroll] = useScroll<HTMLDivElement>({ behavior: 'smooth' });
   const { historyState, addHistory } = useHistoryState<string>();
 
@@ -88,7 +87,10 @@ export default function SectionServer({ scenario, config, interview, timer }: Pr
           writePostDelay={1000}
           onWriteComplete={() => {
             if (mode === 'auto' || mode === 'result') toNextSection();
-            if (mode === 'test' && text !== '') resetTimer(configState.time);
+            if (mode === 'test' && text !== '') {
+              countdown.reset();
+              countdown.start();
+            }
             scroll.intoView({ block: 'end', inline: 'nearest' });
           }}
         />
