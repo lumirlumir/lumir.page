@@ -244,3 +244,5 @@
     />
   </div>
 </div>
+
+- `shx`: https://github.com/shelljs/shx -> write it to tech stack list
