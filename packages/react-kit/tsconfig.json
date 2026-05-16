@@ -24,7 +24,7 @@
   "compilerOptions": {
     /* Modules */
     "rootDir": "./src",
-    "types": ["react", "react-dom"],
+    "types": [],
 
     /* Emit */
     "emitDeclarationOnly": false,

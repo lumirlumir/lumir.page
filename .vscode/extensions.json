@@ -4,6 +4,7 @@
     "stylelint.vscode-stylelint",
     "esbenp.prettier-vscode",
     "editorconfig.editorconfig",
-    "davidanson.vscode-markdownlint"
+    "davidanson.vscode-markdownlint",
+    "vitest.explorer"
   ]
 }

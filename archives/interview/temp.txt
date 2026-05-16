@@ -1,0 +1,138 @@
+- useState는 클로저 기반
+
+- 매크로태스크 큐 (setTimeout) / 마이크로태스크 큐 (Promise)
+
+- 말을 잘 정리해서 한번에 말하자. 생각할 시간을 갖고, 말을 느리지 않는게 좋음.
+
+---
+
+1. 왜 도입했는지에 대한 이야기가 없어서 아숩 19 버전에서 어떤 기능이 기대돼서 도입했다든가
+
+Junho Yun
+오후 8:12
+[안 좋았던 점만 코멘트 남길 예정]
+리엑트 컴파일러 도입에 대한 약간 뚜렷한 이득에 대한 코멘트가 없어서 아쉽네요
+
+양수빈
+오후 8:14
+저도 준호 님처럼 아수운 부분에 대한 코멘트만 남기도록 하겠습니다. 면접 끝나고 나서 남기며는 서로 기억이 휘발 돼서 적절한 리뷰가 안 되더라구요.
+
+Junho Yun
+오후 8:20
+Q. 정적이라 추가 비용은 없겠네요
+A. 네 저희는 안정성이 우선이라 테스트도 엄청 많이 돌리고해서, 오픈소스랑 현업이랑 조금 다른 것 같습니다.
+
+-> 무슨 맥락인지 이해를 못함...글구 테스트 많이하고 안정성이 중요한건 현업이나 오픈소스나 그냥 개발의 공통점으로 보는게 맞지않나?
+
+양수빈
+오후 8:24
+(잡담) 용현 님 말투에 약간 강사미 잇으시다...
+
+한상욱
+오후 8:26
+setState(count + 1);
+setState(count + 1);
+setState(count + 1);
+
+양수빈
+오후 8:27
+2??
+1맞죵?
+굿
+
+Junho Yun
+오후 8:29
+setState(count + 3)
+
+양수빈
+오후 8:29
+zzzㅋㅋㅋㅋ
+setState(prev => prev + 1)
+이거 3번 쓰면
+댐
+
+한상욱
+오후 8:29
+console.log('A');
+
+setTimeout(() => {
+  console.log('B');
+}, 0);
+
+Promise.resolve().then(() => {
+  console.log('C');
+}).then(() => {
+  console.log('D');
+});
+
+console.log('E');
+
+양수빈
+오후 8:31
+잡담)
+flushSync 를 사용하더라도 핵심 문제는 batching 이 아니라 클로저가 캡처하고 있는 count 값이 오래된 거니까 본질적 해결은 아닐 듯 하옵니당
+
+한상욱
+오후 8:32
+A -> E -> C -> D -> B
+
+양수빈
+오후 8:36
+상욱 님이 원하셧던 건 아마 transform 이나 opacity 를 사용하는
+
+한상욱
+오후 8:39
+아님 자동으로 됨
+
+양수빈
+오후 8:39
+렌더링 블로킹 최적화는 defer, async 로 스크립트 실행하기...~?
+
+한상욱
+오후 8:39
+css에서 백그라운드에 이미지 url넣으면 블록킹 해요
+그래서 img 사용해야함
+
+양수빈
+오후 8:41
+1. WebP나 AVIF 가튼 포맷 사용해서 용량 줄이기
+2. srcset?
+3. lazy loading 으로 초기 로딩 줄이기
+4. cdn
+5. 람다 엣지
+렉시컬 스코프가 나오며는
+더 조앗을 것 가타요
+
+한상욱
+오후 8:44
+console.log('A');
+
+setTimeout(() => {
+  console.log('B');
+}, 0);
+
+Promise.resolve().then(() => {
+  console.log('C');
+}).then(() => {
+  console.log('D');
+});
+
+console.log('E');
+console.log('A');
+
+  setTimeout(() => {
+    console.log('B');
+  }, 0);
+
+  new Promise((resolve) => {
+    console.log('F');
+    resolve();
+  }).then(() => {
+    console.log('C');
+  });
+
+  console.log('E');
+
+한상욱
+오후 8:45
+A -> F -> E -> C -> B

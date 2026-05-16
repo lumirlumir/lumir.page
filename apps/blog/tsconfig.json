@@ -31,7 +31,7 @@
     },
     "resolveJsonModule": true,
     "rootDirs": ["./src", "./.next/types"],
-    "types": ["@lumir/types/global", "node", "react", "react-dom", "webpack-env"],
+    "types": ["@lumir/types/global", "node", "webpack-env"],
 
     /* Emit */
     "noEmit": true,
