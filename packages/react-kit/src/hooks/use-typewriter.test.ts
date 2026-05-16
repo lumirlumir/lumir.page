@@ -543,6 +543,69 @@ describe('use-typewriter', () => {
     assert.strictEqual(onWriteComplete.mock.calls.length, 1);
   });
 
+  it('`onWriteComplete`: should not restart `writePostDelay` when `onWriteComplete` changes (related to `useEffectEvent`)', async () => {
+    // This test verifies `useEffectEvent` behavior because, without it,
+    // changing `onWriteComplete` would first run the effect cleanup, then
+    // rerun the effect, and finally schedule the `setTimeoutRaf` timer again
+    // for the full `writePostDelay`.
+
+    const onWriteComplete1 = vi.fn();
+    const onWriteComplete2 = vi.fn();
+
+    const { act, rerender, result } = await renderHook(
+      (props?: { onWriteComplete: () => void }) =>
+        useTypewriter({
+          text: 'A',
+          mode: 'write',
+          writeSpeed: RAF_FRAME_DURATION_MS,
+          writePreDelay: RAF_FRAME_DURATION_MS,
+          writePostDelay: RAF_FRAME_DURATION_MS * 3,
+          onWriteComplete: props?.onWriteComplete,
+        }),
+      {
+        initialProps: { onWriteComplete: onWriteComplete1 },
+      },
+    );
+
+    const [firstText] = result.current;
+
+    assert.strictEqual(firstText, '');
+    assert.strictEqual(onWriteComplete1.mock.calls.length, 0);
+    assert.strictEqual(onWriteComplete2.mock.calls.length, 0);
+
+    await act(async () => {
+      await vi.advanceTimersByTimeAsync(RAF_FRAME_DURATION_MS);
+    });
+
+    const [secondText] = result.current;
+
+    assert.strictEqual(secondText, 'A');
+    assert.strictEqual(onWriteComplete1.mock.calls.length, 0);
+    assert.strictEqual(onWriteComplete2.mock.calls.length, 0);
+
+    await act(async () => {
+      await vi.advanceTimersByTimeAsync(RAF_FRAME_DURATION_MS);
+    });
+
+    const [thirdText] = result.current;
+
+    assert.strictEqual(thirdText, 'A');
+    assert.strictEqual(onWriteComplete1.mock.calls.length, 0);
+    assert.strictEqual(onWriteComplete2.mock.calls.length, 0);
+
+    await rerender({ onWriteComplete: onWriteComplete2 });
+
+    await act(async () => {
+      await vi.advanceTimersByTimeAsync(RAF_FRAME_DURATION_MS * 2);
+    });
+
+    const [fourthText] = result.current;
+
+    assert.strictEqual(fourthText, 'A');
+    assert.strictEqual(onWriteComplete1.mock.calls.length, 0);
+    assert.strictEqual(onWriteComplete2.mock.calls.length, 1);
+  });
+
   it('`onEraseComplete`: should call `onEraseComplete` after erasing completes', async () => {
     const onEraseComplete = vi.fn();
 
@@ -588,5 +651,68 @@ describe('use-typewriter', () => {
 
     assert.strictEqual(fourthText, '');
     assert.strictEqual(onEraseComplete.mock.calls.length, 1);
+  });
+
+  it('`onEraseComplete`: should not restart `erasePostDelay` when `onEraseComplete` changes (related to `useEffectEvent`)', async () => {
+    // This test verifies `useEffectEvent` behavior because, without it,
+    // changing `onEraseComplete` would first run the effect cleanup, then
+    // rerun the effect, and finally schedule the `setTimeoutRaf` timer again
+    // for the full `erasePostDelay`.
+
+    const onEraseComplete1 = vi.fn();
+    const onEraseComplete2 = vi.fn();
+
+    const { act, rerender, result } = await renderHook(
+      (props?: { onEraseComplete: () => void }) =>
+        useTypewriter({
+          text: 'A',
+          mode: 'erase',
+          eraseSpeed: RAF_FRAME_DURATION_MS,
+          erasePreDelay: RAF_FRAME_DURATION_MS,
+          erasePostDelay: RAF_FRAME_DURATION_MS * 3,
+          onEraseComplete: props?.onEraseComplete,
+        }),
+      {
+        initialProps: { onEraseComplete: onEraseComplete1 },
+      },
+    );
+
+    const [firstText] = result.current;
+
+    assert.strictEqual(firstText, 'A');
+    assert.strictEqual(onEraseComplete1.mock.calls.length, 0);
+    assert.strictEqual(onEraseComplete2.mock.calls.length, 0);
+
+    await act(async () => {
+      await vi.advanceTimersByTimeAsync(RAF_FRAME_DURATION_MS);
+    });
+
+    const [secondText] = result.current;
+
+    assert.strictEqual(secondText, '');
+    assert.strictEqual(onEraseComplete1.mock.calls.length, 0);
+    assert.strictEqual(onEraseComplete2.mock.calls.length, 0);
+
+    await act(async () => {
+      await vi.advanceTimersByTimeAsync(RAF_FRAME_DURATION_MS);
+    });
+
+    const [thirdText] = result.current;
+
+    assert.strictEqual(thirdText, '');
+    assert.strictEqual(onEraseComplete1.mock.calls.length, 0);
+    assert.strictEqual(onEraseComplete2.mock.calls.length, 0);
+
+    await rerender({ onEraseComplete: onEraseComplete2 });
+
+    await act(async () => {
+      await vi.advanceTimersByTimeAsync(RAF_FRAME_DURATION_MS * 2);
+    });
+
+    const [fourthText] = result.current;
+
+    assert.strictEqual(fourthText, '');
+    assert.strictEqual(onEraseComplete1.mock.calls.length, 0);
+    assert.strictEqual(onEraseComplete2.mock.calls.length, 1);
   });
 });
