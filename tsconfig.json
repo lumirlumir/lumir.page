@@ -1,24 +1,23 @@
 {
-  "extends": "./tsconfig.base.json",
-  "include": [
-    "**/*.config.js",
-    "**/*.config.mjs",
-    "**/*.config.cjs",
-    "**/*.config.ts",
-    "**/*.config.mts",
-    "**/*.config.cts",
-    "scripts/**/*.js",
-    "scripts/**/*.mjs",
-    "scripts/**/*.cjs"
-  ],
-  "compilerOptions": {
-    /* Modules */
-    "rootDir": ".",
-
-    /* Emit */
-    "noEmit": true,
-
-    /* Completeness */
-    "skipLibCheck": true
-  }
+  "files": [],
+  "references": [
+    {
+      "path": "./packages/react-kit/tsconfig.json"
+    },
+    {
+      "path": "./packages/rehype-plugins/tsconfig.json"
+    },
+    {
+      "path": "./packages/remark-plugins/tsconfig.json"
+    },
+    {
+      "path": "./packages/types/tsconfig.json"
+    },
+    {
+      "path": "./packages/utils/tsconfig.json"
+    },
+    {
+      "path": "./tsconfig.node.json"
+    }
+  ]
 }
