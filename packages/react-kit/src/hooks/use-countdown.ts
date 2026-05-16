@@ -6,7 +6,7 @@
 // Import
 // --------------------------------------------------------------------------------
 
-import { useCallback, useEffect, useMemo, useReducer } from 'react';
+import { useCallback, useEffect, useEffectEvent, useMemo, useReducer } from 'react';
 
 // --------------------------------------------------------------------------------
 // Typedef
@@ -23,7 +23,7 @@ export interface UseCountdownOptions {
 
   /**
    * Interval between countdown updates in milliseconds.
-   * @default 1_000
+   * @default 100
    */
   intervalMs?: number | undefined;
 
@@ -58,6 +58,9 @@ export interface UseCountdownControls {
 // Helper
 // --------------------------------------------------------------------------------
 
+/**
+ * Normalizes a millisecond value by ensuring it's a finite number and not negative.
+ */
 function normalizeMs(ms: number) {
   if (Number.isFinite(ms)) {
     return Math.max(0, ms);
@@ -66,13 +69,16 @@ function normalizeMs(ms: number) {
   }
 }
 
+/**
+ * Reducer function to manage the countdown state based on dispatched actions.
+ */
 function countdownReducer(
   state: { isActive: boolean; remainingMs: number },
   action:
-    | { type: 'reset'; remainingMs: number }
+    | { type: 'tick'; elapsedMs: number }
     | { type: 'start' }
     | { type: 'stop' }
-    | { type: 'tick'; elapsedMs: number },
+    | { type: 'reset'; durationMs: number },
 ) {
   switch (action.type) {
     case 'tick': {
@@ -102,7 +108,7 @@ function countdownReducer(
     case 'reset': {
       return {
         isActive: false,
-        remainingMs: normalizeMs(action.remainingMs),
+        remainingMs: normalizeMs(action.durationMs),
       };
     }
 
@@ -138,7 +144,7 @@ function countdownReducer(
  */
 export function useCountdown({
   durationMs,
-  intervalMs = 1_000,
+  intervalMs = 100,
   onComplete = undefined,
 }: UseCountdownOptions): readonly [remainingMs: number, countdown: UseCountdownControls] {
   const normalizedDurationMs = normalizeMs(durationMs);
@@ -149,6 +155,10 @@ export function useCountdown({
     remainingMs: ms,
   }));
 
+  const onCompleteEvent = useEffectEvent(() => {
+    onComplete?.();
+  });
+
   useEffect(() => {
     if (!state.isActive || normalizedIntervalMs === 0) {
       return undefined;
@@ -158,12 +168,12 @@ export function useCountdown({
 
     const timeout = setTimeout(
       () => {
-        const elapsedMs = normalizeMs(performance.now() - startedAtMs);
+        const elapsedMs = performance.now() - startedAtMs;
 
         dispatch({ type: 'tick', elapsedMs });
 
         if (elapsedMs >= state.remainingMs) {
-          onComplete?.();
+          onCompleteEvent();
         }
       },
       Math.min(normalizedIntervalMs, state.remainingMs),
@@ -172,7 +182,7 @@ export function useCountdown({
     return () => {
       clearTimeout(timeout);
     };
-  }, [onComplete, normalizedIntervalMs, state.isActive, state.remainingMs]);
+  }, [normalizedIntervalMs, state.isActive, state.remainingMs]);
 
   const start = useCallback(() => {
     dispatch({ type: 'start' });
@@ -184,7 +194,7 @@ export function useCountdown({
 
   const reset = useCallback(
     (nextDurationMs = normalizedDurationMs) => {
-      dispatch({ type: 'reset', remainingMs: nextDurationMs });
+      dispatch({ type: 'reset', durationMs: nextDurationMs });
     },
     [normalizedDurationMs],
   );
