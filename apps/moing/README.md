@@ -188,7 +188,7 @@ Front-End 개발은 현재 설계한 방식대로 계속 진행한다면 좋은 
 
 - Environment
   - Ubuntu 22.04
-  - Node.js 20.12.2
+  - Node.js 24.15.0
   - Common JS
 
 #### 3-1-3. OpenAI

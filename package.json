@@ -2,9 +2,9 @@
   "private": true,
   "name": "lumir.page",
   "type": "module",
-  "packageManager": "npm@11.14.1",
+  "packageManager": "npm@11.12.1",
   "engines": {
-    "node": "^20.19.6"
+    "node": "^24.15.0"
   },
   "workspaces": [
     "apps/*",
@@ -66,7 +66,7 @@
     "lint:clangformat": "node scripts/clang-format.js"
   },
   "devDependencies": {
-    "@types/node": "^20.19.41",
+    "@types/node": "^24.12.4",
     "@typescript/native-preview": "^7.0.0-dev.20260516.1",
     "@vitest/coverage-v8": "^4.1.6",
     "clang-format-node": "^3.0.4",

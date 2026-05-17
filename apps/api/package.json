@@ -3,7 +3,7 @@
   "name": "api",
   "type": "module",
   "engines": {
-    "node": "^20.19.6"
+    "node": "^24.15.0"
   },
   "scripts": {
     "build": "tsgo -b tsconfig.build.json",
