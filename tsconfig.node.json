@@ -9,7 +9,10 @@
     "**/*.config.cts",
     "scripts/**/*.js",
     "scripts/**/*.mjs",
-    "scripts/**/*.cjs"
+    "scripts/**/*.cjs",
+    "scripts/**/*.ts",
+    "scripts/**/*.mts",
+    "scripts/**/*.cts"
   ],
   "compilerOptions": {
     /* Modules */
