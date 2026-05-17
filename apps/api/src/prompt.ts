@@ -1,20 +1,17 @@
 /**
- * @fileoverview prompt.js
+ * @fileoverview prompt.ts
  */
 
 // --------------------------------------------------------------------------------
-// Typedef
+// Import
 // --------------------------------------------------------------------------------
 
-/**
- * @import { CustomChatCompletionMessageParam, QuestionType } from './types.js';
- */
+import { type CustomChatCompletionMessageParam, type QuestionType } from './types.js';
 
 // --------------------------------------------------------------------------------
 // Export
 // --------------------------------------------------------------------------------
 
-/** @type {Record<QuestionType, Record<'messages', Array<CustomChatCompletionMessageParam>>>} */
 export const questionMain = {
   cs: {
     messages: [
@@ -171,9 +168,8 @@ export const questionMain = {
       },
     ],
   },
-};
+} satisfies Record<QuestionType, Record<'messages', CustomChatCompletionMessageParam[]>>;
 
-/** @type {Record<'messages', Array<CustomChatCompletionMessageParam>>} */
 export const questionSub = {
   messages: [
     {
@@ -222,9 +218,8 @@ export const questionSub = {
       ],
     },
   ],
-};
+} satisfies Record<'messages', CustomChatCompletionMessageParam[]>;
 
-/** @type {Record<'messages', Array<CustomChatCompletionMessageParam>>} */
 export const answer = {
   messages: [
     {
@@ -273,9 +268,8 @@ export const answer = {
       ],
     },
   ],
-};
+} satisfies Record<'messages', CustomChatCompletionMessageParam[]>;
 
-/** @type {Record<'messages', Array<CustomChatCompletionMessageParam>>} */
 export const feedback = {
   messages: [
     {
@@ -342,4 +336,4 @@ export const feedback = {
       ],
     },
   ],
-};
+} satisfies Record<'messages', CustomChatCompletionMessageParam[]>;

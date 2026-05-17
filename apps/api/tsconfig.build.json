@@ -2,6 +2,9 @@
   "extends": "../../tsconfig.base.build.json",
   "references": [],
   "compilerOptions": {
+    /* Type Checking */
+    "noImplicitAny": false, // TODO: Enable this in the future for better type safety.
+
     /* Modules */
     "types": ["node"],
 
