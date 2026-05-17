@@ -1,14 +1,17 @@
 {
-  "files": [],
+  "extends": "../tsconfig.base.app.json",
   "references": [
     {
-      "path": "./tsconfig.app.json"
+      "path": "../packages/react-kit/tsconfig.build.json"
     }
   ],
   "compilerOptions": {
     /* Modules */
     "paths": {
       "@/*": ["./src/*"] // Map the '@' alias to the 'src' directory.
-    }
+    },
+
+    /* Modules */
+    "types": ["@lumir/types/global"]
   }
 }

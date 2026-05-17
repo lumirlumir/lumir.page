@@ -1,0 +1,11 @@
+{
+  "extends": "../../tsconfig.base.build.json",
+  "references": [],
+  "compilerOptions": {
+    /* Modules */
+    "types": ["node"],
+
+    /* Emit */
+    "noEmit": true
+  }
+}

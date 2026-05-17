@@ -28,6 +28,9 @@ const nextConfig = {
     },
   }),
   typedRoutes: true,
+  typescript: {
+    ignoreBuildErrors: true, // Typecheck will be handled separately.
+  },
 
   webpack(config) {
     // Add a rule to handle Markdown files as raw text.

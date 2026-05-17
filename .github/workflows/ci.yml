@@ -62,8 +62,8 @@ jobs:
       - name: Build
         run: npm run build:pkg
 
-      - name: Pack test
+      - name: Test pack
         run: npm run pack:pkg
 
-      - name: Unit and browser test
+      - name: Test type, unit and browser
         run: npm run test

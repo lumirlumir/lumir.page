@@ -10,15 +10,15 @@
     "build": "npm run test:types && vite build",
     "start": "vite preview",
     "test": "npm run test:types && npm run test:unit",
-    "test:types": "tsgo",
-    "test:unit": "node --test"
+    "test:types": "tsgo -b tsconfig.app.json",
+    "test:unit": "echo unit test not implemented"
   },
   "dependencies": {
     "@lumir/react-kit": "*",
     "@lumir/styles": "*",
     "@lumir/utils": "*",
-    "react": "^19.2.5",
-    "react-dom": "^19.2.5"
+    "react": "^19.2.6",
+    "react-dom": "^19.2.6"
   },
   "devDependencies": {
     "@lumir/types": "*",

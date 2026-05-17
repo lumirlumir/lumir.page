@@ -18,14 +18,14 @@
     }
   },
   "scripts": {
-    "build": "tsgo",
-    "dev": "tsgo --watch",
+    "build": "tsgo -b tsconfig.build.json",
+    "dev": "tsgo -b tsconfig.build.json --watch",
     "test": "vitest run"
   },
   "dependencies": {
     "yaml": "^2.9.0"
   },
   "devDependencies": {
-    "vitest": "^4.1.4"
+    "vitest": "^4.1.6"
   }
 }
