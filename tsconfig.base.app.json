@@ -34,6 +34,6 @@
     "lib": ["dom", "esnext"],
 
     /* Projects */
-    "tsBuildInfoFile": "${configDir}/node_modules/.tmp/tsconfig.app.tsbuildinfo"
+    "tsBuildInfoFile": "${configDir}/.tsbuildinfo/tsconfig.app.tsbuildinfo"
   }
 }

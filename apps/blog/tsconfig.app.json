@@ -46,9 +46,6 @@
     /* Interop Constraints */
     "esModuleInterop": true,
 
-    /* Projects */
-    "tsBuildInfoFile": "./build/tsconfig.app.tsbuildinfo",
-
     /* Completeness */
     "skipLibCheck": true
   }

@@ -27,6 +27,6 @@
     "outDir": "${configDir}/build",
 
     /* Projects */
-    "tsBuildInfoFile": "${configDir}/node_modules/.tmp/tsconfig.build.tsbuildinfo"
+    "tsBuildInfoFile": "${configDir}/.tsbuildinfo/tsconfig.build.tsbuildinfo"
   }
 }

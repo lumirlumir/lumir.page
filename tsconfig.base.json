@@ -47,6 +47,6 @@
     /* Projects */
     "composite": true,
     "incremental": true,
-    "tsBuildInfoFile": "${configDir}/node_modules/.tmp/tsconfig.tsbuildinfo"
+    "tsBuildInfoFile": "${configDir}/.tsbuildinfo/tsconfig.tsbuildinfo"
   }
 }
