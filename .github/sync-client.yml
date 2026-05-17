@@ -34,5 +34,5 @@ lumirlumir/lumirlumir:
     dest: ./configs/VScode.code-workspace
   - source: ./prettier.config.js
     dest: ./configs/prettier.config.js
-  - source: ./tsconfig.base.json
-    dest: ./configs/tsconfig.base.json
+  # - source: ./tsconfig.base.json
+  #   dest: ./configs/tsconfig.base.json

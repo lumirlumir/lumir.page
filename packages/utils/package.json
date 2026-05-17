@@ -18,8 +18,8 @@
     }
   },
   "scripts": {
-    "build": "tsgo",
-    "dev": "tsgo --watch",
+    "build": "tsgo -b tsconfig.build.json",
+    "dev": "tsgo -b tsconfig.build.json --watch",
     "test": "vitest run"
   },
   "dependencies": {
