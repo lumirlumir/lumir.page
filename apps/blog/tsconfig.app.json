@@ -47,7 +47,7 @@
     "esModuleInterop": true,
 
     /* Projects */
-    "tsBuildInfoFile": "${configDir}/.next/tsconfig.app.tsbuildinfo",
+    "tsBuildInfoFile": "./build/tsconfig.app.tsbuildinfo",
 
     /* Completeness */
     "skipLibCheck": true
