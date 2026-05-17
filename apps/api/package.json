@@ -10,6 +10,6 @@
     "dev": "node --env-file=.env --watch ./src/server.js"
   },
   "dependencies": {
-    "openai": "^6.37.0"
+    "openai": "^6.38.0"
   }
 }
