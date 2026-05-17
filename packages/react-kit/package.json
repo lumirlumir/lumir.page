@@ -3,6 +3,7 @@
   "name": "@lumir/react-kit",
   "version": "0.0.0-private",
   "type": "module",
+  "sideEffects": false,
   "exports": {
     "./components": {
       "types": "./build/components/index.d.ts",
