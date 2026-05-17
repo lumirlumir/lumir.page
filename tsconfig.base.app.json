@@ -22,11 +22,21 @@
     "${configDir}/**/fixtures/**"
   ],
   "compilerOptions": {
+    /* Modules */
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "paths": {
+      "@/*": ["${configDir}/src/*"] // Map the '@' alias to the 'src' directory.
+    },
+
     /* Emit */
-    "emitDeclarationOnly": false,
-    "outDir": "${configDir}/build",
+    "noEmit": true,
+
+    /* Language and Environment */
+    "jsx": "react-jsx",
+    "lib": ["dom", "esnext"],
 
     /* Projects */
-    "tsBuildInfoFile": "${configDir}/node_modules/.tmp/tsconfig.build.tsbuildinfo"
+    "tsBuildInfoFile": "${configDir}/node_modules/.tmp/tsconfig.app.tsbuildinfo"
   }
 }

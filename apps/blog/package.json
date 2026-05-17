@@ -7,10 +7,10 @@
   },
   "scripts": {
     "dev": "next dev --webpack",
-    "build": "next build --webpack",
+    "build": "npm run test:types && next build --webpack",
     "start": "next start",
     "test": "npm run test:types && npm run test:unit",
-    "test:types": "next typegen && tsgo",
+    "test:types": "next typegen && tsgo -b tsconfig.app.json",
     "test:unit": "vitest run",
     "count-docs": "ls -R src/posts/docs | grep .md | wc -l"
   },

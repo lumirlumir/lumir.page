@@ -12,9 +12,6 @@
   ],
   "exclude": ["${configDir}/**/fixtures/**"],
   "compilerOptions": {
-    /* Modules */
-    "rootDir": "${configDir}/src",
-
     /* Emit */
     "noEmit": true,
 

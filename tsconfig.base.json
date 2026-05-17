@@ -25,6 +25,7 @@
     /* Modules */
     "module": "nodenext",
     "moduleResolution": "nodenext",
+    "rootDir": "${configDir}/src",
     "types": [],
 
     /* Emit */

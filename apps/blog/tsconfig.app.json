@@ -1,0 +1,49 @@
+{
+  "extends": "../../tsconfig.base.app.json",
+  "include": [
+    "src/**/*.js",
+    "src/**/*.mjs",
+    "src/**/*.cjs",
+    "src/**/*.jsx",
+    "src/**/*.ts",
+    "src/**/*.mts",
+    "src/**/*.cts",
+    "src/**/*.tsx",
+    ".next/types/**/*.ts"
+  ],
+  "references": [
+    {
+      "path": "../../packages/react-kit/tsconfig.build.json"
+    },
+    {
+      "path": "../../packages/rehype-plugins/tsconfig.build.json"
+    },
+    {
+      "path": "../../packages/remark-plugins/tsconfig.build.json"
+    },
+    {
+      "path": "../../packages/utils/tsconfig.build.json"
+    }
+  ],
+  "compilerOptions": {
+    /* Modules */
+    "rootDir": ".",
+    "types": ["@lumir/types/global", "node", "webpack-env"],
+
+    /* Editor Support */
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+
+    /* Language and Environment */
+    "jsx": "preserve",
+
+    /* Interop Constraints */
+    "esModuleInterop": true,
+
+    /* Completeness */
+    "skipLibCheck": true
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "extends": "../tsconfig.base.app.json",
+  "references": [
+    {
+      "path": "../packages/react-kit/tsconfig.build.json"
+    }
+  ],
+  "compilerOptions": {
+    /* Modules */
+    "types": ["@lumir/types/global"]
+  }
+}

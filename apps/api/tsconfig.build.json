@@ -1,0 +1,8 @@
+{
+  "extends": "../../tsconfig.base.build.json",
+  "references": [],
+  "compilerOptions": {
+    /* Emit */
+    "noEmit": true
+  }
+}
