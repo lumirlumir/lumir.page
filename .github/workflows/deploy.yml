@@ -43,7 +43,7 @@ jobs:
         run: npm ci --no-audit --no-fund
 
       - name: Build
-        run: npm run build:m
+        run: node --run build:m
         env:
           BACKEND_PORT: ${{ vars.BACKEND_PORT }}
           BACKEND_IP: ${{ vars.BACKEND_IP }}

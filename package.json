@@ -2,9 +2,9 @@
   "private": true,
   "name": "lumir.page",
   "type": "module",
-  "packageManager": "npm@11.14.1",
+  "packageManager": "npm@11.12.1",
   "engines": {
-    "node": "^20.19.6"
+    "node": "^24.15.0"
   },
   "workspaces": [
     "apps/*",
@@ -13,7 +13,7 @@
   ],
   "scripts": {
     "prepare": "husky",
-    "test": "npm run test:types -w apps/blog && npm run test:types && npm run test:unit",
+    "test": "npm run test:types -w apps/blog && node --run test:types && node --run test:unit",
     "test:types": "tsgo -b",
     "test:unit": "vitest run --coverage",
     "test:a:b": "npm run test -w apps/blog",
@@ -56,17 +56,17 @@
     "fix:stylelint": "stylelint --fix **/*.css",
     "fix:prettier": "prettier . --write --ignore-unknown",
     "fix:markdownlint": "markdownlint **/*.md --fix",
-    "fix:clangformat": "node scripts/clang-format.js --fix",
+    "fix:clangformat": "node scripts/clang-format.ts --fix",
     "lint": "npm-run-all -c -l -p lint:*",
     "lint:eslint": "eslint",
     "lint:stylelint": "stylelint **/*.css",
     "lint:prettier": "prettier . --check --ignore-unknown",
     "lint:editorconfig": "editorconfig-checker -config .editorconfig-checker.json",
     "lint:markdownlint": "markdownlint **/*.md",
-    "lint:clangformat": "node scripts/clang-format.js"
+    "lint:clangformat": "node scripts/clang-format.ts"
   },
   "devDependencies": {
-    "@types/node": "^20.19.41",
+    "@types/node": "^24.12.4",
     "@typescript/native-preview": "^7.0.0-dev.20260516.1",
     "@vitest/coverage-v8": "^4.1.6",
     "clang-format-node": "^3.0.4",
@@ -75,7 +75,7 @@
     "eslint-config-bananass": "^0.6.1",
     "eslint-markdown": "^0.9.0",
     "husky": "^9.1.7",
-    "lint-staged": "^16.4.0",
+    "lint-staged": "^17.0.5",
     "markdownlint-cli": "^0.48.0",
     "npm-run-all2": "^8.0.4",
     "prettier": "^3.8.3",

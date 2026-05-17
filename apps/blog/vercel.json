@@ -1,7 +1,7 @@
 {
-  "buildCommand": "npm run count-docs && npm run build",
+  "buildCommand": "node --run count-docs && node --run build",
   "framework": "nextjs",
-  "ignoreCommand": "node ../../scripts/vercel-ignore-command.js",
+  "ignoreCommand": "node ../../scripts/vercel-ignore-command.ts",
   "installCommand": "npm install --prefix ../.. --no-audit --no-fund",
   "outputDirectory": ".next",
   "regions": ["icn1"]
