@@ -29,6 +29,10 @@ import { useEffect, useRef } from 'react';
  * ```
  */
 export function usePrevious<T>(value: T): T {
+  // Without `'use no memo'`, React Compiler throws when `panicThreshold` is not `'none'`
+  // because this hook intentionally reads `ref.current` during render.
+  'use no memo';
+
   const ref = useRef<T>(value);
 
   useEffect(() => {
