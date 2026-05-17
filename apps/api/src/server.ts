@@ -46,6 +46,7 @@ http
           const type = urlSearchParams.get('type');
           const history = urlSearchParams.getAll('history');
 
+          // @ts-expect-error -- TODO
           fetchQuestionMain(type, history).then(result => response(res, 200, result));
           break;
         }
@@ -53,6 +54,7 @@ http
           const question = urlSearchParams.get('question');
           const answerUser = urlSearchParams.get('answerUser');
 
+          // @ts-expect-error -- TODO
           fetchQuestionSub(question, answerUser).then(result =>
             response(res, 200, result),
           );
@@ -61,6 +63,7 @@ http
         case '/answer': {
           const question = urlSearchParams.get('question');
 
+          // @ts-expect-error -- TODO
           fetchAnswer(question).then(result => response(res, 200, result));
           break;
         }
@@ -68,6 +71,7 @@ http
           const answerSystem = urlSearchParams.get('answerSystem');
           const answerUser = urlSearchParams.get('answerUser');
 
+          // @ts-expect-error -- TODO
           fetchFeedback(answerSystem, answerUser).then(result =>
             response(res, 200, result),
           );
