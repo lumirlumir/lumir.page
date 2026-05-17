@@ -9,6 +9,11 @@
     }
   ],
   "compilerOptions": {
+    /* Modules */
+    "paths": {
+      "@/*": ["./src/*"] // Map the '@' alias to the 'src' directory.
+    },
+
     /* Type Checking */
     "noImplicitAny": false, // TODO: Enable this in the future for better type safety.
 

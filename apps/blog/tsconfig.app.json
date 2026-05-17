@@ -27,6 +27,9 @@
   ],
   "compilerOptions": {
     /* Modules */
+    "paths": {
+      "@/*": ["./src/*"] // Map the '@' alias to the 'src' directory.
+    },
     "rootDir": ".",
     "types": ["@lumir/types/global", "node", "webpack-env"],
 
