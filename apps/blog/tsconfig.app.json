@@ -46,6 +46,9 @@
     /* Interop Constraints */
     "esModuleInterop": true,
 
+    /* Projects */
+    "tsBuildInfoFile": "${configDir}/.next/tsconfig.app.tsbuildinfo",
+
     /* Completeness */
     "skipLibCheck": true
   }
