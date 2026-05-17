@@ -1,5 +1,5 @@
 {
-  "buildCommand": "npm run count-docs && npm run build",
+  "buildCommand": "node --run count-docs && node --run build",
   "framework": "nextjs",
   "ignoreCommand": "node ../../scripts/vercel-ignore-command.js",
   "installCommand": "npm install --prefix ../.. --no-audit --no-fund",

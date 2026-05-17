@@ -13,7 +13,7 @@
   ],
   "scripts": {
     "prepare": "husky",
-    "test": "npm run test:types -w apps/blog && npm run test:types && npm run test:unit",
+    "test": "npm run test:types -w apps/blog && node --run test:types && node --run test:unit",
     "test:types": "tsgo -b",
     "test:unit": "vitest run --coverage",
     "test:a:b": "npm run test -w apps/blog",
