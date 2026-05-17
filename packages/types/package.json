@@ -17,6 +17,6 @@
     }
   },
   "scripts": {
-    "build": "tsgo"
+    "build": "tsgo -b tsconfig.build.json"
   }
 }

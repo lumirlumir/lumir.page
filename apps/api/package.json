@@ -3,14 +3,13 @@
   "name": "api",
   "type": "module",
   "engines": {
-    "node": "^20.19.6"
+    "node": "^24.15.0"
   },
   "scripts": {
-    "build": "tsgo",
-    "dev": "node --env-file=.env --watch ./src/server.js",
-    "test": "tsgo"
+    "build": "tsgo -b tsconfig.build.json",
+    "dev": "node --env-file=.env --watch ./src/server.ts"
   },
   "dependencies": {
-    "openai": "^6.37.0"
+    "openai": "^6.38.0"
   }
 }

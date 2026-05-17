@@ -32,8 +32,8 @@
     }
   },
   "scripts": {
-    "build": "tsgo",
-    "dev": "tsgo --watch",
+    "build": "tsgo -b tsconfig.build.json",
+    "dev": "tsgo -b tsconfig.build.json --watch",
     "test": "vitest run"
   },
   "peerDependencies": {
@@ -53,11 +53,11 @@
   "devDependencies": {
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
-    "@vitest/browser-playwright": "^4.1.4",
+    "@vitest/browser-playwright": "^4.1.6",
     "playwright": "^1.60.0",
-    "react": "^19.2.5",
-    "react-dom": "^19.2.5",
-    "vitest": "^4.1.4",
+    "react": "^19.2.6",
+    "react-dom": "^19.2.6",
+    "vitest": "^4.1.6",
     "vitest-browser-react": "^2.2.0"
   }
 }

@@ -1,40 +1,8 @@
 {
-  "extends": "../tsconfig.base.json",
-  "include": [
-    "src/**/*.js",
-    "src/**/*.mjs",
-    "src/**/*.cjs",
-    "src/**/*.jsx",
-    "src/**/*.ts",
-    "src/**/*.mts",
-    "src/**/*.cts",
-    "src/**/*.tsx"
-  ],
-  "exclude": [
-    "src/**/*.test.js",
-    "src/**/*.test.mjs",
-    "src/**/*.test.cjs",
-    "src/**/*.test.jsx",
-    "src/**/*.test.ts",
-    "src/**/*.test.mts",
-    "src/**/*.test.cts",
-    "src/**/*.test.tsx",
-    "**/fixtures/**"
-  ],
-  "compilerOptions": {
-    /* Modules */
-    "module": "esnext",
-    "moduleResolution": "bundler",
-    "paths": {
-      "@/*": ["./src/*"] // Map the '@' alias to the 'src' directory.
-    },
-    "types": ["@lumir/types/global", "vite/client"],
-
-    /* Emit */
-    "noEmit": true,
-
-    /* Language and Environment */
-    "jsx": "react-jsx",
-    "lib": ["dom", "dom.iterable", "esnext"]
-  }
+  "files": [],
+  "references": [
+    {
+      "path": "./tsconfig.app.json"
+    }
+  ]
 }
