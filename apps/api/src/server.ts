@@ -13,7 +13,7 @@ import {
   fetchQuestionSub,
   fetchAnswer,
   fetchFeedback,
-} from './fetch.js';
+} from './fetch.ts';
 
 // --------------------------------------------------------------------------------
 // Helpers

@@ -7,8 +7,8 @@
 // --------------------------------------------------------------------------------
 
 import OpenAI from 'openai';
-import { questionMain, questionSub, answer, feedback } from './prompt.js';
-import { type CustomChatCompletionMessageParam, type QuestionType } from './types.js';
+import { questionMain, questionSub, answer, feedback } from './prompt.ts';
+import { type CustomChatCompletionMessageParam, type QuestionType } from './types.ts';
 
 // --------------------------------------------------------------------------------
 // Helper

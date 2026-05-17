@@ -6,7 +6,7 @@
 // Import
 // --------------------------------------------------------------------------------
 
-import { type CustomChatCompletionMessageParam, type QuestionType } from './types.js';
+import { type CustomChatCompletionMessageParam, type QuestionType } from './types.ts';
 
 // --------------------------------------------------------------------------------
 // Export
