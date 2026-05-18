@@ -2,7 +2,7 @@
   "buildCommand": "node --run count-docs && node --run build",
   "framework": "nextjs",
   "ignoreCommand": "node ../../scripts/vercel-ignore-command.ts",
-  "installCommand": "npm install --prefix ../.. --no-audit --no-fund",
+  "installCommand": "npm install --no-audit --no-fund --prefer-offline --prefix ../..",
   "outputDirectory": ".next",
   "regions": ["icn1"]
 }
