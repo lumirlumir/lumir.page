@@ -3,6 +3,7 @@
   "name": "@lumir/remark-plugins",
   "version": "0.0.0-private",
   "type": "module",
+  "sideEffects": false,
   "exports": {
     ".": {
       "types": "./build/index.d.ts",
