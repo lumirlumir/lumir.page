@@ -1,42 +1,28 @@
 /**
- * @fileoverview server.js
+ * @fileoverview TODO
+ * @see https://vercel.com/docs/functions
+ * @see https://aistudio.google.com
+ * @see https://ai.google.dev/gemini-api/docs
+ * @see https://ai.google.dev/gemini-api/docs/openai
  */
 
 // --------------------------------------------------------------------------------
-// Import
+// Temp
 // --------------------------------------------------------------------------------
 
-import http from 'node:http';
-import url from 'node:url';
-import {
-  fetchQuestionMain,
-  fetchQuestionSub,
-  fetchAnswer,
-  fetchFeedback,
-} from './fetch.ts';
+// import {
+//   fetchQuestionMain,
+//   fetchQuestionSub,
+//   fetchAnswer,
+//   fetchFeedback,
+// } from './fetch.ts';
 
-// --------------------------------------------------------------------------------
-// Helpers
-// --------------------------------------------------------------------------------
-
-function response(res, code, text) {
-  res.writeHead(code, { 'Content-Type': 'application/json; charset=utf-8' });
-  res.end(JSON.stringify({ text }));
-}
-
-// --------------------------------------------------------------------------------
-// Server
-// --------------------------------------------------------------------------------
-
-http
-  .createServer((req, res) => {
-    // @ts-expect-error -- TODO
-    res.setHeader('Access-Control-Allow-Origin', process.env.FRONTEND_URL); // CORS
-
-    // @ts-expect-error -- TODO
-    const { pathname, query } = url.parse(req.url); // eslint-disable-line n/no-deprecated-api -- TODO: delete it later.
+/*
+    const { pathname, query } = new URL(req.url);
     const urlSearchParams = new URLSearchParams(query); // for array
+*/
 
+/*
     console.log(`TIME: ${new Date()}\nMETHOD: ${req.method}\nURL: ${req.url}`); // eslint-disable-line no-console -- for debugging.
     console.log(urlSearchParams, '\n'); // eslint-disable-line no-console -- for debugging.
 
@@ -83,5 +69,37 @@ http
         }
       }
     }
-  })
-  .listen(process.env.BACKEND_PORT);
+*/
+
+// --------------------------------------------------------------------------------
+// Helper
+// --------------------------------------------------------------------------------
+
+/*
+const client = new OpenAI({
+  apiKey: process.env.GEMINI_API_KEY,
+  baseURL: 'https://generativelanguage.googleapis.com/v1beta/openai/',
+});
+
+const completion = await client.chat.completions.create({
+  model: 'gemini-2.5',
+  messages: [{ role: 'user', content: "How's the weather today in south korea, Seoul?" }],
+});
+
+console.log(completion.choices[0]?.message?.content);
+*/
+
+// --------------------------------------------------------------------------------
+// Export
+// --------------------------------------------------------------------------------
+
+/**
+ * `/chat` API route handler.
+ */
+export default {
+  fetch(request: Request) {
+    return new Response(`Request received\n\n${request.method} ${request.url}`, {
+      status: 200,
+    });
+  },
+} as const;

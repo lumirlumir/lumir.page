@@ -1,3 +1,4 @@
+/*
 import type { OpenAI } from 'openai';
 
 export type CustomChatCompletionMessageParam =
@@ -6,3 +7,4 @@ export type CustomChatCompletionMessageParam =
   | OpenAI.ChatCompletionUserMessageParam;
 
 export type QuestionType = 'cs' | 'fe' | 'be' | 'db' | 'oop';
+*/

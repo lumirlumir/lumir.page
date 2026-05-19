@@ -7,9 +7,7 @@
   },
   "scripts": {
     "build": "tsgo -b tsconfig.build.json",
-    "dev": "node --env-file=.env --watch ./src/server.ts"
-  },
-  "dependencies": {
-    "openai": "^6.38.0"
+    "dev": "node --env-file=.env --watch ./dev/server.ts",
+    "req": "node ./dev/client.ts"
   }
 }

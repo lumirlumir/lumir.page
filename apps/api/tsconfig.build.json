@@ -1,12 +1,51 @@
 {
   "extends": "../../tsconfig.base.build.json",
+  "include": [
+    "api/**/*.js",
+    "api/**/*.mjs",
+    "api/**/*.cjs",
+    "api/**/*.ts",
+    "api/**/*.mts",
+    "api/**/*.cts",
+    "dev/**/*.js",
+    "dev/**/*.mjs",
+    "dev/**/*.cjs",
+    "dev/**/*.ts",
+    "dev/**/*.mts",
+    "dev/**/*.cts",
+    "src/**/*.js",
+    "src/**/*.mjs",
+    "src/**/*.cjs",
+    "src/**/*.ts",
+    "src/**/*.mts",
+    "src/**/*.cts"
+  ],
+  "exclude": [
+    "api/**/*.test.js",
+    "api/**/*.test.mjs",
+    "api/**/*.test.cjs",
+    "api/**/*.test.ts",
+    "api/**/*.test.mts",
+    "api/**/*.test.cts",
+    "dev/**/*.test.js",
+    "dev/**/*.test.mjs",
+    "dev/**/*.test.cjs",
+    "dev/**/*.test.ts",
+    "dev/**/*.test.mts",
+    "dev/**/*.test.cts",
+    "src/**/*.test.js",
+    "src/**/*.test.mjs",
+    "src/**/*.test.cjs",
+    "src/**/*.test.ts",
+    "src/**/*.test.mts",
+    "src/**/*.test.cts",
+    "**/fixtures/**"
+  ],
   "references": [],
   "compilerOptions": {
-    /* Type Checking */
-    "noImplicitAny": false, // TODO: Enable this in the future for better type safety.
-
     /* Modules */
     "allowImportingTsExtensions": true,
+    "rootDir": ".",
     "types": ["node"],
 
     /* Emit */

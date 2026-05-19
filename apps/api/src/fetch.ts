@@ -6,21 +6,26 @@
 // Import
 // --------------------------------------------------------------------------------
 
+/*
 import OpenAI from 'openai';
 import { questionMain, questionSub, answer, feedback } from './prompt.ts';
 import { type CustomChatCompletionMessageParam, type QuestionType } from './types.ts';
+*/
 
 // --------------------------------------------------------------------------------
 // Helper
 // --------------------------------------------------------------------------------
 
+/*
 const openaiInstance = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
+*/
 
 /**
  * Fetches a response from OpenAI's chat completion API.
  */
+/*
 async function fetching(messages: CustomChatCompletionMessageParam[]): Promise<string> {
   const response = await openaiInstance.chat.completions.create({
     ...{
@@ -37,10 +42,12 @@ async function fetching(messages: CustomChatCompletionMessageParam[]): Promise<s
   // @ts-expect-error -- TODO
   return response?.choices?.[0]?.message?.content;
 }
+*/
 
 /**
  * Creates a message object for OpenAI API.
  */
+/*
 function createMessageObject(
   role: 'system' | 'assistant' | 'user',
   text: string,
@@ -55,6 +62,7 @@ function createMessageObject(
     ],
   };
 }
+*/
 
 // --------------------------------------------------------------------------------
 // Export
@@ -63,6 +71,7 @@ function createMessageObject(
 /**
  * Fetches the main question.
  */
+/*
 export async function fetchQuestionMain(
   type: QuestionType,
   history: string[],
@@ -72,10 +81,12 @@ export async function fetchQuestionMain(
     ...history.map(text => createMessageObject('assistant', text)),
   ]);
 }
+*/
 
 /**
  * Fetches the sub question.
  */
+/*
 export async function fetchQuestionSub(
   question: string,
   answerUser: string,
@@ -88,17 +99,21 @@ export async function fetchQuestionSub(
     ),
   ]);
 }
+*/
 
 /**
  * Fetches the answer.
  */
+/*
 export async function fetchAnswer(question: string): Promise<string> {
   return fetching([...answer.messages, createMessageObject('user', question)]);
 }
+*/
 
 /**
  * Fetches the feedback.
  */
+/*
 export async function fetchFeedback(
   answerSystem: string,
   answerUser: string,
@@ -111,3 +126,4 @@ export async function fetchFeedback(
     ),
   ]);
 }
+*/

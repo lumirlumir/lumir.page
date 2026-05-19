@@ -45,6 +45,15 @@ export default defineConfig([
     },
   },
   {
+    name: 'js/apps/api',
+    files: ['apps/api/**/*.{js,mjs,cjs,ts,mts,cts}'],
+    languageOptions: {
+      globals: {
+        HeadersInit: false, // Web
+      },
+    },
+  },
+  {
     name: 'js/apps/blog',
     files: ['apps/blog/**/*.{js,mjs,cjs,jsx,ts,mts,cts,tsx}'],
     settings: {

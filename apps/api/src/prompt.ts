@@ -6,12 +6,15 @@
 // Import
 // --------------------------------------------------------------------------------
 
+/*
 import { type CustomChatCompletionMessageParam, type QuestionType } from './types.ts';
+*/
 
 // --------------------------------------------------------------------------------
 // Export
 // --------------------------------------------------------------------------------
 
+/*
 export const questionMain = {
   cs: {
     messages: [
@@ -337,3 +340,4 @@ export const feedback = {
     },
   ],
 } satisfies Record<'messages', CustomChatCompletionMessageParam[]>;
+*/
