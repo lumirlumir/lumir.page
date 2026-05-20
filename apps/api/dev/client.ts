@@ -1,6 +1,6 @@
 /**
  * @fileoverview Local development client for testing the API server.
- * Usage: `node path/to/client.ts <method> <pathname> [--error]`
+ * Usage: `node path/to/client.ts <method> <pathname> [body] [--error]`
  */
 
 /* eslint-disable no-console -- This file is for local development testing */
@@ -54,7 +54,7 @@ if (!pathname) {
 // --------------------------------------------------------------------------------
 
 const response = await fetch(
-  `${DEV_SERVER_URL}/api/${pathname}${error ? '?error=true' : ''}`,
+  `${DEV_SERVER_URL}/api/${pathname}${error ? '?error' : ''}`,
   {
     method: method.toUpperCase(),
     body,
