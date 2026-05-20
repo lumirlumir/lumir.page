@@ -12,6 +12,7 @@
     "test": "vitest run"
   },
   "devDependencies": {
+    "@lumir/types": "*",
     "vitest": "^4.1.6"
   }
 }

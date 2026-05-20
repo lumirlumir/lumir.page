@@ -1,15 +1,17 @@
 /**
  * @fileoverview Chat endpoint for API routes.
- * @see https://vercel.com/docs/functions
- * @see https://aistudio.google.com
- * @see https://ai.google.dev/gemini-api/docs
- * @see https://developers.openai.com/api/docs/models/gpt-5-nano
+ * @see https://vercel.com/docs/functions Vercel
+ * @see https://aistudio.google.com Gemini
+ * @see https://ai.google.dev/gemini-api/docs Gemini
+ * @see https://ai.google.dev/api/generate-content Gemini
+ * @see https://developers.openai.com/api/docs/models/gpt-5-nano OpenAI
  */
 
 // --------------------------------------------------------------------------------
 // Import
 // --------------------------------------------------------------------------------
 
+import type { GeminiRequestBody } from '@lumir/types/gemini';
 import { ALLOWED_ORIGINS } from '../src/constants.ts';
 import { createCORSHeaders } from '../src/utils.ts';
 
@@ -55,25 +57,29 @@ export default {
     switch (request.method) {
       case 'POST': {
         const text = await request.text();
+        const body = {
+          contents: [
+            {
+              role: 'user',
+              parts: [{ text }],
+            },
+          ],
+          generationConfig: {
+            maxOutputTokens: 512,
+            temperature: 0.7,
+            thinkingConfig: {
+              thinkingLevel: 'LOW',
+            },
+          },
+        } satisfies GeminiRequestBody;
 
         const response = await fetch(GEMINI_API_ENDPOINT, {
           method: 'POST',
           headers: {
-            'Content-Type': 'application/json',
-            'x-goog-api-key': process.env.GEMINI_API_KEY!,
+            'Content-Type': 'application/json; charset=utf-8',
+            'x-goog-api-key': process.env.GEMINI_API_KEY,
           },
-          body: JSON.stringify({
-            contents: [
-              {
-                role: 'user',
-                parts: [{ text }],
-              },
-            ],
-            generationConfig: {
-              maxOutputTokens: 512,
-              temperature: 0.7,
-            },
-          }),
+          body: JSON.stringify(body),
         });
 
         if (!response.ok) {
