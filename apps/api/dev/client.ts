@@ -10,7 +10,7 @@
 // --------------------------------------------------------------------------------
 
 import { parseArgs } from 'node:util';
-import { DEV_SERVER_URL } from '../src/constants.ts';
+import { ALLOWED_ORIGINS, DEV_SERVER_URL } from '../src/constants.ts';
 
 // --------------------------------------------------------------------------------
 // Execution: Parse Args
@@ -56,6 +56,9 @@ if (!pathname) {
 const response = await fetch(
   `${DEV_SERVER_URL}/api/${pathname}${error ? '?error' : ''}`,
   {
+    headers: {
+      Origin: Array.from(ALLOWED_ORIGINS)[0],
+    },
     method: method.toUpperCase(),
     body,
   },
