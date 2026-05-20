@@ -1,94 +1,73 @@
 /**
- * @fileoverview TODO
+ * @fileoverview Chat endpoint for API routes.
  * @see https://vercel.com/docs/functions
  * @see https://aistudio.google.com
  * @see https://ai.google.dev/gemini-api/docs
  * @see https://ai.google.dev/gemini-api/docs/openai
+ * @see https://developers.openai.com/api/docs/models/gpt-5-nano
  */
 
 // --------------------------------------------------------------------------------
-// Temp
+// Import
 // --------------------------------------------------------------------------------
 
-/*
-    const urlSearchParams = new URLSearchParams(query); // for array
-*/
-
-/*
-    if (req.method === 'GET') {
-      switch (pathname) {
-        case '/question/main': {
-          const type = urlSearchParams.get('type');
-          const history = urlSearchParams.getAll('history');
-
-          // @ts-expect-error -- TODO
-          fetchQuestionMain(type, history).then(result => response(res, 200, result));
-          break;
-        }
-        case '/question/sub': {
-          const question = urlSearchParams.get('question');
-          const answerUser = urlSearchParams.get('answerUser');
-
-          // @ts-expect-error -- TODO
-          fetchQuestionSub(question, answerUser).then(result =>
-            response(res, 200, result),
-          );
-          break;
-        }
-        case '/answer': {
-          const question = urlSearchParams.get('question');
-
-          // @ts-expect-error -- TODO
-          fetchAnswer(question).then(result => response(res, 200, result));
-          break;
-        }
-        case '/feedback': {
-          const answerSystem = urlSearchParams.get('answerSystem');
-          const answerUser = urlSearchParams.get('answerUser');
-
-          // @ts-expect-error -- TODO
-          fetchFeedback(answerSystem, answerUser).then(result =>
-            response(res, 200, result),
-          );
-          break;
-        }
-        default: {
-          response(res, 400, 'Invalid Request');
-          break;
-        }
-      }
-    }
-*/
+import { ALLOWED_ORIGINS } from '../src/constants.ts';
+import { createCORSHeaders } from '../src/cors.ts';
 
 // --------------------------------------------------------------------------------
 // Helper
 // --------------------------------------------------------------------------------
 
-/*
-const client = new OpenAI({
-  apiKey: process.env.GEMINI_API_KEY,
-  baseURL: 'https://generativelanguage.googleapis.com/v1beta/openai/',
-});
-
-const completion = await client.chat.completions.create({
-  model: 'gemini-2.5',
-  messages: [{ role: 'user', content: "How's the weather today in south korea, Seoul?" }],
-});
-
-console.log(completion.choices[0]?.message?.content);
-*/
+const allowedMethods = 'GET, HEAD, OPTIONS, POST';
 
 // --------------------------------------------------------------------------------
 // Export
 // --------------------------------------------------------------------------------
 
 /**
- * `/chat` API route handler.
+ * `/api/chat` API route handler.
  */
 export default {
   fetch(request: Request) {
-    return new Response(`Request received\n\n${request.method} ${request.url}`, {
-      status: 200,
-    });
+    if (
+      process.env.DISABLE_CHAT === 'true' ||
+      process.env.GEMINI_API_KEY === undefined ||
+      process.env.OPENAI_API_KEY === undefined
+    ) {
+      return new Response(null, {
+        status: 503,
+        statusText: 'Service Unavailable',
+      });
+    }
+
+    const origin = request.headers.get('Origin');
+
+    if (
+      origin === null ||
+      !ALLOWED_ORIGINS.includes(origin as (typeof ALLOWED_ORIGINS)[number])
+    ) {
+      return new Response(null, {
+        status: 403,
+        statusText: 'Forbidden',
+      });
+    }
+
+    switch (request.method) {
+      case 'POST': {
+        return new Response(null, {
+          status: 200,
+          statusText: 'OK',
+          headers: createCORSHeaders(origin, allowedMethods),
+        });
+      }
+
+      default: {
+        return new Response(`method ${request.method} is not allowed`, {
+          status: 405,
+          statusText: 'Method Not Allowed',
+          headers: createCORSHeaders(origin, allowedMethods),
+        });
+      }
+    }
   },
 } as const;
