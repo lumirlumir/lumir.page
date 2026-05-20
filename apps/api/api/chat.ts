@@ -10,22 +10,11 @@
 // Temp
 // --------------------------------------------------------------------------------
 
-// import {
-//   fetchQuestionMain,
-//   fetchQuestionSub,
-//   fetchAnswer,
-//   fetchFeedback,
-// } from './fetch.ts';
-
 /*
-    const { pathname, query } = new URL(req.url);
     const urlSearchParams = new URLSearchParams(query); // for array
 */
 
 /*
-    console.log(`TIME: ${new Date()}\nMETHOD: ${req.method}\nURL: ${req.url}`); // eslint-disable-line no-console -- for debugging.
-    console.log(urlSearchParams, '\n'); // eslint-disable-line no-console -- for debugging.
-
     if (req.method === 'GET') {
       switch (pathname) {
         case '/question/main': {
