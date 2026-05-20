@@ -50,7 +50,7 @@
   },
   "devDependencies": {
     "@lumir/types": "*",
-    "@types/react": "^19.2.14",
+    "@types/react": "^19.2.15",
     "@types/react-dom": "^19.2.3",
     "@types/webpack-env": "^1.18.8",
     "vitest": "^4.1.6"
