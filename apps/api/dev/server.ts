@@ -31,17 +31,13 @@ const routes = new Map<
 /**
  * Sends a plain text response with the given status code and text.
  */
-function sendTextResponse(
-  response: http.ServerResponse,
-  statusCode: number,
-  text: string,
-) {
+function sendTextResponse(res: http.ServerResponse, statusCode: number, text: string) {
   const headers = {
     'Content-Type': 'text/plain; charset=UTF-8',
   } as const;
 
-  response.writeHead(statusCode, headers);
-  response.end(text);
+  res.writeHead(statusCode, headers);
+  res.end(text);
 }
 
 // --------------------------------------------------------------------------------
