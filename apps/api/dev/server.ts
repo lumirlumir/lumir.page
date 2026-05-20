@@ -7,7 +7,7 @@
 // --------------------------------------------------------------------------------
 
 import http from 'node:http';
-import { DEV_SERVER_PORT, DEV_SERVER_URL } from './constants.ts';
+import { DEV_SERVER_PORT, DEV_SERVER_URL } from '../src/constants.ts';
 import chat from '../api/chat.ts';
 import ping from '../api/ping.ts';
 

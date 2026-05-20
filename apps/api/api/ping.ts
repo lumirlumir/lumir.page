@@ -8,7 +8,7 @@
 // --------------------------------------------------------------------------------
 
 import { ALLOWED_ORIGINS } from '../src/constants.ts';
-import { createCORSHeaders } from '../src/cors.ts';
+import { createCORSHeaders } from '../src/utils.ts';
 
 // --------------------------------------------------------------------------------
 // Helper
@@ -34,10 +34,7 @@ export default {
 
     const origin = request.headers.get('Origin');
 
-    if (
-      origin === null ||
-      !ALLOWED_ORIGINS.includes(origin as (typeof ALLOWED_ORIGINS)[number])
-    ) {
+    if (origin === null || !ALLOWED_ORIGINS.has(origin)) {
       return new Response(null, {
         status: 403,
         statusText: 'Forbidden',

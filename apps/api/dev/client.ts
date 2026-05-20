@@ -10,7 +10,7 @@
 // --------------------------------------------------------------------------------
 
 import { parseArgs } from 'node:util';
-import { DEV_SERVER_URL } from './constants.ts';
+import { DEV_SERVER_URL } from '../src/constants.ts';
 
 // --------------------------------------------------------------------------------
 // Execution: Parse Args
