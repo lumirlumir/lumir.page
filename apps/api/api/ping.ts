@@ -14,7 +14,7 @@ import { createCORSHeaders } from '../src/utils.ts';
 // Helper
 // --------------------------------------------------------------------------------
 
-const allowMethods = 'GET, HEAD, OPTIONS';
+const ALLOWED_METHODS = 'GET, HEAD, OPTIONS';
 
 // --------------------------------------------------------------------------------
 // Export
@@ -24,7 +24,7 @@ const allowMethods = 'GET, HEAD, OPTIONS';
  * `/api/ping` API route handler.
  */
 export default {
-  fetch(request: Request) {
+  fetch({ method, headers }: Request) {
     if (process.env.DISABLE_CHAT === 'true') {
       return new Response(null, {
         status: 503,
@@ -32,7 +32,7 @@ export default {
       });
     }
 
-    const origin = request.headers.get('Origin');
+    const origin = headers.get('Origin');
 
     if (origin === null || !ALLOWED_ORIGINS.has(origin)) {
       return new Response(null, {
@@ -41,12 +41,14 @@ export default {
       });
     }
 
-    switch (request.method) {
+    const corsHeaders = createCORSHeaders(origin, ALLOWED_METHODS);
+
+    switch (method) {
       case 'GET': {
         return new Response('pong', {
           status: 200,
           statusText: 'OK',
-          headers: createCORSHeaders(origin, allowMethods),
+          headers: corsHeaders,
         });
       }
 
@@ -54,7 +56,7 @@ export default {
         return new Response(null, {
           status: 200,
           statusText: 'OK',
-          headers: createCORSHeaders(origin, allowMethods),
+          headers: corsHeaders,
         });
       }
 
@@ -62,15 +64,15 @@ export default {
         return new Response(null, {
           status: 204,
           statusText: 'No Content',
-          headers: createCORSHeaders(origin, allowMethods),
+          headers: corsHeaders,
         });
       }
 
       default: {
-        return new Response(`method ${request.method} is not allowed`, {
+        return new Response(`method ${method} is not allowed`, {
           status: 405,
           statusText: 'Method Not Allowed',
-          headers: createCORSHeaders(origin, allowMethods),
+          headers: corsHeaders,
         });
       }
     }

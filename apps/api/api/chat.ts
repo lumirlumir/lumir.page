@@ -3,7 +3,6 @@
  * @see https://vercel.com/docs/functions
  * @see https://aistudio.google.com
  * @see https://ai.google.dev/gemini-api/docs
- * @see https://ai.google.dev/gemini-api/docs/openai
  * @see https://developers.openai.com/api/docs/models/gpt-5-nano
  */
 
@@ -18,7 +17,9 @@ import { createCORSHeaders } from '../src/utils.ts';
 // Helper
 // --------------------------------------------------------------------------------
 
-const allowedMethods = 'GET, HEAD, OPTIONS, POST';
+const ALLOWED_METHODS = 'POST, OPTIONS';
+const GEMINI_MODEL = 'gemini-3.1-flash-lite';
+const GEMINI_API_ENDPOINT = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent`;
 
 // --------------------------------------------------------------------------------
 // Export
@@ -28,7 +29,7 @@ const allowedMethods = 'GET, HEAD, OPTIONS, POST';
  * `/api/chat` API route handler.
  */
 export default {
-  fetch(request: Request) {
+  async fetch(request: Request) {
     if (
       process.env.DISABLE_CHAT === 'true' ||
       process.env.GEMINI_API_KEY === undefined ||
@@ -49,12 +50,54 @@ export default {
       });
     }
 
+    const corsHeaders = createCORSHeaders(origin, ALLOWED_METHODS);
+
     switch (request.method) {
       case 'POST': {
-        return new Response(null, {
+        const text = await request.text();
+
+        const response = await fetch(GEMINI_API_ENDPOINT, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'x-goog-api-key': process.env.GEMINI_API_KEY!,
+          },
+          body: JSON.stringify({
+            contents: [
+              {
+                role: 'user',
+                parts: [{ text }],
+              },
+            ],
+            generationConfig: {
+              maxOutputTokens: 512,
+              temperature: 0.7,
+            },
+          }),
+        });
+
+        if (!response.ok) {
+          return new Response(null, {
+            status: response.status,
+            statusText: response.statusText,
+            headers: corsHeaders,
+          });
+        }
+
+        const newText = await response.text();
+
+        return new Response(newText, {
           status: 200,
           statusText: 'OK',
-          headers: createCORSHeaders(origin, allowedMethods),
+          headers: corsHeaders,
+        });
+      }
+
+      case 'OPTIONS': {
+        return new Response(null, {
+          status: 204,
+          statusText: 'No Content',
+          headers: corsHeaders,
         });
       }
 
@@ -62,7 +105,7 @@ export default {
         return new Response(`method ${request.method} is not allowed`, {
           status: 405,
           statusText: 'Method Not Allowed',
-          headers: createCORSHeaders(origin, allowedMethods),
+          headers: corsHeaders,
         });
       }
     }
