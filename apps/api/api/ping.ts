@@ -42,6 +42,13 @@ function createCORSHeaders(request: Request): Headers {
  */
 export default {
   fetch(request: Request) {
+    if (process.env.DISABLE_CHAT === 'true') {
+      return new Response('pong service unavailable', {
+        status: 503,
+        statusText: 'Service Unavailable',
+      });
+    }
+
     switch (request.method) {
       case 'GET': {
         return new Response('pong', {
