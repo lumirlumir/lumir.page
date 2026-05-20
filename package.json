@@ -28,6 +28,7 @@
     "pack:pkg:s": "npm pack -w packages/styles --dry-run",
     "pack:pkg:t": "npm pack -w packages/types --dry-run",
     "pack:pkg:u": "npm pack -w packages/utils --dry-run",
+    "dev:a": "npm run dev -w apps/api",
     "dev:b": "npm-run-all -c -l -p dev:a:a dev:a:b dev:pkg",
     "dev:m": "npm-run-all -c -l -p dev:a:a dev:a:m dev:pkg",
     "dev:a:a": "npm run dev -w apps/api",

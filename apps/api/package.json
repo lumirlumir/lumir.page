@@ -8,6 +8,10 @@
   "scripts": {
     "build": "tsgo -b tsconfig.build.json",
     "dev": "node --env-file=.env --watch ./dev/server.ts",
-    "req": "node ./dev/client.ts"
+    "req": "node ./dev/client.ts",
+    "test": "vitest run"
+  },
+  "devDependencies": {
+    "vitest": "^4.1.6"
   }
 }
