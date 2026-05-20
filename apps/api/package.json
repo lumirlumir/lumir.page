@@ -7,9 +7,12 @@
   },
   "scripts": {
     "build": "tsgo -b tsconfig.build.json",
-    "dev": "node --env-file=.env --watch ./src/server.ts"
+    "dev": "node --env-file=.env --watch ./dev/server.ts",
+    "req": "node ./dev/client.ts",
+    "test": "vitest run"
   },
-  "dependencies": {
-    "openai": "^6.38.0"
+  "devDependencies": {
+    "@lumir/types": "*",
+    "vitest": "^4.1.6"
   }
 }
