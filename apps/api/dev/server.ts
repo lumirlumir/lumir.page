@@ -9,7 +9,7 @@
 import http from 'node:http';
 import { DEV_SERVER_PORT, DEV_SERVER_URL } from './constants.ts';
 import chat from '../api/chat.ts';
-import test from '../api/test.ts';
+import ping from '../api/ping.ts';
 
 // --------------------------------------------------------------------------------
 // Helper
@@ -25,7 +25,7 @@ const routes = new Map<
   }
 >([
   ['/api/chat', chat],
-  ['/api/test', test],
+  ['/api/ping', ping],
 ]);
 
 /**
