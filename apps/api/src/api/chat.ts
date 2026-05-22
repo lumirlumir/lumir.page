@@ -11,9 +11,8 @@
 // Import
 // --------------------------------------------------------------------------------
 
-import type { GeminiRequestBody } from '@lumir/types/gemini';
-import { ALLOWED_ORIGINS } from '../src/constants.ts';
-import { createCORSHeaders } from '../src/utils.ts';
+import { ALLOWED_ORIGINS } from '../core/constants.ts';
+import { createCORSHeaders } from '../core/utils.ts';
 
 // --------------------------------------------------------------------------------
 // Helper
@@ -71,7 +70,7 @@ export default {
               thinkingLevel: 'LOW',
             },
           },
-        } satisfies GeminiRequestBody;
+        };
 
         const response = await fetch(GEMINI_API_ENDPOINT, {
           method: 'POST',

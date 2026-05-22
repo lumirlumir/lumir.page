@@ -7,8 +7,8 @@
 // Import
 // --------------------------------------------------------------------------------
 
-import { ALLOWED_ORIGINS } from '../src/constants.ts';
-import { createCORSHeaders } from '../src/utils.ts';
+import { ALLOWED_ORIGINS } from '../core/constants.ts';
+import { createCORSHeaders } from '../core/utils.ts';
 
 // --------------------------------------------------------------------------------
 // Helper

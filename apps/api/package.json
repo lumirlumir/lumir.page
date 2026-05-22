@@ -7,8 +7,8 @@
   },
   "scripts": {
     "build": "tsgo -b tsconfig.build.json",
-    "dev": "node --env-file=.env --watch ./dev/server.ts",
-    "req": "node ./dev/client.ts",
+    "dev": "node --env-file=.env --watch ./src/dev/server.ts",
+    "req": "node ./src/dev/client.ts",
     "test": "vitest run"
   },
   "dependencies": {
