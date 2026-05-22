@@ -1,0 +1,29 @@
+{
+  "extends": "../../tsconfig.base.test.json",
+  "references": [
+    {
+      "path": "./tsconfig.app.json"
+    },
+    {
+      "path": "../../packages/react-kit/tsconfig.build.json"
+    },
+    {
+      "path": "../../packages/rehype-plugins/tsconfig.build.json"
+    },
+    {
+      "path": "../../packages/remark-plugins/tsconfig.build.json"
+    },
+    {
+      "path": "../../packages/utils/tsconfig.build.json"
+    }
+  ],
+  "compilerOptions": {
+    /* Modules */
+    "paths": {
+      "@/*": ["./src/*"] // Map the '@' alias to the 'src' directory.
+    },
+
+    /* Language and Environment */
+    "jsx": "react-jsx"
+  }
+}
