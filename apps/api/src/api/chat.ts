@@ -6,6 +6,10 @@
  * @see https://ai.google.dev/gemini-api/docs/openai Gemini
  * @see https://developers.openai.com/api/docs/models/gpt-5-nano OpenAI
  * @see https://developers.openai.com/api/reference/resources/chat/subresources/completions/methods/create OpenAI
+ * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Access-Control-Allow-Origin MDN
+ * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Access-Control-Allow-Methods MDN
+ * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Allow MDN
+ * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Vary MDN
  */
 
 // --------------------------------------------------------------------------------
@@ -26,19 +30,15 @@ const GEMINI_API_ENDPOINT = `https://generativelanguage.googleapis.com/v1beta/op
 /**
  * Creates CORS headers for API routes.
  * @param origin The allowed origin for the API route.
- * @param methods The allowed HTTP methods for the API route.
  * @returns A Headers object containing the appropriate CORS headers.
- * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Access-Control-Allow-Origin
- * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Access-Control-Allow-Methods
- * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Vary
  */
-export function createCORSHeaders(origin: string, methods: string): Headers {
-  return new Headers({
+export function createCORSHeaders(origin: string) {
+  return {
     'Access-Control-Allow-Origin': origin, // CORS
-    'Access-Control-Allow-Methods': methods, // CORS
-    Allow: methods,
+    'Access-Control-Allow-Methods': ALLOW_METHODS, // CORS
+    Allow: ALLOW_METHODS,
     Vary: 'Origin',
-  });
+  } as const;
 }
 
 // --------------------------------------------------------------------------------
@@ -63,20 +63,22 @@ export default {
       return new Response(null, {
         status: 503,
         statusText: 'Service Unavailable',
+        headers: createCORSHeaders('*'),
       });
     }
 
     const origin = request.headers.get('Origin');
-    // TODO: add user agent check to prevent abuse.
+    const userAgent = request.headers.get('User-Agent');
 
-    if (origin === null || !ALLOW_ORIGINS.has(origin)) {
+    if (origin === null || userAgent === null || !ALLOW_ORIGINS.has(origin)) {
       return new Response(null, {
         status: 403,
         statusText: 'Forbidden',
+        headers: createCORSHeaders('*'),
       });
     }
 
-    const corsHeaders = createCORSHeaders(origin, ALLOW_METHODS);
+    const corsHeaders = createCORSHeaders(origin);
 
     switch (request.method) {
       case 'POST': {

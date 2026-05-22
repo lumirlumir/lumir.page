@@ -1,10 +1,10 @@
 /**
  * @fileoverview Ping endpoint for API routes.
- * @see https://vercel.com/docs/functions
- * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Access-Control-Allow-Origin
- * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Access-Control-Allow-Methods
- * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Allow
- * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Cache-Control
+ * @see https://vercel.com/docs/functions Vercel
+ * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Access-Control-Allow-Origin MDN
+ * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Access-Control-Allow-Methods MDN
+ * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Allow MDN
+ * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Cache-Control MDN
  */
 
 // --------------------------------------------------------------------------------

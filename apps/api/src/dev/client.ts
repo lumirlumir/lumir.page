@@ -58,6 +58,7 @@ const response = await fetch(
   {
     headers: {
       Origin: Array.from(ALLOW_ORIGINS)[0],
+      'User-Agent': 'User-Agent for local development testing',
     },
     method: method.toUpperCase(),
     body,
