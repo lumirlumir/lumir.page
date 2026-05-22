@@ -15,9 +15,7 @@ import { type CustomChatCompletionMessageParam } from './types.js';
 // Helper
 // --------------------------------------------------------------------------------
 
-const openaiInstance = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-});
+const openaiInstance = new OpenAI();
 
 /**
  * Fetches a response from OpenAI's chat completion API.
