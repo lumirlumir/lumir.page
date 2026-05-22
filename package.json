@@ -79,7 +79,7 @@
   },
   "devDependencies": {
     "@types/node": "^24.12.4",
-    "@typescript/native-preview": "^7.0.0-dev.20260519.1",
+    "@typescript/native-preview": "^7.0.0-dev.20260521.1",
     "@vitest/coverage-v8": "^4.1.6",
     "clang-format-node": "^3.0.4",
     "editorconfig-checker": "^6.1.1",
