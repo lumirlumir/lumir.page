@@ -13,16 +13,33 @@
 // --------------------------------------------------------------------------------
 
 import OpenAI from 'openai';
-import { ALLOWED_ORIGINS } from '../core/constants.ts';
-import { createCORSHeaders } from '../core/utils.ts';
+import { ALLOW_ORIGINS } from '../core/constants.ts';
 
 // --------------------------------------------------------------------------------
 // Helper
 // --------------------------------------------------------------------------------
 
-const ALLOWED_METHODS = 'POST, OPTIONS';
+const ALLOW_METHODS = 'POST, OPTIONS';
 const GEMINI_MODEL = 'gemini-3.1-flash-lite';
 const GEMINI_API_ENDPOINT = `https://generativelanguage.googleapis.com/v1beta/openai/`;
+
+/**
+ * Creates CORS headers for API routes.
+ * @param origin The allowed origin for the API route.
+ * @param methods The allowed HTTP methods for the API route.
+ * @returns A Headers object containing the appropriate CORS headers.
+ * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Access-Control-Allow-Origin
+ * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Access-Control-Allow-Methods
+ * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Vary
+ */
+export function createCORSHeaders(origin: string, methods: string): Headers {
+  return new Headers({
+    'Access-Control-Allow-Origin': origin, // CORS
+    'Access-Control-Allow-Methods': methods, // CORS
+    Allow: methods,
+    Vary: 'Origin',
+  });
+}
 
 // --------------------------------------------------------------------------------
 // Export
@@ -50,15 +67,16 @@ export default {
     }
 
     const origin = request.headers.get('Origin');
+    // TODO: add user agent check to prevent abuse.
 
-    if (origin === null || !ALLOWED_ORIGINS.has(origin)) {
+    if (origin === null || !ALLOW_ORIGINS.has(origin)) {
       return new Response(null, {
         status: 403,
         statusText: 'Forbidden',
       });
     }
 
-    const corsHeaders = createCORSHeaders(origin, ALLOWED_METHODS);
+    const corsHeaders = createCORSHeaders(origin, ALLOW_METHODS);
 
     switch (request.method) {
       case 'POST': {

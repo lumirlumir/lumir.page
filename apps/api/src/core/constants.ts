@@ -10,7 +10,7 @@ export const DEV_SERVER_PORT = 3242;
 
 export const DEV_SERVER_URL = `http://localhost:${DEV_SERVER_PORT}`;
 
-export const ALLOWED_ORIGINS = new Set<string>([
+export const ALLOW_ORIGINS = new Set<string>([
   'https://lumir.page',
   'https://www.lumir.page',
   'https://blog.lumir.page',

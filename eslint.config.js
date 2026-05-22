@@ -24,6 +24,7 @@ export default defineConfig([
       '**/.next/',
       '**/archives/',
       '**/next-env.d.ts',
+      '**/.tsbuildinfo',
     ],
     'global/ignores',
   ),

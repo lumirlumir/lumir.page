@@ -1,20 +1,23 @@
 /**
  * @fileoverview Ping endpoint for API routes.
  * @see https://vercel.com/docs/functions
+ * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Access-Control-Allow-Origin
+ * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Access-Control-Allow-Methods
+ * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Allow
+ * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Cache-Control
  */
-
-// --------------------------------------------------------------------------------
-// Import
-// --------------------------------------------------------------------------------
-
-import { ALLOWED_ORIGINS } from '../core/constants.ts';
-import { createCORSHeaders } from '../core/utils.ts';
 
 // --------------------------------------------------------------------------------
 // Helper
 // --------------------------------------------------------------------------------
 
-const ALLOWED_METHODS = 'GET, HEAD, OPTIONS';
+const ALLOW_METHODS = 'GET, HEAD, OPTIONS';
+const CORS_HEADERS = {
+  'Access-Control-Allow-Origin': '*', // CORS: We allow all origins because this endpoint is used for public health checks.
+  'Access-Control-Allow-Methods': ALLOW_METHODS, // CORS
+  Allow: ALLOW_METHODS,
+  'Cache-Control': 'no-store',
+} as const;
 
 // --------------------------------------------------------------------------------
 // Export
@@ -24,31 +27,21 @@ const ALLOWED_METHODS = 'GET, HEAD, OPTIONS';
  * `/api/ping` API route handler.
  */
 export default {
-  fetch({ method, headers }: Request) {
-    if (process.env.DISABLE_CHAT === 'true') {
+  fetch({ method }: Request) {
+    if (process.env.DISABLE_PING === 'true') {
       return new Response(null, {
         status: 503,
         statusText: 'Service Unavailable',
+        headers: CORS_HEADERS,
       });
     }
-
-    const origin = headers.get('Origin');
-
-    if (origin === null || !ALLOWED_ORIGINS.has(origin)) {
-      return new Response(null, {
-        status: 403,
-        statusText: 'Forbidden',
-      });
-    }
-
-    const corsHeaders = createCORSHeaders(origin, ALLOWED_METHODS);
 
     switch (method) {
       case 'GET': {
         return new Response('pong', {
           status: 200,
           statusText: 'OK',
-          headers: corsHeaders,
+          headers: CORS_HEADERS,
         });
       }
 
@@ -56,7 +49,7 @@ export default {
         return new Response(null, {
           status: 200,
           statusText: 'OK',
-          headers: corsHeaders,
+          headers: CORS_HEADERS,
         });
       }
 
@@ -64,7 +57,7 @@ export default {
         return new Response(null, {
           status: 204,
           statusText: 'No Content',
-          headers: corsHeaders,
+          headers: CORS_HEADERS,
         });
       }
 
@@ -72,7 +65,7 @@ export default {
         return new Response(`method ${method} is not allowed`, {
           status: 405,
           statusText: 'Method Not Allowed',
-          headers: corsHeaders,
+          headers: CORS_HEADERS,
         });
       }
     }

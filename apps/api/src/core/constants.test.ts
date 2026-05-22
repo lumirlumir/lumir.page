@@ -7,7 +7,7 @@
 // --------------------------------------------------------------------------------
 
 import { assert, describe, it } from 'vitest';
-import { ALLOWED_ORIGINS, DEV_SERVER_PORT, DEV_SERVER_URL } from './constants.js';
+import { ALLOW_ORIGINS, DEV_SERVER_PORT, DEV_SERVER_URL } from './constants.js';
 
 // --------------------------------------------------------------------------------
 // Test
@@ -23,8 +23,8 @@ describe('constants', () => {
       assert.isDefined(DEV_SERVER_URL);
     });
 
-    it('`ALLOWED_ORIGINS` should be defined', () => {
-      assert.isDefined(ALLOWED_ORIGINS);
+    it('`ALLOW_ORIGINS` should be defined', () => {
+      assert.isDefined(ALLOW_ORIGINS);
     });
   });
 });
