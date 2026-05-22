@@ -6,6 +6,18 @@
   "engines": {
     "node": "^24.15.0"
   },
+  "devEngines": {
+    "runtime": {
+      "name": "node",
+      "version": "^24.15.0",
+      "onFail": "error"
+    },
+    "packageManager": {
+      "name": "npm",
+      "version": ">=11.12.1",
+      "onFail": "error"
+    }
+  },
   "workspaces": [
     "apps/*",
     "packages/*",
@@ -70,7 +82,7 @@
   },
   "devDependencies": {
     "@types/node": "^24.12.4",
-    "@typescript/native-preview": "^7.0.0-dev.20260519.1",
+    "@typescript/native-preview": "^7.0.0-dev.20260521.1",
     "@vitest/coverage-v8": "^4.1.6",
     "clang-format-node": "^3.0.4",
     "editorconfig-checker": "^6.1.1",
