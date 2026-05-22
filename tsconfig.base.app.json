@@ -27,7 +27,7 @@
     "moduleResolution": "bundler",
 
     /* Emit */
-    "noEmit": true,
+    "outDir": "${configDir}/.tsbuildinfo",
 
     /* Language and Environment */
     "jsx": "react-jsx",
