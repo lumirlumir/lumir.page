@@ -4,9 +4,6 @@
   "version": "0.0.0-private",
   "type": "module",
   "exports": {
-    "./gemini": {
-      "types": "./src/gemini.d.ts"
-    },
     "./global": {
       "types": "./src/global.d.ts"
     },
@@ -14,9 +11,6 @@
   },
   "typesVersions": {
     "*": {
-      "./gemini": [
-        "./src/gemini.d.ts"
-      ],
       "./global": [
         "./src/global.d.ts"
       ]
