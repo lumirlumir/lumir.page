@@ -57,7 +57,7 @@ const response = await fetch(
   `${DEV_SERVER_URL}/api/${pathname}${error ? '?error' : ''}`,
   {
     headers: {
-      Origin: Array.from(ALLOW_ORIGINS)[0],
+      Origin: ALLOW_ORIGINS[0],
       'User-Agent': 'User-Agent for local development testing',
       'Sec-Fetch-Dest': 'empty',
       'Sec-Fetch-Mode': 'cors',

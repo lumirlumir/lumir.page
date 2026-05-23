@@ -34,7 +34,7 @@ import { ALLOW_ORIGINS } from '../core/constants.ts';
 const ALLOW_METHODS = 'POST, OPTIONS';
 const GEMINI_MODEL = 'gemini-3.1-flash-lite';
 const GEMINI_API_ENDPOINT = 'https://generativelanguage.googleapis.com/v1beta/openai/';
-const MAX_REQUEST_BODY_BYTES = 1_024 * 8;
+const MAX_REQUEST_BODY_BYTES = 8_192;
 const MAX_COMPLETION_TOKENS = 2_048;
 
 /**
@@ -136,7 +136,7 @@ export default {
 
     if (
       origin === null ||
-      !ALLOW_ORIGINS.has(origin) ||
+      !(ALLOW_ORIGINS as readonly string[]).includes(origin) ||
       userAgent === null ||
       secFetchDest !== 'empty' ||
       secFetchMode !== 'cors' ||
@@ -163,7 +163,7 @@ export default {
       case 'POST': {
         const contentType = headers.get('Content-Type');
 
-        if (contentType === null || !contentType.includes('application/json')) {
+        if (contentType === null || !/^ *application\/json *(?:;|$)/i.test(contentType)) {
           return new Response(null, {
             status: 415,
             statusText: 'Unsupported Media Type',
@@ -290,7 +290,7 @@ export default {
 
         if (
           accessControlRequestHeaders === null ||
-          !accessControlRequestHeaders.includes('content-type')
+          !/^ *content-type *$/i.test(accessControlRequestHeaders)
         ) {
           return new Response(null, {
             status: 400,
