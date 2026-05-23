@@ -53,6 +53,7 @@
     "dev:pkg:rmp": "npm run dev -w packages/remark-plugins",
     "dev:pkg:u": "npm run dev -w packages/utils",
     "dev:pg": "npm run dev -w playground",
+    "build": "node --run build:a && node --run build:pkg",
     "build:a": "npm run build -w apps/api",
     "build:b": "npm run build -w apps/blog",
     "build:m": "npm run build -w apps/moing",
