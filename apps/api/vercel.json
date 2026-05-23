@@ -2,6 +2,6 @@
   "buildCommand": "node --run build",
   "ignoreCommand": "node ../../scripts/vercel-ignore-command.ts",
   "installCommand": "npm install --no-audit --no-fund --prefer-offline --prefix ../..",
-  "outputDirectory": "build",
+  "outputDirectory": null,
   "regions": ["icn1"]
 }
