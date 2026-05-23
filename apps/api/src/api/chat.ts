@@ -52,17 +52,64 @@ function createCORSHeaders(origin: string) {
   } as const;
 }
 
+/**
+ * Type guard to validate the request body for chat completion creation.
+ * @param json The parsed JSON object from the request body.
+ * @returns `true` if the JSON object is a valid `ChatCompletionCreateParams`, `false` otherwise.
+ */
 function isChatCompletionCreateParams(
   json: unknown,
-): json is OpenAI.ChatCompletionCreateParams {
-  return (
-    // check `object`
-    typeof json === 'object' &&
-    json !== null &&
-    // check `messages`
-    'messages' in json &&
-    Array.isArray(json.messages)
-  );
+): json is Pick<
+  OpenAI.ChatCompletionCreateParams,
+  'messages' | 'max_completion_tokens' | 'reasoning_effort' | 'temperature' | 'verbosity'
+> {
+  if (typeof json !== 'object' || json === null) {
+    return false;
+  }
+
+  // `messages`: required, array
+  if (!('messages' in json) || !Array.isArray(json.messages)) {
+    return false;
+  }
+
+  // `max_completion_tokens`: optional, number
+  if (
+    'max_completion_tokens' in json &&
+    (typeof json.max_completion_tokens !== 'number' || json.max_completion_tokens < 0)
+  ) {
+    return false;
+  }
+
+  // `reasoning_effort`: optional, 'minimal' | 'low' | 'medium' | 'high'
+  if (
+    'reasoning_effort' in json &&
+    json.reasoning_effort !== 'minimal' &&
+    json.reasoning_effort !== 'low' &&
+    json.reasoning_effort !== 'medium' &&
+    json.reasoning_effort !== 'high'
+  ) {
+    return false;
+  }
+
+  // `temperature`: optional, number
+  if (
+    'temperature' in json &&
+    (typeof json.temperature !== 'number' || json.temperature < 0 || json.temperature > 2)
+  ) {
+    return false;
+  }
+
+  // `verbosity`: optional, 'low' | 'medium' | 'high'
+  if (
+    'verbosity' in json &&
+    json.verbosity !== 'low' &&
+    json.verbosity !== 'medium' &&
+    json.verbosity !== 'high'
+  ) {
+    return false;
+  }
+
+  return true;
 }
 
 // --------------------------------------------------------------------------------
@@ -196,14 +243,14 @@ export default {
             top_p: 1,
 
             // Dynamic parameters
-            messages: json.messages,
+            messages: json.messages, // required
             max_completion_tokens: Math.min(
               json.max_completion_tokens ?? MAX_COMPLETION_TOKENS,
               MAX_COMPLETION_TOKENS,
-            ),
-            reasoning_effort: json.reasoning_effort ?? 'medium',
-            temperature: json.temperature ?? 0.7,
-            verbosity: json.verbosity ?? 'medium',
+            ), // optional
+            reasoning_effort: json.reasoning_effort ?? 'medium', // optional
+            temperature: json.temperature ?? 0.7, // optional
+            verbosity: json.verbosity ?? 'medium', // optional
           });
 
           return new Response(JSON.stringify(completion), {
