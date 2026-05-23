@@ -35,7 +35,7 @@ jobs:
         run: npm ci --no-audit --no-fund --prefer-offline
 
       - name: Build
-        run: node --run build:pkg
+        run: node --run build
 
       - name: Lint
         run: node --run lint
