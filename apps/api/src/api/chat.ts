@@ -121,7 +121,7 @@ export default {
         const contentType = headers.get('Content-Type');
 
         if (contentType === null || !contentType.includes('application/json')) {
-          return new Response('Unsupported Media Type', {
+          return new Response(null, {
             status: 415,
             statusText: 'Unsupported Media Type',
             headers: corsHeaders,
@@ -134,7 +134,7 @@ export default {
           bytes = await request.bytes();
 
           if (bytes.byteLength > MAX_REQUEST_BODY_BYTES) {
-            return new Response('Payload Too Large', {
+            return new Response(null, {
               status: 413,
               statusText: 'Payload Too Large',
               headers: corsHeaders,
@@ -142,14 +142,14 @@ export default {
           }
         } catch (error) {
           if (error instanceof RangeError) {
-            return new Response('Payload Too Large', {
+            return new Response(null, {
               status: 413,
               statusText: 'Payload Too Large',
               headers: corsHeaders,
             });
           }
 
-          return new Response('Bad Request: Unknown error', {
+          return new Response('Invalid request body', {
             status: 400,
             statusText: 'Bad Request',
             headers: corsHeaders,
@@ -162,14 +162,14 @@ export default {
           json = JSON.parse(new TextDecoder().decode(bytes));
         } catch (error) {
           if (error instanceof SyntaxError) {
-            return new Response('Bad Request: Invalid JSON', {
+            return new Response('Invalid JSON', {
               status: 400,
               statusText: 'Bad Request',
               headers: corsHeaders,
             });
           }
 
-          return new Response('Bad Request: Unknown error', {
+          return new Response('Invalid request body', {
             status: 400,
             statusText: 'Bad Request',
             headers: corsHeaders,
@@ -177,7 +177,7 @@ export default {
         }
 
         if (!isChatCompletionCreateParams(json)) {
-          return new Response('Bad Request: Invalid parameters', {
+          return new Response('Invalid parameters', {
             status: 400,
             statusText: 'Bad Request',
             headers: corsHeaders,
@@ -218,14 +218,14 @@ export default {
           });
         } catch (error) {
           if (error instanceof OpenAI.APIError) {
-            return new Response(error.message, {
+            return new Response(null, {
               status: error.status ?? 502,
-              statusText: 'Bad Gateway',
+              // Do not include `statusText` because it may vary with the `error.status`.
               headers: corsHeaders,
             });
           }
 
-          return new Response('Internal Server Error', {
+          return new Response(null, {
             status: 500,
             statusText: 'Internal Server Error',
             headers: corsHeaders,
