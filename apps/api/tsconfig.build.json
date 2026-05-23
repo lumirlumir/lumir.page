@@ -4,10 +4,7 @@
   "compilerOptions": {
     /* Modules */
     "allowImportingTsExtensions": true,
-    "types": ["node"],
-
-    /* Emit */
-    "emitDeclarationOnly": true,
-    "outDir": "${configDir}/.tsbuildinfo"
+    "rewriteRelativeImportExtensions": true,
+    "types": ["node"]
   }
 }
