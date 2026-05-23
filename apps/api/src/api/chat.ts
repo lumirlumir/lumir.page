@@ -8,8 +8,14 @@
  * @see https://developers.openai.com/api/reference/resources/chat/subresources/completions/methods/create OpenAI
  * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Access-Control-Allow-Origin MDN
  * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Access-Control-Allow-Methods MDN
+ * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Access-Control-Allow-Headers MDN
  * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Allow MDN
  * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Vary MDN
+ * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Origin MDN
+ * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/User-Agent MDN
+ * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Sec-Fetch-Dest MDN
+ * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Sec-Fetch-Mode MDN
+ * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Sec-Fetch-Site MDN
  */
 
 // --------------------------------------------------------------------------------
@@ -25,7 +31,7 @@ import { ALLOW_ORIGINS } from '../core/constants.ts';
 
 const ALLOW_METHODS = 'POST, OPTIONS';
 const GEMINI_MODEL = 'gemini-3.1-flash-lite';
-const GEMINI_API_ENDPOINT = `https://generativelanguage.googleapis.com/v1beta/openai/`;
+const GEMINI_API_ENDPOINT = 'https://generativelanguage.googleapis.com/v1beta/openai/';
 
 /**
  * Creates CORS headers for API routes.
@@ -36,6 +42,7 @@ export function createCORSHeaders(origin: string) {
   return {
     'Access-Control-Allow-Origin': origin, // CORS
     'Access-Control-Allow-Methods': ALLOW_METHODS, // CORS
+    'Access-Control-Allow-Headers': 'Content-Type', // CORS: TODO
     Allow: ALLOW_METHODS,
     Vary: 'Origin',
   } as const;
@@ -55,6 +62,31 @@ let openai: OpenAI | null = null;
  */
 export default {
   async fetch(request: Request) {
+    const { headers, method } = request;
+
+    const origin = headers.get('Origin');
+    const userAgent = headers.get('User-Agent');
+    const secFetchDest = headers.get('Sec-Fetch-Dest');
+    const secFetchMode = headers.get('Sec-Fetch-Mode');
+    const secFetchSite = headers.get('Sec-Fetch-Site');
+
+    if (
+      origin === null ||
+      !ALLOW_ORIGINS.has(origin) ||
+      userAgent === null ||
+      secFetchDest !== 'empty' ||
+      secFetchMode !== 'cors' ||
+      secFetchSite !== 'same-site'
+    ) {
+      return new Response(null, {
+        status: 403,
+        statusText: 'Forbidden',
+        // Do not include CORS headers for unauthorized origins to avoid leaking information.
+      });
+    }
+
+    const corsHeaders = createCORSHeaders(origin);
+
     if (
       process.env.DISABLE_CHAT === 'true' ||
       process.env.GEMINI_API_KEY === undefined ||
@@ -63,24 +95,11 @@ export default {
       return new Response(null, {
         status: 503,
         statusText: 'Service Unavailable',
-        headers: createCORSHeaders('*'),
+        headers: corsHeaders,
       });
     }
 
-    const origin = request.headers.get('Origin');
-    const userAgent = request.headers.get('User-Agent');
-
-    if (origin === null || userAgent === null || !ALLOW_ORIGINS.has(origin)) {
-      return new Response(null, {
-        status: 403,
-        statusText: 'Forbidden',
-        headers: createCORSHeaders('*'),
-      });
-    }
-
-    const corsHeaders = createCORSHeaders(origin);
-
-    switch (request.method) {
+    switch (method) {
       case 'POST': {
         // Initialize OpenAI client lazily.
         openai ??= new OpenAI({
@@ -139,7 +158,7 @@ export default {
       }
 
       default: {
-        return new Response(`method ${request.method} is not allowed`, {
+        return new Response(`method ${method} is not allowed`, {
           status: 405,
           statusText: 'Method Not Allowed',
           headers: corsHeaders,
