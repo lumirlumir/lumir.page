@@ -1,6 +1,7 @@
 /**
  * @fileoverview Local development client for testing the API server.
- * Usage: `node path/to/client.ts <method> <pathname> [body] [--error]`
+ * Usage: `node path/to/client.ts <method> <pathname> [body] [--error | -e] [--verbose | -v]`
+ * Example: `npm run req -- POST chat '{"messages":[{"role":"user","content":"Hi, how are you?"}]}' -v`
  */
 
 /* eslint-disable no-console -- This file is for local development testing */
@@ -62,6 +63,7 @@ const response = await fetch(
       'Sec-Fetch-Dest': 'empty',
       'Sec-Fetch-Mode': 'cors',
       'Sec-Fetch-Site': 'same-site',
+      ...(body === undefined ? {} : { 'Content-Type': 'application/json' }),
     },
     method: method.toUpperCase(),
     body,

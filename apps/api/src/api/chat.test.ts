@@ -6,52 +6,17 @@
 // Import
 // --------------------------------------------------------------------------------
 
-import { afterEach, assert, describe, it, vi } from 'vitest';
-import { ALLOW_ORIGINS } from '../core/constants.js';
+import { afterEach, assert, describe, it, vi, type Mock } from 'vitest';
+import OpenAI from 'openai';
+import { Completions } from 'openai/resources/chat/completions';
 import chat from './chat.js';
+import { ALLOW_ORIGINS } from '../core/constants.js';
 
 // --------------------------------------------------------------------------------
 // Mock
 // --------------------------------------------------------------------------------
 
-const { APIErrorMock, createMock, OpenAIMock } = vi.hoisted(() => {
-  const completionCreateMock = vi.fn();
-
-  class MockAPIError extends Error {
-    status: number | undefined;
-
-    constructor(message: string, status?: number) {
-      super(message);
-      this.status = status;
-    }
-  }
-
-  function OpenAIMockImplementation() {
-    return {
-      chat: {
-        completions: {
-          create: completionCreateMock,
-        },
-      },
-    };
-  }
-
-  const MockOpenAI = vi.fn(OpenAIMockImplementation);
-
-  Object.assign(MockOpenAI, {
-    APIError: MockAPIError,
-  });
-
-  return {
-    APIErrorMock: MockAPIError,
-    createMock: completionCreateMock,
-    OpenAIMock: MockOpenAI,
-  };
-});
-
-vi.mock('openai', () => ({
-  default: OpenAIMock,
-}));
+const createMock = vi.spyOn(Completions.prototype, 'create') as Mock;
 
 // --------------------------------------------------------------------------------
 // Helper
@@ -74,7 +39,6 @@ const CORS_REQUEST_HEADERS = {
 describe('chat', () => {
   afterEach(() => {
     createMock.mockReset();
-    OpenAIMock.mockClear();
     vi.unstubAllEnvs();
   });
 
@@ -454,7 +418,6 @@ describe('chat', () => {
             max_completion_tokens: 128,
             reasoning_effort: 'low',
             temperature: 0.2,
-            verbosity: 'low',
           }),
         }),
       );
@@ -475,19 +438,18 @@ describe('chat', () => {
       );
       assert.strictEqual(response.headers.get('Allow'), 'POST, OPTIONS');
       assert.strictEqual(response.headers.get('Vary'), 'Origin');
+      assert.strictEqual(response.headers.get('Content-Type'), 'application/json');
       assert.deepStrictEqual(await response.json(), completion);
       assert.strictEqual(createMock.mock.calls.length, 1);
       assert.deepStrictEqual(createMock.mock.calls[0]?.[0], {
         model: 'gemini-3.1-flash-lite',
         presence_penalty: 0,
-        prompt_cache_retention: '24h',
         stream: false,
         top_p: 1,
         messages: [{ role: 'user', content: 'hello' }],
         max_completion_tokens: 128,
         reasoning_effort: 'low',
         temperature: 0.2,
-        verbosity: 'low',
       });
     });
 
@@ -517,7 +479,12 @@ describe('chat', () => {
     it('should return the upstream status for openai api errors without exposing the message', async () => {
       vi.stubEnv('GEMINI_API_KEY', 'test-gemini-api-key');
       createMock.mockRejectedValueOnce(
-        new APIErrorMock('upstream rate limit details', 429),
+        OpenAI.APIError.generate(
+          429,
+          undefined,
+          'upstream rate limit details',
+          new Headers(),
+        ),
       );
 
       const response = await chat.fetch(

@@ -61,7 +61,7 @@ function isChatCompletionCreateParams(
   json: unknown,
 ): json is Pick<
   OpenAI.ChatCompletionCreateParams,
-  'messages' | 'max_completion_tokens' | 'reasoning_effort' | 'temperature' | 'verbosity'
+  'messages' | 'max_completion_tokens' | 'reasoning_effort' | 'temperature'
 > {
   if (typeof json !== 'object' || json === null) {
     return false;
@@ -95,16 +95,6 @@ function isChatCompletionCreateParams(
   if (
     'temperature' in json &&
     (typeof json.temperature !== 'number' || json.temperature < 0 || json.temperature > 2)
-  ) {
-    return false;
-  }
-
-  // `verbosity`: optional, 'low' | 'medium' | 'high'
-  if (
-    'verbosity' in json &&
-    json.verbosity !== 'low' &&
-    json.verbosity !== 'medium' &&
-    json.verbosity !== 'high'
   ) {
     return false;
   }
@@ -234,11 +224,11 @@ export default {
             baseURL: GEMINI_API_ENDPOINT,
           });
 
+          // `prompt_cache_retention` and `verbosity` is not supported by Gemini.
           const completion = await openai.chat.completions.create({
             // Fixed parameters
             model: GEMINI_MODEL,
             presence_penalty: 0,
-            prompt_cache_retention: '24h',
             stream: false,
             top_p: 1,
 
@@ -250,13 +240,15 @@ export default {
             ), // optional
             reasoning_effort: json.reasoning_effort ?? 'medium', // optional
             temperature: json.temperature ?? 0.7, // optional
-            verbosity: json.verbosity ?? 'medium', // optional
           });
 
           return new Response(JSON.stringify(completion), {
             status: 200,
             statusText: 'OK',
-            headers: corsHeaders,
+            headers: {
+              ...corsHeaders,
+              'Content-Type': 'application/json',
+            },
           });
         } catch (error) {
           if (error instanceof OpenAI.APIError) {
