@@ -5,7 +5,7 @@ export default defineConfig({
     coverage: {
       provider: 'v8',
       reporter: ['text', 'lcov'],
-      exclude: ['**/build/**'],
+      exclude: ['**/build/**', '**/package.json'],
     },
     projects: ['apps/*', 'packages/*'],
   },

@@ -2,14 +2,12 @@
   "extends": "../../tsconfig.base.build.json",
   "references": [],
   "compilerOptions": {
-    /* Type Checking */
-    "noImplicitAny": false, // TODO: Enable this in the future for better type safety.
-
     /* Modules */
     "allowImportingTsExtensions": true,
     "types": ["node"],
 
     /* Emit */
-    "noEmit": true
+    "emitDeclarationOnly": true,
+    "outDir": "${configDir}/.tsbuildinfo"
   }
 }

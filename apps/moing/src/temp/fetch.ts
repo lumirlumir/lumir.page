@@ -7,16 +7,15 @@
 // --------------------------------------------------------------------------------
 
 import OpenAI from 'openai';
-import { questionMain, questionSub, answer, feedback } from './prompt.ts';
-import { type CustomChatCompletionMessageParam, type QuestionType } from './types.ts';
+import { type QuestionType } from '@/hooks/use-config';
+import { questionMain, questionSub, answer, feedback } from './prompt.js';
+import { type CustomChatCompletionMessageParam } from './types.js';
 
 // --------------------------------------------------------------------------------
 // Helper
 // --------------------------------------------------------------------------------
 
-const openaiInstance = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-});
+const openaiInstance = new OpenAI();
 
 /**
  * Fetches a response from OpenAI's chat completion API.
@@ -34,8 +33,7 @@ async function fetching(messages: CustomChatCompletionMessageParam[]): Promise<s
     messages,
   });
 
-  // @ts-expect-error -- TODO
-  return response?.choices?.[0]?.message?.content;
+  return response?.choices?.[0]?.message?.content ?? '';
 }
 
 /**
