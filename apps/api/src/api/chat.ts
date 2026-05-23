@@ -34,7 +34,7 @@ import { ALLOW_ORIGINS } from '../core/constants.ts';
 const ALLOW_METHODS = 'POST, OPTIONS';
 const GEMINI_MODEL = 'gemini-3.1-flash-lite';
 const GEMINI_API_ENDPOINT = 'https://generativelanguage.googleapis.com/v1beta/openai/';
-const MAX_REQUEST_BODY_BYTES = 8_192;
+const MAX_REQUEST_BODY_BYTES = 32_768; // 32KB
 const MAX_COMPLETION_TOKENS = 2_048;
 
 /**

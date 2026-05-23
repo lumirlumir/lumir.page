@@ -13,12 +13,6 @@ import chat from './chat.js';
 import { ALLOW_ORIGINS } from '../core/constants.js';
 
 // --------------------------------------------------------------------------------
-// Mock
-// --------------------------------------------------------------------------------
-
-const createMock = vi.spyOn(Completions.prototype, 'create') as Mock;
-
-// --------------------------------------------------------------------------------
 // Helper
 // --------------------------------------------------------------------------------
 
@@ -32,18 +26,49 @@ const CORS_REQUEST_HEADERS = {
   'Sec-Fetch-Site': 'same-site',
 } as const;
 
+const chatCompletionMock = vi.spyOn(Completions.prototype, 'create') as Mock;
+
 // --------------------------------------------------------------------------------
 // Test
 // --------------------------------------------------------------------------------
 
 describe('chat', () => {
   afterEach(() => {
-    createMock.mockReset();
+    chatCompletionMock.mockReset();
     vi.unstubAllEnvs();
   });
 
   describe('when the request metadata is not allowed', () => {
-    it('should reject unauthorized origins without cors headers', async () => {
+    it('should reject missing `Origin`', async () => {
+      const headers = new Headers({
+        ...CORS_REQUEST_HEADERS,
+        'Content-Type': 'application/json',
+      });
+
+      headers.delete('Origin');
+
+      const response = await chat.fetch(
+        new Request(REQUEST_URL, {
+          method: 'POST',
+          headers,
+          body: JSON.stringify({
+            messages: [{ role: 'user', content: 'hello' }],
+          }),
+        }),
+      );
+
+      assert.strictEqual(response.status, 403);
+      assert.strictEqual(response.statusText, 'Forbidden');
+      // Should not return CORS headers.
+      assert.strictEqual(response.headers.get('Access-Control-Allow-Origin'), null);
+      assert.strictEqual(response.headers.get('Access-Control-Allow-Methods'), null);
+      assert.strictEqual(response.headers.get('Access-Control-Allow-Headers'), null);
+      assert.strictEqual(response.headers.get('Allow'), null);
+      assert.strictEqual(response.headers.get('Vary'), null);
+      assert.strictEqual(await response.text(), '');
+    });
+
+    it('should reject unauthorized `Origin`', async () => {
       const response = await chat.fetch(
         new Request(REQUEST_URL, {
           method: 'POST',
@@ -60,15 +85,125 @@ describe('chat', () => {
 
       assert.strictEqual(response.status, 403);
       assert.strictEqual(response.statusText, 'Forbidden');
+      // Should not return CORS headers.
       assert.strictEqual(response.headers.get('Access-Control-Allow-Origin'), null);
       assert.strictEqual(response.headers.get('Access-Control-Allow-Methods'), null);
+      assert.strictEqual(response.headers.get('Access-Control-Allow-Headers'), null);
       assert.strictEqual(response.headers.get('Allow'), null);
+      assert.strictEqual(response.headers.get('Vary'), null);
+      assert.strictEqual(await response.text(), '');
+    });
+
+    it('should reject missing `User-Agent`', async () => {
+      const headers = new Headers({
+        ...CORS_REQUEST_HEADERS,
+        'Content-Type': 'application/json',
+      });
+
+      headers.delete('User-Agent');
+
+      const response = await chat.fetch(
+        new Request(REQUEST_URL, {
+          method: 'POST',
+          headers,
+          body: JSON.stringify({
+            messages: [{ role: 'user', content: 'hello' }],
+          }),
+        }),
+      );
+
+      assert.strictEqual(response.status, 403);
+      assert.strictEqual(response.statusText, 'Forbidden');
+      // Should not return CORS headers.
+      assert.strictEqual(response.headers.get('Access-Control-Allow-Origin'), null);
+      assert.strictEqual(response.headers.get('Access-Control-Allow-Methods'), null);
+      assert.strictEqual(response.headers.get('Access-Control-Allow-Headers'), null);
+      assert.strictEqual(response.headers.get('Allow'), null);
+      assert.strictEqual(response.headers.get('Vary'), null);
+      assert.strictEqual(await response.text(), '');
+    });
+
+    it('should reject unexpected `Sec-Fetch-Dest`', async () => {
+      const response = await chat.fetch(
+        new Request(REQUEST_URL, {
+          method: 'POST',
+          headers: {
+            ...CORS_REQUEST_HEADERS,
+            'Content-Type': 'application/json',
+            'Sec-Fetch-Dest': 'document',
+          },
+          body: JSON.stringify({
+            messages: [{ role: 'user', content: 'hello' }],
+          }),
+        }),
+      );
+
+      assert.strictEqual(response.status, 403);
+      assert.strictEqual(response.statusText, 'Forbidden');
+      // Should not return CORS headers.
+      assert.strictEqual(response.headers.get('Access-Control-Allow-Origin'), null);
+      assert.strictEqual(response.headers.get('Access-Control-Allow-Methods'), null);
+      assert.strictEqual(response.headers.get('Access-Control-Allow-Headers'), null);
+      assert.strictEqual(response.headers.get('Allow'), null);
+      assert.strictEqual(response.headers.get('Vary'), null);
+      assert.strictEqual(await response.text(), '');
+    });
+
+    it('should reject unexpected `Sec-Fetch-Mode`', async () => {
+      const response = await chat.fetch(
+        new Request(REQUEST_URL, {
+          method: 'POST',
+          headers: {
+            ...CORS_REQUEST_HEADERS,
+            'Content-Type': 'application/json',
+            'Sec-Fetch-Mode': 'navigate',
+          },
+          body: JSON.stringify({
+            messages: [{ role: 'user', content: 'hello' }],
+          }),
+        }),
+      );
+
+      assert.strictEqual(response.status, 403);
+      assert.strictEqual(response.statusText, 'Forbidden');
+      // Should not return CORS headers.
+      assert.strictEqual(response.headers.get('Access-Control-Allow-Origin'), null);
+      assert.strictEqual(response.headers.get('Access-Control-Allow-Methods'), null);
+      assert.strictEqual(response.headers.get('Access-Control-Allow-Headers'), null);
+      assert.strictEqual(response.headers.get('Allow'), null);
+      assert.strictEqual(response.headers.get('Vary'), null);
+      assert.strictEqual(await response.text(), '');
+    });
+
+    it('should reject unexpected `Sec-Fetch-Site`', async () => {
+      const response = await chat.fetch(
+        new Request(REQUEST_URL, {
+          method: 'POST',
+          headers: {
+            ...CORS_REQUEST_HEADERS,
+            'Content-Type': 'application/json',
+            'Sec-Fetch-Site': 'cross-site',
+          },
+          body: JSON.stringify({
+            messages: [{ role: 'user', content: 'hello' }],
+          }),
+        }),
+      );
+
+      assert.strictEqual(response.status, 403);
+      assert.strictEqual(response.statusText, 'Forbidden');
+      // Should not return CORS headers.
+      assert.strictEqual(response.headers.get('Access-Control-Allow-Origin'), null);
+      assert.strictEqual(response.headers.get('Access-Control-Allow-Methods'), null);
+      assert.strictEqual(response.headers.get('Access-Control-Allow-Headers'), null);
+      assert.strictEqual(response.headers.get('Allow'), null);
+      assert.strictEqual(response.headers.get('Vary'), null);
       assert.strictEqual(await response.text(), '');
     });
   });
 
   describe('when the endpoint is disabled', () => {
-    it('should return a service unavailable response with cors headers', async () => {
+    it('should return a service unavailable response', async () => {
       vi.stubEnv('DISABLE_CHAT', 'true');
 
       const response = await chat.fetch(
@@ -107,8 +242,8 @@ describe('chat', () => {
   describe('when the endpoint is enabled', () => {
     describe('POST', () => {
       it('should accept application json content types without parameters', async () => {
+        chatCompletionMock.mockResolvedValueOnce({ choices: [] });
         vi.stubEnv('GEMINI_API_KEY', 'test-gemini-api-key');
-        createMock.mockResolvedValueOnce({ choices: [] });
 
         const response = await chat.fetch(
           new Request(REQUEST_URL, {
@@ -124,12 +259,28 @@ describe('chat', () => {
         );
 
         assert.strictEqual(response.status, 200);
-        assert.strictEqual(createMock.mock.calls.length, 1);
+        assert.strictEqual(response.statusText, 'OK');
+        assert.strictEqual(
+          response.headers.get('Access-Control-Allow-Origin'),
+          ALLOW_ORIGIN,
+        );
+        assert.strictEqual(
+          response.headers.get('Access-Control-Allow-Methods'),
+          'POST, OPTIONS',
+        );
+        assert.strictEqual(
+          response.headers.get('Access-Control-Allow-Headers'),
+          'Content-Type',
+        );
+        assert.strictEqual(response.headers.get('Allow'), 'POST, OPTIONS');
+        assert.strictEqual(response.headers.get('Vary'), 'Origin');
+        assert.strictEqual(chatCompletionMock.mock.calls.length, 1);
+        assert.deepStrictEqual(await response.json(), { choices: [] });
       });
 
       it('should accept application json content types case insensitively', async () => {
+        chatCompletionMock.mockResolvedValueOnce({ choices: [] });
         vi.stubEnv('GEMINI_API_KEY', 'test-gemini-api-key');
-        createMock.mockResolvedValueOnce({ choices: [] });
 
         const response = await chat.fetch(
           new Request(REQUEST_URL, {
@@ -145,12 +296,28 @@ describe('chat', () => {
         );
 
         assert.strictEqual(response.status, 200);
-        assert.strictEqual(createMock.mock.calls.length, 1);
+        assert.strictEqual(response.statusText, 'OK');
+        assert.strictEqual(
+          response.headers.get('Access-Control-Allow-Origin'),
+          ALLOW_ORIGIN,
+        );
+        assert.strictEqual(
+          response.headers.get('Access-Control-Allow-Methods'),
+          'POST, OPTIONS',
+        );
+        assert.strictEqual(
+          response.headers.get('Access-Control-Allow-Headers'),
+          'Content-Type',
+        );
+        assert.strictEqual(response.headers.get('Allow'), 'POST, OPTIONS');
+        assert.strictEqual(response.headers.get('Vary'), 'Origin');
+        assert.strictEqual(chatCompletionMock.mock.calls.length, 1);
+        assert.deepStrictEqual(await response.json(), { choices: [] });
       });
 
       it('should accept application json content types with charset parameters', async () => {
+        chatCompletionMock.mockResolvedValueOnce({ choices: [] });
         vi.stubEnv('GEMINI_API_KEY', 'test-gemini-api-key');
-        createMock.mockResolvedValueOnce({ choices: [] });
 
         const response = await chat.fetch(
           new Request(REQUEST_URL, {
@@ -166,12 +333,28 @@ describe('chat', () => {
         );
 
         assert.strictEqual(response.status, 200);
-        assert.strictEqual(createMock.mock.calls.length, 1);
+        assert.strictEqual(response.statusText, 'OK');
+        assert.strictEqual(
+          response.headers.get('Access-Control-Allow-Origin'),
+          ALLOW_ORIGIN,
+        );
+        assert.strictEqual(
+          response.headers.get('Access-Control-Allow-Methods'),
+          'POST, OPTIONS',
+        );
+        assert.strictEqual(
+          response.headers.get('Access-Control-Allow-Headers'),
+          'Content-Type',
+        );
+        assert.strictEqual(response.headers.get('Allow'), 'POST, OPTIONS');
+        assert.strictEqual(response.headers.get('Vary'), 'Origin');
+        assert.strictEqual(chatCompletionMock.mock.calls.length, 1);
+        assert.deepStrictEqual(await response.json(), { choices: [] });
       });
 
       it('should accept application json content types with whitespace before parameters', async () => {
+        chatCompletionMock.mockResolvedValueOnce({ choices: [] });
         vi.stubEnv('GEMINI_API_KEY', 'test-gemini-api-key');
-        createMock.mockResolvedValueOnce({ choices: [] });
 
         const response = await chat.fetch(
           new Request(REQUEST_URL, {
@@ -187,7 +370,23 @@ describe('chat', () => {
         );
 
         assert.strictEqual(response.status, 200);
-        assert.strictEqual(createMock.mock.calls.length, 1);
+        assert.strictEqual(response.statusText, 'OK');
+        assert.strictEqual(
+          response.headers.get('Access-Control-Allow-Origin'),
+          ALLOW_ORIGIN,
+        );
+        assert.strictEqual(
+          response.headers.get('Access-Control-Allow-Methods'),
+          'POST, OPTIONS',
+        );
+        assert.strictEqual(
+          response.headers.get('Access-Control-Allow-Headers'),
+          'Content-Type',
+        );
+        assert.strictEqual(response.headers.get('Allow'), 'POST, OPTIONS');
+        assert.strictEqual(response.headers.get('Vary'), 'Origin');
+        assert.strictEqual(chatCompletionMock.mock.calls.length, 1);
+        assert.deepStrictEqual(await response.json(), { choices: [] });
       });
 
       it('should reject application jsonp content types', async () => {
@@ -208,7 +407,22 @@ describe('chat', () => {
 
         assert.strictEqual(response.status, 415);
         assert.strictEqual(response.statusText, 'Unsupported Media Type');
-        assert.strictEqual(createMock.mock.calls.length, 0);
+        assert.strictEqual(
+          response.headers.get('Access-Control-Allow-Origin'),
+          ALLOW_ORIGIN,
+        );
+        assert.strictEqual(
+          response.headers.get('Access-Control-Allow-Methods'),
+          'POST, OPTIONS',
+        );
+        assert.strictEqual(
+          response.headers.get('Access-Control-Allow-Headers'),
+          'Content-Type',
+        );
+        assert.strictEqual(response.headers.get('Allow'), 'POST, OPTIONS');
+        assert.strictEqual(response.headers.get('Vary'), 'Origin');
+        assert.strictEqual(chatCompletionMock.mock.calls.length, 0);
+        assert.strictEqual(await response.text(), '');
       });
 
       it('should reject structured suffix application json content types', async () => {
@@ -229,7 +443,22 @@ describe('chat', () => {
 
         assert.strictEqual(response.status, 415);
         assert.strictEqual(response.statusText, 'Unsupported Media Type');
-        assert.strictEqual(createMock.mock.calls.length, 0);
+        assert.strictEqual(
+          response.headers.get('Access-Control-Allow-Origin'),
+          ALLOW_ORIGIN,
+        );
+        assert.strictEqual(
+          response.headers.get('Access-Control-Allow-Methods'),
+          'POST, OPTIONS',
+        );
+        assert.strictEqual(
+          response.headers.get('Access-Control-Allow-Headers'),
+          'Content-Type',
+        );
+        assert.strictEqual(response.headers.get('Allow'), 'POST, OPTIONS');
+        assert.strictEqual(response.headers.get('Vary'), 'Origin');
+        assert.strictEqual(chatCompletionMock.mock.calls.length, 0);
+        assert.strictEqual(await response.text(), '');
       });
 
       it('should reject text plain content types that mention application json as a parameter', async () => {
@@ -250,10 +479,25 @@ describe('chat', () => {
 
         assert.strictEqual(response.status, 415);
         assert.strictEqual(response.statusText, 'Unsupported Media Type');
-        assert.strictEqual(createMock.mock.calls.length, 0);
+        assert.strictEqual(
+          response.headers.get('Access-Control-Allow-Origin'),
+          ALLOW_ORIGIN,
+        );
+        assert.strictEqual(
+          response.headers.get('Access-Control-Allow-Methods'),
+          'POST, OPTIONS',
+        );
+        assert.strictEqual(
+          response.headers.get('Access-Control-Allow-Headers'),
+          'Content-Type',
+        );
+        assert.strictEqual(response.headers.get('Allow'), 'POST, OPTIONS');
+        assert.strictEqual(response.headers.get('Vary'), 'Origin');
+        assert.strictEqual(chatCompletionMock.mock.calls.length, 0);
+        assert.strictEqual(await response.text(), '');
       });
 
-      it('should reject unsupported content types with cors headers', async () => {
+      it('should reject unsupported content types', async () => {
         vi.stubEnv('GEMINI_API_KEY', 'test-gemini-api-key');
 
         const response = await chat.fetch(
@@ -283,6 +527,7 @@ describe('chat', () => {
         );
         assert.strictEqual(response.headers.get('Allow'), 'POST, OPTIONS');
         assert.strictEqual(response.headers.get('Vary'), 'Origin');
+        assert.strictEqual(chatCompletionMock.mock.calls.length, 0);
         assert.strictEqual(await response.text(), '');
       });
 
@@ -296,7 +541,7 @@ describe('chat', () => {
               ...CORS_REQUEST_HEADERS,
               'Content-Type': 'application/json',
             },
-            body: 'x'.repeat(8_193),
+            body: 'x'.repeat(32_769), // 32KB + 1 byte
           }),
         );
 
@@ -316,6 +561,7 @@ describe('chat', () => {
         );
         assert.strictEqual(response.headers.get('Allow'), 'POST, OPTIONS');
         assert.strictEqual(response.headers.get('Vary'), 'Origin');
+        assert.strictEqual(chatCompletionMock.mock.calls.length, 0);
         assert.strictEqual(await response.text(), '');
       });
 
@@ -349,6 +595,7 @@ describe('chat', () => {
         );
         assert.strictEqual(response.headers.get('Allow'), 'POST, OPTIONS');
         assert.strictEqual(response.headers.get('Vary'), 'Origin');
+        assert.strictEqual(chatCompletionMock.mock.calls.length, 0);
         assert.strictEqual(await response.text(), 'Invalid JSON');
       });
 
@@ -385,12 +632,11 @@ describe('chat', () => {
         );
         assert.strictEqual(response.headers.get('Allow'), 'POST, OPTIONS');
         assert.strictEqual(response.headers.get('Vary'), 'Origin');
+        assert.strictEqual(chatCompletionMock.mock.calls.length, 0);
         assert.strictEqual(await response.text(), 'Invalid parameters');
       });
 
       it('should return a chat completion response with fixed and dynamic parameters', async () => {
-        vi.stubEnv('GEMINI_API_KEY', 'test-gemini-api-key');
-
         const completion = {
           id: 'chatcmpl_test',
           choices: [
@@ -405,7 +651,8 @@ describe('chat', () => {
           ],
         };
 
-        createMock.mockResolvedValueOnce(completion);
+        chatCompletionMock.mockResolvedValueOnce(completion);
+        vi.stubEnv('GEMINI_API_KEY', 'test-gemini-api-key');
 
         const response = await chat.fetch(
           new Request(REQUEST_URL, {
@@ -441,8 +688,8 @@ describe('chat', () => {
         assert.strictEqual(response.headers.get('Vary'), 'Origin');
         assert.strictEqual(response.headers.get('Content-Type'), 'application/json');
         assert.deepStrictEqual(await response.json(), completion);
-        assert.strictEqual(createMock.mock.calls.length, 1);
-        assert.deepStrictEqual(createMock.mock.calls[0]?.[0], {
+        assert.strictEqual(chatCompletionMock.mock.calls.length, 1);
+        assert.deepStrictEqual(chatCompletionMock.mock.calls[0][0], {
           model: 'gemini-3.1-flash-lite',
           presence_penalty: 0,
           stream: false,
@@ -455,8 +702,8 @@ describe('chat', () => {
       });
 
       it('should cap requested completion tokens at the endpoint limit', async () => {
+        chatCompletionMock.mockResolvedValueOnce({ choices: [] });
         vi.stubEnv('GEMINI_API_KEY', 'test-gemini-api-key');
-        createMock.mockResolvedValueOnce({ choices: [] });
 
         const response = await chat.fetch(
           new Request(REQUEST_URL, {
@@ -473,13 +720,31 @@ describe('chat', () => {
         );
 
         assert.strictEqual(response.status, 200);
-        assert.strictEqual(createMock.mock.calls.length, 1);
-        assert.strictEqual(createMock.mock.calls[0]?.[0].max_completion_tokens, 2_048);
+        assert.strictEqual(response.statusText, 'OK');
+        assert.strictEqual(
+          response.headers.get('Access-Control-Allow-Origin'),
+          ALLOW_ORIGIN,
+        );
+        assert.strictEqual(
+          response.headers.get('Access-Control-Allow-Methods'),
+          'POST, OPTIONS',
+        );
+        assert.strictEqual(
+          response.headers.get('Access-Control-Allow-Headers'),
+          'Content-Type',
+        );
+        assert.strictEqual(response.headers.get('Allow'), 'POST, OPTIONS');
+        assert.strictEqual(response.headers.get('Vary'), 'Origin');
+        assert.strictEqual(chatCompletionMock.mock.calls.length, 1);
+        assert.strictEqual(
+          chatCompletionMock.mock.calls[0][0].max_completion_tokens,
+          2_048,
+        );
+        assert.deepStrictEqual(await response.json(), { choices: [] });
       });
 
       it('should return the upstream status for openai api errors without exposing the message', async () => {
-        vi.stubEnv('GEMINI_API_KEY', 'test-gemini-api-key');
-        createMock.mockRejectedValueOnce(
+        chatCompletionMock.mockRejectedValueOnce(
           OpenAI.APIError.generate(
             429,
             undefined,
@@ -487,6 +752,7 @@ describe('chat', () => {
             new Headers(),
           ),
         );
+        vi.stubEnv('GEMINI_API_KEY', 'test-gemini-api-key');
 
         const response = await chat.fetch(
           new Request(REQUEST_URL, {
@@ -502,6 +768,7 @@ describe('chat', () => {
         );
 
         assert.strictEqual(response.status, 429);
+        assert.strictEqual(response.statusText, '');
         assert.strictEqual(
           response.headers.get('Access-Control-Allow-Origin'),
           ALLOW_ORIGIN,
@@ -516,6 +783,88 @@ describe('chat', () => {
         );
         assert.strictEqual(response.headers.get('Allow'), 'POST, OPTIONS');
         assert.strictEqual(response.headers.get('Vary'), 'Origin');
+        assert.strictEqual(chatCompletionMock.mock.calls.length, 1);
+        assert.strictEqual(await response.text(), '');
+      });
+
+      it('should fall back to bad gateway for openai api errors without a status', async () => {
+        chatCompletionMock.mockRejectedValueOnce(
+          OpenAI.APIError.generate(
+            undefined,
+            undefined,
+            'upstream connection details',
+            undefined,
+          ),
+        );
+        vi.stubEnv('GEMINI_API_KEY', 'test-gemini-api-key');
+
+        const response = await chat.fetch(
+          new Request(REQUEST_URL, {
+            method: 'POST',
+            headers: {
+              ...CORS_REQUEST_HEADERS,
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              messages: [{ role: 'user', content: 'hello' }],
+            }),
+          }),
+        );
+
+        assert.strictEqual(response.status, 502);
+        assert.strictEqual(response.statusText, '');
+        assert.strictEqual(
+          response.headers.get('Access-Control-Allow-Origin'),
+          ALLOW_ORIGIN,
+        );
+        assert.strictEqual(
+          response.headers.get('Access-Control-Allow-Methods'),
+          'POST, OPTIONS',
+        );
+        assert.strictEqual(
+          response.headers.get('Access-Control-Allow-Headers'),
+          'Content-Type',
+        );
+        assert.strictEqual(response.headers.get('Allow'), 'POST, OPTIONS');
+        assert.strictEqual(response.headers.get('Vary'), 'Origin');
+        assert.strictEqual(chatCompletionMock.mock.calls.length, 1);
+        assert.strictEqual(await response.text(), '');
+      });
+
+      it('should fall back to internal server error for unexpected completion failures', async () => {
+        chatCompletionMock.mockRejectedValueOnce(new Error('unexpected failure'));
+        vi.stubEnv('GEMINI_API_KEY', 'test-gemini-api-key');
+
+        const response = await chat.fetch(
+          new Request(REQUEST_URL, {
+            method: 'POST',
+            headers: {
+              ...CORS_REQUEST_HEADERS,
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              messages: [{ role: 'user', content: 'hello' }],
+            }),
+          }),
+        );
+
+        assert.strictEqual(response.status, 500);
+        assert.strictEqual(response.statusText, 'Internal Server Error');
+        assert.strictEqual(
+          response.headers.get('Access-Control-Allow-Origin'),
+          ALLOW_ORIGIN,
+        );
+        assert.strictEqual(
+          response.headers.get('Access-Control-Allow-Methods'),
+          'POST, OPTIONS',
+        );
+        assert.strictEqual(
+          response.headers.get('Access-Control-Allow-Headers'),
+          'Content-Type',
+        );
+        assert.strictEqual(response.headers.get('Allow'), 'POST, OPTIONS');
+        assert.strictEqual(response.headers.get('Vary'), 'Origin');
+        assert.strictEqual(chatCompletionMock.mock.calls.length, 1);
         assert.strictEqual(await response.text(), '');
       });
     });
@@ -552,214 +901,6 @@ describe('chat', () => {
         assert.strictEqual(response.headers.get('Allow'), 'POST, OPTIONS');
         assert.strictEqual(response.headers.get('Vary'), 'Origin');
         assert.strictEqual(await response.text(), '');
-      });
-
-      it('should accept OPTIONS preflight requested content type headers', async () => {
-        vi.stubEnv('GEMINI_API_KEY', 'test-gemini-api-key');
-
-        const response = await chat.fetch(
-          new Request(REQUEST_URL, {
-            method: 'OPTIONS',
-            headers: {
-              ...CORS_REQUEST_HEADERS,
-              'Access-Control-Request-Method': 'POST',
-              'Access-Control-Request-Headers': 'content-type',
-            },
-          }),
-        );
-
-        assert.strictEqual(response.status, 204);
-        assert.strictEqual(response.statusText, 'No Content');
-        assert.strictEqual(
-          response.headers.get('Access-Control-Allow-Origin'),
-          ALLOW_ORIGIN,
-        );
-        assert.strictEqual(
-          response.headers.get('Access-Control-Allow-Headers'),
-          'Content-Type',
-        );
-      });
-
-      it('should accept OPTIONS preflight requested content type headers case insensitively', async () => {
-        vi.stubEnv('GEMINI_API_KEY', 'test-gemini-api-key');
-
-        const response = await chat.fetch(
-          new Request(REQUEST_URL, {
-            method: 'OPTIONS',
-            headers: {
-              ...CORS_REQUEST_HEADERS,
-              'Access-Control-Request-Method': 'POST',
-              'Access-Control-Request-Headers': 'Content-Type',
-            },
-          }),
-        );
-
-        assert.strictEqual(response.status, 204);
-        assert.strictEqual(response.statusText, 'No Content');
-        assert.strictEqual(
-          response.headers.get('Access-Control-Allow-Origin'),
-          ALLOW_ORIGIN,
-        );
-        assert.strictEqual(
-          response.headers.get('Access-Control-Allow-Headers'),
-          'Content-Type',
-        );
-      });
-
-      it('should accept OPTIONS preflight requested content type headers with leading whitespace', async () => {
-        vi.stubEnv('GEMINI_API_KEY', 'test-gemini-api-key');
-
-        const response = await chat.fetch(
-          new Request(REQUEST_URL, {
-            method: 'OPTIONS',
-            headers: {
-              ...CORS_REQUEST_HEADERS,
-              'Access-Control-Request-Method': 'POST',
-              'Access-Control-Request-Headers': '  content-type',
-            },
-          }),
-        );
-
-        assert.strictEqual(response.status, 204);
-        assert.strictEqual(response.statusText, 'No Content');
-        assert.strictEqual(
-          response.headers.get('Access-Control-Allow-Origin'),
-          ALLOW_ORIGIN,
-        );
-        assert.strictEqual(
-          response.headers.get('Access-Control-Allow-Headers'),
-          'Content-Type',
-        );
-      });
-
-      it('should accept OPTIONS preflight requested content type headers with trailing whitespace', async () => {
-        vi.stubEnv('GEMINI_API_KEY', 'test-gemini-api-key');
-
-        const response = await chat.fetch(
-          new Request(REQUEST_URL, {
-            method: 'OPTIONS',
-            headers: {
-              ...CORS_REQUEST_HEADERS,
-              'Access-Control-Request-Method': 'POST',
-              'Access-Control-Request-Headers': 'content-type  ',
-            },
-          }),
-        );
-
-        assert.strictEqual(response.status, 204);
-        assert.strictEqual(response.statusText, 'No Content');
-        assert.strictEqual(
-          response.headers.get('Access-Control-Allow-Origin'),
-          ALLOW_ORIGIN,
-        );
-        assert.strictEqual(
-          response.headers.get('Access-Control-Allow-Headers'),
-          'Content-Type',
-        );
-      });
-
-      it('should reject OPTIONS preflight requested content type headers with extra authorization headers', async () => {
-        vi.stubEnv('GEMINI_API_KEY', 'test-gemini-api-key');
-
-        const response = await chat.fetch(
-          new Request(REQUEST_URL, {
-            method: 'OPTIONS',
-            headers: {
-              ...CORS_REQUEST_HEADERS,
-              'Access-Control-Request-Method': 'POST',
-              'Access-Control-Request-Headers': 'content-type, authorization',
-            },
-          }),
-        );
-
-        assert.strictEqual(response.status, 400);
-        assert.strictEqual(response.statusText, 'Bad Request');
-        assert.strictEqual(
-          response.headers.get('Access-Control-Allow-Origin'),
-          ALLOW_ORIGIN,
-        );
-        assert.strictEqual(
-          response.headers.get('Access-Control-Allow-Headers'),
-          'Content-Type',
-        );
-      });
-
-      it('should reject OPTIONS preflight requested authorization headers before content type headers', async () => {
-        vi.stubEnv('GEMINI_API_KEY', 'test-gemini-api-key');
-
-        const response = await chat.fetch(
-          new Request(REQUEST_URL, {
-            method: 'OPTIONS',
-            headers: {
-              ...CORS_REQUEST_HEADERS,
-              'Access-Control-Request-Method': 'POST',
-              'Access-Control-Request-Headers': 'authorization, content-type',
-            },
-          }),
-        );
-
-        assert.strictEqual(response.status, 400);
-        assert.strictEqual(response.statusText, 'Bad Request');
-        assert.strictEqual(
-          response.headers.get('Access-Control-Allow-Origin'),
-          ALLOW_ORIGIN,
-        );
-        assert.strictEqual(
-          response.headers.get('Access-Control-Allow-Headers'),
-          'Content-Type',
-        );
-      });
-
-      it('should reject OPTIONS preflight requested content type headers with prefixes', async () => {
-        vi.stubEnv('GEMINI_API_KEY', 'test-gemini-api-key');
-
-        const response = await chat.fetch(
-          new Request(REQUEST_URL, {
-            method: 'OPTIONS',
-            headers: {
-              ...CORS_REQUEST_HEADERS,
-              'Access-Control-Request-Method': 'POST',
-              'Access-Control-Request-Headers': 'x-content-type',
-            },
-          }),
-        );
-
-        assert.strictEqual(response.status, 400);
-        assert.strictEqual(response.statusText, 'Bad Request');
-        assert.strictEqual(
-          response.headers.get('Access-Control-Allow-Origin'),
-          ALLOW_ORIGIN,
-        );
-        assert.strictEqual(
-          response.headers.get('Access-Control-Allow-Headers'),
-          'Content-Type',
-        );
-      });
-
-      it('should reject OPTIONS preflight requested content type headers with suffixes', async () => {
-        vi.stubEnv('GEMINI_API_KEY', 'test-gemini-api-key');
-
-        const response = await chat.fetch(
-          new Request(REQUEST_URL, {
-            method: 'OPTIONS',
-            headers: {
-              ...CORS_REQUEST_HEADERS,
-              'Access-Control-Request-Method': 'POST',
-              'Access-Control-Request-Headers': 'content-type-extra',
-            },
-          }),
-        );
-
-        assert.strictEqual(response.status, 400);
-        assert.strictEqual(response.statusText, 'Bad Request');
-        assert.strictEqual(
-          response.headers.get('Access-Control-Allow-Origin'),
-          ALLOW_ORIGIN,
-        );
-        assert.strictEqual(
-          response.headers.get('Access-Control-Allow-Headers'),
-          'Content-Type',
-        );
       });
 
       it('should reject OPTIONS preflight requests for unsupported methods', async () => {
@@ -804,6 +945,237 @@ describe('chat', () => {
             headers: {
               ...CORS_REQUEST_HEADERS,
               'Access-Control-Request-Method': 'POST',
+            },
+          }),
+        );
+
+        assert.strictEqual(response.status, 400);
+        assert.strictEqual(response.statusText, 'Bad Request');
+        assert.strictEqual(
+          response.headers.get('Access-Control-Allow-Origin'),
+          ALLOW_ORIGIN,
+        );
+        assert.strictEqual(
+          response.headers.get('Access-Control-Allow-Methods'),
+          'POST, OPTIONS',
+        );
+        assert.strictEqual(
+          response.headers.get('Access-Control-Allow-Headers'),
+          'Content-Type',
+        );
+        assert.strictEqual(response.headers.get('Allow'), 'POST, OPTIONS');
+        assert.strictEqual(response.headers.get('Vary'), 'Origin');
+        assert.strictEqual(await response.text(), '');
+      });
+
+      it('should accept OPTIONS preflight requested content type headers case insensitively', async () => {
+        vi.stubEnv('GEMINI_API_KEY', 'test-gemini-api-key');
+
+        const response = await chat.fetch(
+          new Request(REQUEST_URL, {
+            method: 'OPTIONS',
+            headers: {
+              ...CORS_REQUEST_HEADERS,
+              'Access-Control-Request-Method': 'POST',
+              'Access-Control-Request-Headers': 'Content-Type',
+            },
+          }),
+        );
+
+        assert.strictEqual(response.status, 204);
+        assert.strictEqual(response.statusText, 'No Content');
+        assert.strictEqual(
+          response.headers.get('Access-Control-Allow-Origin'),
+          ALLOW_ORIGIN,
+        );
+        assert.strictEqual(
+          response.headers.get('Access-Control-Allow-Methods'),
+          'POST, OPTIONS',
+        );
+        assert.strictEqual(
+          response.headers.get('Access-Control-Allow-Headers'),
+          'Content-Type',
+        );
+        assert.strictEqual(response.headers.get('Allow'), 'POST, OPTIONS');
+        assert.strictEqual(response.headers.get('Vary'), 'Origin');
+        assert.strictEqual(await response.text(), '');
+      });
+
+      it('should accept OPTIONS preflight requested content type headers with leading whitespace', async () => {
+        vi.stubEnv('GEMINI_API_KEY', 'test-gemini-api-key');
+
+        const response = await chat.fetch(
+          new Request(REQUEST_URL, {
+            method: 'OPTIONS',
+            headers: {
+              ...CORS_REQUEST_HEADERS,
+              'Access-Control-Request-Method': 'POST',
+              'Access-Control-Request-Headers': '  content-type',
+            },
+          }),
+        );
+
+        assert.strictEqual(response.status, 204);
+        assert.strictEqual(response.statusText, 'No Content');
+        assert.strictEqual(
+          response.headers.get('Access-Control-Allow-Origin'),
+          ALLOW_ORIGIN,
+        );
+        assert.strictEqual(
+          response.headers.get('Access-Control-Allow-Methods'),
+          'POST, OPTIONS',
+        );
+        assert.strictEqual(
+          response.headers.get('Access-Control-Allow-Headers'),
+          'Content-Type',
+        );
+        assert.strictEqual(response.headers.get('Allow'), 'POST, OPTIONS');
+        assert.strictEqual(response.headers.get('Vary'), 'Origin');
+        assert.strictEqual(await response.text(), '');
+      });
+
+      it('should accept OPTIONS preflight requested content type headers with trailing whitespace', async () => {
+        vi.stubEnv('GEMINI_API_KEY', 'test-gemini-api-key');
+
+        const response = await chat.fetch(
+          new Request(REQUEST_URL, {
+            method: 'OPTIONS',
+            headers: {
+              ...CORS_REQUEST_HEADERS,
+              'Access-Control-Request-Method': 'POST',
+              'Access-Control-Request-Headers': 'content-type  ',
+            },
+          }),
+        );
+
+        assert.strictEqual(response.status, 204);
+        assert.strictEqual(response.statusText, 'No Content');
+        assert.strictEqual(
+          response.headers.get('Access-Control-Allow-Origin'),
+          ALLOW_ORIGIN,
+        );
+        assert.strictEqual(
+          response.headers.get('Access-Control-Allow-Methods'),
+          'POST, OPTIONS',
+        );
+        assert.strictEqual(
+          response.headers.get('Access-Control-Allow-Headers'),
+          'Content-Type',
+        );
+        assert.strictEqual(response.headers.get('Allow'), 'POST, OPTIONS');
+        assert.strictEqual(response.headers.get('Vary'), 'Origin');
+        assert.strictEqual(await response.text(), '');
+      });
+
+      it('should reject OPTIONS preflight requested content type headers with extra authorization headers', async () => {
+        vi.stubEnv('GEMINI_API_KEY', 'test-gemini-api-key');
+
+        const response = await chat.fetch(
+          new Request(REQUEST_URL, {
+            method: 'OPTIONS',
+            headers: {
+              ...CORS_REQUEST_HEADERS,
+              'Access-Control-Request-Method': 'POST',
+              'Access-Control-Request-Headers': 'content-type, authorization',
+            },
+          }),
+        );
+
+        assert.strictEqual(response.status, 400);
+        assert.strictEqual(response.statusText, 'Bad Request');
+        assert.strictEqual(
+          response.headers.get('Access-Control-Allow-Origin'),
+          ALLOW_ORIGIN,
+        );
+        assert.strictEqual(
+          response.headers.get('Access-Control-Allow-Methods'),
+          'POST, OPTIONS',
+        );
+        assert.strictEqual(
+          response.headers.get('Access-Control-Allow-Headers'),
+          'Content-Type',
+        );
+        assert.strictEqual(response.headers.get('Allow'), 'POST, OPTIONS');
+        assert.strictEqual(response.headers.get('Vary'), 'Origin');
+        assert.strictEqual(await response.text(), '');
+      });
+
+      it('should reject OPTIONS preflight requested authorization headers before content type headers', async () => {
+        vi.stubEnv('GEMINI_API_KEY', 'test-gemini-api-key');
+
+        const response = await chat.fetch(
+          new Request(REQUEST_URL, {
+            method: 'OPTIONS',
+            headers: {
+              ...CORS_REQUEST_HEADERS,
+              'Access-Control-Request-Method': 'POST',
+              'Access-Control-Request-Headers': 'authorization, content-type',
+            },
+          }),
+        );
+
+        assert.strictEqual(response.status, 400);
+        assert.strictEqual(response.statusText, 'Bad Request');
+        assert.strictEqual(
+          response.headers.get('Access-Control-Allow-Origin'),
+          ALLOW_ORIGIN,
+        );
+        assert.strictEqual(
+          response.headers.get('Access-Control-Allow-Methods'),
+          'POST, OPTIONS',
+        );
+        assert.strictEqual(
+          response.headers.get('Access-Control-Allow-Headers'),
+          'Content-Type',
+        );
+        assert.strictEqual(response.headers.get('Allow'), 'POST, OPTIONS');
+        assert.strictEqual(response.headers.get('Vary'), 'Origin');
+        assert.strictEqual(await response.text(), '');
+      });
+
+      it('should reject OPTIONS preflight requested content type headers with prefixes', async () => {
+        vi.stubEnv('GEMINI_API_KEY', 'test-gemini-api-key');
+
+        const response = await chat.fetch(
+          new Request(REQUEST_URL, {
+            method: 'OPTIONS',
+            headers: {
+              ...CORS_REQUEST_HEADERS,
+              'Access-Control-Request-Method': 'POST',
+              'Access-Control-Request-Headers': 'x-content-type',
+            },
+          }),
+        );
+
+        assert.strictEqual(response.status, 400);
+        assert.strictEqual(response.statusText, 'Bad Request');
+        assert.strictEqual(
+          response.headers.get('Access-Control-Allow-Origin'),
+          ALLOW_ORIGIN,
+        );
+        assert.strictEqual(
+          response.headers.get('Access-Control-Allow-Methods'),
+          'POST, OPTIONS',
+        );
+        assert.strictEqual(
+          response.headers.get('Access-Control-Allow-Headers'),
+          'Content-Type',
+        );
+        assert.strictEqual(response.headers.get('Allow'), 'POST, OPTIONS');
+        assert.strictEqual(response.headers.get('Vary'), 'Origin');
+        assert.strictEqual(await response.text(), '');
+      });
+
+      it('should reject OPTIONS preflight requested content type headers with suffixes', async () => {
+        vi.stubEnv('GEMINI_API_KEY', 'test-gemini-api-key');
+
+        const response = await chat.fetch(
+          new Request(REQUEST_URL, {
+            method: 'OPTIONS',
+            headers: {
+              ...CORS_REQUEST_HEADERS,
+              'Access-Control-Request-Method': 'POST',
+              'Access-Control-Request-Headers': 'content-type-extra',
             },
           }),
         );
