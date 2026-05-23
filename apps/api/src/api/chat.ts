@@ -104,11 +104,7 @@ export default {
 
     const corsHeaders = createCORSHeaders(origin);
 
-    if (
-      process.env.DISABLE_CHAT === 'true' ||
-      process.env.GEMINI_API_KEY === undefined ||
-      process.env.OPENAI_API_KEY === undefined
-    ) {
+    if (process.env.DISABLE_CHAT === 'true' || process.env.GEMINI_API_KEY === undefined) {
       return new Response(null, {
         status: 503,
         statusText: 'Service Unavailable',
@@ -196,6 +192,7 @@ export default {
             model: GEMINI_MODEL,
             presence_penalty: 0,
             prompt_cache_retention: '24h',
+            stream: false,
             top_p: 1,
 
             // Dynamic parameters
@@ -205,8 +202,6 @@ export default {
               MAX_COMPLETION_TOKENS,
             ),
             reasoning_effort: json.reasoning_effort ?? 'medium',
-            stream: json.stream ?? false,
-            stream_options: json.stream_options ?? null,
             temperature: json.temperature ?? 0.7,
             verbosity: json.verbosity ?? 'medium',
           });
