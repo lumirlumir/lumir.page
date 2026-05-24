@@ -35,7 +35,7 @@ interface Props {
 
 export default function Button({ type, icon, onClick, hoverEffect = false }: Props) {
   const { section } = useScenarioContext();
-  const { visibility, clickability } = section[type];
+  const { status } = section[type];
 
   return (
     <div
@@ -44,8 +44,8 @@ export default function Button({ type, icon, onClick, hoverEffect = false }: Pro
         'custom-flex-center',
         'transition',
         type,
-        visibility || 'pointer-events-none opacity-0',
-        clickability || 'pointer-events-none',
+        status === 'hidden' && 'pointer-events-none opacity-0',
+        status === 'visible' && 'pointer-events-none',
       )}
     >
       <NeonButton

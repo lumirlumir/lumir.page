@@ -24,10 +24,6 @@ interface Visibility {
   visibility: boolean;
 }
 
-interface Clickability {
-  clickability: boolean;
-}
-
 interface Content<T> {
   content: T;
 }
@@ -36,12 +32,21 @@ interface Mode {
   mode: 'manual' | 'auto' | 'test' | 'result';
 }
 
+interface Status {
+  /**
+   * - `hidden`: the element is not rendered and does not interact with the user.
+   * - `visible`: the element is rendered but does not interact with the user.
+   * - `interactive`: the element is rendered and interacts with the user.
+   */
+  status: 'hidden' | 'visible' | 'interactive';
+}
+
 interface Section {
-  'footer-l': Visibility & Clickability;
+  'footer-l': Status;
   timer: Visibility;
-  'footer-r': Visibility & Clickability;
-  'header-l': Visibility & Clickability;
-  'header-r': Visibility & Clickability;
+  'footer-r': Status;
+  'header-l': Status;
+  'header-r': Status;
   'main-button': Visibility & Content<'PRESS' | 'START'>;
   title: Visibility;
   'section-client': Visibility;
@@ -63,23 +68,19 @@ const scenario: Section[][] = [
   [
     {
       'footer-l': {
-        visibility: false,
-        clickability: false,
+        status: 'hidden',
       },
       timer: {
         visibility: false,
       },
       'footer-r': {
-        visibility: false,
-        clickability: false,
+        status: 'hidden',
       },
       'header-l': {
-        visibility: false,
-        clickability: false,
+        status: 'hidden',
       },
       'header-r': {
-        visibility: false,
-        clickability: false,
+        status: 'hidden',
       },
       'main-button': {
         visibility: true,
@@ -99,23 +100,19 @@ const scenario: Section[][] = [
     },
     {
       'footer-l': {
-        visibility: true,
-        clickability: true,
+        status: 'interactive',
       },
       timer: {
         visibility: false,
       },
       'footer-r': {
-        visibility: false,
-        clickability: false,
+        status: 'hidden',
       },
       'header-l': {
-        visibility: false,
-        clickability: false,
+        status: 'hidden',
       },
       'header-r': {
-        visibility: false,
-        clickability: false,
+        status: 'hidden',
       },
       'main-button': {
         visibility: false,
@@ -135,23 +132,19 @@ const scenario: Section[][] = [
     },
     {
       'footer-l': {
-        visibility: true,
-        clickability: true,
+        status: 'interactive',
       },
       timer: {
         visibility: false,
       },
       'footer-r': {
-        visibility: false,
-        clickability: false,
+        status: 'hidden',
       },
       'header-l': {
-        visibility: false,
-        clickability: false,
+        status: 'hidden',
       },
       'header-r': {
-        visibility: false,
-        clickability: false,
+        status: 'hidden',
       },
       'main-button': {
         visibility: false,
@@ -172,23 +165,19 @@ const scenario: Section[][] = [
     },
     {
       'footer-l': {
-        visibility: true,
-        clickability: true,
+        status: 'interactive',
       },
       timer: {
         visibility: false,
       },
       'footer-r': {
-        visibility: false,
-        clickability: false,
+        status: 'hidden',
       },
       'header-l': {
-        visibility: false,
-        clickability: false,
+        status: 'hidden',
       },
       'header-r': {
-        visibility: false,
-        clickability: false,
+        status: 'hidden',
       },
       'main-button': {
         visibility: true,
@@ -208,23 +197,19 @@ const scenario: Section[][] = [
     },
     {
       'footer-l': {
-        visibility: false,
-        clickability: false,
+        status: 'hidden',
       },
       timer: {
         visibility: false,
       },
       'footer-r': {
-        visibility: false,
-        clickability: false,
+        status: 'hidden',
       },
       'header-l': {
-        visibility: false,
-        clickability: false,
+        status: 'hidden',
       },
       'header-r': {
-        visibility: false,
-        clickability: false,
+        status: 'hidden',
       },
       'main-button': {
         visibility: false,
@@ -245,23 +230,19 @@ const scenario: Section[][] = [
     },
     {
       'footer-l': {
-        visibility: false,
-        clickability: false,
+        status: 'hidden',
       },
       timer: {
         visibility: false,
       },
       'footer-r': {
-        visibility: false,
-        clickability: false,
+        status: 'hidden',
       },
       'header-l': {
-        visibility: false,
-        clickability: false,
+        status: 'hidden',
       },
       'header-r': {
-        visibility: false,
-        clickability: false,
+        status: 'hidden',
       },
       'main-button': {
         visibility: false,
@@ -282,23 +263,19 @@ const scenario: Section[][] = [
     },
     {
       'footer-l': {
-        visibility: false,
-        clickability: false,
+        status: 'hidden',
       },
       timer: {
         visibility: false,
       },
       'footer-r': {
-        visibility: false,
-        clickability: false,
+        status: 'hidden',
       },
       'header-l': {
-        visibility: false,
-        clickability: false,
+        status: 'hidden',
       },
       'header-r': {
-        visibility: false,
-        clickability: false,
+        status: 'hidden',
       },
       'main-button': {
         visibility: false,
@@ -319,23 +296,19 @@ const scenario: Section[][] = [
     },
     {
       'footer-l': {
-        visibility: false,
-        clickability: false,
+        status: 'hidden',
       },
       timer: {
         visibility: false,
       },
       'footer-r': {
-        visibility: false,
-        clickability: false,
+        status: 'hidden',
       },
       'header-l': {
-        visibility: false,
-        clickability: false,
+        status: 'hidden',
       },
       'header-r': {
-        visibility: false,
-        clickability: false,
+        status: 'hidden',
       },
       'main-button': {
         visibility: false,
@@ -356,23 +329,19 @@ const scenario: Section[][] = [
     },
     {
       'footer-l': {
-        visibility: true,
-        clickability: false,
+        status: 'visible',
       },
       timer: {
         visibility: false,
       },
       'footer-r': {
-        visibility: false,
-        clickability: false,
+        status: 'hidden',
       },
       'header-l': {
-        visibility: false,
-        clickability: false,
+        status: 'hidden',
       },
       'header-r': {
-        visibility: false,
-        clickability: false,
+        status: 'hidden',
       },
       'main-button': {
         visibility: false,
@@ -393,23 +362,19 @@ const scenario: Section[][] = [
     },
     {
       'footer-l': {
-        visibility: true,
-        clickability: false,
+        status: 'visible',
       },
       timer: {
         visibility: false,
       },
       'footer-r': {
-        visibility: false,
-        clickability: false,
+        status: 'hidden',
       },
       'header-l': {
-        visibility: true,
-        clickability: false,
+        status: 'visible',
       },
       'header-r': {
-        visibility: false,
-        clickability: false,
+        status: 'hidden',
       },
       'main-button': {
         visibility: false,
@@ -430,23 +395,19 @@ const scenario: Section[][] = [
     },
     {
       'footer-l': {
-        visibility: true,
-        clickability: false,
+        status: 'visible',
       },
       timer: {
         visibility: false,
       },
       'footer-r': {
-        visibility: false,
-        clickability: false,
+        status: 'hidden',
       },
       'header-l': {
-        visibility: true,
-        clickability: false,
+        status: 'visible',
       },
       'header-r': {
-        visibility: true,
-        clickability: false,
+        status: 'visible',
       },
       'main-button': {
         visibility: false,
@@ -467,23 +428,19 @@ const scenario: Section[][] = [
     },
     {
       'footer-l': {
-        visibility: true,
-        clickability: false,
+        status: 'visible',
       },
       timer: {
         visibility: false,
       },
       'footer-r': {
-        visibility: true,
-        clickability: false,
+        status: 'visible',
       },
       'header-l': {
-        visibility: true,
-        clickability: false,
+        status: 'visible',
       },
       'header-r': {
-        visibility: true,
-        clickability: false,
+        status: 'visible',
       },
       'main-button': {
         visibility: false,
@@ -504,23 +461,19 @@ const scenario: Section[][] = [
     },
     {
       'footer-l': {
-        visibility: true,
-        clickability: false,
+        status: 'visible',
       },
       timer: {
         visibility: true,
       },
       'footer-r': {
-        visibility: true,
-        clickability: false,
+        status: 'visible',
       },
       'header-l': {
-        visibility: true,
-        clickability: false,
+        status: 'visible',
       },
       'header-r': {
-        visibility: true,
-        clickability: false,
+        status: 'visible',
       },
       'main-button': {
         visibility: false,
@@ -541,23 +494,19 @@ const scenario: Section[][] = [
     },
     {
       'footer-l': {
-        visibility: true,
-        clickability: false,
+        status: 'visible',
       },
       timer: {
         visibility: true,
       },
       'footer-r': {
-        visibility: true,
-        clickability: false,
+        status: 'visible',
       },
       'header-l': {
-        visibility: true,
-        clickability: false,
+        status: 'visible',
       },
       'header-r': {
-        visibility: true,
-        clickability: false,
+        status: 'visible',
       },
       'main-button': {
         visibility: false,
@@ -578,23 +527,19 @@ const scenario: Section[][] = [
     },
     {
       'footer-l': {
-        visibility: true,
-        clickability: false,
+        status: 'visible',
       },
       timer: {
         visibility: false,
       },
       'footer-r': {
-        visibility: false,
-        clickability: false,
+        status: 'hidden',
       },
       'header-l': {
-        visibility: true,
-        clickability: false,
+        status: 'visible',
       },
       'header-r': {
-        visibility: false,
-        clickability: false,
+        status: 'hidden',
       },
       'main-button': {
         visibility: false,
@@ -615,23 +560,19 @@ const scenario: Section[][] = [
     },
     {
       'footer-l': {
-        visibility: true,
-        clickability: true,
+        status: 'interactive',
       },
       timer: {
         visibility: false,
       },
       'footer-r': {
-        visibility: false,
-        clickability: false,
+        status: 'hidden',
       },
       'header-l': {
-        visibility: true,
-        clickability: true,
+        status: 'interactive',
       },
       'header-r': {
-        visibility: false,
-        clickability: false,
+        status: 'hidden',
       },
       'main-button': {
         visibility: false,
@@ -653,23 +594,19 @@ const scenario: Section[][] = [
   [
     {
       'footer-l': {
-        visibility: true,
-        clickability: true,
+        status: 'interactive',
       },
       timer: {
         visibility: true,
       },
       'footer-r': {
-        visibility: true,
-        clickability: true,
+        status: 'interactive',
       },
       'header-l': {
-        visibility: true,
-        clickability: false,
+        status: 'visible',
       },
       'header-r': {
-        visibility: true,
-        clickability: true,
+        status: 'interactive',
       },
       'main-button': {
         visibility: false,
@@ -689,23 +626,19 @@ const scenario: Section[][] = [
     },
     {
       'footer-l': {
-        visibility: true,
-        clickability: true,
+        status: 'interactive',
       },
       timer: {
         visibility: true,
       },
       'footer-r': {
-        visibility: true,
-        clickability: true,
+        status: 'interactive',
       },
       'header-l': {
-        visibility: true,
-        clickability: false,
+        status: 'visible',
       },
       'header-r': {
-        visibility: true,
-        clickability: true,
+        status: 'interactive',
       },
       'main-button': {
         visibility: false,
@@ -725,23 +658,19 @@ const scenario: Section[][] = [
     },
     {
       'footer-l': {
-        visibility: true,
-        clickability: true,
+        status: 'interactive',
       },
       timer: {
         visibility: false,
       },
       'footer-r': {
-        visibility: false,
-        clickability: false,
+        status: 'hidden',
       },
       'header-l': {
-        visibility: false,
-        clickability: false,
+        status: 'hidden',
       },
       'header-r': {
-        visibility: false,
-        clickability: false,
+        status: 'hidden',
       },
       'main-button': {
         visibility: false,
@@ -762,23 +691,19 @@ const scenario: Section[][] = [
     },
     {
       'footer-l': {
-        visibility: true,
-        clickability: true,
+        status: 'interactive',
       },
       timer: {
         visibility: false,
       },
       'footer-r': {
-        visibility: false,
-        clickability: false,
+        status: 'hidden',
       },
       'header-l': {
-        visibility: false,
-        clickability: false,
+        status: 'hidden',
       },
       'header-r': {
-        visibility: false,
-        clickability: false,
+        status: 'hidden',
       },
       'main-button': {
         visibility: false,
