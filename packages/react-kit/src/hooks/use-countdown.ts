@@ -6,7 +6,14 @@
 // Import
 // --------------------------------------------------------------------------------
 
-import { useCallback, useEffect, useEffectEvent, useMemo, useReducer } from 'react';
+import {
+  useCallback,
+  useEffect,
+  useEffectEvent,
+  useMemo,
+  useReducer,
+  useRef,
+} from 'react';
 
 // --------------------------------------------------------------------------------
 // Typedef
@@ -75,18 +82,16 @@ function normalizeMs(ms: number) {
 function countdownReducer(
   state: { isActive: boolean; remainingMs: number },
   action:
-    | { type: 'tick'; elapsedMs: number }
+    | { type: 'sync'; remainingMs: number }
     | { type: 'start' }
     | { type: 'stop' }
     | { type: 'reset'; durationMs: number },
 ) {
   switch (action.type) {
-    case 'tick': {
-      const remainingMs = normalizeMs(state.remainingMs - action.elapsedMs);
-
+    case 'sync': {
       return {
-        isActive: remainingMs > 0,
-        remainingMs,
+        isActive: action.remainingMs > 0,
+        remainingMs: action.remainingMs,
       };
     }
 
@@ -154,6 +159,11 @@ export function useCountdown({
     isActive: false,
     remainingMs: ms,
   }));
+  const countdownTargetMsRef = useRef<number | null>(null);
+  const remainingMsRef = useRef(state.remainingMs);
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  remainingMsRef.current = state.remainingMs;
 
   const onCompleteEvent = useEffectEvent(() => {
     onComplete?.();
@@ -164,36 +174,50 @@ export function useCountdown({
       return undefined;
     }
 
-    const startedAtMs = performance.now();
+    countdownTargetMsRef.current ??= performance.now() + remainingMsRef.current;
 
-    const timeout = setTimeout(
-      () => {
-        const elapsedMs = performance.now() - startedAtMs;
+    const tick = () => {
+      const remainingMs = normalizeMs(
+        (countdownTargetMsRef.current ?? performance.now()) - performance.now(),
+      );
 
-        dispatch({ type: 'tick', elapsedMs });
+      dispatch({ type: 'sync', remainingMs });
 
-        if (elapsedMs >= state.remainingMs) {
-          onCompleteEvent();
-        }
-      },
-      Math.min(normalizedIntervalMs, state.remainingMs),
+      if (remainingMs === 0) {
+        countdownTargetMsRef.current = null;
+        timeoutRef.current = null;
+        onCompleteEvent();
+        return;
+      }
+
+      timeoutRef.current = setTimeout(tick, Math.min(normalizedIntervalMs, remainingMs));
+    };
+
+    timeoutRef.current = setTimeout(
+      tick,
+      Math.min(normalizedIntervalMs, remainingMsRef.current),
     );
 
     return () => {
-      clearTimeout(timeout);
+      if (timeoutRef.current !== null) {
+        clearTimeout(timeoutRef.current);
+        timeoutRef.current = null;
+      }
     };
-  }, [normalizedIntervalMs, state.isActive, state.remainingMs]);
+  }, [normalizedIntervalMs, state.isActive]);
 
   const start = useCallback(() => {
     dispatch({ type: 'start' });
   }, []);
 
   const stop = useCallback(() => {
+    countdownTargetMsRef.current = null;
     dispatch({ type: 'stop' });
   }, []);
 
   const reset = useCallback(
     (nextDurationMs = normalizedDurationMs) => {
+      countdownTargetMsRef.current = null;
       dispatch({ type: 'reset', durationMs: nextDurationMs });
     },
     [normalizedDurationMs],
