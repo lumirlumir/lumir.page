@@ -18,8 +18,8 @@ import { cn } from '@lumir/utils';
 
 import Button from '@/components/button';
 import Client from '@/components/client';
+import Config from '@/components/config';
 import MainButton from '@/components/main-button';
-import SectionConfig from '@/components/section-config';
 import Server from '@/components/server';
 import Timer from '@/components/timer';
 import Title from '@/components/title';
@@ -89,7 +89,7 @@ export default function App() {
           <Title />
           <Server interview={interview} timer={timer} />
           <Client interview={interview} />
-          <SectionConfig />
+          <Config />
           <MainButton interview={interview} />
         </div>
       </main>

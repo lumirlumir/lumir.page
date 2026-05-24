@@ -1,5 +1,5 @@
 /**
- * @fileoverview section-config.
+ * @fileoverview config.
  */
 
 // --------------------------------------------------------------------------------
@@ -13,7 +13,7 @@ import NeonDiv from '@/components/neon-div';
 import NeonFont from '@/components/neon-font';
 import { questionTypes, useConfigContext } from '@/contexts/config-context';
 
-import './section-config.css';
+import './config.css';
 
 // --------------------------------------------------------------------------------
 // Helpers
@@ -78,7 +78,7 @@ function Checkbox({
 // Export
 // --------------------------------------------------------------------------------
 
-export default function SectionConfig() {
+export default function Config() {
   const { config, updateConfig } = useConfigContext();
 
   const handleButtonCount = (
@@ -95,7 +95,7 @@ export default function SectionConfig() {
   return (
     <NeonDiv
       className={cn(
-        'section-config',
+        'config',
         'custom-flex-center',
         'custom-scrollbar',
         'custom-main-section',
