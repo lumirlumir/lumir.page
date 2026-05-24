@@ -34,7 +34,7 @@ interface Props {
 // --------------------------------------------------------------------------------
 
 export default function Server({ interview, timer }: Props) {
-  const { configState } = useConfigContext();
+  const { config } = useConfigContext();
   const { section, toNextSection } = useScenarioContext();
   const { status, content, mode } = section.server;
   const { getInterviewInfo, getQuestion, isInterviewDone, getInterviewHistory } =
@@ -70,7 +70,7 @@ export default function Server({ interview, timer }: Props) {
         'custom-main-section',
         'custom-main-section-bash',
         'transition',
-        status !== 'hidden' && !configState.visibility ? '' : 'custom-invisible-section',
+        status !== 'hidden' && !config.visibility ? '' : 'custom-invisible-section',
         mode === 'result' && 'wide',
       )}
       neonColor="black"
@@ -86,7 +86,7 @@ export default function Server({ interview, timer }: Props) {
           writePostDelay={1000}
           onWriteComplete={() => {
             if (mode === 'auto' || mode === 'result') toNextSection();
-            if (mode === 'test' && text !== '') resetTimer(configState.time);
+            if (mode === 'test' && text !== '') resetTimer(config.time);
             scroll.intoView({ block: 'end', inline: 'nearest' });
           }}
         />

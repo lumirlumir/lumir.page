@@ -30,7 +30,7 @@ interface Props {
 // --------------------------------------------------------------------------------
 
 export default function ButtonMain({ interview }: Props) {
-  const { configState, updateConfig, isConfigDone } = useConfigContext();
+  const { config, updateConfig, isConfigDone } = useConfigContext();
   const { section, toNextSection, toLastSection, isLastSection } = useScenarioContext();
   const { content, status } = section['main-button'];
   const { initInterview } = interview;
@@ -46,7 +46,7 @@ export default function ButtonMain({ interview }: Props) {
       }
       if (isConfigDone()) {
         updateConfig({ visibility: false });
-        initInterview(configState);
+        initInterview(config);
       }
       toNextSection();
     }

@@ -35,7 +35,7 @@ import './app.css';
 // --------------------------------------------------------------------------------
 
 export default function App() {
-  const { configState, updateConfig } = useConfigContext();
+  const { config, updateConfig } = useConfigContext();
   const { section } = useScenarioContext();
   const interview = useInterview();
   const timer = useTimer(interview.submit);
@@ -55,7 +55,7 @@ export default function App() {
         type="header-l"
         icon={<GoGear size="35px" />}
         onClick={() => {
-          updateConfig({ visibility: !configState.visibility });
+          updateConfig({ visibility: !config.visibility });
         }}
       />
       <Button

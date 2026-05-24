@@ -162,8 +162,8 @@ export default function useInterview() {
     isInterviewStarted,
   ]);
 
-  const initInterview = (configState: Config) => {
-    initInterviewHistory(configState);
+  const initInterview = (config: Config) => {
+    initInterviewHistory(config);
     setIsInterviewStarted(true);
   };
   const submit = () => {

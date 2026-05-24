@@ -85,12 +85,12 @@ export type ConfigContextValue = {
   /**
    * Current interview configuration.
    */
-  readonly configState: Config;
+  readonly config: Config;
 
   /**
    * Merges a partial configuration update into the current config state.
    */
-  readonly updateConfig: (config: Partial<Config>) => void;
+  readonly updateConfig: (partialConfig: Partial<Config>) => void;
 
   /**
    * Returns whether the required interview configuration is complete.
@@ -137,7 +137,7 @@ export function useConfigContext(): ConfigContextValue {
  * @returns A context provider wrapping the given children.
  */
 export function ConfigProvider({ children }: PropsWithChildren) {
-  const [configState, setConfigState] = useState<Config>({
+  const [config, setConfig] = useState<Config>({
     visibility: false,
     cs: false,
     fe: false,
@@ -149,21 +149,21 @@ export function ConfigProvider({ children }: PropsWithChildren) {
     time: 0,
   });
 
-  const updateConfig = (config: Partial<Config>) => {
-    setConfigState(prevState => ({
+  const updateConfig = (partialConfig: Partial<Config>) => {
+    setConfig(prevState => ({
       ...prevState,
-      ...config,
+      ...partialConfig,
     }));
   };
 
   const isConfigDone = () => {
-    const { cs, fe, be, db, oop, main, sub, time } = configState;
+    const { cs, fe, be, db, oop, main, sub, time } = config;
 
     return Boolean((cs || fe || be || db || oop) && main && sub && time);
   };
 
   return (
-    <ConfigContext value={{ configState, updateConfig, isConfigDone }}>
+    <ConfigContext value={{ config, updateConfig, isConfigDone }}>
       {children}
     </ConfigContext>
   );

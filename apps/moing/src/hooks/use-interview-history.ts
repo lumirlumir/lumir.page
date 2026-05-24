@@ -20,10 +20,10 @@ export default function useInterviewHistory() {
   const rowRef = useRef<number | null>(null);
   const colRef = useRef<number | null>(null);
 
-  const initInterviewHistory = (configState: Config) => {
-    const { main, sub } = configState;
+  const initInterviewHistory = (config: Config) => {
+    const { main, sub } = config;
 
-    questionTypeRef.current = questionTypes.filter(key => configState[key]); // Extract only the keys with true values
+    questionTypeRef.current = questionTypes.filter(key => config[key]); // Extract only the keys with true values
     rowRef.current = main;
     colRef.current = sub + 1;
   };
