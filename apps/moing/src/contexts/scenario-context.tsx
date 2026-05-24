@@ -45,7 +45,7 @@ interface Section {
   'header-r': Status;
   'main-button': Status & Content<'PRESS' | 'START'>;
   title: Status;
-  'section-client': Status;
+  client: Status;
   'section-server': Status & Content<string> & Mode;
 }
 
@@ -85,7 +85,7 @@ const scenario: Section[][] = [
       title: {
         status: 'visible',
       },
-      'section-client': {
+      client: {
         status: 'hidden',
       },
       'section-server': {
@@ -117,7 +117,7 @@ const scenario: Section[][] = [
       title: {
         status: 'visible',
       },
-      'section-client': {
+      client: {
         status: 'hidden',
       },
       'section-server': {
@@ -149,7 +149,7 @@ const scenario: Section[][] = [
       title: {
         status: 'visible',
       },
-      'section-client': {
+      client: {
         status: 'hidden',
       },
       'section-server': {
@@ -182,7 +182,7 @@ const scenario: Section[][] = [
       title: {
         status: 'visible',
       },
-      'section-client': {
+      client: {
         status: 'hidden',
       },
       'section-server': {
@@ -214,7 +214,7 @@ const scenario: Section[][] = [
       title: {
         status: 'visible',
       },
-      'section-client': {
+      client: {
         status: 'hidden',
       },
       'section-server': {
@@ -247,7 +247,7 @@ const scenario: Section[][] = [
       title: {
         status: 'visible',
       },
-      'section-client': {
+      client: {
         status: 'hidden',
       },
       'section-server': {
@@ -280,7 +280,7 @@ const scenario: Section[][] = [
       title: {
         status: 'visible',
       },
-      'section-client': {
+      client: {
         status: 'hidden',
       },
       'section-server': {
@@ -313,7 +313,7 @@ const scenario: Section[][] = [
       title: {
         status: 'visible',
       },
-      'section-client': {
+      client: {
         status: 'hidden',
       },
       'section-server': {
@@ -346,7 +346,7 @@ const scenario: Section[][] = [
       title: {
         status: 'visible',
       },
-      'section-client': {
+      client: {
         status: 'hidden',
       },
       'section-server': {
@@ -379,7 +379,7 @@ const scenario: Section[][] = [
       title: {
         status: 'visible',
       },
-      'section-client': {
+      client: {
         status: 'hidden',
       },
       'section-server': {
@@ -412,7 +412,7 @@ const scenario: Section[][] = [
       title: {
         status: 'visible',
       },
-      'section-client': {
+      client: {
         status: 'hidden',
       },
       'section-server': {
@@ -445,7 +445,7 @@ const scenario: Section[][] = [
       title: {
         status: 'visible',
       },
-      'section-client': {
+      client: {
         status: 'hidden',
       },
       'section-server': {
@@ -478,7 +478,7 @@ const scenario: Section[][] = [
       title: {
         status: 'visible',
       },
-      'section-client': {
+      client: {
         status: 'hidden',
       },
       'section-server': {
@@ -511,7 +511,7 @@ const scenario: Section[][] = [
       title: {
         status: 'hidden',
       },
-      'section-client': {
+      client: {
         status: 'interactive',
       },
       'section-server': {
@@ -544,7 +544,7 @@ const scenario: Section[][] = [
       title: {
         status: 'visible',
       },
-      'section-client': {
+      client: {
         status: 'hidden',
       },
       'section-server': {
@@ -577,7 +577,7 @@ const scenario: Section[][] = [
       title: {
         status: 'visible',
       },
-      'section-client': {
+      client: {
         status: 'hidden',
       },
       'section-server': {
@@ -611,7 +611,7 @@ const scenario: Section[][] = [
       title: {
         status: 'hidden',
       },
-      'section-client': {
+      client: {
         status: 'interactive',
       },
       'section-server': {
@@ -643,7 +643,7 @@ const scenario: Section[][] = [
       title: {
         status: 'hidden',
       },
-      'section-client': {
+      client: {
         status: 'interactive',
       },
       'section-server': {
@@ -675,7 +675,7 @@ const scenario: Section[][] = [
       title: {
         status: 'visible',
       },
-      'section-client': {
+      client: {
         status: 'hidden',
       },
       'section-server': {
@@ -708,7 +708,7 @@ const scenario: Section[][] = [
       title: {
         status: 'visible',
       },
-      'section-client': {
+      client: {
         status: 'hidden',
       },
       'section-server': {

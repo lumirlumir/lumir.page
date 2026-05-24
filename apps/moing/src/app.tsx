@@ -17,8 +17,8 @@ import {
 import { cn } from '@lumir/utils';
 
 import Button from '@/components/button';
+import Client from '@/components/client';
 import MainButton from '@/components/main-button';
-import SectionClient from '@/components/section-client';
 import SectionConfig from '@/components/section-config';
 import SectionServer from '@/components/section-server';
 import Timer from '@/components/timer';
@@ -88,7 +88,7 @@ export default function App() {
         <div ref={scrollRef}>
           <Title />
           <SectionServer interview={interview} timer={timer} />
-          <SectionClient interview={interview} />
+          <Client interview={interview} />
           <SectionConfig />
           <MainButton interview={interview} />
         </div>

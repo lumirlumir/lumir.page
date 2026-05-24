@@ -1,5 +1,5 @@
 /**
- * @fileoverview section-client.
+ * @fileoverview client.
  */
 
 // --------------------------------------------------------------------------------
@@ -12,7 +12,7 @@ import NeonDiv from '@/components/neon-div';
 import { useScenarioContext } from '@/contexts/scenario-context';
 import useInterview from '@/hooks/use-interview';
 
-import './section-client.css';
+import './client.css';
 
 // --------------------------------------------------------------------------------
 // Typedef
@@ -26,15 +26,15 @@ interface Props {
 // Export
 // --------------------------------------------------------------------------------
 
-export default function SectionClient({ interview }: Props) {
+export default function Client({ interview }: Props) {
   const { section } = useScenarioContext();
-  const { status } = section['section-client'];
+  const { status } = section.client;
   const { contentRef } = interview;
 
   return (
     <NeonDiv
       className={cn(
-        'section-client',
+        'client',
         'transition',
         'custom-scrollbar',
         'custom-main-section',
