@@ -30,6 +30,7 @@ interface SpeechRecognition extends EventTarget {
 
   /**
    * Controls whether continuous results are returned for each recognition, or only a single result.
+   * Defaults to single. (`false`).
    * @see https://developer.mozilla.org/en-US/docs/Web/API/SpeechRecognition/continuous
    * @default false
    */
