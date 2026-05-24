@@ -43,14 +43,14 @@ export interface SVGWrapperProps {
  */
 export interface SVGProps extends SVGAttributes<SVGElement> {
   /**
-   * Width and height applied to the rendered `<svg>` element. Defaults to
-   * `'1em'`.
+   * Width and height applied to the rendered `<svg>` element.
+   * @default `'1em'`
    */
   size?: string | number;
 
   /**
    * CSS color applied through the rendered `<svg>` element's inline style.
-   * Defaults to `'currentColor'`.
+   * @default `'currentColor'`
    */
   color?: string;
 }

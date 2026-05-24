@@ -17,47 +17,56 @@ import { useState } from 'react';
  */
 export interface Config {
   /**
-   * Visibility of the configuration. Defaults to `false`.
+   * Visibility of the configuration.
+   * @default false
    */
   visibility: boolean;
 
   /**
-   * Whether the CS question type is selected. Defaults to `false`.
+   * Whether the CS question type is selected.
+   * @default false
    */
   cs: boolean;
 
   /**
-   * Whether the FE question type is selected. Defaults to `false`.
+   * Whether the FE question type is selected.
+   * @default false
    */
   fe: boolean;
 
   /**
-   * Whether the BE question type is selected. Defaults to `false`.
+   * Whether the BE question type is selected.
+   * @default false
    */
   be: boolean;
 
   /**
-   * Whether the DB question type is selected. Defaults to `false`.
+   * Whether the DB question type is selected.
+   * @default false
    */
   db: boolean;
 
   /**
-   * Whether the OOP question type is selected. Defaults to `false`.
+   * Whether the OOP question type is selected.
+   * @default false
    */
   oop: boolean;
 
   /**
-   * Main question number. Defaults to `0`.
+   * Main question number.
+   * @default 0
    */
   main: number;
 
   /**
-   * Sub question number. Defaults to `0`.
+   * Sub question number.
+   * @default 0
    */
   sub: number;
 
   /**
-   * Time limit for each question in minutes. Defaults to `0`.
+   * Time limit for each question in minutes.
+   * @default 0
    */
   time: number;
 }

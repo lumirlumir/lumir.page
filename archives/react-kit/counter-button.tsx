@@ -17,7 +17,8 @@ import { useState } from 'react';
  */
 export interface CounterButtonProps {
   /**
-   * Initial value of the counter. Defaults to `0`.
+   * Initial value of the counter.
+   * @default 0
    */
   initialValue?: number;
 }

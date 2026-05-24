@@ -19,13 +19,14 @@ import { useTypewriter, type UseTypewriterOptions } from '../hooks/use-typewrite
 export interface TypewriterProps
   extends HTMLAttributes<HTMLSpanElement>, UseTypewriterOptions {
   /**
-   * The value to use as the cursor. Set to `null` to disable. Defaults to
-   * `'|'`.
+   * The value to use as the cursor. Set to `null` to disable.
+   * @default '|'
    */
   cursor?: string | null;
 
   /**
-   * The class name to apply to the cursor element. Defaults to `'cursor'`.
+   * The class name to apply to the cursor element.
+   * @default 'cursor'
    */
   cursorClassName?: string;
 }
