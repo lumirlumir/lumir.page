@@ -24,6 +24,7 @@ export default defineConfig([
       '**/.next/',
       '**/archives/',
       '**/next-env.d.ts',
+      '**/.tsbuildinfo',
     ],
     'global/ignores',
   ),
@@ -42,6 +43,15 @@ export default defineConfig([
     rules: {
       'import/no-cycle': 'off', // Too computationally expensive. TODO: Remove this in shared config.
       'import/prefer-default-export': 'off', // Too restrictive. TODO: Remove this in shared config.
+    },
+  },
+  {
+    name: 'js/apps/api',
+    files: ['apps/api/**/*.{js,mjs,cjs,ts,mts,cts}'],
+    languageOptions: {
+      globals: {
+        HeadersInit: false, // Web
+      },
     },
   },
   {

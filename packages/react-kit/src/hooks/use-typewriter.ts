@@ -6,7 +6,7 @@
 // Import
 // --------------------------------------------------------------------------------
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useEffectEvent, useRef, useState } from 'react';
 
 // --------------------------------------------------------------------------------
 // Typedef
@@ -138,17 +138,18 @@ export function useTypewriter({
   erasePostDelay = 1_500,
   loop = false,
   pause = false,
-  onWriteComplete = undefined,
-  onEraseComplete = undefined,
+  onWriteComplete: onWriteCompleteProp = undefined,
+  onEraseComplete: onEraseCompleteProp = undefined,
 }: UseTypewriterOptions): readonly [currentText: string] {
-  const [currentText, setCurrentText] = useState<string>(() => {
-    if (mode === 'write') {
-      return '';
-    } else {
-      return text;
-    }
-  });
+  const [currentText, setCurrentText] = useState<string>(mode === 'write' ? '' : text);
   const [currentMode, setCurrentMode] = useState<Mode>(mode);
+
+  const onWriteComplete = useEffectEvent(() => {
+    onWriteCompleteProp?.();
+  });
+  const onEraseComplete = useEffectEvent(() => {
+    onEraseCompleteProp?.();
+  });
 
   const rafRef = useRef<number | null>(null);
 
@@ -181,7 +182,7 @@ export function useTypewriter({
             setCurrentMode('erase');
           }
 
-          onWriteComplete?.();
+          onWriteComplete();
         }, writePostDelay);
       } else {
         setTimeoutRaf(
@@ -198,7 +199,7 @@ export function useTypewriter({
             setCurrentMode('write');
           }
 
-          onEraseComplete?.();
+          onEraseComplete();
         }, erasePostDelay);
       } else {
         setTimeoutRaf(
@@ -226,8 +227,6 @@ export function useTypewriter({
     erasePostDelay,
     loop,
     pause,
-    onWriteComplete,
-    onEraseComplete,
     currentText,
     currentMode,
   ]);

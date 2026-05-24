@@ -7,22 +7,23 @@
 // --------------------------------------------------------------------------------
 
 import { useRef } from 'react';
-import { questionTypes, type Config } from '@/hooks/use-config';
+import { questionTypes, type Config } from '@/contexts/config-context';
+import { type InterviewObj } from '@/hooks/use-interview-obj';
 
 // --------------------------------------------------------------------------------
 // Export
 // --------------------------------------------------------------------------------
 
 export default function useInterviewHistory() {
-  const historyRef = useRef([]);
+  const historyRef = useRef<InterviewObj[]>([]);
   const questionTypeRef = useRef<string[]>([]);
   const rowRef = useRef<number | null>(null);
   const colRef = useRef<number | null>(null);
 
-  const initInterviewHistory = (configState: Config) => {
-    const { main, sub } = configState;
+  const initInterviewHistory = (config: Config) => {
+    const { main, sub } = config;
 
-    questionTypeRef.current = questionTypes.filter(key => configState[key]); // Extract only the keys with true values
+    questionTypeRef.current = questionTypes.filter(key => config[key]); // Extract only the keys with true values
     rowRef.current = main;
     colRef.current = sub + 1;
   };
@@ -37,7 +38,6 @@ export default function useInterviewHistory() {
 
     // @ts-expect-error -- TODO
     for (let i = 0; i < historyRef.current.length; i += colRef.current) {
-      // @ts-expect-error -- TODO
       questionMainHistory.push(historyRef.current[i].question);
     }
 
@@ -58,6 +58,7 @@ export default function useInterviewHistory() {
   const getInterviewHistory = () => {
     let str = '';
 
+    // @ts-expect-error -- TODO
     const printAllStrings = obj => {
       Object.values(obj).map(val => {
         if (typeof val === 'string') {

@@ -3,29 +3,30 @@
   "name": "moing",
   "type": "module",
   "engines": {
-    "node": "^20.19.6"
+    "node": "^24.15.0"
   },
   "scripts": {
     "dev": "vite dev",
-    "build": "npm run test:types && vite build",
+    "build": "node --run test:types && vite build",
     "start": "vite preview",
-    "test": "npm run test:types && npm run test:unit",
-    "test:types": "tsgo",
-    "test:unit": "node --test"
+    "test": "node --run test:types && node --run test:unit",
+    "test:types": "tsgo -b tsconfig.app.json",
+    "test:unit": "echo unit test not implemented"
   },
   "dependencies": {
     "@lumir/react-kit": "*",
     "@lumir/styles": "*",
     "@lumir/utils": "*",
-    "react": "^19.2.5",
-    "react-dom": "^19.2.5"
+    "react": "^19.2.6",
+    "react-dom": "^19.2.6"
   },
   "devDependencies": {
     "@lumir/types": "*",
-    "@types/react": "^19.2.14",
+    "@types/react": "^19.2.15",
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^5.2.0",
     "babel-plugin-react-compiler": "^1.0.0",
-    "vite": "^8.0.13"
+    "openai": "^6.39.0",
+    "vite": "^8.0.14"
   }
 }

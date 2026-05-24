@@ -32,13 +32,13 @@ jobs:
           cache: npm # https://github.com/actions/setup-node#caching-global-packages-data
 
       - name: Install dependencies
-        run: npm ci --no-audit --no-fund
+        run: npm ci --no-audit --no-fund --prefer-offline
 
       - name: Build
-        run: npm run build:pkg
+        run: node --run build
 
       - name: Lint
-        run: npm run lint
+        run: node --run lint
 
   test:
     runs-on: ubuntu-latest
@@ -54,16 +54,16 @@ jobs:
           cache: npm # https://github.com/actions/setup-node#caching-global-packages-data
 
       - name: Install dependencies
-        run: npm ci --no-audit --no-fund
+        run: npm ci --no-audit --no-fund --prefer-offline
 
       - name: Install playwright browsers
         run: npx playwright install chromium --with-deps --only-shell
 
       - name: Build
-        run: npm run build:pkg
+        run: node --run build:pkg
 
-      - name: Pack test
-        run: npm run pack:pkg
+      - name: Test pack
+        run: node --run pack:pkg
 
-      - name: Unit and browser test
-        run: npm run test
+      - name: Test type, unit and browser
+        run: node --run test

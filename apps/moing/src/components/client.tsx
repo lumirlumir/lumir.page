@@ -1,5 +1,5 @@
 /**
- * @fileoverview section-client.
+ * @fileoverview client.
  */
 
 // --------------------------------------------------------------------------------
@@ -9,17 +9,16 @@
 import { cn } from '@lumir/utils';
 
 import NeonDiv from '@/components/neon-div';
-import useScenario from '@/hooks/use-scenario';
+import { useScenarioContext } from '@/contexts/scenario-context';
 import useInterview from '@/hooks/use-interview';
 
-import './section-client.css';
+import './client.css';
 
 // --------------------------------------------------------------------------------
 // Typedef
 // --------------------------------------------------------------------------------
 
 interface Props {
-  scenario: ReturnType<typeof useScenario>;
   interview: ReturnType<typeof useInterview>;
 }
 
@@ -27,19 +26,20 @@ interface Props {
 // Export
 // --------------------------------------------------------------------------------
 
-export default function SectionClient({ scenario, interview }: Props) {
-  const { visibility } = scenario.getSectionObj()['section-client'];
+export default function Client({ interview }: Props) {
+  const { section } = useScenarioContext();
+  const { status } = section.client;
   const { contentRef } = interview;
 
   return (
     <NeonDiv
       className={cn(
-        'section-client',
+        'client',
         'transition',
         'custom-scrollbar',
         'custom-main-section',
         'custom-main-section-bash',
-        visibility || 'custom-invisible-section',
+        status === 'hidden' && 'custom-invisible-section',
       )}
       neonColor="black"
     >

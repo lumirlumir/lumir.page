@@ -1,26 +1,22 @@
 /**
- * @fileoverview use-trigger
+ * @fileoverview Test for `index.ts`
  */
 
 // --------------------------------------------------------------------------------
 // Import
 // --------------------------------------------------------------------------------
 
-import { useState } from 'react';
+import { assert, describe, it } from 'vitest';
+import packageJson from '../package.json' with { type: 'json' };
 
 // --------------------------------------------------------------------------------
-// Export
+// Test
 // --------------------------------------------------------------------------------
 
-export default function useTrigger() {
-  const [triggerState, setTriggerState] = useState<boolean>(false);
-
-  const trigger = () => {
-    setTriggerState(true);
-  };
-
-  return {
-    triggerState,
-    trigger,
-  };
-}
+describe('index', () => {
+  describe('package.json', () => {
+    it('should have `sideEffects: false`', () => {
+      assert.strictEqual(packageJson.sideEffects, false);
+    });
+  });
+});

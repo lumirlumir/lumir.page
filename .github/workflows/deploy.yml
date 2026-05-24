@@ -33,6 +33,10 @@ jobs:
       - name: Set up checkout
         uses: actions/checkout@v6
 
+      - name: Validate deployment variables
+        if: vars.BACKEND_URL == ''
+        run: echo "BACKEND_URL is not set. Please set it in the repository settings." && exit 1
+
       - name: Set up node
         uses: actions/setup-node@v6
         with:
@@ -40,13 +44,12 @@ jobs:
           cache: npm # https://github.com/actions/setup-node#caching-global-packages-data
 
       - name: Install dependencies
-        run: npm ci --no-audit --no-fund
+        run: npm ci --no-audit --no-fund --prefer-offline
 
       - name: Build
-        run: npm run build:m
+        run: node --run build:m
         env:
-          BACKEND_PORT: ${{ vars.BACKEND_PORT }}
-          BACKEND_IP: ${{ vars.BACKEND_IP }}
+          BACKEND_URL: ${{ vars.BACKEND_URL }}
 
       - name: Upload static files as artifact
         if: github.ref == 'refs/heads/main'

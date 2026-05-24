@@ -6,68 +6,104 @@
 // Import
 // --------------------------------------------------------------------------------
 
-import { useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
+import { type Config, type QuestionType } from '@/contexts/config-context';
 import useInterviewContent from '@/hooks/use-interview-content';
 import useInterviewHistory from '@/hooks/use-interview-history';
 import useInterviewObj from '@/hooks/use-interview-obj';
-import useTrigger from '@/hooks/use-trigger';
 
-import type { QuestionType } from '@/hooks/use-config';
+import { type CustomChatCompletionMessageParam } from '../temp/types.js';
+import { questionMain, questionSub, answer, feedback } from '../temp/prompt.js';
 
 // --------------------------------------------------------------------------------
 // Helper
 // --------------------------------------------------------------------------------
 
-function createURL(pathname: string, urlSearchParams: URLSearchParams): string {
-  const url = `http://${process.env.BACKEND_IP}:${process.env.BACKEND_PORT}/${pathname}?${urlSearchParams.toString()}`;
+/**
+ * Fetches chat completion text from the backend API.
+ */
+async function fetchChatCompletionText(
+  messages: CustomChatCompletionMessageParam[],
+): Promise<string> {
+  if (process.env.BACKEND_URL === undefined) {
+    throw new Error('BACKEND_URL is not defined');
+  }
 
-  return url;
+  const response = await fetch(`${process.env.BACKEND_URL}/api/chat`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      messages,
+      max_completion_tokens: 2048,
+      reasoning_effort: 'high',
+      temperature: 1,
+    }),
+  });
+
+  const text = await response.text();
+
+  if (!response.ok) {
+    throw new Error(`Request failed: ${response.status} ${response.statusText}\n${text}`);
+  }
+
+  const json = JSON.parse(text);
+
+  return json?.choices?.[0]?.message?.content ?? '';
 }
 
-async function fetchQuestionMain(type: QuestionType, history: string[]) {
-  const urlSearchParams = new URLSearchParams([
-    ['type', type],
-    ...history.map(item => ['history', item]),
+/**
+ * Creates a message object for OpenAI API.
+ */
+function createMessageObject(
+  role: 'system' | 'assistant' | 'user',
+  text: string,
+): CustomChatCompletionMessageParam {
+  return {
+    role,
+    content: [
+      {
+        text,
+        type: 'text',
+      },
+    ],
+  };
+}
+
+async function fetchQuestionMain(type: QuestionType, history: string[]): Promise<string> {
+  return fetchChatCompletionText([
+    ...questionMain[type].messages,
+    ...history.map(text => createMessageObject('assistant', text)),
   ]);
-
-  const res = await fetch(createURL('question/main', urlSearchParams));
-  const data = await res.json();
-
-  return data?.text;
 }
 
 async function fetchQuestionSub(question: string, answerUser: string) {
-  const urlSearchParams = new URLSearchParams([
-    ['question', question],
-    ['answerUser', answerUser],
+  return fetchChatCompletionText([
+    ...questionSub.messages,
+    createMessageObject(
+      'user',
+      `Previous Question\n\n${question}\n\nUSER's Answer\n\n${answerUser}`,
+    ),
   ]);
-
-  const res = await fetch(createURL('question/sub', urlSearchParams));
-  const data = await res.json();
-
-  return data?.text;
 }
 
 async function fetchAnswer(question: string) {
-  const urlSearchParams = new URLSearchParams([['question', question]]);
-
-  const res = await fetch(createURL('answer', urlSearchParams));
-  const data = await res.json();
-
-  return data?.text;
+  return fetchChatCompletionText([
+    ...answer.messages,
+    createMessageObject('user', question),
+  ]);
 }
 
 async function fetchFeedback(answerSystem: string, answerUser: string) {
-  const urlSearchParams = new URLSearchParams([
-    ['answerSystem', answerSystem],
-    ['answerUser', answerUser],
+  return fetchChatCompletionText([
+    ...feedback.messages,
+    createMessageObject(
+      'user',
+      `Correct Answer\n\n${answerSystem}\n\nUSER's Answer\n\n${answerUser}`,
+    ),
   ]);
-
-  const res = await fetch(createURL('feedback', urlSearchParams));
-  const data = await res.json();
-
-  return data?.text;
 }
 
 // --------------------------------------------------------------------------------
@@ -86,15 +122,14 @@ export default function useInterview() {
     getInterviewHistory,
   } = useInterviewHistory();
   const {
-    interviewObjState,
+    interviewObj,
     initInterviewObj,
     addInterviewObj,
     isInterviewObjEmpty,
     isInterviewObjFull,
     isOnlyFeedbackEmpty,
-    getQuestion,
   } = useInterviewObj();
-  const { triggerState, trigger } = useTrigger();
+  const [isInterviewStarted, setIsInterviewStarted] = useState<boolean>(false);
 
   // generateChain
   const fetchChainFirst = useCallback(() => {
@@ -128,15 +163,13 @@ export default function useInterview() {
   ]);
   const fetchChainSecond = useCallback(() => {
     // @ts-expect-error -- TODO
-    fetchFeedback(interviewObjState.answerSystem, interviewObjState.answerUser).then(
-      result => {
-        addInterviewObj({ feedback: JSON.parse(result) });
-      },
-    );
-  }, [interviewObjState, addInterviewObj]);
+    fetchFeedback(interviewObj.answerSystem, interviewObj.answerUser).then(result => {
+      addInterviewObj({ feedback: JSON.parse(result) });
+    });
+  }, [interviewObj, addInterviewObj]);
 
   useEffect(() => {
-    if (!triggerState) return; // before init.
+    if (!isInterviewStarted) return; // before init.
     if (isInterviewDone()) return; // interview done.
 
     if (isInterviewObjEmpty()) {
@@ -149,27 +182,26 @@ export default function useInterview() {
     }
     if (isInterviewObjFull()) {
       // console.log('addInterviewHistory()');
-      // @ts-expect-error -- TODO
-      interviewHistoryRef.current.push(interviewObjState);
+      interviewHistoryRef.current.push(interviewObj);
       // console.log('initInterviewObj()');
       initInterviewObj();
     }
   }, [
     interviewHistoryRef,
     isInterviewDone,
-    interviewObjState,
+    interviewObj,
     initInterviewObj,
     isInterviewObjEmpty,
     isInterviewObjFull,
     isOnlyFeedbackEmpty,
     fetchChainFirst,
     fetchChainSecond,
-    triggerState,
+    isInterviewStarted,
   ]);
 
-  const initInterview = configState => {
-    initInterviewHistory(configState);
-    trigger();
+  const initInterview = (config: Config) => {
+    initInterviewHistory(config);
+    setIsInterviewStarted(true);
   };
   const submit = () => {
     // @ts-expect-error -- TODO
@@ -181,11 +213,11 @@ export default function useInterview() {
   return {
     contentRef,
     listening,
+    question: interviewObj.question,
     toggleListening,
     isInterviewDone,
     getInterviewInfo,
     getInterviewHistory,
-    getQuestion,
     initInterview,
     submit,
   };

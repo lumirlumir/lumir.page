@@ -1,5 +1,5 @@
 /**
- * @fileoverview section-server.
+ * @fileoverview server.
  */
 
 // --------------------------------------------------------------------------------
@@ -12,48 +12,69 @@ import { useCountdown, useScroll } from '@lumir/react-kit/hooks';
 import { cn } from '@lumir/utils';
 
 import NeonDiv from '@/components/neon-div';
-import useScenario from '@/hooks/use-scenario';
-import useConfig from '@/hooks/use-config';
+import { useConfigContext } from '@/contexts/config-context';
+import { useScenarioContext } from '@/contexts/scenario-context';
 import useInterview from '@/hooks/use-interview';
 import useHistoryState from '@/hooks/use-history-state';
 
-import './section-server.css';
+import './server.css';
 
 // --------------------------------------------------------------------------------
 // Typedef
 // --------------------------------------------------------------------------------
 
 interface Props {
-  scenario: ReturnType<typeof useScenario>;
-  config: ReturnType<typeof useConfig>;
   interview: ReturnType<typeof useInterview>;
   timer: ReturnType<typeof useCountdown>;
+}
+
+// --------------------------------------------------------------------------------
+// Helper
+// --------------------------------------------------------------------------------
+
+/**
+ * Format content to be displayed in the server section.
+ * @param content The content to be formatted.
+ * @returns The formatted content.
+ */
+function formatContent(content: string) {
+  if (content === '') {
+    // If content is empty, return an empty string to avoid displaying `'> '` prefix
+    return '';
+  } else if (content.startsWith('$')) {
+    // If content starts with '$', treat it as a command and display without `'> '` prefix
+    return `${content}\n\n`;
+  } else {
+    return `> ${content}\n\n`;
+  }
 }
 
 // --------------------------------------------------------------------------------
 // Export
 // --------------------------------------------------------------------------------
 
-export default function SectionServer({ scenario, config, interview, timer }: Props) {
-  const { getSectionObj, toNextSection } = scenario;
-  const { visibility, content, mode } = getSectionObj()['section-server'];
-  const { configState } = config;
-  const { getInterviewInfo, getQuestion, isInterviewDone, getInterviewHistory } =
-    interview;
+export default function Server({ interview, timer }: Props) {
+  const { config } = useConfigContext();
+  const { section, toNextSection } = useScenarioContext();
+  const { content, mode, status } = section.server;
+  const { question, getInterviewInfo, isInterviewDone, getInterviewHistory } = interview;
   const [, countdown] = timer;
   const [scrollRef, scroll] = useScroll<HTMLDivElement>({ behavior: 'smooth' });
   const { historyState, addHistory } = useHistoryState<string>();
 
   const text = useMemo(() => {
-    if (mode === 'test')
-      return getQuestion() === null
+    if (mode === 'test') {
+      return question === null
         ? ''
-        : `> ${getInterviewInfo().questionType.toUpperCase()}분야 ${getInterviewInfo().questionMain}-${getInterviewInfo().questionSub}번 문제입니다. ${getQuestion()}\n\n`;
-
-    if (mode === 'result') return getInterviewHistory();
-
-    return content;
-  }, [mode, content, getInterviewInfo, getQuestion, getInterviewHistory]);
+        : formatContent(
+            `${getInterviewInfo().questionType.toUpperCase()}분야 ${getInterviewInfo().questionMain}-${getInterviewInfo().questionSub}번 문제입니다. ${question}`,
+          );
+    } else if (mode === 'result') {
+      return getInterviewHistory();
+    } else {
+      return formatContent(content);
+    }
+  }, [mode, content, question, getInterviewInfo, getInterviewHistory]);
 
   useLayoutEffect(() => {
     addHistory(text);
@@ -61,17 +82,17 @@ export default function SectionServer({ scenario, config, interview, timer }: Pr
 
   useEffect(() => {
     if (mode === 'test' && isInterviewDone()) toNextSection();
-  }, [getQuestion, isInterviewDone, toNextSection, mode]);
+  }, [question, isInterviewDone, toNextSection, mode]);
 
   return (
     <NeonDiv
       className={cn(
-        'section-server',
+        'server',
         'custom-scrollbar',
         'custom-main-section',
         'custom-main-section-bash',
         'transition',
-        visibility && !configState.visibility ? '' : 'custom-invisible-section',
+        status !== 'hidden' && !config.visibility ? '' : 'custom-invisible-section',
         mode === 'result' && 'wide',
       )}
       neonColor="black"
@@ -88,7 +109,7 @@ export default function SectionServer({ scenario, config, interview, timer }: Pr
           onWriteComplete={() => {
             if (mode === 'auto' || mode === 'result') toNextSection();
             if (mode === 'test' && text !== '') {
-              countdown.reset();
+              countdown.reset(config.time * 60 * 1_000);
               countdown.start();
             }
             scroll.intoView({ block: 'end', inline: 'nearest' });

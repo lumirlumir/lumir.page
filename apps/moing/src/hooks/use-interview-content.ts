@@ -15,7 +15,7 @@ import useSpeechRecognition from '@/hooks/use-speech-recognition';
 
 export default function useInterviewContent<T extends HTMLElement>() {
   const contentRef = useRef<T>(null);
-  const prevContent = useRef(null);
+  const prevContent = useRef<string>('');
   const {
     transcript,
     listening,

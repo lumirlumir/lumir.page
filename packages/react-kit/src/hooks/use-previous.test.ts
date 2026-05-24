@@ -6,7 +6,7 @@
 // Import
 // --------------------------------------------------------------------------------
 
-import { describe, it, expect, expectTypeOf } from 'vitest';
+import { assert, assertType, describe, it } from 'vitest';
 import { renderHook } from 'vitest-browser-react';
 import { usePrevious } from './use-previous.js';
 
@@ -18,14 +18,16 @@ describe('use-previous', () => {
   describe('unit', () => {
     it('Initial value should be returned as given - 1', async () => {
       const { result } = await renderHook(() => usePrevious(0));
+      const initialValue = result.current;
 
-      expect(result.current).toBe(0);
+      assert.strictEqual(initialValue, 0);
     });
 
     it('Initial value should be returned as given - 2', async () => {
       const { result } = await renderHook(() => usePrevious('initial'));
+      const initialValue = result.current;
 
-      expect(result.current).toBe('initial');
+      assert.strictEqual(initialValue, 'initial');
     });
 
     it('Previous value is returned when state changes', async () => {
@@ -34,43 +36,36 @@ describe('use-previous', () => {
 
       value = 1;
       await rerender();
-      expect(result.current).toBe(0);
+      assert.strictEqual(result.current, 0);
 
       value = 2;
       await rerender();
-      expect(result.current).toBe(1);
+      assert.strictEqual(result.current, 1);
 
       value = 3;
       await rerender();
-      expect(result.current).toBe(2);
+      assert.strictEqual(result.current, 2);
 
       value = 'hi';
       await rerender();
-      expect(result.current).toBe(3);
+      assert.strictEqual(result.current, 3);
 
       value = 'hello';
       await rerender();
-      expect(result.current).toBe('hi');
+      assert.strictEqual(result.current, 'hi');
     });
   });
 
   describe('type', () => {
     it('`usePrevious` should be generic and maintain type consistency', () => {
-      /* eslint-disable no-unused-vars -- Test purpose */
+      assertType<(value: number) => number>(usePrevious<number>);
+      assertType<(value: string) => string>(usePrevious<string>);
+      assertType<(value: { a: number }) => { a: number }>(usePrevious<{ a: number }>);
 
-      expectTypeOf<typeof usePrevious<number>>().toEqualTypeOf<
-        (value: number) => number
-      >();
-
-      expectTypeOf<typeof usePrevious<string>>().toEqualTypeOf<
-        (value: string) => string
-      >();
-
-      expectTypeOf<typeof usePrevious<{ a: number }>>().toEqualTypeOf<
-        (value: { a: number }) => { a: number }
-      >();
-
-      /* eslint-enable no-unused-vars -- Test purpose */
+      // @ts-expect-error -- Type mismatch should be caught
+      assertType<(value: number) => string>(usePrevious<number>);
+      // @ts-expect-error -- Type mismatch should be caught
+      assertType<(value: string) => number>(usePrevious<string>);
     });
   });
 });

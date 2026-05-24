@@ -10,14 +10,13 @@ import { useCountdown } from '@lumir/react-kit/hooks';
 import { cn } from '@lumir/utils';
 
 import NeonFont from '@/components/neon-font';
-import useScenario from '@/hooks/use-scenario';
+import { useScenarioContext } from '@/contexts/scenario-context';
 
 // --------------------------------------------------------------------------------
 // Typedef
 // --------------------------------------------------------------------------------
 
 interface Props {
-  scenario: ReturnType<typeof useScenario>;
   timer: ReturnType<typeof useCountdown>;
 }
 
@@ -25,8 +24,9 @@ interface Props {
 // Export
 // --------------------------------------------------------------------------------
 
-export default function Timer({ scenario, timer }: Props) {
-  const { visibility } = scenario.getSectionObj().timer;
+export default function Timer({ timer }: Props) {
+  const { section } = useScenarioContext();
+  const { status } = section.timer;
   const [remainingMs] = timer;
   const remainingSeconds = Math.ceil(remainingMs / 1_000);
   const minute = Math.floor((remainingSeconds / 60) % 60);
@@ -38,7 +38,7 @@ export default function Timer({ scenario, timer }: Props) {
         'timer',
         'custom-flex-center',
         'transition',
-        visibility || 'pointer-events-none opacity-0',
+        status === 'hidden' && 'pointer-events-none opacity-0',
       )}
     >
       <NeonFont

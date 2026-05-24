@@ -3,6 +3,7 @@
   "name": "@lumir/remark-plugins",
   "version": "0.0.0-private",
   "type": "module",
+  "sideEffects": false,
   "exports": {
     ".": {
       "types": "./build/index.d.ts",
@@ -18,8 +19,8 @@
     }
   },
   "scripts": {
-    "build": "tsgo",
-    "dev": "tsgo --watch",
+    "build": "tsgo -b tsconfig.build.json",
+    "dev": "tsgo -b tsconfig.build.json --watch",
     "test": "vitest run"
   },
   "dependencies": {
@@ -29,6 +30,6 @@
   "devDependencies": {
     "@types/mdast": "^4.0.4",
     "remark": "^15.0.1",
-    "vitest": "^4.1.4"
+    "vitest": "^4.1.6"
   }
 }

@@ -45,7 +45,7 @@ interface SpeechRecognition extends EventTarget {
   interimResults: boolean;
 
   /**
-   * Sets the maximum number of `SpeechRecognitionAlternatives` provided per result. The default value is `1`.
+   * Sets the maximum number of `SpeechRecognitionAlternatives` provided per result.
    * @see https://developer.mozilla.org/en-US/docs/Web/API/SpeechRecognition/maxAlternatives
    * @default 1
    */

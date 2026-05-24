@@ -21,7 +21,6 @@ import { useToggle } from '@lumir/react-kit/hooks';
 
 /**
  * Represents the available application theme modes.
- *
  * @default 'dark'
  */
 export type Theme = 'dark' | 'light';
