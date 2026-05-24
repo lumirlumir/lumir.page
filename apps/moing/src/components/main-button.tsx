@@ -6,6 +6,7 @@
 // Import
 // --------------------------------------------------------------------------------
 
+import { type MouseEventHandler } from 'react';
 import { cn } from '@lumir/utils';
 
 import NeonButton from '@/components/neon-button';
@@ -36,7 +37,7 @@ export default function ButtonMain({ scenario, config, interview }: Props) {
   const { configState, handleConfigState, isConfigDone } = config;
   const { initInterview } = interview;
 
-  const onClick = e => {
+  const onClick: MouseEventHandler<HTMLButtonElement> = e => {
     if (content === 'PRESS') {
       toNextSection();
     }
@@ -65,7 +66,7 @@ export default function ButtonMain({ scenario, config, interview }: Props) {
           : 'pointer-events-none opacity-0',
       )}
     >
-      <NeonButton style={{ padding: '20px 30px' }} onClick={e => onClick(e)}>
+      <NeonButton style={{ padding: '20px 30px' }} onClick={onClick}>
         <NeonFont
           neonColor="white"
           neonSize="s"

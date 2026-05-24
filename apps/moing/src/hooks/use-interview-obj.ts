@@ -9,10 +9,21 @@
 import { useState } from 'react';
 
 // --------------------------------------------------------------------------------
+// Typedef
+// --------------------------------------------------------------------------------
+
+export interface InterviewObj {
+  readonly question: string | null;
+  readonly answerSystem: string | null;
+  readonly answerUser: string | null;
+  readonly feedback: string | null;
+}
+
+// --------------------------------------------------------------------------------
 // Helper
 // --------------------------------------------------------------------------------
 
-const INTERVIEW_OBJ = Object.freeze({
+const INTERVIEW_OBJ: InterviewObj = Object.freeze({
   question: null,
   answerSystem: null,
   answerUser: null,
@@ -24,7 +35,7 @@ const INTERVIEW_OBJ = Object.freeze({
 // --------------------------------------------------------------------------------
 
 export default function useInterviewObj() {
-  const [interviewObjState, setInterviewObjState] = useState(INTERVIEW_OBJ);
+  const [interviewObjState, setInterviewObjState] = useState<InterviewObj>(INTERVIEW_OBJ);
 
   const initInterviewObj = () => {
     setInterviewObjState(prevState => ({
@@ -32,7 +43,7 @@ export default function useInterviewObj() {
       ...INTERVIEW_OBJ,
     }));
   };
-  const addInterviewObj = obj => {
+  const addInterviewObj = (obj: Partial<InterviewObj>) => {
     setInterviewObjState(prevState => ({
       ...prevState,
       ...obj,

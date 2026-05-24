@@ -8,6 +8,7 @@
 
 import { useCallback, useEffect } from 'react';
 
+import { type Config } from '@/hooks/use-config';
 import useInterviewContent from '@/hooks/use-interview-content';
 import useInterviewHistory from '@/hooks/use-interview-history';
 import useInterviewObj from '@/hooks/use-interview-obj';
@@ -149,7 +150,6 @@ export default function useInterview() {
     }
     if (isInterviewObjFull()) {
       // console.log('addInterviewHistory()');
-      // @ts-expect-error -- TODO
       interviewHistoryRef.current.push(interviewObjState);
       // console.log('initInterviewObj()');
       initInterviewObj();
@@ -167,7 +167,7 @@ export default function useInterview() {
     triggerState,
   ]);
 
-  const initInterview = configState => {
+  const initInterview = (configState: Config) => {
     initInterviewHistory(configState);
     trigger();
   };
