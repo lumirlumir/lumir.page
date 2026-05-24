@@ -37,22 +37,21 @@ export default function Server({ interview, timer }: Props) {
   const { config } = useConfigContext();
   const { section, toNextSection } = useScenarioContext();
   const { status, content, mode } = section.server;
-  const { getInterviewInfo, getQuestion, isInterviewDone, getInterviewHistory } =
-    interview;
+  const { question, getInterviewInfo, isInterviewDone, getInterviewHistory } = interview;
   const { resetTimer } = timer;
   const [scrollRef, scroll] = useScroll<HTMLDivElement>({ behavior: 'smooth' });
   const { historyState, addHistory } = useHistoryState<string>();
 
   const text = useMemo(() => {
     if (mode === 'test')
-      return getQuestion() === null
+      return question === null
         ? ''
-        : `> ${getInterviewInfo().questionType.toUpperCase()}분야 ${getInterviewInfo().questionMain}-${getInterviewInfo().questionSub}번 문제입니다. ${getQuestion()}\n\n`;
+        : `> ${getInterviewInfo().questionType.toUpperCase()}분야 ${getInterviewInfo().questionMain}-${getInterviewInfo().questionSub}번 문제입니다. ${question}\n\n`;
 
     if (mode === 'result') return getInterviewHistory();
 
     return content;
-  }, [mode, content, getInterviewInfo, getQuestion, getInterviewHistory]);
+  }, [mode, content, getInterviewInfo, question, getInterviewHistory]);
 
   useLayoutEffect(() => {
     addHistory(text);
@@ -60,7 +59,7 @@ export default function Server({ interview, timer }: Props) {
 
   useEffect(() => {
     if (mode === 'test' && isInterviewDone()) toNextSection();
-  }, [getQuestion, isInterviewDone, toNextSection, mode]);
+  }, [question, isInterviewDone, toNextSection, mode]);
 
   return (
     <NeonDiv

@@ -88,7 +88,6 @@ export default function useInterview() {
     isInterviewObjEmpty,
     isInterviewObjFull,
     isOnlyFeedbackEmpty,
-    getQuestion,
   } = useInterviewObj();
   const [isInterviewStarted, setIsInterviewStarted] = useState<boolean>(false);
 
@@ -176,11 +175,11 @@ export default function useInterview() {
   return {
     contentRef,
     listening,
+    question: interviewObjState.question,
     toggleListening,
     isInterviewDone,
     getInterviewInfo,
     getInterviewHistory,
-    getQuestion,
     initInterview,
     submit,
   };

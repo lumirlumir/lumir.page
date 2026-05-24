@@ -64,7 +64,6 @@ export default function useInterviewObj() {
     interviewObjState.answerSystem !== null &&
     interviewObjState.answerUser !== null &&
     interviewObjState.feedback === null;
-  const getQuestion = () => interviewObjState.question;
 
   return {
     interviewObjState,
@@ -73,6 +72,5 @@ export default function useInterviewObj() {
     isInterviewObjEmpty,
     isInterviewObjFull,
     isOnlyFeedbackEmpty,
-    getQuestion,
   };
 }
