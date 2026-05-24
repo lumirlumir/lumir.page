@@ -11,8 +11,8 @@ import { cn } from '@lumir/utils';
 
 import NeonButton from '@/components/neon-button';
 import NeonFont from '@/components/neon-font';
-import useConfig from '@/hooks/use-config';
-import useScenario from '@/hooks/use-scenario';
+import { useConfigContext } from '@/contexts/config-context';
+import { useScenarioContext } from '@/contexts/scenario-context';
 import useInterview from '@/hooks/use-interview';
 
 import './main-button.css';
@@ -22,8 +22,6 @@ import './main-button.css';
 // --------------------------------------------------------------------------------
 
 interface Props {
-  scenario: ReturnType<typeof useScenario>;
-  config: ReturnType<typeof useConfig>;
   interview: ReturnType<typeof useInterview>;
 }
 
@@ -31,10 +29,10 @@ interface Props {
 // Export
 // --------------------------------------------------------------------------------
 
-export default function ButtonMain({ scenario, config, interview }: Props) {
-  const { getSectionObj, toNextSection, toLastSection, isLastSection } = scenario;
-  const { content, visibility } = getSectionObj()['main-button'];
-  const { configState, handleConfigState, isConfigDone } = config;
+export default function ButtonMain({ interview }: Props) {
+  const { config, updateConfig, isConfigDone } = useConfigContext();
+  const { section, toNextSection, toLastSection, isLastSection } = useScenarioContext();
+  const { content, status } = section['main-button'];
   const { initInterview } = interview;
 
   const onClick: MouseEventHandler<HTMLButtonElement> = e => {
@@ -47,8 +45,8 @@ export default function ButtonMain({ scenario, config, interview }: Props) {
         return;
       }
       if (isConfigDone()) {
-        handleConfigState({ visibility: false });
-        initInterview(configState);
+        updateConfig({ visibility: false });
+        initInterview(config);
       }
       toNextSection();
     }
@@ -61,7 +59,7 @@ export default function ButtonMain({ scenario, config, interview }: Props) {
         'custom-flex-center',
         'custom-main-others',
         'transition',
-        (isLastSection() && isConfigDone()) || visibility
+        (isLastSection() && isConfigDone()) || status !== 'hidden'
           ? ''
           : 'pointer-events-none opacity-0',
       )}

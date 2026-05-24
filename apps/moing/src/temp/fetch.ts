@@ -7,7 +7,7 @@
 // --------------------------------------------------------------------------------
 
 import OpenAI from 'openai';
-import { type QuestionType } from '@/hooks/use-config';
+import { type QuestionType } from '@/contexts/config-context';
 import { questionMain, questionSub, answer, feedback } from './prompt.js';
 import { type CustomChatCompletionMessageParam } from './types.js';
 

@@ -1,5 +1,5 @@
 /**
- * @fileoverview section-server.
+ * @fileoverview server.
  */
 
 // --------------------------------------------------------------------------------
@@ -12,21 +12,19 @@ import { useScroll } from '@lumir/react-kit/hooks';
 import { cn } from '@lumir/utils';
 
 import NeonDiv from '@/components/neon-div';
-import useScenario from '@/hooks/use-scenario';
-import useConfig from '@/hooks/use-config';
+import { useConfigContext } from '@/contexts/config-context';
+import { useScenarioContext } from '@/contexts/scenario-context';
 import useInterview from '@/hooks/use-interview';
 import useTimer from '@/hooks/use-timer';
 import useHistoryState from '@/hooks/use-history-state';
 
-import './section-server.css';
+import './server.css';
 
 // --------------------------------------------------------------------------------
 // Typedef
 // --------------------------------------------------------------------------------
 
 interface Props {
-  scenario: ReturnType<typeof useScenario>;
-  config: ReturnType<typeof useConfig>;
   interview: ReturnType<typeof useInterview>;
   timer: ReturnType<typeof useTimer>;
 }
@@ -35,10 +33,10 @@ interface Props {
 // Export
 // --------------------------------------------------------------------------------
 
-export default function SectionServer({ scenario, config, interview, timer }: Props) {
-  const { getSectionObj, toNextSection } = scenario;
-  const { visibility, content, mode } = getSectionObj()['section-server'];
-  const { configState } = config;
+export default function Server({ interview, timer }: Props) {
+  const { config } = useConfigContext();
+  const { section, toNextSection } = useScenarioContext();
+  const { status, content, mode } = section.server;
   const { getInterviewInfo, getQuestion, isInterviewDone, getInterviewHistory } =
     interview;
   const { resetTimer } = timer;
@@ -67,12 +65,12 @@ export default function SectionServer({ scenario, config, interview, timer }: Pr
   return (
     <NeonDiv
       className={cn(
-        'section-server',
+        'server',
         'custom-scrollbar',
         'custom-main-section',
         'custom-main-section-bash',
         'transition',
-        visibility && !configState.visibility ? '' : 'custom-invisible-section',
+        status !== 'hidden' && !config.visibility ? '' : 'custom-invisible-section',
         mode === 'result' && 'wide',
       )}
       neonColor="black"
@@ -88,7 +86,7 @@ export default function SectionServer({ scenario, config, interview, timer }: Pr
           writePostDelay={1000}
           onWriteComplete={() => {
             if (mode === 'auto' || mode === 'result') toNextSection();
-            if (mode === 'test' && text !== '') resetTimer(configState.time);
+            if (mode === 'test' && text !== '') resetTimer(config.time);
             scroll.intoView({ block: 'end', inline: 'nearest' });
           }}
         />

@@ -7,7 +7,7 @@
 // --------------------------------------------------------------------------------
 
 import { type CustomChatCompletionMessageParam } from './types.js';
-import { type QuestionType } from '../hooks/use-config.js';
+import { type QuestionType } from '../contexts/config-context.js';
 
 // --------------------------------------------------------------------------------
 // Export

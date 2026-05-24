@@ -9,7 +9,7 @@
 import { cn } from '@lumir/utils';
 
 import NeonFont from '@/components/neon-font';
-import useScenario from '@/hooks/use-scenario';
+import { useScenarioContext } from '@/contexts/scenario-context';
 import useTimer from '@/hooks/use-timer';
 
 // --------------------------------------------------------------------------------
@@ -17,7 +17,6 @@ import useTimer from '@/hooks/use-timer';
 // --------------------------------------------------------------------------------
 
 interface Props {
-  scenario: ReturnType<typeof useScenario>;
   timer: ReturnType<typeof useTimer>;
 }
 
@@ -25,8 +24,9 @@ interface Props {
 // Export
 // --------------------------------------------------------------------------------
 
-export default function Timer({ scenario, timer }: Props) {
-  const { visibility } = scenario.getSectionObj().timer;
+export default function Timer({ timer }: Props) {
+  const { section } = useScenarioContext();
+  const { status } = section.timer;
   const { getTimer } = timer;
 
   return (
@@ -35,7 +35,7 @@ export default function Timer({ scenario, timer }: Props) {
         'timer',
         'custom-flex-center',
         'transition',
-        visibility || 'pointer-events-none opacity-0',
+        status === 'hidden' && 'pointer-events-none opacity-0',
       )}
     >
       <NeonFont

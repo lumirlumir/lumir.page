@@ -8,12 +8,10 @@
 
 import { useCallback, useEffect, useState } from 'react';
 
-import { type Config } from '@/hooks/use-config';
+import { type Config, type QuestionType } from '@/contexts/config-context';
 import useInterviewContent from '@/hooks/use-interview-content';
 import useInterviewHistory from '@/hooks/use-interview-history';
 import useInterviewObj from '@/hooks/use-interview-obj';
-
-import type { QuestionType } from '@/hooks/use-config';
 
 // --------------------------------------------------------------------------------
 // Helper
@@ -164,8 +162,8 @@ export default function useInterview() {
     isInterviewStarted,
   ]);
 
-  const initInterview = (configState: Config) => {
-    initInterviewHistory(configState);
+  const initInterview = (config: Config) => {
+    initInterviewHistory(config);
     setIsInterviewStarted(true);
   };
   const submit = () => {

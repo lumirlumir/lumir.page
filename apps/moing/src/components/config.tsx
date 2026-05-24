@@ -1,5 +1,5 @@
 /**
- * @fileoverview section-config.
+ * @fileoverview config.
  */
 
 // --------------------------------------------------------------------------------
@@ -11,17 +11,9 @@ import { cn } from '@lumir/utils';
 
 import NeonDiv from '@/components/neon-div';
 import NeonFont from '@/components/neon-font';
-import useConfig, { questionTypes } from '@/hooks/use-config';
+import { questionTypes, useConfigContext } from '@/contexts/config-context';
 
-import './section-config.css';
-
-// --------------------------------------------------------------------------------
-// Typedef
-// --------------------------------------------------------------------------------
-
-interface Props {
-  config: ReturnType<typeof useConfig>;
-}
+import './config.css';
 
 // --------------------------------------------------------------------------------
 // Helpers
@@ -86,30 +78,30 @@ function Checkbox({
 // Export
 // --------------------------------------------------------------------------------
 
-export default function SectionConfig({ config }: Props) {
-  const { configState, handleConfigState } = config;
+export default function Config() {
+  const { config, updateConfig } = useConfigContext();
 
   const handleButtonCount = (
     e: MouseEvent<HTMLInputElement>,
     key: 'main' | 'sub' | 'time',
   ) => {
-    if (e.ctrlKey && configState[key] - 1 >= 0) {
-      handleConfigState({ [key]: configState[key] - 1 });
-    } else if (!e.ctrlKey && configState[key] + 1 <= 10) {
-      handleConfigState({ [key]: configState[key] + 1 });
+    if (e.ctrlKey && config[key] - 1 >= 0) {
+      updateConfig({ [key]: config[key] - 1 });
+    } else if (!e.ctrlKey && config[key] + 1 <= 10) {
+      updateConfig({ [key]: config[key] + 1 });
     }
   };
 
   return (
     <NeonDiv
       className={cn(
-        'section-config',
+        'config',
         'custom-flex-center',
         'custom-scrollbar',
         'custom-main-section',
         'transition',
         'select-none',
-        configState.visibility || 'custom-invisible-section',
+        config.visibility || 'custom-invisible-section',
       )}
       neonSize="m"
       neonColor="banana"
@@ -120,11 +112,11 @@ export default function SectionConfig({ config }: Props) {
             <Checkbox
               key={key}
               onChange={() =>
-                handleConfigState({
-                  [key]: !configState[key],
+                updateConfig({
+                  [key]: !config[key],
                 })
               }
-              isChecked={configState[key]}
+              isChecked={config[key]}
               label={key.toUpperCase()}
             />
           ))}
@@ -132,17 +124,17 @@ export default function SectionConfig({ config }: Props) {
         <div>
           <ButtonCount
             onClick={e => handleButtonCount(e, 'main')}
-            count={configState.main}
+            count={config.main}
             label="QUESTION-MAIN:"
           />
           <ButtonCount
             onClick={e => handleButtonCount(e, 'sub')}
-            count={configState.sub}
+            count={config.sub}
             label="QUESTION-SUB:"
           />
           <ButtonCount
             onClick={e => handleButtonCount(e, 'time')}
-            count={configState.time}
+            count={config.time}
             label="TIME-LIMIT:"
           />
         </div>

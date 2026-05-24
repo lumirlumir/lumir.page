@@ -1,4 +1,4 @@
-.section-client {
+.client {
   height: var(--main-section-height);
 
   & > div {

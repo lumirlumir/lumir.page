@@ -9,24 +9,17 @@
 import { cn } from '@lumir/utils';
 
 import NeonFont from '@/components/neon-font';
-import useScenario from '@/hooks/use-scenario';
+import { useScenarioContext } from '@/contexts/scenario-context';
 
 import './title.css';
-
-// --------------------------------------------------------------------------------
-// Typedef
-// --------------------------------------------------------------------------------
-
-interface Props {
-  scenario: ReturnType<typeof useScenario>;
-}
 
 // --------------------------------------------------------------------------------
 // Export
 // --------------------------------------------------------------------------------
 
-export default function Title({ scenario }: Props) {
-  const { visibility } = scenario.getSectionObj().title;
+export default function Title() {
+  const { section } = useScenarioContext();
+  const { status } = section.title;
 
   return (
     <div
@@ -35,7 +28,7 @@ export default function Title({ scenario }: Props) {
         'transition',
         'select-none',
         'custom-main-others',
-        visibility || 'pointer-events-none opacity-0',
+        status === 'hidden' && 'pointer-events-none opacity-0',
       )}
     >
       <div className="mock">
