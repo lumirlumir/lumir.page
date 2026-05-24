@@ -16,14 +16,12 @@ import './neon-button.css';
 
 interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   /**
-   * Size of the neon effect.
-   * @default '2px'
+   * Size of the neon effect. Defaults to `'2px'`.
    */
   neonSize?: React.CSSProperties['width'] & React.CSSProperties['height'];
 
   /**
-   * Whether to apply a hover effect.
-   * @default false
+   * Whether to apply a hover effect. Defaults to `false`.
    */
   hoverEffect?: boolean;
 }

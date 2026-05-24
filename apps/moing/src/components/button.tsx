@@ -24,8 +24,7 @@ interface Props {
   onClick: React.MouseEventHandler<HTMLButtonElement>;
 
   /**
-   * Whether to apply a hover effect.
-   * @default false
+   * Whether to apply a hover effect. Defaults to `false`.
    */
   hoverEffect?: boolean;
 }

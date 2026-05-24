@@ -16,14 +16,12 @@ import './neon-div.css';
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
   /**
-   * Neon color for the component.
-   * @default 'red'
+   * Neon color for the component. Defaults to `'red'`.
    */
   neonColor?: keyof typeof colorMap;
 
   /**
-   * Neon size for the component.
-   * @default 'l'
+   * Neon size for the component. Defaults to `'l'`.
    */
   neonSize?: keyof typeof sizeMap;
 }

@@ -30,67 +30,61 @@ export interface UseTypewriterOptions {
    * The mode of the typewriter effect.
    * - If set to `'write'`, the hook will write the text.
    * - If set to `'erase'`, the hook will erase the text.
-   * @default 'write'
+   * Defaults to `'write'`.
    */
   mode?: Mode | undefined;
 
   /**
-   * The delay between each character when writing (milliseconds).
-   * @default 50
+   * The delay between each character when writing (milliseconds). Defaults to
+   * `50`.
    */
   writeSpeed?: number | undefined;
 
   /**
-   * The delay between each character when erasing (milliseconds).
-   * @default 50
+   * The delay between each character when erasing (milliseconds). Defaults to
+   * `50`.
    */
   eraseSpeed?: number | undefined;
 
   /**
-   * Delay before starting to write (milliseconds).
-   * @default 0
+   * Delay before starting to write (milliseconds). Defaults to `0`.
    */
   writePreDelay?: number | undefined;
 
   /**
-   * Delay before starting to erase (milliseconds).
-   * @default 0
+   * Delay before starting to erase (milliseconds). Defaults to `0`.
    */
   erasePreDelay?: number | undefined;
 
   /**
-   * Delay after finishing to write (milliseconds).
-   * @default 1500
+   * Delay after finishing to write (milliseconds). Defaults to `1500`.
    */
   writePostDelay?: number | undefined;
 
   /**
-   * Delay after finishing to erase (milliseconds).
-   * @default 1500
+   * Delay after finishing to erase (milliseconds). Defaults to `1500`.
    */
   erasePostDelay?: number | undefined;
 
   /**
-   * Whether to keep looping or not.
-   * @default false
+   * Whether to keep looping or not. Defaults to `false`.
    */
   loop?: boolean | undefined;
 
   /**
-   * Temporarily pauses writing/erasing when set to `true`.
-   * @default false
+   * Temporarily pauses writing/erasing when set to `true`. Defaults to `false`.
    */
   pause?: boolean | undefined;
 
   /**
-   * Callback function that is called when writing is complete.
-   * @default undefined
+   * Callback function that is called when writing is complete. Defaults to
+   * `undefined`.
    */
   onWriteComplete?: (() => void) | undefined;
 
   /**
-   * Callback function that is called when erasing is complete.
-   * @default undefined
+   * Callback function that is called when erasing is complete. Defaults to
+   * `undefined`.
    */
   onEraseComplete?: (() => void) | undefined;
 }
