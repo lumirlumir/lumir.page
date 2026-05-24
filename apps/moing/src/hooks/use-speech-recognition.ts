@@ -30,7 +30,6 @@ interface SpeechRecognition extends EventTarget {
 
   /**
    * Controls whether continuous results are returned for each recognition, or only a single result.
-   * Defaults to single. (`false`).
    * @see https://developer.mozilla.org/en-US/docs/Web/API/SpeechRecognition/continuous
    * @default false
    */
@@ -45,7 +44,7 @@ interface SpeechRecognition extends EventTarget {
   interimResults: boolean;
 
   /**
-   * Sets the maximum number of `SpeechRecognitionAlternatives` provided per result. The default value is `1`.
+   * Sets the maximum number of `SpeechRecognitionAlternatives` provided per result.
    * @see https://developer.mozilla.org/en-US/docs/Web/API/SpeechRecognition/maxAlternatives
    * @default 1
    */
