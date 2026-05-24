@@ -30,28 +30,52 @@ interface Props {
 }
 
 // --------------------------------------------------------------------------------
+// Helper
+// --------------------------------------------------------------------------------
+
+/**
+ * Format content to be displayed in the server section.
+ * @param content The content to be formatted.
+ * @returns The formatted content.
+ */
+function formatContent(content: string) {
+  if (content === '') {
+    // If content is empty, return an empty string to avoid displaying `'> '` prefix
+    return '';
+  } else if (content.startsWith('$')) {
+    // If content starts with '$', treat it as a command and display without `'> '` prefix
+    return `${content}\n\n`;
+  } else {
+    return `> ${content}\n\n`;
+  }
+}
+
+// --------------------------------------------------------------------------------
 // Export
 // --------------------------------------------------------------------------------
 
 export default function Server({ interview, timer }: Props) {
   const { config } = useConfigContext();
   const { section, toNextSection } = useScenarioContext();
-  const { status, content, mode } = section.server;
+  const { content, mode, status } = section.server;
   const { question, getInterviewInfo, isInterviewDone, getInterviewHistory } = interview;
   const { resetTimer } = timer;
   const [scrollRef, scroll] = useScroll<HTMLDivElement>({ behavior: 'smooth' });
   const { historyState, addHistory } = useHistoryState<string>();
 
   const text = useMemo(() => {
-    if (mode === 'test')
+    if (mode === 'test') {
       return question === null
         ? ''
-        : `> ${getInterviewInfo().questionType.toUpperCase()}분야 ${getInterviewInfo().questionMain}-${getInterviewInfo().questionSub}번 문제입니다. ${question}\n\n`;
-
-    if (mode === 'result') return getInterviewHistory();
-
-    return content;
-  }, [mode, content, getInterviewInfo, question, getInterviewHistory]);
+        : formatContent(
+            `${getInterviewInfo().questionType.toUpperCase()}분야 ${getInterviewInfo().questionMain}-${getInterviewInfo().questionSub}번 문제입니다. ${question}`,
+          );
+    } else if (mode === 'result') {
+      return getInterviewHistory();
+    } else {
+      return formatContent(content);
+    }
+  }, [mode, content, question, getInterviewInfo, getInterviewHistory]);
 
   useLayoutEffect(() => {
     addHistory(text);
