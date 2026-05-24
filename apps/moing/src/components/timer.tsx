@@ -26,7 +26,7 @@ interface Props {
 
 export default function Timer({ timer }: Props) {
   const { section } = useScenarioContext();
-  const { visibility } = section.timer;
+  const { status } = section.timer;
   const { getTimer } = timer;
 
   return (
@@ -35,7 +35,7 @@ export default function Timer({ timer }: Props) {
         'timer',
         'custom-flex-center',
         'transition',
-        visibility || 'pointer-events-none opacity-0',
+        status === 'hidden' && 'pointer-events-none opacity-0',
       )}
     >
       <NeonFont

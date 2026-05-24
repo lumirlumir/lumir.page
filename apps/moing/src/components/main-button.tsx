@@ -32,7 +32,7 @@ interface Props {
 export default function ButtonMain({ interview }: Props) {
   const { configState, updateConfig, isConfigDone } = useConfigContext();
   const { section, toNextSection, toLastSection, isLastSection } = useScenarioContext();
-  const { content, visibility } = section['main-button'];
+  const { content, status } = section['main-button'];
   const { initInterview } = interview;
 
   const onClick: MouseEventHandler<HTMLButtonElement> = e => {
@@ -59,7 +59,7 @@ export default function ButtonMain({ interview }: Props) {
         'custom-flex-center',
         'custom-main-others',
         'transition',
-        (isLastSection() && isConfigDone()) || visibility
+        (isLastSection() && isConfigDone()) || status !== 'hidden'
           ? ''
           : 'pointer-events-none opacity-0',
       )}

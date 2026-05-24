@@ -28,7 +28,7 @@ interface Props {
 
 export default function SectionClient({ interview }: Props) {
   const { section } = useScenarioContext();
-  const { visibility } = section['section-client'];
+  const { status } = section['section-client'];
   const { contentRef } = interview;
 
   return (
@@ -39,7 +39,7 @@ export default function SectionClient({ interview }: Props) {
         'custom-scrollbar',
         'custom-main-section',
         'custom-main-section-bash',
-        visibility || 'custom-invisible-section',
+        status === 'hidden' && 'custom-invisible-section',
       )}
       neonColor="black"
     >

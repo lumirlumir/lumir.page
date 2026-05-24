@@ -19,7 +19,7 @@ import './title.css';
 
 export default function Title() {
   const { section } = useScenarioContext();
-  const { visibility } = section.title;
+  const { status } = section.title;
 
   return (
     <div
@@ -28,7 +28,7 @@ export default function Title() {
         'transition',
         'select-none',
         'custom-main-others',
-        visibility || 'pointer-events-none opacity-0',
+        status === 'hidden' && 'pointer-events-none opacity-0',
       )}
     >
       <div className="mock">

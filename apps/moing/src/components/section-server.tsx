@@ -36,7 +36,7 @@ interface Props {
 export default function SectionServer({ interview, timer }: Props) {
   const { configState } = useConfigContext();
   const { section, toNextSection } = useScenarioContext();
-  const { visibility, content, mode } = section['section-server'];
+  const { status, content, mode } = section['section-server'];
   const { getInterviewInfo, getQuestion, isInterviewDone, getInterviewHistory } =
     interview;
   const { resetTimer } = timer;
@@ -70,7 +70,7 @@ export default function SectionServer({ interview, timer }: Props) {
         'custom-main-section',
         'custom-main-section-bash',
         'transition',
-        visibility && !configState.visibility ? '' : 'custom-invisible-section',
+        status !== 'hidden' && !configState.visibility ? '' : 'custom-invisible-section',
         mode === 'result' && 'wide',
       )}
       neonColor="black"
