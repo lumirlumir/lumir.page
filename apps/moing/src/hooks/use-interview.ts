@@ -6,13 +6,12 @@
 // Import
 // --------------------------------------------------------------------------------
 
-import { useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import { type Config } from '@/hooks/use-config';
 import useInterviewContent from '@/hooks/use-interview-content';
 import useInterviewHistory from '@/hooks/use-interview-history';
 import useInterviewObj from '@/hooks/use-interview-obj';
-import useTrigger from '@/hooks/use-trigger';
 
 import type { QuestionType } from '@/hooks/use-config';
 
@@ -21,9 +20,7 @@ import type { QuestionType } from '@/hooks/use-config';
 // --------------------------------------------------------------------------------
 
 function createURL(pathname: string, urlSearchParams: URLSearchParams): string {
-  const url = `http://${process.env.BACKEND_IP}:${process.env.BACKEND_PORT}/${pathname}?${urlSearchParams.toString()}`;
-
-  return url;
+  return `http://${process.env.BACKEND_IP}:${process.env.BACKEND_PORT}/${pathname}?${urlSearchParams.toString()}`;
 }
 
 async function fetchQuestionMain(type: QuestionType, history: string[]) {
@@ -95,7 +92,7 @@ export default function useInterview() {
     isOnlyFeedbackEmpty,
     getQuestion,
   } = useInterviewObj();
-  const { triggerState, trigger } = useTrigger();
+  const [isInterviewStarted, setIsInterviewStarted] = useState<boolean>(false);
 
   // generateChain
   const fetchChainFirst = useCallback(() => {
@@ -137,7 +134,7 @@ export default function useInterview() {
   }, [interviewObjState, addInterviewObj]);
 
   useEffect(() => {
-    if (!triggerState) return; // before init.
+    if (!isInterviewStarted) return; // before init.
     if (isInterviewDone()) return; // interview done.
 
     if (isInterviewObjEmpty()) {
@@ -164,12 +161,12 @@ export default function useInterview() {
     isOnlyFeedbackEmpty,
     fetchChainFirst,
     fetchChainSecond,
-    triggerState,
+    isInterviewStarted,
   ]);
 
   const initInterview = (configState: Config) => {
     initInterviewHistory(configState);
-    trigger();
+    setIsInterviewStarted(true);
   };
   const submit = () => {
     // @ts-expect-error -- TODO
