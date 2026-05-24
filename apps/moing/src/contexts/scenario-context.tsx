@@ -20,7 +20,7 @@ import { createContext, useContext, useState, type PropsWithChildren } from 'rea
 // Typedef
 // --------------------------------------------------------------------------------
 
-interface Content<T> {
+interface Content<T extends string> {
   content: T;
 }
 
