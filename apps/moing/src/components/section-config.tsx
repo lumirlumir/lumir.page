@@ -11,17 +11,9 @@ import { cn } from '@lumir/utils';
 
 import NeonDiv from '@/components/neon-div';
 import NeonFont from '@/components/neon-font';
-import useConfig, { questionTypes } from '@/hooks/use-config';
+import { questionTypes, useConfigContext } from '@/contexts/config-context';
 
 import './section-config.css';
-
-// --------------------------------------------------------------------------------
-// Typedef
-// --------------------------------------------------------------------------------
-
-interface Props {
-  config: ReturnType<typeof useConfig>;
-}
 
 // --------------------------------------------------------------------------------
 // Helpers
@@ -86,17 +78,17 @@ function Checkbox({
 // Export
 // --------------------------------------------------------------------------------
 
-export default function SectionConfig({ config }: Props) {
-  const { configState, handleConfigState } = config;
+export default function SectionConfig() {
+  const { configState, updateConfig } = useConfigContext();
 
   const handleButtonCount = (
     e: MouseEvent<HTMLInputElement>,
     key: 'main' | 'sub' | 'time',
   ) => {
     if (e.ctrlKey && configState[key] - 1 >= 0) {
-      handleConfigState({ [key]: configState[key] - 1 });
+      updateConfig({ [key]: configState[key] - 1 });
     } else if (!e.ctrlKey && configState[key] + 1 <= 10) {
-      handleConfigState({ [key]: configState[key] + 1 });
+      updateConfig({ [key]: configState[key] + 1 });
     }
   };
 
@@ -120,7 +112,7 @@ export default function SectionConfig({ config }: Props) {
             <Checkbox
               key={key}
               onChange={() =>
-                handleConfigState({
+                updateConfig({
                   [key]: !configState[key],
                 })
               }

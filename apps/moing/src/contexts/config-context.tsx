@@ -1,12 +1,12 @@
 /**
- * @fileoverview use-config
+ * @fileoverview config-context.
  */
 
 // --------------------------------------------------------------------------------
 // Import
 // --------------------------------------------------------------------------------
 
-import { useState } from 'react';
+import { createContext, useContext, useState, type PropsWithChildren } from 'react';
 
 // --------------------------------------------------------------------------------
 // Typedef
@@ -73,13 +73,35 @@ export interface Config {
 
 export type QuestionType = (typeof questionTypes)[number];
 
+export type ConfigContextValue = {
+  readonly configState: Config;
+  readonly updateConfig: (config: Partial<Config>) => void;
+  readonly isConfigDone: () => boolean;
+};
+
+// --------------------------------------------------------------------------------
+// Helper
+// --------------------------------------------------------------------------------
+
+const ConfigContext = createContext<ConfigContextValue | undefined>(undefined);
+
 // --------------------------------------------------------------------------------
 // Export
 // --------------------------------------------------------------------------------
 
 export const questionTypes = ['cs', 'fe', 'be', 'db', 'oop'] as const;
 
-export default function useConfig() {
+export function useConfigContext() {
+  const context = useContext(ConfigContext);
+
+  if (!context) {
+    throw new Error('`useConfigContext` must be used within a `ConfigProvider`.');
+  }
+
+  return context;
+}
+
+export function ConfigProvider({ children }: PropsWithChildren) {
   const [configState, setConfigState] = useState<Config>({
     visibility: false,
     cs: false,
@@ -92,22 +114,22 @@ export default function useConfig() {
     time: 0,
   });
 
-  const handleConfigState = (obj: Partial<Config>) => {
+  const updateConfig = (config: Partial<Config>) => {
     setConfigState(prevState => ({
       ...prevState,
-      ...obj,
+      ...config,
     }));
   };
 
   const isConfigDone = () => {
     const { cs, fe, be, db, oop, main, sub, time } = configState;
 
-    return (cs || fe || be || db || oop) && main && sub && time;
+    return Boolean((cs || fe || be || db || oop) && main && sub && time);
   };
 
-  return {
-    configState,
-    handleConfigState,
-    isConfigDone,
-  };
+  return (
+    <ConfigContext value={{ configState, updateConfig, isConfigDone }}>
+      {children}
+    </ConfigContext>
+  );
 }

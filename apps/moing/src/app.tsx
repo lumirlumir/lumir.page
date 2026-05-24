@@ -8,6 +8,12 @@
 
 import { useEffect } from 'react';
 import { useScroll } from '@lumir/react-kit/hooks';
+import {
+  CiMicrophoneOn,
+  GoGear,
+  GrPowerReset,
+  IoIosCheckmarkCircleOutline,
+} from '@lumir/react-kit/svgs';
 import { cn } from '@lumir/utils';
 
 import Button from '@/components/button';
@@ -17,15 +23,8 @@ import SectionConfig from '@/components/section-config';
 import SectionServer from '@/components/section-server';
 import Timer from '@/components/timer';
 import Title from '@/components/title';
-import {
-  CiMicrophoneOn,
-  GoGear,
-  GrPowerReset,
-  IoIosCheckmarkCircleOutline,
-} from '@lumir/react-kit/svgs';
-
+import { useConfigContext } from '@/contexts/config-context';
 import useScenario from '@/hooks/use-scenario';
-import useConfig from '@/hooks/use-config';
 import useInterview from '@/hooks/use-interview';
 import useTimer from '@/hooks/use-timer';
 
@@ -36,8 +35,8 @@ import './app.css';
 // --------------------------------------------------------------------------------
 
 export default function App() {
+  const config = useConfigContext();
   const scenario = useScenario();
-  const config = useConfig();
   const interview = useInterview();
   const timer = useTimer(interview.submit);
   const [scrollRef, scroll] = useScroll<HTMLDivElement>({ behavior: 'smooth' });
@@ -57,7 +56,7 @@ export default function App() {
         icon={<GoGear size="35px" />}
         scenario={scenario}
         onClick={() => {
-          config.handleConfigState({ visibility: !config.configState.visibility });
+          config.updateConfig({ visibility: !config.configState.visibility });
         }}
       />
       <Button
@@ -92,15 +91,10 @@ export default function App() {
       <main className={cn('main', 'custom-flex-center', 'custom-scrollbar')}>
         <div ref={scrollRef}>
           <Title scenario={scenario} />
-          <SectionServer
-            scenario={scenario}
-            config={config}
-            interview={interview}
-            timer={timer}
-          />
+          <SectionServer scenario={scenario} interview={interview} timer={timer} />
           <SectionClient scenario={scenario} interview={interview} />
-          <SectionConfig config={config} />
-          <MainButton scenario={scenario} config={config} interview={interview} />
+          <SectionConfig />
+          <MainButton scenario={scenario} interview={interview} />
         </div>
       </main>
     </>

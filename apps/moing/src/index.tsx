@@ -8,6 +8,7 @@
 
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
+import { ConfigProvider } from '@/contexts/config-context';
 
 import App from './app';
 
@@ -19,6 +20,8 @@ import '@/styles/index.css';
 
 createRoot(document.getElementById('app') as HTMLDivElement).render(
   <StrictMode>
-    <App />
+    <ConfigProvider>
+      <App />
+    </ConfigProvider>
   </StrictMode>,
 );

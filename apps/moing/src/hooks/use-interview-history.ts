@@ -7,7 +7,7 @@
 // --------------------------------------------------------------------------------
 
 import { useRef } from 'react';
-import { questionTypes, type Config } from '@/hooks/use-config';
+import { questionTypes, type Config } from '@/contexts/config-context';
 import { type InterviewObj } from '@/hooks/use-interview-obj';
 
 // --------------------------------------------------------------------------------
