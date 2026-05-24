@@ -13,7 +13,7 @@ import { createContext, useContext, useState, type PropsWithChildren } from 'rea
 // --------------------------------------------------------------------------------
 
 /**
- * Configuration Object.
+ * Interview configuration state.
  */
 export interface Config {
   /**
@@ -71,11 +71,30 @@ export interface Config {
   time: number;
 }
 
+/**
+ * Question type keys that can be enabled for an interview.
+ */
 export type QuestionType = (typeof questionTypes)[number];
 
+/**
+ * Defines the shape of the configuration context value provided by the `ConfigContext`,
+ * including the current configuration state and helper functions for updating the config
+ * and checking if it's complete.
+ */
 export type ConfigContextValue = {
+  /**
+   * Current interview configuration.
+   */
   readonly configState: Config;
+
+  /**
+   * Merges a partial configuration update into the current config state.
+   */
   readonly updateConfig: (config: Partial<Config>) => void;
+
+  /**
+   * Returns whether the required interview configuration is complete.
+   */
   readonly isConfigDone: () => boolean;
 };
 
@@ -89,8 +108,17 @@ const ConfigContext = createContext<ConfigContextValue | undefined>(undefined);
 // Export
 // --------------------------------------------------------------------------------
 
+/**
+ * Ordered question type keys used by configuration controls.
+ */
 export const questionTypes = ['cs', 'fe', 'be', 'db', 'oop'] as const;
 
+/**
+ * Returns the current configuration context value.
+ *
+ * @returns The current configuration state and helper functions.
+ * @throws {Error} Throws when called outside of `ConfigProvider`.
+ */
 export function useConfigContext(): ConfigContextValue {
   const context = useContext(ConfigContext);
 
@@ -101,6 +129,13 @@ export function useConfigContext(): ConfigContextValue {
   return context;
 }
 
+/**
+ * Provides interview configuration state and helpers to descendants.
+ *
+ * @param props The component props.
+ * @param props.children The child elements that should receive config context.
+ * @returns A context provider wrapping the given children.
+ */
 export function ConfigProvider({ children }: PropsWithChildren) {
   const [configState, setConfigState] = useState<Config>({
     visibility: false,

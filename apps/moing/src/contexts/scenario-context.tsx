@@ -805,19 +805,6 @@ const ScenarioContext = createContext<ScenarioContextValue | undefined>(undefine
  *
  * @returns The current scenario section and navigation actions.
  * @throws {Error} Throws when called outside of `ScenarioProvider`.
- *
- * @example
- * ```tsx
- * function InterviewerSection() {
- *   const { section } = useScenarioContext();
- *
- *   return (
- *    <div>
- *       {section.server.status === 'visible' && (<div>{section.server.content}</div>)}
- *    </div>
- *   );
- * }
- * ```
  */
 export function useScenarioContext(): ScenarioContextValue {
   const context = useContext(ScenarioContext);
@@ -835,17 +822,6 @@ export function useScenarioContext(): ScenarioContextValue {
  * @param props The component props.
  * @param props.children The child elements that should receive scenario context.
  * @returns A context provider wrapping the given children.
- *
- * @example
- * ```tsx
- * function ScenarioDrivenComponent() {
- *   return (
- *    <ScenarioProvider>
- *       <MyComponent />
- *    </ScenarioProvider>
- *   );
- * }
- * ```
  */
 export function ScenarioProvider({ children }: PropsWithChildren) {
   const [state, setState] = useState({
