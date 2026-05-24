@@ -1,5 +1,5 @@
 /**
- * @fileoverview section-server.
+ * @fileoverview server.
  */
 
 // --------------------------------------------------------------------------------
@@ -18,7 +18,7 @@ import useInterview from '@/hooks/use-interview';
 import useTimer from '@/hooks/use-timer';
 import useHistoryState from '@/hooks/use-history-state';
 
-import './section-server.css';
+import './server.css';
 
 // --------------------------------------------------------------------------------
 // Typedef
@@ -33,10 +33,10 @@ interface Props {
 // Export
 // --------------------------------------------------------------------------------
 
-export default function SectionServer({ interview, timer }: Props) {
+export default function Server({ interview, timer }: Props) {
   const { configState } = useConfigContext();
   const { section, toNextSection } = useScenarioContext();
-  const { status, content, mode } = section['section-server'];
+  const { status, content, mode } = section.server;
   const { getInterviewInfo, getQuestion, isInterviewDone, getInterviewHistory } =
     interview;
   const { resetTimer } = timer;
@@ -65,7 +65,7 @@ export default function SectionServer({ interview, timer }: Props) {
   return (
     <NeonDiv
       className={cn(
-        'section-server',
+        'server',
         'custom-scrollbar',
         'custom-main-section',
         'custom-main-section-bash',

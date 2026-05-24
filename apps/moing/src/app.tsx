@@ -20,7 +20,7 @@ import Button from '@/components/button';
 import Client from '@/components/client';
 import MainButton from '@/components/main-button';
 import SectionConfig from '@/components/section-config';
-import SectionServer from '@/components/section-server';
+import Server from '@/components/server';
 import Timer from '@/components/timer';
 import Title from '@/components/title';
 import { useConfigContext } from '@/contexts/config-context';
@@ -87,7 +87,7 @@ export default function App() {
       <main className={cn('main', 'custom-flex-center', 'custom-scrollbar')}>
         <div ref={scrollRef}>
           <Title />
-          <SectionServer interview={interview} timer={timer} />
+          <Server interview={interview} timer={timer} />
           <Client interview={interview} />
           <SectionConfig />
           <MainButton interview={interview} />
