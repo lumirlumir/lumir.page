@@ -82,7 +82,7 @@ export default function useInterview() {
     getInterviewHistory,
   } = useInterviewHistory();
   const {
-    interviewObjState,
+    interviewObj,
     initInterviewObj,
     addInterviewObj,
     isInterviewObjEmpty,
@@ -123,12 +123,10 @@ export default function useInterview() {
   ]);
   const fetchChainSecond = useCallback(() => {
     // @ts-expect-error -- TODO
-    fetchFeedback(interviewObjState.answerSystem, interviewObjState.answerUser).then(
-      result => {
-        addInterviewObj({ feedback: JSON.parse(result) });
-      },
-    );
-  }, [interviewObjState, addInterviewObj]);
+    fetchFeedback(interviewObj.answerSystem, interviewObj.answerUser).then(result => {
+      addInterviewObj({ feedback: JSON.parse(result) });
+    });
+  }, [interviewObj, addInterviewObj]);
 
   useEffect(() => {
     if (!isInterviewStarted) return; // before init.
@@ -144,14 +142,14 @@ export default function useInterview() {
     }
     if (isInterviewObjFull()) {
       // console.log('addInterviewHistory()');
-      interviewHistoryRef.current.push(interviewObjState);
+      interviewHistoryRef.current.push(interviewObj);
       // console.log('initInterviewObj()');
       initInterviewObj();
     }
   }, [
     interviewHistoryRef,
     isInterviewDone,
-    interviewObjState,
+    interviewObj,
     initInterviewObj,
     isInterviewObjEmpty,
     isInterviewObjFull,
@@ -175,7 +173,7 @@ export default function useInterview() {
   return {
     contentRef,
     listening,
-    question: interviewObjState.question,
+    question: interviewObj.question,
     toggleListening,
     isInterviewDone,
     getInterviewInfo,
