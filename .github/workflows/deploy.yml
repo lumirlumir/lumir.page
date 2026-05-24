@@ -33,6 +33,10 @@ jobs:
       - name: Set up checkout
         uses: actions/checkout@v6
 
+      - name: Validate deployment variables
+        if: vars.BACKEND_URL == ''
+        run: echo "BACKEND_URL is not set. Please set it in the repository settings." && exit 1
+
       - name: Set up node
         uses: actions/setup-node@v6
         with:
