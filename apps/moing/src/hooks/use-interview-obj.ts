@@ -16,7 +16,7 @@ export interface InterviewObj {
   readonly question: string | null;
   readonly answerSystem: string | null;
   readonly answerUser: string | null;
-  readonly feedback: string | null;
+  readonly feedback: unknown | null; // TODO: remove `unknown`
 }
 
 // --------------------------------------------------------------------------------
