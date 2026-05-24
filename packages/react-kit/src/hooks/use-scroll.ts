@@ -37,7 +37,6 @@ type ScrollLogicalPosition = 'center' | 'end' | 'nearest' | 'start';
 interface ScrollOptions {
   /**
    * Scrolling behavior to use when moving to a target.
-   *
    * @default 'auto'
    */
   behavior?: ScrollBehavior;
@@ -49,14 +48,12 @@ interface ScrollOptions {
 interface ScrollIntoViewOptions extends ScrollOptions {
   /**
    * Vertical alignment of the target element within the scrollable ancestor.
-   *
    * @default 'start'
    */
   block?: ScrollLogicalPosition;
 
   /**
    * Horizontal alignment of the target element within the scrollable ancestor.
-   *
    * @default 'nearest'
    */
   inline?: ScrollLogicalPosition;
@@ -68,14 +65,12 @@ interface ScrollIntoViewOptions extends ScrollOptions {
 interface ScrollToOptions extends ScrollOptions {
   /**
    * Horizontal document coordinate, in pixels, to scroll to.
-   *
    * @default undefined
    */
   left?: number;
 
   /**
    * Vertical document coordinate, in pixels, to scroll to.
-   *
    * @default undefined
    */
   top?: number;
