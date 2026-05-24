@@ -45,8 +45,7 @@ jobs:
       - name: Build
         run: node --run build:m
         env:
-          BACKEND_PORT: ${{ vars.BACKEND_PORT }}
-          BACKEND_IP: ${{ vars.BACKEND_IP }}
+          BACKEND_URL: ${{ vars.BACKEND_URL }}
 
       - name: Upload static files as artifact
         if: github.ref == 'refs/heads/main'

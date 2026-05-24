@@ -13,57 +13,97 @@ import useInterviewContent from '@/hooks/use-interview-content';
 import useInterviewHistory from '@/hooks/use-interview-history';
 import useInterviewObj from '@/hooks/use-interview-obj';
 
+import { type CustomChatCompletionMessageParam } from '../temp/types.js';
+import { questionMain, questionSub, answer, feedback } from '../temp/prompt.js';
+
 // --------------------------------------------------------------------------------
 // Helper
 // --------------------------------------------------------------------------------
 
-function createURL(pathname: string, urlSearchParams: URLSearchParams): string {
-  return `http://${process.env.BACKEND_IP}:${process.env.BACKEND_PORT}/${pathname}?${urlSearchParams.toString()}`;
+/**
+ * Fetches chat completion text from the backend API.
+ */
+async function fetchChatCompletionText(
+  messages: CustomChatCompletionMessageParam[],
+): Promise<string> {
+  if (process.env.BACKEND_URL === undefined) {
+    throw new Error('BACKEND_URL is not defined');
+  }
+
+  const response = await fetch(`${process.env.BACKEND_URL}/api/chat`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      messages,
+      max_completion_tokens: 2048,
+      reasoning_effort: 'high',
+      temperature: 1,
+    }),
+  });
+
+  const text = await response.text();
+
+  if (!response.ok) {
+    throw new Error(`Request failed: ${response.status} ${response.statusText}\n${text}`);
+  }
+
+  const json = JSON.parse(text);
+
+  return json?.choices?.[0]?.message?.content ?? '';
 }
 
-async function fetchQuestionMain(type: QuestionType, history: string[]) {
-  const urlSearchParams = new URLSearchParams([
-    ['type', type],
-    ...history.map(item => ['history', item]),
+/**
+ * Creates a message object for OpenAI API.
+ */
+function createMessageObject(
+  role: 'system' | 'assistant' | 'user',
+  text: string,
+): CustomChatCompletionMessageParam {
+  return {
+    role,
+    content: [
+      {
+        text,
+        type: 'text',
+      },
+    ],
+  };
+}
+
+async function fetchQuestionMain(type: QuestionType, history: string[]): Promise<string> {
+  return fetchChatCompletionText([
+    ...questionMain[type].messages,
+    ...history.map(text => createMessageObject('assistant', text)),
   ]);
-
-  const res = await fetch(createURL('question/main', urlSearchParams));
-  const data = await res.json();
-
-  return data?.text;
 }
 
 async function fetchQuestionSub(question: string, answerUser: string) {
-  const urlSearchParams = new URLSearchParams([
-    ['question', question],
-    ['answerUser', answerUser],
+  return fetchChatCompletionText([
+    ...questionSub.messages,
+    createMessageObject(
+      'user',
+      `Previous Question\n\n${question}\n\nUSER's Answer\n\n${answerUser}`,
+    ),
   ]);
-
-  const res = await fetch(createURL('question/sub', urlSearchParams));
-  const data = await res.json();
-
-  return data?.text;
 }
 
 async function fetchAnswer(question: string) {
-  const urlSearchParams = new URLSearchParams([['question', question]]);
-
-  const res = await fetch(createURL('answer', urlSearchParams));
-  const data = await res.json();
-
-  return data?.text;
+  return fetchChatCompletionText([
+    ...answer.messages,
+    createMessageObject('user', question),
+  ]);
 }
 
 async function fetchFeedback(answerSystem: string, answerUser: string) {
-  const urlSearchParams = new URLSearchParams([
-    ['answerSystem', answerSystem],
-    ['answerUser', answerUser],
+  return fetchChatCompletionText([
+    ...feedback.messages,
+    createMessageObject(
+      'user',
+      `Correct Answer\n\n${answerSystem}\n\nUSER's Answer\n\n${answerUser}`,
+    ),
   ]);
-
-  const res = await fetch(createURL('feedback', urlSearchParams));
-  const data = await res.json();
-
-  return data?.text;
 }
 
 // --------------------------------------------------------------------------------
