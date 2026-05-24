@@ -24,7 +24,7 @@ import SectionServer from '@/components/section-server';
 import Timer from '@/components/timer';
 import Title from '@/components/title';
 import { useConfigContext } from '@/contexts/config-context';
-import useScenario from '@/hooks/use-scenario';
+import { useScenarioContext } from '@/contexts/scenario-context';
 import useInterview from '@/hooks/use-interview';
 import useTimer from '@/hooks/use-timer';
 
@@ -36,7 +36,7 @@ import './app.css';
 
 export default function App() {
   const config = useConfigContext();
-  const scenario = useScenario();
+  const scenario = useScenarioContext();
   const interview = useInterview();
   const timer = useTimer(interview.submit);
   const [scrollRef, scroll] = useScroll<HTMLDivElement>({ behavior: 'smooth' });
@@ -54,7 +54,6 @@ export default function App() {
       <Button
         type="header-l"
         icon={<GoGear size="35px" />}
-        scenario={scenario}
         onClick={() => {
           config.updateConfig({ visibility: !config.configState.visibility });
         }}
@@ -63,7 +62,6 @@ export default function App() {
         type="header-r"
         icon={<CiMicrophoneOn size="40px" />}
         hoverEffect={interview.listening}
-        scenario={scenario}
         onClick={() => {
           interview.toggleListening();
         }}
@@ -71,7 +69,6 @@ export default function App() {
       <Button
         type="footer-l"
         icon={<GrPowerReset size="32px" />}
-        scenario={scenario}
         onClick={() => {
           window.location.reload();
         }}
@@ -79,22 +76,21 @@ export default function App() {
       <Button
         type="footer-r"
         icon={<IoIosCheckmarkCircleOutline size="39px" />}
-        scenario={scenario}
         onClick={() => {
           interview.submit();
           timer.stopTimer();
         }}
       />
 
-      <Timer scenario={scenario} timer={timer} />
+      <Timer timer={timer} />
 
       <main className={cn('main', 'custom-flex-center', 'custom-scrollbar')}>
         <div ref={scrollRef}>
-          <Title scenario={scenario} />
-          <SectionServer scenario={scenario} interview={interview} timer={timer} />
-          <SectionClient scenario={scenario} interview={interview} />
+          <Title />
+          <SectionServer interview={interview} timer={timer} />
+          <SectionClient interview={interview} />
           <SectionConfig />
-          <MainButton scenario={scenario} interview={interview} />
+          <MainButton interview={interview} />
         </div>
       </main>
     </>

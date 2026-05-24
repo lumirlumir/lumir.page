@@ -91,7 +91,7 @@ const ConfigContext = createContext<ConfigContextValue | undefined>(undefined);
 
 export const questionTypes = ['cs', 'fe', 'be', 'db', 'oop'] as const;
 
-export function useConfigContext() {
+export function useConfigContext(): ConfigContextValue {
   const context = useContext(ConfigContext);
 
   if (!context) {

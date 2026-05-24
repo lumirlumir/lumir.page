@@ -9,7 +9,7 @@
 import { cn } from '@lumir/utils';
 
 import NeonDiv from '@/components/neon-div';
-import useScenario from '@/hooks/use-scenario';
+import { useScenarioContext } from '@/contexts/scenario-context';
 import useInterview from '@/hooks/use-interview';
 
 import './section-client.css';
@@ -19,7 +19,6 @@ import './section-client.css';
 // --------------------------------------------------------------------------------
 
 interface Props {
-  scenario: ReturnType<typeof useScenario>;
   interview: ReturnType<typeof useInterview>;
 }
 
@@ -27,7 +26,8 @@ interface Props {
 // Export
 // --------------------------------------------------------------------------------
 
-export default function SectionClient({ scenario, interview }: Props) {
+export default function SectionClient({ interview }: Props) {
+  const scenario = useScenarioContext();
   const { visibility } = scenario.getSectionObj()['section-client'];
   const { contentRef } = interview;
 

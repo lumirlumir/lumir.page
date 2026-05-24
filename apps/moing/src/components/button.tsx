@@ -11,7 +11,7 @@ import { cn } from '@lumir/utils';
 
 import NeonButton from '@/components/neon-button';
 import NeonFont from '@/components/neon-font';
-import useScenario from '@/hooks/use-scenario';
+import { useScenarioContext } from '@/contexts/scenario-context';
 
 // --------------------------------------------------------------------------------
 // Typedef
@@ -20,7 +20,6 @@ import useScenario from '@/hooks/use-scenario';
 interface Props {
   type: 'header-l' | 'header-r' | 'footer-l' | 'footer-r';
   icon: React.ReactElement;
-  scenario: ReturnType<typeof useScenario>;
   onClick: React.MouseEventHandler<HTMLButtonElement>;
 
   /**
@@ -34,13 +33,8 @@ interface Props {
 // Export
 // --------------------------------------------------------------------------------
 
-export default function Button({
-  type,
-  icon,
-  scenario,
-  onClick,
-  hoverEffect = false,
-}: Props) {
+export default function Button({ type, icon, onClick, hoverEffect = false }: Props) {
+  const scenario = useScenarioContext();
   const { visibility, clickability } = scenario.getSectionObj()[type];
 
   return (

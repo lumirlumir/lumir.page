@@ -12,7 +12,7 @@ import { cn } from '@lumir/utils';
 import NeonButton from '@/components/neon-button';
 import NeonFont from '@/components/neon-font';
 import { useConfigContext } from '@/contexts/config-context';
-import useScenario from '@/hooks/use-scenario';
+import { useScenarioContext } from '@/contexts/scenario-context';
 import useInterview from '@/hooks/use-interview';
 
 import './main-button.css';
@@ -22,7 +22,6 @@ import './main-button.css';
 // --------------------------------------------------------------------------------
 
 interface Props {
-  scenario: ReturnType<typeof useScenario>;
   interview: ReturnType<typeof useInterview>;
 }
 
@@ -30,8 +29,9 @@ interface Props {
 // Export
 // --------------------------------------------------------------------------------
 
-export default function ButtonMain({ scenario, interview }: Props) {
+export default function ButtonMain({ interview }: Props) {
   const { configState, updateConfig, isConfigDone } = useConfigContext();
+  const scenario = useScenarioContext();
   const { getSectionObj, toNextSection, toLastSection, isLastSection } = scenario;
   const { content, visibility } = getSectionObj()['main-button'];
   const { initInterview } = interview;

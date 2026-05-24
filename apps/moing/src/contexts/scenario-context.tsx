@@ -1,12 +1,12 @@
 /**
- * @fileoverview use-scenario
+ * @fileoverview scenario-context.
  */
 
 // --------------------------------------------------------------------------------
 // Import
 // --------------------------------------------------------------------------------
 
-import { useState } from 'react';
+import { createContext, useContext, useState, type PropsWithChildren } from 'react';
 
 // --------------------------------------------------------------------------------
 // Typedef
@@ -40,8 +40,15 @@ interface Scenario {
   'section-server': Visibility & Content<string> & Mode;
 }
 
+export type ScenarioContextValue = {
+  readonly getSectionObj: () => Scenario;
+  readonly toNextSection: () => void;
+  readonly toLastSection: () => void;
+  readonly isLastSection: () => boolean;
+};
+
 // --------------------------------------------------------------------------------
-// Data
+// Helper
 // --------------------------------------------------------------------------------
 
 const scenario: Scenario[][] = [
@@ -784,15 +791,26 @@ const scenario: Scenario[][] = [
   ],
 ] as const;
 
+const ScenarioContext = createContext<ScenarioContextValue | undefined>(undefined);
+
 // --------------------------------------------------------------------------------
 // Export
 // --------------------------------------------------------------------------------
 
+export function useScenarioContext(): ScenarioContextValue {
+  const context = useContext(ScenarioContext);
+
+  if (!context) {
+    throw new Error('`useScenarioContext` must be used within a `ScenarioProvider`.');
+  }
+
+  return context;
+}
+
 /**
  * scenario > chapter > section => scenario[chapter][section]
- * @returns
  */
-export default function useScenario() {
+export function ScenarioProvider({ children }: PropsWithChildren) {
   const [state, setState] = useState({
     chapter: 0,
     section: 0,
@@ -832,10 +850,11 @@ export default function useScenario() {
   };
   const isLastSection = () => state.section === scenario[state.chapter].length - 1;
 
-  return {
-    getSectionObj,
-    toNextSection,
-    toLastSection,
-    isLastSection,
-  };
+  return (
+    <ScenarioContext
+      value={{ getSectionObj, toNextSection, toLastSection, isLastSection }}
+    >
+      {children}
+    </ScenarioContext>
+  );
 }

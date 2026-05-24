@@ -13,7 +13,7 @@ import { cn } from '@lumir/utils';
 
 import NeonDiv from '@/components/neon-div';
 import { useConfigContext } from '@/contexts/config-context';
-import useScenario from '@/hooks/use-scenario';
+import { useScenarioContext } from '@/contexts/scenario-context';
 import useInterview from '@/hooks/use-interview';
 import useTimer from '@/hooks/use-timer';
 import useHistoryState from '@/hooks/use-history-state';
@@ -25,7 +25,6 @@ import './section-server.css';
 // --------------------------------------------------------------------------------
 
 interface Props {
-  scenario: ReturnType<typeof useScenario>;
   interview: ReturnType<typeof useInterview>;
   timer: ReturnType<typeof useTimer>;
 }
@@ -34,8 +33,9 @@ interface Props {
 // Export
 // --------------------------------------------------------------------------------
 
-export default function SectionServer({ scenario, interview, timer }: Props) {
+export default function SectionServer({ interview, timer }: Props) {
   const { configState } = useConfigContext();
+  const scenario = useScenarioContext();
   const { getSectionObj, toNextSection } = scenario;
   const { visibility, content, mode } = getSectionObj()['section-server'];
   const { getInterviewInfo, getQuestion, isInterviewDone, getInterviewHistory } =
