@@ -35,9 +35,8 @@ interface Props {
 
 export default function SectionServer({ interview, timer }: Props) {
   const { configState } = useConfigContext();
-  const scenario = useScenarioContext();
-  const { getSectionObj, toNextSection } = scenario;
-  const { visibility, content, mode } = getSectionObj()['section-server'];
+  const { section, toNextSection } = useScenarioContext();
+  const { visibility, content, mode } = section['section-server'];
   const { getInterviewInfo, getQuestion, isInterviewDone, getInterviewHistory } =
     interview;
   const { resetTimer } = timer;

@@ -41,7 +41,7 @@ interface Scenario {
 }
 
 export type ScenarioContextValue = {
-  readonly getSectionObj: () => Scenario;
+  readonly section: Scenario;
   readonly toNextSection: () => void;
   readonly toLastSection: () => void;
   readonly isLastSection: () => boolean;
@@ -816,7 +816,7 @@ export function ScenarioProvider({ children }: PropsWithChildren) {
     section: 0,
   });
 
-  const getSectionObj = () => scenario[state.chapter][state.section];
+  const section = scenario[state.chapter][state.section];
   const toNextSection = () => {
     setState(prevState => {
       const newSectionState = state.chapter + 1;
@@ -851,9 +851,7 @@ export function ScenarioProvider({ children }: PropsWithChildren) {
   const isLastSection = () => state.section === scenario[state.chapter].length - 1;
 
   return (
-    <ScenarioContext
-      value={{ getSectionObj, toNextSection, toLastSection, isLastSection }}
-    >
+    <ScenarioContext value={{ section, toNextSection, toLastSection, isLastSection }}>
       {children}
     </ScenarioContext>
   );

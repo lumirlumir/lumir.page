@@ -31,9 +31,8 @@ interface Props {
 
 export default function ButtonMain({ interview }: Props) {
   const { configState, updateConfig, isConfigDone } = useConfigContext();
-  const scenario = useScenarioContext();
-  const { getSectionObj, toNextSection, toLastSection, isLastSection } = scenario;
-  const { content, visibility } = getSectionObj()['main-button'];
+  const { section, toNextSection, toLastSection, isLastSection } = useScenarioContext();
+  const { content, visibility } = section['main-button'];
   const { initInterview } = interview;
 
   const onClick: MouseEventHandler<HTMLButtonElement> = e => {

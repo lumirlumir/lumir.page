@@ -25,8 +25,8 @@ interface Props {
 // --------------------------------------------------------------------------------
 
 export default function Timer({ timer }: Props) {
-  const scenario = useScenarioContext();
-  const { visibility } = scenario.getSectionObj().timer;
+  const { section } = useScenarioContext();
+  const { visibility } = section.timer;
   const { getTimer } = timer;
 
   return (

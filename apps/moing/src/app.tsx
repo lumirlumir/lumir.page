@@ -35,8 +35,8 @@ import './app.css';
 // --------------------------------------------------------------------------------
 
 export default function App() {
-  const config = useConfigContext();
-  const scenario = useScenarioContext();
+  const { configState, updateConfig } = useConfigContext();
+  const { section } = useScenarioContext();
   const interview = useInterview();
   const timer = useTimer(interview.submit);
   const [scrollRef, scroll] = useScroll<HTMLDivElement>({ behavior: 'smooth' });
@@ -47,7 +47,7 @@ export default function App() {
     }, 2000);
 
     return () => clearTimeout(timeout);
-  }, [scenario.getSectionObj, scroll]);
+  }, [section, scroll]);
 
   return (
     <>
@@ -55,7 +55,7 @@ export default function App() {
         type="header-l"
         icon={<GoGear size="35px" />}
         onClick={() => {
-          config.updateConfig({ visibility: !config.configState.visibility });
+          updateConfig({ visibility: !configState.visibility });
         }}
       />
       <Button

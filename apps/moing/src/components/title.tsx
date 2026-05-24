@@ -18,8 +18,8 @@ import './title.css';
 // --------------------------------------------------------------------------------
 
 export default function Title() {
-  const scenario = useScenarioContext();
-  const { visibility } = scenario.getSectionObj().title;
+  const { section } = useScenarioContext();
+  const { visibility } = section.title;
 
   return (
     <div

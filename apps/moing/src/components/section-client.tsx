@@ -27,8 +27,8 @@ interface Props {
 // --------------------------------------------------------------------------------
 
 export default function SectionClient({ interview }: Props) {
-  const scenario = useScenarioContext();
-  const { visibility } = scenario.getSectionObj()['section-client'];
+  const { section } = useScenarioContext();
+  const { visibility } = section['section-client'];
   const { contentRef } = interview;
 
   return (

@@ -34,8 +34,8 @@ interface Props {
 // --------------------------------------------------------------------------------
 
 export default function Button({ type, icon, onClick, hoverEffect = false }: Props) {
-  const scenario = useScenarioContext();
-  const { visibility, clickability } = scenario.getSectionObj()[type];
+  const { section } = useScenarioContext();
+  const { visibility, clickability } = section[type];
 
   return (
     <div
