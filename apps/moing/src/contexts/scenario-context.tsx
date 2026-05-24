@@ -20,14 +20,32 @@ import { createContext, useContext, useState, type PropsWithChildren } from 'rea
 // Typedef
 // --------------------------------------------------------------------------------
 
+/**
+ * Text content for a scenario section.
+ */
 interface Content<T extends string> {
+  /**
+   * Text content to be rendered in the section.
+   */
   content: T;
 }
 
+/**
+ * Controls how the server section advances after rendering its content.
+ */
 interface Mode {
-  mode: 'manual' | 'auto' | 'test' | 'result';
+  /**
+   * - `manual`: waits for an explicit user action.
+   * - `auto`: advances after the server text finishes typing.
+   * - `test`: renders interview questions during the active test flow.
+   * - `result`: renders the final interview result.
+   */
+  mode: 'manual' | 'auto' | 'test' | 'result'; // TODO: Remove `'test` and `'result'` after the test flow is integrated into the main scenario flow.
 }
 
+/**
+ * Shared UI status for scenario-driven components.
+ */
 interface Status {
   /**
    * - `hidden`: the element is visually hidden and unavailable.
@@ -37,22 +55,79 @@ interface Status {
   status: 'hidden' | 'visible' | 'interactive';
 }
 
+/**
+ * UI state for a single section in the scenario flow.
+ */
 interface Section {
+  /**
+   * Left footer button state.
+   */
   'footer-l': Status;
+
+  /**
+   * Right footer button state.
+   */
   'footer-r': Status;
+
+  /**
+   * Left header button state.
+   */
   'header-l': Status;
+
+  /**
+   * Right header button state.
+   */
   'header-r': Status;
+
+  /**
+   * Main action button state and label.
+   */
   'main-button': Status & Content<'PRESS' | 'START'>;
+
+  /**
+   * Timer section state.
+   */
   timer: Status;
+
+  /**
+   * Title section state.
+   */
   title: Status;
+
+  /**
+   * Interviewee input section state.
+   */
   client: Status;
+
+  /**
+   * Interviewer output section state, text content, and render mode.
+   */
   server: Status & Content<string> & Mode;
 }
 
-export type ScenarioContextValue = {
+/**
+ * Defines the shape of the scenario context value provided by the `ScenarioContext`,
+ * including the current section and navigation actions.
+ */
+type ScenarioContextValue = {
+  /**
+   * Current section selected by `scenario[chapter][section]`.
+   */
   readonly section: Section;
+
+  /**
+   * Advances to the next section, or to the first section of the next chapter.
+   */
   readonly toNextSection: () => void;
+
+  /**
+   * Moves to the last section of the current chapter.
+   */
   readonly toLastSection: () => void;
+
+  /**
+   * Returns whether the current section is the last section of its chapter.
+   */
   readonly isLastSection: () => boolean;
 };
 
@@ -719,13 +794,31 @@ const scenario: Section[][] = [
     },
   ],
 ] as const;
-
 const ScenarioContext = createContext<ScenarioContextValue | undefined>(undefined);
 
 // --------------------------------------------------------------------------------
 // Export
 // --------------------------------------------------------------------------------
 
+/**
+ * Returns the current scenario context value.
+ *
+ * @returns The current scenario section and navigation actions.
+ * @throws {Error} Throws when called outside of `ScenarioProvider`.
+ *
+ * @example
+ * ```tsx
+ * function InterviewerSection() {
+ *   const { section } = useScenarioContext();
+ *
+ *   return (
+ *    <div>
+ *       {section.server.status === 'visible' && (<div>{section.server.content}</div>)}
+ *    </div>
+ *   );
+ * }
+ * ```
+ */
 export function useScenarioContext(): ScenarioContextValue {
   const context = useContext(ScenarioContext);
 
@@ -736,6 +829,24 @@ export function useScenarioContext(): ScenarioContextValue {
   return context;
 }
 
+/**
+ * Provides scenario section state and navigation actions to descendants.
+ *
+ * @param props The component props.
+ * @param props.children The child elements that should receive scenario context.
+ * @returns A context provider wrapping the given children.
+ *
+ * @example
+ * ```tsx
+ * function ScenarioDrivenComponent() {
+ *   return (
+ *    <ScenarioProvider>
+ *       <MyComponent />
+ *    </ScenarioProvider>
+ *   );
+ * }
+ * ```
+ */
 export function ScenarioProvider({ children }: PropsWithChildren) {
   const [state, setState] = useState({
     chapter: 0,
