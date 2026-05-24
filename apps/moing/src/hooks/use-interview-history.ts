@@ -8,13 +8,14 @@
 
 import { useRef } from 'react';
 import { questionTypes, type Config } from '@/hooks/use-config';
+import { type InterviewObj } from '@/hooks/use-interview-obj';
 
 // --------------------------------------------------------------------------------
 // Export
 // --------------------------------------------------------------------------------
 
 export default function useInterviewHistory() {
-  const historyRef = useRef([]);
+  const historyRef = useRef<InterviewObj[]>([]);
   const questionTypeRef = useRef<string[]>([]);
   const rowRef = useRef<number | null>(null);
   const colRef = useRef<number | null>(null);
@@ -37,7 +38,6 @@ export default function useInterviewHistory() {
 
     // @ts-expect-error -- TODO
     for (let i = 0; i < historyRef.current.length; i += colRef.current) {
-      // @ts-expect-error -- TODO
       questionMainHistory.push(historyRef.current[i].question);
     }
 
@@ -58,6 +58,7 @@ export default function useInterviewHistory() {
   const getInterviewHistory = () => {
     let str = '';
 
+    // @ts-expect-error -- TODO
     const printAllStrings = obj => {
       Object.values(obj).map(val => {
         if (typeof val === 'string') {
