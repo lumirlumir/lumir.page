@@ -13,8 +13,7 @@ export default defineConfig({
     outDir: 'build',
   },
   define: {
-    'process.env.BACKEND_PORT': JSON.stringify(process.env.BACKEND_PORT),
-    'process.env.BACKEND_IP': JSON.stringify(process.env.BACKEND_IP),
+    'process.env.BACKEND_URL': JSON.stringify(process.env.BACKEND_URL),
   },
   plugins: [
     react({
