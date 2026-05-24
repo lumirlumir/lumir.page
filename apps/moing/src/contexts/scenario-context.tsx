@@ -1,5 +1,13 @@
 /**
  * @fileoverview scenario-context.
+ *
+ * Scenario data is organized hierarchically: scenario -> chapter -> section
+ *
+ * - `scenario`: the full flow definition.
+ * - `chapter`: a group of sequential sections.
+ * - `section`: a single UI state within a chapter.
+ *
+ * Access pattern: `scenario[chapter][section]`.
  */
 
 // --------------------------------------------------------------------------------
@@ -28,7 +36,7 @@ interface Mode {
   mode: 'manual' | 'auto' | 'test' | 'result';
 }
 
-interface Scenario {
+interface Section {
   'footer-l': Visibility & Clickability;
   timer: Visibility;
   'footer-r': Visibility & Clickability;
@@ -41,7 +49,7 @@ interface Scenario {
 }
 
 export type ScenarioContextValue = {
-  readonly section: Scenario;
+  readonly section: Section;
   readonly toNextSection: () => void;
   readonly toLastSection: () => void;
   readonly isLastSection: () => boolean;
@@ -51,7 +59,7 @@ export type ScenarioContextValue = {
 // Helper
 // --------------------------------------------------------------------------------
 
-const scenario: Scenario[][] = [
+const scenario: Section[][] = [
   [
     {
       'footer-l': {
@@ -807,9 +815,6 @@ export function useScenarioContext(): ScenarioContextValue {
   return context;
 }
 
-/**
- * scenario > chapter > section => scenario[chapter][section]
- */
 export function ScenarioProvider({ children }: PropsWithChildren) {
   const [state, setState] = useState({
     chapter: 0,
@@ -817,37 +822,39 @@ export function ScenarioProvider({ children }: PropsWithChildren) {
   });
 
   const section = scenario[state.chapter][state.section];
+
   const toNextSection = () => {
     setState(prevState => {
-      const newSectionState = state.chapter + 1;
-      const newSubsectionState = state.section + 1;
+      const nextSection = prevState.section + 1;
 
-      if (newSubsectionState < scenario[state.chapter].length) {
+      if (nextSection < scenario[prevState.chapter].length) {
         return {
           ...prevState,
-          section: newSubsectionState,
+          section: nextSection,
         };
       }
-      if (newSectionState < scenario.length) {
+
+      const nextChapter = prevState.chapter + 1;
+
+      if (nextChapter < scenario.length) {
         return {
           ...prevState,
-          chapter: newSectionState,
+          chapter: nextChapter,
           section: 0,
         };
       }
+
       return prevState;
     });
   };
-  const toLastSection = () => {
-    setState(prevState => {
-      const newSubsectionState = scenario[state.chapter].length - 1;
 
-      return {
-        ...prevState,
-        section: newSubsectionState,
-      };
-    });
+  const toLastSection = () => {
+    setState(prevState => ({
+      ...prevState,
+      section: scenario[prevState.chapter].length - 1,
+    }));
   };
+
   const isLastSection = () => state.section === scenario[state.chapter].length - 1;
 
   return (
