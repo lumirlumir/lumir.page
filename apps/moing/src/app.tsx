@@ -52,14 +52,14 @@ export default function App() {
   return (
     <>
       <Button
-        type="header-l"
+        type="config"
         icon={<GoGear size="35px" />}
         onClick={() => {
           updateConfig({ visibility: !config.visibility });
         }}
       />
       <Button
-        type="header-r"
+        type="speech"
         icon={<CiMicrophoneOn size="40px" />}
         hoverEffect={interview.listening}
         onClick={() => {
@@ -67,14 +67,14 @@ export default function App() {
         }}
       />
       <Button
-        type="footer-l"
+        type="reload"
         icon={<GrPowerReset size="32px" />}
         onClick={() => {
           window.location.reload();
         }}
       />
       <Button
-        type="footer-r"
+        type="submit"
         icon={<IoIosCheckmarkCircleOutline size="39px" />}
         onClick={() => {
           interview.submit();

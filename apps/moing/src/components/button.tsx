@@ -18,7 +18,7 @@ import { useScenarioContext } from '@/contexts/scenario-context';
 // --------------------------------------------------------------------------------
 
 interface Props {
-  type: 'header-l' | 'header-r' | 'footer-l' | 'footer-r';
+  type: 'config' | 'speech' | 'reload' | 'submit';
   icon: React.ReactElement;
   onClick: React.MouseEventHandler<HTMLButtonElement>;
 

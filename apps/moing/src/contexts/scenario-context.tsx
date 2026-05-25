@@ -60,24 +60,24 @@ interface Status {
  */
 interface Section {
   /**
-   * Left footer button state.
+   * Reload button state.
    */
-  'footer-l': Status;
+  reload: Status;
 
   /**
-   * Right footer button state.
+   * Submit button state.
    */
-  'footer-r': Status;
+  submit: Status;
 
   /**
-   * Left header button state.
+   * Config button state.
    */
-  'header-l': Status;
+  config: Status;
 
   /**
-   * Right header button state.
+   * Speech button state.
    */
-  'header-r': Status;
+  speech: Status;
 
   /**
    * Main action button state and label.
@@ -138,16 +138,16 @@ type ScenarioContextValue = {
 const scenario: Section[][] = [
   [
     {
-      'footer-l': {
+      reload: {
         status: 'hidden',
       },
-      'footer-r': {
+      submit: {
         status: 'hidden',
       },
-      'header-l': {
+      config: {
         status: 'hidden',
       },
-      'header-r': {
+      speech: {
         status: 'hidden',
       },
       'main-button': {
@@ -170,16 +170,16 @@ const scenario: Section[][] = [
       },
     },
     {
-      'footer-l': {
+      reload: {
         status: 'interactive',
       },
-      'footer-r': {
+      submit: {
         status: 'hidden',
       },
-      'header-l': {
+      config: {
         status: 'hidden',
       },
-      'header-r': {
+      speech: {
         status: 'hidden',
       },
       'main-button': {
@@ -202,16 +202,16 @@ const scenario: Section[][] = [
       },
     },
     {
-      'footer-l': {
+      reload: {
         status: 'interactive',
       },
-      'footer-r': {
+      submit: {
         status: 'hidden',
       },
-      'header-l': {
+      config: {
         status: 'hidden',
       },
-      'header-r': {
+      speech: {
         status: 'hidden',
       },
       'main-button': {
@@ -235,16 +235,16 @@ const scenario: Section[][] = [
       },
     },
     {
-      'footer-l': {
+      reload: {
         status: 'interactive',
       },
-      'footer-r': {
+      submit: {
         status: 'hidden',
       },
-      'header-l': {
+      config: {
         status: 'hidden',
       },
-      'header-r': {
+      speech: {
         status: 'hidden',
       },
       'main-button': {
@@ -267,16 +267,16 @@ const scenario: Section[][] = [
       },
     },
     {
-      'footer-l': {
+      reload: {
         status: 'hidden',
       },
-      'footer-r': {
+      submit: {
         status: 'hidden',
       },
-      'header-l': {
+      config: {
         status: 'hidden',
       },
-      'header-r': {
+      speech: {
         status: 'hidden',
       },
       'main-button': {
@@ -300,16 +300,16 @@ const scenario: Section[][] = [
       },
     },
     {
-      'footer-l': {
+      reload: {
         status: 'hidden',
       },
-      'footer-r': {
+      submit: {
         status: 'hidden',
       },
-      'header-l': {
+      config: {
         status: 'hidden',
       },
-      'header-r': {
+      speech: {
         status: 'hidden',
       },
       'main-button': {
@@ -333,16 +333,16 @@ const scenario: Section[][] = [
       },
     },
     {
-      'footer-l': {
+      reload: {
         status: 'hidden',
       },
-      'footer-r': {
+      submit: {
         status: 'hidden',
       },
-      'header-l': {
+      config: {
         status: 'hidden',
       },
-      'header-r': {
+      speech: {
         status: 'hidden',
       },
       'main-button': {
@@ -366,16 +366,16 @@ const scenario: Section[][] = [
       },
     },
     {
-      'footer-l': {
+      reload: {
         status: 'hidden',
       },
-      'footer-r': {
+      submit: {
         status: 'hidden',
       },
-      'header-l': {
+      config: {
         status: 'hidden',
       },
-      'header-r': {
+      speech: {
         status: 'hidden',
       },
       'main-button': {
@@ -399,16 +399,16 @@ const scenario: Section[][] = [
       },
     },
     {
-      'footer-l': {
+      reload: {
         status: 'visible',
       },
-      'footer-r': {
+      submit: {
         status: 'hidden',
       },
-      'header-l': {
+      config: {
         status: 'hidden',
       },
-      'header-r': {
+      speech: {
         status: 'hidden',
       },
       'main-button': {
@@ -432,16 +432,16 @@ const scenario: Section[][] = [
       },
     },
     {
-      'footer-l': {
+      reload: {
         status: 'visible',
       },
-      'footer-r': {
+      submit: {
         status: 'hidden',
       },
-      'header-l': {
+      config: {
         status: 'visible',
       },
-      'header-r': {
+      speech: {
         status: 'hidden',
       },
       'main-button': {
@@ -465,16 +465,16 @@ const scenario: Section[][] = [
       },
     },
     {
-      'footer-l': {
+      reload: {
         status: 'visible',
       },
-      'footer-r': {
+      submit: {
         status: 'hidden',
       },
-      'header-l': {
+      config: {
         status: 'visible',
       },
-      'header-r': {
+      speech: {
         status: 'visible',
       },
       'main-button': {
@@ -498,16 +498,16 @@ const scenario: Section[][] = [
       },
     },
     {
-      'footer-l': {
+      reload: {
         status: 'visible',
       },
-      'footer-r': {
+      submit: {
         status: 'visible',
       },
-      'header-l': {
+      config: {
         status: 'visible',
       },
-      'header-r': {
+      speech: {
         status: 'visible',
       },
       'main-button': {
@@ -531,16 +531,16 @@ const scenario: Section[][] = [
       },
     },
     {
-      'footer-l': {
+      reload: {
         status: 'visible',
       },
-      'footer-r': {
+      submit: {
         status: 'visible',
       },
-      'header-l': {
+      config: {
         status: 'visible',
       },
-      'header-r': {
+      speech: {
         status: 'visible',
       },
       'main-button': {
@@ -564,16 +564,16 @@ const scenario: Section[][] = [
       },
     },
     {
-      'footer-l': {
+      reload: {
         status: 'visible',
       },
-      'footer-r': {
+      submit: {
         status: 'visible',
       },
-      'header-l': {
+      config: {
         status: 'visible',
       },
-      'header-r': {
+      speech: {
         status: 'visible',
       },
       'main-button': {
@@ -597,16 +597,16 @@ const scenario: Section[][] = [
       },
     },
     {
-      'footer-l': {
+      reload: {
         status: 'visible',
       },
-      'footer-r': {
+      submit: {
         status: 'hidden',
       },
-      'header-l': {
+      config: {
         status: 'visible',
       },
-      'header-r': {
+      speech: {
         status: 'hidden',
       },
       'main-button': {
@@ -630,16 +630,16 @@ const scenario: Section[][] = [
       },
     },
     {
-      'footer-l': {
+      reload: {
         status: 'interactive',
       },
-      'footer-r': {
+      submit: {
         status: 'hidden',
       },
-      'header-l': {
+      config: {
         status: 'interactive',
       },
-      'header-r': {
+      speech: {
         status: 'hidden',
       },
       'main-button': {
@@ -664,16 +664,16 @@ const scenario: Section[][] = [
   ],
   [
     {
-      'footer-l': {
+      reload: {
         status: 'interactive',
       },
-      'footer-r': {
+      submit: {
         status: 'interactive',
       },
-      'header-l': {
+      config: {
         status: 'visible',
       },
-      'header-r': {
+      speech: {
         status: 'interactive',
       },
       'main-button': {
@@ -696,16 +696,16 @@ const scenario: Section[][] = [
       },
     },
     {
-      'footer-l': {
+      reload: {
         status: 'interactive',
       },
-      'footer-r': {
+      submit: {
         status: 'interactive',
       },
-      'header-l': {
+      config: {
         status: 'visible',
       },
-      'header-r': {
+      speech: {
         status: 'interactive',
       },
       'main-button': {
@@ -728,16 +728,16 @@ const scenario: Section[][] = [
       },
     },
     {
-      'footer-l': {
+      reload: {
         status: 'interactive',
       },
-      'footer-r': {
+      submit: {
         status: 'hidden',
       },
-      'header-l': {
+      config: {
         status: 'hidden',
       },
-      'header-r': {
+      speech: {
         status: 'hidden',
       },
       'main-button': {
@@ -761,16 +761,16 @@ const scenario: Section[][] = [
       },
     },
     {
-      'footer-l': {
+      reload: {
         status: 'interactive',
       },
-      'footer-r': {
+      submit: {
         status: 'hidden',
       },
-      'header-l': {
+      config: {
         status: 'hidden',
       },
-      'header-r': {
+      speech: {
         status: 'hidden',
       },
       'main-button': {

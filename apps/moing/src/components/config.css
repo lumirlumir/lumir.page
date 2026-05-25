@@ -1,4 +1,4 @@
-.config {
+main .config {
   height: calc(var(--main-section-height) * 1.5);
 
   /* Selector */
