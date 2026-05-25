@@ -8,7 +8,7 @@
 
 import { type HTMLAttributes, type PropsWithChildren } from 'react';
 import { cn } from '@lumir/utils';
-import './neon-div.css';
+import styles from './neon-div.module.css';
 
 // --------------------------------------------------------------------------------
 // Typedef
@@ -84,7 +84,7 @@ export default function NeonDiv({
 }: PropsWithChildren<Props> = {}) {
   return (
     <div
-      className={cn('neon-div', className)}
+      className={cn(styles['neon-div'], className)}
       style={{
         ['--neon-color' as string]: colorMap[neonColor],
         ['--neon-size' as string]: sizeMap[neonSize],

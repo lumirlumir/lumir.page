@@ -12,7 +12,7 @@ import NeonDiv from '@/components/neon-div';
 import { useScenarioContext } from '@/contexts/scenario-context';
 import useInterview from '@/hooks/use-interview';
 
-import './client.css';
+import styles from './client.module.css';
 
 // --------------------------------------------------------------------------------
 // Typedef
@@ -34,7 +34,7 @@ export default function Client({ interview }: Props) {
   return (
     <NeonDiv
       className={cn(
-        'client',
+        styles.client,
         'transition',
         'custom-scrollbar',
         'custom-main-section',

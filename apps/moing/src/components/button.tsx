@@ -40,10 +40,9 @@ export default function Button({ type, icon, onClick, hoverEffect = false }: Pro
   return (
     <div
       className={cn(
-        'button',
+        `${type}-button`,
         'custom-flex-center',
         'transition',
-        type,
         status === 'hidden' && 'pointer-events-none opacity-0',
         status === 'visible' && 'pointer-events-none',
       )}

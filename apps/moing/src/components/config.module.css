@@ -1,4 +1,4 @@
-main .config {
+.config {
   height: calc(var(--main-section-height) * 1.5);
 
   /* Selector */
@@ -19,7 +19,7 @@ main .config {
   }
 }
 
-.button-count {
+.counter {
   /* Property */
   margin: 0 20px;
   display: flex;

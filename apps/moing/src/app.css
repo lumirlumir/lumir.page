@@ -18,16 +18,16 @@ body {
   grid-template-columns: var(--grid-width) 1fr var(--grid-width);
   grid-template-rows: var(--grid-height) 1fr var(--grid-height);
 
-  & > .config {
+  & > .config-button {
     grid-area: 1 / 1 / 2 / 2;
   }
-  & > .speech {
+  & > .speech-button {
     grid-area: 1 / 3 / 2 / 4;
   }
-  & > .reload {
+  & > .reload-button {
     grid-area: 3 / 1 / 4 / 2;
   }
-  & > .submit {
+  & > .submit-button {
     grid-area: 3 / 3 / 4 / 4;
   }
   & > .timer {
