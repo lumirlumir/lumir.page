@@ -9,6 +9,7 @@
  * @see https://github.com/rehypejs/rehype-github/tree/main/packages/alert#rehype-github-alert (`rehype-github-alert`)
  * @see https://github.com/rehypejs/rehype-github/tree/main/packages/color#rehype-github-color (`rehype-github-color`)
  * @see https://github.com/rehypejs/rehype-github/tree/main/packages/emoji#rehype-github-emoji (`rehype-github-emoji`)
+ * @see https://github.com/rehypejs/rehype-slug#rehype-slug (`rehype-slug`)
  * @see https://github.com/remarkjs/remark-math/tree/main/packages/rehype-katex#rehype-katex (`rehype-katex`)
  * @see https://github.com/rehypejs/rehype-starry-night (`rehype-starry-night`)
  * @see https://github.com/rehypejs/rehype/tree/main/packages/rehype-stringify#rehype-stringify (`rehype-stringify`)
@@ -30,6 +31,7 @@ import rehypeRaw from 'rehype-raw';
 import rehypeGitHubAlert from 'rehype-github-alert';
 import rehypeGitHubColor from 'rehype-github-color';
 import rehypeGitHubEmoji from 'rehype-github-emoji';
+import rehypeSlug from 'rehype-slug';
 import rehypeKatex from 'rehype-katex';
 import rehypeStarryNight from 'rehype-starry-night';
 import rehypeStringify from 'rehype-stringify';
@@ -83,6 +85,7 @@ export async function markdownToHtml(
     .use(rehypeGitHubAlert)
     .use(rehypeGitHubColor)
     .use(rehypeGitHubEmoji)
+    .use(rehypeSlug) // Should be used before `rehype-katex` to ensure that heading IDs are generated correctly.
     .use(rehypeKatex)
     .use(rehypeStarryNight)
     .use(rehypeImageLazyLoading)

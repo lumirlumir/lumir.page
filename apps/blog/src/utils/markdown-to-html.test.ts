@@ -124,7 +124,7 @@ describe('markdown-to-html', () => {
 
     it('should add an H1 heading when `title` option is provided', async () => {
       const markdown = 'Foo Bar Baz';
-      const html = '<h1>Awesome Title</h1>\n<p>Foo Bar Baz</p>';
+      const html = '<h1 id="awesome-title">Awesome Title</h1>\n<p>Foo Bar Baz</p>';
 
       assert.strictEqual(
         await markdownToHtml(markdown, { title: 'Awesome Title' }),
@@ -163,6 +163,36 @@ describe('markdown-to-html', () => {
       const html = '<p>I love this! 👍</p>';
 
       assert.strictEqual(await markdownToHtml(markdown), html);
+    });
+
+    it('should add GitHub-style IDs to Markdown headings', async () => {
+      const markdown = '# Awesome Title\n\n## Usage Guide';
+      const html =
+        '<h1 id="awesome-title">Awesome Title</h1>\n<h2 id="usage-guide">Usage Guide</h2>';
+
+      assert.strictEqual(await markdownToHtml(markdown), html);
+    });
+
+    it('should add unique GitHub-style IDs to duplicate Markdown headings', async () => {
+      const markdown = '# Repeat\n\n# Repeat';
+      const html = '<h1 id="repeat">Repeat</h1>\n<h1 id="repeat-1">Repeat</h1>';
+
+      assert.strictEqual(await markdownToHtml(markdown), html);
+    });
+
+    it('should add GitHub-style IDs to raw HTML headings', async () => {
+      const markdown = '<h2>Raw HTML Heading</h2>';
+      const html = '<h2 id="raw-html-heading">Raw HTML Heading</h2>';
+
+      assert.strictEqual(await markdownToHtml(markdown), html);
+    });
+
+    it('should generate heading IDs before rendering math with KaTeX', async () => {
+      const markdown = '# Area $A$';
+      const html = await markdownToHtml(markdown);
+
+      assert.include(html, '<h1 id="area-a">Area <span class="katex">');
+      assert.notInclude(html, 'id="area-aaa"');
     });
 
     it('should add `loading="lazy"` to `<img>` tags', async () => {
