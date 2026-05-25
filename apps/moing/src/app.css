@@ -33,7 +33,7 @@ body {
   & > .timer {
     grid-area: 3 / 2 / 4 / 3;
   }
-  & > main.main {
+  & > main {
     grid-area: 1 / 2 / 4 / 3;
   }
 }

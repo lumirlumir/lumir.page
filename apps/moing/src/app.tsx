@@ -84,7 +84,7 @@ export default function App() {
 
       <Timer timer={timer} />
 
-      <main className={cn('main', 'custom-flex-center', 'custom-scrollbar')}>
+      <main className={cn('custom-flex-center', 'custom-scrollbar')}>
         <div ref={scrollRef}>
           <Title />
           <Server interview={interview} timer={timer} />
