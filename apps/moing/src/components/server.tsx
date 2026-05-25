@@ -18,7 +18,7 @@ import useInterview from '@/hooks/use-interview';
 import useTimer from '@/hooks/use-timer';
 import useHistoryState from '@/hooks/use-history-state';
 
-import './server.css';
+import styles from './server.module.css';
 
 // --------------------------------------------------------------------------------
 // Typedef
@@ -88,13 +88,13 @@ export default function Server({ interview, timer }: Props) {
   return (
     <NeonDiv
       className={cn(
-        'server',
+        styles.server,
         'custom-scrollbar',
         'custom-main-section',
         'custom-main-section-bash',
         'transition',
         status !== 'hidden' && !config.visibility ? '' : 'custom-invisible-section',
-        mode === 'result' && 'wide',
+        mode === 'result' && styles.wide,
       )}
       neonColor="black"
     >
@@ -104,6 +104,7 @@ export default function Server({ interview, timer }: Props) {
           key={text}
           text={text}
           cursor="_"
+          cursorClassName={styles.cursor}
           writeSpeed={mode === 'result' ? 1 : 25} // original: 30
           writePreDelay={2000}
           writePostDelay={1000}
@@ -114,7 +115,7 @@ export default function Server({ interview, timer }: Props) {
           }}
         />
       </div>
-      <div className="ref" ref={scrollRef} />
+      <div className={styles.ref} ref={scrollRef} />
     </NeonDiv>
   );
 }

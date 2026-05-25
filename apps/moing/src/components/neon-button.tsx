@@ -8,7 +8,7 @@
 
 import React from 'react';
 import { cn } from '@lumir/utils';
-import './neon-button.css';
+import styles from './neon-button.module.css';
 
 // --------------------------------------------------------------------------------
 // Typedef
@@ -47,7 +47,7 @@ export default function NeonButton({
   ...props
 }: React.PropsWithChildren<Props> = {}) {
   return (
-    <div className={cn('neon-button', hoverEffect && 'hover')}>
+    <div className={cn(styles['neon-button'], hoverEffect && styles.hover)}>
       <span style={{ height: neonSize }} />
       <span style={{ width: neonSize }} />
       <span style={{ height: neonSize }} />
