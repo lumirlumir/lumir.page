@@ -66,7 +66,7 @@ interface MarkdownToHtmlOptions {
  *
  * console.log(html);
  * // Output:
- * // <h1>Awesome Title</h1>
+ * // <h1 id="awesome-title">Awesome Title</h1>
  * // <p>Foo Bar Baz</p>
  * ```
  */
