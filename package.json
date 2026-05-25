@@ -85,7 +85,7 @@
   },
   "devDependencies": {
     "@types/node": "^24.12.4",
-    "@typescript/native-preview": "^7.0.0-dev.20260521.1",
+    "@typescript/native-preview": "^7.0.0-dev.20260524.1",
     "@vitest/coverage-v8": "^4.1.6",
     "clang-format-node": "^3.0.4",
     "editorconfig-checker": "^6.1.1",
@@ -95,7 +95,7 @@
     "husky": "^9.1.7",
     "lint-staged": "^17.0.5",
     "markdownlint-cli": "^0.48.0",
-    "npm-run-all2": "^9.0.0",
+    "npm-run-all2": "^9.0.1",
     "prettier": "^3.8.3",
     "stylelint": "^17.11.1",
     "stylelint-config-recess-order": "^7.7.0",
