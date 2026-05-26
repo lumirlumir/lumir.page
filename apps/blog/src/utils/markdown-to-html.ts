@@ -10,6 +10,7 @@
  * @see https://github.com/rehypejs/rehype-github/tree/main/packages/color#rehype-github-color (`rehype-github-color`)
  * @see https://github.com/rehypejs/rehype-github/tree/main/packages/emoji#rehype-github-emoji (`rehype-github-emoji`)
  * @see https://github.com/rehypejs/rehype-slug#rehype-slug (`rehype-slug`)
+ * @see https://github.com/rehypejs/rehype-autolink-headings#rehype-autolink-headings (`rehype-autolink-headings`)
  * @see https://github.com/remarkjs/remark-math/tree/main/packages/rehype-katex#rehype-katex (`rehype-katex`)
  * @see https://github.com/rehypejs/rehype-starry-night (`rehype-starry-night`)
  * @see https://github.com/rehypejs/rehype/tree/main/packages/rehype-stringify#rehype-stringify (`rehype-stringify`)
@@ -32,6 +33,7 @@ import rehypeGitHubAlert from 'rehype-github-alert';
 import rehypeGitHubColor from 'rehype-github-color';
 import rehypeGitHubEmoji from 'rehype-github-emoji';
 import rehypeSlug from 'rehype-slug';
+import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import rehypeKatex from 'rehype-katex';
 import rehypeStarryNight from 'rehype-starry-night';
 import rehypeStringify from 'rehype-stringify';
@@ -66,7 +68,7 @@ interface MarkdownToHtmlOptions {
  *
  * console.log(html);
  * // Output:
- * // <h1 id="awesome-title">Awesome Title</h1>
+ * // <h1 id="awesome-title"><a aria-hidden="true" tabindex="-1" href="#awesome-title"><span class="icon-link"></span></a>Awesome Title</h1>
  * // <p>Foo Bar Baz</p>
  * ```
  */
@@ -85,7 +87,18 @@ export async function markdownToHtml(
     .use(rehypeGitHubAlert)
     .use(rehypeGitHubColor)
     .use(rehypeGitHubEmoji)
-    .use(rehypeSlug) // Should be used before `rehype-katex` to ensure that heading IDs are generated correctly.
+    .use(rehypeSlug) // Use before `rehype-katex` to ensure heading IDs are generated correctly.
+    .use(
+      rehypeAutolinkHeadings, // Use before `rehype-katex` and after `rehype-slug` to ensure autolink anchors are generated correctly.
+      {
+        content: {
+          type: 'element',
+          tagName: 'span',
+          properties: { className: ['icon-link'] },
+          children: [],
+        },
+      },
+    )
     .use(rehypeKatex)
     .use(rehypeStarryNight)
     .use(rehypeImageLazyLoading)
