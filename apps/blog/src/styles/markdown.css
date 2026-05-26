@@ -276,7 +276,7 @@
     &:is(:hover, :focus-within) > a[aria-hidden='true'][href^='#'] .icon-link {
       visibility: visible;
 
-      &:before {
+      &::before {
         width: 20px;
         height: 20px;
         content: ' ';
