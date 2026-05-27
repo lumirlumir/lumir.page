@@ -9,6 +9,7 @@
 import { assert, describe, it } from 'vitest';
 import {
   useBooleanState,
+  useHistory,
   usePrevious,
   useScroll,
   useToggle,
@@ -24,6 +25,11 @@ describe('index', () => {
     it('`useBooleanState` should be defined', () => {
       assert.isDefined(useBooleanState);
       assert.strictEqual(typeof useBooleanState, 'function');
+    });
+
+    it('`useHistory` should be defined', () => {
+      assert.isDefined(useHistory);
+      assert.strictEqual(typeof useHistory, 'function');
     });
 
     it('`usePrevious` should be defined', () => {
