@@ -43,12 +43,6 @@ export interface UsePreviousesOptions<T> {
 }
 
 // --------------------------------------------------------------------------------
-// Helper
-// --------------------------------------------------------------------------------
-
-const defaultCompareFn = Object.is;
-
-// --------------------------------------------------------------------------------
 // Export
 // --------------------------------------------------------------------------------
 
@@ -74,7 +68,7 @@ export function usePreviouses<T>(
   {
     distinct = true,
     effectType = 'effect',
-    compareFn: compareFnProp = defaultCompareFn,
+    compareFn: compareFnProp = Object.is,
   }: UsePreviousesOptions<T> = {},
 ): T[] {
   // Without `'use no memo'`, React Compiler throws when `panicThreshold` is not `'none'`
