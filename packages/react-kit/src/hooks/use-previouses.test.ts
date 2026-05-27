@@ -1,5 +1,5 @@
 /**
- * @fileoverview Test for `use-history.ts`
+ * @fileoverview Test for `use-previouses.ts`
  */
 
 // --------------------------------------------------------------------------------
@@ -8,24 +8,35 @@
 
 import { assert, assertType, describe, it } from 'vitest';
 import { renderHook } from 'vitest-browser-react';
-import { useHistory } from './use-history.js';
+import { usePreviouses } from './use-previouses.js';
 
 // --------------------------------------------------------------------------------
 // Test
 // --------------------------------------------------------------------------------
 
-describe('use-history', () => {
+describe('use-previouses', () => {
   describe('unit', () => {
-    it('Initial history should be empty before the first layout effect update', async () => {
-      const { result } = await renderHook(() => useHistory(0));
-      const initialHistory = result.current;
+    it('Initial previouses should be empty before the first layout effect update', async () => {
+      const { result } = await renderHook(() => usePreviouses(0));
+      const initialPreviouses = result.current;
 
-      assert.deepStrictEqual(initialHistory, []);
+      assert.deepStrictEqual(initialPreviouses, []);
+    });
+
+    it('Same-value rerenders should keep the active value out of previouses', async () => {
+      const { result, rerender } = await renderHook(() => usePreviouses(0));
+      const initialPreviouses = result.current;
+
+      assert.deepStrictEqual(initialPreviouses, []);
+
+      await rerender();
+
+      assert.deepStrictEqual(result.current, []);
     });
 
     it('Previous values should be returned when the tracked value changes', async () => {
       let value: number | string = 0;
-      const { result, rerender } = await renderHook(() => useHistory(value));
+      const { result, rerender } = await renderHook(() => usePreviouses(value));
 
       value = 1;
       await rerender();
@@ -50,15 +61,15 @@ describe('use-history', () => {
   });
 
   describe('type', () => {
-    it('`useHistory` should be generic and maintain type consistency', () => {
-      assertType<(value: number) => number[]>(useHistory<number>);
-      assertType<(value: string) => string[]>(useHistory<string>);
-      assertType<(value: { a: number }) => { a: number }[]>(useHistory<{ a: number }>);
+    it('`usePreviouses` should be generic and maintain type consistency', () => {
+      assertType<(value: number) => number[]>(usePreviouses<number>);
+      assertType<(value: string) => string[]>(usePreviouses<string>);
+      assertType<(value: { a: number }) => { a: number }[]>(usePreviouses<{ a: number }>);
 
       // @ts-expect-error -- Type mismatch should be caught
-      assertType<(value: number) => string[]>(useHistory<number>);
+      assertType<(value: number) => string[]>(usePreviouses<number>);
       // @ts-expect-error -- Type mismatch should be caught
-      assertType<(value: string) => number[]>(useHistory<string>);
+      assertType<(value: string) => number[]>(usePreviouses<string>);
     });
   });
 });

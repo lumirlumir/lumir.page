@@ -9,8 +9,8 @@
 import { assert, describe, it } from 'vitest';
 import {
   useBooleanState,
-  useHistory,
   usePrevious,
+  usePreviouses,
   useScroll,
   useToggle,
   useTypewriter,
@@ -27,14 +27,14 @@ describe('index', () => {
       assert.strictEqual(typeof useBooleanState, 'function');
     });
 
-    it('`useHistory` should be defined', () => {
-      assert.isDefined(useHistory);
-      assert.strictEqual(typeof useHistory, 'function');
-    });
-
     it('`usePrevious` should be defined', () => {
       assert.isDefined(usePrevious);
       assert.strictEqual(typeof usePrevious, 'function');
+    });
+
+    it('`usePreviouses` should be defined', () => {
+      assert.isDefined(usePreviouses);
+      assert.strictEqual(typeof usePreviouses, 'function');
     });
 
     it('`useScroll` should be defined', () => {

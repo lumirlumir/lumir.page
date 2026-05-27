@@ -8,7 +8,7 @@
 
 import { useEffect, useMemo } from 'react';
 import { Typewriter } from '@lumir/react-kit/components';
-import { useHistory, useScroll } from '@lumir/react-kit/hooks';
+import { usePreviouses, useScroll } from '@lumir/react-kit/hooks';
 import { cn } from '@lumir/utils';
 
 import NeonDiv from '@/components/neon-div';
@@ -73,7 +73,7 @@ export default function Server({ interview, timer }: Props) {
       return formatContent(content);
     }
   }, [mode, content, question, getInterviewInfo, getInterviewHistory]);
-  const history = useHistory<string>(text);
+  const previouses = usePreviouses<string>(text);
 
   useEffect(() => {
     if (mode === 'test' && isInterviewDone()) toNextSection();
@@ -92,7 +92,7 @@ export default function Server({ interview, timer }: Props) {
       )}
       neonColor="black"
     >
-      <div>{history}</div>
+      <div>{previouses}</div>
       <div>
         <Typewriter
           key={text}
