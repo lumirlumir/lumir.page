@@ -16,7 +16,7 @@ references:
 
 팀원과의 소통, 편리한 과거 기록의 추적을 위해 규칙에 맞는 Commit Message를 작성하는 것이 중요하다.
 
-## 1. Commit Message의 7가지 규칙
+## 1. Commit Message의 7가지 규칙 {#1-commit-message-seven-rules}
 
 1. `Title`과 `Body`를 <u>빈 행으로 구분</u>한다.
 1. `Title`은 영문 기준 <u>50글자</u> 이내로 제한한다.
@@ -26,7 +26,7 @@ references:
 1. `Body`의 <u>각 행은 영문 기준 72글자 내</u>로 제한한다.
 1. 어떻게 보다는 <u>무엇과 왜</u>를 설명한다.
 
-## 2. Commit Message 구조
+## 2. Commit Message 구조 {#2-commit-message-structure}
 
 ```sh
 # Header, Body, Footer는 빈 행으로 구분한다.
@@ -38,7 +38,7 @@ Body # Body
 Footer # Footer
 ```
 
-### 2-1. `Header`
+### 2-1. `Header` {#2-1-commit-message-header}
 
 - `Header`는 필수이다.
 - `Type`은 해당 Commit의 성격을 나타내며, 아래 중 하나여야 한다.
@@ -62,13 +62,13 @@ Footer # Footer
 - `Scope`는 생략 가능하다.
 - `Title`에는 제목, 주제를 입력한다.
 
-### 2-2. `Body`
+### 2-2. `Body` {#2-2-commit-message-body}
 
 `Body`는 본문으로, `Header`에서 표현할 수 없는 상세한 내용을 적는다.
 
 `Header`에서 충분히 표현할 수 있다면 생략 가능하다.
 
-### 2-3. `Footer`
+### 2-3. `Footer` {#2-3-commit-message-footer}
 
 ```txt
 Resolves(Closes, Fixes): #IssueNo, ... (해결한 이슈, 생략 가능)
@@ -80,17 +80,17 @@ See also(Ref, Related to): #IssueNo, ... (참고한 이슈, 생략 가능)
 
 어떤 ***Issues***에서 왔는지 등의 참조 정보들을 추가하는 용도로 사용한다. 예를 들어, 특정 ***Issues***를 참조하려면 `Resolves: #1137` 와 같이 작성한다.
 
-## 3. Commit Message 여러 줄 입력
+## 3. Commit Message 여러 줄 입력 {#3-enter-multiline-commit-message}
 
 `-m` 옵션을 사용한다. 이는 ***vim***에서 별도의 메세지를 작성할 필요없이, 명령창에서 바로 인라인 형식으로 Commit Message를 작성할 수 있게 해준다.
 
-### 3-1. 한 줄
+### 3-1. 한 줄 {#3-1-single-line-commit-message}
 
 ```sh
 $ git commit -m "Commit Message"
 ```
 
-### 3-2. 여러 줄
+### 3-2. 여러 줄 {#3-2-multiline-commit-message}
 
 Commit Message의 첫 줄에 '닫는 따옴표'를 넣지 말고, 마지막 줄에 사용한다. 즉, 첫 줄에 '여는 따옴표'만을 넣고 엔터를 누르면 개행이 되며, 저장되는 것이 아니라 계속해서 입력 가능하다.
 
@@ -102,7 +102,7 @@ $ git commit -m "Commit Message 1st Line
 > Commit Message Last Line"
 ```
 
-## 4. Commit Message 예시
+## 4. Commit Message 예시 {#4-commit-message-examples}
 
 ```sh
 $ git commit -m "fix: Safari에서 모달을 띄웠을 때 스크롤 이슈 수정

@@ -13,19 +13,19 @@ references:
 
 웹 브라우저에서 동작하는 JavaScript의 최상위 객체는 `window` 객체이다. 하지만, Node.js는 브라우저에서 동작하는 것이 아니므로 `window` 객체가 없는 대신, 전역 변수와 전역 함수를 가지고 있다.
 
-## 1. 전역 변수
+## 1. 전역 변수 {#1-global-variables}
 
 Variable | Explanation
 --- | ---
 `__filename` | 현재 실행중인 코드의 파일 경로 반환.
 `__dirname` | 현재 실행중인 코드의 디렉터리 경로 반환.
 
-## 2. 전역 객체
+## 2. 전역 객체 {#2-global-objects}
 
 코드의 어디서나 사용할 수 있다. `global.console.log()`처럼 사용 가능하고, `global`은 생략할 수 있다.
 (JavaScript의 기본 객체인 `String`, `Number`, `Math` 등도 포함된다.)
 
-### 2-1. `console` 객체
+### 2-1. `console` 객체 {#2-1-console-object}
 
 콘솔 창에 결과를 보여주는 객체.
 
@@ -36,13 +36,13 @@ Method | Explanation
 
 > `console.log()`와 `console.dir()`에 대한 자세한 내용은 다른 마크다운 문서 참조.
 
-### 2-2. `process` 객체
+### 2-2. `process` 객체 {#2-2-process-object}
 
 프로세스(프로그램)와 관련된 정보를 나타내는 객체.
 
 Node.js만이 가진 객체로, 웹 브라우저에서 동작하는 JavaScript에는 존재하지 않는다.
 
-#### 2-2-1. Property
+#### 2-2-1. Property {#2-2-1-process-property}
 
 Property | Explanation
 --- | ---
@@ -53,7 +53,7 @@ Property | Explanation
 `process.version` | Node.js 버전.
 `process.versions` | Node.js와 종속된 프로그램 버전.
 
-#### 2-2-2. Method
+#### 2-2-2. Method {#2-2-2-process-method}
 
 Method | Explanation
 --- | ---
@@ -63,7 +63,7 @@ Method | Explanation
 `process.cpuUsage()` | cpu 사용 정보 객체 반환.
 `process.memoryUsage()` | 메모리 사용 정보 객체 반환.
 
-### 2-3. `exports` 객체
+### 2-3. `exports` 객체 {#2-3-exports-object}
 
 모듈을 생성할 때 사용하는 객체.
 
