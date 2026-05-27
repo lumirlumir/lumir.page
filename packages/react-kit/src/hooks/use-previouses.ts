@@ -6,7 +6,41 @@
 // Import
 // --------------------------------------------------------------------------------
 
-import { useLayoutEffect, useRef } from 'react';
+import { useEffect, useEffectEvent, useLayoutEffect, useRef } from 'react';
+
+// --------------------------------------------------------------------------------
+// Typedef
+// --------------------------------------------------------------------------------
+
+/**
+ * Options for the `usePreviouses` hook.
+ */
+export interface UsePreviousesOptions<T> {
+  /**
+   * Whether to only include distinct values in the returned previous values.
+   * - `true` (default): Only include distinct values, excluding consecutive duplicates.
+   * - `false`: Include all values, including consecutive duplicates.
+   * @default true
+   */
+  distinct?: boolean;
+
+  /**
+   * The type of effect to use for tracking previous values.
+   * - `'effect'` (default): Use `useEffect` to track previous values.
+   * - `'layoutEffect'`: Use `useLayoutEffect` to track previous values.
+   * @default 'effect'
+   */
+  effectType?: 'effect' | 'layoutEffect';
+
+  /**
+   * An optional comparison function to determine if the state has changed.
+   * @param prev The previous value.
+   * @param next The next value.
+   * @returns `true` if the values are considered equal, `false` otherwise.
+   * @default Object.is
+   */
+  compareFn?: (prev: T, next: T) => boolean;
+}
 
 // --------------------------------------------------------------------------------
 // Helper
@@ -35,7 +69,14 @@ const defaultCompareFn = Object.is;
  * }
  * ```
  */
-export function usePreviouses<T>(value: T): T[] {
+export function usePreviouses<T>(
+  value: T,
+  {
+    distinct = true,
+    effectType = 'effect',
+    compareFn: compareFnProp = defaultCompareFn,
+  }: UsePreviousesOptions<T> = {},
+): T[] {
   // Without `'use no memo'`, React Compiler throws when `panicThreshold` is not `'none'`
   // because this hook intentionally reads `ref.current` during render.
   'use no memo';
@@ -43,16 +84,45 @@ export function usePreviouses<T>(value: T): T[] {
   const previousesRef = useRef<T[]>([]);
   const currentValueRef = useRef<T>(value);
 
+  const compareFn = useEffectEvent(compareFnProp);
+
+  useEffect(() => {
+    if (effectType === 'layoutEffect') {
+      return;
+    }
+
+    if (distinct) {
+      if (compareFn(currentValueRef.current, value)) return;
+
+      previousesRef.current = [...previousesRef.current, currentValueRef.current];
+      currentValueRef.current = value;
+    } else {
+      previousesRef.current = [...previousesRef.current, currentValueRef.current];
+    }
+  }, [value, distinct, effectType]);
+
   useLayoutEffect(() => {
-    if (defaultCompareFn(currentValueRef.current, value)) return;
+    if (effectType === 'effect') {
+      return;
+    }
 
-    previousesRef.current = [...previousesRef.current, currentValueRef.current];
-    currentValueRef.current = value;
-  }, [value]);
+    if (distinct) {
+      if (compareFn(currentValueRef.current, value)) return;
 
-  /* eslint-disable react-hooks/refs -- `usePreviouses` intentionally returns the previous values captured before this render's effect. */
-  return defaultCompareFn(currentValueRef.current, value)
-    ? previousesRef.current
-    : [...previousesRef.current, currentValueRef.current];
+      previousesRef.current = [...previousesRef.current, currentValueRef.current];
+      currentValueRef.current = value;
+    } else {
+      previousesRef.current = [...previousesRef.current, currentValueRef.current];
+    }
+  }, [value, distinct, effectType]);
+
+  /* eslint-disable react-hooks/refs -- `usePrevious` intentionally reads the value captured before this render's effect. */
+  if (distinct) {
+    return compareFnProp(currentValueRef.current, value)
+      ? previousesRef.current
+      : [...previousesRef.current, currentValueRef.current];
+  } else {
+    return previousesRef.current;
+  }
   /* eslint-enable react-hooks/refs */
 }
