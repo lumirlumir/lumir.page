@@ -19,7 +19,7 @@ import styles from './client.module.css';
 // --------------------------------------------------------------------------------
 
 interface Props {
-  interview: ReturnType<typeof useInterview>;
+  interview: ReturnType<typeof useInterview<HTMLDivElement>>;
 }
 
 // --------------------------------------------------------------------------------
@@ -44,7 +44,6 @@ export default function Client({ interview }: Props) {
       neonColor="black"
     >
       <div
-        // @ts-expect-error -- TODO
         ref={contentRef}
         contentEditable="true"
         spellCheck="false"

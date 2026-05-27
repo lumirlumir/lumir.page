@@ -37,7 +37,7 @@ import './app.css';
 export default function App() {
   const { config, updateConfig } = useConfigContext();
   const { section } = useScenarioContext();
-  const interview = useInterview();
+  const interview = useInterview<HTMLDivElement>();
   const timer = useTimer(interview.submit);
   const [scrollRef, scroll] = useScroll<HTMLDivElement>({ behavior: 'smooth' });
 
