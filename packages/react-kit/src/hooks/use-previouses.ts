@@ -78,14 +78,12 @@ export function usePreviouses<T>(
   const previousesRef = useRef<T[]>([]);
   const currentValueRef = useRef<T>(value);
 
+  const useSelectedEffect = effectType === 'effect' ? useEffect : useLayoutEffect;
   const compareFn = useEffectEvent(compareFnProp);
 
-  useEffect(() => {
-    if (effectType === 'layoutEffect') {
-      return;
-    }
-
+  useSelectedEffect(() => {
     if (distinct) {
+      // eslint-disable-next-line react-hooks/rules-of-hooks -- `useSelectedEffect` equals either `useEffect` or `useLayoutEffect`.
       if (compareFn(currentValueRef.current, value)) return;
 
       previousesRef.current = [...previousesRef.current, currentValueRef.current];
@@ -93,24 +91,8 @@ export function usePreviouses<T>(
     } else {
       previousesRef.current = [...previousesRef.current, currentValueRef.current];
     }
-  }, [value, distinct, effectType]);
+  }, [value, distinct]);
 
-  useLayoutEffect(() => {
-    if (effectType === 'effect') {
-      return;
-    }
-
-    if (distinct) {
-      if (compareFn(currentValueRef.current, value)) return;
-
-      previousesRef.current = [...previousesRef.current, currentValueRef.current];
-      currentValueRef.current = value;
-    } else {
-      previousesRef.current = [...previousesRef.current, currentValueRef.current];
-    }
-  }, [value, distinct, effectType]);
-
-  /* eslint-disable react-hooks/refs -- `usePrevious` intentionally reads the value captured before this render's effect. */
   if (distinct) {
     return compareFnProp(currentValueRef.current, value)
       ? previousesRef.current
@@ -118,5 +100,4 @@ export function usePreviouses<T>(
   } else {
     return previousesRef.current;
   }
-  /* eslint-enable react-hooks/refs */
 }
