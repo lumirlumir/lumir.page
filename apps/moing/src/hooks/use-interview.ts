@@ -110,8 +110,8 @@ async function fetchFeedback(answerSystem: string, answerUser: string) {
 // Export
 // --------------------------------------------------------------------------------
 
-export default function useInterview() {
-  const { contentRef, listening, toggleListening } = useInterviewContent();
+export default function useInterview<T extends HTMLElement>() {
+  const { contentRef, listening, toggleListening } = useInterviewContent<T>();
   const {
     interviewHistoryRef,
     initInterviewHistory,
@@ -204,9 +204,9 @@ export default function useInterview() {
     setIsInterviewStarted(true);
   };
   const submit = () => {
-    // @ts-expect-error -- TODO
+    if (contentRef.current === null) return;
+
     addInterviewObj({ answerUser: contentRef.current.innerText });
-    // @ts-expect-error -- TODO
     contentRef.current.innerHTML = '';
   };
 
