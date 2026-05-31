@@ -134,9 +134,9 @@ describe('markdown-to-html', () => {
     });
 
     it('should use custom Markdown heading IDs when adding self-link anchors', async () => {
-      const markdown = '# Awesome Title {#custom-title}';
+      const markdown = '# Awesome Title {#1-custom-title}';
       const html =
-        '<h1 id="custom-title"><a aria-hidden="true" tabindex="-1" href="#custom-title"><span class="icon-link"></span></a>Awesome Title</h1>';
+        '<h1 id="1-custom-title"><a aria-hidden="true" tabindex="-1" href="#1-custom-title"><span class="icon-link"></span></a>Awesome Title</h1>';
 
       assert.strictEqual(await markdownToHtml(markdown), html);
     });
