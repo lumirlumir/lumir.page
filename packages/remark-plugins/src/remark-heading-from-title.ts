@@ -10,6 +10,21 @@ import { fromMarkdown } from 'mdast-util-from-markdown';
 import type { Heading, Root } from 'mdast';
 
 // --------------------------------------------------------------------------------
+// Typedef
+// --------------------------------------------------------------------------------
+
+/**
+ * Options for the `remarkHeadingFromTitle` plugin.
+ */
+export interface RemarkHeadingFromTitleOptions {
+  /**
+   * The title to generate the H1 heading from.
+   * If not provided or an empty string, the plugin will not prepend any heading.
+   */
+  title?: string | undefined;
+}
+
+// --------------------------------------------------------------------------------
 // Export
 // --------------------------------------------------------------------------------
 
@@ -28,7 +43,7 @@ import type { Heading, Root } from 'mdast';
  * console.log(file.value); // Output: '# title\n\nparagraph'
  * ```
  */
-export function remarkHeadingFromTitle(options?: { title?: string | undefined }) {
+export function remarkHeadingFromTitle(options?: RemarkHeadingFromTitleOptions) {
   const { title } = options ?? {};
 
   if (typeof title !== 'string' || title === '') {
