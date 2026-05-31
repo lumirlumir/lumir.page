@@ -18,5 +18,11 @@ describe('index', () => {
     it('should have `sideEffects: false`', () => {
       assert.strictEqual(packageJson.sideEffects, false);
     });
+
+    it('should not have `typesVersions` keys that start with `./`', () => {
+      const typesVersionKeys = Object.keys(packageJson.typesVersions['*']);
+
+      assert.strictEqual(typesVersionKeys.filter(key => key.startsWith('./')).length, 0);
+    });
   });
 });

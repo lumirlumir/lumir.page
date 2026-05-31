@@ -21,13 +21,13 @@
   },
   "typesVersions": {
     "*": {
-      "./components": [
+      "components": [
         "./build/components/index.d.ts"
       ],
-      "./hooks": [
+      "hooks": [
         "./build/hooks/index.d.ts"
       ],
-      "./svgs": [
+      "svgs": [
         "./build/svgs/index.d.ts"
       ]
     }
