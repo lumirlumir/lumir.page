@@ -1,5 +1,5 @@
 /**
- * @fileoverview Test for `remark-heading-from-title.ts`
+ * @fileoverview Type test for `remark-heading-from-title.ts`
  */
 
 // --------------------------------------------------------------------------------
