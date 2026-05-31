@@ -64,6 +64,7 @@ export default async function Page({ params }: PageProps<'/posts/[markdown]'>) {
   const {
     content,
     data: { title, references },
+    slug,
   } = await markdownCollection.loadVMarkdownFile(markdown);
 
   return (
@@ -72,7 +73,7 @@ export default async function Page({ params }: PageProps<'/posts/[markdown]'>) {
         className="markdown-body"
         // eslint-disable-next-line react/no-danger -- Safe because the content comes from the local file and is controlled.
         dangerouslySetInnerHTML={{
-          __html: await markdownToHtml(content, { title }),
+          __html: await markdownToHtml(content, { title: `${title} {#${slug}}` }),
         }}
       />
       {references.length > 0 && ( // TODO: Make a dedicated component for this after we decide on the design.
