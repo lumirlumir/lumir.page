@@ -7,7 +7,7 @@
 // --------------------------------------------------------------------------------
 
 import { assert, describe, it } from 'vitest';
-import { remarkHeadingFromTitle } from './index.js';
+import { remarkCustomHeadingId, remarkHeadingFromTitle } from './index.js';
 import packageJson from '../package.json' with { type: 'json' };
 
 // --------------------------------------------------------------------------------
@@ -22,6 +22,11 @@ describe('index', () => {
   });
 
   describe('exports', () => {
+    it('`remarkCustomHeadingId` should be defined', () => {
+      assert.isDefined(remarkCustomHeadingId);
+      assert.strictEqual(typeof remarkCustomHeadingId, 'function');
+    });
+
     it('`remarkHeadingFromTitle` should be defined', () => {
       assert.isDefined(remarkHeadingFromTitle);
       assert.strictEqual(typeof remarkHeadingFromTitle, 'function');
