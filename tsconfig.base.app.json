@@ -19,6 +19,10 @@
     "${configDir}/src/**/*.test.mts",
     "${configDir}/src/**/*.test.cts",
     "${configDir}/src/**/*.test.tsx",
+    "${configDir}/src/**/*.test-d.ts",
+    "${configDir}/src/**/*.test-d.mts",
+    "${configDir}/src/**/*.test-d.cts",
+    "${configDir}/src/**/*.test-d.tsx",
     "${configDir}/**/fixtures/**"
   ],
   "compilerOptions": {
