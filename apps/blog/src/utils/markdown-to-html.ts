@@ -22,7 +22,7 @@
 // --------------------------------------------------------------------------------
 
 import { rehypeImageLazyLoading, rehypeImageUrlReplace } from '@lumir/rehype-plugins';
-import { remarkHeadingFromTitle } from '@lumir/remark-plugins';
+import { remarkCustomHeadingId, remarkHeadingFromTitle } from '@lumir/remark-plugins';
 import remarkGfm from 'remark-gfm';
 import remarkGitHub from 'remark-github';
 import remarkMath from 'remark-math';
@@ -79,9 +79,13 @@ export async function markdownToHtml(
   const file = await unified()
     .use(remarkParse)
     .use(remarkGfm)
-    .use(remarkGitHub, { repository: GITHUB_REPO_FULL_NAME })
     .use(remarkMath)
     .use(remarkHeadingFromTitle, { title: options?.title })
+    .use(remarkCustomHeadingId)
+    .use(
+      remarkGitHub, // Use after `remarkCustomHeadingId` to avoid converting issue/PR references syntax (e.g., `#1`) used in custom heading IDs into links by mistake.
+      { repository: GITHUB_REPO_FULL_NAME },
+    )
     .use(remarkRehype, { allowDangerousHtml: true })
     .use(rehypeRaw)
     .use(rehypeGitHubAlert)

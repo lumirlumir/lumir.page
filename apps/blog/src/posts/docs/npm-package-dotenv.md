@@ -18,7 +18,7 @@ references:
 
 많은 Node.js 프로젝트에서 환경 변수를 좀 더 효과적으로 관리하기 위해서 `dotenv`라는 라이브러리를 사용하고 있다. 이번에는 환경 변수를 파일에 저장해놓고 접근할 수 있게 도와주는 `dotenv` 라이브러리에 대해 알아보자.
 
-## 1. `dotenv` 패키지 설치
+## 1. `dotenv` 패키지 설치 {#1-install-dotenv-package}
 
 npm 패키지 매니저를 이용하여 `dotenv` 라이브러리를 `dependencies`로 Node.js 프로젝트에 설치한다.
 
@@ -26,7 +26,7 @@ npm 패키지 매니저를 이용하여 `dotenv` 라이브러리를 `dependencie
 $ npm i dotenv
 ```
 
-## 2. `.env` 파일 작성
+## 2. `.env` 파일 작성 {#2-write-env-file}
 
 `dotenv` 라이브러리는 아무 설정을 하지 않으면, 현재 디렉토리에 위치한 `.env` 파일로 부터 환경 변수를 읽어온다. `.env` 파일을 생성하고, 그 안에 필요한 환경 변수를 `Key=Value`의 포맷으로 나열해보겠다.
 
@@ -44,7 +44,7 @@ DB_PASS=1234
 
 본인 프로젝트가 CommonJS 기반인지 ES 모듈 기반인지에 따라 라이브러리 사용법이 약간 상이하므로, 나눠서 설명하겠다.
 
-## 3. CommonJS에서 환경 변수 불러오기 (`require`)
+## 3. CommonJS에서 환경 변수 불러오기 (`require`) {#3-load-environment-variables-in-commonjs-require}
 
 먼저, Node.js에서 전통적으로 제공해왔던 모듈 시스템인 CommonJS에서 `dotenv` 라이브러리를 어떻게 사용하는지 알아보자.
 
@@ -88,7 +88,7 @@ DB_USER: undefined
 DB_PASS: undefined
 ```
 
-## 4. ES 모듈에서 환경 변수 불러오기 (`import`)
+## 4. ES 모듈에서 환경 변수 불러오기 (`import`) {#4-load-environment-variables-in-es-modules-import}
 
 ES 모듈을 사용하고 있는 Node.js 환경에서는 `require` 대신에 `import` 키워드를 사용해서 `dotenv` 패키지를 불러오면 된다.
 
@@ -111,11 +111,11 @@ DB_USER: root
 DB_PASS: 1234
 ```
 
-## 5. React 프로젝트에서 환경 변수 불러오기
+## 5. React 프로젝트에서 환경 변수 불러오기 {#5-load-environment-variables-in-react-project}
 
 CRA(create-react-app)로 구축한 React 프로젝트에는 이미 `dotenv` 패키지가 포함되어 있어 별도의 설치가 필요없다. 하지만, Webpack 등을 통해 직접 구축한 React 프로젝트에는 `dotenv` 패키지가 포함되어 있지 않아 설치가 필요하다.
 
-### 5-1. CRA로 구축한 React 프로젝트
+### 5-1. CRA로 구축한 React 프로젝트 {#5-1-react-project-built-with-cra}
 
 이미 `dotenv` 패키지가 포함되어 있어, 별도의 패키지 추가나 Webpack에 대한 설정 없이, 프로젝트 Root에 `.env` 파일을 생성하고 변수를 선언하는 것만으로도 환경 변수를 사용할 수 있다.
 
@@ -133,9 +133,9 @@ REACT_APP_API_KEY=1234asdf
 
 - `.env`에 변수를 추가 혹은 수정한 경우, 서버를 재실행해야만 설정이 반영된다.
 
-### 5-2. Webpack으로 구축한 React 프로젝트
+### 5-2. Webpack으로 구축한 React 프로젝트 {#5-2-react-project-built-with-webpack}
 
-#### 5-2-1. 만날 수 있는 오류
+#### 5-2-1. 만날 수 있는 오류 {#5-2-1-possible-errors}
 
 앞서 설명한 Common JS와 ES 모듈에서의 방식을 React에서도 동일하게 사용하면, 아래와 같은 `Error`를 만나기 십상이다.
 
@@ -154,7 +154,7 @@ If you don't want to include a polyfill, ...
 
 `dotenv` 패키지는 `.env` 파일에 선언한 환경 변수를 `process.env`에 로드해주는 무의존성(zero-dependency) 모듈이다. `os`, `path` 모듈로 `.env`의 절대 경로를 찾고, `fs` 모듈로 `.env` 파일을 읽어 `process.env`에 `Key=Value`의 포맷으로 담는다. 이 과정에서 `fs`, `path`, `os` 모듈을 사용한다. 결국, `dotenv`는 Node.js 환경에서만 실행되는 서버 사이드 패키지인 것이다. 따라서, 클라이언트 사이드에서는 다른 방법을 모색해야만 한다.
 
-#### 5-2-2. React에서 `dotenv`를 환경 변수로 사용하는 3가지 방법
+#### 5-2-2. React에서 `dotenv`를 환경 변수로 사용하는 3가지 방법 {#5-2-2-three-ways-to-use-dotenv-in-react}
 
 > `webpack.DefinePlugin()`, `webpack.EnvironmentPlugin()`, `JSON.stringify()` 메소드 자체에 대한 자세한 내용은 다른 마크다운 문서 참조.
 
@@ -178,7 +178,7 @@ console.log(process.env)
 $ node webpack.config.js
 ```
 
-##### 5-2-2-1. `webpack.DefinePlugin()`
+##### 5-2-2-1. `webpack.DefinePlugin()` {#5-2-2-1-webpack-define-plugin}
 
 `webpack.DefinePlugin()`을 사용해, 파일 어디서든 접근할 수 있도록 `process.env`라는 전역 변수를 정의한다.
 
@@ -198,7 +198,7 @@ module.exports = {
 }
 ```
 
-##### 5-2-2-2. `webpack.EnvironmentPlugin()`
+##### 5-2-2-2. `webpack.EnvironmentPlugin()` {#5-2-2-2-webpack-environment-plugin}
 
 `webpack.EnvironmentPlugin()`은 `webpack.DefinePlugin()`에 `process.env` 변수를 정의하는 것과 동일하지만, 단축된 문법을 지원한다. 배열에 설정한 `Key`들은 똑같이 `process.env`로 접근할 수 있다.
 
@@ -236,7 +236,7 @@ module.exports = {
 }
 ```
 
-##### 5-2-2-3. `dotenv-webpack` 패키지
+##### 5-2-2-3. `dotenv-webpack` 패키지 {#5-2-2-3-dotenv-webpack-package}
 
 `dotenv`가 아니라, `dotenv-webpack` 패키지를 사용하는 간단한 방법도 있다.
 
@@ -262,7 +262,7 @@ module.exports = {
 }
 ```
 
-### 5-3. 요약
+### 5-3. 요약 {#5-3-summary}
 
 CRA로 구축한 React 프로젝트.
 
@@ -275,7 +275,7 @@ Webpack으로 구축한 React 프로젝트.
 - `dotenv` 패키지: Webpack의 `plugins`에 `new webpack.DefinePlugin()`을 추가하여 수동으로 전역 변수를 정의한다.
 - `dotenv-webpack` 패키지: Webpack의 `plugins`에 `new Dotenv()`를 추가한다.
 
-## 6. 다른 파일에 환경 변수 저장하기
+## 6. 다른 파일에 환경 변수 저장하기 {#6-store-environment-variables-in-another-file}
 
 만약에 `.env`가 아닌 다른 경로에 있는 파일에 환경 변수를 저장해야 한다면 어떻게 해야할까?
 
@@ -310,7 +310,7 @@ DB_USER: test
 DB_PASS: 5678
 ```
 
-## 7. 프로그램을 실행하면서 환경 변수 불러오기
+## 7. 프로그램을 실행하면서 환경 변수 불러오기 {#7-load-environment-variables-while-running-program}
 
 `dotenv`를 임포트(`import`)하여 `dotenv.config()` 함수를 코드에서 호출하기 힘든 상황이라면, 프로그램을 구동할 때, `node` 커맨드의 `-r` 또는 `--require` 옵션으로 `dotenv/config`를 넘기는 방법도 있다. 이 방법을 사용하면 `dotenv` 라이브러리를 코드에 직접 `import`하지 않아도 `.env` 파일에 저장된 환경 변수가 `process.env`에 설정된다.
 
@@ -344,7 +344,7 @@ DB_PASS: 5678
 
 이 방법은 어떤 프로젝트가 CommonJS 기반인지 ES 모듈 기반인지 미리 알 수 없을 때 매우 유용하다. 왜냐하면 해당 Node.js 런타임(runtime)이 어떤 모듈 시스템을 사용하든지 상관없이 통하는 방법이기 때문이다.
 
-## 8. ES 모듈에서 발생하기 쉬운 실수
+## 8. ES 모듈에서 발생하기 쉬운 실수 {#8-common-mistakes-in-es-modules}
 
 ES 모듈을 사용할 때는 CommonJS를 사용할 때 보다 좀 더 주의가 필요하다. 흔히 발생하는 문제를 재현해보겠다.
 
@@ -418,7 +418,7 @@ DB_PASS: 1234
 
 이처럼, 프로그램이 시작된 후 가급적 `dotenv.config()` 함수를 빨리 호출하는 것이 안전하다.
 
-## 9. 이미 설정되어 있는 환경 변수
+## 9. 이미 설정되어 있는 환경 변수 {#9-already-configured-environment-variables}
 
 운영체제 수준에서 이미 설정되어 있는 환경 변수는 `dotenv`를 통해 파일에서 읽어온 환경 변수 값들로 덮어써지지 않으니 주의가 필요하다. 예를 들어, 리눅스 계열 운영체제에서 다음과 같이 프로그램을 실행하기 전에 미리 `DB_PASS` 환경 변수를 설정해놓으면,
 
@@ -478,7 +478,7 @@ DB_USER: root
 DB_PASS: 0000
 ```
 
-## 10. 보안상 주의 사항
+## 10. 보안상 주의 사항 {#10-security-precautions}
 
 `.env` 파일에는 보통 데이터베이스의 비밀번호나 서드파티(3rd-party) 서비스의 API 키와 같이 민감한 인증 정보가 들어가기 때문에 Github와 같은 코드 저장소(repository)에 올리면 상당히 위험할 수 있다. 특히, 협업 프로젝트에서는 `.gitignore` 파일에 이용하여 개발자들이 실수로라도 코드 저장소에 올릴 수 없도록 설정해놓는 것이 바람직하다.
 

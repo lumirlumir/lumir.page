@@ -16,13 +16,13 @@ references:
 
 이후, ***jQuery***의 등장으로 ***DOM***을 쉽게 핸들링할 수 있게 되었고, ***Node.js***의 등장으로 ***JavaScript***를 이용한 서버개발도 가능하게 되었다.
 
-## ***JavaScript*** vs ***ECMAScript***
+## ***JavaScript*** vs ***ECMAScript*** {#javascript-vs-ecmascript}
 
-### ***ECMAScript***
+### ***ECMAScript*** {#ecmascript}
 
 ECMA는 European Computer Manufacturer's Association의 줄임말이며, 정보와 통신 시스템을 위한 국제 표준화 기구이다. (현재는 ECMA International로 이름을 바꿈.) ***ECMAScript***는 ***JavaScript***와 같은 스크립트 언어의 표준을 말한다. ***JavaScript***는 ***ECMAScript*** 기반의 가장 인기 있는 언어로 알려져 있다.
 
-### ***JavaScript***
+### ***JavaScript*** {#javascript}
 
 ***JavaScript***의 처음 개발 목적은 Netscape 웹 브라우저에서 동적인 요소를 구현하기 위함이었다. 그 후 다른 여러 웹 브라우저들 또한 ***JavaScript***를 탑재하기 시작했고, 다양한 브라우저에서 ***JavaScript***가 공통되게 작동할 수 있도록 표준 규격이 필요해졌다. 이 때문에 ECMA에서 스크립트 표준을 만든 것이다. ***JavaScript***는 ***ECMAScript*** 사양을 준수하는 범용 스크립트 언어이며, 이 같은 표준 스크립트 언어를 ***ECMAScript***라고 한다.
 

@@ -30,26 +30,26 @@ const app = express();
 
 > 모듈이란, 관련된 코드들을 하나의 코드 단위로 캡슐화 하는 것을 말한다.
 
-## 1. 자바스크립트 CommonJS 모듈 내보내기/불러오기 (`require`)
+## 1. 자바스크립트 CommonJS 모듈 내보내기/불러오기 (`require`) {#1-javascript-commonjs-export-and-import-require}
 
 첫 번째 방식인 CommonJS 기반 모듈 내보내기/불러오기 방법에 대해 알아보자.
 
-### 1-1. CommonJS 모듈 시스템의 필요성
+### 1-1. CommonJS 모듈 시스템의 필요성 {#1-1-why-commonjs-module-system-is-needed}
 
 많은 프로젝트에서 ES6 모듈 시스템이 점점 더 널리 사용되고 있는 추세이기는 하지만, 안타깝게도 아직까지 항상 `import` 키워드를 사용해서 코딩을 할 수 있는 것은 아니다. `<script>` 태그를 사용하는 브라우저 환경에서는 물론이고, Node.js에서도 ES Module을 지원하기 시작했지만, 여전히 하위 호환성을 위해서 CommonJS를 기본 모듈 시스템으로 채택하고 있다. Babel과 같은 ES6 코드를 변환(transpile)해주는 도구를 사용할 수 없는 상황에서는 좋든 싫든 `require` 키워드를 사용해야 한다. 따라서, CommonJS 사용 방법도 어느 정도 숙지하고 있는 것이 도움이 된다.
 
-### 1-2. 주의 사항
+### 1-2. 주의 사항 {#1-2-cautions}
 
 CommonJS 방식으로 모듈을 내보낼 때는 ES6처럼 명시적으로 선언하는 것이 아니라, 특정 변수나 그 변수의 속성으로 내보낼 객체를 세팅해줘야 한다. 특히, 제일 햇갈리는 부분이 바로 유사해보이는 `exports` 변수와 `module.exports` 변수를 상황에 맞게 잘 사용해야 한다는 점이다. 기본적으로 다음 2가지 규칙만 기억하면 된다.
 
 1. 여러 개의 객체(복수 객체)를 내보낼 경우, `exports` 변수의 속성으로 할당한다.
 1. 딱 하나의 객체(단일 객체)를 내보낼 경우, `module.exports` 변수 자체에 할당한다.
 
-### 1-3. 복수 객체
+### 1-3. 복수 객체 {#1-3-multiple-objects}
 
 먼저, 하나의 자바스크립트 모듈 파일에서 여러 개의 객체를 내보내고 불러오는 방법을 알아보자.
 
-#### 1-3-1. 복수 객체 내보내기
+#### 1-3-1. 복수 객체 내보내기 {#1-3-1-export-multiple-objects}
 
 아래는 미국과 캐나다 달러를 상호 변환해주는 자바스크립트 예제 코드이다. 이 파일에는 3개의 함수가 있는데, 아래 2개의 함수만 다른 파일에서 접근할 수 있도록 내보내기를 하였다. `exports` 변수의 속성으로 내보낼 함수들을 세팅한다.
 
@@ -74,7 +74,7 @@ exports.canadianToUs = canadianToUs; // 내보내기 1
 exports.usToCanadian = usToCanadian; // 내보내기 2
 ```
 
-#### 1-3-2. 복수 객체 불러오기
+#### 1-3-2. 복수 객체 불러오기 {#1-3-2-import-multiple-objects}
 
 위에서 내보낸 여러 개의 객체는 `require` 키워드를 통해 한 번에 불러와 변수에 할당할 수 있으며, 그 변수를 통해서 내보낸 객체에 접근할 수 있다.
 
@@ -101,11 +101,11 @@ console.log(currency.usToCanadian(30));
 32.97
 ```
 
-### 1-4. 단일 객체
+### 1-4. 단일 객체 {#1-4-single-object}
 
 다음으로, 하나의 자바스크립트 모듈 파일에서 단 하나의 객체를 내보내고 불러오는 방법을 알아보자.
 
-#### 1-4-1. 단일 객체 내보내기
+#### 1-4-1. 단일 객체 내보내기 {#1-4-1-export-single-object}
 
 이번에는 예제 코드를 살짝 수정하여 아래 두 개 함수를 객체로 묶어서 내보내기를 하였다. 내보낼 객체를 `module.exports` 변수에 할당해주면 된다.
 
@@ -130,7 +130,7 @@ obj.usToCanadian = function (us) {
 module.exports = obj;
 ```
 
-#### 1-4-2. 단일 객체 불러오기
+#### 1-4-2. 단일 객체 불러오기 {#1-4-2-import-single-object}
 
 위에서 내보낸 하나의 객체는 `require` 키워드를 통해 변수에 할당할 수 있으며, 그 변수를 통해서 일반 객체에 접근하는 것 처럼 속성에 세팅되어있는 함수에 접근할 수 있다.
 
@@ -157,19 +157,19 @@ console.log(currency.usToCanadian(30));
 32.97
 ```
 
-## 2. 자바스크립트 ES 모듈 내보내기/불러오기 (`import`)
+## 2. 자바스크립트 ES 모듈 내보내기/불러오기 (`import`) {#2-javascript-es-module-export-and-import}
 
 두 번째 방식인 ES6 기반 모듈 내보내기/불러오기 방법에 대해 알아보자.
 
-### 2-1. ES6 모듈 시스템의 이점
+### 2-1. ES6 모듈 시스템의 이점 {#2-1-benefits-of-es6-module-system}
 
 아무래도 ES6 모듈 시스템이 좀 더 최신 스펙이다 보니, CommonJS 방식 대비 여러 가지 이점들이 있다. 우선 `import`, `from`, `export`, `default`처럼 모듈 관리 전용 키워드를 사용하기 때문에 가독성이 좋다. 또한 비동기 방식으로 작동하고 모듈에서 실제로 쓰이는 부분만 불러오기 때문에 성능과 메모리 부분에서 유리한 측면이 있다. 뿐만 아니라, 앞으로 다룰 Named Parameter와 같이 CommonJS에서는 지원하지 않는 기능들이 있다.
 
-### 2-2. 복수 객체
+### 2-2. 복수 객체 {#2-2-es-module-multiple-objects}
 
 먼저, 하나의 자바스크립트 모듈 파일에서 여러 개의 객체를 내보내고 불러오는 방법을 알아보자.
 
-#### 2-2-1. 복수 객체 내보내기
+#### 2-2-1. 복수 객체 내보내기 {#2-2-1-export-es-module-multiple-objects}
 
 CommonJS에서는 내보낼 복수 객체들을 `exports` 변수의 속성으로 할당하는 방식을 썼는데, ES6에서는 `import` 키워드의 짝꿍인 `export` 키워드를 사용해서 명시적으로 선언해준다. 이 때, 내보내는 변수나 함수의 이름이, 그대로 불러낼 때 사용하게 되는 이름이 되기 때문에, 이를 Named Exports라고 일겉는다.
 
@@ -199,7 +199,7 @@ const usToCanadian = function (us) {
 export { usToCanadian };
 ```
 
-#### 2-2-2. 복수 객체 불러오기
+#### 2-2-2. 복수 객체 불러오기 {#2-2-2-import-es-module-multiple-objects}
 
 여러 객체(Named Exports)를 불러올 때는 ES6의 Destructuring 문법을 사용해서 필요한 객체만 선택적으로 전역에서 사용하거나, 모든 객체에 별명을 붙이고 그 별명을 통해서 접근할 수도 있다.
 
@@ -232,11 +232,11 @@ console.log(currency.usToCanadian(30));
 32.97
 ```
 
-### 2-3. 단일 객체
+### 2-3. 단일 객체 {#2-3-es-module-single-object}
 
 다음으로, 하나의 자바스크립트 모듈 파일에서 단 하나의 객체를 내보내고 불러오는 방법을 알아보자.
 
-#### 2-3-1. 단일 객체 내보내기
+#### 2-3-1. 단일 객체 내보내기 {#2-3-1-export-es-module-single-object}
 
 CommonJS에서는 내보낼 단일 객체를 `module.exports` 변수에 할당하는 방식을 썼었는데, ES6에서는 그 대신 `export default` 키워드를 사용해서 명시적으로 선언해준다. 하나의 모듈에서 하나의 객체만 내보내기 때문에 이를 Default Export라고 일겉는다.
 
@@ -282,7 +282,7 @@ obj.usToCanadian = function (us) {
 export default obj;
 ```
 
-#### 2-3-2. 단일 객체 불러오기
+#### 2-3-2. 단일 객체 불러오기 {#2-3-2-import-es-module-single-object}
 
 하나의 객체(Default Export)를 불러올 때는 간단하게 `import` 키워드를 사용해서 아무 이름이나 원하는 이름을 주고 해당 객체를 통해 속성에 접근하면 된다.
 
@@ -311,6 +311,6 @@ console.log(currency.usToCanadian(30));
 32.97
 ```
 
-## 3. 마치면서
+## 3. 마치면서 {#3-closing}
 
 한 가지 주의할 점은 Babel 없이 순수하게 Node.js 최신 버전으로 ES 모듈을 사용하고 있다면, `import`를 사용할 때 `.js` 확장자를 붙여주어야 한다.

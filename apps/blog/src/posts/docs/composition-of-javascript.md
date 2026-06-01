@@ -29,13 +29,13 @@ references:
 
 ![window, JavaScript, DOM, BOM](/apps/blog/public/images/posts/composition-of-javascript/1.webp?raw=true)
 
-## 1. `window` 객체
+## 1. `window` 객체 {#1-window-object}
 
 ***JavaScript***의 <u>최상위(루트) 객체</u>이자, 모든 객체가 소속된 <u>전역(***Global***)</u> 객체이다. 어디서든 접근이 가능하다고 하여 전역 객체라 불리며, 객체화된 수많은 구성 요소들로 이루어져 있다.
 
 ![window object](/apps/blog/public/images/posts/composition-of-javascript/2.webp?raw=true)
 
-### 1-1. 역할
+### 1-1. 역할 {#1-1-window-object-role}
 
 `window` 객체는 2가지 역할을 한다.
 
@@ -49,7 +49,7 @@ references:
     window.open(); // 창을 닫음
     ```
 
-### 1-2. 특징
+### 1-2. 특징 {#1-2-window-object-characteristics}
 
 `window` 객체의 ***Property***나 ***Method***는 `window`를 생략하고 바로 사용할 수 있다.
 
@@ -69,7 +69,7 @@ console.log(a.id); // 1
 console.log(window.a.id); // 1
 ```
 
-## 2. 코어(***JavaScript***, ***ECMAScript***)
+## 2. 코어(***JavaScript***, ***ECMAScript***) {#2-javascript-ecmascript-core}
 
 > ***JavaScript***의 핵심 기능
 
@@ -79,7 +79,7 @@ console.log(window.a.id); // 1
 
 이러한 '호스트 환경(브라우저, ***Node.js***, ***Adobe Flash*** 등)'은 ***ECMAScript***를 기본적으로 구현하고, ***DOM***, ***BOM***등과 같은 확장을 제공한다.
 
-## 3. 문서 객체 모델(Document Object Model, ***DOM***)
+## 3. 문서 객체 모델(Document Object Model, ***DOM***) {#3-document-object-model-dom}
 
 > 웹 페이지 콘텐츠를 조작하는 ***Method***와 ***Interface***
 
@@ -95,7 +95,7 @@ console.log(window.a.id); // 1
 
 ![Document Object](/apps/blog/public/images/posts/composition-of-javascript/3.webp?raw=true)
 
-### 3-1. ***DOM***의 구조 (The ***HTML*** ***DOM*** tree of objects)
+### 3-1. ***DOM***의 구조 (The ***HTML*** ***DOM*** tree of objects) {#3-1-dom-structure}
 
 ![The HTML DOM tree of objects](/apps/blog/public/images/posts/composition-of-javascript/4.webp?raw=true)
 
@@ -107,7 +107,7 @@ Attribute Node | `<input>` 등 태그 안의 `name`, `value` 등의 <u>***Attrib
 Text Node | ***HTML*** 문서의 <u>***Text***(텍스트)</u>
 Comment Node | ***HTML*** 문서의 <u>***Comment***(주석)</u>
 
-## 4. 브라우저 객체 모델(Browser Object Model, ***BOM***)
+## 4. 브라우저 객체 모델(Browser Object Model, ***BOM***) {#4-browser-object-model-bom}
 
 > 브라우저와 상호작용하는 ***Method***와 ***Interface***
 
@@ -115,36 +115,36 @@ Comment Node | ***HTML*** 문서의 <u>***Comment***(주석)</u>
 
 ***BOM***을 이용하면 브라우저 창에 접근하고 조작할 수 있다.
 
-### 4-1. `navigator`
+### 4-1. `navigator` {#4-1-navigator}
 
 `navigator` 객체는 브라우저와 운영체제에 대한 정보를 제공한다. 객체에는 다양한 ***Property***가 있는데, 가장 잘 알려진 ***Property***는 현재 사용 중인 브라우저 정보를 알려주는 `navigator.userAgent`와 브라우저가 실행 중인 운영체제(***Windows***, ***Linux***, ***Mac*** 등) 정보를 알려주는 `navigator.platform`이다. 이는 주로 호환성 문제를 해결하기 위해 사용된다.
 
 ![navigator object](/apps/blog/public/images/posts/composition-of-javascript/5.webp?raw=true)
 
-### 4-2. `screen`
+### 4-2. `screen` {#4-2-screen}
 
 `screen` 객체는 화면에 대한 정보를 알려준다. 너비(`width`), 높이(`height`), 픽셀(`pixelDepth`), 컬러(`colorDepth`), 화면 방향(`orientation`), 작업표시줄을 제외한 너비와 높이(`availWidth`, `availHeight`) 등이 있다. 화면 크기에 따라 다른 동작을 하고 싶을 때 사용한다.
 
 ![screen object](/apps/blog/public/images/posts/composition-of-javascript/6.webp?raw=true)
 
-### 4-3. `location`
+### 4-3. `location` {#4-3-location}
 
 `location` 객체는 ***URL*** 주소에 대한 정보를 제공하여, 현재 ***URL***을 읽을 수 있게 해주고 새로운 ***URL***로 변경(redirect)할 수 있게 해준다.
 
 ![location object](/apps/blog/public/images/posts/composition-of-javascript/7.webp?raw=true)
 
-### 4-4. `frames`
+### 4-4. `frames` {#4-4-frames}
 
 `frames` 객체는 아래 설명과 같다.
 
 Returns the `window` itself, which is an ***array-like object***, listing the direct sub-frames of the current `window`.
 
-### 4-5. `history`
+### 4-5. `history` {#4-5-history}
 
 `history` 객체는 브라우저의 세션 기록, 즉 현재 페이지를 불러온 탭 또는 프레임의 방문 기록을 조작할 수 있는 방법을 제공한다.
 
 ![history object](/apps/blog/public/images/posts/composition-of-javascript/8.webp?raw=true)
 
-### 4-6. `XMLHttpRequest`
+### 4-6. `XMLHttpRequest` {#4-6-xmlhttprequest}
 
 `XMLHttpRequest`(***XHR***) 객체는 서버와 상호작용할 때 사용한다. ***XHR***을 사용하면 페이지의 새로고침 없이도 ***URL***에서 데이터를 가져올 수 있다. 이를 활용하면 사용자의 작업을 방해하지 않고 페이지의 일부를 업데이트할 수 있다.

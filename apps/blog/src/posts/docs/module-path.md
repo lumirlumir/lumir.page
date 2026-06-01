@@ -14,7 +14,7 @@ references:
 
 파일과 폴더의 경로 작업을 위한 기능을 제공한다.
 
-## 1. 불러오기
+## 1. 불러오기 {#1-loading-path-module}
 
 아래와 같은 코드를 통해 `path` 모듈을 불러올 수 있다.
 
@@ -22,9 +22,9 @@ references:
 const path = require("path");
 ```
 
-## 2. Methods
+## 2. Methods {#2-methods}
 
-### 2-1. `path.normalize()`
+### 2-1. `path.normalize()` {#2-1-path-normalize}
 
 경로를 가장 짧은 방식으로 최적화하여 저장한다.
 
@@ -44,7 +44,7 @@ console.log(myPath);
 /this/is/a/path/normalize
 ```
 
-### 2-2. `path.join()`
+### 2-2. `path.join()` {#2-2-path-join}
 
 String 형식의 인자들을 현재 운영체제에 맞게 경로를 지정한다.
 
@@ -64,7 +64,7 @@ console.log(myPath);
 /this/is/a/path/join
 ```
 
-### 2-3. `path.resolve()`
+### 2-3. `path.resolve()` {#2-3-path-resolve}
 
 String형식의 인자들을 합쳐서, 운영체제에 맞게 경로를 지정함과 동시에, 최적화까지 같이 한다.
 
@@ -100,7 +100,7 @@ console.log(myPath);
 현재위치/wwwroot/static_files/gif/image.gif
 ```
 
-### 2-4. `path.dirname()`
+### 2-4. `path.dirname()` {#2-4-path-dirname}
 
 현재 작업 폴더 경로 출력하기.
 
@@ -120,7 +120,7 @@ console.log(myPath);
 /foo/bar/baz/asdf
 ```
 
-### 2-5. `path.basename()`
+### 2-5. `path.basename()` {#2-5-path-basename}
 
 현재 작업 파일 이름 출력하기.
 
@@ -140,7 +140,7 @@ console.log(myPath);
 image.png
 ```
 
-### 2-6. `path.extname()`
+### 2-6. `path.extname()` {#2-6-path-extname}
 
 파일 형식 가져오기. 확장자를 반환한다.
 
@@ -160,7 +160,7 @@ console.log(myPath);
 .txt
 ```
 
-### 2-7. `path.parse()`
+### 2-7. `path.parse()` {#2-7-path-parse}
 
 경로를 분석해서, 형식에 따라 나누고 분류한다.
 

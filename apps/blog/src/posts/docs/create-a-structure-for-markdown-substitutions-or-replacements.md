@@ -27,7 +27,7 @@ references: []
 
 이를 위해서는 현재 블로그가 어떻게 마크다운 문서를 HTML로 변환하고, 이를 JSX 컴포넌트로 변환하는지에 대한 일련의 흐름을 이해하는 것이 중요하다. (이 블로그를 만들 때, 코드 구조에 상당히 신경을 많이 썼기에 실제 로직은 훨씬 방대하다. 그렇기에 여기서는 꼭 필요한 내용만을 다루겠다.)
 
-## 1. 마크다운을 JSX로 변환하기까지
+## 1. 마크다운을 JSX로 변환하기까지 {#1-convert-markdown-to-jsx}
 
 마크다운 문서를 JSX로 변환하는 일련의 과정을 나열해보면 아래와 같다.
 
@@ -47,9 +47,9 @@ references: []
 
 이번 글에서는 이 중 '치환자' 구조를 다뤄 볼 것이다.
 
-## 2. 치환자를 활용해보자
+## 2. 치환자를 활용해보자 {#2-use-replacements}
 
-### 2-1. 치환자란?
+### 2-1. 치환자란? {#2-1-what-is-replacement}
 
 그럼 치환자란 무엇일까? 단순하다. [MathJax](https://www.mathjax.org/) 및 [KaTex](https://katex.org/)등의 LaTex 문법을 지원하는 패키지에서 `$ ... $` 형식을 통해 수식을 작성한 경험이 있다면 이미 치환자를 활용해본 적이 있는 것이다. 여기서의 치환자는 `$` 기호 사이의 내용을 특정 함수<sup>Function</sup>나 모듈<sup>Module</sup> 등에 전달하여 수학 수식으로 변환한 뒤, 활용하는 것이다.
 
@@ -57,7 +57,7 @@ references: []
 
 그럼 "치환자를 활용하는 구조가 자주 사용되는가?" 라고 물어보면, "자주 사용된다." 라고 할 수 있다. 현재 블로그의 치환자 구조를 사용하기 위해 살펴본 여러 치환자 구조들은 아래와 같다.
 
-#### 2-1-1. MathJax 및 Katex
+#### 2-1-1. MathJax 및 Katex {#2-1-1-mathjax-and-katex}
 
 ```md
 **The Cauchy-Schwarz Inequality**
@@ -74,7 +74,7 @@ $ ... $
 $$ ... $$
 ```
 
-#### 2-1-2. [react.dev](https://github.com/reactjs/react.dev) 공식 문서
+#### 2-1-2. [react.dev](https://github.com/reactjs/react.dev) 공식 문서 {#2-1-2-react-dev-official-docs}
 
 ```md
 ## Using React for a part of your existing page {/*using-react-for-a-part-of-your-existing-page*/}
@@ -95,7 +95,7 @@ The exact approach depends on your existing page setup, so let's walk through so
 {/* ... */}
 ```
 
-#### 2-1-3. 티스토리 블로그
+#### 2-1-3. 티스토리 블로그 {#2-1-3-tistory-blog}
 
 ```html
 <li><a href="[##_tag_link_##]" class="[##_tag_class_##]">[##_tag_name_##]</a></li>
@@ -107,7 +107,7 @@ The exact approach depends on your existing page setup, so let's walk through so
 [## ... ##]
 ```
 
-#### 2-1-4. 깃허브 액션<sup>GitHub Actions</sup>
+#### 2-1-4. 깃허브 액션<sup>GitHub Actions</sup> {#2-1-4-github-actions}
 
 ```yml
 - name: Set up cache
@@ -123,7 +123,7 @@ The exact approach depends on your existing page setup, so let's walk through so
 ${{ ... }}
 ```
 
-### 2-2. 그럼 어떤 치환자를 사용해야 할까?
+### 2-2. 그럼 어떤 치환자를 사용해야 할까? {#2-2-which-replacement-to-use}
 
 사실, 어떤 치환자를 사용할지 결정하는 것은 개인 혹은 조직의 결정에 달렸다. 다만, 일반적인 마크다운 문법, 예를 들어 강조를 위해 사용하는 `**` 기호 혹은 제목<sup>Heading</sup>에 사용하는 `##` 기호 등을 사용하면, 치환자와 마크다운 문법 간 충돌이 발생할 수 있으므로 이런 부분들은 피해서 사용하는 것이 좋겠다.
 
@@ -131,7 +131,7 @@ ${{ ... }}
 
 또, 치환자를 굳이 하나의 형태만 가져다 쓸 필요는 없다. 일관적인 치환자의 형태만 관리할 수 있으면, 여러개의 치환자 기호를 혼합하여 쓰던, 특정 접두사<sup>Prefix</sup> 혹은 접미사<sup>Suffix</sup>를 활용하는 방식으로 확장성 있는 치환자를 만들던 크게 상관 없다.
 
-### 2-3. 치환자는 어떻게 변환할까?
+### 2-3. 치환자는 어떻게 변환할까? {#2-3-how-to-transform-replacements}
 
 이제 치환자 구조를 결정했으면, 치환자를 실제로 내가 원하는 값으로 변경할 차례이다. 어떻게 하면 좋을까? 가장 간단한 방법은 자바스크립트<sup>JavaScript</sup>의 `replace` 함수와 정규표현식의 캡처 그룹<sup>Capture Group</sup>을 이용하는 것이다.
 
@@ -150,6 +150,6 @@ console.log(exampleProcessed); // 'make this sentence lower case'
 
 다만, 마크다운 문서를 통째로 위 로직에 집어 넣을 경우 변환 시간이 생각 보다 오래걸릴 수도 있으니, 필요한 부분에만 변환 로직을 적용하여 최적화를 진행하는 것이 중요하다.
 
-### 3. 마치며
+### 3. 마치며 {#3-closing}
 
 간단한 예시와 함께 마크다운 치환자를 어떻게 만들고 활용할지에 대해 살펴보았다. 위 내용들은 일종의 마크다운 전처리<sup>Preprocessing</sup> 과정이라 할 수도 있을 것이다. 이는 라이브러리 혹은 프레임워크의 사용 방법 혹은 특정 세팅이 아닌, 개발자가 직접 설계하고 흐름을 만들어나가야 하는 부분에 대한 설명으로, "이런 방법도 있구나!" 하는 참고용으로 활용해주면 좋겠다.

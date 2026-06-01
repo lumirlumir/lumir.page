@@ -13,9 +13,9 @@ references: []
 
 자바스크립트는 [UTF-16 인코딩](https://developer.mozilla.org/ko/docs/Glossary/Code_unit)을 활용하여 문자열을 표현한다. [`koregexp`](https://github.com/lumirlumir/koregexp)에 기여하기 위해 알아두면 좋은 한글 유니코드(Unicode) 관련 지식들은 아래와 같다.
 
-1. [***호환용 한글 자모***](#1-호환용-한글-자모)
-1. [***현대 한글 자모***](#2-현대-한글-자모)
-1. [***완성형 한글***](#3-완성형-한글)
+1. [***호환용 한글 자모***](#1-compatibility-hangul-jamo)
+1. [***현대 한글 자모***](#2-modern-hangul-jamo)
+1. [***완성형 한글***](#3-precomposed-hangul-syllables)
 
 > [!TIP]
 >
@@ -29,7 +29,7 @@ references: []
 >
 > - [한글 낱자 코드 참조표 - 모음](https://cosmic.mearie.org/f/ngsdoc/appendix_coderef2.htm)
 
-## 1. ***호환용 한글 자모***
+## 1. ***호환용 한글 자모*** {#1-compatibility-hangul-jamo}
 
 > [!IMPORTANT]
 >
@@ -47,21 +47,21 @@ references: []
 
 이 중 ***완성형 한글***에서 사용하는 초성, 중성, 종성에 대해 알아보자.
 
-### 1-1. 정규표현식
+### 1-1. 정규표현식 {#1-1-compatibility-hangul-jamo-regular-expression}
 
-#### 1-1-1. 초성
+#### 1-1-1. 초성 {#1-1-1-compatibility-hangul-jamo-initial-consonants}
 
 총 30개. (총 30개인 이유는 하단 Tip에 서술.)
 
 `/[ㄱ-ㅎ]/` 또는 `/[\u3131-\u314E]/` (ㄱ-ㅎ)
 
-#### 1-1-2. 중성
+#### 1-1-2. 중성 {#1-1-2-compatibility-hangul-jamo-medial-vowels}
 
 총 21개. (***완성형 한글***의 중성 개수와 동일.)
 
 `/[ㅏ-ㅣ]/` 또는 `/[\u314F-\u3163]/` (ㅏ-ㅣ)
 
-#### 1-1-3. 종성
+#### 1-1-3. 종성 {#1-1-3-compatibility-hangul-jamo-final-consonants}
 
 총 30개. (총 30개인 이유는 하단 Tip에 서술.)
 
@@ -87,9 +87,9 @@ references: []
 >
 > 이때, 위에 서술한 30(16 + 3 + 11)개의 자음 개수는 `/[\u3131-\u314E]/` 범위의 유니코드 개수와 동일하다. 즉, ***호환용 한글 자모***는 초성과 종성을 따로 분리하지 않고 한데 묶어 표현하는 것이다.
 
-### 1-2. 유니코드
+### 1-2. 유니코드 {#1-2-compatibility-hangul-jamo-unicode}
 
-#### 1-2-1. 초성 및 종성 (자음)
+#### 1-2-1. 초성 및 종성 (자음) {#1-2-1-compatibility-hangul-jamo-initial-and-final-consonants}
 
 <details>
 <summary>상세 보기</summary>
@@ -101,7 +101,7 @@ references: []
 
 </details>
 
-#### 1-2-2. 중성 (모음)
+#### 1-2-2. 중성 (모음) {#1-2-2-compatibility-hangul-jamo-medial-vowels-unicode}
 
 <details>
 <summary>상세 보기</summary>
@@ -114,7 +114,7 @@ references: []
 
 </details>
 
-## 2. ***현대 한글 자모***
+## 2. ***현대 한글 자모*** {#2-modern-hangul-jamo}
 
 > [!IMPORTANT]
 >
@@ -124,21 +124,21 @@ references: []
 
 이 중 ***완성형 한글***에서 사용하는 초성, 중성, 종성에 대해 알아보자.
 
-### 2-1. 정규표현식
+### 2-1. 정규표현식 {#2-1-modern-hangul-jamo-regular-expression}
 
-#### 2-1-1. 초성
+#### 2-1-1. 초성 {#2-1-1-modern-hangul-jamo-initial-consonants}
 
 총 19개. (***완성형 한글***의 초성 개수와 동일.)
 
 `/[\u1100-\u1112]/` (ㄱ-ㅎ)
 
-#### 2-1-2. 중성
+#### 2-1-2. 중성 {#2-1-2-modern-hangul-jamo-medial-vowels}
 
 총 21개. (***완성형 한글***의 중성 개수와 동일.)
 
 `/[\u1161-\u1175]/` (ㅏ-ㅣ)
 
-#### 2-1-3. 종성
+#### 2-1-3. 종성 {#2-1-3-modern-hangul-jamo-final-consonants}
 
 총 27개. (종성이 없는 경우를 제외한, ***완성형 한글***의 종성 개수와 동일.)
 
@@ -148,9 +148,9 @@ references: []
 >
 > 종성이 없는 경우는 `/\u0000/`로 표현한다.
 
-### 2-2. 유니코드
+### 2-2. 유니코드 {#2-2-modern-hangul-jamo-unicode}
 
-#### 2-2-1. 초성
+#### 2-2-1. 초성 {#2-2-1-modern-hangul-jamo-initial-consonants-unicode}
 
 <details>
 <summary>상세 보기</summary>
@@ -162,7 +162,7 @@ references: []
 
 </details>
 
-#### 2-2-2. 중성
+#### 2-2-2. 중성 {#2-2-2-modern-hangul-jamo-medial-vowels-unicode}
 
 <details>
 <summary>상세 보기</summary>
@@ -174,7 +174,7 @@ references: []
 
 </details>
 
-#### 2-2-3. 종성
+#### 2-2-3. 종성 {#2-2-3-modern-hangul-jamo-final-consonants-unicode}
 
 <details>
 <summary>상세 보기</summary>
@@ -187,19 +187,19 @@ references: []
 
 </details>
 
-## 3. ***완성형 한글***
+## 3. ***완성형 한글*** {#3-precomposed-hangul-syllables}
 
 ***완성형 한글***로 나타낼 수 있는 문자의 유니코드 값은 `\uAC00`부터 `\uD7A3`까지며, 총 **11,172**개의 코드로 모든 한글을 표현할 수 있다.
 
-### 3-1. 정규표현식
+### 3-1. 정규표현식 {#3-1-precomposed-hangul-regular-expression}
 
 `/[가-힣]/` 또는 `/[\uAC00-\uD7A3]/` (가-힣)
 
-### 3-2. 유니코드 낱자 구성
+### 3-2. 유니코드 낱자 구성 {#3-2-precomposed-hangul-unicode-jamo-composition}
 
 ***완성형 한글***에서 쓰이는 낱자는 아래와 같다.
 
-#### 3-2-1. 초성
+#### 3-2-1. 초성 {#3-2-1-precomposed-hangul-initial-consonants}
 
 총 19개.
 
@@ -230,7 +230,7 @@ references: []
 
 </details>
 
-#### 3-2-2. 중성
+#### 3-2-2. 중성 {#3-2-2-precomposed-hangul-medial-vowels}
 
 총 21개.
 
@@ -263,7 +263,7 @@ references: []
 
 </details>
 
-#### 3-2-3. 종성
+#### 3-2-3. 종성 {#3-2-3-precomposed-hangul-final-consonants}
 
 총 28개. (종성이 없는 경우 포함.)
 
@@ -303,7 +303,7 @@ references: []
 
 </details>
 
-### 3-3. 유니코드 계산 방법
+### 3-3. 유니코드 계산 방법 {#3-3-precomposed-hangul-unicode-calculation}
 
 1. 위의 초성, 중성, 종성을 조합해서 만들 수 있는 총 글자 수는 아래와 같다.
 
@@ -323,7 +323,7 @@ references: []
 >
 > 1. `44032`는 16진수로 `0xAC00`을 뜻한다. 이는 ***완성형 한글***의 첫 시작 문자인 '가'의 유니코드와 동일하다.
 
-### 3-4. 유니코드
+### 3-4. 유니코드 {#3-4-precomposed-hangul-unicode}
 
 <details>
 <summary>상세 보기</summary>

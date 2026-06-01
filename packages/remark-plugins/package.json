@@ -29,7 +29,11 @@
   },
   "devDependencies": {
     "@types/mdast": "^4.0.4",
+    "rehype-stringify": "^10.0.1",
     "remark": "^15.0.1",
+    "remark-parse": "^11.0.0",
+    "remark-rehype": "^11.1.2",
+    "unified": "^11.0.5",
     "vitest": "^4.1.6"
   }
 }
