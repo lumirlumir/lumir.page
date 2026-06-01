@@ -21,7 +21,7 @@ import { remarkCustomHeadingId } from './remark-custom-heading-id.js';
 /**
  * Processes the given markdown string using the `remark-custom-heading-id` plugin.
  * @param markdown The markdown string to process.
- * @returns The processed HTML string.
+ * @returns A promise that resolves to a VFile whose `value` is the processed HTML.
  */
 function processMarkdown(markdown: string) {
   return unified()
