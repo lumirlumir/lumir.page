@@ -153,8 +153,8 @@ export default defineConfig([
       'md/no-tab': 'error',
       'md/no-url-trailing-slash': 'error',
       'md/require-heading-id': 'off',
-      'md/require-image-title': 'off', // TODO: enable
-      'md/require-link-title': 'off', // TODO: enable
+      'md/require-image-title': 'off', // Too tight.
+      'md/require-link-title': 'off', // Too tight.
     },
   },
   {
