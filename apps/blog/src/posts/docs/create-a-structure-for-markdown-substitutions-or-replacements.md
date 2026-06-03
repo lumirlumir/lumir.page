@@ -17,7 +17,7 @@ references: []
 
 깃허브 마크다운에서 공식적으로 사용하는 정확한 HTML 구조를 받아와야 하는 이유는 [`github-markdown-css`](https://www.npmjs.com/package/github-markdown-css) 패키지를 이용하기 위함이다. 해당 패키지는 깃허브 마크다운과 동일한 UI를 구성해주는 CSS 패키지이다. 마크다운을 HTML로 변환하였을 때 HTML 상의 `class` 등에 차이가 발생한다면, [`github-markdown-css`](https://www.npmjs.com/package/github-markdown-css)가 HTML과 CSS를 정확히 렌더링하지 못하기 때문이다. 이는 결국 깃허브 상의 마크다운 UI와 블로그 상의 마크다운 UI의 차이를 가져온다. 원하지 않는 결과물이라도 나름대로 포장해서 잘 쓸 수는 있겠지만, 그건 의도된 바가 아니다.
 
-물론, [MDX](https://mdxjs.com/)를 사용할 수도 있다. 대부분의 SSG<sup>Static Site Generation</sup> 기반의 블로그들은 MDX를 많이 활용할 것이다. 현재 메인테이너로 활동하고 있는 [ko.react.dev](https://github.com/reactjs/ko.react.dev) 레포지토리에서도 그렇고, [Next.js](https://github.com/vercel/next.js/tree/canary/docs) 공식 문서에서도 그렇고, MDX는 정말 많이 활용된다.
+물론, [MDX](https://mdxjs.com)를 사용할 수도 있다. 대부분의 SSG<sup>Static Site Generation</sup> 기반의 블로그들은 MDX를 많이 활용할 것이다. 현재 메인테이너로 활동하고 있는 [ko.react.dev](https://github.com/reactjs/ko.react.dev) 레포지토리에서도 그렇고, [Next.js](https://github.com/vercel/next.js/tree/canary/docs) 공식 문서에서도 그렇고, MDX는 정말 많이 활용된다.
 
 이로 인해, 처음에는 MDX를 사용할까 고민이 많았다. 리액트<sup>React</sup> 생태계에 익숙한지라, 리액트 컴포넌트를 보다 잘 활용할 수 있고 확장성도 좋은 MDX가 상당히 매력적으로 다가왔기 때문이다.
 
@@ -51,9 +51,9 @@ references: []
 
 ### 2-1. 치환자란? {#2-1-what-is-replacement}
 
-그럼 치환자란 무엇일까? 단순하다. [MathJax](https://www.mathjax.org/) 및 [KaTex](https://katex.org/)등의 LaTex 문법을 지원하는 패키지에서 `$ ... $` 형식을 통해 수식을 작성한 경험이 있다면 이미 치환자를 활용해본 적이 있는 것이다. 여기서의 치환자는 `$` 기호 사이의 내용을 특정 함수<sup>Function</sup>나 모듈<sup>Module</sup> 등에 전달하여 수학 수식으로 변환한 뒤, 활용하는 것이다.
+그럼 치환자란 무엇일까? 단순하다. [MathJax](https://www.mathjax.org) 및 [KaTex](https://katex.org)등의 LaTex 문법을 지원하는 패키지에서 `$ ... $` 형식을 통해 수식을 작성한 경험이 있다면 이미 치환자를 활용해본 적이 있는 것이다. 여기서의 치환자는 `$` 기호 사이의 내용을 특정 함수<sup>Function</sup>나 모듈<sup>Module</sup> 등에 전달하여 수학 수식으로 변환한 뒤, 활용하는 것이다.
 
-자바스크립트<sup>JavaScript</sup> 템플릿 리터럴<sup>Template Literal</sup>에서의 `${}` 및 [SCSS](https://sass-lang.com/)에서의 `#{}` 등의 문자열 보간<sup>String Interpolation</sup>이 이와 유사한 개념이라 생각하면 된다. (물론 정확히 일치하는 개념이라 말하기는 어렵다.)
+자바스크립트<sup>JavaScript</sup> 템플릿 리터럴<sup>Template Literal</sup>에서의 `${}` 및 [SCSS](https://sass-lang.com)에서의 `#{}` 등의 문자열 보간<sup>String Interpolation</sup>이 이와 유사한 개념이라 생각하면 된다. (물론 정확히 일치하는 개념이라 말하기는 어렵다.)
 
 그럼 "치환자를 활용하는 구조가 자주 사용되는가?" 라고 물어보면, "자주 사용된다." 라고 할 수 있다. 현재 블로그의 치환자 구조를 사용하기 위해 살펴본 여러 치환자 구조들은 아래와 같다.
 

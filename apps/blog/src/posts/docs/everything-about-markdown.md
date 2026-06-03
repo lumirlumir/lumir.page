@@ -28,9 +28,9 @@ references:
 
 ### 1-1. 마크다운이란? {#1-1-what-is-markdown}
 
-[마크다운](https://www.markdownguide.org/getting-started/)은 텍스트 기반의 마크업 언어로 2004년 존 그루버에 의해 만들어졌다. 쉽게 읽고 쓸 수 있으며, HTML로 변환이 용이하다. 특수문자와 기호를 이용한 간단한 구조의 문법을 사용하여, 웹에서 보다 빠르게 콘텐츠를 작성하고 직관적으로 인식할 수 있다.
+[마크다운](https://www.markdownguide.org/getting-started)은 텍스트 기반의 마크업 언어로 2004년 존 그루버에 의해 만들어졌다. 쉽게 읽고 쓸 수 있으며, HTML로 변환이 용이하다. 특수문자와 기호를 이용한 간단한 구조의 문법을 사용하여, 웹에서 보다 빠르게 콘텐츠를 작성하고 직관적으로 인식할 수 있다.
 
-마크다운이 각광받기 시작한 이유는 [깃허브<sup>GitHub</sup>](https://github.com/) 덕분이다. 리포지토리<sup>Repository</sup>에 대한 정보를 기록하는 `README.md`는 깃허브를 사용하는 사람이라면 가장 먼저 접하게 되는 문서이다. 마크다운을 통해 설치방법, 소스코드 설명, 이슈 등을 간단하게 기록하고 가독성을 높일 수 있다는 강점이 부각되면서 점점 여러 곳으로 퍼지게 된다.
+마크다운이 각광받기 시작한 이유는 [깃허브<sup>GitHub</sup>](https://github.com) 덕분이다. 리포지토리<sup>Repository</sup>에 대한 정보를 기록하는 `README.md`는 깃허브를 사용하는 사람이라면 가장 먼저 접하게 되는 문서이다. 마크다운을 통해 설치방법, 소스코드 설명, 이슈 등을 간단하게 기록하고 가독성을 높일 수 있다는 강점이 부각되면서 점점 여러 곳으로 퍼지게 된다.
 
 마크다운에는 HTML 태그<sup>Tag</sup>를 삽입하여 활용할 수 있다. 비록 모든 태그를 지원하는 것은 아니지만, 문서상에 더욱 풍부한 표현을 원할 때 활용하면 좋다.
 
@@ -414,6 +414,8 @@ HTML에서 이용하는 `<!-- -->` 기호를 사용한다.
 
 `~~` 기호로 감싼다.
 
+<!-- eslint-disable md/consistent-delete-style -- Used for example -->
+
 - 입력
 
   ```md
@@ -422,11 +424,15 @@ HTML에서 이용하는 `<!-- -->` 기호를 사용한다.
 
 - 출력
   - ~~double tildes~~
+
+<!-- eslint-enable md/consistent-delete-style -- Re-enable -->
 
 #### 2-5-4. 혼합 {#2-5-4-mixed-emphasis}
 
 위에서 설명한 모든 내용을 섞어서 사용할 수 있다.
 
+<!-- eslint-disable md/consistent-delete-style -- Used for example -->
+
 - 입력
 
   ```md
@@ -435,6 +441,8 @@ HTML에서 이용하는 `<!-- -->` 기호를 사용한다.
 
 - 출력
   - ~~***Mixed***~~
+
+<!-- eslint-enable md/consistent-delete-style -- Re-enable -->
 
 ### 2-6. 인용문(Blockquotes) {#2-6-blockquotes}
 
