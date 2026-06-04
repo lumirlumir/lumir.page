@@ -22,7 +22,7 @@
   },
   "devDependencies": {
     "@lumir/types": "*",
-    "@types/react": "^19.2.15",
+    "@types/react": "^19.2.16",
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^5.2.0",
     "babel-plugin-react-compiler": "^1.0.0",
