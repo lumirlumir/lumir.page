@@ -12,7 +12,7 @@
 // Import
 // --------------------------------------------------------------------------------
 
-import { usePathname, useSearchParams, useRouter } from 'next/navigation';
+import { usePathname, useSearchParams } from 'next/navigation';
 import { type PropsWithChildren } from 'react';
 import { useToggle } from '@lumir/react-kit/hooks';
 import { FaAngleDown, FaAngleUp, GrSort } from '@lumir/react-kit/svgs';
@@ -51,23 +51,18 @@ function SortContainer({ children }: PropsWithChildren) {
 function SortItem({ sort, order }: { sort: SortableFrontmatterKey; order: SortKey }) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const { replace } = useRouter();
 
-  function onClick(sort: SortableFrontmatterKey, order: SortKey) {
-    const params = new URLSearchParams(searchParams);
+  function onClick() {
+    const params = new URLSearchParams(searchParams.toString());
 
     params.set('sort', sort);
     params.set('order', order);
 
-    // @ts-expect-error -- TODO
-    replace(`${pathname}?${params.toString()}`);
+    window.history.replaceState(null, '', `${pathname}?${params.toString()}`);
   }
 
   return (
-    <li
-      className={cn(styles['sort-item'], 'custom-hover-effect')}
-      onClick={() => onClick(sort, order)}
-    >
+    <li className={cn(styles['sort-item'], 'custom-hover-effect')} onClick={onClick}>
       <div className={cn(styles['react-icons'], 'custom-flex-center')}>
         {frontmatterMeta[sort].reactIcons}
       </div>
