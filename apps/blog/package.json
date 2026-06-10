@@ -23,7 +23,6 @@
     "@lumir/remark-plugins": "*",
     "@lumir/styles": "*",
     "@lumir/utils": "*",
-    "@next/third-parties": "^16.2.6",
     "@vercel/analytics": "^2.0.1",
     "@vercel/speed-insights": "^2.0.0",
     "babel-plugin-react-compiler": "^1.0.0",
