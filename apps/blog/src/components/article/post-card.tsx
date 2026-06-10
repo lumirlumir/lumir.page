@@ -1,5 +1,5 @@
 /**
- * @fileoverview content.
+ * @fileoverview post-card.
  */
 
 // --------------------------------------------------------------------------------
@@ -13,23 +13,23 @@ import { categoryMeta } from '@/data/category';
 import { frontmatterMeta } from '@/data/frontmatter';
 import { type VMarkdownFileMeta } from '@/data/v-markdown-file';
 import { markdownToHtmlLite } from '@/utils/markdown-to-html';
-import styles from './content.module.css';
+import styles from './post-card.module.css';
 
 // --------------------------------------------------------------------------------
 // Helper
 // --------------------------------------------------------------------------------
 
-function ContentBoxContainer({ children }: PropsWithChildren) {
+function PostCardMetaContainer({ children }: PropsWithChildren) {
   return (
-    <div className={cn(styles['content-box-container'], 'custom-scrollbar-x')}>
+    <div className={cn(styles['post-card-meta-container'], 'custom-scrollbar-x')}>
       {children}
     </div>
   );
 }
 
-function ContentBoxItem({ icon, text }: { icon: JSX.Element; text: string }) {
+function PostCardMetaItem({ icon, text }: { icon: JSX.Element; text: string }) {
   return (
-    <span className={styles['content-box-item']}>
+    <span className={styles['post-card-meta-item']}>
       <span className={styles['react-icons']}>{icon}</span>
       <span>{text}</span>
     </span>
@@ -40,7 +40,7 @@ function ContentBoxItem({ icon, text }: { icon: JSX.Element; text: string }) {
 // Export
 // --------------------------------------------------------------------------------
 
-export default async function Content({
+export default async function PostCard({
   vMarkdownFileMeta: {
     slug,
     data: { title, description, created, updated, categories },
@@ -50,7 +50,7 @@ export default async function Content({
 }) {
   return (
     <Link href={`/posts/${slug}`}>
-      <div className={cn(styles.content, 'custom-hover-effect')}>
+      <div className={cn(styles['post-card'], 'custom-hover-effect')}>
         <div
           className={cn(styles.title, 'markdown-body')}
           // eslint-disable-next-line react/no-danger -- Safe because the title comes from the local file and is controlled.
@@ -63,20 +63,20 @@ export default async function Content({
           dangerouslySetInnerHTML={{ __html: await markdownToHtmlLite(description) }}
         />
 
-        <ContentBoxContainer>
-          <ContentBoxItem icon={frontmatterMeta.created.reactIcons} text={created} />
-          <ContentBoxItem icon={frontmatterMeta.updated.reactIcons} text={updated} />
-        </ContentBoxContainer>
+        <PostCardMetaContainer>
+          <PostCardMetaItem icon={frontmatterMeta.created.reactIcons} text={created} />
+          <PostCardMetaItem icon={frontmatterMeta.updated.reactIcons} text={updated} />
+        </PostCardMetaContainer>
 
-        <ContentBoxContainer>
+        <PostCardMetaContainer>
           {categories.map(category => (
-            <ContentBoxItem
+            <PostCardMetaItem
               key={category}
               icon={frontmatterMeta.categories.reactIcons}
               text={categoryMeta[category].name.en}
             />
           ))}
-        </ContentBoxContainer>
+        </PostCardMetaContainer>
       </div>
     </Link>
   );

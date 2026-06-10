@@ -1,9 +1,9 @@
-.content-box-container {
+.post-card-meta-container {
   display: flex;
   white-space: nowrap;
 }
 
-.content-box-item {
+.post-card-meta-item {
   padding: var(--size-6) var(--size-10);
   margin-right: var(--size-8);
   font-size: var(--size-12);
@@ -20,18 +20,14 @@
   }
 }
 
-.content {
+.post-card {
   display: flex;
   flex-direction: column;
+  gap: var(--size-8);
   padding: var(--size-16) var(--size-24);
-  margin-bottom: var(--size-16);
   background-color: var(--color-bg-default);
   border: var(--border-default);
   border-radius: var(--size-border-radius);
-
-  & > div {
-    margin-bottom: var(--size-8);
-  }
 
   & .title,
   & .description {
