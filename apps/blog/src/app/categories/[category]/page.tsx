@@ -6,10 +6,8 @@
 // Import
 // --------------------------------------------------------------------------------
 
-import { Suspense } from 'react';
 import PostCard from '@/components/article/post-card';
 import PostList from '@/components/article/post-list';
-import Loading from '@/components/common/loading';
 import { type CategoryKey } from '@/data/category';
 import createMarkdownCollection from '@/utils/markdown-collection';
 
@@ -49,13 +47,11 @@ export default async function Page({ params }: PageProps<'/categories/[category]
   const vMarkdownFileMetas = markdownCollection.category[category as CategoryKey];
 
   return (
-    <Suspense fallback={<Loading content="목록" />}>
-      <PostList
-        items={vMarkdownFileMetas.map(vMarkdownFileMeta => ({
-          vMarkdownFileMeta,
-          postCard: <PostCard vMarkdownFileMeta={vMarkdownFileMeta} />,
-        }))}
-      />
-    </Suspense>
+    <PostList
+      items={vMarkdownFileMetas.map(vMarkdownFileMeta => ({
+        vMarkdownFileMeta,
+        postCard: <PostCard vMarkdownFileMeta={vMarkdownFileMeta} />,
+      }))}
+    />
   );
 }
