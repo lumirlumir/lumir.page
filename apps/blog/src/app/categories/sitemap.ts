@@ -17,6 +17,16 @@ import createMarkdownCollection from '@/utils/markdown-collection';
 const markdownCollection = createMarkdownCollection();
 
 // --------------------------------------------------------------------------------
+// Named Export
+// --------------------------------------------------------------------------------
+
+/**
+ * Change the dynamic behavior of a layout or page to fully static or fully dynamic.
+ * @see https://nextjs.org/docs/app/guides/caching-without-cache-components#dynamic
+ */
+export const dynamic = 'force-static';
+
+// --------------------------------------------------------------------------------
 // Default Export
 // --------------------------------------------------------------------------------
 

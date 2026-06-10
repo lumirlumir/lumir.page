@@ -3,13 +3,17 @@
  */
 
 // --------------------------------------------------------------------------------
-// Helpers
+// Helper
 // --------------------------------------------------------------------------------
 
 const isProd = process.env.NODE_ENV === 'production';
 
+// --------------------------------------------------------------------------------
+// Export
+// --------------------------------------------------------------------------------
+
 /** @type {import('next').NextConfig} */
-const nextConfig = {
+export default {
   pageExtensions: ['js', 'mjs', 'jsx', 'ts', 'mts', 'tsx', 'md', 'mdx'],
   images: {
     remotePatterns: [
@@ -31,6 +35,10 @@ const nextConfig = {
   typescript: {
     ignoreBuildErrors: true, // Typecheck will be handled separately.
   },
+  output: 'export',
+  trailingSlash: false,
+  skipTrailingSlashRedirect: true,
+  distDir: 'build',
 
   webpack(config) {
     // Add a rule to handle Markdown files as raw text.
@@ -42,9 +50,3 @@ const nextConfig = {
     return config;
   },
 };
-
-// --------------------------------------------------------------------------------
-// Export
-// --------------------------------------------------------------------------------
-
-export default nextConfig;
