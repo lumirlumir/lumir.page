@@ -74,7 +74,7 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function RootLayout({
   children,
   params,
-}: PropsWithChildren<PageProps<'/[lang]'>>) {
+}: PropsWithChildren<LayoutProps<'/[lang]'>>) {
   const awaitedParams = await params;
   const lang = awaitedParams.lang as LangKey;
 

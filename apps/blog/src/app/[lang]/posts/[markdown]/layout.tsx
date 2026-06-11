@@ -20,7 +20,7 @@ import { type LangKey } from '@/data/lang';
 export default async function Layout({
   children,
   params,
-}: PropsWithChildren<PageProps<'/[lang]/posts/[markdown]'>>) {
+}: PropsWithChildren<LayoutProps<'/[lang]/posts/[markdown]'>>) {
   const { lang } = await params;
 
   return (

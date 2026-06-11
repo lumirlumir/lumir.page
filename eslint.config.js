@@ -79,6 +79,7 @@ export default defineConfig([
     },
     languageOptions: {
       globals: {
+        LayoutProps: false, // Next.js
         PageProps: false, // Next.js
         __WebpackModuleApi: false, // Webpack
       },
