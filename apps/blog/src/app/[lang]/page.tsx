@@ -1,5 +1,5 @@
 /**
- * @fileoverview Root page.
+ * @fileoverview Root page for a localized route.
  */
 
 // --------------------------------------------------------------------------------
