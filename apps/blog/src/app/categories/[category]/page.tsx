@@ -6,14 +6,10 @@
 // Import
 // --------------------------------------------------------------------------------
 
-import { Suspense } from 'react';
-import Content from '@/components/article/content';
-import Loading from '@/components/common/loading';
+import PostCard from '@/components/article/post-card';
+import PostList from '@/components/article/post-list';
 import { type CategoryKey } from '@/data/category';
-import { type SortableFrontmatterKey } from '@/data/frontmatter';
-import { type SortKey } from '@/data/sort';
 import createMarkdownCollection from '@/utils/markdown-collection';
-import { compareMarkdownDocument } from '@/utils/compare';
 
 // --------------------------------------------------------------------------------
 // Helper
@@ -46,27 +42,16 @@ export async function generateStaticParams(): Promise<
 // Default Export
 // --------------------------------------------------------------------------------
 
-export default async function Page({
-  params,
-  searchParams,
-}: PageProps<'/categories/[category]'>) {
+export default async function Page({ params }: PageProps<'/categories/[category]'>) {
   const { category } = await params;
-  const { sort, order } = await searchParams; // TODO: Rename `sort` and `order`.
-
-  const normalizedSort: SortableFrontmatterKey =
-    sort === 'title' || sort === 'created' || sort === 'updated' ? sort : 'updated';
-  const normalizedOrder: SortKey = order === 'asc' || order === 'desc' ? order : 'desc';
+  const vMarkdownFileMetas = markdownCollection.category[category as CategoryKey];
 
   return (
-    <Suspense
-      key={normalizedSort + normalizedOrder}
-      fallback={<Loading content="목록" />}
-    >
-      {markdownCollection.category[category as CategoryKey]
-        ?.toSorted(compareMarkdownDocument(normalizedSort, normalizedOrder))
-        .map(vMarkdownFileMeta => (
-          <Content key={vMarkdownFileMeta.slug} vMarkdownFileMeta={vMarkdownFileMeta} />
-        ))}
-    </Suspense>
+    <PostList
+      items={vMarkdownFileMetas.map(vMarkdownFileMeta => ({
+        vMarkdownFileMeta,
+        postCard: <PostCard vMarkdownFileMeta={vMarkdownFileMeta} />,
+      }))}
+    />
   );
 }
