@@ -11,18 +11,24 @@ import Article from '@/components/layouts/article';
 import Nav from '@/components/layouts/nav';
 import Section from '@/components/layouts/section';
 import Giscus from '@/components/section/giscus';
+import { type LangKey } from '@/data/lang';
 
 // --------------------------------------------------------------------------------
 // Default Export
 // --------------------------------------------------------------------------------
 
-export default function Layout({ children }: PropsWithChildren) {
+export default async function Layout({
+  children,
+  params,
+}: PropsWithChildren<PageProps<'/[lang]/posts/[markdown]'>>) {
+  const { lang } = await params;
+
   return (
     <>
       <Article>
         {children}
         <Section>
-          <Giscus />
+          <Giscus lang={lang as LangKey} />
         </Section>
       </Article>
       <Nav />
