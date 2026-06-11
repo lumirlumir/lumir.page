@@ -3,7 +3,7 @@
  *
  * NOTE: We use `Suspense` instead of `useEffect` to reduce visual jump.
  * With `useEffect`, the default post list is painted first,
- * and the search-param-based order is applied afterward when the effect runs.
+ * and the search-param-based sort is applied afterward when the effect runs.
  */
 
 // --------------------------------------------------------------------------------
@@ -53,35 +53,35 @@ interface PostListProps {
  */
 interface SortedPostListProps extends PostListProps {
   /**
-   * The order in which the posts should be sorted.
+   * The field by which the posts should be sorted.
    */
-  readonly order: SortKey;
+  readonly field: SortableFrontmatterKey;
 
   /**
-   * The key by which the posts should be sorted.
+   * The sort direction applied to the posts.
    */
-  readonly sort: SortableFrontmatterKey;
+  readonly sort: SortKey;
 }
 
 // --------------------------------------------------------------------------------
 // Helper
 // --------------------------------------------------------------------------------
 
-const DEFAULT_SORT = 'updated' satisfies SortableFrontmatterKey;
-const DEFAULT_ORDER = 'desc' satisfies SortKey;
+const DEFAULT_FIELD = 'updated' satisfies SortableFrontmatterKey;
+const DEFAULT_SORT = 'desc' satisfies SortKey;
 
-function normalizeSort(sort: string | null): SortableFrontmatterKey {
-  return sort === 'title' || sort === 'created' || sort === 'updated'
-    ? sort
-    : DEFAULT_SORT;
+function normalizeField(field: string | null): SortableFrontmatterKey {
+  return field === 'title' || field === 'created' || field === 'updated'
+    ? field
+    : DEFAULT_FIELD;
 }
 
-function normalizeOrder(order: string | null): SortKey {
-  return order === 'asc' || order === 'desc' ? order : DEFAULT_ORDER;
+function normalizeSort(sort: string | null): SortKey {
+  return sort === 'asc' || sort === 'desc' ? sort : DEFAULT_SORT;
 }
 
-function SortedPostList({ items, sort, order }: SortedPostListProps) {
-  const compare = compareMarkdownDocument(sort, order);
+function SortedPostList({ items, field, sort }: SortedPostListProps) {
+  const compare = compareMarkdownDocument(field, sort);
 
   return (
     <div className={styles['post-list']}>
@@ -100,7 +100,7 @@ function SortedPostListSearchParams({ items }: PostListProps) {
   return (
     <SortedPostList
       items={items}
-      order={normalizeOrder(searchParams.get('order'))} // TODO: Rename `sort` and `order`.
+      field={normalizeField(searchParams.get('field'))}
       sort={normalizeSort(searchParams.get('sort'))}
     />
   );
@@ -114,7 +114,7 @@ export default function PostList({ items }: PostListProps) {
   return (
     <Suspense
       fallback={
-        <SortedPostList items={items} order={DEFAULT_ORDER} sort={DEFAULT_SORT} />
+        <SortedPostList items={items} field={DEFAULT_FIELD} sort={DEFAULT_SORT} />
       }
     >
       <SortedPostListSearchParams items={items} />
