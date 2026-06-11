@@ -9,6 +9,7 @@
 import PostCard from '@/components/article/post-card';
 import PostList from '@/components/article/post-list';
 import { type CategoryKey } from '@/data/category';
+import { type LangKey } from '@/data/lang';
 import createMarkdownCollection from '@/utils/markdown-collection';
 
 // --------------------------------------------------------------------------------
@@ -31,9 +32,10 @@ export const dynamicParams = false;
  * @see https://nextjs.org/docs/app/api-reference/functions/generate-static-params
  */
 export async function generateStaticParams(): Promise<
-  Awaited<PageProps<'/categories/[category]'>['params']>[]
+  Awaited<PageProps<'/[lang]/categories/[category]'>['params']>[]
 > {
   return markdownCollection.nonEmptyCategoryKeys.map(category => ({
+    lang: 'ko', // TODO: Support multiple languages.
     category,
   }));
 }
@@ -42,15 +44,19 @@ export async function generateStaticParams(): Promise<
 // Default Export
 // --------------------------------------------------------------------------------
 
-export default async function Page({ params }: PageProps<'/categories/[category]'>) {
-  const { category } = await params;
+export default async function Page({
+  params,
+}: PageProps<'/[lang]/categories/[category]'>) {
+  const { category, lang } = await params;
   const vMarkdownFileMetas = markdownCollection.category[category as CategoryKey];
 
   return (
     <PostList
       items={vMarkdownFileMetas.map(vMarkdownFileMeta => ({
         vMarkdownFileMeta,
-        postCard: <PostCard vMarkdownFileMeta={vMarkdownFileMeta} />,
+        postCard: (
+          <PostCard lang={lang as LangKey} vMarkdownFileMeta={vMarkdownFileMeta} />
+        ),
       }))}
     />
   );
