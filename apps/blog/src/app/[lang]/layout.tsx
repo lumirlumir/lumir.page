@@ -31,6 +31,7 @@ import FlexContainer from '@/components/header/flex-container';
 import Title from '@/components/header/title';
 
 import { GOOGLE_GA_ID } from '@/constants';
+import { langKeys, type LangKey } from '@/data/lang';
 import { getGithubUsers } from '@/utils/fetch';
 
 import '@/styles/index.css';
@@ -38,6 +39,21 @@ import '@/styles/index.css';
 // --------------------------------------------------------------------------------
 // Named Export
 // --------------------------------------------------------------------------------
+
+/**
+ * Control what happens when a dynamic segment is visited that was not generated with `generateStaticParams`.
+ * @see https://nextjs.org/docs/app/api-reference/file-conventions/route-segment-config/dynamicParams
+ */
+export const dynamicParams = false;
+
+/**
+ * @see https://nextjs.org/docs/app/api-reference/functions/generate-static-params
+ */
+export function generateStaticParams(): Awaited<PageProps<'/[lang]'>['params']>[] {
+  return langKeys.map(lang => ({
+    lang,
+  }));
+}
 
 export async function generateMetadata(): Promise<Metadata> {
   const { bio, name } = await getGithubUsers();
@@ -55,25 +71,31 @@ export async function generateMetadata(): Promise<Metadata> {
 // Default Export
 // --------------------------------------------------------------------------------
 
-export default function RootLayout({ children }: PropsWithChildren) {
+export default async function RootLayout({
+  children,
+  params,
+}: PropsWithChildren<PageProps<'/[lang]'>>) {
+  const awaitedParams = await params;
+  const lang = awaitedParams.lang as LangKey;
+
   return (
     // Use `suppressHydrationWarning` because `ThemeScript` may change the initial `data-theme`.
     // https://react.dev/reference/react-dom/client/hydrateRoot#suppressing-unavoidable-hydration-mismatch-errors
-    <html lang="ko" suppressHydrationWarning>
+    <html lang={lang} suppressHydrationWarning>
       <Body>
         <ThemeScript />
         <ThemeProvider>
           <Header>
-            <Title />
+            <Title lang={lang} />
             <FlexContainer>
               <DocSearch />
               <DarkModeToggle />
             </FlexContainer>
           </Header>
           <Aside>
-            <Profile />
-            <Links />
-            <Categories />
+            <Profile lang={lang} />
+            <Links lang={lang} />
+            <Categories lang={lang} />
           </Aside>
           <Main>{children}</Main>
 
