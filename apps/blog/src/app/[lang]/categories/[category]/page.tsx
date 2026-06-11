@@ -9,7 +9,7 @@
 import PostCard from '@/components/article/post-card';
 import PostList from '@/components/article/post-list';
 import { type CategoryKey } from '@/data/category';
-import { type LangKey } from '@/data/lang';
+import { langKeys, type LangKey } from '@/data/lang';
 import createMarkdownCollection from '@/utils/markdown-collection';
 
 // --------------------------------------------------------------------------------
@@ -34,10 +34,12 @@ export const dynamicParams = false;
 export async function generateStaticParams(): Promise<
   Awaited<PageProps<'/[lang]/categories/[category]'>['params']>[]
 > {
-  return markdownCollection.nonEmptyCategoryKeys.map(category => ({
-    lang: 'ko', // TODO: Support multiple languages.
-    category,
-  }));
+  return markdownCollection.nonEmptyCategoryKeys.flatMap(category =>
+    langKeys.map(lang => ({
+      lang,
+      category,
+    })),
+  );
 }
 
 // --------------------------------------------------------------------------------

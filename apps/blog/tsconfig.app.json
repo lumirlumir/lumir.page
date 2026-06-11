@@ -9,7 +9,6 @@
     "src/**/*.mts",
     "src/**/*.cts",
     "src/**/*.tsx",
-    ".next/types/**/*.ts",
     "build/types/**/*.ts"
   ],
   "references": [
