@@ -67,8 +67,8 @@ interface SortedPostListProps extends PostListProps {
 // Helper
 // --------------------------------------------------------------------------------
 
-const DEFAULT_SORT = 'updated';
-const DEFAULT_ORDER = 'desc';
+const DEFAULT_SORT = 'updated' satisfies SortableFrontmatterKey;
+const DEFAULT_ORDER = 'desc' satisfies SortKey;
 
 function normalizeSort(sort: string | null): SortableFrontmatterKey {
   return sort === 'title' || sort === 'created' || sort === 'updated'
