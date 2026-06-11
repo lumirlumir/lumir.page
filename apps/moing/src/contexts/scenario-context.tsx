@@ -109,7 +109,7 @@ interface Section {
  * Defines the shape of the scenario context value provided by the `ScenarioContext`,
  * including the current section and navigation actions.
  */
-type ScenarioContextValue = {
+interface ScenarioContextValue {
   /**
    * Current section selected by `scenario[chapter][section]`.
    */
@@ -129,7 +129,7 @@ type ScenarioContextValue = {
    * Returns whether the current section is the last section of its chapter.
    */
   readonly isLastSection: () => boolean;
-};
+}
 
 // --------------------------------------------------------------------------------
 // Helper

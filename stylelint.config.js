@@ -1,7 +1,13 @@
 /** @type {import('stylelint').Config} */
 export default {
   extends: ['stylelint-config-standard', 'stylelint-config-recess-order'],
-  ignoreFiles: ['apps/moing/**', 'archives/**', 'coverage/**'],
+  ignoreFiles: [
+    'apps/moing/**',
+    '**/archives/**',
+    '**/build/**',
+    '**/coverage/**',
+    '**/.next/**',
+  ],
   rules: {
     'import-notation': 'string',
     // Enforce specific media feature breakpoints for consistency
