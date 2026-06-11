@@ -39,7 +39,7 @@ function SortContainer({ children }: PropsWithChildren) {
         </div>
         <div className={styles['name-en']}>Sort</div>
         <div className={styles['name-ko']}>정렬</div>
-        <div className={cn(styles.order, 'custom-flex-center')}>
+        <div className={cn(styles.sort, 'custom-flex-center')}>
           {isOpen ? <FaAngleUp /> : <FaAngleDown />}
         </div>
       </div>
@@ -48,15 +48,15 @@ function SortContainer({ children }: PropsWithChildren) {
   );
 }
 
-function SortItem({ sort, order }: { sort: SortableFrontmatterKey; order: SortKey }) {
+function SortItem({ field, sort }: { field: SortableFrontmatterKey; sort: SortKey }) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
   function onClick() {
     const params = new URLSearchParams(searchParams.toString());
 
+    params.set('field', field);
     params.set('sort', sort);
-    params.set('order', order);
 
     window.history.replaceState(null, '', `${pathname}?${params.toString()}`);
   }
@@ -64,16 +64,16 @@ function SortItem({ sort, order }: { sort: SortableFrontmatterKey; order: SortKe
   return (
     <li className={cn(styles['sort-item'], 'custom-hover-effect')} onClick={onClick}>
       <div className={cn(styles['react-icons'], 'custom-flex-center')}>
-        {frontmatterMeta[sort].reactIcons}
+        {frontmatterMeta[field].reactIcons}
       </div>
       <div
         className={styles['name-en']}
-      >{`${frontmatterMeta[sort].name.en} / ${sortMeta[order].name.en}`}</div>
+      >{`${frontmatterMeta[field].name.en} / ${sortMeta[sort].name.en}`}</div>
       <div
         className={styles['name-ko']}
-      >{`${frontmatterMeta[sort].name.ko} / ${sortMeta[order].name.ko}`}</div>
-      <div className={cn(styles.order, 'custom-flex-center')}>
-        {sortMeta[order].reactIcons}
+      >{`${frontmatterMeta[field].name.ko} / ${sortMeta[sort].name.ko}`}</div>
+      <div className={cn(styles.sort, 'custom-flex-center')}>
+        {sortMeta[sort].reactIcons}
       </div>
     </li>
   );
@@ -86,12 +86,12 @@ function SortItem({ sort, order }: { sort: SortableFrontmatterKey; order: SortKe
 export default function Sort() {
   return (
     <SortContainer>
-      <SortItem sort="title" order="desc" />
-      <SortItem sort="title" order="asc" />
-      <SortItem sort="created" order="desc" />
-      <SortItem sort="created" order="asc" />
-      <SortItem sort="updated" order="desc" />
-      <SortItem sort="updated" order="asc" />
+      <SortItem field="title" sort="desc" />
+      <SortItem field="title" sort="asc" />
+      <SortItem field="created" sort="desc" />
+      <SortItem field="created" sort="asc" />
+      <SortItem field="updated" sort="desc" />
+      <SortItem field="updated" sort="asc" />
     </SortContainer>
   );
 }
