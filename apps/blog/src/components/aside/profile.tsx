@@ -9,6 +9,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { cn } from '@lumir/utils';
+import { type PropsWithLang } from '@/data/lang';
 import { getGithubUsers } from '@/utils/fetch';
 import styles from './profile.module.css';
 
@@ -16,7 +17,7 @@ import styles from './profile.module.css';
 // Export
 // --------------------------------------------------------------------------------
 
-export default async function Profile() {
+export default async function Profile({ lang }: PropsWithLang) {
   const { avatar_url: avatarUrl, bio, name } = await getGithubUsers();
 
   return (
@@ -28,7 +29,7 @@ export default async function Profile() {
         alt={`${name}'s GitHub profile image`}
       />
       <div className={styles['user-name']}>
-        <Link href="/">{name}</Link>
+        <Link href={`/${lang}`}>{name}</Link>
       </div>
       <div className={styles['user-bio']}>{bio}</div>
     </div>

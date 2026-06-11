@@ -11,6 +11,7 @@ import { type JSX, type PropsWithChildren } from 'react';
 import { cn } from '@lumir/utils';
 import { categoryMeta } from '@/data/category';
 import { frontmatterMeta } from '@/data/frontmatter';
+import { type PropsWithLang } from '@/data/lang';
 import { type VMarkdownFileMeta } from '@/data/v-markdown-file';
 import { markdownToHtmlLite } from '@/utils/markdown-to-html';
 import styles from './post-card.module.css';
@@ -41,15 +42,16 @@ function PostCardItem({ icon, text }: { icon: JSX.Element; text: string }) {
 // --------------------------------------------------------------------------------
 
 export default async function PostCard({
+  lang,
   vMarkdownFileMeta: {
     slug,
     data: { title, description, created, updated, categories },
   },
-}: {
-  vMarkdownFileMeta: VMarkdownFileMeta;
-}) {
+}: PropsWithLang<{
+  readonly vMarkdownFileMeta: VMarkdownFileMeta;
+}>) {
   return (
-    <Link href={`/posts/${slug}`}>
+    <Link href={`/${lang}/posts/${slug}`}>
       <div className={cn(styles['post-card'], 'custom-hover-effect')}>
         <div
           className={cn(styles.title, 'markdown-body')}

@@ -15,12 +15,13 @@
 import GiscusOriginal from '@giscus/react';
 import { useThemeContext } from '@/components/common/theme-context';
 import { GITHUB_REPO_FULL_NAME } from '@/constants';
+import { type PropsWithLang } from '@/data/lang';
 
 // --------------------------------------------------------------------------------
 // Export
 // --------------------------------------------------------------------------------
 
-export default function Giscus() {
+export default function Giscus({ lang }: PropsWithLang) {
   const [theme] = useThemeContext();
 
   return (
@@ -35,7 +36,7 @@ export default function Giscus() {
       emitMetadata="0"
       inputPosition="top"
       theme={theme}
-      lang="ko"
+      lang={lang}
       loading="lazy"
     />
   );

@@ -10,6 +10,7 @@ import Link from 'next/link';
 import { FaPen } from '@lumir/react-kit/svgs';
 import { cn } from '@lumir/utils';
 import { categoryMeta } from '@/data/category';
+import { type PropsWithLang } from '@/data/lang';
 import createMarkdownCollection from '@/utils/markdown-collection';
 import styles from './categories.module.css';
 
@@ -23,7 +24,7 @@ const markdownCollection = createMarkdownCollection();
 // Export
 // --------------------------------------------------------------------------------
 
-export default async function Categories() {
+export default async function Categories({ lang }: PropsWithLang) {
   return (
     <ul className={styles.categories}>
       {markdownCollection.nonEmptyCategoryKeys
@@ -36,7 +37,10 @@ export default async function Categories() {
 
           return (
             <li key={categoryKey}>
-              <Link className="custom-hover-effect" href={`/categories/${categoryKey}`}>
+              <Link
+                className="custom-hover-effect"
+                href={`/${lang}/categories/${categoryKey}`}
+              >
                 <div className={cn(styles['react-icons'], 'custom-flex-center')}>
                   {reactIcons}
                 </div>
