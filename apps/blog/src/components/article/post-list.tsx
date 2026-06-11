@@ -1,7 +1,7 @@
 /**
  * @fileoverview post-list.
  *
- * NOTE: We use `Suspense` instead of `useEffect` to avoid a visual jump.
+ * NOTE: We use `Suspense` instead of `useEffect` to reduce visual jump.
  * With `useEffect`, the default post list is painted first,
  * and the search-param-based order is applied afterward when the effect runs.
  */
