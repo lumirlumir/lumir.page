@@ -1,5 +1,7 @@
 {
   "buildCommand": "node --run count-docs && node --run build",
+  "cleanUrls": true,
+  "framework": null,
   "ignoreCommand": "node ../../scripts/vercel-ignore-command.ts",
   "installCommand": "npm install --no-audit --no-fund --prefer-offline --prefix ../..",
   "outputDirectory": "build",
