@@ -31,9 +31,10 @@ export const dynamicParams = false;
  * @see https://nextjs.org/docs/app/api-reference/functions/generate-static-params
  */
 export async function generateStaticParams(): Promise<
-  Awaited<PageProps<'/posts/[markdown]'>['params']>[]
+  Awaited<PageProps<'/[lang]/posts/[markdown]'>['params']>[]
 > {
   return Object.keys(markdownCollection.slug).map(slug => ({
+    lang: 'ko', // TODO: Support multiple languages.
     markdown: slug,
   }));
 }
@@ -43,7 +44,7 @@ export async function generateStaticParams(): Promise<
  */
 export async function generateMetadata({
   params,
-}: PageProps<'/posts/[markdown]'>): Promise<Metadata> {
+}: PageProps<'/[lang]/posts/[markdown]'>): Promise<Metadata> {
   const { markdown } = await params;
   const {
     data: { title, description },
@@ -59,7 +60,7 @@ export async function generateMetadata({
 // Default Export
 // --------------------------------------------------------------------------------
 
-export default async function Page({ params }: PageProps<'/posts/[markdown]'>) {
+export default async function Page({ params }: PageProps<'/[lang]/posts/[markdown]'>) {
   const { markdown } = await params;
   const {
     content,
