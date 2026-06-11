@@ -66,6 +66,8 @@
     "build:pkg:rmp": "npm run build -w packages/remark-plugins",
     "build:pkg:t": "npm run build -w packages/types",
     "build:pkg:u": "npm run build -w packages/utils",
+    "start:b": "npm run start -w apps/blog",
+    "start:m": "npm run start -w apps/moing",
     "start:a:b": "npm run start -w apps/blog",
     "start:a:m": "npm run start -w apps/moing",
     "req": "node ./apps/api/src/dev/client.ts",
