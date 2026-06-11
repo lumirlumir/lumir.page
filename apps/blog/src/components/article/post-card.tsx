@@ -19,17 +19,17 @@ import styles from './post-card.module.css';
 // Helper
 // --------------------------------------------------------------------------------
 
-function PostCardMetaContainer({ children }: PropsWithChildren) {
+function PostCardContainer({ children }: PropsWithChildren) {
   return (
-    <div className={cn(styles['post-card-meta-container'], 'custom-scrollbar-x')}>
+    <div className={cn(styles['post-card-container'], 'custom-scrollbar-x')}>
       {children}
     </div>
   );
 }
 
-function PostCardMetaItem({ icon, text }: { icon: JSX.Element; text: string }) {
+function PostCardItem({ icon, text }: { icon: JSX.Element; text: string }) {
   return (
-    <span className={styles['post-card-meta-item']}>
+    <span className={styles['post-card-item']}>
       <span className={styles['react-icons']}>{icon}</span>
       <span>{text}</span>
     </span>
@@ -63,20 +63,20 @@ export default async function PostCard({
           dangerouslySetInnerHTML={{ __html: await markdownToHtmlLite(description) }}
         />
 
-        <PostCardMetaContainer>
-          <PostCardMetaItem icon={frontmatterMeta.created.reactIcons} text={created} />
-          <PostCardMetaItem icon={frontmatterMeta.updated.reactIcons} text={updated} />
-        </PostCardMetaContainer>
+        <PostCardContainer>
+          <PostCardItem icon={frontmatterMeta.created.reactIcons} text={created} />
+          <PostCardItem icon={frontmatterMeta.updated.reactIcons} text={updated} />
+        </PostCardContainer>
 
-        <PostCardMetaContainer>
+        <PostCardContainer>
           {categories.map(category => (
-            <PostCardMetaItem
+            <PostCardItem
               key={category}
               icon={frontmatterMeta.categories.reactIcons}
               text={categoryMeta[category].name.en}
             />
           ))}
-        </PostCardMetaContainer>
+        </PostCardContainer>
       </div>
     </Link>
   );
