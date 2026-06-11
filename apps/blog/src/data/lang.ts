@@ -14,12 +14,12 @@ export type LangKey = (typeof langKeys)[number];
 /**
  * Represents the props that include a `lang` key for localized routes.
  */
-export interface PropsWithLang {
+export type PropsWithLang<P = unknown> = P & {
   /**
    * The `lang` key for the current route, used to determine the language of the content.
    */
   readonly lang: LangKey;
-}
+};
 
 // --------------------------------------------------------------------------------
 // Export
