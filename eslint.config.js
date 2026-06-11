@@ -21,6 +21,7 @@ export default defineConfig([
       'apps/moing/',
       '**/build/',
       '**/coverage/',
+      '**/.next/',
       '**/archives/',
       '**/next-env.d.ts',
       '**/.tsbuildinfo',
