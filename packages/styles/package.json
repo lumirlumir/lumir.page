@@ -4,6 +4,7 @@
   "version": "0.0.0-private",
   "type": "module",
   "exports": {
+    "./animations.css": "./src/animations.css",
     "./normalize.css": "./src/normalize.css",
     "./package.json": "./package.json"
   }

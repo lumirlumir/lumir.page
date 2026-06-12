@@ -26,16 +26,3 @@
     transform: rotate(0deg) translateX(0);
   }
 }
-
-/**
- * Animation for fading in an element.
- */
-@keyframes animation-fade-in {
-  0% {
-    opacity: 0;
-  }
-
-  100% {
-    opacity: 1;
-  }
-}
