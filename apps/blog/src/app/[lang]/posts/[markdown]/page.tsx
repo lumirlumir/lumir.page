@@ -7,7 +7,6 @@
 // --------------------------------------------------------------------------------
 
 import { type Metadata } from 'next';
-import { langKeys } from '@/data/lang';
 import createMarkdownCollection from '@/utils/markdown-collection';
 import { markdownToHtml } from '@/utils/markdown-to-html';
 import { markdownToText } from '@/utils/markdown-to-text';
@@ -34,12 +33,10 @@ export const dynamicParams = false;
 export async function generateStaticParams(): Promise<
   Awaited<PageProps<'/[lang]/posts/[markdown]'>['params']>[]
 > {
-  return Object.keys(markdownCollection.slug).flatMap(slug =>
-    langKeys.map(lang => ({
-      lang,
-      markdown: slug,
-    })),
-  );
+  return Object.keys(markdownCollection.slug).flatMap(slug => ({
+    lang: 'ko', // TODO: Support multiple languages after we decide on the design.
+    markdown: slug,
+  }));
 }
 
 /**

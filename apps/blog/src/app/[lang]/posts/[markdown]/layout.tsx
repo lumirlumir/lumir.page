@@ -21,14 +21,15 @@ export default async function Layout({
   children,
   params,
 }: PropsWithChildren<LayoutProps<'/[lang]/posts/[markdown]'>>) {
-  const { lang } = await params;
+  const awaitedParams = await params;
+  const lang = awaitedParams.lang as LangKey;
 
   return (
     <>
       <Article>
         {children}
         <Section>
-          <Giscus lang={lang as LangKey} />
+          <Giscus lang={lang} />
         </Section>
       </Article>
       <Nav />

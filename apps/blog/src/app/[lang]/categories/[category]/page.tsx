@@ -9,7 +9,7 @@
 import PostCard from '@/components/article/post-card';
 import PostList from '@/components/article/post-list';
 import { type CategoryKey } from '@/data/category';
-import { langKeys, type LangKey } from '@/data/lang';
+import { type LangKey } from '@/data/lang';
 import createMarkdownCollection from '@/utils/markdown-collection';
 
 // --------------------------------------------------------------------------------
@@ -34,12 +34,10 @@ export const dynamicParams = false;
 export async function generateStaticParams(): Promise<
   Awaited<PageProps<'/[lang]/categories/[category]'>['params']>[]
 > {
-  return markdownCollection.nonEmptyCategoryKeys.flatMap(category =>
-    langKeys.map(lang => ({
-      lang,
-      category,
-    })),
-  );
+  return markdownCollection.nonEmptyCategoryKeys.flatMap(category => ({
+    lang: 'ko', // TODO: Support multiple languages after we decide on the design.
+    category,
+  }));
 }
 
 // --------------------------------------------------------------------------------
@@ -49,16 +47,17 @@ export async function generateStaticParams(): Promise<
 export default async function Page({
   params,
 }: PageProps<'/[lang]/categories/[category]'>) {
-  const { category, lang } = await params;
-  const vMarkdownFileMetas = markdownCollection.category[category as CategoryKey];
+  const awaitedParams = await params;
+  const category = awaitedParams.category as CategoryKey;
+  const lang = awaitedParams.lang as LangKey;
+
+  const vMarkdownFileMetas = markdownCollection.category[category];
 
   return (
     <PostList
       items={vMarkdownFileMetas.map(vMarkdownFileMeta => ({
         vMarkdownFileMeta,
-        postCard: (
-          <PostCard lang={lang as LangKey} vMarkdownFileMeta={vMarkdownFileMeta} />
-        ),
+        postCard: <PostCard lang={lang} vMarkdownFileMeta={vMarkdownFileMeta} />,
       }))}
     />
   );
