@@ -36,7 +36,7 @@
 
   /* list */
   --animation-shake: animation-shake 0.6s ease-in-out;
-  --animation-fade-in: animation-fade-in 0.6s ease-in-out;
+  --animation-fade-in: fade-in 0.6s ease-in-out;
   --border-default: 1px solid var(--color-border-default);
 
   /* font */

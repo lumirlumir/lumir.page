@@ -19,7 +19,7 @@
     /* others */
     transform: rotate(-10deg);
     /* loading effects */
-    animation: 2s ease-in-out loadEffect3;
+    animation: 2s ease-in-out global(fade-in); /* NOTE: `global()` is CSS Modules specific syntax */
   }
   & > .interview {
     /* box */
@@ -27,27 +27,6 @@
     /* text */
     text-align: center;
     /* loading effects */
-    animation: 4s ease-in-out loadEffect4;
-  }
-}
-
-@keyframes loadEffect3 {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-
-@keyframes loadEffect4 {
-  0% {
-    opacity: 0;
-  }
-  50% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
+    animation: 2s ease-in-out 2s backwards global(fade-in); /* NOTE: `global()` is CSS Modules specific syntax */
   }
 }

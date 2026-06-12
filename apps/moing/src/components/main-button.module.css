@@ -1,21 +1,10 @@
 .main-button {
-  animation: 8s ease-in-out;
-  animation-name: loadEffect1, loadEffect2;
+  animation: /* NOTE: `global()` is CSS Modules specific syntax */
+    4s ease-in-out 4s backwards global(fade-in),
+    8s ease-in-out pointer-events-none;
 }
 
-@keyframes loadEffect1 {
-  0% {
-    opacity: 0;
-  }
-  50% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-
-@keyframes loadEffect2 {
+@keyframes pointer-events-none {
   from {
     pointer-events: none;
   }
