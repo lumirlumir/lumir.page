@@ -1,20 +1,17 @@
 /**
- * @fileoverview Root page.
+ * @fileoverview Root redirect page.
  */
 
 // --------------------------------------------------------------------------------
 // Import
 // --------------------------------------------------------------------------------
 
-import Article from '@/components/layouts/article';
-import { getGithubUsers } from '@/utils/fetch';
+import { redirect } from 'next/navigation';
 
 // --------------------------------------------------------------------------------
 // Default Export
 // --------------------------------------------------------------------------------
 
-export default async function Page() {
-  const { name } = await getGithubUsers();
-
-  return <Article>{`Hello, It's ${name}'s blog!`}</Article>;
+export default function Page() {
+  redirect('/ko');
 }

@@ -24,17 +24,11 @@ export const dynamic = 'force-static';
 // --------------------------------------------------------------------------------
 
 export default function robots(): MetadataRoute.Robots {
-  const SITEMAP = 'sitemap.xml';
-
   return {
     rules: {
       userAgent: '*',
       allow: '/',
     },
-    sitemap: [
-      `${WEBSITE_URL}/${SITEMAP}`,
-      `${WEBSITE_URL}/posts/${SITEMAP}`,
-      `${WEBSITE_URL}/categories/${SITEMAP}`,
-    ],
+    sitemap: `${WEBSITE_URL}/sitemap.xml`,
   };
 }

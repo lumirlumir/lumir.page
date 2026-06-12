@@ -1,5 +1,5 @@
 /**
- * @fileoverview Layout.
+ * @fileoverview Root layout for the redirect-only root route.
  */
 
 // --------------------------------------------------------------------------------
@@ -7,10 +7,6 @@
 // --------------------------------------------------------------------------------
 
 import { type PropsWithChildren } from 'react';
-import Article from '@/components/layouts/article';
-import Nav from '@/components/layouts/nav';
-import Section from '@/components/layouts/section';
-import Giscus from '@/components/section/giscus';
 
 // --------------------------------------------------------------------------------
 // Default Export
@@ -18,14 +14,8 @@ import Giscus from '@/components/section/giscus';
 
 export default function Layout({ children }: PropsWithChildren) {
   return (
-    <>
-      <Article>
-        {children}
-        <Section>
-          <Giscus />
-        </Section>
-      </Article>
-      <Nav />
-    </>
+    <html lang="ko">
+      <body>{children}</body>
+    </html>
   );
 }
