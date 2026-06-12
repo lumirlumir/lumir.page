@@ -1,5 +1,5 @@
 /**
- * @fileoverview `sitemap.xml` generator for path `/`, `/posts`, and `/categories`.
+ * @fileoverview `sitemap.xml` generator for localized routes (e.g. `/[lang]`, `/[lang]/posts/*`, and `/[lang]/categories/*`).
  */
 
 // --------------------------------------------------------------------------------
