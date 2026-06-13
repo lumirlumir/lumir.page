@@ -1,5 +1,5 @@
 /**
- * @fileoverview Defines a structured collection of Markdown files organized by `slug` and `category`.
+ * @fileoverview Defines a structured collection of Markdown files.
  * @see https://webpack.js.org/guides/dependency-management/#importmetawebpackcontext
  * @see https://webpack.js.org/api/module-variables/#importmetawebpackcontext
  */
@@ -11,6 +11,7 @@
 import { frontmatter, frontmatterData } from '@lumir/utils';
 import { categoryKeys, type CategoryKey } from '@/data/category';
 import { type Frontmatter } from '@/data/frontmatter';
+import { langKeys, type LangKey, type LangRecord } from '@/data/lang';
 import { type VMarkdownFileMeta, type VMarkdownFile } from '@/data/v-markdown-file';
 import { isFrontmatter } from '@/utils/is-frontmatter';
 
@@ -18,25 +19,64 @@ import { isFrontmatter } from '@/utils/is-frontmatter';
 // Typedef
 // --------------------------------------------------------------------------------
 
-type MarkdownCollectionMap = Map<string, VMarkdownFileMeta>;
-type MarkdownCollectionSlug = Record<string, VMarkdownFileMeta>;
-type MarkdownCollectionCategory = Record<CategoryKey, VMarkdownFileMeta[]>;
+type MarkdownCollectionMap = Map<VMarkdownFileMeta['id'], VMarkdownFileMeta>;
+type MarkdownCollectionByLangSlug = LangRecord<
+  Record<VMarkdownFileMeta['slug'], VMarkdownFileMeta>
+>;
+type MarkdownCollectionByLangCategory = LangRecord<
+  Record<CategoryKey, VMarkdownFileMeta[]>
+>;
 
 // --------------------------------------------------------------------------------
 // Helper
 // --------------------------------------------------------------------------------
 
 /**
+ * Regex to validate the `id` of a Markdown file, which should follow the format `{slug}.{lang}`.
+ */
+const idRegex = new RegExp(`^(?<slug>[a-z0-9-]+)\\.(?<lang>${langKeys.join('|')})$`);
+
+/**
+ * Asserts that the provided id conforms to the expected format.
+ */
+function assertId(id: unknown): Pick<VMarkdownFileMeta, 'id' | 'slug' | 'lang'> {
+  const match = idRegex.exec(String(id));
+
+  if (!match || !match.groups) {
+    throw new Error(
+      `
+Invalid id in Markdown file.
+
+Expected id format: \`{slug}.{lang}\`
+  - slug: a string of lowercase letters, numbers, and hyphens (e.g., "example-post")
+  - lang: one of the following language keys: ${langKeys.join(', ')}
+
+Received id: \`${String(id)}\`
+`,
+    );
+  }
+
+  const slug = match.groups.slug satisfies string;
+  const lang = match.groups.lang as LangKey;
+
+  return {
+    id: `${slug}.${lang}`,
+    slug,
+    lang,
+  };
+}
+
+/**
  * Asserts that the provided data conforms to the expected `Frontmatter` structure.
  */
-function assertFrontmatter(data: unknown, slug: string): Frontmatter {
+function assertFrontmatter(data: unknown, id: VMarkdownFileMeta['id']): Frontmatter {
   if (isFrontmatter(data)) {
     return data;
   }
 
   throw new Error(
     `
-Invalid frontmatter in Markdown file: \`${slug}\`
+Invalid frontmatter in Markdown file.
 
 Expected frontmatter format:
   - \`title: string\`
@@ -46,6 +86,7 @@ Expected frontmatter format:
   - \`categories: CategoryKey[]\`
   - \`references: string[]\`
 
+Received id: \`${id}\`
 Received data: \`${JSON.stringify(data, null, 2)}\`
 `,
   );
@@ -56,7 +97,7 @@ Received data: \`${JSON.stringify(data, null, 2)}\`
 // --------------------------------------------------------------------------------
 
 /**
- * A class that represents a collection of Markdown files, organized by `slug` and `category`.
+ * A class that represents a collection of Markdown files.
  */
 class MarkdownCollection {
   // ------------------------------------------------------------------------------
@@ -68,9 +109,9 @@ class MarkdownCollection {
   /** Source of truth: used as a cache */
   #map: MarkdownCollectionMap = new Map();
   /** View: using `#map` as source of truth */
-  #slug: MarkdownCollectionSlug | null = null;
+  #byLangSlug: MarkdownCollectionByLangSlug | null = null;
   /** View: using `#map` as source of truth */
-  #category: MarkdownCollectionCategory | null = null;
+  #byLangCategory: MarkdownCollectionByLangCategory | null = null;
 
   // ------------------------------------------------------------------------------
   // Private Method
@@ -104,14 +145,15 @@ class MarkdownCollection {
    * - Once the Markdown files are loaded and processed, they are cached in the `#map` property.
    *   Subsequent calls to this method will return the cached data, avoiding redundant processing.
    */
-  #ensureMap(): Map<string, VMarkdownFileMeta> {
+  #ensureMap(): MarkdownCollectionMap {
     const context = this.#ensureContext();
 
     for (const key of context.keys()) {
-      const slug = key.replace(/^\.\//, '').replace(/\.md$/, '');
+      const id = key.replace(/^\.\//, '').replace(/\.md$/, '');
+      const { id: sanitizedId, slug: sanitizedSlug, lang: sanitizedLang } = assertId(id);
 
       // If the Markdown file has already been processed and cached, skip the loading and processing steps.
-      const cached = this.#map.get(slug);
+      const cached = this.#map.get(sanitizedId);
 
       if (cached) {
         continue;
@@ -119,10 +161,12 @@ class MarkdownCollection {
 
       // If the Markdown file has not been processed, load and process it, then cache the result.
       const { data } = frontmatterData(context(key));
-      const sanitizedData = assertFrontmatter(data, slug);
+      const sanitizedData = assertFrontmatter(data, sanitizedId);
 
-      this.#map.set(slug, {
-        slug,
+      this.#map.set(sanitizedId, {
+        id: sanitizedId,
+        slug: sanitizedSlug,
+        lang: sanitizedLang,
         data: sanitizedData,
       });
     }
@@ -131,45 +175,57 @@ class MarkdownCollection {
   }
 
   /**
-   * Lazily creates a mapping of slugs to their corresponding Markdown file metadata.
+   * Lazily creates a mapping of language keys to slugs and their corresponding Markdown file metadata.
    */
-  #ensureSlug(): MarkdownCollectionSlug {
+  #ensureByLangSlug(): MarkdownCollectionByLangSlug {
     // If the slug mapping has already been created, skip the creation process.
-    if (this.#slug) {
-      return this.#slug;
+    if (this.#byLangSlug) {
+      return this.#byLangSlug;
     }
 
-    const markdownCollectionSlug = Object.fromEntries(
-      this.#ensureMap(),
-    ) as MarkdownCollectionSlug;
+    const markdownCollectionByLangSlug = Object.fromEntries(
+      langKeys.map(lang => [lang, {} as MarkdownCollectionByLangSlug[LangKey]]),
+    ) as MarkdownCollectionByLangSlug;
 
-    this.#slug = markdownCollectionSlug;
+    this.#ensureMap().forEach(vMarkdownFileMeta => {
+      markdownCollectionByLangSlug[vMarkdownFileMeta.lang][vMarkdownFileMeta.slug] =
+        vMarkdownFileMeta;
+    });
 
-    return markdownCollectionSlug;
+    this.#byLangSlug = markdownCollectionByLangSlug;
+
+    return markdownCollectionByLangSlug;
   }
 
   /**
-   * Lazily creates a mapping of category keys to arrays of Markdown file metadata.
+   * Lazily creates a mapping of language keys to category keys and their corresponding Markdown file metadata arrays.
    */
-  #ensureCategory(): MarkdownCollectionCategory {
+  #ensureByLangCategory(): MarkdownCollectionByLangCategory {
     // If the category mapping has already been created, skip the creation process.
-    if (this.#category) {
-      return this.#category;
+    if (this.#byLangCategory) {
+      return this.#byLangCategory;
     }
 
-    const markdownCollectionCategory = Object.fromEntries(
-      categoryKeys.map(categoryKey => [categoryKey, [] as VMarkdownFileMeta[]]),
-    ) as MarkdownCollectionCategory;
+    const markdownCollectionByLangCategory = Object.fromEntries(
+      langKeys.map(lang => [
+        lang,
+        Object.fromEntries(
+          categoryKeys.map(categoryKey => [categoryKey, [] as VMarkdownFileMeta[]]),
+        ) as MarkdownCollectionByLangCategory[LangKey],
+      ]),
+    ) as MarkdownCollectionByLangCategory;
 
-    this.#ensureMap().forEach(vMarkdownFile => {
-      vMarkdownFile.data.categories.forEach(category => {
-        markdownCollectionCategory[category].push(vMarkdownFile);
+    this.#ensureMap().forEach(vMarkdownFileMeta => {
+      vMarkdownFileMeta.data.categories.forEach(category => {
+        markdownCollectionByLangCategory[vMarkdownFileMeta.lang][category].push(
+          vMarkdownFileMeta,
+        );
       });
     });
 
-    this.#category = markdownCollectionCategory;
+    this.#byLangCategory = markdownCollectionByLangCategory;
 
-    return markdownCollectionCategory;
+    return markdownCollectionByLangCategory;
   }
 
   // ------------------------------------------------------------------------------
@@ -177,10 +233,10 @@ class MarkdownCollection {
   // ------------------------------------------------------------------------------
 
   /**
-   * Asynchronously loads the metadata of a Markdown file by its slug, without loading its content.
+   * Asynchronously loads the metadata of a Markdown file by its id, without loading its content.
    */
-  async loadVMarkdownFileMeta(slug: string): Promise<VMarkdownFileMeta> {
-    const cached = this.#map.get(slug);
+  async loadVMarkdownFileMeta(id: VMarkdownFileMeta['id']): Promise<VMarkdownFileMeta> {
+    const cached = this.#map.get(id);
 
     if (cached) {
       return cached;
@@ -188,41 +244,49 @@ class MarkdownCollection {
 
     const { data } = frontmatterData(
       // Markdown files are imported as raw strings because of a setting in `next.config.js`.
-      (await import(`../posts/docs/${slug}.md`)).default as string,
+      (await import(`../posts/docs/${id}.md`)).default as string,
     );
-    const sanitizedData = assertFrontmatter(data, slug);
+    const { id: sanitizedId, slug: sanitizedSlug, lang: sanitizedLang } = assertId(id);
+    const sanitizedData = assertFrontmatter(data, sanitizedId);
 
     const vMarkdownFileMeta: VMarkdownFileMeta = {
-      slug,
+      id: sanitizedId,
+      slug: sanitizedSlug,
+      lang: sanitizedLang,
       data: sanitizedData,
     };
 
     // Cache the metadata in `#map` for future reference.
-    this.#map.set(slug, vMarkdownFileMeta);
+    this.#map.set(sanitizedId, vMarkdownFileMeta);
 
     return vMarkdownFileMeta;
   }
 
   /**
-   * Asynchronously loads a Markdown file by its slug, extracting its content and frontmatter metadata.
+   * Asynchronously loads a Markdown file by its id, extracting its content and frontmatter metadata.
    */
-  async loadVMarkdownFile(slug: string): Promise<VMarkdownFile> {
+  async loadVMarkdownFile(id: VMarkdownFile['id']): Promise<VMarkdownFile> {
     const { data, content } = frontmatter(
       // Markdown files are imported as raw strings because of a setting in `next.config.js`.
-      (await import(`../posts/docs/${slug}.md`)).default as string,
+      (await import(`../posts/docs/${id}.md`)).default as string,
     );
-    const sanitizedData = assertFrontmatter(data, slug);
+    const { id: sanitizedId, slug: sanitizedSlug, lang: sanitizedLang } = assertId(id);
+    const sanitizedData = assertFrontmatter(data, sanitizedId);
 
     // Get a chance to cache the metadata in `#map` if it hasn't been cached already.
-    if (!this.#map.has(slug)) {
-      this.#map.set(slug, {
-        slug,
+    if (!this.#map.has(sanitizedId)) {
+      this.#map.set(sanitizedId, {
+        id: sanitizedId,
+        slug: sanitizedSlug,
+        lang: sanitizedLang,
         data: sanitizedData,
       });
     }
 
     return {
-      slug,
+      id: sanitizedId,
+      slug: sanitizedSlug,
+      lang: sanitizedLang,
       data: sanitizedData,
       content,
     };
@@ -233,47 +297,74 @@ class MarkdownCollection {
   // ------------------------------------------------------------------------------
 
   /**
-   * A record mapping each category key to an array of metadata for Markdown files that belong to that category.
+   * A record mapping each language key to slugs and their corresponding metadata.
    *
    * @example
    * ```ts
    * {
-   *   javascript: [
-   *     {
+   *   ko: {
+   *     'example-post': {
+   *       id: 'example-post.ko',
    *       slug: 'example-post',
+   *       lang: 'ko',
    *       data: {
    *         title: 'Example Post',
    *         description: 'This is an example post.',
    *         created: '2024-01-01',
    *         updated: '2024-01-02',
    *         categories: ['javascript', 'markdown'],
+   *         references: ['https://example.com'],
    *       },
    *     },
-   *     // ...more
-   *   ],
-   *   markdown: [
-   *     {
-   *       slug: 'example-post',
-   *       data: {
-   *         title: 'Example Post',
-   *         description: 'This is an example post.',
-   *         created: '2024-01-01',
-   *         updated: '2024-01-02',
-   *         categories: ['javascript', 'markdown'],
-   *       },
-   *     },
-   *     // ...more
-   *   ],
-   *   // ...more
+   *   },
+   *   en: {
+   *     // ...English Markdown file metadata by slug
+   *   },
    * }
    * ```
    */
-  get category(): MarkdownCollectionCategory {
-    return this.#ensureCategory();
+  get byLangSlug(): MarkdownCollectionByLangSlug {
+    return this.#ensureByLangSlug();
   }
 
   /**
-   * Returns a list of category keys that have at least one associated Markdown file in the collection.
+   * A record mapping each language key to category keys and their corresponding Markdown file metadata arrays.
+   *
+   * @example
+   * ```ts
+   * {
+   *   ko: {
+   *     javascript: [
+   *       {
+   *         id: 'example-post.ko',
+   *         slug: 'example-post',
+   *         lang: 'ko',
+   *         data: {
+   *           title: 'Example Post',
+   *           description: 'This is an example post.',
+   *           created: '2024-01-01',
+   *           updated: '2024-01-02',
+   *           categories: ['javascript', 'markdown'],
+   *           references: ['https://example.com'],
+   *         },
+   *       },
+   *     ],
+   *     markdown: [
+   *       // ...Korean Markdown file metadata
+   *     ],
+   *   },
+   *   en: {
+   *     // ...English Markdown file metadata by category
+   *   },
+   * }
+   * ```
+   */
+  get byLangCategory(): MarkdownCollectionByLangCategory {
+    return this.#ensureByLangCategory();
+  }
+
+  /**
+   * Returns a record of category keys that have at least one associated Markdown file for each language.
    *
    * @example
    * ```ts
@@ -281,36 +372,18 @@ class MarkdownCollection {
    *
    * const markdownCollection = createMarkdownCollection();
    * const nonEmptyCategories = markdownCollection.nonEmptyCategoryKeys;
-   * console.log(nonEmptyCategories); // Output: ['javascript', 'markdown']
+   * console.log(nonEmptyCategories.ko); // Output: ['javascript', 'markdown']
    * ```
    */
-  get nonEmptyCategoryKeys(): CategoryKey[] {
-    return categoryKeys.filter(categoryKey => this.category[categoryKey].length > 0);
-  }
-
-  /**
-   * A record mapping each slug to its corresponding metadata.
-   *
-   * @example
-   * ```ts
-   * {
-   *   'example-post': {
-   *     slug: 'example-post',
-   *     data: {
-   *       title: 'Example Post',
-   *       description: 'This is an example post.',
-   *       created: '2024-01-01',
-   *       updated: '2024-01-02',
-   *       categories: ['javascript', 'markdown'],
-   *       references: ['https://example.com'],
-   *     },
-   *   },
-   *   // ...more
-   * }
-   * ```
-   */
-  get slug(): MarkdownCollectionSlug {
-    return this.#ensureSlug();
+  get nonEmptyCategoryKeys(): LangRecord<CategoryKey[]> {
+    return Object.fromEntries(
+      langKeys.map(lang => [
+        lang,
+        categoryKeys.filter(
+          categoryKey => this.byLangCategory[lang][categoryKey].length > 0,
+        ),
+      ]),
+    ) as LangRecord<CategoryKey[]>;
   }
 }
 
@@ -325,7 +398,7 @@ let markdownCollection: MarkdownCollection | null = null;
 
 /**
  * Creates and returns a singleton instance of the `MarkdownCollection` class
- * that represents a collection of Markdown files, organized by `slug` and `category`.
+ * that represents a collection of Markdown files.
  *
  * @example
  * ```ts

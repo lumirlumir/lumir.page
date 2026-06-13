@@ -45,17 +45,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
     // `/posts` path
     ...langKeys.flatMap(lang =>
-      Object.values(markdownCollection.slug).map(({ slug, data: { updated } }) => ({
-        url: `${WEBSITE_URL}/${lang}/posts/${slug}`,
-        lastModified: updated,
-        changeFrequency: 'monthly' as const,
-        priority: 1.0,
-      })),
+      Object.values(markdownCollection.byLangSlug[lang]).map(
+        ({ slug, data: { updated } }) => ({
+          url: `${WEBSITE_URL}/${lang}/posts/${slug}`,
+          lastModified: updated,
+          changeFrequency: 'monthly' as const,
+          priority: 1.0,
+        }),
+      ),
     ),
 
     // `/categories` path
     ...langKeys.flatMap(lang =>
-      markdownCollection.nonEmptyCategoryKeys.map(categoryKey => ({
+      markdownCollection.nonEmptyCategoryKeys[lang].map(categoryKey => ({
         url: `${WEBSITE_URL}/${lang}/categories/${categoryKey}`,
         lastModified,
         changeFrequency: 'weekly' as const,

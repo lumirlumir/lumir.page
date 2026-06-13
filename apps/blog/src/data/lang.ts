@@ -12,6 +12,12 @@
 export type LangKey = (typeof langKeys)[number];
 
 /**
+ * Represents a readonly record keyed by every supported language.
+ * @template T The value type for each language entry. Defaults to `string`.
+ */
+export type LangRecord<T = string> = Readonly<Record<LangKey, T>>;
+
+/**
  * Represents the props that include a `lang` key for localized routes.
  */
 export type PropsWithLang<P = unknown> = P & {

@@ -18,7 +18,13 @@ import { type LangKey } from '@/data/lang';
  */
 export interface VMarkdownFileMeta {
   /**
-   * The slug of the Markdown file, excluding the leading directory path and extension (e.g., `example` for `./example.md`).
+   * The filename-based unique identifier of the Markdown file,
+   * combining the slug and language key (e.g., `example.ko` for `./example.ko.md`).
+   */
+  readonly id: `${VMarkdownFileMeta['slug']}.${LangKey}`;
+
+  /**
+   * The slug of the Markdown file, excluding the leading directory path, language key, and extension (e.g., `example` for `./example.ko.md`).
    */
   readonly slug: string;
 
