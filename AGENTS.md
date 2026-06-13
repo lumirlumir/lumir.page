@@ -29,6 +29,7 @@ Before any Next.js work, find and read the relevant doc in `node_modules/next/di
 ## Bootstrapping
 
 - In a fresh clone, run `npm install` from the repo root before attempting tests, builds, lint, or package changes.
+- Before running browser tests, run `npx playwright install chromium --with-deps --only-shell` from the repo root.
 - Do not start validation or implementation work until the install has completed successfully, because the workspace dependencies are required across the monorepo.
 
 ## Test/Build/Lint Workflow (required before finalizing)
