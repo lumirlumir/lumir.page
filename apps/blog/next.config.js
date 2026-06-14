@@ -7,6 +7,7 @@
 // --------------------------------------------------------------------------------
 
 const isProd = process.env.NODE_ENV === 'production';
+const isTypegen = process.argv.includes('typegen');
 
 // --------------------------------------------------------------------------------
 // Export
@@ -39,7 +40,7 @@ export default {
   output: 'export', // For static export, we need to set output to 'export'.
   trailingSlash: false, // For static export, we don't want trailing slashes.
   skipTrailingSlashRedirect: true, // For static export, we don't want to redirect to trailing slashes.
-  distDir: 'build', // For static export, set the output directory to 'build' to match existing coventions.
+  distDir: isTypegen ? '.next' : 'build', // For static export, use a separate dist directory to prevent type generation conflicts.
 
   webpack(config) {
     // Add a rule to handle Markdown files as raw text.

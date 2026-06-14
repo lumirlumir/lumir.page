@@ -9,7 +9,7 @@
     "src/**/*.mts",
     "src/**/*.cts",
     "src/**/*.tsx",
-    "build/types/**/*.ts"
+    ".next/types/**/*.ts"
   ],
   "references": [
     {
