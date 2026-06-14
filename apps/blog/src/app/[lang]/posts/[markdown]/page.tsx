@@ -11,6 +11,7 @@ import { type LangKey } from '@/data/lang';
 import createMarkdownCollection from '@/utils/markdown-collection';
 import { markdownToHtml } from '@/utils/markdown-to-html';
 import { markdownToText } from '@/utils/markdown-to-text';
+import { AUTHOR, GITHUB_AUTHOR_URL } from '@/constants';
 
 // --------------------------------------------------------------------------------
 // Helper
@@ -53,12 +54,30 @@ export async function generateMetadata({
   const markdown = awaitedParams.markdown satisfies string;
   const id = `${markdown}.${lang}` as const;
   const {
-    data: { title, description },
+    data: { title, description, categories },
   } = await markdownCollection.loadVMarkdownFileMeta(id);
 
   return {
     title: await markdownToText(title),
     description: await markdownToText(description),
+    keywords: categories,
+    authors: [
+      {
+        name: AUTHOR[lang],
+        url: GITHUB_AUTHOR_URL,
+      },
+    ],
+    applicationName: 'TODO',
+    generator: 'TODO',
+    themeColor: 'TODO',
+    // @ts-expect-error -- TODO
+    colorScheme: 'TODO',
+    creator: 'TODO',
+    publisher: 'TODO',
+    robots: 'TODO',
+    // @ts-expect-error -- TODO
+    alternates: 'TODO',
+    // TODO: 다른 메타데이터 필드들도 추가하기.
   };
 }
 
