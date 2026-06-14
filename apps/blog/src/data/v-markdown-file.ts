@@ -21,7 +21,7 @@ export interface VMarkdownFileMeta {
    * The filename-based unique identifier of the Markdown file,
    * combining the slug and language key (e.g., `example.ko` for `./example.ko.md`).
    */
-  readonly id: `${VMarkdownFileMeta['slug']}.${LangKey}`;
+  readonly id: `${VMarkdownFileMeta['slug']}.${VMarkdownFileMeta['lang']}`;
 
   /**
    * The slug of the Markdown file, excluding the leading directory path, language key, and extension (e.g., `example` for `./example.ko.md`).
