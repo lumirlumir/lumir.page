@@ -7,6 +7,7 @@
 // --------------------------------------------------------------------------------
 
 import { type Metadata } from 'next';
+import { type LangKey } from '@/data/lang';
 import createMarkdownCollection from '@/utils/markdown-collection';
 import { markdownToHtml } from '@/utils/markdown-to-html';
 import { markdownToText } from '@/utils/markdown-to-text';
@@ -33,10 +34,12 @@ export const dynamicParams = false;
 export async function generateStaticParams(): Promise<
   Awaited<PageProps<'/[lang]/posts/[markdown]'>['params']>[]
 > {
-  return Object.keys(markdownCollection.slug).flatMap(slug => ({
-    lang: 'ko', // TODO: Support multiple languages after we decide on the design.
-    markdown: slug,
-  }));
+  return Object.entries(markdownCollection.byLangSlug).flatMap(([lang, bySlug]) =>
+    Object.keys(bySlug).map(slug => ({
+      lang,
+      markdown: slug,
+    })),
+  );
 }
 
 /**
@@ -45,10 +48,13 @@ export async function generateStaticParams(): Promise<
 export async function generateMetadata({
   params,
 }: PageProps<'/[lang]/posts/[markdown]'>): Promise<Metadata> {
-  const { markdown } = await params;
+  const awaitedParams = await params;
+  const lang = awaitedParams.lang as LangKey;
+  const markdown = awaitedParams.markdown satisfies string;
+  const id = `${markdown}.${lang}` as const;
   const {
     data: { title, description },
-  } = await markdownCollection.loadVMarkdownFileMeta(markdown);
+  } = await markdownCollection.loadVMarkdownFileMeta(id);
 
   return {
     title: await markdownToText(title),
@@ -61,12 +67,15 @@ export async function generateMetadata({
 // --------------------------------------------------------------------------------
 
 export default async function Page({ params }: PageProps<'/[lang]/posts/[markdown]'>) {
-  const { markdown } = await params;
+  const awaitedParams = await params;
+  const lang = awaitedParams.lang as LangKey;
+  const markdown = awaitedParams.markdown satisfies string;
+  const id = `${markdown}.${lang}` as const;
   const {
     content,
     data: { title, references },
     slug,
-  } = await markdownCollection.loadVMarkdownFile(markdown);
+  } = await markdownCollection.loadVMarkdownFile(id);
 
   return (
     <>

@@ -174,7 +174,7 @@ export default defineConfig([
   },
   {
     name: 'md/apps/blog/ko',
-    files: ['apps/blog/src/posts/docs/**/*.ko.md', 'apps/blog/src/posts/docs/**/*.md'],
+    files: ['apps/blog/src/posts/docs/**/*.ko.md'],
     rules: {
       'md/require-heading-id': 'error',
     },

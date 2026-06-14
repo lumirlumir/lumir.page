@@ -88,7 +88,7 @@ function SortedPostList({ items, field, sort }: SortedPostListProps) {
       {items
         .toSorted((a, b) => compare(a.vMarkdownFileMeta, b.vMarkdownFileMeta))
         .map(({ vMarkdownFileMeta, postCard }) => (
-          <Fragment key={vMarkdownFileMeta.slug}>{postCard}</Fragment>
+          <Fragment key={vMarkdownFileMeta.id}>{postCard}</Fragment>
         ))}
     </div>
   );
