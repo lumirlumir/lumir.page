@@ -13,8 +13,19 @@ import type { Root } from 'hast';
 // Typedef
 // --------------------------------------------------------------------------------
 
+/**
+ * Options for the `rehypeImageUrlReplace` plugin.
+ */
 export interface RehypeImageUrlReplaceOptions {
+  /**
+   * A regular expression to search for in image URLs.
+   * The `y` flag will be ignored if present.
+   */
   searchValue: RegExp;
+
+  /**
+   * A string to replace the matched portion of the image URL.
+   */
   replaceValue: string;
 }
 
