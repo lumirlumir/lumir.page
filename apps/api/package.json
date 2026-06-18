@@ -12,7 +12,7 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "openai": "^6.43.0"
+    "openai": "^6.44.0"
   },
   "devDependencies": {
     "vitest": "^4.1.8"
