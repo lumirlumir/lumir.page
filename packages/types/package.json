@@ -16,6 +16,10 @@
       ]
     }
   },
+  "files": [
+    "src",
+    "!**/fixtures/**"
+  ],
   "scripts": {
     "build": "tsgo -b tsconfig.build.json"
   }

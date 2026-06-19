@@ -32,6 +32,13 @@
       ]
     }
   },
+  "files": [
+    "src",
+    "build",
+    "!src/**/*.test.{js,jsx,ts,tsx}",
+    "!src/**/*.test-d.ts",
+    "!**/fixtures/**"
+  ],
   "scripts": {
     "build": "tsgo -b tsconfig.build.json",
     "dev": "tsgo -b tsconfig.build.json --watch",
