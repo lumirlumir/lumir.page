@@ -18,6 +18,14 @@
       ]
     }
   },
+  "files": [
+    "build",
+    "LICENSE.md",
+    "README.md",
+    "!src/**/*.test.{js,mjs,cjs,jsx,ts,mts,cts,tsx}",
+    "!src/**/*.test-d.{ts,mts,cts,tsx}",
+    "!**/fixtures/**"
+  ],
   "scripts": {
     "build": "tsgo -b tsconfig.build.json",
     "dev": "tsgo -b tsconfig.build.json --watch",

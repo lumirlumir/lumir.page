@@ -7,5 +7,10 @@
     "./animations.css": "./src/animations.css",
     "./normalize.css": "./src/normalize.css",
     "./package.json": "./package.json"
-  }
+  },
+  "files": [
+    "src",
+    "LICENSE.md",
+    "README.md"
+  ]
 }
