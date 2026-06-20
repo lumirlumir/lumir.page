@@ -10,6 +10,7 @@
   },
   "files": [
     "src",
-    "!**/fixtures/**"
+    "LICENSE.md",
+    "README.md"
   ]
 }

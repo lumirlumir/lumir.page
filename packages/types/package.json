@@ -18,7 +18,8 @@
   },
   "files": [
     "src",
-    "!**/fixtures/**"
+    "LICENSE.md",
+    "README.md"
   ],
   "scripts": {
     "build": "tsgo -b tsconfig.build.json"

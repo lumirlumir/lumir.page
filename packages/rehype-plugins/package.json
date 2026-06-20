@@ -19,10 +19,11 @@
     }
   },
   "files": [
-    "src",
     "build",
-    "!src/**/*.test.{js,jsx,ts,tsx}",
-    "!src/**/*.test-d.ts",
+    "LICENSE.md",
+    "README.md",
+    "!src/**/*.test.{js,mjs,cjs,jsx,ts,mts,cts,tsx}",
+    "!src/**/*.test-d.{ts,mts,cts,tsx}",
     "!**/fixtures/**"
   ],
   "scripts": {
