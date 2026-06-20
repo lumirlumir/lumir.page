@@ -22,11 +22,6 @@ type Mode = 'write' | 'erase';
  */
 export interface UseTypewriterOptions {
   /**
-   * Text to type out.
-   */
-  text: string;
-
-  /**
    * The mode of the typewriter effect.
    * - If set to `'write'`, the hook will write the text.
    * - If set to `'erase'`, the hook will erase the text.
@@ -102,14 +97,17 @@ export interface UseTypewriterOptions {
 /**
  * Simple Typewriter Effect hook.
  *
+ * @param text Text to type out.
+ * @param options Options for the typewriter effect.
+ * @returns A readonly tuple containing the current text.
+ *
  * @example
  * ```tsx
  * import { useTypewriter, type UseTypewriterOptions } from '@lumir/react-kit/hooks';
  *
  * function Component() {
- *   const [currentText] = useTypewriter({
+ *   const [currentText] = useTypewriter('Hello, World!', {
  *     // Default Options
- *     text: 'Hello, World!',
  *     mode: 'write',
  *     writeSpeed: 50,
  *     eraseSpeed: 50,
@@ -127,20 +125,22 @@ export interface UseTypewriterOptions {
  * }
  * ```
  */
-export function useTypewriter({
-  text,
-  mode = 'write',
-  writeSpeed = 50,
-  eraseSpeed = 50,
-  writePreDelay = 0,
-  erasePreDelay = 0,
-  writePostDelay = 1_500,
-  erasePostDelay = 1_500,
-  loop = false,
-  pause = false,
-  onWriteComplete: onWriteCompleteProp = undefined,
-  onEraseComplete: onEraseCompleteProp = undefined,
-}: UseTypewriterOptions): readonly [currentText: string] {
+export function useTypewriter(
+  text: string,
+  {
+    mode = 'write',
+    writeSpeed = 50,
+    eraseSpeed = 50,
+    writePreDelay = 0,
+    erasePreDelay = 0,
+    writePostDelay = 1_500,
+    erasePostDelay = 1_500,
+    loop = false,
+    pause = false,
+    onWriteComplete: onWriteCompleteProp = undefined,
+    onEraseComplete: onEraseCompleteProp = undefined,
+  }: UseTypewriterOptions = {},
+): readonly [currentText: string] {
   const [currentText, setCurrentText] = useState<string>(mode === 'write' ? '' : text);
   const [currentMode, setCurrentMode] = useState<Mode>(mode);
 
