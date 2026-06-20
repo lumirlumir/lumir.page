@@ -13,8 +13,8 @@ import useInterviewContent from '@/hooks/use-interview-content';
 import useInterviewHistory from '@/hooks/use-interview-history';
 import useInterviewObj from '@/hooks/use-interview-obj';
 
-import { type CustomChatCompletionMessageParam } from '../temp/types.js';
-import { questionMain, questionSub, answer, feedback } from '../temp/prompt.js';
+import { type CustomChatCompletionMessageParam } from '../utils/types.js';
+import { questionMain, questionSub, answer, feedback } from '../utils/prompt.js';
 
 // --------------------------------------------------------------------------------
 // Helper

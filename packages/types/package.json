@@ -7,12 +7,18 @@
     "./global": {
       "types": "./src/global.d.ts"
     },
+    "./openai": {
+      "types": "./src/openai.d.ts"
+    },
     "./package.json": "./package.json"
   },
   "typesVersions": {
     "*": {
-      "./global": [
+      "global": [
         "./src/global.d.ts"
+      ],
+      "openai": [
+        "./src/openai.d.ts"
       ]
     }
   },
