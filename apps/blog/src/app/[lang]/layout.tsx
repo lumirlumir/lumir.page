@@ -25,9 +25,9 @@ import Categories from '@/components/aside/categories';
 import Links from '@/components/aside/links';
 import Profile from '@/components/aside/profile';
 
-import DarkModeToggle from '@/components/header/dark-mode-toggle';
 import DocSearch from '@/components/header/doc-search';
 import FlexContainer from '@/components/header/flex-container';
+import ThemeToggle from '@/components/header/theme-toggle';
 import Title from '@/components/header/title';
 
 import { GOOGLE_GA_ID } from '@/constants';
@@ -89,7 +89,7 @@ export default async function RootLayout({
             <Title lang={lang} />
             <FlexContainer>
               <DocSearch />
-              <DarkModeToggle />
+              <ThemeToggle />
             </FlexContainer>
           </Header>
           <Aside>

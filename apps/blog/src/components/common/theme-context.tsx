@@ -55,7 +55,7 @@ export const defaultTheme = 'dark' satisfies Theme;
  *
  * @example
  * ```tsx
- * function DarkModeToggle() {
+ * function ThemeToggle() {
  *   const [theme, toggleTheme] = useThemeContext();
  *
  *   return (
