@@ -16,6 +16,11 @@
       ]
     }
   },
+  "files": [
+    "src",
+    "LICENSE.md",
+    "README.md"
+  ],
   "scripts": {
     "build": "tsgo -b tsconfig.build.json"
   }
