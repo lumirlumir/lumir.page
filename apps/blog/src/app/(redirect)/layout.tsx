@@ -7,6 +7,7 @@
 // --------------------------------------------------------------------------------
 
 import { type PropsWithChildren } from 'react';
+import { langDefault } from '@/data/lang';
 
 // --------------------------------------------------------------------------------
 // Default Export
@@ -14,7 +15,7 @@ import { type PropsWithChildren } from 'react';
 
 export default function Layout({ children }: PropsWithChildren) {
   return (
-    <html lang="ko">
+    <html lang={langDefault}>
       <body>{children}</body>
     </html>
   );

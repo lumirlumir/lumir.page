@@ -27,6 +27,7 @@ import Profile from '@/components/aside/profile';
 
 import DocSearch from '@/components/header/doc-search';
 import FlexContainer from '@/components/header/flex-container';
+import LangToggle from '@/components/header/lang-toggle';
 import ThemeToggle from '@/components/header/theme-toggle';
 import Title from '@/components/header/title';
 
@@ -89,6 +90,7 @@ export default async function RootLayout({
             <Title lang={lang} />
             <FlexContainer>
               <DocSearch />
+              <LangToggle lang={lang} />
               <ThemeToggle />
             </FlexContainer>
           </Header>

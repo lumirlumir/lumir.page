@@ -7,6 +7,7 @@
 // --------------------------------------------------------------------------------
 
 import { type SortableFrontmatterKey } from '@/data/frontmatter';
+import { type LangKey } from '@/data/lang';
 import { type SortKey } from '@/data/sort';
 import { type VMarkdownFileMeta } from '@/data/v-markdown-file';
 import { markdownToTextSync } from './markdown-to-text';
@@ -18,7 +19,11 @@ import { markdownToTextSync } from './markdown-to-text';
 /**
  * Returns a comparison function for sorting markdown documents based on the specified field and sort direction.
  */
-export function compareMarkdownDocument(field: SortableFrontmatterKey, sort: SortKey) {
+export function compareMarkdownDocument(
+  field: SortableFrontmatterKey,
+  sort: SortKey,
+  lang: LangKey,
+) {
   switch (field) {
     case 'title': {
       return (a: VMarkdownFileMeta, b: VMarkdownFileMeta) => {
@@ -26,8 +31,8 @@ export function compareMarkdownDocument(field: SortableFrontmatterKey, sort: Sor
         const titleB = markdownToTextSync(b.data.title.toLowerCase()); // Case insensitive.
 
         return sort === 'asc'
-          ? titleA.localeCompare(titleB, 'ko') // Ascending.
-          : titleB.localeCompare(titleA, 'ko'); // Descending.
+          ? titleA.localeCompare(titleB, lang) // Ascending.
+          : titleB.localeCompare(titleA, lang); // Descending.
       };
     }
     case 'created':
