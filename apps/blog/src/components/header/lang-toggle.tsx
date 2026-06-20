@@ -2,6 +2,8 @@
  * @fileoverview lang-toggle.
  */
 
+// TODO: handle search params and hash params when switching language.
+
 // --------------------------------------------------------------------------------
 // Directive
 // --------------------------------------------------------------------------------
@@ -13,9 +15,9 @@
 // --------------------------------------------------------------------------------
 
 import Link from 'next/link';
-import { usePathname, useSearchParams } from 'next/navigation';
+import { useSelectedLayoutSegments } from 'next/navigation';
 import { cn } from '@lumir/utils';
-import { langDefault, langKeys, type LangKey, type LangRecord } from '@/data/lang';
+import { langDefault, langKeys, type LangRecord, type PropsWithLang } from '@/data/lang';
 import styles from './lang-toggle.module.css';
 
 // --------------------------------------------------------------------------------
@@ -31,23 +33,17 @@ const ariaLabelByLang = {
 // Export
 // --------------------------------------------------------------------------------
 
-export default function LangToggle() {
-  const pathname = usePathname().toString();
-  const searchParams = useSearchParams().toString();
-  const segments = pathname.split('/').filter(Boolean);
-  const hasLangSegment = langKeys.some(lang => lang === segments[0]);
-  const currentLang = hasLangSegment ? (segments[0] as LangKey) : langDefault;
-  const nextLang = langKeys.find(lang => lang !== currentLang) ?? langDefault;
-  const nextSegments = hasLangSegment ? segments.slice(1) : segments;
-  const href =
-    `/${[nextLang, ...nextSegments].join('/')}${searchParams ? `?${searchParams}` : ''}` as const;
+export default function LangToggle({ lang }: PropsWithLang) {
+  const layoutSegments = useSelectedLayoutSegments();
+  const nextLang = langKeys.find(langkey => langkey !== lang) ?? langDefault;
+  const href = `/${[nextLang, ...layoutSegments].join('/')}` as const;
 
   return (
     <div className={cn(styles['lang-toggle'], 'custom-flex-center')}>
       <Link
         className={cn('custom-flex-center', 'custom-hover-effect')}
         href={href}
-        aria-label={ariaLabelByLang[currentLang]}
+        aria-label={ariaLabelByLang[lang]}
       >
         {nextLang}
       </Link>

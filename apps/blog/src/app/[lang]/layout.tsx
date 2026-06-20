@@ -90,7 +90,7 @@ export default async function RootLayout({
             <Title lang={lang} />
             <FlexContainer>
               <DocSearch />
-              <LangToggle />
+              <LangToggle lang={lang} />
               <ThemeToggle />
             </FlexContainer>
           </Header>
