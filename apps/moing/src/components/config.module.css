@@ -1,18 +1,15 @@
 .config {
   height: calc(var(--main-section-height) * 1.5);
 
-  /* Selector */
   & > div {
-    /* Property */
     letter-spacing: 4px;
 
-    /* Selector */
     & > div:nth-child(1) {
-      margin-bottom: 20px;
-
       display: flex;
       justify-content: space-between;
+      margin-bottom: 20px;
     }
+
     & > div:nth-child(2) {
       margin-top: 20px;
     }
@@ -20,23 +17,19 @@
 }
 
 .counter {
-  /* Property */
-  margin: 0 20px;
   display: flex;
+  margin: 0 20px;
 
-  /* Selector */
   &.off {
     color: var(--color-primary-black);
   }
-  & > label {
-    /* Property */
-    cursor: pointer;
 
-    width: 100%;
+  & > label {
     display: flex;
     justify-content: space-between;
+    width: 100%;
+    cursor: pointer;
 
-    /* Selector */
     & > input[type='button'] {
       display: none;
     }
@@ -44,21 +37,19 @@
 }
 
 .checkbox {
-  /* Property */
   margin: 0 20px;
 
-  /* Selector */
   & > label {
-    /* Property */
     cursor: pointer;
 
-    /* Selector */
     & > input[type='checkbox'] {
       display: none;
     }
+
     & > input[type='checkbox'] + span {
       color: var(--color-primary-black);
     }
+
     & > input[type='checkbox']:checked + span {
       color: var(--color-primary-white);
     }

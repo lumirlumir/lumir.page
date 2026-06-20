@@ -1,13 +1,16 @@
 /** @type {import('stylelint').Config} */
 export default {
   extends: ['stylelint-config-standard', 'stylelint-config-recess-order'],
-  ignoreFiles: [
-    'apps/moing/**',
-    '**/archives/**',
-    '**/build/**',
-    '**/coverage/**',
-    '**/.next/**',
-  ],
+  ignoreFiles: ['**/archives/**', '**/build/**', '**/coverage/**', '**/.next/**'],
+  languageOptions: {
+    syntax: {
+      types: {
+        /* NOTE: `global()` is CSS Modules specific syntax */
+        'keyframes-name': '| <global()>',
+        'global()': 'global( <custom-ident> )',
+      },
+    },
+  },
   rules: {
     'import-notation': 'string',
     // Enforce specific media feature breakpoints for consistency

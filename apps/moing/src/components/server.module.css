@@ -1,7 +1,6 @@
 .server {
   height: var(--main-section-height);
 
-  /* Selector */
   &.wide {
     height: 600px;
   }
@@ -11,6 +10,6 @@
   }
 
   & .cursor {
-    animation: global(blink) 1s steps(1, end) infinite; /* NOTE: `global()` is CSS Modules specific syntax */
+    animation: global(blink) 1s steps(1, end) infinite;
   }
 }

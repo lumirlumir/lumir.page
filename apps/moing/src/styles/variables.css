@@ -1,19 +1,16 @@
 :root {
-  --color-primary-white: #ffffff;
+  --color-primary-white: #fff;
   --color-primary-white-a20: #ffffff20;
   --color-primary-black: #1d212b;
-
   --color-background: repeating-linear-gradient(
     135deg,
     #202020 0%,
     #2b2b2b 10%,
     #202020 0%,
-    #222222 50%
+    #222 50%
   );
   --color-background-dark: #0e0e0e;
-
   --font-ngc: 'Nanum Gothic Coding';
-
   --grid-width: 80px;
   --grid-height: 80px;
   --main-section-width: 620px;
