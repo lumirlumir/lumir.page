@@ -62,6 +62,7 @@ export default async function Page({
         vMarkdownFileMeta,
         postCard: <PostCard lang={lang} vMarkdownFileMeta={vMarkdownFileMeta} />,
       }))}
+      lang={lang}
     />
   );
 }

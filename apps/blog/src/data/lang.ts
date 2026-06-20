@@ -32,6 +32,11 @@ export type PropsWithLang<P = unknown> = P & {
 // --------------------------------------------------------------------------------
 
 /**
+ * The default language key used in the route segment.
+ */
+export const langDefault = 'ko' as const satisfies LangKey;
+
+/**
  * Supported lang keys for localized routes.
  */
 export const langKeys = ['ko', 'en'] as const;

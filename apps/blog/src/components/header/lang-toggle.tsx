@@ -12,36 +12,42 @@
 // Import
 // --------------------------------------------------------------------------------
 
-import type { Route } from 'next';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useSearchParams } from 'next/navigation';
 import { cn } from '@lumir/utils';
+import { langDefault, langKeys, type LangKey, type LangRecord } from '@/data/lang';
 import styles from './lang-toggle.module.css';
 
 // --------------------------------------------------------------------------------
-// Constant
+// Helper
 // --------------------------------------------------------------------------------
 
-const langSegmentPattern = /^\/(?<lang>ko|en)(?=\/|$)/;
+const ariaLabelByLang = {
+  ko: '언어를 영어로 전환',
+  en: 'Switch language to Korean',
+} as const satisfies LangRecord<string>;
 
 // --------------------------------------------------------------------------------
 // Export
 // --------------------------------------------------------------------------------
 
 export default function LangToggle() {
-  const pathname = usePathname();
-  const currentLang =
-    langSegmentPattern.exec(pathname)?.groups?.lang === 'en' ? 'en' : 'ko';
-  const nextLang = currentLang === 'ko' ? 'en' : 'ko';
-  const nextPathname = pathname.replace(langSegmentPattern, `/${nextLang}`);
-  const href = nextPathname === pathname ? `/${nextLang}` : nextPathname;
+  const pathname = usePathname().toString();
+  const searchParams = useSearchParams().toString();
+  const segments = pathname.split('/').filter(Boolean);
+  const hasLangSegment = langKeys.some(lang => lang === segments[0]);
+  const currentLang = hasLangSegment ? (segments[0] as LangKey) : langDefault;
+  const nextLang = langKeys.find(lang => lang !== currentLang) ?? langDefault;
+  const nextSegments = hasLangSegment ? segments.slice(1) : segments;
+  const href =
+    `/${[nextLang, ...nextSegments].join('/')}${searchParams ? `?${searchParams}` : ''}` as const;
 
   return (
     <div className={cn(styles['lang-toggle'], 'custom-flex-center')}>
       <Link
-        href={href as Route}
-        className={cn(styles.link, 'custom-flex-center', 'custom-hover-effect')}
-        aria-label={`Switch language to ${nextLang}`}
+        className={cn('custom-flex-center', 'custom-hover-effect')}
+        href={href}
+        aria-label={ariaLabelByLang[currentLang]}
       >
         {nextLang}
       </Link>
