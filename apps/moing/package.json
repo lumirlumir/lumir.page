@@ -21,10 +21,12 @@
     "react-dom": "^19.2.6"
   },
   "devDependencies": {
+    "@babel/core": "^7.29.0",
     "@lumir/types": "*",
+    "@rolldown/plugin-babel": "^0.2.3",
     "@types/react": "^19.2.17",
     "@types/react-dom": "^19.2.3",
-    "@vitejs/plugin-react": "^5.2.0",
+    "@vitejs/plugin-react": "^6.0.2",
     "babel-plugin-react-compiler": "^1.0.0",
     "openai": "^6.44.0",
     "vite": "^8.0.16"
