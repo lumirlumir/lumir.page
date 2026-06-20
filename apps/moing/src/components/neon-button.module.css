@@ -1,42 +1,17 @@
 .neon-button {
-  /* Property */
   position: relative;
-  transition: all 0.6s ease-out;
   overflow: hidden;
   border-radius: 6px;
-
-  /* Selector */
-  &:hover,
-  &.hover {
-    /* Property */
-    background: var(--color-primary-white);
-    border-radius: 15px;
-    box-shadow:
-      0 0 5px var(--color-primary-white),
-      0 0 25px var(--color-primary-white),
-      0 0 50px var(--color-primary-white),
-      0 0 100px var(--color-primary-white);
-
-    /* Selector */
-    & > button {
-      color: var(--color-primary-black);
-
-      & svg {
-        fill: var(--color-primary-black);
-      }
-    }
-  }
+  transition: all 0.6s ease-out;
 
   & > button {
-    color: inherit;
-    border: none;
-    background-color: transparent;
-    cursor: pointer;
-    line-height: normal;
-    /* box */
     padding: 10px;
-    /* text */
+    line-height: normal;
+    color: inherit;
     letter-spacing: 4px;
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
   }
 
   & > span {
@@ -61,8 +36,8 @@
     }
 
     &:nth-child(3) {
-      bottom: 0;
       right: -100%;
+      bottom: 0;
       width: 100%;
       height: 2px;
       background: linear-gradient(270deg, transparent, var(--color-primary-white-a20));
@@ -78,12 +53,32 @@
       animation: btn-anim4 1s linear infinite 0.75s;
     }
   }
+
+  &:hover,
+  &.hover {
+    background: var(--color-primary-white);
+    border-radius: 15px;
+    box-shadow:
+      0 0 5px var(--color-primary-white),
+      0 0 25px var(--color-primary-white),
+      0 0 50px var(--color-primary-white),
+      0 0 100px var(--color-primary-white);
+
+    & > button {
+      color: var(--color-primary-black);
+
+      & svg {
+        fill: var(--color-primary-black);
+      }
+    }
+  }
 }
 
 @keyframes btn-anim1 {
   0% {
     left: -100%;
   }
+
   50%,
   100% {
     left: 100%;
@@ -94,6 +89,7 @@
   0% {
     top: -100%;
   }
+
   50%,
   100% {
     top: 100%;
@@ -104,6 +100,7 @@
   0% {
     right: -100%;
   }
+
   50%,
   100% {
     right: 100%;
@@ -114,6 +111,7 @@
   0% {
     bottom: -100%;
   }
+
   50%,
   100% {
     bottom: 100%;

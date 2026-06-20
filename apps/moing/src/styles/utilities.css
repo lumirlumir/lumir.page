@@ -1,7 +1,7 @@
 .custom-flex-center {
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
 }
 
 .custom-scrollbar {
@@ -19,24 +19,24 @@
 
 .custom-main-section {
   width: var(--main-section-width);
-  margin: 40px auto;
   padding: var(--main-section-padding);
+  margin: 40px auto;
   line-height: 1.5;
 }
 
 .custom-main-section-bash {
-  background-color: var(--color-background-dark);
   font-family: var(--font-ngc);
   white-space: pre-line;
+  background-color: var(--color-background-dark);
 }
 
 .custom-invisible-section {
-  pointer-events: none;
-  opacity: 0;
   height: 0;
-  margin: 0 auto;
   padding: 0 var(--main-section-padding);
+  margin: 0 auto;
+  pointer-events: none;
   border-width: 0 !important;
+  opacity: 0;
 }
 
 /* Filters: https://tailwindcss.com/docs/opacity */
@@ -56,8 +56,7 @@
 
 /* Interactivity: https://tailwindcss.com/docs/user-select */
 .select-none {
+  /* stylelint-disable-next-line property-no-vendor-prefix -- `user-select`: limited availability */
   -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
   user-select: none;
 }

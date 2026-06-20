@@ -1,5 +1,5 @@
 .main-button {
-  animation: /* NOTE: `global()` is CSS Modules specific syntax */
+  animation:
     4s ease-in-out 4s backwards global(fade-in),
     8s ease-in-out pointer-events-none;
 }
@@ -8,6 +8,7 @@
   from {
     pointer-events: none;
   }
+
   to {
     pointer-events: none;
   }
