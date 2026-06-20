@@ -1,0 +1,11 @@
+.lang-toggle {
+  & .link {
+    width: var(--size-32);
+    height: var(--size-32);
+    font-size: var(--size-14);
+    font-weight: var(--text-weight-semibold);
+    line-height: 1;
+    color: var(--color-fg-default);
+    text-decoration: none;
+  }
+}
