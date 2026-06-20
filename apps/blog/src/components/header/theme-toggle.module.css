@@ -1,4 +1,4 @@
-.dark-mode-toggle {
+.theme-toggle {
   &:hover {
     animation: var(--animation-shake);
   }
