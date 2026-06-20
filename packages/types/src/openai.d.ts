@@ -101,11 +101,6 @@ export interface ChatCompletionSystemMessageParam {
  */
 export interface ChatCompletionAssistantMessageParam {
   /**
-   * The role of the messages author, in this case `assistant`.
-   */
-  role: 'assistant';
-
-  /**
    * The contents of the assistant message. Required unless `tool_calls` or
    * `function_call` is specified.
    */
@@ -113,6 +108,11 @@ export interface ChatCompletionAssistantMessageParam {
     | string
     | (ChatCompletionContentPartText | ChatCompletionContentPartRefusal)[]
     | null;
+
+  /**
+   * The role of the messages author, in this case `assistant`.
+   */
+  role: 'assistant';
 
   /**
    * An optional name for the participant. Provides the model information to
