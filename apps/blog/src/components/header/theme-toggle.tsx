@@ -1,5 +1,5 @@
 /**
- * @fileoverview dark-mode-toggle.
+ * @fileoverview theme-toggle.
  */
 
 // --------------------------------------------------------------------------------
@@ -14,17 +14,17 @@
 
 import { cn } from '@lumir/utils';
 import { useThemeContext } from '@/components/common/theme-context';
-import styles from './dark-mode-toggle.module.css';
+import styles from './theme-toggle.module.css';
 
 // --------------------------------------------------------------------------------
 // Export
 // --------------------------------------------------------------------------------
 
-export default function DarkModeToggle() {
+export default function ThemeToggle() {
   const [theme, toggleTheme] = useThemeContext();
 
   return (
-    <div className={cn(styles['dark-mode-toggle'], 'custom-flex-center')}>
+    <div className={cn(styles['theme-toggle'], 'custom-flex-center')}>
       <button
         type="button"
         className={styles.switch}
