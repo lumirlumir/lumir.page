@@ -213,9 +213,11 @@ export default {
           });
         }
 
+        let response: Response;
+
         try {
           // `prompt_cache_retention` and `verbosity` is not supported by Gemini.
-          const response = await fetch(GEMINI_API_ENDPOINT, {
+          response = await fetch(GEMINI_API_ENDPOINT, {
             method: 'POST',
             // Do not cache upstream model responses because they are user-specific and non-deterministic.
             cache: 'no-store',
@@ -240,36 +242,52 @@ export default {
               temperature: json.temperature ?? 0.7, // optional
             } satisfies ChatCompletionCreateParams),
           });
-
-          if (!response.ok) {
-            return new Response(null, {
-              status: response.status,
-              statusText: response.statusText,
-              headers: {
-                ...corsHeaders,
-                'Cache-Control': 'no-store',
-              },
-            });
-          }
-
-          const body = await response.text();
-
-          return new Response(body, {
-            status: 200,
-            statusText: 'OK',
+        } catch {
+          return new Response(null, {
+            status: 502,
+            statusText: 'Bad Gateway',
             headers: {
               ...corsHeaders,
               'Cache-Control': 'no-store',
-              'Content-Type': 'application/json',
             },
           });
-        } catch {
+        }
+
+        if (!response.ok) {
           return new Response(null, {
-            status: 500,
-            statusText: 'Internal Server Error',
-            headers: corsHeaders,
+            status: response.status,
+            statusText: response.statusText,
+            headers: {
+              ...corsHeaders,
+              'Cache-Control': 'no-store',
+            },
           });
         }
+
+        let body: string;
+
+        try {
+          body = await response.text();
+        } catch {
+          return new Response(null, {
+            status: 502,
+            statusText: 'Bad Gateway',
+            headers: {
+              ...corsHeaders,
+              'Cache-Control': 'no-store',
+            },
+          });
+        }
+
+        return new Response(body, {
+          status: 200,
+          statusText: 'OK',
+          headers: {
+            ...corsHeaders,
+            'Cache-Control': 'no-store',
+            'Content-Type': 'application/json',
+          },
+        });
       }
 
       case 'OPTIONS': {

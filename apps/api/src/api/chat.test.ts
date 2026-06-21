@@ -753,6 +753,44 @@ describe('chat', () => {
         assert.deepStrictEqual(await response.json(), { choices: [] });
       });
 
+      it('should return bad gateway for upstream fetch failures', async () => {
+        fetchStub.mockRejectedValueOnce(new Error('unexpected failure'));
+        vi.stubEnv('GEMINI_API_KEY', 'test-gemini-api-key');
+
+        const response = await chat.fetch(
+          new Request(REQUEST_URL, {
+            method: 'POST',
+            headers: {
+              ...CORS_REQUEST_HEADERS,
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              messages: [{ role: 'user', content: 'hello' }],
+            }),
+          }),
+        );
+
+        assert.strictEqual(response.status, 502);
+        assert.strictEqual(response.statusText, 'Bad Gateway');
+        assert.strictEqual(
+          response.headers.get('Access-Control-Allow-Origin'),
+          ALLOW_ORIGIN,
+        );
+        assert.strictEqual(
+          response.headers.get('Access-Control-Allow-Methods'),
+          'POST, OPTIONS',
+        );
+        assert.strictEqual(
+          response.headers.get('Access-Control-Allow-Headers'),
+          'Content-Type',
+        );
+        assert.strictEqual(response.headers.get('Allow'), 'POST, OPTIONS');
+        assert.strictEqual(response.headers.get('Vary'), 'Origin');
+        assert.strictEqual(response.headers.get('Cache-Control'), 'no-store');
+        assert.strictEqual(fetchStub.mock.calls.length, 1);
+        assert.strictEqual(await response.text(), '');
+      });
+
       it('should return the upstream status for fetch error responses without exposing the message', async () => {
         fetchStub.mockResolvedValueOnce(
           new Response('upstream rate limit details', {
@@ -796,8 +834,16 @@ describe('chat', () => {
         assert.strictEqual(await response.text(), '');
       });
 
-      it('should fall back to internal server error for unexpected fetch failures', async () => {
-        fetchStub.mockRejectedValueOnce(new Error('unexpected failure'));
+      it('should return bad gateway when the upstream response body cannot be read', async () => {
+        fetchStub.mockResolvedValueOnce(
+          new Response(
+            new ReadableStream({
+              start(controller) {
+                controller.error(new Error('upstream body failure'));
+              },
+            }),
+          ),
+        );
         vi.stubEnv('GEMINI_API_KEY', 'test-gemini-api-key');
 
         const response = await chat.fetch(
@@ -813,8 +859,8 @@ describe('chat', () => {
           }),
         );
 
-        assert.strictEqual(response.status, 500);
-        assert.strictEqual(response.statusText, 'Internal Server Error');
+        assert.strictEqual(response.status, 502);
+        assert.strictEqual(response.statusText, 'Bad Gateway');
         assert.strictEqual(
           response.headers.get('Access-Control-Allow-Origin'),
           ALLOW_ORIGIN,
@@ -829,6 +875,7 @@ describe('chat', () => {
         );
         assert.strictEqual(response.headers.get('Allow'), 'POST, OPTIONS');
         assert.strictEqual(response.headers.get('Vary'), 'Origin');
+        assert.strictEqual(response.headers.get('Cache-Control'), 'no-store');
         assert.strictEqual(fetchStub.mock.calls.length, 1);
         assert.strictEqual(await response.text(), '');
       });
