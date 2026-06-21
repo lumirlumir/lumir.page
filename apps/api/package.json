@@ -11,9 +11,6 @@
     "req": "node ./src/dev/client.ts",
     "test": "vitest run"
   },
-  "dependencies": {
-    "openai": "^6.44.0"
-  },
   "devDependencies": {
     "@lumir/types": "*",
     "vitest": "^4.1.8"

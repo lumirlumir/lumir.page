@@ -6,9 +6,7 @@
 // Import
 // --------------------------------------------------------------------------------
 
-import { afterEach, assert, describe, it, vi, type Mock } from 'vitest';
-import OpenAI from 'openai';
-import { Completions } from 'openai/resources/chat/completions';
+import { afterEach, assert, describe, it, vi } from 'vitest';
 import chat from './chat.js';
 import { ALLOW_ORIGINS } from '../core/constants.js';
 
@@ -26,7 +24,7 @@ const CORS_REQUEST_HEADERS = {
   'Sec-Fetch-Site': 'same-site',
 } as const;
 
-const chatCompletionMock = vi.spyOn(Completions.prototype, 'create') as Mock;
+const fetchStub = vi.spyOn(globalThis, 'fetch');
 
 // --------------------------------------------------------------------------------
 // Test
@@ -34,7 +32,7 @@ const chatCompletionMock = vi.spyOn(Completions.prototype, 'create') as Mock;
 
 describe('chat', () => {
   afterEach(() => {
-    chatCompletionMock.mockReset();
+    fetchStub.mockReset();
     vi.unstubAllEnvs();
   });
 
@@ -242,7 +240,7 @@ describe('chat', () => {
   describe('when the endpoint is enabled', () => {
     describe('POST', () => {
       it('should accept application json content types without parameters', async () => {
-        chatCompletionMock.mockResolvedValueOnce({ choices: [] });
+        fetchStub.mockResolvedValueOnce(new Response(JSON.stringify({ choices: [] })));
         vi.stubEnv('GEMINI_API_KEY', 'test-gemini-api-key');
 
         const response = await chat.fetch(
@@ -274,12 +272,12 @@ describe('chat', () => {
         );
         assert.strictEqual(response.headers.get('Allow'), 'POST, OPTIONS');
         assert.strictEqual(response.headers.get('Vary'), 'Origin');
-        assert.strictEqual(chatCompletionMock.mock.calls.length, 1);
+        assert.strictEqual(fetchStub.mock.calls.length, 1);
         assert.deepStrictEqual(await response.json(), { choices: [] });
       });
 
       it('should accept application json content types case insensitively', async () => {
-        chatCompletionMock.mockResolvedValueOnce({ choices: [] });
+        fetchStub.mockResolvedValueOnce(new Response(JSON.stringify({ choices: [] })));
         vi.stubEnv('GEMINI_API_KEY', 'test-gemini-api-key');
 
         const response = await chat.fetch(
@@ -311,12 +309,12 @@ describe('chat', () => {
         );
         assert.strictEqual(response.headers.get('Allow'), 'POST, OPTIONS');
         assert.strictEqual(response.headers.get('Vary'), 'Origin');
-        assert.strictEqual(chatCompletionMock.mock.calls.length, 1);
+        assert.strictEqual(fetchStub.mock.calls.length, 1);
         assert.deepStrictEqual(await response.json(), { choices: [] });
       });
 
       it('should accept application json content types with charset parameters', async () => {
-        chatCompletionMock.mockResolvedValueOnce({ choices: [] });
+        fetchStub.mockResolvedValueOnce(new Response(JSON.stringify({ choices: [] })));
         vi.stubEnv('GEMINI_API_KEY', 'test-gemini-api-key');
 
         const response = await chat.fetch(
@@ -348,12 +346,12 @@ describe('chat', () => {
         );
         assert.strictEqual(response.headers.get('Allow'), 'POST, OPTIONS');
         assert.strictEqual(response.headers.get('Vary'), 'Origin');
-        assert.strictEqual(chatCompletionMock.mock.calls.length, 1);
+        assert.strictEqual(fetchStub.mock.calls.length, 1);
         assert.deepStrictEqual(await response.json(), { choices: [] });
       });
 
       it('should accept application json content types with whitespace before parameters', async () => {
-        chatCompletionMock.mockResolvedValueOnce({ choices: [] });
+        fetchStub.mockResolvedValueOnce(new Response(JSON.stringify({ choices: [] })));
         vi.stubEnv('GEMINI_API_KEY', 'test-gemini-api-key');
 
         const response = await chat.fetch(
@@ -385,7 +383,7 @@ describe('chat', () => {
         );
         assert.strictEqual(response.headers.get('Allow'), 'POST, OPTIONS');
         assert.strictEqual(response.headers.get('Vary'), 'Origin');
-        assert.strictEqual(chatCompletionMock.mock.calls.length, 1);
+        assert.strictEqual(fetchStub.mock.calls.length, 1);
         assert.deepStrictEqual(await response.json(), { choices: [] });
       });
 
@@ -421,7 +419,7 @@ describe('chat', () => {
         );
         assert.strictEqual(response.headers.get('Allow'), 'POST, OPTIONS');
         assert.strictEqual(response.headers.get('Vary'), 'Origin');
-        assert.strictEqual(chatCompletionMock.mock.calls.length, 0);
+        assert.strictEqual(fetchStub.mock.calls.length, 0);
         assert.strictEqual(await response.text(), '');
       });
 
@@ -457,7 +455,7 @@ describe('chat', () => {
         );
         assert.strictEqual(response.headers.get('Allow'), 'POST, OPTIONS');
         assert.strictEqual(response.headers.get('Vary'), 'Origin');
-        assert.strictEqual(chatCompletionMock.mock.calls.length, 0);
+        assert.strictEqual(fetchStub.mock.calls.length, 0);
         assert.strictEqual(await response.text(), '');
       });
 
@@ -493,7 +491,7 @@ describe('chat', () => {
         );
         assert.strictEqual(response.headers.get('Allow'), 'POST, OPTIONS');
         assert.strictEqual(response.headers.get('Vary'), 'Origin');
-        assert.strictEqual(chatCompletionMock.mock.calls.length, 0);
+        assert.strictEqual(fetchStub.mock.calls.length, 0);
         assert.strictEqual(await response.text(), '');
       });
 
@@ -527,7 +525,7 @@ describe('chat', () => {
         );
         assert.strictEqual(response.headers.get('Allow'), 'POST, OPTIONS');
         assert.strictEqual(response.headers.get('Vary'), 'Origin');
-        assert.strictEqual(chatCompletionMock.mock.calls.length, 0);
+        assert.strictEqual(fetchStub.mock.calls.length, 0);
         assert.strictEqual(await response.text(), '');
       });
 
@@ -561,7 +559,7 @@ describe('chat', () => {
         );
         assert.strictEqual(response.headers.get('Allow'), 'POST, OPTIONS');
         assert.strictEqual(response.headers.get('Vary'), 'Origin');
-        assert.strictEqual(chatCompletionMock.mock.calls.length, 0);
+        assert.strictEqual(fetchStub.mock.calls.length, 0);
         assert.strictEqual(await response.text(), '');
       });
 
@@ -595,7 +593,7 @@ describe('chat', () => {
         );
         assert.strictEqual(response.headers.get('Allow'), 'POST, OPTIONS');
         assert.strictEqual(response.headers.get('Vary'), 'Origin');
-        assert.strictEqual(chatCompletionMock.mock.calls.length, 0);
+        assert.strictEqual(fetchStub.mock.calls.length, 0);
         assert.strictEqual(await response.text(), 'Invalid JSON');
       });
 
@@ -632,7 +630,7 @@ describe('chat', () => {
         );
         assert.strictEqual(response.headers.get('Allow'), 'POST, OPTIONS');
         assert.strictEqual(response.headers.get('Vary'), 'Origin');
-        assert.strictEqual(chatCompletionMock.mock.calls.length, 0);
+        assert.strictEqual(fetchStub.mock.calls.length, 0);
         assert.strictEqual(await response.text(), 'Invalid parameters');
       });
 
@@ -651,7 +649,7 @@ describe('chat', () => {
           ],
         };
 
-        chatCompletionMock.mockResolvedValueOnce(completion);
+        fetchStub.mockResolvedValueOnce(new Response(JSON.stringify(completion)));
         vi.stubEnv('GEMINI_API_KEY', 'test-gemini-api-key');
 
         const response = await chat.fetch(
@@ -686,10 +684,21 @@ describe('chat', () => {
         );
         assert.strictEqual(response.headers.get('Allow'), 'POST, OPTIONS');
         assert.strictEqual(response.headers.get('Vary'), 'Origin');
+        assert.strictEqual(response.headers.get('Cache-Control'), 'no-store');
         assert.strictEqual(response.headers.get('Content-Type'), 'application/json');
         assert.deepStrictEqual(await response.json(), completion);
-        assert.strictEqual(chatCompletionMock.mock.calls.length, 1);
-        assert.deepStrictEqual(chatCompletionMock.mock.calls[0][0], {
+        assert.strictEqual(fetchStub.mock.calls.length, 1);
+        assert.strictEqual(
+          fetchStub.mock.calls[0][0],
+          'https://generativelanguage.googleapis.com/v1beta/openai/chat/completions',
+        );
+        assert.strictEqual(fetchStub.mock.calls[0][1]?.method, 'POST');
+        assert.strictEqual(fetchStub.mock.calls[0][1]?.cache, 'no-store');
+        assert.deepStrictEqual(fetchStub.mock.calls[0][1]?.headers, {
+          'Content-Type': 'application/json',
+          Authorization: 'Bearer test-gemini-api-key',
+        });
+        assert.deepStrictEqual(JSON.parse(fetchStub.mock.calls[0][1]?.body as string), {
           model: 'gemini-3.1-flash-lite',
           presence_penalty: 0,
           stream: false,
@@ -702,7 +711,7 @@ describe('chat', () => {
       });
 
       it('should cap requested completion tokens at the endpoint limit', async () => {
-        chatCompletionMock.mockResolvedValueOnce({ choices: [] });
+        fetchStub.mockResolvedValueOnce(new Response(JSON.stringify({ choices: [] })));
         vi.stubEnv('GEMINI_API_KEY', 'test-gemini-api-key');
 
         const response = await chat.fetch(
@@ -735,22 +744,21 @@ describe('chat', () => {
         );
         assert.strictEqual(response.headers.get('Allow'), 'POST, OPTIONS');
         assert.strictEqual(response.headers.get('Vary'), 'Origin');
-        assert.strictEqual(chatCompletionMock.mock.calls.length, 1);
+        assert.strictEqual(response.headers.get('Cache-Control'), 'no-store');
+        assert.strictEqual(fetchStub.mock.calls.length, 1);
         assert.strictEqual(
-          chatCompletionMock.mock.calls[0][0].max_completion_tokens,
+          JSON.parse(fetchStub.mock.calls[0][1]?.body as string).max_completion_tokens,
           2_048,
         );
         assert.deepStrictEqual(await response.json(), { choices: [] });
       });
 
-      it('should return the upstream status for openai api errors without exposing the message', async () => {
-        chatCompletionMock.mockRejectedValueOnce(
-          OpenAI.APIError.generate(
-            429,
-            undefined,
-            'upstream rate limit details',
-            new Headers(),
-          ),
+      it('should return the upstream status for fetch error responses without exposing the message', async () => {
+        fetchStub.mockResolvedValueOnce(
+          new Response('upstream rate limit details', {
+            status: 429,
+            statusText: 'Too Many Requests',
+          }),
         );
         vi.stubEnv('GEMINI_API_KEY', 'test-gemini-api-key');
 
@@ -768,7 +776,7 @@ describe('chat', () => {
         );
 
         assert.strictEqual(response.status, 429);
-        assert.strictEqual(response.statusText, '');
+        assert.strictEqual(response.statusText, 'Too Many Requests');
         assert.strictEqual(
           response.headers.get('Access-Control-Allow-Origin'),
           ALLOW_ORIGIN,
@@ -783,56 +791,13 @@ describe('chat', () => {
         );
         assert.strictEqual(response.headers.get('Allow'), 'POST, OPTIONS');
         assert.strictEqual(response.headers.get('Vary'), 'Origin');
-        assert.strictEqual(chatCompletionMock.mock.calls.length, 1);
+        assert.strictEqual(response.headers.get('Cache-Control'), 'no-store');
+        assert.strictEqual(fetchStub.mock.calls.length, 1);
         assert.strictEqual(await response.text(), '');
       });
 
-      it('should fall back to bad gateway for openai api errors without a status', async () => {
-        chatCompletionMock.mockRejectedValueOnce(
-          OpenAI.APIError.generate(
-            undefined,
-            undefined,
-            'upstream connection details',
-            undefined,
-          ),
-        );
-        vi.stubEnv('GEMINI_API_KEY', 'test-gemini-api-key');
-
-        const response = await chat.fetch(
-          new Request(REQUEST_URL, {
-            method: 'POST',
-            headers: {
-              ...CORS_REQUEST_HEADERS,
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              messages: [{ role: 'user', content: 'hello' }],
-            }),
-          }),
-        );
-
-        assert.strictEqual(response.status, 502);
-        assert.strictEqual(response.statusText, '');
-        assert.strictEqual(
-          response.headers.get('Access-Control-Allow-Origin'),
-          ALLOW_ORIGIN,
-        );
-        assert.strictEqual(
-          response.headers.get('Access-Control-Allow-Methods'),
-          'POST, OPTIONS',
-        );
-        assert.strictEqual(
-          response.headers.get('Access-Control-Allow-Headers'),
-          'Content-Type',
-        );
-        assert.strictEqual(response.headers.get('Allow'), 'POST, OPTIONS');
-        assert.strictEqual(response.headers.get('Vary'), 'Origin');
-        assert.strictEqual(chatCompletionMock.mock.calls.length, 1);
-        assert.strictEqual(await response.text(), '');
-      });
-
-      it('should fall back to internal server error for unexpected completion failures', async () => {
-        chatCompletionMock.mockRejectedValueOnce(new Error('unexpected failure'));
+      it('should fall back to internal server error for unexpected fetch failures', async () => {
+        fetchStub.mockRejectedValueOnce(new Error('unexpected failure'));
         vi.stubEnv('GEMINI_API_KEY', 'test-gemini-api-key');
 
         const response = await chat.fetch(
@@ -864,7 +829,7 @@ describe('chat', () => {
         );
         assert.strictEqual(response.headers.get('Allow'), 'POST, OPTIONS');
         assert.strictEqual(response.headers.get('Vary'), 'Origin');
-        assert.strictEqual(chatCompletionMock.mock.calls.length, 1);
+        assert.strictEqual(fetchStub.mock.calls.length, 1);
         assert.strictEqual(await response.text(), '');
       });
     });

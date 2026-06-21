@@ -24,8 +24,10 @@
 // Import
 // --------------------------------------------------------------------------------
 
-import OpenAI from 'openai';
-import type { ChatCompletionCreateRequestBody } from '@lumir/types/openai';
+import type {
+  ChatCompletionCreateParams,
+  ChatCompletionCreateRequestBody,
+} from '@lumir/types/openai';
 import { ALLOW_ORIGINS } from '../core/constants.ts';
 
 // --------------------------------------------------------------------------------
@@ -34,7 +36,8 @@ import { ALLOW_ORIGINS } from '../core/constants.ts';
 
 const ALLOW_METHODS = 'POST, OPTIONS';
 const GEMINI_MODEL = 'gemini-3.1-flash-lite';
-const GEMINI_API_ENDPOINT = 'https://generativelanguage.googleapis.com/v1beta/openai/';
+const GEMINI_API_ENDPOINT =
+  'https://generativelanguage.googleapis.com/v1beta/openai/chat/completions';
 const MAX_REQUEST_BODY_BYTES = 32_768; // 32KB
 const MAX_COMPLETION_TOKENS = 2_048;
 
@@ -103,11 +106,6 @@ function isChatCompletionCreateParams(
 // --------------------------------------------------------------------------------
 // Export
 // --------------------------------------------------------------------------------
-
-/**
- * Singleton instance of `OpenAI` client. Initialized lazily to avoid unnecessary overhead.
- */
-let openai: OpenAI | null = null;
 
 /**
  * `/api/chat` API route handler.
@@ -216,47 +214,56 @@ export default {
         }
 
         try {
-          // Initialize OpenAI client lazily.
-          openai ??= new OpenAI({
-            apiKey: process.env.GEMINI_API_KEY,
-            baseURL: GEMINI_API_ENDPOINT,
-          });
-
           // `prompt_cache_retention` and `verbosity` is not supported by Gemini.
-          const completion = await openai.chat.completions.create({
-            // Fixed parameters
-            model: GEMINI_MODEL,
-            presence_penalty: 0,
-            stream: false,
-            top_p: 1,
+          const response = await fetch(GEMINI_API_ENDPOINT, {
+            method: 'POST',
+            // Do not cache upstream model responses because they are user-specific and non-deterministic.
+            cache: 'no-store',
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${process.env.GEMINI_API_KEY}`,
+            },
+            body: JSON.stringify({
+              // Fixed parameters
+              model: GEMINI_MODEL,
+              presence_penalty: 0,
+              stream: false,
+              top_p: 1,
 
-            // Dynamic parameters
-            messages: json.messages, // required
-            max_completion_tokens: Math.min(
-              json.max_completion_tokens ?? MAX_COMPLETION_TOKENS,
-              MAX_COMPLETION_TOKENS,
-            ), // optional
-            reasoning_effort: json.reasoning_effort ?? 'medium', // optional
-            temperature: json.temperature ?? 0.7, // optional
+              // Dynamic parameters
+              messages: json.messages, // required
+              max_completion_tokens: Math.min(
+                json.max_completion_tokens ?? MAX_COMPLETION_TOKENS,
+                MAX_COMPLETION_TOKENS,
+              ), // optional
+              reasoning_effort: json.reasoning_effort ?? 'medium', // optional
+              temperature: json.temperature ?? 0.7, // optional
+            } satisfies ChatCompletionCreateParams),
           });
 
-          return new Response(JSON.stringify(completion), {
+          if (!response.ok) {
+            return new Response(null, {
+              status: response.status,
+              statusText: response.statusText,
+              headers: {
+                ...corsHeaders,
+                'Cache-Control': 'no-store',
+              },
+            });
+          }
+
+          const body = await response.text();
+
+          return new Response(body, {
             status: 200,
             statusText: 'OK',
             headers: {
               ...corsHeaders,
+              'Cache-Control': 'no-store',
               'Content-Type': 'application/json',
             },
           });
-        } catch (error) {
-          if (error instanceof OpenAI.APIError) {
-            return new Response(null, {
-              status: error.status ?? 502,
-              // Do not include `statusText` because it may vary with the `error.status`.
-              headers: corsHeaders,
-            });
-          }
-
+        } catch {
           return new Response(null, {
             status: 500,
             statusText: 'Internal Server Error',
