@@ -34,7 +34,7 @@ export const dynamicParams = false;
 export async function generateStaticParams(): Promise<
   Awaited<PageProps<'/[lang]/posts/[markdown]'>['params']>[]
 > {
-  return Object.entries(await markdownCollection.byLangSlug).flatMap(([lang, bySlug]) =>
+  return Object.entries(markdownCollection.byLangSlug).flatMap(([lang, bySlug]) =>
     Object.keys(bySlug).map(slug => ({
       lang,
       markdown: slug,

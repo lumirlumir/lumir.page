@@ -25,14 +25,9 @@ const markdownCollection = createMarkdownCollection();
 // --------------------------------------------------------------------------------
 
 export default async function Categories({ lang }: PropsWithLang) {
-  const [nonEmptyCategoryKeys, byLangCategory] = await Promise.all([
-    markdownCollection.nonEmptyCategoryKeys,
-    markdownCollection.byLangCategory,
-  ]);
-
   return (
     <ul className={styles.categories}>
-      {nonEmptyCategoryKeys[lang]
+      {markdownCollection.nonEmptyCategoryKeys[lang]
         .sort((a, b) => categoryMeta[a].order - categoryMeta[b].order) // Ascending.
         .map(categoryKey => {
           const {
@@ -53,7 +48,7 @@ export default async function Categories({ lang }: PropsWithLang) {
                 <div className={styles['name-ko']}>{ko}</div>
                 <div className={cn(styles['count-docs'], 'custom-flex-center')}>
                   <span className="custom-flex-center">
-                    {byLangCategory[lang][categoryKey].length}
+                    {markdownCollection.byLangCategory[lang][categoryKey].length}
                   </span>
                   <FaPen />
                 </div>

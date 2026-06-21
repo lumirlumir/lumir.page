@@ -105,8 +105,6 @@ class MarkdownCollection {
 
   /** Source of truth: used as a cache */
   #map: MarkdownCollectionMap = new Map();
-  /** Pending source of truth initialization */
-  #mapPromise: Promise<MarkdownCollectionMap> | null = null;
   /** View: using `#map` as source of truth */
   #byLangSlug: MarkdownCollectionByLangSlug | null = null;
   /** View: using `#map` as source of truth */
@@ -125,43 +123,37 @@ class MarkdownCollection {
    * - Once the Markdown files are loaded and processed, they are cached in the `#map` property.
    *   Subsequent calls to this method will return the cached data, avoiding redundant processing.
    */
-  #ensureMap(): Promise<MarkdownCollectionMap> {
-    this.#mapPromise ??= Promise.all(
-      Object.entries(modules).map(async ([key, load]) => {
-        const id = key.replace(/^\.\.\/posts\/docs\//, '').replace(/\.md$/, '');
-        const {
-          id: sanitizedId,
-          slug: sanitizedSlug,
-          lang: sanitizedLang,
-        } = assertId(id);
+  #ensureMap(): MarkdownCollectionMap {
+    for (const [key, markdown] of Object.entries(modules)) {
+      const id = key.replace(/^\.\.\/posts\/docs\//, '').replace(/\.md$/, '');
+      const { id: sanitizedId, slug: sanitizedSlug, lang: sanitizedLang } = assertId(id);
 
-        // If the Markdown file has already been processed and cached, skip the loading and processing steps.
-        const cached = this.#map.get(sanitizedId);
+      // If the Markdown file has already been processed and cached, skip the loading and processing steps.
+      const cached = this.#map.get(sanitizedId);
 
-        if (cached) {
-          return;
-        }
+      if (cached) {
+        continue;
+      }
 
-        // If the Markdown file has not been processed, load and process it, then cache the result.
-        const { data } = frontmatterData((await load()).default);
-        const sanitizedData = assertFrontmatter(data, sanitizedId);
+      // If the Markdown file has not been processed, load and process it, then cache the result.
+      const { data } = frontmatterData(markdown);
+      const sanitizedData = assertFrontmatter(data, sanitizedId);
 
-        this.#map.set(sanitizedId, {
-          id: sanitizedId,
-          slug: sanitizedSlug,
-          lang: sanitizedLang,
-          data: sanitizedData,
-        });
-      }),
-    ).then(() => this.#map);
+      this.#map.set(sanitizedId, {
+        id: sanitizedId,
+        slug: sanitizedSlug,
+        lang: sanitizedLang,
+        data: sanitizedData,
+      });
+    }
 
-    return this.#mapPromise;
+    return this.#map;
   }
 
   /**
    * Lazily creates a mapping of language keys to slugs and their corresponding Markdown file metadata.
    */
-  async #ensureByLangSlug(): Promise<MarkdownCollectionByLangSlug> {
+  #ensureByLangSlug(): MarkdownCollectionByLangSlug {
     // If the slug mapping has already been created, skip the creation process.
     if (this.#byLangSlug) {
       return this.#byLangSlug;
@@ -171,7 +163,7 @@ class MarkdownCollection {
       langKeys.map(lang => [lang, {} as MarkdownCollectionByLangSlug[LangKey]]),
     ) as MarkdownCollectionByLangSlug;
 
-    (await this.#ensureMap()).forEach(vMarkdownFileMeta => {
+    this.#ensureMap().forEach(vMarkdownFileMeta => {
       markdownCollectionByLangSlug[vMarkdownFileMeta.lang][vMarkdownFileMeta.slug] =
         vMarkdownFileMeta;
     });
@@ -184,7 +176,7 @@ class MarkdownCollection {
   /**
    * Lazily creates a mapping of language keys to category keys and their corresponding Markdown file metadata arrays.
    */
-  async #ensureByLangCategory(): Promise<MarkdownCollectionByLangCategory> {
+  #ensureByLangCategory(): MarkdownCollectionByLangCategory {
     // If the category mapping has already been created, skip the creation process.
     if (this.#byLangCategory) {
       return this.#byLangCategory;
@@ -199,7 +191,7 @@ class MarkdownCollection {
       ]),
     ) as MarkdownCollectionByLangCategory;
 
-    (await this.#ensureMap()).forEach(vMarkdownFileMeta => {
+    this.#ensureMap().forEach(vMarkdownFileMeta => {
       vMarkdownFileMeta.data.categories.forEach(category => {
         markdownCollectionByLangCategory[vMarkdownFileMeta.lang][category].push(
           vMarkdownFileMeta,
@@ -233,7 +225,7 @@ class MarkdownCollection {
       throw new Error(`Markdown file not found: \`${sanitizedId}\``);
     }
 
-    const { data } = frontmatterData((await modules[key]()).default);
+    const { data } = frontmatterData(modules[key]);
     const sanitizedData = assertFrontmatter(data, sanitizedId);
 
     const vMarkdownFileMeta: VMarkdownFileMeta = {
@@ -260,7 +252,7 @@ class MarkdownCollection {
       throw new Error(`Markdown file not found: \`${sanitizedId}\``);
     }
 
-    const { data, content } = frontmatter((await modules[key]()).default);
+    const { data, content } = frontmatter(modules[key]);
     const sanitizedData = assertFrontmatter(data, sanitizedId);
 
     // Get a chance to cache the metadata in `#map` if it hasn't been cached already.
@@ -313,7 +305,7 @@ class MarkdownCollection {
    * }
    * ```
    */
-  get byLangSlug(): Promise<MarkdownCollectionByLangSlug> {
+  get byLangSlug(): MarkdownCollectionByLangSlug {
     return this.#ensureByLangSlug();
   }
 
@@ -349,7 +341,7 @@ class MarkdownCollection {
    * }
    * ```
    */
-  get byLangCategory(): Promise<MarkdownCollectionByLangCategory> {
+  get byLangCategory(): MarkdownCollectionByLangCategory {
     return this.#ensureByLangCategory();
   }
 
@@ -361,22 +353,19 @@ class MarkdownCollection {
    * import createMarkdownCollection from '@/utils/markdown-collection';
    *
    * const markdownCollection = createMarkdownCollection();
-   * const nonEmptyCategories = await markdownCollection.nonEmptyCategoryKeys;
+   * const nonEmptyCategories = markdownCollection.nonEmptyCategoryKeys;
    * console.log(nonEmptyCategories.ko); // Output: ['javascript', 'markdown']
    * ```
    */
-  get nonEmptyCategoryKeys(): Promise<LangRecord<CategoryKey[]>> {
-    return this.#ensureByLangCategory().then(
-      byLangCategory =>
-        Object.fromEntries(
-          langKeys.map(lang => [
-            lang,
-            categoryKeys.filter(
-              categoryKey => byLangCategory[lang][categoryKey].length > 0,
-            ),
-          ]),
-        ) as LangRecord<CategoryKey[]>,
-    );
+  get nonEmptyCategoryKeys(): LangRecord<CategoryKey[]> {
+    return Object.fromEntries(
+      langKeys.map(lang => [
+        lang,
+        categoryKeys.filter(
+          categoryKey => this.byLangCategory[lang][categoryKey].length > 0,
+        ),
+      ]),
+    ) as LangRecord<CategoryKey[]>;
   }
 }
 
