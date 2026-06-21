@@ -254,6 +254,9 @@ export default {
         }
 
         if (!response.ok) {
+          // Drain the unused upstream error body before returning.
+          await response.arrayBuffer().catch(() => undefined);
+
           return new Response(null, {
             status: response.status,
             statusText: response.statusText,
