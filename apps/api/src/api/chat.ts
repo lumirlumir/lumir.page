@@ -25,6 +25,7 @@
 // --------------------------------------------------------------------------------
 
 import OpenAI from 'openai';
+import type { ChatCompletionCreateRequestBody } from '@lumir/types/openai';
 import { ALLOW_ORIGINS } from '../core/constants.ts';
 
 // --------------------------------------------------------------------------------
@@ -55,14 +56,11 @@ function createCORSHeaders(origin: string) {
 /**
  * Type guard to validate the request body for chat completion creation.
  * @param json The parsed JSON object from the request body.
- * @returns `true` if the JSON object is a valid `ChatCompletionCreateParams`, `false` otherwise.
+ * @returns `true` if the JSON object is a valid `ChatCompletionCreateRequestBody`, `false` otherwise.
  */
 function isChatCompletionCreateParams(
   json: unknown,
-): json is Pick<
-  OpenAI.ChatCompletionCreateParams,
-  'messages' | 'max_completion_tokens' | 'reasoning_effort' | 'temperature'
-> {
+): json is ChatCompletionCreateRequestBody {
   if (typeof json !== 'object' || json === null) {
     return false;
   }

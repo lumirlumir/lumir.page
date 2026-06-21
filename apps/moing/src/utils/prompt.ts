@@ -6,7 +6,7 @@
 // Import
 // --------------------------------------------------------------------------------
 
-import { type CustomChatCompletionMessageParam } from './types.js';
+import type { ChatCompletionMessageParam } from '@lumir/types/openai';
 import { type QuestionType } from '@/contexts/config-context';
 
 // --------------------------------------------------------------------------------
@@ -169,7 +169,7 @@ export const questionMain = {
       },
     ],
   },
-} satisfies Record<QuestionType, Record<'messages', CustomChatCompletionMessageParam[]>>;
+} satisfies Record<QuestionType, Record<'messages', ChatCompletionMessageParam[]>>;
 
 export const questionSub = {
   messages: [
@@ -219,7 +219,7 @@ export const questionSub = {
       ],
     },
   ],
-} satisfies Record<'messages', CustomChatCompletionMessageParam[]>;
+} satisfies Record<'messages', ChatCompletionMessageParam[]>;
 
 export const answer = {
   messages: [
@@ -269,7 +269,7 @@ export const answer = {
       ],
     },
   ],
-} satisfies Record<'messages', CustomChatCompletionMessageParam[]>;
+} satisfies Record<'messages', ChatCompletionMessageParam[]>;
 
 export const feedback = {
   messages: [
@@ -337,4 +337,4 @@ export const feedback = {
       ],
     },
   ],
-} satisfies Record<'messages', CustomChatCompletionMessageParam[]>;
+} satisfies Record<'messages', ChatCompletionMessageParam[]>;
