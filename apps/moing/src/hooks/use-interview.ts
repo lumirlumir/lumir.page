@@ -8,6 +8,7 @@
 
 import { useCallback, useEffect, useState } from 'react';
 import type {
+  ChatCompletion,
   ChatCompletionCreateRequestBody,
   ChatCompletionMessageParam,
 } from '@lumir/types/openai';
@@ -52,7 +53,7 @@ async function fetchChatCompletionText(
     throw new Error(`Request failed: ${response.status} ${response.statusText}\n${text}`);
   }
 
-  const json = JSON.parse(text);
+  const json: ChatCompletion = JSON.parse(text);
 
   return json?.choices?.[0]?.message?.content ?? '';
 }
