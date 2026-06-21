@@ -14,6 +14,7 @@ import { fileURLToPath } from 'node:url';
 
 const isProd = process.env.NODE_ENV === 'production';
 const isTypegen = process.argv.includes('typegen');
+const isAnalyze = process.argv.includes('experimental-analyze');
 const rawMarkdownLoader = fileURLToPath(
   new URL('./raw-markdown-loader.cjs', import.meta.url),
 );
@@ -49,7 +50,7 @@ export default {
   output: 'export', // For static export, we need to set output to 'export'.
   trailingSlash: false, // For static export, we don't want trailing slashes.
   skipTrailingSlashRedirect: true, // For static export, we don't want to redirect to trailing slashes.
-  distDir: isTypegen ? '.next' : 'build', // For static export, use a separate dist directory to prevent type generation conflicts.
+  distDir: isTypegen || isAnalyze ? '.next' : 'build', // For static export, use a separate dist directory to prevent type generation conflicts.
   turbopack: {
     rules: {
       '*.md': {
