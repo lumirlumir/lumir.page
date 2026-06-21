@@ -24,7 +24,10 @@
 // Import
 // --------------------------------------------------------------------------------
 
-import OpenAI from 'openai';
+import type {
+  ChatCompletionCreateParams,
+  ChatCompletionCreateRequestBody,
+} from '@lumir/types/openai';
 import { ALLOW_ORIGINS } from '../core/constants.ts';
 
 // --------------------------------------------------------------------------------
@@ -33,7 +36,8 @@ import { ALLOW_ORIGINS } from '../core/constants.ts';
 
 const ALLOW_METHODS = 'POST, OPTIONS';
 const GEMINI_MODEL = 'gemini-3.1-flash-lite';
-const GEMINI_API_ENDPOINT = 'https://generativelanguage.googleapis.com/v1beta/openai/';
+const GEMINI_API_ENDPOINT =
+  'https://generativelanguage.googleapis.com/v1beta/openai/chat/completions';
 const MAX_REQUEST_BODY_BYTES = 32_768; // 32KB
 const MAX_COMPLETION_TOKENS = 2_048;
 
@@ -55,14 +59,11 @@ function createCORSHeaders(origin: string) {
 /**
  * Type guard to validate the request body for chat completion creation.
  * @param json The parsed JSON object from the request body.
- * @returns `true` if the JSON object is a valid `ChatCompletionCreateParams`, `false` otherwise.
+ * @returns `true` if the JSON object is a valid `ChatCompletionCreateRequestBody`, `false` otherwise.
  */
 function isChatCompletionCreateParams(
   json: unknown,
-): json is Pick<
-  OpenAI.ChatCompletionCreateParams,
-  'messages' | 'max_completion_tokens' | 'reasoning_effort' | 'temperature'
-> {
+): json is ChatCompletionCreateRequestBody {
   if (typeof json !== 'object' || json === null) {
     return false;
   }
@@ -105,11 +106,6 @@ function isChatCompletionCreateParams(
 // --------------------------------------------------------------------------------
 // Export
 // --------------------------------------------------------------------------------
-
-/**
- * Singleton instance of `OpenAI` client. Initialized lazily to avoid unnecessary overhead.
- */
-let openai: OpenAI | null = null;
 
 /**
  * `/api/chat` API route handler.
@@ -217,54 +213,84 @@ export default {
           });
         }
 
+        let response: Response;
+
         try {
-          // Initialize OpenAI client lazily.
-          openai ??= new OpenAI({
-            apiKey: process.env.GEMINI_API_KEY,
-            baseURL: GEMINI_API_ENDPOINT,
-          });
-
           // `prompt_cache_retention` and `verbosity` is not supported by Gemini.
-          const completion = await openai.chat.completions.create({
-            // Fixed parameters
-            model: GEMINI_MODEL,
-            presence_penalty: 0,
-            stream: false,
-            top_p: 1,
+          response = await fetch(GEMINI_API_ENDPOINT, {
+            method: 'POST',
+            // Do not cache upstream model responses because they are user-specific and non-deterministic.
+            cache: 'no-store',
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${process.env.GEMINI_API_KEY}`,
+            },
+            body: JSON.stringify({
+              // Fixed parameters
+              model: GEMINI_MODEL,
+              presence_penalty: 0,
+              stream: false,
+              top_p: 1,
 
-            // Dynamic parameters
-            messages: json.messages, // required
-            max_completion_tokens: Math.min(
-              json.max_completion_tokens ?? MAX_COMPLETION_TOKENS,
-              MAX_COMPLETION_TOKENS,
-            ), // optional
-            reasoning_effort: json.reasoning_effort ?? 'medium', // optional
-            temperature: json.temperature ?? 0.7, // optional
+              // Dynamic parameters
+              messages: json.messages, // required
+              max_completion_tokens: Math.min(
+                json.max_completion_tokens ?? MAX_COMPLETION_TOKENS,
+                MAX_COMPLETION_TOKENS,
+              ), // optional
+              reasoning_effort: json.reasoning_effort ?? 'medium', // optional
+              temperature: json.temperature ?? 0.7, // optional
+            } satisfies ChatCompletionCreateParams),
           });
-
-          return new Response(JSON.stringify(completion), {
-            status: 200,
-            statusText: 'OK',
+        } catch {
+          return new Response(null, {
+            status: 502,
+            statusText: 'Bad Gateway',
             headers: {
               ...corsHeaders,
-              'Content-Type': 'application/json',
+              'Cache-Control': 'no-store',
             },
           });
-        } catch (error) {
-          if (error instanceof OpenAI.APIError) {
-            return new Response(null, {
-              status: error.status ?? 502,
-              // Do not include `statusText` because it may vary with the `error.status`.
-              headers: corsHeaders,
-            });
-          }
+        }
+
+        if (!response.ok) {
+          // Drain the unused upstream error body before returning.
+          await response.arrayBuffer().catch(() => undefined);
 
           return new Response(null, {
-            status: 500,
-            statusText: 'Internal Server Error',
-            headers: corsHeaders,
+            status: response.status,
+            statusText: response.statusText,
+            headers: {
+              ...corsHeaders,
+              'Cache-Control': 'no-store',
+            },
           });
         }
+
+        let body: string;
+
+        try {
+          body = await response.text();
+        } catch {
+          return new Response(null, {
+            status: 502,
+            statusText: 'Bad Gateway',
+            headers: {
+              ...corsHeaders,
+              'Cache-Control': 'no-store',
+            },
+          });
+        }
+
+        return new Response(body, {
+          status: 200,
+          statusText: 'OK',
+          headers: {
+            ...corsHeaders,
+            'Cache-Control': 'no-store',
+            'Content-Type': 'application/json',
+          },
+        });
       }
 
       case 'OPTIONS': {

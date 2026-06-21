@@ -7,13 +7,17 @@
 // --------------------------------------------------------------------------------
 
 import { useCallback, useEffect, useState } from 'react';
+import type {
+  ChatCompletion,
+  ChatCompletionCreateRequestBody,
+  ChatCompletionMessageParam,
+} from '@lumir/types/openai';
 
 import { type Config, type QuestionType } from '@/contexts/config-context';
 import useInterviewContent from '@/hooks/use-interview-content';
 import useInterviewHistory from '@/hooks/use-interview-history';
 import useInterviewObj from '@/hooks/use-interview-obj';
 
-import { type CustomChatCompletionMessageParam } from '../utils/types.js';
 import { questionMain, questionSub, answer, feedback } from '../utils/prompt.js';
 
 // --------------------------------------------------------------------------------
@@ -24,7 +28,7 @@ import { questionMain, questionSub, answer, feedback } from '../utils/prompt.js'
  * Fetches chat completion text from the backend API.
  */
 async function fetchChatCompletionText(
-  messages: CustomChatCompletionMessageParam[],
+  messages: ChatCompletionMessageParam[],
 ): Promise<string> {
   if (process.env.BACKEND_URL === undefined) {
     throw new Error('BACKEND_URL is not defined');
@@ -40,7 +44,7 @@ async function fetchChatCompletionText(
       max_completion_tokens: 2048,
       reasoning_effort: 'high',
       temperature: 1,
-    }),
+    } satisfies ChatCompletionCreateRequestBody),
   });
 
   const text = await response.text();
@@ -49,7 +53,7 @@ async function fetchChatCompletionText(
     throw new Error(`Request failed: ${response.status} ${response.statusText}\n${text}`);
   }
 
-  const json = JSON.parse(text);
+  const json: ChatCompletion = JSON.parse(text);
 
   return json?.choices?.[0]?.message?.content ?? '';
 }
@@ -58,9 +62,9 @@ async function fetchChatCompletionText(
  * Creates a message object for OpenAI API.
  */
 function createMessageObject(
-  role: 'system' | 'assistant' | 'user',
+  role: ChatCompletionMessageParam['role'],
   text: string,
-): CustomChatCompletionMessageParam {
+): ChatCompletionMessageParam {
   return {
     role,
     content: [
