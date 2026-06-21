@@ -31,8 +31,12 @@ export const dynamic = 'force-static';
 // Default Export
 // --------------------------------------------------------------------------------
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const lastModified = new Date();
+  const [byLangSlug, nonEmptyCategoryKeys] = await Promise.all([
+    markdownCollection.byLangSlug,
+    markdownCollection.nonEmptyCategoryKeys,
+  ]);
 
   return [
     // `/` path
@@ -45,19 +49,17 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
     // `/posts` path
     ...langKeys.flatMap(lang =>
-      Object.values(markdownCollection.byLangSlug[lang]).map(
-        ({ slug, data: { updated } }) => ({
-          url: `${WEBSITE_URL}/${lang}/posts/${slug}`,
-          lastModified: updated,
-          changeFrequency: 'monthly' as const,
-          priority: 1.0,
-        }),
-      ),
+      Object.values(byLangSlug[lang]).map(({ slug, data: { updated } }) => ({
+        url: `${WEBSITE_URL}/${lang}/posts/${slug}`,
+        lastModified: updated,
+        changeFrequency: 'monthly' as const,
+        priority: 1.0,
+      })),
     ),
 
     // `/categories` path
     ...langKeys.flatMap(lang =>
-      markdownCollection.nonEmptyCategoryKeys[lang].map(categoryKey => ({
+      nonEmptyCategoryKeys[lang].map(categoryKey => ({
         url: `${WEBSITE_URL}/${lang}/categories/${categoryKey}`,
         lastModified,
         changeFrequency: 'weekly' as const,

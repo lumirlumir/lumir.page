@@ -1,7 +1,5 @@
 /**
  * @fileoverview Defines a structured collection of Markdown files.
- * @see https://webpack.js.org/guides/dependency-management/#importmetawebpackcontext
- * @see https://webpack.js.org/api/module-variables/#importmetawebpackcontext
  */
 
 // --------------------------------------------------------------------------------
@@ -14,6 +12,7 @@ import { type Frontmatter } from '@/data/frontmatter';
 import { langKeys, type LangKey, type LangRecord } from '@/data/lang';
 import { type VMarkdownFileMeta, type VMarkdownFile } from '@/data/v-markdown-file';
 import { isFrontmatter } from '@/utils/is-frontmatter';
+import { modules } from '@/utils/markdown-modules';
 
 // --------------------------------------------------------------------------------
 // Typedef
@@ -104,10 +103,10 @@ class MarkdownCollection {
   // Private Property
   // ------------------------------------------------------------------------------
 
-  /** Webpack context for loading Markdown files */
-  #context: __WebpackModuleApi.RequireContext | null = null;
   /** Source of truth: used as a cache */
   #map: MarkdownCollectionMap = new Map();
+  /** Pending source of truth initialization */
+  #mapPromise: Promise<MarkdownCollectionMap> | null = null;
   /** View: using `#map` as source of truth */
   #byLangSlug: MarkdownCollectionByLangSlug | null = null;
   /** View: using `#map` as source of truth */
@@ -118,26 +117,7 @@ class MarkdownCollection {
   // ------------------------------------------------------------------------------
 
   /**
-   * Lazily creates a Webpack context for loading Markdown files.
-   */
-  #ensureContext(): __WebpackModuleApi.RequireContext {
-    if (this.#context) {
-      return this.#context;
-    }
-
-    const context = import.meta.webpackContext('../posts/docs', {
-      recursive: false,
-      regExp: /\.md$/,
-      mode: 'sync',
-    });
-
-    this.#context = context;
-
-    return context;
-  }
-
-  /**
-   * Lazily loads and processes Markdown files from the specified directory, extracting their frontmatter.
+   * Lazily loads and processes Markdown files from the import registry, extracting their frontmatter.
    *
    * Performance Optimization:
    * - The method uses lazy loading to defer the loading and processing of Markdown files until they are actually needed.
@@ -145,39 +125,43 @@ class MarkdownCollection {
    * - Once the Markdown files are loaded and processed, they are cached in the `#map` property.
    *   Subsequent calls to this method will return the cached data, avoiding redundant processing.
    */
-  #ensureMap(): MarkdownCollectionMap {
-    const context = this.#ensureContext();
+  #ensureMap(): Promise<MarkdownCollectionMap> {
+    this.#mapPromise ??= Promise.all(
+      Object.entries(modules).map(async ([key, load]) => {
+        const id = key.replace(/^\.\.\/posts\/docs\//, '').replace(/\.md$/, '');
+        const {
+          id: sanitizedId,
+          slug: sanitizedSlug,
+          lang: sanitizedLang,
+        } = assertId(id);
 
-    for (const key of context.keys()) {
-      const id = key.replace(/^\.\//, '').replace(/\.md$/, '');
-      const { id: sanitizedId, slug: sanitizedSlug, lang: sanitizedLang } = assertId(id);
+        // If the Markdown file has already been processed and cached, skip the loading and processing steps.
+        const cached = this.#map.get(sanitizedId);
 
-      // If the Markdown file has already been processed and cached, skip the loading and processing steps.
-      const cached = this.#map.get(sanitizedId);
+        if (cached) {
+          return;
+        }
 
-      if (cached) {
-        continue;
-      }
+        // If the Markdown file has not been processed, load and process it, then cache the result.
+        const { data } = frontmatterData((await load()).default);
+        const sanitizedData = assertFrontmatter(data, sanitizedId);
 
-      // If the Markdown file has not been processed, load and process it, then cache the result.
-      const { data } = frontmatterData(context(key));
-      const sanitizedData = assertFrontmatter(data, sanitizedId);
+        this.#map.set(sanitizedId, {
+          id: sanitizedId,
+          slug: sanitizedSlug,
+          lang: sanitizedLang,
+          data: sanitizedData,
+        });
+      }),
+    ).then(() => this.#map);
 
-      this.#map.set(sanitizedId, {
-        id: sanitizedId,
-        slug: sanitizedSlug,
-        lang: sanitizedLang,
-        data: sanitizedData,
-      });
-    }
-
-    return this.#map;
+    return this.#mapPromise;
   }
 
   /**
    * Lazily creates a mapping of language keys to slugs and their corresponding Markdown file metadata.
    */
-  #ensureByLangSlug(): MarkdownCollectionByLangSlug {
+  async #ensureByLangSlug(): Promise<MarkdownCollectionByLangSlug> {
     // If the slug mapping has already been created, skip the creation process.
     if (this.#byLangSlug) {
       return this.#byLangSlug;
@@ -187,7 +171,7 @@ class MarkdownCollection {
       langKeys.map(lang => [lang, {} as MarkdownCollectionByLangSlug[LangKey]]),
     ) as MarkdownCollectionByLangSlug;
 
-    this.#ensureMap().forEach(vMarkdownFileMeta => {
+    (await this.#ensureMap()).forEach(vMarkdownFileMeta => {
       markdownCollectionByLangSlug[vMarkdownFileMeta.lang][vMarkdownFileMeta.slug] =
         vMarkdownFileMeta;
     });
@@ -200,7 +184,7 @@ class MarkdownCollection {
   /**
    * Lazily creates a mapping of language keys to category keys and their corresponding Markdown file metadata arrays.
    */
-  #ensureByLangCategory(): MarkdownCollectionByLangCategory {
+  async #ensureByLangCategory(): Promise<MarkdownCollectionByLangCategory> {
     // If the category mapping has already been created, skip the creation process.
     if (this.#byLangCategory) {
       return this.#byLangCategory;
@@ -215,7 +199,7 @@ class MarkdownCollection {
       ]),
     ) as MarkdownCollectionByLangCategory;
 
-    this.#ensureMap().forEach(vMarkdownFileMeta => {
+    (await this.#ensureMap()).forEach(vMarkdownFileMeta => {
       vMarkdownFileMeta.data.categories.forEach(category => {
         markdownCollectionByLangCategory[vMarkdownFileMeta.lang][category].push(
           vMarkdownFileMeta,
@@ -242,11 +226,14 @@ class MarkdownCollection {
       return cached;
     }
 
-    const { data } = frontmatterData(
-      // Markdown files are imported as raw strings because of a setting in `next.config.js`.
-      (await import(`../posts/docs/${id}.md`)).default as string,
-    );
     const { id: sanitizedId, slug: sanitizedSlug, lang: sanitizedLang } = assertId(id);
+    const key = `../posts/docs/${sanitizedId}.md` as keyof typeof modules;
+
+    if (!(key in modules)) {
+      throw new Error(`Markdown file not found: \`${sanitizedId}\``);
+    }
+
+    const { data } = frontmatterData((await modules[key]()).default);
     const sanitizedData = assertFrontmatter(data, sanitizedId);
 
     const vMarkdownFileMeta: VMarkdownFileMeta = {
@@ -266,11 +253,14 @@ class MarkdownCollection {
    * Asynchronously loads a Markdown file by its id, extracting its content and frontmatter metadata.
    */
   async loadVMarkdownFile(id: VMarkdownFile['id']): Promise<VMarkdownFile> {
-    const { data, content } = frontmatter(
-      // Markdown files are imported as raw strings because of a setting in `next.config.js`.
-      (await import(`../posts/docs/${id}.md`)).default as string,
-    );
     const { id: sanitizedId, slug: sanitizedSlug, lang: sanitizedLang } = assertId(id);
+    const key = `../posts/docs/${sanitizedId}.md` as keyof typeof modules;
+
+    if (!(key in modules)) {
+      throw new Error(`Markdown file not found: \`${sanitizedId}\``);
+    }
+
+    const { data, content } = frontmatter((await modules[key]()).default);
     const sanitizedData = assertFrontmatter(data, sanitizedId);
 
     // Get a chance to cache the metadata in `#map` if it hasn't been cached already.
@@ -323,7 +313,7 @@ class MarkdownCollection {
    * }
    * ```
    */
-  get byLangSlug(): MarkdownCollectionByLangSlug {
+  get byLangSlug(): Promise<MarkdownCollectionByLangSlug> {
     return this.#ensureByLangSlug();
   }
 
@@ -359,7 +349,7 @@ class MarkdownCollection {
    * }
    * ```
    */
-  get byLangCategory(): MarkdownCollectionByLangCategory {
+  get byLangCategory(): Promise<MarkdownCollectionByLangCategory> {
     return this.#ensureByLangCategory();
   }
 
@@ -371,19 +361,22 @@ class MarkdownCollection {
    * import createMarkdownCollection from '@/utils/markdown-collection';
    *
    * const markdownCollection = createMarkdownCollection();
-   * const nonEmptyCategories = markdownCollection.nonEmptyCategoryKeys;
+   * const nonEmptyCategories = await markdownCollection.nonEmptyCategoryKeys;
    * console.log(nonEmptyCategories.ko); // Output: ['javascript', 'markdown']
    * ```
    */
-  get nonEmptyCategoryKeys(): LangRecord<CategoryKey[]> {
-    return Object.fromEntries(
-      langKeys.map(lang => [
-        lang,
-        categoryKeys.filter(
-          categoryKey => this.byLangCategory[lang][categoryKey].length > 0,
-        ),
-      ]),
-    ) as LangRecord<CategoryKey[]>;
+  get nonEmptyCategoryKeys(): Promise<LangRecord<CategoryKey[]>> {
+    return this.#ensureByLangCategory().then(
+      byLangCategory =>
+        Object.fromEntries(
+          langKeys.map(lang => [
+            lang,
+            categoryKeys.filter(
+              categoryKey => byLangCategory[lang][categoryKey].length > 0,
+            ),
+          ]),
+        ) as LangRecord<CategoryKey[]>,
+    );
   }
 }
 

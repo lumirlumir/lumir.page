@@ -3,11 +3,20 @@
  */
 
 // --------------------------------------------------------------------------------
+// Import
+// --------------------------------------------------------------------------------
+
+import { fileURLToPath } from 'node:url';
+
+// --------------------------------------------------------------------------------
 // Helper
 // --------------------------------------------------------------------------------
 
 const isProd = process.env.NODE_ENV === 'production';
 const isTypegen = process.argv.includes('typegen');
+const rawMarkdownLoader = fileURLToPath(
+  new URL('./raw-markdown-loader.cjs', import.meta.url),
+);
 
 // --------------------------------------------------------------------------------
 // Export
@@ -41,14 +50,12 @@ export default {
   trailingSlash: false, // For static export, we don't want trailing slashes.
   skipTrailingSlashRedirect: true, // For static export, we don't want to redirect to trailing slashes.
   distDir: isTypegen ? '.next' : 'build', // For static export, use a separate dist directory to prevent type generation conflicts.
-
-  webpack(config) {
-    // Add a rule to handle Markdown files as raw text.
-    config.module.rules.push({
-      test: /\.md$/,
-      type: 'asset/source',
-    });
-
-    return config;
+  turbopack: {
+    rules: {
+      '*.md': {
+        loaders: [rawMarkdownLoader],
+        as: '*.js',
+      },
+    },
   },
 };

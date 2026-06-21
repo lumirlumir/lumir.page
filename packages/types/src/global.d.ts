@@ -25,3 +25,14 @@ declare module '*.module.css' {
   const classes: Readonly<Record<string, string>>;
   export default classes;
 }
+
+/**
+ * Global type declarations for Markdown files.
+ *
+ * This file allows TypeScript to understand imports of Markdown files,
+ * treating them as strings.
+ */
+declare module '*.md' {
+  const content: string;
+  export default content;
+}

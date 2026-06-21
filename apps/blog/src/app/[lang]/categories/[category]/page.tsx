@@ -34,7 +34,7 @@ export const dynamicParams = false;
 export async function generateStaticParams(): Promise<
   Awaited<PageProps<'/[lang]/categories/[category]'>['params']>[]
 > {
-  return Object.entries(markdownCollection.nonEmptyCategoryKeys).flatMap(
+  return Object.entries(await markdownCollection.nonEmptyCategoryKeys).flatMap(
     ([lang, categories]) =>
       categories.map(category => ({
         lang,
@@ -54,7 +54,7 @@ export default async function Page({
   const category = awaitedParams.category as CategoryKey;
   const lang = awaitedParams.lang as LangKey;
 
-  const vMarkdownFileMetas = markdownCollection.byLangCategory[lang][category];
+  const vMarkdownFileMetas = (await markdownCollection.byLangCategory)[lang][category];
 
   return (
     <PostList
