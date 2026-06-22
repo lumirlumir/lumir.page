@@ -52,7 +52,7 @@ export default {
     rules: {
       '*.md': {
         loaders: [
-          fileURLToPath(new URL('./src/plugins/markdown-loader.js', import.meta.url)),
+          fileURLToPath(new URL('./plugins/markdown-loader.js', import.meta.url)),
         ],
         as: '*.js',
       },
