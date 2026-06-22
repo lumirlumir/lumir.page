@@ -15,9 +15,6 @@ import { fileURLToPath } from 'node:url';
 const isProd = process.env.NODE_ENV === 'production';
 const isTypegen = process.argv.includes('typegen');
 const isAnalyze = process.argv.includes('experimental-analyze');
-const rawMarkdownLoader = fileURLToPath(
-  new URL('./raw-markdown-loader.cjs', import.meta.url),
-);
 
 // --------------------------------------------------------------------------------
 // Export
@@ -54,7 +51,9 @@ export default {
   turbopack: {
     rules: {
       '*.md': {
-        loaders: [rawMarkdownLoader],
+        loaders: [
+          fileURLToPath(new URL('./src/plugins/markdown-loader.js', import.meta.url)),
+        ],
         as: '*.js',
       },
     },

@@ -1,20 +1,9 @@
-import { readFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import { defineConfig } from 'vitest/config';
+import { rollupPluginMarkdown } from './plugins/markdown-loader.js';
 
 export default defineConfig({
-  plugins: [
-    {
-      name: 'raw-markdown',
-      async load(id) {
-        if (id.endsWith('.md')) {
-          return `export default ${JSON.stringify(await readFile(id, 'utf8'))};`;
-        }
-
-        return null;
-      },
-    },
-  ],
+  plugins: [rollupPluginMarkdown()],
   oxc: {
     jsx: {
       runtime: 'automatic',
