@@ -1,7 +1,9 @@
 import { fileURLToPath } from 'node:url';
 import { defineConfig } from 'vitest/config';
+import { rollupPluginMarkdown } from './plugins/markdown-loader.js';
 
 export default defineConfig({
+  plugins: [rollupPluginMarkdown()],
   oxc: {
     jsx: {
       runtime: 'automatic',

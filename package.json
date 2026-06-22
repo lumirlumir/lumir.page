@@ -70,6 +70,7 @@
     "start:m": "npm run start -w apps/moing",
     "start:a:b": "npm run start -w apps/blog",
     "start:a:m": "npm run start -w apps/moing",
+    "analyze": "npm run analyze -w apps/blog",
     "req": "node ./apps/api/src/dev/client.ts",
     "fix": "npm-run-all -c -l -p fix:*",
     "fix:eslint": "eslint --fix --cache --cache-strategy content",

@@ -6,9 +6,10 @@
     "node": "^24.15.0"
   },
   "scripts": {
-    "dev": "next dev --webpack",
-    "build": "node --run test:types && next build --webpack",
+    "dev": "next dev",
+    "build": "node --run test:types && next build",
     "start": "vite preview --open --outDir build --port 3001",
+    "analyze": "next experimental-analyze",
     "test": "node --run test:types && node --run test:unit",
     "test:types": "next typegen && tsgo -b tsconfig.app.json",
     "test:unit": "vitest run",
@@ -53,7 +54,7 @@
     "@lumir/types": "*",
     "@types/react": "^19.2.17",
     "@types/react-dom": "^19.2.3",
-    "@types/webpack-env": "^1.18.8",
+    "rolldown": "^1.0.3",
     "vite": "^8.0.16",
     "vitest": "^4.1.8"
   }

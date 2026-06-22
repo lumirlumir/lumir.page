@@ -1,7 +1,5 @@
 /**
  * @fileoverview Defines a structured collection of Markdown files.
- * @see https://webpack.js.org/guides/dependency-management/#importmetawebpackcontext
- * @see https://webpack.js.org/api/module-variables/#importmetawebpackcontext
  */
 
 // --------------------------------------------------------------------------------
@@ -14,6 +12,7 @@ import { type Frontmatter } from '@/data/frontmatter';
 import { langKeys, type LangKey, type LangRecord } from '@/data/lang';
 import { type VMarkdownFileMeta, type VMarkdownFile } from '@/data/v-markdown-file';
 import { isFrontmatter } from '@/utils/is-frontmatter';
+import markdownModules from '@/utils/markdown-modules';
 
 // --------------------------------------------------------------------------------
 // Typedef
@@ -104,8 +103,6 @@ class MarkdownCollection {
   // Private Property
   // ------------------------------------------------------------------------------
 
-  /** Webpack context for loading Markdown files */
-  #context: __WebpackModuleApi.RequireContext | null = null;
   /** Source of truth: used as a cache */
   #map: MarkdownCollectionMap = new Map();
   /** View: using `#map` as source of truth */
@@ -118,26 +115,7 @@ class MarkdownCollection {
   // ------------------------------------------------------------------------------
 
   /**
-   * Lazily creates a Webpack context for loading Markdown files.
-   */
-  #ensureContext(): __WebpackModuleApi.RequireContext {
-    if (this.#context) {
-      return this.#context;
-    }
-
-    const context = import.meta.webpackContext('../posts/docs', {
-      recursive: false,
-      regExp: /\.md$/,
-      mode: 'sync',
-    });
-
-    this.#context = context;
-
-    return context;
-  }
-
-  /**
-   * Lazily loads and processes Markdown files from the specified directory, extracting their frontmatter.
+   * Lazily loads and processes Markdown files from the import registry, extracting their frontmatter.
    *
    * Performance Optimization:
    * - The method uses lazy loading to defer the loading and processing of Markdown files until they are actually needed.
@@ -146,10 +124,8 @@ class MarkdownCollection {
    *   Subsequent calls to this method will return the cached data, avoiding redundant processing.
    */
   #ensureMap(): MarkdownCollectionMap {
-    const context = this.#ensureContext();
-
-    for (const key of context.keys()) {
-      const id = key.replace(/^\.\//, '').replace(/\.md$/, '');
+    for (const [key, markdown] of Object.entries(markdownModules)) {
+      const id = key.replace(/^\.\.\/posts\/docs\//, '').replace(/\.md$/, '');
       const { id: sanitizedId, slug: sanitizedSlug, lang: sanitizedLang } = assertId(id);
 
       // If the Markdown file has already been processed and cached, skip the loading and processing steps.
@@ -160,7 +136,7 @@ class MarkdownCollection {
       }
 
       // If the Markdown file has not been processed, load and process it, then cache the result.
-      const { data } = frontmatterData(context(key));
+      const { data } = frontmatterData(markdown);
       const sanitizedData = assertFrontmatter(data, sanitizedId);
 
       this.#map.set(sanitizedId, {
@@ -242,11 +218,14 @@ class MarkdownCollection {
       return cached;
     }
 
-    const { data } = frontmatterData(
-      // Markdown files are imported as raw strings because of a setting in `next.config.js`.
-      (await import(`../posts/docs/${id}.md`)).default as string,
-    );
     const { id: sanitizedId, slug: sanitizedSlug, lang: sanitizedLang } = assertId(id);
+    const key = `../posts/docs/${sanitizedId}.md` as keyof typeof markdownModules;
+
+    if (!(key in markdownModules)) {
+      throw new Error(`Markdown file not found: \`${sanitizedId}\``);
+    }
+
+    const { data } = frontmatterData(markdownModules[key]);
     const sanitizedData = assertFrontmatter(data, sanitizedId);
 
     const vMarkdownFileMeta: VMarkdownFileMeta = {
@@ -266,11 +245,14 @@ class MarkdownCollection {
    * Asynchronously loads a Markdown file by its id, extracting its content and frontmatter metadata.
    */
   async loadVMarkdownFile(id: VMarkdownFile['id']): Promise<VMarkdownFile> {
-    const { data, content } = frontmatter(
-      // Markdown files are imported as raw strings because of a setting in `next.config.js`.
-      (await import(`../posts/docs/${id}.md`)).default as string,
-    );
     const { id: sanitizedId, slug: sanitizedSlug, lang: sanitizedLang } = assertId(id);
+    const key = `../posts/docs/${sanitizedId}.md` as keyof typeof markdownModules;
+
+    if (!(key in markdownModules)) {
+      throw new Error(`Markdown file not found: \`${sanitizedId}\``);
+    }
+
+    const { data, content } = frontmatter(markdownModules[key]);
     const sanitizedData = assertFrontmatter(data, sanitizedId);
 
     // Get a chance to cache the metadata in `#map` if it hasn't been cached already.
