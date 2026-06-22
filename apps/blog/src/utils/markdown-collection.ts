@@ -12,7 +12,7 @@ import { type Frontmatter } from '@/data/frontmatter';
 import { langKeys, type LangKey, type LangRecord } from '@/data/lang';
 import { type VMarkdownFileMeta, type VMarkdownFile } from '@/data/v-markdown-file';
 import { isFrontmatter } from '@/utils/is-frontmatter';
-import { modules } from '@/utils/markdown-modules';
+import markdownModules from '@/utils/markdown-modules';
 
 // --------------------------------------------------------------------------------
 // Typedef
@@ -124,7 +124,7 @@ class MarkdownCollection {
    *   Subsequent calls to this method will return the cached data, avoiding redundant processing.
    */
   #ensureMap(): MarkdownCollectionMap {
-    for (const [key, markdown] of Object.entries(modules)) {
+    for (const [key, markdown] of Object.entries(markdownModules)) {
       const id = key.replace(/^\.\.\/posts\/docs\//, '').replace(/\.md$/, '');
       const { id: sanitizedId, slug: sanitizedSlug, lang: sanitizedLang } = assertId(id);
 
@@ -219,13 +219,13 @@ class MarkdownCollection {
     }
 
     const { id: sanitizedId, slug: sanitizedSlug, lang: sanitizedLang } = assertId(id);
-    const key = `../posts/docs/${sanitizedId}.md` as keyof typeof modules;
+    const key = `../posts/docs/${sanitizedId}.md` as keyof typeof markdownModules;
 
-    if (!(key in modules)) {
+    if (!(key in markdownModules)) {
       throw new Error(`Markdown file not found: \`${sanitizedId}\``);
     }
 
-    const { data } = frontmatterData(modules[key]);
+    const { data } = frontmatterData(markdownModules[key]);
     const sanitizedData = assertFrontmatter(data, sanitizedId);
 
     const vMarkdownFileMeta: VMarkdownFileMeta = {
@@ -246,13 +246,13 @@ class MarkdownCollection {
    */
   async loadVMarkdownFile(id: VMarkdownFile['id']): Promise<VMarkdownFile> {
     const { id: sanitizedId, slug: sanitizedSlug, lang: sanitizedLang } = assertId(id);
-    const key = `../posts/docs/${sanitizedId}.md` as keyof typeof modules;
+    const key = `../posts/docs/${sanitizedId}.md` as keyof typeof markdownModules;
 
-    if (!(key in modules)) {
+    if (!(key in markdownModules)) {
       throw new Error(`Markdown file not found: \`${sanitizedId}\``);
     }
 
-    const { data, content } = frontmatter(modules[key]);
+    const { data, content } = frontmatter(markdownModules[key]);
     const sanitizedData = assertFrontmatter(data, sanitizedId);
 
     // Get a chance to cache the metadata in `#map` if it hasn't been cached already.

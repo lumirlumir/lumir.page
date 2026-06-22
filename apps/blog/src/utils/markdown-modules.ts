@@ -57,7 +57,7 @@ import markdown55 from '../posts/docs/when-loading-files-in-a-server-component-s
 import markdown56 from '../posts/docs/when-using-file-based-metadata-the-favicon-is-not-displayed-correctly.en.md';
 import markdown57 from '../posts/docs/when-using-file-based-metadata-the-favicon-is-not-displayed-correctly.ko.md';
 
-export const modules = {
+export default {
   '../posts/docs/2558.en.md': markdown0,
   '../posts/docs/2558.ko.md': markdown1,
   '../posts/docs/classic-branch-protection-rules.en.md': markdown2,
@@ -125,3 +125,5 @@ export const modules = {
   '../posts/docs/when-using-file-based-metadata-the-favicon-is-not-displayed-correctly.ko.md':
     markdown57,
 } as const;
+
+// TODO: auto-generate this file using a script.
