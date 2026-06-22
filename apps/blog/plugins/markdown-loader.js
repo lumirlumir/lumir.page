@@ -47,7 +47,10 @@ export async function rollupPluginMarkdown() {
 
     async load(id) {
       if (id.endsWith('.md')) {
-        return transformMarkdown(await this.fs.readFile(id, { encoding: 'utf8' }));
+        return {
+          code: transformMarkdown(await this.fs.readFile(id, { encoding: 'utf8' })),
+          moduleType: 'js',
+        };
       }
 
       return null;
