@@ -1,5 +1,5 @@
 /**
- * @fileoverview Defines Markdown loaders for Webpack, Rollup, Rolldown, and Vite.
+ * @fileoverview Defines Markdown loaders for Webpack and Vite.
  */
 
 // --------------------------------------------------------------------------------
@@ -7,7 +7,7 @@
 // --------------------------------------------------------------------------------
 
 /**
- * @import { Plugin } from 'rolldown';
+ * @import { Plugin } from 'vite';
  */
 
 // --------------------------------------------------------------------------------
@@ -37,13 +37,12 @@ export function markdownWebpackPlugin(source) {
 }
 
 /**
- * Creates a Rollup, Rolldown, and Vite compatible plugin
- * that loads Markdown files as default-exported strings.
- * @returns {Promise<Plugin>} A Rollup plugin for transforming `.md` files.
+ * Creates a Vite plugin that loads Markdown files as default-exported strings.
+ * @returns {Promise<Plugin>} A Vite plugin for transforming `.md` files.
  */
-export async function rollupPluginMarkdown() {
+export async function vitePluginMarkdown() {
   return {
-    name: 'rollup-plugin-markdown',
+    name: 'vite-plugin-markdown',
 
     async load(id) {
       if (id.endsWith('.md')) {
