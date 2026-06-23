@@ -117,7 +117,7 @@ export default defineConfig([
   },
   {
     name: 'js/scripts',
-    files: ['scripts/**/*.{js,mjs,cjs,jsx,ts,mts,cts,tsx}'],
+    files: ['**/scripts/**/*.{js,mjs,cjs,jsx,ts,mts,cts,tsx}'],
     rules: {
       'no-console': 'off', // Allow console statements in scripts.
     },
