@@ -151,6 +151,14 @@ describe('markdown-to-html', () => {
       assert.strictEqual(await markdownToHtmlLite(markdown), html);
     });
 
+    it('should remove HTML comments', async () => {
+      const markdown =
+        '<!-- before --><section>Hello<!-- hidden --> World</section><!-- after -->';
+      const html = '<section>Hello World</section>';
+
+      assert.strictEqual(await markdownToHtml(markdown), html);
+    });
+
     it('should convert GitHub Alert syntax to GitHub Alert HTML', async () => {
       const markdown = '> [!NOTE]\n> This is a note.';
       const html =
