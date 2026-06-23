@@ -18,10 +18,16 @@ import type { Root } from 'hast';
  * @example
  *
  * ```ts
- * import { rehype } from 'rehype';
+ * import { unified } from 'unified';
+ * import rehypeParse from 'rehype-parse';
+ * import rehypeStringify from 'rehype-stringify';
  * import { rehypeImageLazyLoading } from '@lumir/rehype-plugins';
  *
- * const file = await rehype().use(rehypeImageLazyLoading).process('<img src="http://example.com/image.png">');
+ * const file = await unified()
+ *   .use(rehypeParse, { fragment: true })
+ *   .use(rehypeImageLazyLoading)
+ *   .use(rehypeStringify)
+ *   .process('<img src="http://example.com/image.png">');
  *
  * console.log(file.value); // Output: '<img src="http://example.com/image.png" loading="lazy">'
  * ```

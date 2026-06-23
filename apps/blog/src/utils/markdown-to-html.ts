@@ -21,7 +21,11 @@
 // Import
 // --------------------------------------------------------------------------------
 
-import { rehypeImageLazyLoading, rehypeImageUrlReplace } from '@lumir/rehype-plugins';
+import {
+  rehypeCommentRemover,
+  rehypeImageLazyLoading,
+  rehypeImageUrlReplace,
+} from '@lumir/rehype-plugins';
 import { remarkCustomHeadingId, remarkHeadingFromTitle } from '@lumir/remark-plugins';
 import remarkGfm from 'remark-gfm';
 import remarkGitHub from 'remark-github';
@@ -88,6 +92,7 @@ export async function markdownToHtml(
     )
     .use(remarkRehype, { allowDangerousHtml: true })
     .use(rehypeRaw)
+    .use(rehypeCommentRemover)
     .use(rehypeGitHubAlert)
     .use(rehypeGitHubColor)
     .use(rehypeGitHubEmoji)
