@@ -18,10 +18,16 @@ import type { Root } from 'hast';
  * @example
  *
  * ```ts
- * import { rehype } from 'rehype';
+ * import { unified } from 'unified';
+ * import rehypeParse from 'rehype-parse';
+ * import rehypeStringify from 'rehype-stringify';
  * import { rehypeCommentRemover } from '@lumir/rehype-plugins';
  *
- * const file = await rehype().use(rehypeCommentRemover).process('<p>Hello<!-- secret --> World</p>');
+ * const file = await unified()
+ *   .use(rehypeParse, { fragment: true })
+ *   .use(rehypeCommentRemover)
+ *   .use(rehypeStringify)
+ *   .process('<p>Hello<!-- secret --> World</p>');
  *
  * console.log(file.value); // Output: '<p>Hello World</p>'
  * ```
