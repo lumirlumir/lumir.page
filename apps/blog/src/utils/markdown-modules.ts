@@ -1,3 +1,19 @@
+/**
+ * @fileoverview Markdown modules for the blog application.
+ */
+
+// TODO: auto-generate this file using a script.
+
+// --------------------------------------------------------------------------------
+// Environment
+// --------------------------------------------------------------------------------
+
+import 'server-only';
+
+// --------------------------------------------------------------------------------
+// Import
+// --------------------------------------------------------------------------------
+
 import markdown0 from '../posts/docs/2558.en.md';
 import markdown1 from '../posts/docs/2558.ko.md';
 import markdown2 from '../posts/docs/classic-branch-protection-rules.en.md';
@@ -56,6 +72,10 @@ import markdown54 from '../posts/docs/when-loading-files-in-a-server-component-s
 import markdown55 from '../posts/docs/when-loading-files-in-a-server-component-should-i-use-process-cwd-or-dirname.ko.md';
 import markdown56 from '../posts/docs/when-using-file-based-metadata-the-favicon-is-not-displayed-correctly.en.md';
 import markdown57 from '../posts/docs/when-using-file-based-metadata-the-favicon-is-not-displayed-correctly.ko.md';
+
+// --------------------------------------------------------------------------------
+// Export
+// --------------------------------------------------------------------------------
 
 export default {
   '../posts/docs/2558.en.md': markdown0,
@@ -125,5 +145,3 @@ export default {
   '../posts/docs/when-using-file-based-metadata-the-favicon-is-not-displayed-correctly.ko.md':
     markdown57,
 } as const;
-
-// TODO: auto-generate this file using a script.
