@@ -11,6 +11,7 @@ import PostList from '@/components/article/post-list';
 import { type CategoryKey } from '@/data/category';
 import { type LangKey } from '@/data/lang';
 import createMarkdownCollection from '@/utils/markdown-collection';
+import { markdownToTextSync } from '@/utils/markdown-to-text';
 
 // --------------------------------------------------------------------------------
 // Helper
@@ -59,7 +60,15 @@ export default async function Page({
   return (
     <PostList
       items={vMarkdownFileMetas.map(vMarkdownFileMeta => ({
-        vMarkdownFileMeta,
+        vMarkdownFileMeta: {
+          ...vMarkdownFileMeta,
+          data: {
+            ...vMarkdownFileMeta.data,
+            // Keep markdown parsing on the server. Convert the title to plain text here so
+            // sorting uses the rendered text without pulling markdown utilities into the client.
+            title: markdownToTextSync(vMarkdownFileMeta.data.title),
+          },
+        },
         postCard: <PostCard lang={lang} vMarkdownFileMeta={vMarkdownFileMeta} />,
       }))}
       lang={lang}

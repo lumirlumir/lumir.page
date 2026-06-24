@@ -1,9 +1,10 @@
 import { fileURLToPath } from 'node:url';
 import { defineConfig } from 'vitest/config';
 import { vitePluginMarkdown } from './plugins/markdown-loader.js';
+import { vitePluginServerOnly } from './plugins/server-only.js';
 
 export default defineConfig({
-  plugins: [vitePluginMarkdown()],
+  plugins: [vitePluginMarkdown(), vitePluginServerOnly()],
   oxc: {
     jsx: {
       runtime: 'automatic',
