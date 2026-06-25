@@ -1,4 +1,8 @@
 {
   "extends": "../../tsconfig.base.build.json",
-  "references": []
+  "references": [],
+  "compilerOptions": {
+    /* Modules */
+    "types": ["remark-rehype"]
+  }
 }
