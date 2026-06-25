@@ -27,7 +27,18 @@ export default async function Profile({ lang }: PropsWithLang) {
 
   return (
     <div className={cn(styles.profile, 'custom-flex-center')}>
-      <img src={avatarUrl} width={96} height={96} alt={`${name}'s GitHub profile`} />
+      <img
+        src={(() => {
+          // To avoid downloading a much larger image than needed,
+          // we can add a query parameter to the avatar URL to request a smaller size.
+          const url = new URL(avatarUrl);
+          url.searchParams.set('s', '96');
+          return url.toString();
+        })()}
+        width={96}
+        height={96}
+        alt={`${name}'s GitHub profile`}
+      />
       <div className={styles['user-name']}>
         <Link href={`/${lang}`}>{name}</Link>
       </div>
