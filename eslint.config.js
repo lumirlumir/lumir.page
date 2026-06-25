@@ -84,7 +84,17 @@ export default defineConfig([
       },
     },
     rules: {
+      'no-restricted-imports': [
+        'error',
+        {
+          name: 'next/image',
+          importNames: ['default'],
+          message:
+            "Use a plain `<img>` element instead of Next.js' Image component for static exports. Next.js image optimization isn't applied during static export.",
+        },
+      ],
       'react/no-unknown-property': 'off', // TypeScript handles this. TODO: Remove this in shared config.
+      '@next/next/no-img-element': 'off', // Plain `<img>` is intentional because static export doesn't use Next image optimization.
     },
   },
   {

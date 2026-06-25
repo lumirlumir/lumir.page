@@ -12,7 +12,6 @@ import 'server-only';
 // Import
 // --------------------------------------------------------------------------------
 
-import Image from 'next/image';
 import Link from 'next/link';
 import { cn } from '@lumir/utils';
 import { type PropsWithLang } from '@/data/lang';
@@ -28,12 +27,7 @@ export default async function Profile({ lang }: PropsWithLang) {
 
   return (
     <div className={cn(styles.profile, 'custom-flex-center')}>
-      <Image
-        src={avatarUrl}
-        width={96}
-        height={96}
-        alt={`${name}'s GitHub profile image`}
-      />
+      <img src={avatarUrl} width={96} height={96} alt={`${name}'s GitHub profile`} />
       <div className={styles['user-name']}>
         <Link href={`/${lang}`}>{name}</Link>
       </div>
