@@ -1,0 +1,41 @@
+[
+  {
+    "repositoryUrl": "https://api.github.com/repos/sindresorhus/yocto-spinner",
+    "htmlUrl": "https://github.com/sindresorhus/yocto-spinner/pull/5",
+    "id": 2877624509,
+    "nodeId": "PR_kwDOMoIRFs6Mbf-q",
+    "number": 5,
+    "title": "fix: ensure default value is correctly applied in setter",
+    "createdAt": "2025-02-25T08:53:17Z",
+    "closedAt": "2025-02-27T15:51:31Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/mdn/translated-content",
+    "htmlUrl": "https://github.com/mdn/translated-content/pull/26049",
+    "id": 2875487836,
+    "nodeId": "PR_kwDOEw7g686MUT7y",
+    "number": 26049,
+    "title": "docs: fix typos in `websockets_api/index.md`",
+    "createdAt": "2025-02-24T16:08:07Z",
+    "closedAt": "2025-02-24T22:54:40Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/mdn/translated-content",
+    "htmlUrl": "https://github.com/mdn/translated-content/pull/26048",
+    "id": 2875456917,
+    "nodeId": "PR_kwDOEw7g686MUNKR",
+    "number": 26048,
+    "title": "docs: fix typos in `http/session/index.md`",
+    "createdAt": "2025-02-24T15:57:06Z",
+    "closedAt": "2025-03-03T12:25:40Z",
+    "reactions": {
+      "+1": 0
+    }
+  }
+]

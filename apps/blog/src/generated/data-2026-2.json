@@ -1,0 +1,470 @@
+[
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/js",
+    "htmlUrl": "https://github.com/eslint/js/pull/733",
+    "id": 3994744531,
+    "nodeId": "PR_kwDOAaVztc7GgFW3",
+    "number": 733,
+    "title": "ci: pin Node.js 25.6.1",
+    "createdAt": "2026-02-26T10:44:06Z",
+    "closedAt": "2026-02-26T12:01:18Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/markdown",
+    "htmlUrl": "https://github.com/eslint/markdown/pull/624",
+    "id": 3977036046,
+    "nodeId": "PR_kwDOAkm7Hs7Flr6C",
+    "number": 624,
+    "title": "feat: fix incorrect regex pattern in `no-multiple-h1`",
+    "createdAt": "2026-02-23T08:52:13Z",
+    "closedAt": "2026-03-18T17:33:22Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslintrc",
+    "htmlUrl": "https://github.com/eslint/eslintrc/pull/224",
+    "id": 3974732898,
+    "nodeId": "PR_kwDOETsQJc7FeXRt",
+    "number": 224,
+    "title": "fix: update `minimatch` to `3.1.3` to address security vulnerabilities",
+    "createdAt": "2026-02-22T14:54:56Z",
+    "closedAt": "2026-02-22T16:54:23Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint-community/eslint-plugin-es-x",
+    "htmlUrl": "https://github.com/eslint-community/eslint-plugin-es-x/pull/323",
+    "id": 3974347226,
+    "nodeId": "PR_kwDOGwjoXM7FdF00",
+    "number": 323,
+    "title": "docs: standardize quote style in configuration examples",
+    "createdAt": "2026-02-22T12:09:51Z",
+    "closedAt": "2026-02-22T22:02:31Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint-community/eslint-plugin-es-x",
+    "htmlUrl": "https://github.com/eslint-community/eslint-plugin-es-x/pull/322",
+    "id": 3974316251,
+    "nodeId": "PR_kwDOGwjoXM7Fc_0v",
+    "number": 322,
+    "title": "feat: add `name` field to config to improve debugging experience",
+    "createdAt": "2026-02-22T11:54:16Z",
+    "closedAt": "2026-02-22T23:04:35Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslintrc",
+    "htmlUrl": "https://github.com/eslint/eslintrc/pull/221",
+    "id": 3970999714,
+    "nodeId": "PR_kwDOETsQJc7FSnRJ",
+    "number": 221,
+    "title": "fix: update `ajv` to `6.14.0` to address security vulnerabilities",
+    "createdAt": "2026-02-21T01:37:21Z",
+    "closedAt": "2026-02-21T17:13:03Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint",
+    "htmlUrl": "https://github.com/eslint/eslint/pull/20538",
+    "id": 3970981312,
+    "nodeId": "PR_kwDOAKjKDc7FSjwz",
+    "number": 20538,
+    "title": "fix: update `ajv` to `6.14.0` to address security vulnerabilities",
+    "createdAt": "2026-02-21T01:23:24Z",
+    "closedAt": "2026-02-21T17:08:52Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint",
+    "htmlUrl": "https://github.com/eslint/eslint/pull/20537",
+    "id": 3970978754,
+    "nodeId": "PR_kwDOAKjKDc7FSjSV",
+    "number": 20537,
+    "title": "fix: update `ajv` to `6.14.0` to address security vulnerabilities",
+    "createdAt": "2026-02-21T01:21:33Z",
+    "closedAt": "2026-02-21T17:02:55Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint-community/eslint-plugin-es-x",
+    "htmlUrl": "https://github.com/eslint-community/eslint-plugin-es-x/pull/320",
+    "id": 3962897666,
+    "nodeId": "PR_kwDOGwjoXM7E4Bzv",
+    "number": 320,
+    "title": "fix: update URLs in rule definitions to use HTTPS",
+    "createdAt": "2026-02-19T13:07:42Z",
+    "closedAt": "2026-02-19T13:27:23Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/code-explorer",
+    "htmlUrl": "https://github.com/eslint/code-explorer/pull/323",
+    "id": 3962609307,
+    "nodeId": "PR_kwDOLo6z_M7E3EIY",
+    "number": 323,
+    "title": "chore: add missing `config.yml` in issue template",
+    "createdAt": "2026-02-19T12:03:39Z",
+    "closedAt": "2026-02-19T12:25:06Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/rewrite",
+    "htmlUrl": "https://github.com/eslint/rewrite/pull/377",
+    "id": 3962568256,
+    "nodeId": "PR_kwDOLyyFi87E27TM",
+    "number": 377,
+    "title": "docs: add missing OpenJS Foundation section to issue templates",
+    "createdAt": "2026-02-19T11:54:22Z",
+    "closedAt": "2026-02-19T20:27:34Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/js",
+    "htmlUrl": "https://github.com/eslint/js/pull/730",
+    "id": 3962531261,
+    "nodeId": "PR_kwDOAaVztc7E2zVA",
+    "number": 730,
+    "title": "docs: add missing OpenJS Foundation section to issue templates",
+    "createdAt": "2026-02-19T11:45:49Z",
+    "closedAt": "2026-02-19T20:29:19Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/rewrite",
+    "htmlUrl": "https://github.com/eslint/rewrite/pull/376",
+    "id": 3961985260,
+    "nodeId": "PR_kwDOLyyFi87E1Ck9",
+    "number": 376,
+    "title": "fix: update `minimatch` to `10.2.1` to address security vulnerabilities",
+    "createdAt": "2026-02-19T09:53:38Z",
+    "closedAt": "2026-02-19T10:00:20Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint",
+    "htmlUrl": "https://github.com/eslint/eslint/pull/20519",
+    "id": 3961939142,
+    "nodeId": "PR_kwDOAKjKDc7E05ff",
+    "number": 20519,
+    "title": "fix: update `minimatch` to `10.2.1` to address security vulnerabilities",
+    "createdAt": "2026-02-19T09:44:59Z",
+    "closedAt": "2026-02-19T09:55:12Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint-community/eslint-plugin-es-x",
+    "htmlUrl": "https://github.com/eslint-community/eslint-plugin-es-x/pull/319",
+    "id": 3957765916,
+    "nodeId": "PR_kwDOGwjoXM7EnZHD",
+    "number": 319,
+    "title": "docs: use `defineConfig` in the documentation",
+    "createdAt": "2026-02-18T13:01:53Z",
+    "closedAt": "2026-02-19T11:40:38Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/rewrite",
+    "htmlUrl": "https://github.com/eslint/rewrite/pull/374",
+    "id": 3957592124,
+    "nodeId": "PR_kwDOLyyFi87Em0CN",
+    "number": 374,
+    "title": "docs: add AI acknowledgement section to issue template",
+    "createdAt": "2026-02-18T12:21:33Z",
+    "closedAt": "2026-02-18T13:04:00Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/markdown",
+    "htmlUrl": "https://github.com/eslint/markdown/pull/622",
+    "id": 3957549552,
+    "nodeId": "PR_kwDOAkm7Hs7Emqvv",
+    "number": 622,
+    "title": "docs: add AI acknowledgement section to issue template",
+    "createdAt": "2026-02-18T12:12:14Z",
+    "closedAt": "2026-02-18T12:47:18Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/json",
+    "htmlUrl": "https://github.com/eslint/json/pull/215",
+    "id": 3957508078,
+    "nodeId": "PR_kwDOMOnJ-M7EmhyY",
+    "number": 215,
+    "title": "docs: add AI acknowledgement section to issue template",
+    "createdAt": "2026-02-18T12:02:36Z",
+    "closedAt": "2026-02-18T12:20:03Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/js",
+    "htmlUrl": "https://github.com/eslint/js/pull/729",
+    "id": 3957484928,
+    "nodeId": "PR_kwDOAaVztc7Emc2D",
+    "number": 729,
+    "title": "docs: add AI acknowledgement section to issue template",
+    "createdAt": "2026-02-18T11:56:40Z",
+    "closedAt": "2026-02-18T12:59:27Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint.org",
+    "htmlUrl": "https://github.com/eslint/eslint.org/pull/943",
+    "id": 3957455060,
+    "nodeId": "PR_kwDOGSAlOM7EmWn3",
+    "number": 943,
+    "title": "docs: add AI acknowledgement section to issue template",
+    "createdAt": "2026-02-18T11:48:39Z",
+    "closedAt": "2026-02-18T12:56:02Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/css",
+    "htmlUrl": "https://github.com/eslint/css/pull/382",
+    "id": 3957294524,
+    "nodeId": "PR_kwDONF7wwM7Elz5U",
+    "number": 382,
+    "title": "docs: add AI acknowledgement section to issue template",
+    "createdAt": "2026-02-18T11:09:11Z",
+    "closedAt": "2026-02-18T12:42:20Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/code-explorer",
+    "htmlUrl": "https://github.com/eslint/code-explorer/pull/321",
+    "id": 3957251057,
+    "nodeId": "PR_kwDOLo6z_M7Elqqw",
+    "number": 321,
+    "title": "docs: add AI acknowledgement section to issue template",
+    "createdAt": "2026-02-18T10:59:08Z",
+    "closedAt": "2026-02-18T12:46:49Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/.github",
+    "htmlUrl": "https://github.com/eslint/.github/pull/18",
+    "id": 3953045255,
+    "nodeId": "PR_kwDOEAIzj87EX5-3",
+    "number": 18,
+    "title": "docs: add AI acknowledgement section to PR template",
+    "createdAt": "2026-02-17T14:28:10Z",
+    "closedAt": "2026-02-18T12:09:28Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/create-config",
+    "htmlUrl": "https://github.com/eslint/create-config/pull/235",
+    "id": 3953020538,
+    "nodeId": "PR_kwDOFqe-is7EX0ut",
+    "number": 235,
+    "title": "test: fix break caused by `eslint-config-xo`",
+    "createdAt": "2026-02-17T14:22:36Z",
+    "closedAt": "2026-02-17T14:51:20Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/reactjs/ko.react.dev",
+    "htmlUrl": "https://github.com/reactjs/ko.react.dev/pull/1463",
+    "id": 3948285584,
+    "nodeId": "PR_kwDOChzKxs7EIFBb",
+    "number": 1463,
+    "title": "chore: bump `eslint-markdown` to `0.5.0`",
+    "createdAt": "2026-02-16T15:21:15Z",
+    "closedAt": "2026-02-16T15:25:52Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/reactjs/ko.react.dev",
+    "htmlUrl": "https://github.com/reactjs/ko.react.dev/pull/1462",
+    "id": 3945841687,
+    "nodeId": "PR_kwDOChzKxs7D__qp",
+    "number": 1462,
+    "title": "docs: translate CodeSandbox button section",
+    "createdAt": "2026-02-16T04:41:19Z",
+    "closedAt": "2026-02-16T04:53:18Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/rewrite",
+    "htmlUrl": "https://github.com/eslint/rewrite/pull/370",
+    "id": 3943504239,
+    "nodeId": "PR_kwDOLyyFi87D4i7Y",
+    "number": 370,
+    "title": "test: enable `strict` mode in `object-schema`",
+    "createdAt": "2026-02-15T08:31:20Z",
+    "closedAt": "2026-02-17T20:07:33Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/reactjs/ko.react.dev",
+    "htmlUrl": "https://github.com/reactjs/ko.react.dev/pull/1460",
+    "id": 3920704172,
+    "nodeId": "PR_kwDOChzKxs7CtAV4",
+    "number": 1460,
+    "title": "docs: translate react dom client",
+    "createdAt": "2026-02-10T10:34:12Z",
+    "closedAt": "2026-02-10T10:37:15Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/css",
+    "htmlUrl": "https://github.com/eslint/css/pull/374",
+    "id": 3909463950,
+    "nodeId": "PR_kwDONF7wwM7CIsdP",
+    "number": 374,
+    "title": "ci: use stable ESLint v10 in the CI",
+    "createdAt": "2026-02-07T05:30:26Z",
+    "closedAt": "2026-02-09T20:50:20Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/json",
+    "htmlUrl": "https://github.com/eslint/json/pull/212",
+    "id": 3909458986,
+    "nodeId": "PR_kwDOMOnJ-M7CIra8",
+    "number": 212,
+    "title": "ci: use stable ESLint v10 in the CI",
+    "createdAt": "2026-02-07T05:27:14Z",
+    "closedAt": "2026-02-10T20:43:59Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint-release",
+    "htmlUrl": "https://github.com/eslint/eslint-release/pull/93",
+    "id": 3884637283,
+    "nodeId": "PR_kwDOAvvbFc7A2MGg",
+    "number": 93,
+    "title": "chore: add `.git-blame-ignore-revs`",
+    "createdAt": "2026-02-02T08:25:41Z",
+    "closedAt": "2026-02-14T10:49:55Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint-transforms",
+    "htmlUrl": "https://github.com/eslint/eslint-transforms/pull/68",
+    "id": 3884624753,
+    "nodeId": "PR_kwDOA4Zafs7A2JYr",
+    "number": 68,
+    "title": "chore: add `.git-blame-ignore-revs`",
+    "createdAt": "2026-02-02T08:22:26Z",
+    "closedAt": "2026-02-14T10:49:35Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint-github-bot",
+    "htmlUrl": "https://github.com/eslint/eslint-github-bot/pull/276",
+    "id": 3884613739,
+    "nodeId": "PR_kwDOBa-RVM7A2G-Q",
+    "number": 276,
+    "title": "chore: add `.git-blame-ignore-revs`",
+    "createdAt": "2026-02-02T08:19:47Z",
+    "closedAt": "2026-02-14T10:48:56Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/js",
+    "htmlUrl": "https://github.com/eslint/js/pull/727",
+    "id": 3884596275,
+    "nodeId": "PR_kwDOAaVztc7A2DRq",
+    "number": 727,
+    "title": "chore: add `.git-blame-ignore-revs`",
+    "createdAt": "2026-02-02T08:16:08Z",
+    "closedAt": "2026-02-02T12:51:23Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/create-config",
+    "htmlUrl": "https://github.com/eslint/create-config/pull/234",
+    "id": 3884572425,
+    "nodeId": "PR_kwDOFqe-is7A1-Sm",
+    "number": 234,
+    "title": "chore: add `.git-blame-ignore-revs`",
+    "createdAt": "2026-02-02T08:10:32Z",
+    "closedAt": "2026-02-03T12:29:30Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/reactjs/ko.react.dev",
+    "htmlUrl": "https://github.com/reactjs/ko.react.dev/pull/1452",
+    "id": 3881373569,
+    "nodeId": "PR_kwDOChzKxs7Aroe3",
+    "number": 1452,
+    "title": "docs: translate `eslint-plugin-react-hooks` section",
+    "createdAt": "2026-02-01T06:45:30Z",
+    "closedAt": "2026-02-09T13:29:38Z",
+    "reactions": {
+      "+1": 0
+    }
+  }
+]

@@ -1,0 +1,795 @@
+[
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/workflows",
+    "htmlUrl": "https://github.com/eslint/workflows/pull/32",
+    "id": 3571170080,
+    "nodeId": "PR_kwDOO9Nass6wo9y1",
+    "number": 32,
+    "title": "fix: move `update-readme` file generated location",
+    "createdAt": "2025-10-30T14:51:05Z",
+    "closedAt": "2025-11-05T15:42:39Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/code-explorer",
+    "htmlUrl": "https://github.com/eslint/code-explorer/pull/223",
+    "id": 3570296021,
+    "nodeId": "PR_kwDOLo6z_M6wmD9u",
+    "number": 223,
+    "title": "refactor: use types from `@eslint/core`",
+    "createdAt": "2025-10-30T11:22:26Z",
+    "closedAt": "2025-11-03T18:57:20Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/rewrite",
+    "htmlUrl": "https://github.com/eslint/rewrite/pull/309",
+    "id": 3569086020,
+    "nodeId": "PR_kwDOLyyFi86wiOmd",
+    "number": 309,
+    "title": "chore: fix CI failure and ensure the latest `@eslint/core` is used",
+    "createdAt": "2025-10-30T06:16:01Z",
+    "closedAt": "2025-10-30T11:51:38Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/.github",
+    "htmlUrl": "https://github.com/eslint/.github/pull/14",
+    "id": 3539746353,
+    "nodeId": "PR_kwDOEAIzj86vApRu",
+    "number": 14,
+    "title": "ci: create `update-readme` workflow",
+    "createdAt": "2025-10-22T08:42:42Z",
+    "closedAt": "2025-11-06T06:10:35Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/csstree",
+    "htmlUrl": "https://github.com/eslint/csstree/pull/93",
+    "id": 3539366670,
+    "nodeId": "PR_kwDON89Njs6u_eU5",
+    "number": 93,
+    "title": "ci: create `update-readme` workflow",
+    "createdAt": "2025-10-22T06:53:15Z",
+    "closedAt": "2025-10-22T07:18:23Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslintrc",
+    "htmlUrl": "https://github.com/eslint/eslintrc/pull/202",
+    "id": 3539301997,
+    "nodeId": "PR_kwDOETsQJc6u_RFw",
+    "number": 202,
+    "title": "ci: create `update-readme` workflow",
+    "createdAt": "2025-10-22T06:27:36Z",
+    "closedAt": "2025-10-27T21:06:47Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/csstree",
+    "htmlUrl": "https://github.com/eslint/csstree/pull/92",
+    "id": 3539243838,
+    "nodeId": "PR_kwDON89Njs6u_Ezh",
+    "number": 92,
+    "title": "ci: centralize `ci-package-manager`",
+    "createdAt": "2025-10-22T06:03:36Z",
+    "closedAt": "2025-12-10T06:43:48Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint-transforms",
+    "htmlUrl": "https://github.com/eslint/eslint-transforms/pull/55",
+    "id": 3539226723,
+    "nodeId": "PR_kwDOA4Zafs6u_BRN",
+    "number": 55,
+    "title": "ci: create `ci-bun.yml`",
+    "createdAt": "2025-10-22T05:55:10Z",
+    "closedAt": "2025-11-05T15:42:09Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint-release",
+    "htmlUrl": "https://github.com/eslint/eslint-release/pull/83",
+    "id": 3539175480,
+    "nodeId": "PR_kwDOAvvbFc6u-2tu",
+    "number": 83,
+    "title": "test: replace `leche` helper function with native `forEach`",
+    "createdAt": "2025-10-22T05:27:03Z",
+    "closedAt": "2025-10-22T10:43:05Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/markdown",
+    "htmlUrl": "https://github.com/eslint/markdown/pull/564",
+    "id": 3536715144,
+    "nodeId": "PR_kwDOAkm7Hs6u2kJv",
+    "number": 564,
+    "title": "fix!: remove `/types` export",
+    "createdAt": "2025-10-21T14:00:19Z",
+    "closedAt": "2026-01-15T22:20:18Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint",
+    "htmlUrl": "https://github.com/eslint/eslint/pull/20227",
+    "id": 3532386757,
+    "nodeId": "PR_kwDOAKjKDc6uoP_V",
+    "number": 20227,
+    "title": "feat!: replace `chalk` with `styleText` and add `color` to `ResultsMeta`",
+    "createdAt": "2025-10-20T13:08:13Z",
+    "closedAt": "2025-12-11T20:07:32Z",
+    "reactions": {
+      "+1": 3
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/js",
+    "htmlUrl": "https://github.com/eslint/js/pull/702",
+    "id": 3528677571,
+    "nodeId": "PR_kwDOAaVztc6ucVLr",
+    "number": 702,
+    "title": "ci: centralize `ci-package-manager`",
+    "createdAt": "2025-10-18T11:24:45Z",
+    "closedAt": "2025-12-10T06:44:40Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/generator-eslint",
+    "htmlUrl": "https://github.com/eslint/generator-eslint/pull/237",
+    "id": 3528658169,
+    "nodeId": "PR_kwDOAPfTOM6ucQ3F",
+    "number": 237,
+    "title": "ci: centralize `ci-package-manager`",
+    "createdAt": "2025-10-18T11:12:53Z",
+    "closedAt": "2025-12-10T06:47:01Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/workflows",
+    "htmlUrl": "https://github.com/eslint/workflows/pull/26",
+    "id": 3528628719,
+    "nodeId": "PR_kwDOO9Nass6ucKLR",
+    "number": 26,
+    "title": "fix: add `--if-present` to Bun CI",
+    "createdAt": "2025-10-18T10:58:29Z",
+    "closedAt": "2025-10-18T12:09:32Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/create-config",
+    "htmlUrl": "https://github.com/eslint/create-config/pull/210",
+    "id": 3528607525,
+    "nodeId": "PR_kwDOFqe-is6ucFaE",
+    "number": 210,
+    "title": "ci: centralize `ci-package-manager`",
+    "createdAt": "2025-10-18T10:46:46Z",
+    "closedAt": "2025-12-10T06:46:22Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/rewrite",
+    "htmlUrl": "https://github.com/eslint/rewrite/pull/301",
+    "id": 3528597874,
+    "nodeId": "PR_kwDOLyyFi86ucDQU",
+    "number": 301,
+    "title": "ci: centralize `ci-bun.yml`",
+    "createdAt": "2025-10-18T10:41:26Z",
+    "closedAt": "2025-10-18T14:01:46Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/markdown",
+    "htmlUrl": "https://github.com/eslint/markdown/pull/563",
+    "id": 3528586075,
+    "nodeId": "PR_kwDOAkm7Hs6ucAqU",
+    "number": 563,
+    "title": "ci: centralize `ci-bun.yml`",
+    "createdAt": "2025-10-18T10:34:56Z",
+    "closedAt": "2025-10-18T14:00:09Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/css",
+    "htmlUrl": "https://github.com/eslint/css/pull/305",
+    "id": 3528569541,
+    "nodeId": "PR_kwDONF7wwM6ub85L",
+    "number": 305,
+    "title": "ci: centralize `ci-bun.yml`",
+    "createdAt": "2025-10-18T10:28:13Z",
+    "closedAt": "2025-10-18T14:02:20Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/json",
+    "htmlUrl": "https://github.com/eslint/json/pull/169",
+    "id": 3528380353,
+    "nodeId": "PR_kwDOMOnJ-M6ubZJt",
+    "number": 169,
+    "title": "ci: centralize `ci-package-manager`",
+    "createdAt": "2025-10-18T09:02:02Z",
+    "closedAt": "2025-12-10T06:41:42Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/code-explorer",
+    "htmlUrl": "https://github.com/eslint/code-explorer/pull/195",
+    "id": 3526287631,
+    "nodeId": "PR_kwDOLo6z_M6uUYbh",
+    "number": 195,
+    "title": "chore: upgrade `vite` to v7",
+    "createdAt": "2025-10-17T13:58:41Z",
+    "closedAt": "2025-10-17T20:33:09Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint-release",
+    "htmlUrl": "https://github.com/eslint/eslint-release/pull/81",
+    "id": 3525352691,
+    "nodeId": "PR_kwDOAvvbFc6uRThC",
+    "number": 81,
+    "title": "ci: add Node.js 25 to `ci.yml`",
+    "createdAt": "2025-10-17T10:02:18Z",
+    "closedAt": "2025-10-17T10:05:28Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/generator-eslint",
+    "htmlUrl": "https://github.com/eslint/generator-eslint/pull/235",
+    "id": 3525345817,
+    "nodeId": "PR_kwDOAPfTOM6uRSBP",
+    "number": 235,
+    "title": "ci: add Node.js 25 to `ci.yml`",
+    "createdAt": "2025-10-17T10:00:18Z",
+    "closedAt": "2025-10-17T10:04:58Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/js",
+    "htmlUrl": "https://github.com/eslint/js/pull/701",
+    "id": 3525339058,
+    "nodeId": "PR_kwDOAaVztc6uRQj6",
+    "number": 701,
+    "title": "ci: add Node.js 25 to `ci.yml`",
+    "createdAt": "2025-10-17T09:58:00Z",
+    "closedAt": "2025-10-17T10:04:34Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/create-config",
+    "htmlUrl": "https://github.com/eslint/create-config/pull/209",
+    "id": 3525334113,
+    "nodeId": "PR_kwDOFqe-is6uRPe4",
+    "number": 209,
+    "title": "ci: add Node.js 25 to `ci.yml`",
+    "createdAt": "2025-10-17T09:56:24Z",
+    "closedAt": "2025-10-17T10:04:08Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint-transforms",
+    "htmlUrl": "https://github.com/eslint/eslint-transforms/pull/52",
+    "id": 3525326904,
+    "nodeId": "PR_kwDOA4Zafs6uRN39",
+    "number": 52,
+    "title": "ci: add Node.js 25 to `ci.yml`",
+    "createdAt": "2025-10-17T09:54:20Z",
+    "closedAt": "2025-10-17T10:03:38Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/csstree",
+    "htmlUrl": "https://github.com/eslint/csstree/pull/91",
+    "id": 3525318711,
+    "nodeId": "PR_kwDON89Njs6uRMGR",
+    "number": 91,
+    "title": "ci: add Node.js 24 and 25 to `build.yml`",
+    "createdAt": "2025-10-17T09:51:44Z",
+    "closedAt": "2025-10-17T10:03:07Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/css",
+    "htmlUrl": "https://github.com/eslint/css/pull/304",
+    "id": 3525308607,
+    "nodeId": "PR_kwDONF7wwM6uRJ6S",
+    "number": 304,
+    "title": "ci: add Node.js 25 to `ci.yml`",
+    "createdAt": "2025-10-17T09:48:29Z",
+    "closedAt": "2025-10-17T10:02:40Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/markdown",
+    "htmlUrl": "https://github.com/eslint/markdown/pull/562",
+    "id": 3525289736,
+    "nodeId": "PR_kwDOAkm7Hs6uRF3a",
+    "number": 562,
+    "title": "ci: add Node.js 25 to `ci.yml` and fix Bun CI",
+    "createdAt": "2025-10-17T09:41:59Z",
+    "closedAt": "2025-10-17T09:49:08Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslintrc",
+    "htmlUrl": "https://github.com/eslint/eslintrc/pull/199",
+    "id": 3525283181,
+    "nodeId": "PR_kwDOETsQJc6uREf3",
+    "number": 199,
+    "title": "ci: add Node.js 25 to `ci.yml`",
+    "createdAt": "2025-10-17T09:40:07Z",
+    "closedAt": "2025-10-17T09:43:55Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/rewrite",
+    "htmlUrl": "https://github.com/eslint/rewrite/pull/299",
+    "id": 3525278330,
+    "nodeId": "PR_kwDOLyyFi86uRDcg",
+    "number": 299,
+    "title": "ci: add Node.js 25 to `ci.yml`",
+    "createdAt": "2025-10-17T09:38:35Z",
+    "closedAt": "2025-10-17T09:44:17Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint",
+    "htmlUrl": "https://github.com/eslint/eslint/pull/20220",
+    "id": 3525269914,
+    "nodeId": "PR_kwDOAKjKDc6uRBpi",
+    "number": 20220,
+    "title": "ci: add Node.js 25 to `ci.yml`",
+    "createdAt": "2025-10-17T09:35:44Z",
+    "closedAt": "2025-10-17T09:42:31Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/json",
+    "htmlUrl": "https://github.com/eslint/json/pull/167",
+    "id": 3525257321,
+    "nodeId": "PR_kwDOMOnJ-M6uQ-8Q",
+    "number": 167,
+    "title": "ci: add Node.js 25 to `ci.yml`",
+    "createdAt": "2025-10-17T09:31:29Z",
+    "closedAt": "2025-10-17T09:40:51Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/workflows",
+    "htmlUrl": "https://github.com/eslint/workflows/pull/25",
+    "id": 3518029776,
+    "nodeId": "PR_kwDOO9Nass6t4pIs",
+    "number": 25,
+    "title": "feat: create `ci-package-manager.yml`",
+    "createdAt": "2025-10-15T13:21:28Z",
+    "closedAt": "2025-12-09T16:52:30Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/json",
+    "htmlUrl": "https://github.com/eslint/json/pull/166",
+    "id": 3517592575,
+    "nodeId": "PR_kwDOMOnJ-M6t3KbM",
+    "number": 166,
+    "title": "ci: centralize `ci-bun.yml`",
+    "createdAt": "2025-10-15T11:27:02Z",
+    "closedAt": "2025-10-18T14:00:48Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/code-explorer",
+    "htmlUrl": "https://github.com/eslint/code-explorer/pull/183",
+    "id": 3503158086,
+    "nodeId": "PR_kwDOLo6z_M6tGuZX",
+    "number": 183,
+    "title": "chore: remove unused `components.json` and `monaco.d.ts` files",
+    "createdAt": "2025-10-10T14:21:07Z",
+    "closedAt": "2025-10-10T14:39:39Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/code-explorer",
+    "htmlUrl": "https://github.com/eslint/code-explorer/pull/182",
+    "id": 3502735110,
+    "nodeId": "PR_kwDOLo6z_M6tFRwq",
+    "number": 182,
+    "title": "refactor: update imports to use absolute paths for better readability",
+    "createdAt": "2025-10-10T12:41:58Z",
+    "closedAt": "2025-10-14T09:57:08Z",
+    "reactions": {
+      "+1": 1
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/code-explorer",
+    "htmlUrl": "https://github.com/eslint/code-explorer/pull/181",
+    "id": 3502601134,
+    "nodeId": "PR_kwDOLo6z_M6tE0Mq",
+    "number": 181,
+    "title": "refactor: bump `@types/eslint-scope` to latest",
+    "createdAt": "2025-10-10T12:04:34Z",
+    "closedAt": "2025-10-11T13:25:57Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint",
+    "htmlUrl": "https://github.com/eslint/eslint/pull/20205",
+    "id": 3502488602,
+    "nodeId": "PR_kwDOAKjKDc6tEbdt",
+    "number": 20205,
+    "title": "docs: improve web accessibility by hiding non-semantic character",
+    "createdAt": "2025-10-10T11:30:44Z",
+    "closedAt": "2025-10-11T06:13:07Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint.org",
+    "htmlUrl": "https://github.com/eslint/eslint.org/pull/810",
+    "id": 3502459421,
+    "nodeId": "PR_kwDOGSAlOM6tEU-P",
+    "number": 810,
+    "title": "fix: improve web accessibility by hiding non-semantic character",
+    "createdAt": "2025-10-10T11:21:29Z",
+    "closedAt": "2025-10-10T15:49:25Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint",
+    "htmlUrl": "https://github.com/eslint/eslint/pull/20203",
+    "id": 3501728197,
+    "nodeId": "PR_kwDOAKjKDc6tB35A",
+    "number": 20203,
+    "title": "docs: correct formatting in `no-irregular-whitespace` rule documentation",
+    "createdAt": "2025-10-10T07:34:19Z",
+    "closedAt": "2025-10-10T09:13:05Z",
+    "reactions": {
+      "+1": 1
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/humanwhocodes/momoa",
+    "htmlUrl": "https://github.com/humanwhocodes/momoa/pull/197",
+    "id": 3501671541,
+    "nodeId": "PR_kwDOC2jYRc6tBsDy",
+    "number": 197,
+    "title": "fix: add missing `LocationRange` type export",
+    "createdAt": "2025-10-10T07:15:10Z",
+    "closedAt": "2025-10-20T14:58:14Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/generator-eslint",
+    "htmlUrl": "https://github.com/eslint/generator-eslint/pull/234",
+    "id": 3501376623,
+    "nodeId": "PR_kwDOAPfTOM6tAtJh",
+    "number": 234,
+    "title": "ci: resolve failure in the `release-please.yml` workflow",
+    "createdAt": "2025-10-10T05:06:04Z",
+    "closedAt": "2025-10-10T11:00:53Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/markdown",
+    "htmlUrl": "https://github.com/eslint/markdown/pull/558",
+    "id": 3501368108,
+    "nodeId": "PR_kwDOAkm7Hs6tArcK",
+    "number": 558,
+    "title": "ci: resolve failure in the `release-please.yml` workflow",
+    "createdAt": "2025-10-10T05:00:34Z",
+    "closedAt": "2025-10-10T10:52:47Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/css",
+    "htmlUrl": "https://github.com/eslint/css/pull/295",
+    "id": 3501358934,
+    "nodeId": "PR_kwDONF7wwM6tApl8",
+    "number": 295,
+    "title": "ci: resolve failure in the `release-please.yml` workflow",
+    "createdAt": "2025-10-10T04:53:44Z",
+    "closedAt": "2025-10-10T10:17:23Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/code-explorer",
+    "htmlUrl": "https://github.com/eslint/code-explorer/pull/177",
+    "id": 3495610513,
+    "nodeId": "PR_kwDOLo6z_M6stglK",
+    "number": 177,
+    "title": "chore: move certain packages to dev dependencies",
+    "createdAt": "2025-10-08T14:09:15Z",
+    "closedAt": "2025-10-08T14:59:47Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/markdown",
+    "htmlUrl": "https://github.com/eslint/markdown/pull/555",
+    "id": 3495067919,
+    "nodeId": "PR_kwDOAkm7Hs6srq4l",
+    "number": 555,
+    "title": "feat: handle CR and CRLF in `no-missing-atx-heading-space`",
+    "createdAt": "2025-10-08T11:37:20Z",
+    "closedAt": "2025-10-22T10:10:36Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/markdown",
+    "htmlUrl": "https://github.com/eslint/markdown/pull/554",
+    "id": 3494732992,
+    "nodeId": "PR_kwDOAkm7Hs6sqhe2",
+    "number": 554,
+    "title": "fix: handle CR in `MarkdownSourceCode` and Front Matter util",
+    "createdAt": "2025-10-08T09:56:34Z",
+    "closedAt": "2025-10-08T14:57:28Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/rewrite",
+    "htmlUrl": "https://github.com/eslint/rewrite/pull/287",
+    "id": 3484826248,
+    "nodeId": "PR_kwDOLyyFi86sJPjg",
+    "number": 287,
+    "title": "docs: fix JSDoc typo",
+    "createdAt": "2025-10-05T13:51:56Z",
+    "closedAt": "2025-10-05T14:21:27Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/markdown",
+    "htmlUrl": "https://github.com/eslint/markdown/pull/553",
+    "id": 3483621758,
+    "nodeId": "PR_kwDOAkm7Hs6sFjm0",
+    "number": 553,
+    "title": "refactor: use `getLocFromIndex` in `no-space-in-emphasis`",
+    "createdAt": "2025-10-04T12:01:30Z",
+    "closedAt": "2025-10-07T09:13:40Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/markdown",
+    "htmlUrl": "https://github.com/eslint/markdown/pull/552",
+    "id": 3483410297,
+    "nodeId": "PR_kwDOAkm7Hs6sE4tE",
+    "number": 552,
+    "title": "test: add missing tests for the `stripHtmlComments` util",
+    "createdAt": "2025-10-04T08:34:13Z",
+    "closedAt": "2025-10-04T13:02:06Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/markdown",
+    "htmlUrl": "https://github.com/eslint/markdown/pull/550",
+    "id": 3480786043,
+    "nodeId": "PR_kwDOAkm7Hs6r8Jwx",
+    "number": 550,
+    "title": "refactor: use `getLocFromIndex` in `no-html`",
+    "createdAt": "2025-10-03T11:38:34Z",
+    "closedAt": "2025-10-03T12:49:45Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint",
+    "htmlUrl": "https://github.com/eslint/eslint/pull/20182",
+    "id": 3480561019,
+    "nodeId": "PR_kwDOAKjKDc6r7Y4o",
+    "number": 20182,
+    "title": "docs: fix typos across the docs",
+    "createdAt": "2025-10-03T10:08:16Z",
+    "closedAt": "2025-10-03T12:11:31Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/csstree",
+    "htmlUrl": "https://github.com/eslint/csstree/pull/88",
+    "id": 3476555528,
+    "nodeId": "PR_kwDON89Njs6rt1_4",
+    "number": 88,
+    "title": "chore: add `CODEOWNERS` file",
+    "createdAt": "2025-10-02T08:16:43Z",
+    "closedAt": "2025-10-02T12:05:34Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/css",
+    "htmlUrl": "https://github.com/eslint/css/pull/282",
+    "id": 3476539560,
+    "nodeId": "PR_kwDONF7wwM6rtyiX",
+    "number": 282,
+    "title": "chore: add `CODEOWNERS` file",
+    "createdAt": "2025-10-02T08:11:38Z",
+    "closedAt": "2025-10-02T12:01:41Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/json",
+    "htmlUrl": "https://github.com/eslint/json/pull/163",
+    "id": 3476525617,
+    "nodeId": "PR_kwDOMOnJ-M6rtvdO",
+    "number": 163,
+    "title": "chore: add `CODEOWNERS` file",
+    "createdAt": "2025-10-02T08:08:08Z",
+    "closedAt": "2025-10-02T12:00:10Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/markdown",
+    "htmlUrl": "https://github.com/eslint/markdown/pull/549",
+    "id": 3476512187,
+    "nodeId": "PR_kwDOAkm7Hs6rtse9",
+    "number": 549,
+    "title": "chore: add `CODEOWNERS` file",
+    "createdAt": "2025-10-02T08:04:32Z",
+    "closedAt": "2025-10-02T09:24:10Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/json",
+    "htmlUrl": "https://github.com/eslint/json/pull/162",
+    "id": 3473660516,
+    "nodeId": "PR_kwDOMOnJ-M6rj9sp",
+    "number": 162,
+    "title": "fix: correct the return type of `applyInlineConfig`",
+    "createdAt": "2025-10-01T13:48:29Z",
+    "closedAt": "2025-10-21T14:25:37Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/css",
+    "htmlUrl": "https://github.com/eslint/css/pull/281",
+    "id": 3473653320,
+    "nodeId": "PR_kwDONF7wwM6rj8Gx",
+    "number": 281,
+    "title": "fix: correct the return type of `applyInlineConfig`",
+    "createdAt": "2025-10-01T13:46:39Z",
+    "closedAt": "2025-10-06T10:52:47Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/markdown",
+    "htmlUrl": "https://github.com/eslint/markdown/pull/548",
+    "id": 3473645761,
+    "nodeId": "PR_kwDOAkm7Hs6rj6bs",
+    "number": 548,
+    "title": "fix: correct the return type of `applyInlineConfig`",
+    "createdAt": "2025-10-01T13:44:35Z",
+    "closedAt": "2025-10-06T10:32:14Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/markdown",
+    "htmlUrl": "https://github.com/eslint/markdown/pull/547",
+    "id": 3473223669,
+    "nodeId": "PR_kwDOAkm7Hs6ric76",
+    "number": 547,
+    "title": "refactor: use `getlocfromindex` in `no-missing-label-refs`",
+    "createdAt": "2025-10-01T11:47:27Z",
+    "closedAt": "2025-10-02T07:53:46Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/markdown",
+    "htmlUrl": "https://github.com/eslint/markdown/pull/546",
+    "id": 3472766637,
+    "nodeId": "PR_kwDOAkm7Hs6rg3yW",
+    "number": 546,
+    "title": "refactor: use `getLocFromIndex` in `no-invalid-label-refs`",
+    "createdAt": "2025-10-01T09:27:57Z",
+    "closedAt": "2025-10-02T09:11:15Z",
+    "reactions": {
+      "+1": 0
+    }
+  }
+]

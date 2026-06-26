@@ -1,0 +1,223 @@
+[
+  {
+    "repositoryUrl": "https://api.github.com/repos/reactjs/ko.react.dev",
+    "htmlUrl": "https://github.com/reactjs/ko.react.dev/pull/1063",
+    "id": 2555603781,
+    "nodeId": "PR_kwDOChzKxs59D9pz",
+    "number": 1063,
+    "title": "docs(typo): fix typo 'props' linted by textlint",
+    "createdAt": "2024-09-30T05:32:10Z",
+    "closedAt": "2024-10-08T01:46:42Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/reactjs/ko.react.dev",
+    "htmlUrl": "https://github.com/reactjs/ko.react.dev/pull/1061",
+    "id": 2554695565,
+    "nodeId": "PR_kwDOChzKxs59A9zn",
+    "number": 1061,
+    "title": "docs(typo): fix typo 'react' linted by textlint",
+    "createdAt": "2024-09-29T04:15:52Z",
+    "closedAt": "2024-09-29T15:47:58Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/reactjs/ko.react.dev",
+    "htmlUrl": "https://github.com/reactjs/ko.react.dev/pull/1060",
+    "id": 2554690564,
+    "nodeId": "PR_kwDOChzKxs59A8zV",
+    "number": 1060,
+    "title": "docs(translation): update sidebar",
+    "createdAt": "2024-09-29T03:58:26Z",
+    "closedAt": "2024-09-29T15:48:13Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/reactjs/ko.react.dev",
+    "htmlUrl": "https://github.com/reactjs/ko.react.dev/pull/1059",
+    "id": 2554025461,
+    "nodeId": "PR_kwDOChzKxs58-vdA",
+    "number": 1059,
+    "title": "docs: update wiki/textlint/what-is-textlint.md",
+    "createdAt": "2024-09-28T05:47:33Z",
+    "closedAt": "2024-09-28T13:26:39Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/actions/runner-images",
+    "htmlUrl": "https://github.com/actions/runner-images/pull/10689",
+    "id": 2549766682,
+    "nodeId": "PR_kwDOC1mGT858wJ_t",
+    "number": 10689,
+    "title": "docs(typo): fix typo in README.md",
+    "createdAt": "2024-09-26T07:38:21Z",
+    "closedAt": "2024-09-30T08:30:37Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/textlint/textlint",
+    "htmlUrl": "https://github.com/textlint/textlint/pull/1425",
+    "id": 2548388614,
+    "nodeId": "PR_kwDOAbKN0c58rdJ_",
+    "number": 1425,
+    "title": "docs(image): make the border of get-started-steps images transparent",
+    "createdAt": "2024-09-25T16:04:43Z",
+    "closedAt": "2024-09-26T00:36:44Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/reactjs/react.dev",
+    "htmlUrl": "https://github.com/reactjs/react.dev/pull/7185",
+    "id": 2544837499,
+    "nodeId": "PR_kwDOBlDe9c58fRn8",
+    "number": 7185,
+    "title": "✨KOREAN(ko.react.dev) Translation Completed",
+    "createdAt": "2024-09-24T09:18:51Z",
+    "closedAt": "2024-09-29T17:01:11Z",
+    "reactions": {
+      "+1": 1
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/reactjs/ko.react.dev",
+    "htmlUrl": "https://github.com/reactjs/ko.react.dev/pull/1054",
+    "id": 2540028087,
+    "nodeId": "PR_kwDOChzKxs58O8Iw",
+    "number": 1054,
+    "title": "fix: `stdin is not a tty` error in `husky`",
+    "createdAt": "2024-09-21T06:54:54Z",
+    "closedAt": "2024-09-24T00:18:56Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/reactjs/ko.react.dev",
+    "htmlUrl": "https://github.com/reactjs/ko.react.dev/pull/1053",
+    "id": 2540010526,
+    "nodeId": "PR_kwDOChzKxs58O4vL",
+    "number": 1053,
+    "title": "fix: update regexp in translateGlossary.js",
+    "createdAt": "2024-09-21T06:27:06Z",
+    "closedAt": "2024-09-22T06:45:55Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/reactjs/ko.react.dev",
+    "htmlUrl": "https://github.com/reactjs/ko.react.dev/pull/1052",
+    "id": 2539010987,
+    "nodeId": "PR_kwDOChzKxs58LcNy",
+    "number": 1052,
+    "title": "feat: create `.vscode/settings.json`",
+    "createdAt": "2024-09-20T14:48:35Z",
+    "closedAt": "2024-09-24T04:03:02Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/reactjs/ko.react.dev",
+    "htmlUrl": "https://github.com/reactjs/ko.react.dev/pull/1051",
+    "id": 2538957375,
+    "nodeId": "PR_kwDOChzKxs58LQWp",
+    "number": 1051,
+    "title": "ci: test automation using github workflow `textlint_test.yml`",
+    "createdAt": "2024-09-20T14:22:47Z",
+    "closedAt": "2024-09-22T06:14:17Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/reactjs/ko.react.dev",
+    "htmlUrl": "https://github.com/reactjs/ko.react.dev/pull/1050",
+    "id": 2538842263,
+    "nodeId": "PR_kwDOChzKxs58K2zr",
+    "number": 1050,
+    "title": "docs: update spelling check link in README.md",
+    "createdAt": "2024-09-20T13:32:28Z",
+    "closedAt": "2024-09-22T06:10:31Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/reactjs/ko.react.dev",
+    "htmlUrl": "https://github.com/reactjs/ko.react.dev/pull/1049",
+    "id": 2538825516,
+    "nodeId": "PR_kwDOChzKxs58KzDH",
+    "number": 1049,
+    "title": "chore: update CODEOWNERS",
+    "createdAt": "2024-09-20T13:25:10Z",
+    "closedAt": "2024-09-22T06:08:12Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/reactjs/ko.react.dev",
+    "htmlUrl": "https://github.com/reactjs/ko.react.dev/pull/1048",
+    "id": 2538637494,
+    "nodeId": "PR_kwDOChzKxs58KJmL",
+    "number": 1048,
+    "title": "ci: lint automation using github workflow `textlint_lint.yml` and `lint-staged` (#926 #971)",
+    "createdAt": "2024-09-20T12:02:32Z",
+    "closedAt": "2024-09-22T06:10:07Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/reactjs/ko.react.dev",
+    "htmlUrl": "https://github.com/reactjs/ko.react.dev/pull/1045",
+    "id": 2514278968,
+    "nodeId": "PR_kwDOChzKxs563nx7",
+    "number": 1045,
+    "title": "build: bump `actions/upload-artifact` from `v2` to `v4`",
+    "createdAt": "2024-09-09T15:29:24Z",
+    "closedAt": "2024-09-15T08:17:40Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/material-extensions/vscode-material-icon-theme",
+    "htmlUrl": "https://github.com/material-extensions/vscode-material-icon-theme/pull/2580",
+    "id": 2511850309,
+    "nodeId": "PR_kwDOBAsGTM56veVB",
+    "number": 2580,
+    "title": "feat: ✨ .clang-format-ignore file icon",
+    "createdAt": "2024-09-07T16:24:14Z",
+    "closedAt": "2024-09-07T21:16:16Z",
+    "reactions": {
+      "+1": 1
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/reactjs/ko.react.dev",
+    "htmlUrl": "https://github.com/reactjs/ko.react.dev/pull/1039",
+    "id": 2499496175,
+    "nodeId": "PR_kwDOChzKxs56Ff2E",
+    "number": 1039,
+    "title": "docs(wiki): fix broken links in best-practices-for-translation (#918)",
+    "createdAt": "2024-09-01T14:17:21Z",
+    "closedAt": "2024-09-03T06:09:28Z",
+    "reactions": {
+      "+1": 0
+    }
+  }
+]

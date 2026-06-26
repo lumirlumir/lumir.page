@@ -1,0 +1,444 @@
+[
+  {
+    "repositoryUrl": "https://api.github.com/repos/reactjs/ko.react.dev",
+    "htmlUrl": "https://github.com/reactjs/ko.react.dev/pull/1021",
+    "id": 2429742084,
+    "nodeId": "PR_kwDOChzKxs52dCMP",
+    "number": 1021,
+    "title": "fix: typo 'dependencies' linted by textlint",
+    "createdAt": "2024-07-25T11:37:59Z",
+    "closedAt": "2024-07-26T06:43:26Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/reactjs/ko.react.dev",
+    "htmlUrl": "https://github.com/reactjs/ko.react.dev/pull/1020",
+    "id": 2429716481,
+    "nodeId": "PR_kwDOChzKxs52c8nG",
+    "number": 1020,
+    "title": "fix: typo 'returns' linted by textlint",
+    "createdAt": "2024-07-25T11:23:55Z",
+    "closedAt": "2024-07-27T00:13:23Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/reactjs/ko.react.dev",
+    "htmlUrl": "https://github.com/reactjs/ko.react.dev/pull/1019",
+    "id": 2429596957,
+    "nodeId": "PR_kwDOChzKxs52cizt",
+    "number": 1019,
+    "title": "fix: typo 'chapter' 'parameter' linted by textlint",
+    "createdAt": "2024-07-25T10:21:41Z",
+    "closedAt": "2024-07-27T00:13:09Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/reactjs/ko.react.dev",
+    "htmlUrl": "https://github.com/reactjs/ko.react.dev/pull/1018",
+    "id": 2429523148,
+    "nodeId": "PR_kwDOChzKxs52cSpW",
+    "number": 1018,
+    "title": "fix: typo 'example' linted by textlint",
+    "createdAt": "2024-07-25T09:47:14Z",
+    "closedAt": "2024-07-27T00:12:56Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/reactjs/ko.react.dev",
+    "htmlUrl": "https://github.com/reactjs/ko.react.dev/pull/1017",
+    "id": 2427281237,
+    "nodeId": "PR_kwDOChzKxs52U2Qg",
+    "number": 1017,
+    "title": "feat: textlint (#971 #926)",
+    "createdAt": "2024-07-24T11:01:58Z",
+    "closedAt": "2024-07-25T03:18:40Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/reactjs/ko.react.dev",
+    "htmlUrl": "https://github.com/reactjs/ko.react.dev/pull/1015",
+    "id": 2424236505,
+    "nodeId": "PR_kwDOChzKxs52KkCb",
+    "number": 1015,
+    "title": "fix: typo 'event' linted by textlint",
+    "createdAt": "2024-07-23T04:35:16Z",
+    "closedAt": "2024-07-23T07:42:45Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/reactjs/ko.react.dev",
+    "htmlUrl": "https://github.com/reactjs/ko.react.dev/pull/1014",
+    "id": 2424154421,
+    "nodeId": "PR_kwDOChzKxs52KR9-",
+    "number": 1014,
+    "title": "fix: typo 'application' 'attribute' linted by textlint",
+    "createdAt": "2024-07-23T03:19:09Z",
+    "closedAt": "2024-07-24T01:17:44Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/reactjs/ko.react.dev",
+    "htmlUrl": "https://github.com/reactjs/ko.react.dev/pull/1013",
+    "id": 2423012658,
+    "nodeId": "PR_kwDOChzKxs52GU1f",
+    "number": 1013,
+    "title": "feat: missed script for yarn reset",
+    "createdAt": "2024-07-22T14:23:40Z",
+    "closedAt": "2024-07-25T03:19:33Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/reactjs/ko.react.dev",
+    "htmlUrl": "https://github.com/reactjs/ko.react.dev/pull/1012",
+    "id": 2422813569,
+    "nodeId": "PR_kwDOChzKxs52Fo4Z",
+    "number": 1012,
+    "title": "fix: untranslated headings in navigation",
+    "createdAt": "2024-07-22T12:56:02Z",
+    "closedAt": "2024-07-24T01:19:09Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/reactjs/ko.react.dev",
+    "htmlUrl": "https://github.com/reactjs/ko.react.dev/pull/1011",
+    "id": 2422585906,
+    "nodeId": "PR_kwDOChzKxs52E2bU",
+    "number": 1011,
+    "title": "fix: typo 'render' linted by textlint",
+    "createdAt": "2024-07-22T11:02:36Z",
+    "closedAt": "2024-07-24T01:19:45Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/reactjs/ko.react.dev",
+    "htmlUrl": "https://github.com/reactjs/ko.react.dev/pull/1006",
+    "id": 2412688424,
+    "nodeId": "PR_kwDOChzKxs51l8f_",
+    "number": 1006,
+    "title": "fix: typo 'unmount' linted by textlint",
+    "createdAt": "2024-07-17T05:33:35Z",
+    "closedAt": "2024-07-18T02:33:34Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/reactjs/ko.react.dev",
+    "htmlUrl": "https://github.com/reactjs/ko.react.dev/pull/1005",
+    "id": 2410881842,
+    "nodeId": "PR_kwDOChzKxs51gCSb",
+    "number": 1005,
+    "title": "fix: typo 'lifecycle' 'third' linted by textlint",
+    "createdAt": "2024-07-16T11:16:12Z",
+    "closedAt": "2024-07-16T14:59:19Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/reactjs/ko.react.dev",
+    "htmlUrl": "https://github.com/reactjs/ko.react.dev/pull/1004",
+    "id": 2410857083,
+    "nodeId": "PR_kwDOChzKxs51f8zU",
+    "number": 1004,
+    "title": "fix: typo 'element' 'function' linted by textlint",
+    "createdAt": "2024-07-16T11:02:21Z",
+    "closedAt": "2024-07-16T14:59:58Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/reactjs/ko.react.dev",
+    "htmlUrl": "https://github.com/reactjs/ko.react.dev/pull/1003",
+    "id": 2410826451,
+    "nodeId": "PR_kwDOChzKxs51f1-1",
+    "number": 1003,
+    "title": "fix: typo 'class' linted by textlint",
+    "createdAt": "2024-07-16T10:45:56Z",
+    "closedAt": "2024-07-16T15:00:19Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/reactjs/ko.react.dev",
+    "htmlUrl": "https://github.com/reactjs/ko.react.dev/pull/1002",
+    "id": 2410766611,
+    "nodeId": "PR_kwDOChzKxs51fop9",
+    "number": 1002,
+    "title": "fix: typo 'handling' 'callback' linted by textlint",
+    "createdAt": "2024-07-16T10:14:22Z",
+    "closedAt": "2024-07-16T15:00:37Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/reactjs/ko.react.dev",
+    "htmlUrl": "https://github.com/reactjs/ko.react.dev/pull/1001",
+    "id": 2409123647,
+    "nodeId": "PR_kwDOChzKxs51aF9K",
+    "number": 1001,
+    "title": "fix: typo 'plugin' 'data' linted by textlint",
+    "createdAt": "2024-07-15T16:14:39Z",
+    "closedAt": "2024-07-19T00:30:21Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/reactjs/ko.react.dev",
+    "htmlUrl": "https://github.com/reactjs/ko.react.dev/pull/1000",
+    "id": 2409052268,
+    "nodeId": "PR_kwDOChzKxs51Z2KX",
+    "number": 1000,
+    "title": "fix: typo 'form' linted by textlint",
+    "createdAt": "2024-07-15T15:39:53Z",
+    "closedAt": "2024-07-19T00:30:09Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/reactjs/ko.react.dev",
+    "htmlUrl": "https://github.com/reactjs/ko.react.dev/pull/999",
+    "id": 2408948305,
+    "nodeId": "PR_kwDOChzKxs51ZfTw",
+    "number": 999,
+    "title": "fix: typo 'children' linted by textlint",
+    "createdAt": "2024-07-15T14:54:55Z",
+    "closedAt": "2024-07-16T15:03:30Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/reactjs/ko.react.dev",
+    "htmlUrl": "https://github.com/reactjs/ko.react.dev/pull/998",
+    "id": 2408885046,
+    "nodeId": "PR_kwDOChzKxs51ZRbG",
+    "number": 998,
+    "title": "fix: typo 'markup' 'reference' ... linted by textlint",
+    "createdAt": "2024-07-15T14:27:23Z",
+    "closedAt": "2024-07-16T14:59:38Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/reactjs/ko.react.dev",
+    "htmlUrl": "https://github.com/reactjs/ko.react.dev/pull/997",
+    "id": 2408608327,
+    "nodeId": "PR_kwDOChzKxs51YUJ4",
+    "number": 997,
+    "title": "fix: typo 'interaction' linted by textlint",
+    "createdAt": "2024-07-15T12:22:56Z",
+    "closedAt": "2024-07-16T15:03:50Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/reactjs/ko.react.dev",
+    "htmlUrl": "https://github.com/reactjs/ko.react.dev/pull/996",
+    "id": 2408536403,
+    "nodeId": "PR_kwDOChzKxs51YEVL",
+    "number": 996,
+    "title": "fix: typo 'user' linted by textlint",
+    "createdAt": "2024-07-15T11:48:30Z",
+    "closedAt": "2024-07-19T00:29:51Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/reactjs/ko.react.dev",
+    "htmlUrl": "https://github.com/reactjs/ko.react.dev/pull/995",
+    "id": 2408502422,
+    "nodeId": "PR_kwDOChzKxs51X8xx",
+    "number": 995,
+    "title": "fix: typo 'component' 'wrapper' 'architecture' linted by textlint",
+    "createdAt": "2024-07-15T11:29:31Z",
+    "closedAt": "2024-07-19T00:29:34Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/reactjs/ko.react.dev",
+    "htmlUrl": "https://github.com/reactjs/ko.react.dev/pull/993",
+    "id": 2407439916,
+    "nodeId": "PR_kwDOChzKxs51UX8F",
+    "number": 993,
+    "title": "remove:  `husky.config.js` and `lint-staged.config.js`",
+    "createdAt": "2024-07-14T13:38:50Z",
+    "closedAt": "2024-07-15T00:41:00Z",
+    "reactions": {
+      "+1": 1
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/reactjs/ko.react.dev",
+    "htmlUrl": "https://github.com/reactjs/ko.react.dev/pull/992",
+    "id": 2407430447,
+    "nodeId": "PR_kwDOChzKxs51UV_H",
+    "number": 992,
+    "title": "fix: typo 'Tutorial' linted by textlint",
+    "createdAt": "2024-07-14T13:12:39Z",
+    "closedAt": "2024-07-15T00:33:54Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/reactjs/ko.react.dev",
+    "htmlUrl": "https://github.com/reactjs/ko.react.dev/pull/991",
+    "id": 2407385666,
+    "nodeId": "PR_kwDOChzKxs51UM5E",
+    "number": 991,
+    "title": "feat: `wiki/translate-glossary.md` auto generation using husky and lint-staged (#971 #926)",
+    "createdAt": "2024-07-14T11:13:41Z",
+    "closedAt": "2024-07-19T00:29:18Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/reactjs/ko.react.dev",
+    "htmlUrl": "https://github.com/reactjs/ko.react.dev/pull/990",
+    "id": 2403253561,
+    "nodeId": "PR_kwDOChzKxs51GZhf",
+    "number": 990,
+    "title": "fix: typo",
+    "createdAt": "2024-07-11T13:53:21Z",
+    "closedAt": "2024-07-12T12:43:09Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/reactjs/ko.react.dev",
+    "htmlUrl": "https://github.com/reactjs/ko.react.dev/pull/989",
+    "id": 2401011483,
+    "nodeId": "PR_kwDOChzKxs50-1GT",
+    "number": 989,
+    "title": "fix: link and typo",
+    "createdAt": "2024-07-10T14:58:46Z",
+    "closedAt": "2024-07-11T00:41:42Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/reactjs/ko.react.dev",
+    "htmlUrl": "https://github.com/reactjs/ko.react.dev/pull/987",
+    "id": 2400570755,
+    "nodeId": "PR_kwDOChzKxs509Szk",
+    "number": 987,
+    "title": "fix: link and typo",
+    "createdAt": "2024-07-10T11:59:29Z",
+    "closedAt": "2024-07-11T00:42:09Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/reactjs/ko.react.dev",
+    "htmlUrl": "https://github.com/reactjs/ko.react.dev/pull/985",
+    "id": 2394079950,
+    "nodeId": "PR_kwDOChzKxs50nT6L",
+    "number": 985,
+    "title": "feat: textlint (#971 #926)",
+    "createdAt": "2024-07-07T14:30:49Z",
+    "closedAt": "2024-07-13T06:42:16Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/reactjs/ko.react.dev",
+    "htmlUrl": "https://github.com/reactjs/ko.react.dev/pull/982",
+    "id": 2388083215,
+    "nodeId": "PR_kwDOChzKxs50TCFW",
+    "number": 982,
+    "title": "fix: link and typo (#981)",
+    "createdAt": "2024-07-03T09:01:46Z",
+    "closedAt": "2024-07-05T11:54:26Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/reactjs/ko.react.dev",
+    "htmlUrl": "https://github.com/reactjs/ko.react.dev/pull/978",
+    "id": 2386457200,
+    "nodeId": "PR_kwDOChzKxs50NdSj",
+    "number": 978,
+    "title": "fix: typo",
+    "createdAt": "2024-07-02T14:42:47Z",
+    "closedAt": "2024-07-03T03:09:27Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/reactjs/ko.react.dev",
+    "htmlUrl": "https://github.com/reactjs/ko.react.dev/pull/977",
+    "id": 2383634860,
+    "nodeId": "PR_kwDOChzKxs50D0qY",
+    "number": 977,
+    "title": "refactor: delete legacy directory .circleci",
+    "createdAt": "2024-07-01T11:51:10Z",
+    "closedAt": "2024-07-01T13:01:46Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/reactjs/ko.react.dev",
+    "htmlUrl": "https://github.com/reactjs/ko.react.dev/pull/976",
+    "id": 2383003302,
+    "nodeId": "PR_kwDOChzKxs50Bpji",
+    "number": 976,
+    "title": "fix: delete unnecessary information in `package.json`",
+    "createdAt": "2024-07-01T06:54:50Z",
+    "closedAt": "2024-07-02T01:50:55Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/reactjs/ko.react.dev",
+    "htmlUrl": "https://github.com/reactjs/ko.react.dev/pull/975",
+    "id": 2382936309,
+    "nodeId": "PR_kwDOChzKxs50Ba4x",
+    "number": 975,
+    "title": "fix: correct path handling for file name extraction in `rss.js`",
+    "createdAt": "2024-07-01T06:16:14Z",
+    "closedAt": "2024-07-02T01:51:31Z",
+    "reactions": {
+      "+1": 0
+    }
+  }
+]

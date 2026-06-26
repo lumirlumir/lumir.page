@@ -1,0 +1,483 @@
+[
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/markdown",
+    "htmlUrl": "https://github.com/eslint/markdown/pull/490",
+    "id": 3273217159,
+    "nodeId": "PR_kwDOAkm7Hs6hJ96L",
+    "number": 490,
+    "title": "feat: fix false positives and negatives for consecutive backslashes",
+    "createdAt": "2025-07-29T11:14:58Z",
+    "closedAt": "2025-09-02T11:43:48Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/create-config",
+    "htmlUrl": "https://github.com/eslint/create-config/pull/186",
+    "id": 3262456509,
+    "nodeId": "PR_kwDOFqe-is6gl3XM",
+    "number": 186,
+    "title": "ci: fix CI errors caused by the newly released `eslint-config-xo`",
+    "createdAt": "2025-07-25T08:38:43Z",
+    "closedAt": "2025-07-25T09:25:38Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint.org",
+    "htmlUrl": "https://github.com/eslint/eslint.org/pull/745",
+    "id": 3262423551,
+    "nodeId": "PR_kwDOGSAlOM6glwSX",
+    "number": 745,
+    "title": "fix: cursor jumps to start of line unexpectedly",
+    "createdAt": "2025-07-25T08:25:31Z",
+    "closedAt": "2025-07-28T15:16:26Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint",
+    "htmlUrl": "https://github.com/eslint/eslint/pull/19970",
+    "id": 3262400123,
+    "nodeId": "PR_kwDOAKjKDc6glrau",
+    "number": 19970,
+    "title": "ci: unpin `jiti` to version `^2.5.1`",
+    "createdAt": "2025-07-25T08:16:52Z",
+    "closedAt": "2025-07-25T08:25:01Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint-github-bot",
+    "htmlUrl": "https://github.com/eslint/eslint-github-bot/pull/223",
+    "id": 3251963096,
+    "nodeId": "PR_kwDOBa-RVM6gCIOU",
+    "number": 223,
+    "title": "ci: update deploy workflow to use `actions/checkout@v4`",
+    "createdAt": "2025-07-22T09:50:52Z",
+    "closedAt": "2025-07-22T14:08:49Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/tsc-meetings",
+    "htmlUrl": "https://github.com/eslint/tsc-meetings/pull/603",
+    "id": 3251714371,
+    "nodeId": "PR_kwDOA7CQYc6gBRcC",
+    "number": 603,
+    "title": "ci: bump GitHub Actions workflows to the latest version",
+    "createdAt": "2025-07-22T08:41:35Z",
+    "closedAt": "2025-07-29T14:24:33Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/json",
+    "htmlUrl": "https://github.com/eslint/json/pull/125",
+    "id": 3251020603,
+    "nodeId": "PR_kwDOMOnJ-M6f-5Kk",
+    "number": 125,
+    "title": "fix: bump `plugin-kit` to latest to resolve security vulnerabilities",
+    "createdAt": "2025-07-22T04:40:02Z",
+    "closedAt": "2025-07-22T06:18:25Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/css",
+    "htmlUrl": "https://github.com/eslint/css/pull/209",
+    "id": 3251003978,
+    "nodeId": "PR_kwDONF7wwM6f-1dH",
+    "number": 209,
+    "title": "fix: bump `plugin-kit` to latest to resolve security vulnerabilities",
+    "createdAt": "2025-07-22T04:32:48Z",
+    "closedAt": "2025-07-22T06:17:34Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/markdown",
+    "htmlUrl": "https://github.com/eslint/markdown/pull/485",
+    "id": 3250978621,
+    "nodeId": "PR_kwDOAkm7Hs6f-vzN",
+    "number": 485,
+    "title": "fix: bump `plugin-kit` to latest to resolve security vulnerabilities",
+    "createdAt": "2025-07-22T04:22:34Z",
+    "closedAt": "2025-07-22T06:19:53Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/rewrite",
+    "htmlUrl": "https://github.com/eslint/rewrite/pull/244",
+    "id": 3246312991,
+    "nodeId": "PR_kwDOLyyFi86fu5r3",
+    "number": 244,
+    "title": "test: rename test file and correct type in MCP",
+    "createdAt": "2025-07-20T12:17:40Z",
+    "closedAt": "2025-07-21T15:28:27Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/markdown",
+    "htmlUrl": "https://github.com/eslint/markdown/pull/473",
+    "id": 3242865832,
+    "nodeId": "PR_kwDOAkm7Hs6fjpKI",
+    "number": 473,
+    "title": "fix: false negatives and positives in `no-reversed-media-syntax`",
+    "createdAt": "2025-07-18T11:08:55Z",
+    "closedAt": "2025-07-30T14:34:10Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/css",
+    "htmlUrl": "https://github.com/eslint/css/pull/206",
+    "id": 3242391821,
+    "nodeId": "PR_kwDONF7wwM6fiAeX",
+    "number": 206,
+    "title": "refactor: add missing type annotations to variables",
+    "createdAt": "2025-07-18T08:32:12Z",
+    "closedAt": "2025-07-21T15:42:08Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/json",
+    "htmlUrl": "https://github.com/eslint/json/pull/123",
+    "id": 3242362952,
+    "nodeId": "PR_kwDOMOnJ-M6fh6J8",
+    "number": 123,
+    "title": "refactor: add missing type annotations to variables",
+    "createdAt": "2025-07-18T08:22:18Z",
+    "closedAt": "2025-07-18T14:09:52Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/markdown",
+    "htmlUrl": "https://github.com/eslint/markdown/pull/472",
+    "id": 3242102956,
+    "nodeId": "PR_kwDOAkm7Hs6fhBN6",
+    "number": 472,
+    "title": "refactor: add missing type annotations to variables",
+    "createdAt": "2025-07-18T06:38:53Z",
+    "closedAt": "2025-07-18T12:18:03Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/markdown",
+    "htmlUrl": "https://github.com/eslint/markdown/pull/469",
+    "id": 3235685351,
+    "nodeId": "PR_kwDOAkm7Hs6fLA8k",
+    "number": 469,
+    "title": "fix: handle multiline setext headings in `no-duplicate-headings`",
+    "createdAt": "2025-07-16T12:03:38Z",
+    "closedAt": "2025-08-19T14:42:20Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint.org",
+    "htmlUrl": "https://github.com/eslint/eslint.org/pull/743",
+    "id": 3231719297,
+    "nodeId": "PR_kwDOGSAlOM6e9a81",
+    "number": 743,
+    "title": "chore: update `.gitignore` and ESLint config to use `globalIgnores`",
+    "createdAt": "2025-07-15T10:27:36Z",
+    "closedAt": "2025-07-15T10:59:30Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/markdown",
+    "htmlUrl": "https://github.com/eslint/markdown/pull/465",
+    "id": 3230861871,
+    "nodeId": "PR_kwDOAkm7Hs6e6fu2",
+    "number": 465,
+    "title": "fix: case-insensitive attribute checks in `no-missing-link-fragment`",
+    "createdAt": "2025-07-15T05:43:56Z",
+    "closedAt": "2025-07-16T06:44:49Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/js",
+    "htmlUrl": "https://github.com/eslint/js/pull/669",
+    "id": 3230800766,
+    "nodeId": "PR_kwDOAaVztc6e6SVv",
+    "number": 669,
+    "title": "chore: update ESLint config to use `defineConfig`",
+    "createdAt": "2025-07-15T05:14:14Z",
+    "closedAt": "2025-07-15T07:52:21Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/markdown",
+    "htmlUrl": "https://github.com/eslint/markdown/pull/462",
+    "id": 3228972926,
+    "nodeId": "PR_kwDOAkm7Hs6e0Gyl",
+    "number": 462,
+    "title": "fix: remove unused types from `types.ts`",
+    "createdAt": "2025-07-14T14:28:30Z",
+    "closedAt": "2025-07-17T10:01:53Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/markdown",
+    "htmlUrl": "https://github.com/eslint/markdown/pull/461",
+    "id": 3228876038,
+    "nodeId": "PR_kwDOAkm7Hs6ezxp_",
+    "number": 461,
+    "title": "fix: make `meta` property optional in `Block` type",
+    "createdAt": "2025-07-14T13:57:38Z",
+    "closedAt": "2025-07-30T14:29:51Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/markdown",
+    "htmlUrl": "https://github.com/eslint/markdown/pull/459",
+    "id": 3223141510,
+    "nodeId": "PR_kwDOAkm7Hs6eglpt",
+    "number": 459,
+    "title": "docs: fix a typo",
+    "createdAt": "2025-07-11T14:33:17Z",
+    "closedAt": "2025-07-11T15:06:11Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/markdown",
+    "htmlUrl": "https://github.com/eslint/markdown/pull/458",
+    "id": 3223073907,
+    "nodeId": "PR_kwDOAkm7Hs6egWyg",
+    "number": 458,
+    "title": "docs: remove `CONTRIBUTING.md` in favor of centralized template",
+    "createdAt": "2025-07-11T14:09:59Z",
+    "closedAt": "2025-07-11T14:13:06Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/zh-hans.docs.eslint.org",
+    "htmlUrl": "https://github.com/eslint/zh-hans.docs.eslint.org/pull/122",
+    "id": 3221491781,
+    "nodeId": "PR_kwDOHuQUFs6ea8cm",
+    "number": 122,
+    "title": "docs: remove `PULL_REQUEST_TEMPLATE.md` in favor of centralized template",
+    "createdAt": "2025-07-11T04:35:57Z",
+    "closedAt": "2025-07-11T05:31:15Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/markdown",
+    "htmlUrl": "https://github.com/eslint/markdown/pull/457",
+    "id": 3221488258,
+    "nodeId": "PR_kwDOAkm7Hs6ea7sY",
+    "number": 457,
+    "title": "docs: remove `PULL_REQUEST_TEMPLATE.md` in favor of centralized template",
+    "createdAt": "2025-07-11T04:33:32Z",
+    "closedAt": "2025-07-11T06:00:36Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/json",
+    "htmlUrl": "https://github.com/eslint/json/pull/120",
+    "id": 3221486027,
+    "nodeId": "PR_kwDOMOnJ-M6ea7Mj",
+    "number": 120,
+    "title": "docs: remove `PULL_REQUEST_TEMPLATE.md` in favor of centralized template",
+    "createdAt": "2025-07-11T04:32:19Z",
+    "closedAt": "2025-07-11T05:30:43Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/rewrite",
+    "htmlUrl": "https://github.com/eslint/rewrite/pull/238",
+    "id": 3221484220,
+    "nodeId": "PR_kwDOLyyFi86ea6zM",
+    "number": 238,
+    "title": "docs: remove `PULL_REQUEST_TEMPLATE.md` in favor of centralized template",
+    "createdAt": "2025-07-11T04:31:15Z",
+    "closedAt": "2025-07-11T05:29:51Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint.org",
+    "htmlUrl": "https://github.com/eslint/eslint.org/pull/741",
+    "id": 3221480707,
+    "nodeId": "PR_kwDOGSAlOM6ea6By",
+    "number": 741,
+    "title": "docs: remove `PULL_REQUEST_TEMPLATE.md` in favor of centralized template",
+    "createdAt": "2025-07-11T04:29:15Z",
+    "closedAt": "2025-07-11T05:31:59Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/code-explorer",
+    "htmlUrl": "https://github.com/eslint/code-explorer/pull/119",
+    "id": 3221476887,
+    "nodeId": "PR_kwDOLo6z_M6ea5MF",
+    "number": 119,
+    "title": "docs: remove `PULL_REQUEST_TEMPLATE.md` in favor of centralized template",
+    "createdAt": "2025-07-11T04:26:41Z",
+    "closedAt": "2025-07-11T05:42:17Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/css",
+    "htmlUrl": "https://github.com/eslint/css/pull/194",
+    "id": 3221473099,
+    "nodeId": "PR_kwDONF7wwM6ea4Ys",
+    "number": 194,
+    "title": "docs: remove `PULL_REQUEST_TEMPLATE.md` in favor of centralized template",
+    "createdAt": "2025-07-11T04:24:12Z",
+    "closedAt": "2025-07-11T06:01:03Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/generator-eslint",
+    "htmlUrl": "https://github.com/eslint/generator-eslint/pull/205",
+    "id": 3219515658,
+    "nodeId": "PR_kwDOAPfTOM6eUNqR",
+    "number": 205,
+    "title": "feat: update plugin template to use `defineConfig`",
+    "createdAt": "2025-07-10T14:07:42Z",
+    "closedAt": "2025-07-21T14:55:14Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/js",
+    "htmlUrl": "https://github.com/eslint/js/pull/666",
+    "id": 3217976603,
+    "nodeId": "PR_kwDOAaVztc6eO8BY",
+    "number": 666,
+    "title": "docs: remove `PULL_REQUEST_TEMPLATE.md` in favor of centralized template",
+    "createdAt": "2025-07-10T05:41:08Z",
+    "closedAt": "2025-07-10T15:33:22Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/.github",
+    "htmlUrl": "https://github.com/eslint/.github/pull/9",
+    "id": 3208304055,
+    "nodeId": "PR_kwDOEAIzj86duO8m",
+    "number": 9,
+    "title": "docs: create `PULL_REQUEST_TEMPLATE.md`",
+    "createdAt": "2025-07-07T09:52:27Z",
+    "closedAt": "2025-07-09T14:15:24Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/css",
+    "htmlUrl": "https://github.com/eslint/css/pull/191",
+    "id": 3208256290,
+    "nodeId": "PR_kwDONF7wwM6duExZ",
+    "number": 191,
+    "title": "chore: workaround for ci error caused by `minimatch`",
+    "createdAt": "2025-07-07T09:37:28Z",
+    "closedAt": "2025-07-07T14:42:55Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/code-explorer",
+    "htmlUrl": "https://github.com/eslint/code-explorer/pull/116",
+    "id": 3208221617,
+    "nodeId": "PR_kwDOLo6z_M6dt9Q0",
+    "number": 116,
+    "title": "refactor: complete migration to React 19",
+    "createdAt": "2025-07-07T09:25:39Z",
+    "closedAt": "2025-08-06T14:37:55Z",
+    "reactions": {
+      "+1": 1
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint.org",
+    "htmlUrl": "https://github.com/eslint/eslint.org/pull/740",
+    "id": 3208217235,
+    "nodeId": "PR_kwDOGSAlOM6dt8To",
+    "number": 740,
+    "title": "refactor: complete migration to React 19",
+    "createdAt": "2025-07-07T09:24:11Z",
+    "closedAt": "2025-07-21T15:21:13Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint",
+    "htmlUrl": "https://github.com/eslint/eslint/pull/19917",
+    "id": 3206645474,
+    "nodeId": "PR_kwDOAKjKDc6doxcM",
+    "number": 19917,
+    "title": "chore: bump mocha to v11",
+    "createdAt": "2025-07-06T14:58:04Z",
+    "closedAt": "2025-07-07T11:34:11Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/generator-eslint",
+    "htmlUrl": "https://github.com/eslint/generator-eslint/pull/204",
+    "id": 3205061130,
+    "nodeId": "PR_kwDOAPfTOM6dj8wR",
+    "number": 204,
+    "title": "chore: update ESLint config to use define config",
+    "createdAt": "2025-07-05T14:58:31Z",
+    "closedAt": "2025-07-06T15:29:15Z",
+    "reactions": {
+      "+1": 0
+    }
+  }
+]

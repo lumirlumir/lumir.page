@@ -1,0 +1,145 @@
+[
+  {
+    "repositoryUrl": "https://api.github.com/repos/reactjs/ko.react.dev",
+    "htmlUrl": "https://github.com/reactjs/ko.react.dev/pull/1038",
+    "id": 2498593407,
+    "nodeId": "PR_kwDOChzKxs56ClAW",
+    "number": 1038,
+    "title": "docs(wiki): manage wiki at the code level (#971)",
+    "createdAt": "2024-08-31T03:40:10Z",
+    "closedAt": "2024-09-01T13:31:21Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/material-extensions/vscode-material-icon-theme",
+    "htmlUrl": "https://github.com/material-extensions/vscode-material-icon-theme/pull/2566",
+    "id": 2497005235,
+    "nodeId": "PR_kwDOBAsGTM559p9E",
+    "number": 2566,
+    "title": "docs: 📝 fix broken links in pull_request_template",
+    "createdAt": "2024-08-30T11:44:03Z",
+    "closedAt": "2024-08-30T12:06:16Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/material-extensions/vscode-material-icon-theme",
+    "htmlUrl": "https://github.com/material-extensions/vscode-material-icon-theme/pull/2565",
+    "id": 2496945852,
+    "nodeId": "PR_kwDOBAsGTM559cqb",
+    "number": 2565,
+    "title": "feat: ✨ .markdownlintignore file icon",
+    "createdAt": "2024-08-30T11:12:41Z",
+    "closedAt": "2024-08-30T12:20:01Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/reactjs/ko.react.dev",
+    "htmlUrl": "https://github.com/reactjs/ko.react.dev/pull/1037",
+    "id": 2494914621,
+    "nodeId": "PR_kwDOChzKxs552wav",
+    "number": 1037,
+    "title": "docs(typo): fix typo in manipulating-the-dom-with-refs (#984)",
+    "createdAt": "2024-08-29T15:44:00Z",
+    "closedAt": "2024-08-30T15:25:46Z",
+    "reactions": {
+      "+1": 1
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/reactjs/ko.react.dev",
+    "htmlUrl": "https://github.com/reactjs/ko.react.dev/pull/1036",
+    "id": 2494881401,
+    "nodeId": "PR_kwDOChzKxs552pDR",
+    "number": 1036,
+    "title": "docs(typo): fix typo in useDeferredValue (#927)",
+    "createdAt": "2024-08-29T15:29:38Z",
+    "closedAt": "2024-08-30T15:26:12Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/reactjs/ko.react.dev",
+    "htmlUrl": "https://github.com/reactjs/ko.react.dev/pull/1035",
+    "id": 2494534377,
+    "nodeId": "PR_kwDOChzKxs551qLS",
+    "number": 1035,
+    "title": "fix: cache problem of deployment in vercel (#1012)",
+    "createdAt": "2024-08-29T13:56:50Z",
+    "closedAt": "2024-08-31T14:14:13Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/vercel/next.js",
+    "htmlUrl": "https://github.com/vercel/next.js/pull/69220",
+    "id": 2482931018,
+    "nodeId": "PR_kwDOBC3Cis55PE9w",
+    "number": 69220,
+    "title": "fix: ensure absolute paths are handled correctly with `--file` option in `next lint` command for `lint-staged` compatibility",
+    "createdAt": "2024-08-23T11:25:05Z",
+    "closedAt": "2024-09-04T21:55:47Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/reactjs/ko.react.dev",
+    "htmlUrl": "https://github.com/reactjs/ko.react.dev/pull/1031",
+    "id": 2463689446,
+    "nodeId": "PR_kwDOChzKxs54QGi7",
+    "number": 1031,
+    "title": "docs: update tutorial-tic-tac-toe.md (#1028)",
+    "createdAt": "2024-08-13T15:54:39Z",
+    "closedAt": "2024-08-16T06:54:27Z",
+    "reactions": {
+      "+1": 1
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/reactjs/ko.react.dev",
+    "htmlUrl": "https://github.com/reactjs/ko.react.dev/pull/1030",
+    "id": 2462575445,
+    "nodeId": "PR_kwDOChzKxs54MQDs",
+    "number": 1030,
+    "title": "fix: typo in add-react-to-an-existing-project.md",
+    "createdAt": "2024-08-13T07:14:01Z",
+    "closedAt": "2024-08-16T06:54:45Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/reactjs/ko.react.dev",
+    "htmlUrl": "https://github.com/reactjs/ko.react.dev/pull/1026",
+    "id": 2444822311,
+    "nodeId": "PR_kwDOChzKxs53P8sT",
+    "number": 1026,
+    "title": "ci: textlint test automation using husky and lint-staged",
+    "createdAt": "2024-08-02T12:08:58Z",
+    "closedAt": "2024-08-05T03:28:56Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/reactjs/ko.react.dev",
+    "htmlUrl": "https://github.com/reactjs/ko.react.dev/pull/1025",
+    "id": 2444718411,
+    "nodeId": "PR_kwDOChzKxs53Plre",
+    "number": 1025,
+    "title": "feat: introduction of `note` key value in TranslateGlossary",
+    "createdAt": "2024-08-02T11:02:43Z",
+    "closedAt": "2024-08-05T03:27:50Z",
+    "reactions": {
+      "+1": 0
+    }
+  }
+]
