@@ -1,4 +1,4 @@
-import './ProgBar.scss';
+import './ProgBar.css';
 
 export default function ProgBar() {
   window.addEventListener('scroll', () => {

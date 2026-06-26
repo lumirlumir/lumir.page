@@ -19,6 +19,11 @@
   &::-webkit-scrollbar {
     display: none;
   }
+
+  /* Fallback for browsers that don't support `::-webkit-scrollbar` (e.g. Firefox). */
+  @supports not selector(::-webkit-scrollbar) {
+    scrollbar-width: none;
+  }
 }
 
 .custom-scrollbar-y-regular {
@@ -32,6 +37,12 @@
     background-color: var(--color-border-default);
     border-radius: var(--size-border-radius);
   }
+
+  /* Fallback for browsers that don't support `::-webkit-scrollbar` (e.g. Firefox). */
+  @supports not selector(::-webkit-scrollbar) {
+    scrollbar-color: var(--color-border-default) transparent;
+    scrollbar-width: thin;
+  }
 }
 
 .custom-scrollbar-y-bold {
@@ -44,5 +55,11 @@
   &::-webkit-scrollbar-thumb {
     background-color: var(--color-border-default);
     border-radius: var(--size-border-radius);
+  }
+
+  /* Fallback for browsers that don't support `::-webkit-scrollbar` (e.g. Firefox). */
+  @supports not selector(::-webkit-scrollbar) {
+    scrollbar-color: var(--color-border-default) transparent;
+    scrollbar-width: thin;
   }
 }
