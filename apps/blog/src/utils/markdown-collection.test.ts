@@ -26,7 +26,7 @@ categories:
 references:
   - https://example.com/ko
 ---
-# Korean Mock Post
+## Korean Mock Post
 
 Korean body.`,
     '../posts/docs/simple-post.en.md': `---
@@ -38,7 +38,7 @@ categories:
   - nextjs
 references: []
 ---
-# English Mock Post
+## English Mock Post
 
 English body.`,
   },
@@ -56,7 +56,7 @@ describe('markdown-collection', () => {
     assert.strictEqual(markdownCollection1, markdownCollection2);
   });
 
-  it('should load Markdown metadata from the mocked module registry', async () => {
+  it('should load Markdown metadata from the module registry', async () => {
     const markdownCollection = createMarkdownCollection();
 
     assert.deepStrictEqual(
@@ -77,7 +77,7 @@ describe('markdown-collection', () => {
     );
   });
 
-  it('should load Markdown content from the mocked module registry', async () => {
+  it('should load Markdown content from the module registry', async () => {
     const markdownCollection = createMarkdownCollection();
 
     assert.deepStrictEqual(await markdownCollection.loadVMarkdownFile('simple-post.en'), {
@@ -92,11 +92,11 @@ describe('markdown-collection', () => {
         categories: ['nextjs'],
         references: [],
       },
-      content: '# English Mock Post\n\nEnglish body.',
+      content: '## English Mock Post\n\nEnglish body.',
     });
   });
 
-  it('should index mocked Markdown metadata by language and slug', () => {
+  it('should index Markdown metadata by language and slug', () => {
     const markdownCollection = createMarkdownCollection();
 
     assert.deepStrictEqual(markdownCollection.byLangSlug.ko['simple-post'], {
@@ -127,7 +127,7 @@ describe('markdown-collection', () => {
     });
   });
 
-  it('should index mocked Markdown metadata by language and category', () => {
+  it('should index Markdown metadata by language and category', () => {
     const markdownCollection = createMarkdownCollection();
 
     assert.deepStrictEqual(markdownCollection.byLangCategory.ko.javascript, [
@@ -178,7 +178,7 @@ describe('markdown-collection', () => {
     assert.deepStrictEqual(markdownCollection.byLangCategory.en.javascript, []);
   });
 
-  it('should return non-empty category keys from the mocked module registry', () => {
+  it('should return non-empty category keys from the module registry', () => {
     const markdownCollection = createMarkdownCollection();
 
     assert.deepStrictEqual(markdownCollection.nonEmptyCategoryKeys, {
@@ -187,7 +187,7 @@ describe('markdown-collection', () => {
     });
   });
 
-  it('should throw when a requested Markdown file is missing from the mocked module registry', async () => {
+  it('should throw when a requested Markdown file is missing from the module registry', async () => {
     const markdownCollection = createMarkdownCollection();
     let caughtError: unknown;
 
