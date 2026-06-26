@@ -39,6 +39,6 @@
     "rehype-parse": "^9.0.1",
     "rehype-stringify": "^10.0.1",
     "unified": "^11.0.5",
-    "vitest": "^4.1.8"
+    "vitest": "^4.1.9"
   }
 }
