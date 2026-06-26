@@ -10,6 +10,11 @@
   &::-webkit-scrollbar {
     display: none;
   }
+
+  /* Fallback for browsers that don't support `::-webkit-scrollbar` (e.g. Firefox). */
+  @supports not selector(::-webkit-scrollbar) {
+    scrollbar-width: none;
+  }
 }
 
 .custom-main-others {
