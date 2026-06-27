@@ -151,7 +151,7 @@ export function useTypewriter(
     onEraseCompleteProp?.();
   });
 
-  const rafRef = useRef<number | null>(null);
+  const rafRef = useRef<number | null>(null); // TODO: use closure instead?
 
   useEffect(() => {
     if (pause) {

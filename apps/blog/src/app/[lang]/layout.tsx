@@ -28,6 +28,7 @@ import Profile from '@/components/aside/profile';
 import DocSearch from '@/components/header/doc-search';
 import FlexContainer from '@/components/header/flex-container';
 import LangToggle from '@/components/header/lang-toggle';
+import ScrollProgress from '@/components/header/scroll-progress';
 import ThemeToggle from '@/components/header/theme-toggle';
 import Title from '@/components/header/title';
 
@@ -86,6 +87,7 @@ export default async function RootLayout({
       <Body>
         <ThemeScript />
         <ThemeProvider>
+          <ScrollProgress />
           <Header>
             <Title lang={lang} />
             <FlexContainer>

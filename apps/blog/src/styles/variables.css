@@ -19,6 +19,7 @@
   --size-36: 2.25rem;
   --size-40: 2.5rem;
   --size-border-radius: 6px;
+  --size-scroll-progress-height: var(--size-2);
   --size-header-height: 64px;
   --size-sidebar-width: 256px;
   --size-nav-width: var(--size-sidebar-width);

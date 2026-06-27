@@ -1,7 +1,10 @@
 .aside {
   position: sticky;
-  top: var(--size-header-height);
-  height: calc(100vh - var(--size-header-height));
+  top: calc(
+    var(--size-scroll-progress-height) + var(--size-header-height)
+  ); /* TODO: simplify this with a CSS variable */
+
+  height: calc(100vh - var(--size-scroll-progress-height) - var(--size-header-height));
   background-color: var(--color-bg-default);
   border-right: var(--border-default);
   transform: translateX(-100%);
@@ -23,7 +26,10 @@
 
 .div {
   position: fixed;
-  top: var(--size-header-height);
+  top: calc(
+    var(--size-scroll-progress-height) + var(--size-header-height)
+  ); /* TODO: simplify this with a CSS variable */
+
   z-index: 1;
   width: 32px;
   height: 32px;
