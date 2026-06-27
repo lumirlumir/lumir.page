@@ -19,15 +19,27 @@ const urlGitHubSearchIssues = new URL('https://api.github.com/search/issues');
 /**
  * Gets the start and end dates of a specific month in a given year.
  * @param year The year for which to get the month range.
- * @param month The month (`1`-`12`) for which to get the range.
+ * @param month The month (`'01'`-`'12'`) for which to get the range.
  * @returns A tuple containing the start and end dates of the month in ISO format (`YYYY-MM-DD`).
  */
 function getMonthRange(
-  year: number,
-  month: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12,
+  year: string,
+  month:
+    | '01'
+    | '02'
+    | '03'
+    | '04'
+    | '05'
+    | '06'
+    | '07'
+    | '08'
+    | '09'
+    | '10'
+    | '11'
+    | '12',
 ): readonly [start: string, end: string] {
-  const start = new Date(Date.UTC(year, month - 1, 1));
-  const end = new Date(Date.UTC(year, month, 0));
+  const start = new Date(Date.UTC(Number(year), Number(month) - 1, 1));
+  const end = new Date(Date.UTC(Number(year), Number(month), 0));
 
   return [start.toISOString().slice(0, 10), end.toISOString().slice(0, 10)] as const;
 }
@@ -36,28 +48,27 @@ function getMonthRange(
 // Script
 // --------------------------------------------------------------------------------
 
-const [type] = process.argv.slice(2);
-const [year, month] = process.argv.slice(3).map(Number);
+const [type, year, month] = process.argv.slice(2);
 
 if (type !== 'issue' && type !== 'merged') {
   throw new Error('Invalid type. Please provide either `issue` or `merged`.');
 }
 
 if (
-  month !== 1 &&
-  month !== 2 &&
-  month !== 3 &&
-  month !== 4 &&
-  month !== 5 &&
-  month !== 6 &&
-  month !== 7 &&
-  month !== 8 &&
-  month !== 9 &&
-  month !== 10 &&
-  month !== 11 &&
-  month !== 12
+  month !== '01' &&
+  month !== '02' &&
+  month !== '03' &&
+  month !== '04' &&
+  month !== '05' &&
+  month !== '06' &&
+  month !== '07' &&
+  month !== '08' &&
+  month !== '09' &&
+  month !== '10' &&
+  month !== '11' &&
+  month !== '12'
 ) {
-  throw new Error('Invalid month. Please provide a month between `1` and `12`.');
+  throw new Error('Invalid month. Please provide a month between `01` and `12`.');
 }
 
 const [start, end] = getMonthRange(year, month);
