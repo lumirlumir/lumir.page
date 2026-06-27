@@ -1,119 +1,20 @@
-- https://github.com/pulls?page=1&q=is%3Apr+author%3Alumirlumir+archived%3Afalse+-org%3Alumirlumir+is%3Aclosed+is%3Amerged
-- https://github.com/issues?q=org%3Aeslint%20label%3A%22contributor%20pool%22%20merged%3A2025-04-01..2025-04-30%20
-
----
-
-- [ ] https://github.com/eslint/eslint/issues/19633
-- [ ] https://github.com/eslint/code-explorer/pull/92
-- [ ] https://github.com/eslint/markdown/pull/347
-- [ ] https://github.com/eslint/markdown/pull/348
-- [ ] https://github.com/eslint/markdown/issues/350
-- [ ] https://github.com/RanolP/awesome-baekjoon/pull/9
-- [ ] https://github.com/eslint/code-explorer/pull/94
-- [ ] https://github.com/eslint/js/pull/650
-- [ ] https://github.com/eslint/eslint-release/pull/64
-- [ ] https://github.com/eslint/markdown/pull/352
-- [ ] https://github.com/eslint/json/pull/93
-- [ ] https://github.com/eslint/eslint.org/pull/720
-- [ ] https://github.com/eslint/rewrite/pull/182
-- [ ] https://github.com/eslint/json/pull/95
-- [ ] https://github.com/eslint/markdown/issues/355
-- [ ] https://github.com/eslint/markdown/pull/357
-- [ ] https://github.com/eslint/markdown/issues/358
-- [ ] https://github.com/eslint/json/pull/97
-- [ ] https://github.com/eslint/eslint/pull/19684
-- [ ] https://github.com/eslint/eslint/pull/19686
-- [ ] https://github.com/eslint/code-explorer/pull/95
-- [ ] https://github.com/eslint/markdown/issues/359
-- [ ] https://github.com/eslint/code-explorer/pull/96
-- [ ] https://github.com/eslint/eslint-release/pull/65
-- [ ] https://github.com/eslint/eslint-release/pull/66
-- [ ] https://github.com/eslint/markdown/pull/360
+- [x] https://github.com/eslint/eslint/issues/19633
+- [x] https://github.com/eslint/markdown/issues/350
+- [x] https://github.com/eslint/markdown/issues/355
+- [x] https://github.com/eslint/markdown/issues/358
+- [x] https://github.com/eslint/markdown/issues/359
 - [x] https://github.com/eslint/workflows/issues/6
-- [ ] https://github.com/eslint/rewrite/pull/203
-- [ ] https://github.com/eslint/markdown/pull/361
-- [ ] https://github.com/eslint/css/pull/126
-- [ ] https://github.com/eslint/eslint-release/pull/67
-- [ ] https://github.com/eslint/json/pull/98
-- [ ] https://github.com/eslint/js/pull/652
-- [ ] https://github.com/eslint/create-config/pull/167
-- [ ] https://github.com/eslint/generator-eslint/pull/200
-- [ ] https://github.com/eslint/eslint-transforms/pull/31
-- [ ] https://github.com/eslint/markdown/pull/362
-- [ ] https://github.com/reactjs/translations.react.dev/issues/334
-- [ ] https://github.com/eslint/markdown/pull/366
-- [ ] https://github.com/eslint/markdown/pull/367
-- [ ] https://github.com/facebook/react/issues/33168
-- [ ] https://github.com/eslint/code-explorer/issues/102
-- [ ] https://github.com/eslint/code-explorer/pull/103
-- [ ] https://github.com/eslint/json/issues/99
-- [ ] https://github.com/eslint/code-explorer/pull/104
-- [ ] https://github.com/eslint/code-explorer/pull/105
-- [ ] https://github.com/eslint/markdown/pull/376
-- [ ] https://github.com/eslint/eslint/pull/19731
-- [ ] https://github.com/eslint/eslint/pull/19734
-- [ ] https://github.com/eslint/create-config/pull/173
-- [ ] https://github.com/eslint/eslint/pull/19743
-- [ ] https://github.com/eslint/json/pull/102
-- [ ] https://github.com/eslint/json/pull/103
-- [ ] https://github.com/eslint/create-config/pull/175
-- [ ] https://github.com/eslint/code-explorer/pull/108
-- [ ] https://github.com/eslint/markdown/pull/381
-- [ ] https://github.com/eslint/css/pull/144
-- [ ] https://github.com/eslint/json/pull/104
-- [ ] https://github.com/eslint/markdown/pull/384
-- [ ] https://github.com/eslint/markdown/pull/385
-- [ ] https://github.com/eslint/css/pull/145
-- [ ] https://github.com/eslint/rewrite/pull/211
-- [ ] https://github.com/eslint/rewrite/pull/212
-- [ ] https://github.com/eslint/create-config/pull/179
-- [ ] https://github.com/eslint/eslint/pull/19761
-- [ ] https://github.com/eslint/eslint/pull/19771
-- [ ] https://github.com/eslint/rewrite/pull/213
-- [ ] https://github.com/eslint/eslint/pull/19782
-- [ ] https://github.com/eslint/eslint/pull/19795
-- [ ] https://github.com/eslint/markdown/issues/396
-- [ ] https://github.com/eslint/json/pull/106
+- [x] https://github.com/reactjs/translations.react.dev/issues/334
+- [x] https://github.com/facebook/react/issues/33168
+- [x] https://github.com/eslint/code-explorer/issues/102
+- [x] https://github.com/eslint/json/issues/99
+- [x] https://github.com/eslint/markdown/issues/396
 - [x] https://github.com/eslint/workflows/issues/5
-- [ ] https://github.com/eslint/markdown/pull/400
-- [ ] https://github.com/eslint/eslint-github-bot/pull/220
-- [ ] https://github.com/eslint/eslint-github-bot/pull/221
-- [ ] https://github.com/eslint/json/pull/107
-- [ ] https://github.com/eslint/markdown/issues/405
-- [ ] https://github.com/eslint/markdown/pull/406
-- [ ] https://github.com/eslint/markdown/pull/407
-- [ ] https://github.com/eslint/json/pull/108
-- [ ] https://github.com/eslint/rewrite/pull/222
-- [ ] https://github.com/eslint/json/pull/109
-- [ ] https://github.com/eslint/css/pull/167
-- [ ] https://github.com/eslint/eslint/pull/19831
-- [ ] https://github.com/eslint/eslint-github-bot/pull/222
-- [ ] https://github.com/eslint/rewrite/pull/224
-- [ ] https://github.com/eslint/rewrite/pull/225
-- [ ] https://github.com/eslint/js/issues/660
-- [ ] https://github.com/eslint/js/issues/659
-- [ ] https://github.com/eslint/markdown/pull/412
-- [ ] https://github.com/eslint/markdown/pull/413
-- [ ] https://github.com/eslint/markdown/issues/414
-- [ ] https://github.com/eslint/json/pull/110
-- [ ] https://github.com/eslint/markdown/pull/416
-- [ ] https://github.com/eslint/css/pull/170
-- [ ] https://github.com/eslint/markdown/pull/417
-- [ ] https://github.com/eslint/js/pull/664
-- [ ] https://github.com/eslint/markdown/pull/420
-- [ ] https://github.com/eslint/code-explorer/pull/112
-- [ ] https://github.com/vercel/next.js/pull/80541
-- [ ] https://github.com/vitejs/vite/pull/20208
-- [ ] https://github.com/eslint/markdown/issues/424
-- [ ] https://github.com/eslint/eslint/pull/19862
-- [ ] https://github.com/eslint/markdown/pull/425
-- [ ] https://github.com/eslint/markdown/pull/426
-- [ ] https://github.com/eslint/markdown/pull/427
-- [ ] https://github.com/eslint/css/pull/176
-- [ ] https://github.com/eslint/json/pull/114
-- [ ] https://github.com/eslint/json/pull/115
-- [ ] https://github.com/eslint/css/pull/179
-- [ ] https://github.com/eslint/markdown/pull/428
-- [ ] https://github.com/eslint/markdown/pull/431
-- [ ] https://github.com/eslint/markdown/pull/432
-- [ ] https://github.com/eslint/eslint/issues/19884
+- [x] https://github.com/eslint/markdown/issues/405
+- [x] https://github.com/eslint/markdown/pull/406
+- [x] https://github.com/eslint/js/issues/660
+- [x] https://github.com/eslint/js/issues/659
+- [x] https://github.com/eslint/markdown/issues/414
+- [x] https://github.com/eslint/markdown/issues/424
+- [x] https://github.com/eslint/json/pull/115
+- [x] https://github.com/eslint/eslint/issues/19884
