@@ -1,0 +1,119 @@
+[
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint",
+    "htmlUrl": "https://github.com/eslint/eslint/issues/19884",
+    "id": 3175252477,
+    "nodeId": "I_kwDOAKjKDc69QoH9",
+    "number": 19884,
+    "title": "Rule Change: Make `no-nested-ternary` rule TypeScript syntax aware",
+    "createdAt": "2025-06-25T11:16:28Z",
+    "closedAt": "2025-07-22T15:49:49Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/markdown",
+    "htmlUrl": "https://github.com/eslint/markdown/issues/424",
+    "id": 3150048005,
+    "nodeId": "I_kwDOAkm7Hs67wesF",
+    "number": 424,
+    "title": "New Rule: no-unused-definition",
+    "createdAt": "2025-06-16T13:34:44Z",
+    "closedAt": "2025-06-27T12:44:55Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/markdown",
+    "htmlUrl": "https://github.com/eslint/markdown/issues/423",
+    "id": 3150033590,
+    "nodeId": "I_kwDOAkm7Hs67wbK2",
+    "number": 423,
+    "title": "Change Request: no-unused-definition",
+    "createdAt": "2025-06-16T13:31:00Z",
+    "closedAt": "2025-06-16T13:35:04Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/markdown",
+    "htmlUrl": "https://github.com/eslint/markdown/issues/414",
+    "id": 3132367882,
+    "nodeId": "I_kwDOAkm7Hs66tCQK",
+    "number": 414,
+    "title": "Change Request: Replace `npm-prepare` script with npm workspace feature",
+    "createdAt": "2025-06-10T06:51:31Z",
+    "closedAt": "2025-06-19T05:39:21Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/js",
+    "htmlUrl": "https://github.com/eslint/js/issues/660",
+    "id": 3130378440,
+    "nodeId": "I_kwDOAaVztc66lcjI",
+    "number": 660,
+    "title": "Change Request: Replace `npm-run-all2` with a native script to reduce the dependency footprint",
+    "createdAt": "2025-06-09T13:50:39Z",
+    "closedAt": "2025-06-13T14:36:45Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/js",
+    "htmlUrl": "https://github.com/eslint/js/issues/659",
+    "id": 3130334577,
+    "nodeId": "I_kwDOAaVztc66lR1x",
+    "number": 659,
+    "title": "Bug: New version of `acorn` v8.1.5 breaks build",
+    "createdAt": "2025-06-09T13:34:50Z",
+    "closedAt": "2025-06-09T15:39:03Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/rewrite",
+    "htmlUrl": "https://github.com/eslint/rewrite/issues/221",
+    "id": 3125020490,
+    "nodeId": "I_kwDOLyyFi866RAdK",
+    "number": 221,
+    "title": "Change Request: Add support for `language` property to `RuleContext`",
+    "createdAt": "2025-06-06T14:51:29Z",
+    "closedAt": "2025-06-07T03:54:37Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/markdown",
+    "htmlUrl": "https://github.com/eslint/markdown/issues/405",
+    "id": 3112959443,
+    "nodeId": "I_kwDOAkm7Hs65i_3T",
+    "number": 405,
+    "title": "New Rule: no-null-character",
+    "createdAt": "2025-06-03T08:22:26Z",
+    "closedAt": "2025-06-21T12:06:56Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/workflows",
+    "htmlUrl": "https://github.com/eslint/workflows/issues/5",
+    "id": 3268737486,
+    "nodeId": "I_kwDOO9Nass7C1PnO",
+    "number": 5,
+    "title": "Suggestion: Project triaging automation",
+    "createdAt": "2025-06-02T09:11:47Z",
+    "closedAt": "2025-08-05T14:28:49Z",
+    "reactions": {
+      "+1": 0
+    }
+  }
+]

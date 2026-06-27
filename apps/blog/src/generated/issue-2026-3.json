@@ -1,0 +1,41 @@
+[
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint-community/eslint-doc-generator",
+    "htmlUrl": "https://github.com/eslint-community/eslint-doc-generator/issues/921",
+    "id": 4132657470,
+    "nodeId": "I_kwDOIGBUEc72U1k-",
+    "number": 921,
+    "title": "Change Request: Downgrade the minimum supported Node.js 22 version from `22.13.1` to `22.13.0`",
+    "createdAt": "2026-03-25T05:30:41Z",
+    "closedAt": "2026-03-25T15:18:48Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint",
+    "htmlUrl": "https://github.com/eslint/eslint/issues/20585",
+    "id": 4017414628,
+    "nodeId": "I_kwDOAKjKDc7vdOHk",
+    "number": 20585,
+    "title": "Change Request: Add Markdown, JSON, and CSS language plugins to `eslint-config-eslint`",
+    "createdAt": "2026-03-03T15:51:50Z",
+    "closedAt": null,
+    "reactions": {
+      "+1": 1
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint-community/eslint-plugin-eslint-plugin",
+    "htmlUrl": "https://github.com/eslint-community/eslint-plugin-eslint-plugin/issues/604",
+    "id": 4017127425,
+    "nodeId": "I_kwDOBI2S2c7vcIAB",
+    "number": 604,
+    "title": "Change Request: Downgrade the minimum supported Node.js 22 version from `22.13.1` to `22.13.0`",
+    "createdAt": "2026-03-03T14:54:30Z",
+    "closedAt": "2026-03-03T15:39:32Z",
+    "reactions": {
+      "+1": 0
+    }
+  }
+]

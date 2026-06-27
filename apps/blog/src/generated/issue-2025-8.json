@@ -1,0 +1,119 @@
+[
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/css",
+    "htmlUrl": "https://github.com/eslint/css/issues/244",
+    "id": 3363308014,
+    "nodeId": "I_kwDONF7wwM7IeAHu",
+    "number": 244,
+    "title": "New Rule: `no-invalid-hex-colors`",
+    "createdAt": "2025-08-28T13:18:38Z",
+    "closedAt": "2025-09-02T14:20:38Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/lerna/lerna",
+    "htmlUrl": "https://github.com/lerna/lerna/issues/4218",
+    "id": 3345855997,
+    "nodeId": "I_kwDOAtMv2M7HbbX9",
+    "number": 4218,
+    "title": "8.2.4 is not released on npm",
+    "createdAt": "2025-08-22T15:26:55Z",
+    "closedAt": "2025-09-15T09:24:01Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/rewrite",
+    "htmlUrl": "https://github.com/eslint/rewrite/issues/256",
+    "id": 3342158862,
+    "nodeId": "I_kwDOLyyFi87HNUwO",
+    "number": 256,
+    "title": "Bug: `release-please` workflow is failing for an unknown reason",
+    "createdAt": "2025-08-21T15:15:38Z",
+    "closedAt": "2025-08-21T20:12:54Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/yeonjuan/html-eslint",
+    "htmlUrl": "https://github.com/yeonjuan/html-eslint/issues/413",
+    "id": 3338524223,
+    "nodeId": "I_kwDOEr-qAM7G_dY_",
+    "number": 413,
+    "title": "[REFACTOR] Replace `getLocFromIndex` and `getIndexFromLoc` methods with ESLint's native APIs",
+    "createdAt": "2025-08-20T15:08:35Z",
+    "closedAt": "2025-11-17T23:04:12Z",
+    "reactions": {
+      "+1": 1
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint",
+    "htmlUrl": "https://github.com/eslint/eslint/issues/20026",
+    "id": 3337723803,
+    "nodeId": "I_kwDOAKjKDc7G8Z-b",
+    "number": 20026,
+    "title": "Bug: ESLint multithreaded linting significantly slower when run via `trunk`",
+    "createdAt": "2025-08-20T11:22:57Z",
+    "closedAt": "2025-10-03T22:32:16Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint",
+    "htmlUrl": "https://github.com/eslint/eslint/issues/20012",
+    "id": 3329694968,
+    "nodeId": "I_kwDOAKjKDc7Gdxz4",
+    "number": 20012,
+    "title": "Change Request: Replace `chalk` with Node.js' native `styleText` in v10",
+    "createdAt": "2025-08-18T08:20:22Z",
+    "closedAt": "2025-12-11T20:07:33Z",
+    "reactions": {
+      "+1": 6
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/js",
+    "htmlUrl": "https://github.com/eslint/js/issues/671",
+    "id": 3295951720,
+    "nodeId": "I_kwDOAaVztc7EdDto",
+    "number": 671,
+    "title": "Change Request: Introduce Prettier",
+    "createdAt": "2025-08-06T09:22:43Z",
+    "closedAt": "2026-02-14T09:53:59Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/rewrite",
+    "htmlUrl": "https://github.com/eslint/rewrite/issues/403",
+    "id": 4075297777,
+    "nodeId": "I_kwDOLyyFi87y6Bvx",
+    "number": 403,
+    "title": "Change Request: Export types from main entry point",
+    "createdAt": "2025-08-05T14:54:10Z",
+    "closedAt": null,
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/workflows",
+    "htmlUrl": "https://github.com/eslint/workflows/issues/9",
+    "id": 3292173366,
+    "nodeId": "I_kwDOO9Nass7EOpQ2",
+    "number": 9,
+    "title": "Test issue to verify that the `add-to-triage.yml` workflow is working correctly.",
+    "createdAt": "2025-08-05T08:45:50Z",
+    "closedAt": "2025-08-05T08:47:22Z",
+    "reactions": {
+      "+1": 0
+    }
+  }
+]

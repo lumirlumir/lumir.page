@@ -1,0 +1,41 @@
+[
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/json",
+    "htmlUrl": "https://github.com/eslint/json/issues/196",
+    "id": 3772712585,
+    "nodeId": "I_kwDOMOnJ-M7g3waJ",
+    "number": 196,
+    "title": "Change Request: Remove `rollup` and migrate to ESM-only as part of the upcoming v1.0.0 (JSON/CSS)",
+    "createdAt": "2025-12-31T12:35:15Z",
+    "closedAt": "2026-01-15T22:13:50Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/rewrite",
+    "htmlUrl": "https://github.com/eslint/rewrite/issues/347",
+    "id": 3767318952,
+    "nodeId": "I_kwDOLyyFi87gjLmo",
+    "number": 347,
+    "title": "Bug: `extends` in `defineConfig` does not support language plugins based on `@eslint/markdown`, `@eslint/css`, or `@eslint/json`",
+    "createdAt": "2025-12-29T12:41:18Z",
+    "closedAt": "2025-12-29T15:07:29Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/tsc-meetings",
+    "htmlUrl": "https://github.com/eslint/tsc-meetings/issues/652",
+    "id": 3729339589,
+    "nodeId": "I_kwDOA7CQYc7eSTTF",
+    "number": 652,
+    "title": "Renovate doesn't seem to be working",
+    "createdAt": "2025-12-15T08:32:20Z",
+    "closedAt": "2026-01-04T08:47:27Z",
+    "reactions": {
+      "+1": 0
+    }
+  }
+]

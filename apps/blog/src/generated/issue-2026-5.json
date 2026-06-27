@@ -1,0 +1,41 @@
+[
+  {
+    "repositoryUrl": "https://api.github.com/repos/typescript-eslint/typescript-eslint",
+    "htmlUrl": "https://github.com/typescript-eslint/typescript-eslint/issues/12353",
+    "id": 4496127066,
+    "nodeId": "I_kwDOCd3hms8AAAABC_10Wg",
+    "number": 12353,
+    "title": "Bug: `ban-ts-comment` and `prefer-ts-expect-error` don't respect ECMAScript line terminators",
+    "createdAt": "2026-05-21T16:09:57Z",
+    "closedAt": "2026-05-27T13:09:22Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint",
+    "htmlUrl": "https://github.com/eslint/eslint/issues/20867",
+    "id": 4436741310,
+    "nodeId": "I_kwDOAKjKDc8AAAABCHNMvg",
+    "number": 20867,
+    "title": "Bug: `meta.language` support is tied to configured plugin namespace",
+    "createdAt": "2026-05-13T09:42:33Z",
+    "closedAt": "2026-05-28T20:38:17Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint",
+    "htmlUrl": "https://github.com/eslint/eslint/issues/20848",
+    "id": 4398235015,
+    "nodeId": "I_kwDOAKjKDc8AAAABBie9hw",
+    "number": 20848,
+    "title": "Change Request: Add Node.js 26 to the CI matrix",
+    "createdAt": "2026-05-07T11:03:59Z",
+    "closedAt": null,
+    "reactions": {
+      "+1": 0
+    }
+  }
+]

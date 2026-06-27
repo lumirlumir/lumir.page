@@ -1,0 +1,15 @@
+[
+  {
+    "repositoryUrl": "https://api.github.com/repos/reactjs/ko.react.dev",
+    "htmlUrl": "https://github.com/reactjs/ko.react.dev/issues/971",
+    "id": 2381714222,
+    "nodeId": "I_kwDOChzKxs6N9hMu",
+    "number": 971,
+    "title": "[Suggestion]: Is `textlint` deprecated?",
+    "createdAt": "2024-06-29T12:23:47Z",
+    "closedAt": "2024-09-22T06:10:08Z",
+    "reactions": {
+      "+1": 1
+    }
+  }
+]
