@@ -1,7 +1,7 @@
 /**
  * @fileoverview Script to generate GitHub contributions data for a specific month and year.
  * @see https://docs.github.com/en/rest/search/search?apiVersion=2026-03-10#search-issues-and-pull-requests
- * Usage: `node generate-github-contributions.ts <type> <year> <month>`
+ * Usage: `node path/to/generate-github-contributions.ts <type> <year> <month>`
  */
 
 // --------------------------------------------------------------------------------
