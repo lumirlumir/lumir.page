@@ -1,0 +1,431 @@
+[
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint.org",
+    "htmlUrl": "https://github.com/eslint/eslint.org/pull/930",
+    "id": 3879478362,
+    "nodeId": "PR_kwDOGSAlOM7AlRau",
+    "number": 930,
+    "title": "chore: use stable React Compiler and update React",
+    "createdAt": "2026-01-31T16:06:11Z",
+    "closedAt": "2026-01-31T20:47:57Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/code-explorer",
+    "htmlUrl": "https://github.com/eslint/code-explorer/pull/303",
+    "id": 3879465259,
+    "nodeId": "PR_kwDOLo6z_M7AlPEv",
+    "number": 303,
+    "title": "chore: use stable React Compiler",
+    "createdAt": "2026-01-31T15:57:28Z",
+    "closedAt": "2026-01-31T20:57:57Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/markdown",
+    "htmlUrl": "https://github.com/eslint/markdown/pull/617",
+    "id": 3879443896,
+    "nodeId": "PR_kwDOAkm7Hs7AlLeT",
+    "number": 617,
+    "title": "feat: support Math",
+    "createdAt": "2026-01-31T15:42:45Z",
+    "closedAt": "2026-03-24T16:52:36Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/reactjs/ko.react.dev",
+    "htmlUrl": "https://github.com/reactjs/ko.react.dev/pull/1450",
+    "id": 3878834129,
+    "nodeId": "PR_kwDOChzKxs7AjOLf",
+    "number": 1450,
+    "title": "docs: translate remaining React Compiler sections",
+    "createdAt": "2026-01-31T09:36:28Z",
+    "closedAt": "2026-01-31T10:59:39Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/reactjs/ko.react.dev",
+    "htmlUrl": "https://github.com/reactjs/ko.react.dev/pull/1449",
+    "id": 3878658140,
+    "nodeId": "PR_kwDOChzKxs7Aiq5S",
+    "number": 1449,
+    "title": "docs: translate React Compiler sections",
+    "createdAt": "2026-01-31T07:18:20Z",
+    "closedAt": "2026-01-31T08:20:50Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/reactjs/ko.react.dev",
+    "htmlUrl": "https://github.com/reactjs/ko.react.dev/pull/1446",
+    "id": 3870396699,
+    "nodeId": "PR_kwDOChzKxs7AHdfG",
+    "number": 1446,
+    "title": "fix: remove stale React 18 links",
+    "createdAt": "2026-01-29T12:26:13Z",
+    "closedAt": "2026-01-30T09:37:41Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/reactjs/ko.react.dev",
+    "htmlUrl": "https://github.com/reactjs/ko.react.dev/pull/1444",
+    "id": 3866094547,
+    "nodeId": "PR_kwDOChzKxs6_48_q",
+    "number": 1444,
+    "title": "docs: update stale discord badge in `README.md`",
+    "createdAt": "2026-01-28T15:47:15Z",
+    "closedAt": "2026-01-29T11:59:05Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/vitejs/vite",
+    "htmlUrl": "https://github.com/vitejs/vite/pull/21502",
+    "id": 3860947806,
+    "nodeId": "PR_kwDOD1jqbs6_n4me",
+    "number": 21502,
+    "title": "docs: add missing backticks in `shared-options.md`",
+    "createdAt": "2026-01-27T14:45:08Z",
+    "closedAt": "2026-01-28T03:13:16Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/code-explorer",
+    "htmlUrl": "https://github.com/eslint/code-explorer/pull/299",
+    "id": 3860902050,
+    "nodeId": "PR_kwDOLo6z_M6_nvLE",
+    "number": 299,
+    "title": "feat: support Math in Markdown",
+    "createdAt": "2026-01-27T14:35:05Z",
+    "closedAt": "2026-05-18T20:29:40Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/vitejs/vite",
+    "htmlUrl": "https://github.com/vitejs/vite/pull/21497",
+    "id": 3855505681,
+    "nodeId": "PR_kwDOD1jqbs6_V7Jo",
+    "number": 21497,
+    "title": "docs: add missing backticks around `vite.config.js`",
+    "createdAt": "2026-01-26T11:06:41Z",
+    "closedAt": "2026-01-28T03:14:04Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint-release",
+    "htmlUrl": "https://github.com/eslint/eslint-release/pull/92",
+    "id": 3852671606,
+    "nodeId": "PR_kwDOAvvbFc6_NCwe",
+    "number": 92,
+    "title": "chore: introduce `prettier`",
+    "createdAt": "2026-01-25T06:14:03Z",
+    "closedAt": "2026-02-11T11:06:39Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint-transforms",
+    "htmlUrl": "https://github.com/eslint/eslint-transforms/pull/67",
+    "id": 3852641862,
+    "nodeId": "PR_kwDOA4Zafs6_M8rW",
+    "number": 67,
+    "title": "chore: introduce `prettier`",
+    "createdAt": "2026-01-25T05:51:53Z",
+    "closedAt": "2026-02-13T08:33:27Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint-github-bot",
+    "htmlUrl": "https://github.com/eslint/eslint-github-bot/pull/274",
+    "id": 3852608585,
+    "nodeId": "PR_kwDOBa-RVM6_M2Pa",
+    "number": 274,
+    "title": "chore: introduce `prettier`",
+    "createdAt": "2026-01-25T05:18:57Z",
+    "closedAt": "2026-02-12T12:16:25Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/js",
+    "htmlUrl": "https://github.com/eslint/js/pull/723",
+    "id": 3851341172,
+    "nodeId": "PR_kwDOAaVztc6_Ixel",
+    "number": 723,
+    "title": "chore: introduce `prettier`",
+    "createdAt": "2026-01-24T14:34:40Z",
+    "closedAt": "2026-02-01T08:18:58Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/create-config",
+    "htmlUrl": "https://github.com/eslint/create-config/pull/230",
+    "id": 3851253185,
+    "nodeId": "PR_kwDOFqe-is6_IeLF",
+    "number": 230,
+    "title": "chore: introduce `prettier`",
+    "createdAt": "2026-01-24T14:02:20Z",
+    "closedAt": "2026-02-02T14:37:32Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/swc-project/swc",
+    "htmlUrl": "https://github.com/swc-project/swc/pull/11486",
+    "id": 3843590503,
+    "nodeId": "PR_kwDOBtxxJc6-uzWi",
+    "number": 11486,
+    "title": "chore: add missing `repository.directory` property to `package.json`",
+    "createdAt": "2026-01-22T15:59:34Z",
+    "closedAt": "2026-01-23T01:23:38Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/oxc-project/oxc",
+    "htmlUrl": "https://github.com/oxc-project/oxc/pull/18396",
+    "id": 3841975432,
+    "nodeId": "PR_kwDOI7qa7s6-pbY5",
+    "number": 18396,
+    "title": "fix(linter): compatibility issue with `DiagnosticData` type in ESLint",
+    "createdAt": "2026-01-22T09:11:30Z",
+    "closedAt": "2026-01-22T18:09:52Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/workflows",
+    "htmlUrl": "https://github.com/eslint/workflows/pull/49",
+    "id": 3837899088,
+    "nodeId": "PR_kwDOO9Nass6-brRu",
+    "number": 49,
+    "title": "feat: auto merge dev-dependencies",
+    "createdAt": "2026-01-21T11:54:44Z",
+    "closedAt": "2026-04-10T13:43:00Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/js",
+    "htmlUrl": "https://github.com/eslint/js/pull/722",
+    "id": 3833968343,
+    "nodeId": "PR_kwDOAaVztc6-Oi7f",
+    "number": 722,
+    "title": "refactor: hoist cli tools to root level",
+    "createdAt": "2026-01-20T14:25:48Z",
+    "closedAt": "2026-02-08T09:38:42Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/css",
+    "htmlUrl": "https://github.com/eslint/css/pull/365",
+    "id": 3825295624,
+    "nodeId": "PR_kwDONF7wwM69ydzQ",
+    "number": 365,
+    "title": "ci: ensure ESLint works with at least `9.15.0` and pre-releases",
+    "createdAt": "2026-01-17T14:31:02Z",
+    "closedAt": "2026-01-22T17:23:21Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/json",
+    "htmlUrl": "https://github.com/eslint/json/pull/202",
+    "id": 3825221738,
+    "nodeId": "PR_kwDOMOnJ-M69yN4g",
+    "number": 202,
+    "title": "ci: ensure ESLint works with at least `9.15.0` and pre-releases",
+    "createdAt": "2026-01-17T13:51:18Z",
+    "closedAt": "2026-01-20T21:40:52Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/markdown",
+    "htmlUrl": "https://github.com/eslint/markdown/pull/608",
+    "id": 3822062553,
+    "nodeId": "PR_kwDOAkm7Hs69nrmG",
+    "number": 608,
+    "title": "chore: fix CI failure caused by `knip`",
+    "createdAt": "2026-01-16T13:35:14Z",
+    "closedAt": "2026-01-16T15:18:26Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint",
+    "htmlUrl": "https://github.com/eslint/eslint/pull/20431",
+    "id": 3799712967,
+    "nodeId": "PR_kwDOAKjKDc68eMqY",
+    "number": 20431,
+    "title": "docs: add AI acknowledgement section to templates",
+    "createdAt": "2026-01-10T13:22:31Z",
+    "closedAt": "2026-02-16T21:31:07Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/config-inspector",
+    "htmlUrl": "https://github.com/eslint/config-inspector/pull/207",
+    "id": 3787272522,
+    "nodeId": "PR_kwDOLnSOl8671NHF",
+    "number": 207,
+    "title": "ci: create `update-readme` workflow",
+    "createdAt": "2026-01-07T04:05:44Z",
+    "closedAt": "2026-01-07T04:23:49Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/generator-eslint",
+    "htmlUrl": "https://github.com/eslint/generator-eslint/pull/252",
+    "id": 3787195883,
+    "nodeId": "PR_kwDOAPfTOM6709mM",
+    "number": 252,
+    "title": "chore: remove unused `yeoman-environment` dev-dependency",
+    "createdAt": "2026-01-07T03:13:51Z",
+    "closedAt": "2026-01-07T03:25:43Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/markdown",
+    "htmlUrl": "https://github.com/eslint/markdown/pull/604",
+    "id": 3781141966,
+    "nodeId": "PR_kwDOAkm7Hs67g9hi",
+    "number": 604,
+    "title": "feat: fix incorrect regex pattern in `require-alt-text` and `no-html`",
+    "createdAt": "2026-01-05T11:23:37Z",
+    "closedAt": "2026-01-11T12:18:38Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/markdown",
+    "htmlUrl": "https://github.com/eslint/markdown/pull/603",
+    "id": 3779097905,
+    "nodeId": "PR_kwDOAkm7Hs67apL9",
+    "number": 603,
+    "title": "fix: recognize `Definition` node in `no-missing-link-fragments`",
+    "createdAt": "2026-01-04T10:33:35Z",
+    "closedAt": "2026-01-22T22:35:11Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/config-inspector",
+    "htmlUrl": "https://github.com/eslint/config-inspector/pull/206",
+    "id": 3779023840,
+    "nodeId": "PR_kwDOLnSOl867abL7",
+    "number": 206,
+    "title": "ci: centralize `add-to-triage.yml`",
+    "createdAt": "2026-01-04T09:04:10Z",
+    "closedAt": "2026-01-07T03:42:53Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/markdown",
+    "htmlUrl": "https://github.com/eslint/markdown/pull/602",
+    "id": 3776022646,
+    "nodeId": "PR_kwDOAkm7Hs67RKdz",
+    "number": 602,
+    "title": "chore: flatten `dist` directory and follow ESLint conventions",
+    "createdAt": "2026-01-02T10:05:07Z",
+    "closedAt": "2026-01-19T19:16:23Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/css",
+    "htmlUrl": "https://github.com/eslint/css/pull/353",
+    "id": 3774763350,
+    "nodeId": "PR_kwDONF7wwM67NPM5",
+    "number": 353,
+    "title": "feat!: export types from main entry and remove `/types` export",
+    "createdAt": "2026-01-01T14:44:22Z",
+    "closedAt": "2026-01-30T17:05:30Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/css",
+    "htmlUrl": "https://github.com/eslint/css/pull/352",
+    "id": 3774760340,
+    "nodeId": "PR_kwDONF7wwM67NOpP",
+    "number": 352,
+    "title": "fix!: remove `rollup`, extraneous types and migrate to ESM-only",
+    "createdAt": "2026-01-01T14:40:59Z",
+    "closedAt": "2026-01-15T22:19:12Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/json",
+    "htmlUrl": "https://github.com/eslint/json/pull/198",
+    "id": 3774750736,
+    "nodeId": "PR_kwDOMOnJ-M67NMwt",
+    "number": 198,
+    "title": "feat!: export types from main entry and remove `/types` export",
+    "createdAt": "2026-01-01T14:30:14Z",
+    "closedAt": "2026-01-16T23:02:14Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/json",
+    "htmlUrl": "https://github.com/eslint/json/pull/197",
+    "id": 3774641461,
+    "nodeId": "PR_kwDOMOnJ-M67M0s3",
+    "number": 197,
+    "title": "fix!: remove `rollup`, extraneous types and migrate to ESM-only",
+    "createdAt": "2026-01-01T13:31:36Z",
+    "closedAt": "2026-01-15T22:13:49Z",
+    "reactions": {
+      "+1": 0
+    }
+  }
+]

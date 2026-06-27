@@ -1,0 +1,288 @@
+[
+  {
+    "repositoryUrl": "https://api.github.com/repos/typescript-eslint/typescript-eslint",
+    "htmlUrl": "https://github.com/typescript-eslint/typescript-eslint/pull/12293",
+    "id": 4358178689,
+    "nodeId": "PR_kwDOCd3hms7XGqtH",
+    "number": 12293,
+    "title": "chore(website): correct ESLint capitalization typos in playground",
+    "createdAt": "2026-04-30T12:43:47Z",
+    "closedAt": "2026-04-30T13:02:38Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/config-inspector",
+    "htmlUrl": "https://github.com/eslint/config-inspector/pull/234",
+    "id": 4341306428,
+    "nodeId": "PR_kwDOLnSOl87WPNTX",
+    "number": 234,
+    "title": "ci: add `triage:no` to hide release please PRs from the triage board",
+    "createdAt": "2026-04-28T07:19:43Z",
+    "closedAt": "2026-04-30T20:17:45Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/create-config",
+    "htmlUrl": "https://github.com/eslint/create-config/pull/244",
+    "id": 4341298126,
+    "nodeId": "PR_kwDOFqe-is7WPLjo",
+    "number": 244,
+    "title": "ci: add `triage:no` to hide release please PRs from the triage board",
+    "createdAt": "2026-04-28T07:18:01Z",
+    "closedAt": "2026-04-30T20:23:15Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/css",
+    "htmlUrl": "https://github.com/eslint/css/pull/429",
+    "id": 4341281615,
+    "nodeId": "PR_kwDONF7wwM7WPIIC",
+    "number": 429,
+    "title": "ci: add `triage:no` to hide release please PRs from the triage board",
+    "createdAt": "2026-04-28T07:14:37Z",
+    "closedAt": "2026-04-30T20:37:03Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/csstree",
+    "htmlUrl": "https://github.com/eslint/csstree/pull/134",
+    "id": 4341272841,
+    "nodeId": "PR_kwDON89Njs7WPGQd",
+    "number": 134,
+    "title": "ci: add `triage:no` to hide release please PRs from the triage board",
+    "createdAt": "2026-04-28T07:12:46Z",
+    "closedAt": "2026-04-30T20:36:43Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint-transforms",
+    "htmlUrl": "https://github.com/eslint/eslint-transforms/pull/72",
+    "id": 4341263143,
+    "nodeId": "PR_kwDOA4Zafs7WPETM",
+    "number": 72,
+    "title": "ci: add `triage:no` to hide release please PRs from the triage board",
+    "createdAt": "2026-04-28T07:10:45Z",
+    "closedAt": "2026-04-30T20:32:03Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslintrc",
+    "htmlUrl": "https://github.com/eslint/eslintrc/pull/230",
+    "id": 4341255526,
+    "nodeId": "PR_kwDOETsQJc7WPC0Z",
+    "number": 230,
+    "title": "ci: add `triage:no` to hide release please PRs from the triage board",
+    "createdAt": "2026-04-28T07:09:15Z",
+    "closedAt": "2026-04-30T20:31:31Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/generator-eslint",
+    "htmlUrl": "https://github.com/eslint/generator-eslint/pull/267",
+    "id": 4341247160,
+    "nodeId": "PR_kwDOAPfTOM7WPBGF",
+    "number": 267,
+    "title": "ci: add `triage:no` to hide release please PRs from the triage board",
+    "createdAt": "2026-04-28T07:07:34Z",
+    "closedAt": "2026-04-30T20:31:04Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/json",
+    "htmlUrl": "https://github.com/eslint/json/pull/233",
+    "id": 4341238256,
+    "nodeId": "PR_kwDOMOnJ-M7WO_O1",
+    "number": 233,
+    "title": "ci: add `triage:no` to hide release please PRs from the triage board",
+    "createdAt": "2026-04-28T07:05:37Z",
+    "closedAt": "2026-04-30T20:30:42Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/markdown",
+    "htmlUrl": "https://github.com/eslint/markdown/pull/650",
+    "id": 4341230633,
+    "nodeId": "PR_kwDOAkm7Hs7WO9qX",
+    "number": 650,
+    "title": "ci: add `triage:no` to hide release please PRs from the triage board",
+    "createdAt": "2026-04-28T07:03:56Z",
+    "closedAt": "2026-04-30T20:29:52Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/js",
+    "htmlUrl": "https://github.com/eslint/js/pull/745",
+    "id": 4335131190,
+    "nodeId": "PR_kwDOAaVztc7V7aXm",
+    "number": 745,
+    "title": "ci: add `triage:no` to hide release please PRs from the triage board",
+    "createdAt": "2026-04-27T10:52:02Z",
+    "closedAt": "2026-04-27T16:29:34Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/rollup/rollup",
+    "htmlUrl": "https://github.com/rollup/rollup/pull/6368",
+    "id": 4328473334,
+    "nodeId": "PR_kwDOAh_Tpc7VnAmx",
+    "number": 6368,
+    "title": "docs: add missing backticks in `plugin-development`",
+    "createdAt": "2026-04-25T15:07:12Z",
+    "closedAt": "2026-05-01T07:50:49Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/markdown",
+    "htmlUrl": "https://github.com/eslint/markdown/pull/648",
+    "id": 4300607327,
+    "nodeId": "PR_kwDOAkm7Hs7UMlnz",
+    "number": 648,
+    "title": "fix: type compatibility issue between Markdown v8 and ESLint v9.39.x",
+    "createdAt": "2026-04-21T06:00:43Z",
+    "closedAt": "2026-06-15T15:59:57Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/rewrite",
+    "htmlUrl": "https://github.com/eslint/rewrite/pull/437",
+    "id": 4291051113,
+    "nodeId": "PR_kwDOLyyFi87TuNGL",
+    "number": 437,
+    "title": "fix: update `espree` to the latest",
+    "createdAt": "2026-04-19T14:04:01Z",
+    "closedAt": "2026-04-19T16:57:03Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/rewrite",
+    "htmlUrl": "https://github.com/eslint/rewrite/pull/435",
+    "id": 4290904579,
+    "nodeId": "PR_kwDOLyyFi87TtwOL",
+    "number": 435,
+    "title": "ci: ensure `@eslint/core` in `templates` is updated by release please",
+    "createdAt": "2026-04-19T13:08:17Z",
+    "closedAt": "2026-04-21T08:44:47Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint-community/eslint-plugin-eslint-plugin",
+    "htmlUrl": "https://github.com/eslint-community/eslint-plugin-eslint-plugin/pull/615",
+    "id": 4288308994,
+    "nodeId": "PR_kwDOBI2S2c7TmLTG",
+    "number": 615,
+    "title": "fix: update error message for invalid `meta.fixable` property",
+    "createdAt": "2026-04-18T14:41:19Z",
+    "closedAt": "2026-04-18T16:05:48Z",
+    "reactions": {
+      "+1": 1
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/code-explorer",
+    "htmlUrl": "https://github.com/eslint/code-explorer/pull/391",
+    "id": 4255627559,
+    "nodeId": "PR_kwDOLo6z_M7SAogE",
+    "number": 391,
+    "title": "chore: enhance test file structure with section header comments",
+    "createdAt": "2026-04-13T14:28:19Z",
+    "closedAt": "2026-04-14T08:03:57Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/markdown",
+    "htmlUrl": "https://github.com/eslint/markdown/pull/645",
+    "id": 4254726866,
+    "nodeId": "PR_kwDOAkm7Hs7R-uth",
+    "number": 645,
+    "title": "docs: use `defineConfig` in `markdown.md` example",
+    "createdAt": "2026-04-13T12:45:12Z",
+    "closedAt": "2026-04-13T15:02:04Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/code-explorer",
+    "htmlUrl": "https://github.com/eslint/code-explorer/pull/375",
+    "id": 4211089179,
+    "nodeId": "PR_kwDOLo6z_M7QLUuT",
+    "number": 375,
+    "title": "test: add more e2e tests in `options.test.ts`",
+    "createdAt": "2026-04-06T10:29:41Z",
+    "closedAt": "2026-04-07T07:44:55Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/code-explorer",
+    "htmlUrl": "https://github.com/eslint/code-explorer/pull/374",
+    "id": 4210647211,
+    "nodeId": "PR_kwDOLo6z_M7QKAeu",
+    "number": 374,
+    "title": "fix: update dependencies under `@eslint` scope",
+    "createdAt": "2026-04-06T08:55:35Z",
+    "closedAt": "2026-04-27T15:39:46Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/create-config",
+    "htmlUrl": "https://github.com/eslint/create-config/pull/240",
+    "id": 4210497176,
+    "nodeId": "PR_kwDOFqe-is7QJlW2",
+    "number": 240,
+    "title": "test: replace `sinon` with `vitest` mocks in tests for consistency",
+    "createdAt": "2026-04-06T08:21:39Z",
+    "closedAt": "2026-04-13T21:07:23Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/Han5991/fe-lab",
+    "htmlUrl": "https://github.com/Han5991/fe-lab/pull/74",
+    "id": 4205102079,
+    "nodeId": "PR_kwDON9_lw87P9qyn",
+    "number": 74,
+    "title": "fix: change Giscus theme to 'light'",
+    "createdAt": "2026-04-04T14:50:38Z",
+    "closedAt": "2026-04-04T14:55:05Z",
+    "reactions": {
+      "+1": 2
+    }
+  }
+]

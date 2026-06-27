@@ -1,0 +1,535 @@
+[
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/css",
+    "htmlUrl": "https://github.com/eslint/css/pull/335",
+    "id": 3677985925,
+    "nodeId": "PR_kwDONF7wwM62L7xJ",
+    "number": 335,
+    "title": "chore: update `prettier` to fix CI",
+    "createdAt": "2025-11-30T16:17:50Z",
+    "closedAt": "2025-12-01T06:15:53Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/markdown",
+    "htmlUrl": "https://github.com/eslint/markdown/pull/591",
+    "id": 3677965753,
+    "nodeId": "PR_kwDOAkm7Hs62L3by",
+    "number": 591,
+    "title": "chore: update `prettier` to fix CI",
+    "createdAt": "2025-11-30T16:03:57Z",
+    "closedAt": "2025-12-01T06:13:14Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/rewrite",
+    "htmlUrl": "https://github.com/eslint/rewrite/pull/334",
+    "id": 3673829985,
+    "nodeId": "PR_kwDOLyyFi861-roP",
+    "number": 334,
+    "title": "fix!: remove `unstable_config_lookup_from_file` from MCP in v10",
+    "createdAt": "2025-11-28T07:00:16Z",
+    "closedAt": "2026-02-06T23:51:59Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/rewrite",
+    "htmlUrl": "https://github.com/eslint/rewrite/pull/332",
+    "id": 3669930332,
+    "nodeId": "PR_kwDOLyyFi861xqNF",
+    "number": 332,
+    "title": "refactor: fix CI, use `zod` v4, and latest method in `mcp`",
+    "createdAt": "2025-11-27T05:34:10Z",
+    "closedAt": "2025-12-03T11:57:52Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint",
+    "htmlUrl": "https://github.com/eslint/eslint/pull/20348",
+    "id": 3659483049,
+    "nodeId": "PR_kwDOAKjKDc61Ou5z",
+    "number": 20348,
+    "title": "fix: use `MessagePlaceholderData` type from `@eslint/core`",
+    "createdAt": "2025-11-24T15:47:07Z",
+    "closedAt": "2026-01-10T13:36:06Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/css",
+    "htmlUrl": "https://github.com/eslint/css/pull/328",
+    "id": 3633551558,
+    "nodeId": "PR_kwDONF7wwM6z3jHR",
+    "number": 328,
+    "title": "test: fix CI failure caused by newly updated baseline",
+    "createdAt": "2025-11-17T14:22:21Z",
+    "closedAt": "2025-11-17T16:12:22Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/rewrite",
+    "htmlUrl": "https://github.com/eslint/rewrite/pull/327",
+    "id": 3633316733,
+    "nodeId": "PR_kwDOLyyFi86z2wgt",
+    "number": 327,
+    "title": "fix: make `data` property stricter",
+    "createdAt": "2025-11-17T13:19:34Z",
+    "closedAt": "2025-12-04T09:39:22Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/rewrite",
+    "htmlUrl": "https://github.com/eslint/rewrite/pull/326",
+    "id": 3633177547,
+    "nodeId": "PR_kwDOLyyFi86z2SGP",
+    "number": 326,
+    "title": "docs: fix typo in the `README.md` of `object-schema`",
+    "createdAt": "2025-11-17T12:41:13Z",
+    "closedAt": "2025-11-17T13:03:37Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint.org",
+    "htmlUrl": "https://github.com/eslint/eslint.org/pull/840",
+    "id": 3621180132,
+    "nodeId": "PR_kwDOGSAlOM6zOdTW",
+    "number": 840,
+    "title": "chore: update `markdownlint` to `0.46.0`",
+    "createdAt": "2025-11-13T13:13:52Z",
+    "closedAt": "2025-11-24T15:25:44Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/workflows",
+    "htmlUrl": "https://github.com/eslint/workflows/pull/37",
+    "id": 3620477177,
+    "nodeId": "PR_kwDOO9Nass6zMENG",
+    "number": 37,
+    "title": "fix: group non-major dev-dependencies correctly",
+    "createdAt": "2025-11-13T10:04:29Z",
+    "closedAt": "2025-11-16T10:43:26Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/markdown",
+    "htmlUrl": "https://github.com/eslint/markdown/pull/583",
+    "id": 3616824032,
+    "nodeId": "PR_kwDOAkm7Hs6y_xdu",
+    "number": 583,
+    "title": "fix: recognize HTML heading in `no-missing-link-fragments`",
+    "createdAt": "2025-11-12T14:32:39Z",
+    "closedAt": "2026-03-16T14:59:57Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/rewrite",
+    "htmlUrl": "https://github.com/eslint/rewrite/pull/319",
+    "id": 3616677824,
+    "nodeId": "PR_kwDOLyyFi86y_SB2",
+    "number": 319,
+    "title": "ci: update `eslint` in `@eslint/mcp`",
+    "createdAt": "2025-11-12T13:56:04Z",
+    "closedAt": "2025-11-14T15:47:54Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint-github-bot",
+    "htmlUrl": "https://github.com/eslint/eslint-github-bot/pull/263",
+    "id": 3607889306,
+    "nodeId": "PR_kwDOBa-RVM6yhn8A",
+    "number": 263,
+    "title": "test: migrate `jest` to v30",
+    "createdAt": "2025-11-10T12:44:41Z",
+    "closedAt": "2025-11-10T14:23:57Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint",
+    "htmlUrl": "https://github.com/eslint/eslint/pull/20301",
+    "id": 3605026357,
+    "nodeId": "PR_kwDOAKjKDc6yYPul",
+    "number": 20301,
+    "title": "chore: remove redundant `fast-glob` dev-dependency",
+    "createdAt": "2025-11-09T13:53:59Z",
+    "closedAt": "2025-11-09T16:05:47Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/css",
+    "htmlUrl": "https://github.com/eslint/css/pull/323",
+    "id": 3604865810,
+    "nodeId": "PR_kwDONF7wwM6yXtdW",
+    "number": 323,
+    "title": "chore: correct regex pattern for `eslint-plugin/report-message-format`",
+    "createdAt": "2025-11-09T11:47:53Z",
+    "closedAt": "2025-11-09T12:33:06Z",
+    "reactions": {
+      "+1": 1
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/json",
+    "htmlUrl": "https://github.com/eslint/json/pull/183",
+    "id": 3604860862,
+    "nodeId": "PR_kwDOMOnJ-M6yXsXO",
+    "number": 183,
+    "title": "chore: correct regex pattern for `eslint-plugin/report-message-format`",
+    "createdAt": "2025-11-09T11:45:07Z",
+    "closedAt": "2025-11-09T12:34:42Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint",
+    "htmlUrl": "https://github.com/eslint/eslint/pull/20300",
+    "id": 3604848164,
+    "nodeId": "PR_kwDOAKjKDc6yXptq",
+    "number": 20300,
+    "title": "refactor: correct regex for `eslint-plugin/report-message-format`",
+    "createdAt": "2025-11-09T11:32:11Z",
+    "closedAt": "2025-11-09T12:28:40Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/markdown",
+    "htmlUrl": "https://github.com/eslint/markdown/pull/581",
+    "id": 3604840221,
+    "nodeId": "PR_kwDOAkm7Hs6yXoDb",
+    "number": 581,
+    "title": "chore: correct regex pattern for `eslint-plugin/report-message-format`",
+    "createdAt": "2025-11-09T11:24:22Z",
+    "closedAt": "2025-11-09T12:32:06Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/json",
+    "htmlUrl": "https://github.com/eslint/json/pull/182",
+    "id": 3595392388,
+    "nodeId": "PR_kwDOMOnJ-M6x4LrX",
+    "number": 182,
+    "title": "test: enhance `sort-keys` rule tests with additional position data",
+    "createdAt": "2025-11-06T11:29:58Z",
+    "closedAt": "2025-11-06T15:53:08Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/rewrite",
+    "htmlUrl": "https://github.com/eslint/rewrite/pull/313",
+    "id": 3594334523,
+    "nodeId": "PR_kwDOLyyFi86x0lES",
+    "number": 313,
+    "title": "chore: update `.gitignore` to exclude shared workflows",
+    "createdAt": "2025-11-06T06:37:33Z",
+    "closedAt": "2025-11-06T07:15:19Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/markdown",
+    "htmlUrl": "https://github.com/eslint/markdown/pull/580",
+    "id": 3594329544,
+    "nodeId": "PR_kwDOAkm7Hs6x0j9e",
+    "number": 580,
+    "title": "chore: update `.gitignore` to exclude shared workflows",
+    "createdAt": "2025-11-06T06:35:45Z",
+    "closedAt": "2025-11-06T07:05:49Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/json",
+    "htmlUrl": "https://github.com/eslint/json/pull/181",
+    "id": 3594324976,
+    "nodeId": "PR_kwDOMOnJ-M6x0i9n",
+    "number": 181,
+    "title": "chore: update `.gitignore` to exclude shared workflows",
+    "createdAt": "2025-11-06T06:33:42Z",
+    "closedAt": "2025-11-06T07:05:19Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/js",
+    "htmlUrl": "https://github.com/eslint/js/pull/706",
+    "id": 3594316680,
+    "nodeId": "PR_kwDOAaVztc6x0hJm",
+    "number": 706,
+    "title": "chore: update `.gitignore` to exclude shared workflows",
+    "createdAt": "2025-11-06T06:31:10Z",
+    "closedAt": "2025-11-06T07:04:51Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/generator-eslint",
+    "htmlUrl": "https://github.com/eslint/generator-eslint/pull/242",
+    "id": 3594311630,
+    "nodeId": "PR_kwDOAPfTOM6x0gDm",
+    "number": 242,
+    "title": "chore: update `.gitignore` to exclude shared workflows",
+    "createdAt": "2025-11-06T06:29:14Z",
+    "closedAt": "2025-11-06T07:04:25Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslintrc",
+    "htmlUrl": "https://github.com/eslint/eslintrc/pull/206",
+    "id": 3594304035,
+    "nodeId": "PR_kwDOETsQJc6x0eeN",
+    "number": 206,
+    "title": "chore: update `.gitignore` to exclude shared workflows",
+    "createdAt": "2025-11-06T06:26:35Z",
+    "closedAt": "2025-11-06T07:03:58Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint-transforms",
+    "htmlUrl": "https://github.com/eslint/eslint-transforms/pull/58",
+    "id": 3594296518,
+    "nodeId": "PR_kwDOA4Zafs6x0c4E",
+    "number": 58,
+    "title": "chore: update `.gitignore` to exclude shared workflows",
+    "createdAt": "2025-11-06T06:24:10Z",
+    "closedAt": "2025-11-06T06:26:53Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint-release",
+    "htmlUrl": "https://github.com/eslint/eslint-release/pull/88",
+    "id": 3594291672,
+    "nodeId": "PR_kwDOAvvbFc6x0b1J",
+    "number": 88,
+    "title": "chore: update `.gitignore` to exclude shared workflows",
+    "createdAt": "2025-11-06T06:22:06Z",
+    "closedAt": "2025-11-06T06:24:27Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint-github-bot",
+    "htmlUrl": "https://github.com/eslint/eslint-github-bot/pull/259",
+    "id": 3594281105,
+    "nodeId": "PR_kwDOBa-RVM6x0Zcm",
+    "number": 259,
+    "title": "chore: update `.gitignore` to exclude shared workflows",
+    "createdAt": "2025-11-06T06:19:28Z",
+    "closedAt": "2025-11-06T06:21:58Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/csstree",
+    "htmlUrl": "https://github.com/eslint/csstree/pull/96",
+    "id": 3594273509,
+    "nodeId": "PR_kwDON89Njs6x0Xzx",
+    "number": 96,
+    "title": "chore: update `.gitignore` to exclude shared workflows",
+    "createdAt": "2025-11-06T06:16:16Z",
+    "closedAt": "2025-11-06T06:21:28Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/css",
+    "htmlUrl": "https://github.com/eslint/css/pull/320",
+    "id": 3594269782,
+    "nodeId": "PR_kwDONF7wwM6x0XDC",
+    "number": 320,
+    "title": "chore: update `.gitignore` to exclude shared workflows",
+    "createdAt": "2025-11-06T06:14:32Z",
+    "closedAt": "2025-11-06T06:21:00Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/create-config",
+    "htmlUrl": "https://github.com/eslint/create-config/pull/222",
+    "id": 3594262221,
+    "nodeId": "PR_kwDOFqe-is6x0Vfc",
+    "number": 222,
+    "title": "chore: update `.gitignore` to exclude shared workflows",
+    "createdAt": "2025-11-06T06:10:58Z",
+    "closedAt": "2025-11-06T06:14:26Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/code-explorer",
+    "htmlUrl": "https://github.com/eslint/code-explorer/pull/237",
+    "id": 3594242915,
+    "nodeId": "PR_kwDOLo6z_M6x0RfD",
+    "number": 237,
+    "title": "chore: update `.gitignore` to exclude shared workflows",
+    "createdAt": "2025-11-06T06:01:37Z",
+    "closedAt": "2025-11-06T06:07:18Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/workflows",
+    "htmlUrl": "https://github.com/eslint/workflows/pull/34",
+    "id": 3591146295,
+    "nodeId": "PR_kwDOO9Nass6xqDMO",
+    "number": 34,
+    "title": "fix: exclude Node.js and npm update from `eslint-app.json5`",
+    "createdAt": "2025-11-05T13:41:25Z",
+    "closedAt": "2025-11-05T20:32:09Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/json",
+    "htmlUrl": "https://github.com/eslint/json/pull/180",
+    "id": 3586962938,
+    "nodeId": "PR_kwDOMOnJ-M6xcMVR",
+    "number": 180,
+    "title": "docs: add missing `json5` language to the `bug-report.yml`",
+    "createdAt": "2025-11-04T14:59:27Z",
+    "closedAt": "2025-11-04T15:19:23Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/json",
+    "htmlUrl": "https://github.com/eslint/json/pull/179",
+    "id": 3586946928,
+    "nodeId": "PR_kwDOMOnJ-M6xcI0y",
+    "number": 179,
+    "title": "fix: display raw key in the message",
+    "createdAt": "2025-11-04T14:55:38Z",
+    "closedAt": "2025-11-10T15:21:10Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/create-config",
+    "htmlUrl": "https://github.com/eslint/create-config/pull/220",
+    "id": 3585505266,
+    "nodeId": "PR_kwDOFqe-is6xXSk8",
+    "number": 220,
+    "title": "test: migrate `vitest` and `@vitest/coverage-v8` to v4",
+    "createdAt": "2025-11-04T09:10:28Z",
+    "closedAt": "2026-02-01T00:49:54Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint-release",
+    "htmlUrl": "https://github.com/eslint/eslint-release/pull/87",
+    "id": 3585315920,
+    "nodeId": "PR_kwDOAvvbFc6xWtSa",
+    "number": 87,
+    "title": "test: migrate `sinon` to v21",
+    "createdAt": "2025-11-04T08:30:48Z",
+    "closedAt": "2025-11-04T09:16:53Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/code-explorer",
+    "htmlUrl": "https://github.com/eslint/code-explorer/pull/234",
+    "id": 3585099974,
+    "nodeId": "PR_kwDOLo6z_M6xWBI2",
+    "number": 234,
+    "title": "refactor: use `defineConfig` in the default JavaScript example",
+    "createdAt": "2025-11-04T07:31:40Z",
+    "closedAt": "2025-11-04T07:50:29Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/markdown",
+    "htmlUrl": "https://github.com/eslint/markdown/pull/575",
+    "id": 3579621711,
+    "nodeId": "PR_kwDOAkm7Hs6xEGWG",
+    "number": 575,
+    "title": "chore: remove unused `.npmrc` files under `examples`",
+    "createdAt": "2025-11-02T14:54:24Z",
+    "closedAt": "2025-11-03T13:29:50Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/markdown",
+    "htmlUrl": "https://github.com/eslint/markdown/pull/574",
+    "id": 3579605435,
+    "nodeId": "PR_kwDOAkm7Hs6xEDOd",
+    "number": 574,
+    "title": "fix: wrong location reporting in `require-alt-text`",
+    "createdAt": "2025-11-02T14:34:10Z",
+    "closedAt": "2025-11-02T18:15:29Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint.org",
+    "htmlUrl": "https://github.com/eslint/eslint.org/pull/833",
+    "id": 3579465422,
+    "nodeId": "PR_kwDOGSAlOM6xDocE",
+    "number": 833,
+    "title": "fix: unexpected `undefined` inserted when downloading config",
+    "createdAt": "2025-11-02T11:46:08Z",
+    "closedAt": "2025-11-02T12:27:21Z",
+    "reactions": {
+      "+1": 0
+    }
+  }
+]

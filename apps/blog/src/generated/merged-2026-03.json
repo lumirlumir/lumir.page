@@ -1,0 +1,314 @@
+[
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/markdown",
+    "htmlUrl": "https://github.com/eslint/markdown/pull/637",
+    "id": 4133020619,
+    "nodeId": "PR_kwDOAkm7Hs7NPUUJ",
+    "number": 637,
+    "title": "fix: update TypeScript to v6 and tighten the return type of `getParent`",
+    "createdAt": "2026-03-25T06:43:41Z",
+    "closedAt": "2026-04-28T09:18:08Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/css",
+    "htmlUrl": "https://github.com/eslint/css/pull/409",
+    "id": 4133010224,
+    "nodeId": "PR_kwDONF7wwM7NPSqE",
+    "number": 409,
+    "title": "refactor: update TypeScript to v6",
+    "createdAt": "2026-03-25T06:41:23Z",
+    "closedAt": "2026-04-29T14:24:41Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/json",
+    "htmlUrl": "https://github.com/eslint/json/pull/224",
+    "id": 4132972149,
+    "nodeId": "PR_kwDOMOnJ-M7NPMMx",
+    "number": 224,
+    "title": "refactor: update TypeScript to v6",
+    "createdAt": "2026-03-25T06:33:01Z",
+    "closedAt": "2026-04-14T09:55:20Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint-community/eslint-doc-generator",
+    "htmlUrl": "https://github.com/eslint-community/eslint-doc-generator/pull/922",
+    "id": 4132685621,
+    "nodeId": "PR_kwDOIGBUEc7NOaVf",
+    "number": 922,
+    "title": "fix: downgrade the minimum supported Node.js 22 version from `22.13.1` to `22.13.0`",
+    "createdAt": "2026-03-25T05:36:06Z",
+    "closedAt": "2026-03-25T15:18:47Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint",
+    "htmlUrl": "https://github.com/eslint/eslint/pull/20664",
+    "id": 4116106536,
+    "nodeId": "PR_kwDOAKjKDc7MfPtY",
+    "number": 20664,
+    "title": "docs: update `eslint` versions in examples",
+    "createdAt": "2026-03-22T13:47:04Z",
+    "closedAt": "2026-03-22T19:52:32Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint",
+    "htmlUrl": "https://github.com/eslint/eslint/pull/20662",
+    "id": 4116066661,
+    "nodeId": "PR_kwDOAKjKDc7MfKVg",
+    "number": 20662,
+    "title": "chore: add `prettier` update commit to `.git-blame-ignore-revs`",
+    "createdAt": "2026-03-22T13:28:39Z",
+    "closedAt": "2026-03-22T17:54:17Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint",
+    "htmlUrl": "https://github.com/eslint/eslint/pull/20651",
+    "id": 4107211740,
+    "nodeId": "PR_kwDOAKjKDc7MHPJL",
+    "number": 20651,
+    "title": "chore: update `prettier` to 3.8.1",
+    "createdAt": "2026-03-20T10:58:13Z",
+    "closedAt": "2026-03-20T12:40:13Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint-github-bot",
+    "htmlUrl": "https://github.com/eslint/eslint-github-bot/pull/287",
+    "id": 4102072252,
+    "nodeId": "PR_kwDOBa-RVM7L3iah",
+    "number": 287,
+    "title": "refactor: simplify event listener and update comments",
+    "createdAt": "2026-03-19T14:22:32Z",
+    "closedAt": "2026-03-25T19:29:09Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/generator-eslint",
+    "htmlUrl": "https://github.com/eslint/generator-eslint/pull/261",
+    "id": 4095622635,
+    "nodeId": "PR_kwDOAPfTOM7LkRJp",
+    "number": 261,
+    "title": "test: replace deprecated methods and simplify path calculation",
+    "createdAt": "2026-03-18T14:44:30Z",
+    "closedAt": "2026-03-24T16:51:35Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/generator-eslint",
+    "htmlUrl": "https://github.com/eslint/generator-eslint/pull/260",
+    "id": 4095370088,
+    "nodeId": "PR_kwDOAPfTOM7LjjLL",
+    "number": 260,
+    "title": "fix: use ESLint v10 and latest `npm-run-all2` in template",
+    "createdAt": "2026-03-18T14:06:09Z",
+    "closedAt": "2026-03-25T16:31:25Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/markdown",
+    "htmlUrl": "https://github.com/eslint/markdown/pull/634",
+    "id": 4094648518,
+    "nodeId": "PR_kwDOAkm7Hs7LhL79",
+    "number": 634,
+    "title": "chore: simplify `package.json` import and add cjs import type test",
+    "createdAt": "2026-03-18T11:55:49Z",
+    "closedAt": "2026-03-23T20:44:07Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/generator-eslint",
+    "htmlUrl": "https://github.com/eslint/generator-eslint/pull/258",
+    "id": 4049953259,
+    "nodeId": "PR_kwDOAPfTOM7JS3l3",
+    "number": 258,
+    "title": "chore: add `.git-blame-ignore-revs`",
+    "createdAt": "2026-03-10T07:25:54Z",
+    "closedAt": "2026-03-10T19:00:26Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/markdown",
+    "htmlUrl": "https://github.com/eslint/markdown/pull/631",
+    "id": 4038148092,
+    "nodeId": "PR_kwDOAkm7Hs7ItA_p",
+    "number": 631,
+    "title": "chore: update `eslint-plugin-eslint-plugin` to v7",
+    "createdAt": "2026-03-07T10:14:57Z",
+    "closedAt": "2026-03-11T09:11:24Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/css",
+    "htmlUrl": "https://github.com/eslint/css/pull/394",
+    "id": 4038136294,
+    "nodeId": "PR_kwDONF7wwM7Is-jA",
+    "number": 394,
+    "title": "chore: update `eslint-plugin-eslint-plugin` to v7",
+    "createdAt": "2026-03-07T10:08:59Z",
+    "closedAt": "2026-03-10T22:33:15Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/json",
+    "htmlUrl": "https://github.com/eslint/json/pull/219",
+    "id": 4038121709,
+    "nodeId": "PR_kwDOMOnJ-M7Is7ic",
+    "number": 219,
+    "title": "chore: update `eslint-plugin-eslint-plugin` to v7",
+    "createdAt": "2026-03-07T10:02:04Z",
+    "closedAt": "2026-03-09T20:43:17Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/rewrite",
+    "htmlUrl": "https://github.com/eslint/rewrite/pull/401",
+    "id": 4037548879,
+    "nodeId": "PR_kwDOLyyFi87IrClH",
+    "number": 401,
+    "title": "chore: update `eslint` and `eslint-config-eslint`",
+    "createdAt": "2026-03-07T06:07:21Z",
+    "closedAt": "2026-03-09T20:48:28Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/js",
+    "htmlUrl": "https://github.com/eslint/js/pull/737",
+    "id": 4037375181,
+    "nodeId": "PR_kwDOAaVztc7Iqdg6",
+    "number": 737,
+    "title": "chore: update `eslint` and `eslint-config-eslint`",
+    "createdAt": "2026-03-07T04:54:57Z",
+    "closedAt": "2026-03-09T20:50:18Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/oxc-project/oxc",
+    "htmlUrl": "https://github.com/oxc-project/oxc/pull/19998",
+    "id": 4021239364,
+    "nodeId": "PR_kwDOI7qa7s7H1ssf",
+    "number": 19998,
+    "title": "docs(transform): use the `node:` namespace in the example",
+    "createdAt": "2026-03-04T10:25:47Z",
+    "closedAt": "2026-04-23T21:43:16Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/.github",
+    "htmlUrl": "https://github.com/eslint/.github/pull/19",
+    "id": 4020772853,
+    "nodeId": "PR_kwDOEAIzj87H0LYz",
+    "number": 19,
+    "title": "docs: add default issue template to require AI acknowledgment",
+    "createdAt": "2026-03-04T08:33:52Z",
+    "closedAt": "2026-03-24T20:26:19Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/generator-eslint",
+    "htmlUrl": "https://github.com/eslint/generator-eslint/pull/256",
+    "id": 4020695583,
+    "nodeId": "PR_kwDOAPfTOM7Hz7Si",
+    "number": 256,
+    "title": "chore: introduce `prettier`",
+    "createdAt": "2026-03-04T08:13:38Z",
+    "closedAt": "2026-03-09T20:52:55Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint-community/eslint-plugin-eslint-plugin",
+    "htmlUrl": "https://github.com/eslint-community/eslint-plugin-eslint-plugin/pull/605",
+    "id": 4017245224,
+    "nodeId": "PR_kwDOBI2S2c7Hoys3",
+    "number": 605,
+    "title": "fix: downgrade the minimum supported Node.js 22 version from `22.13.1` to `22.13.0`",
+    "createdAt": "2026-03-03T15:17:55Z",
+    "closedAt": "2026-03-03T15:39:31Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/css",
+    "htmlUrl": "https://github.com/eslint/css/pull/390",
+    "id": 4016461390,
+    "nodeId": "PR_kwDONF7wwM7HmNMu",
+    "number": 390,
+    "title": "refactor: remove unnecessary string coercion from `data`",
+    "createdAt": "2026-03-03T12:39:54Z",
+    "closedAt": "2026-03-03T22:20:39Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/markdown",
+    "htmlUrl": "https://github.com/eslint/markdown/pull/628",
+    "id": 4016454044,
+    "nodeId": "PR_kwDOAkm7Hs7HmLrA",
+    "number": 628,
+    "title": "refactor: remove unnecessary string coercion from `data`",
+    "createdAt": "2026-03-03T12:38:10Z",
+    "closedAt": "2026-03-03T22:20:22Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint-community/eslint-plugin-es-x",
+    "htmlUrl": "https://github.com/eslint-community/eslint-plugin-es-x/pull/329",
+    "id": 4007076001,
+    "nodeId": "PR_kwDOGwjoXM7HHsos",
+    "number": 329,
+    "title": "chore: use `defineConfig` in `eslint.config.js`",
+    "createdAt": "2026-03-01T12:31:37Z",
+    "closedAt": "2026-03-01T12:43:17Z",
+    "reactions": {
+      "+1": 0
+    }
+  }
+]

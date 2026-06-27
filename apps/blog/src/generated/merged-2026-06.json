@@ -1,0 +1,171 @@
+[
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/codemods",
+    "htmlUrl": "https://github.com/eslint/codemods/pull/40",
+    "id": 4736692105,
+    "nodeId": "PR_kwDOP7jk_87qM56-",
+    "number": 40,
+    "title": "fix: use platform-native path for ignore file backups",
+    "createdAt": "2026-06-24T16:38:11Z",
+    "closedAt": "2026-06-25T13:51:42Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/create-config",
+    "htmlUrl": "https://github.com/eslint/create-config/pull/249",
+    "id": 4710794459,
+    "nodeId": "PR_kwDOFqe-is7o35ca",
+    "number": 249,
+    "title": "test: update snapshot to fix CI",
+    "createdAt": "2026-06-21T14:21:31Z",
+    "closedAt": "2026-06-21T15:13:50Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/css",
+    "htmlUrl": "https://github.com/eslint/css/pull/473",
+    "id": 4699216837,
+    "nodeId": "PR_kwDONF7wwM7oS2Oe",
+    "number": 473,
+    "title": "fix: type compatibility issue between CSS v1 and ESLint v9",
+    "createdAt": "2026-06-19T08:37:12Z",
+    "closedAt": "2026-06-21T18:19:11Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint",
+    "htmlUrl": "https://github.com/eslint/eslint/pull/20983",
+    "id": 4659052572,
+    "nodeId": "PR_kwDOAKjKDc7mPBI1",
+    "number": 20983,
+    "title": "docs: fix grammar in prefer-const rule description",
+    "createdAt": "2026-06-14T12:15:20Z",
+    "closedAt": "2026-06-14T19:12:19Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/codemods",
+    "htmlUrl": "https://github.com/eslint/codemods/pull/25",
+    "id": 4606977639,
+    "nodeId": "PR_kwDOP7jk_87jmySI",
+    "number": 25,
+    "title": "fix: avoid duplicate node builtin helper imports",
+    "createdAt": "2026-06-07T10:29:40Z",
+    "closedAt": "2026-06-09T11:32:42Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/codemods",
+    "htmlUrl": "https://github.com/eslint/codemods/pull/20",
+    "id": 4603632226,
+    "nodeId": "PR_kwDOP7jk_87jcSeB",
+    "number": 20,
+    "title": "chore: remove unnecessary `package-lock.json`",
+    "createdAt": "2026-06-06T13:42:47Z",
+    "closedAt": "2026-06-06T18:48:50Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/codemods",
+    "htmlUrl": "https://github.com/eslint/codemods/pull/19",
+    "id": 4602781187,
+    "nodeId": "PR_kwDOP7jk_87jZiln",
+    "number": 19,
+    "title": "chore: exclude IDE-specific files in `.gitignore`",
+    "createdAt": "2026-06-06T09:24:47Z",
+    "closedAt": "2026-06-06T18:50:02Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/codemods",
+    "htmlUrl": "https://github.com/eslint/codemods/pull/18",
+    "id": 4602715776,
+    "nodeId": "PR_kwDOP7jk_87jZWBs",
+    "number": 18,
+    "title": "fix: update `v9-v10` custom-rules workflow globs to include TS extension",
+    "createdAt": "2026-06-06T09:01:55Z",
+    "closedAt": "2026-06-06T18:51:22Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/codemods",
+    "htmlUrl": "https://github.com/eslint/codemods/pull/17",
+    "id": 4602580843,
+    "nodeId": "PR_kwDOP7jk_87jY7Um",
+    "number": 17,
+    "title": "fix: handle CRLF line endings in ignore files",
+    "createdAt": "2026-06-06T08:16:27Z",
+    "closedAt": "2026-06-06T18:53:31Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/codemods",
+    "htmlUrl": "https://github.com/eslint/codemods/pull/16",
+    "id": 4602515320,
+    "nodeId": "PR_kwDOP7jk_87jYt7F",
+    "number": 16,
+    "title": "fix: update `v8-v9` custom-rules workflow globs to include TS extension",
+    "createdAt": "2026-06-06T07:51:05Z",
+    "closedAt": "2026-06-06T18:58:21Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/codemods",
+    "htmlUrl": "https://github.com/eslint/codemods/pull/15",
+    "id": 4602351029,
+    "nodeId": "PR_kwDOP7jk_87jYOAK",
+    "number": 15,
+    "title": "chore: update node engine requirement to `>=22`",
+    "createdAt": "2026-06-06T06:51:27Z",
+    "closedAt": "2026-06-06T18:45:40Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint",
+    "htmlUrl": "https://github.com/eslint/eslint/pull/20945",
+    "id": 4586336639,
+    "nodeId": "PR_kwDOAKjKDc7ijeAW",
+    "number": 20945,
+    "title": "test: add location information to error messages in `max-statements`",
+    "createdAt": "2026-06-04T06:16:28Z",
+    "closedAt": "2026-06-04T09:01:33Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/reactjs/ko.react.dev",
+    "htmlUrl": "https://github.com/reactjs/ko.react.dev/pull/1522",
+    "id": 4571056759,
+    "nodeId": "PR_kwDOChzKxs7hxGC9",
+    "number": 1522,
+    "title": "docs: update `lifecycle-of-reactive-effects`",
+    "createdAt": "2026-06-02T11:35:41Z",
+    "closedAt": "2026-06-02T11:42:23Z",
+    "reactions": {
+      "+1": 0
+    }
+  }
+]

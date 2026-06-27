@@ -1,0 +1,678 @@
+[
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/code-explorer",
+    "htmlUrl": "https://github.com/eslint/code-explorer/pull/132",
+    "id": 3370237772,
+    "nodeId": "PR_kwDOLo6z_M6mKQAO",
+    "number": 132,
+    "title": "fix: update logo paths in `manifest.json` to use absolute URLs",
+    "createdAt": "2025-08-31T12:56:05Z",
+    "closedAt": "2025-09-02T19:05:09Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/code-explorer",
+    "htmlUrl": "https://github.com/eslint/code-explorer/pull/131",
+    "id": 3368985565,
+    "nodeId": "PR_kwDOLo6z_M6mGXqZ",
+    "number": 131,
+    "title": "refactor: remove unnecessary `\"use client\"` `\"use server\"` directives",
+    "createdAt": "2025-08-30T10:05:33Z",
+    "closedAt": "2025-09-01T17:23:28Z",
+    "reactions": {
+      "+1": 1
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/code-explorer",
+    "htmlUrl": "https://github.com/eslint/code-explorer/pull/130",
+    "id": 3368973082,
+    "nodeId": "PR_kwDOLo6z_M6mGVN6",
+    "number": 130,
+    "title": "chore: use kebab-case for file names",
+    "createdAt": "2025-08-30T09:46:20Z",
+    "closedAt": "2025-09-02T19:05:39Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint-github-bot",
+    "htmlUrl": "https://github.com/eslint/eslint-github-bot/pull/230",
+    "id": 3355691872,
+    "nodeId": "PR_kwDOBa-RVM6lagTv",
+    "number": 230,
+    "title": "refactor: remove unncessary `\\b` flag to fix CI",
+    "createdAt": "2025-08-26T13:37:35Z",
+    "closedAt": "2025-08-26T14:05:21Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/generator-eslint",
+    "htmlUrl": "https://github.com/eslint/generator-eslint/pull/209",
+    "id": 3351440285,
+    "nodeId": "PR_kwDOAPfTOM6lMTrF",
+    "number": 209,
+    "title": "refactor: update `eslint` dependencies",
+    "createdAt": "2025-08-25T11:17:53Z",
+    "closedAt": "2025-08-25T12:23:31Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/create-config",
+    "htmlUrl": "https://github.com/eslint/create-config/pull/190",
+    "id": 3351385357,
+    "nodeId": "PR_kwDOFqe-is6lMHsZ",
+    "number": 190,
+    "title": "refactor: update `eslint` dependencies",
+    "createdAt": "2025-08-25T10:58:49Z",
+    "closedAt": "2025-08-25T14:43:18Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint-transforms",
+    "htmlUrl": "https://github.com/eslint/eslint-transforms/pull/35",
+    "id": 3351352599,
+    "nodeId": "PR_kwDOA4Zafs6lMAc3",
+    "number": 35,
+    "title": "chore: update `eslint-config-eslint`",
+    "createdAt": "2025-08-25T10:48:17Z",
+    "closedAt": "2025-08-25T14:24:32Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint-transforms",
+    "htmlUrl": "https://github.com/eslint/eslint-transforms/pull/34",
+    "id": 3351319076,
+    "nodeId": "PR_kwDOA4Zafs6lL5L4",
+    "number": 34,
+    "title": "chore: add `.npmrc` and update `.gitignore`",
+    "createdAt": "2025-08-25T10:35:35Z",
+    "closedAt": "2025-08-25T14:23:58Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/markdown",
+    "htmlUrl": "https://github.com/eslint/markdown/pull/511",
+    "id": 3344851168,
+    "nodeId": "PR_kwDOAkm7Hs6k2iUV",
+    "number": 511,
+    "title": "refactor: simplify `no-bare-urls` with ESQuery selector",
+    "createdAt": "2025-08-22T09:41:21Z",
+    "closedAt": "2025-08-28T15:34:07Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/markdown",
+    "htmlUrl": "https://github.com/eslint/markdown/pull/510",
+    "id": 3342073782,
+    "nodeId": "PR_kwDOAkm7Hs6ktHBl",
+    "number": 510,
+    "title": "build: add `prettier` to `update-rules-docs` script",
+    "createdAt": "2025-08-21T14:54:28Z",
+    "closedAt": "2025-08-24T15:03:52Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint",
+    "htmlUrl": "https://github.com/eslint/eslint/pull/20028",
+    "id": 3341885513,
+    "nodeId": "PR_kwDOAKjKDc6kseRl",
+    "number": 20028,
+    "title": "refactor: prefer default options in `grouped-accessor-pairs`",
+    "createdAt": "2025-08-21T14:02:45Z",
+    "closedAt": "2025-08-22T12:23:37Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint",
+    "htmlUrl": "https://github.com/eslint/eslint/pull/20010",
+    "id": 3324789297,
+    "nodeId": "PR_kwDOAKjKDc6j0SO2",
+    "number": 20010,
+    "title": "ci: fix `stale.yml`",
+    "createdAt": "2025-08-15T09:14:31Z",
+    "closedAt": "2025-08-15T14:03:22Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/zh-hans.docs.eslint.org",
+    "htmlUrl": "https://github.com/eslint/zh-hans.docs.eslint.org/pull/125",
+    "id": 3324756875,
+    "nodeId": "PR_kwDOHuQUFs6j0L9D",
+    "number": 125,
+    "title": "ci: fix incorrect placement of `stale.yml` file",
+    "createdAt": "2025-08-15T09:02:52Z",
+    "closedAt": "2025-08-15T14:01:04Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/workflows",
+    "htmlUrl": "https://github.com/eslint/workflows/pull/12",
+    "id": 3314588672,
+    "nodeId": "PR_kwDOO9Nass6jSR2X",
+    "number": 12,
+    "title": "feat: create `update-readme.yml`",
+    "createdAt": "2025-08-12T14:36:21Z",
+    "closedAt": "2025-09-23T19:08:56Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/markdown",
+    "htmlUrl": "https://github.com/eslint/markdown/pull/502",
+    "id": 3304104276,
+    "nodeId": "PR_kwDOAkm7Hs6ixP2F",
+    "number": 502,
+    "title": "fix: allow any type for `meta.docs.recommended` in custom rules",
+    "createdAt": "2025-08-08T13:41:57Z",
+    "closedAt": "2025-08-08T19:44:08Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/css",
+    "htmlUrl": "https://github.com/eslint/css/pull/231",
+    "id": 3304084139,
+    "nodeId": "PR_kwDONF7wwM6ixLXW",
+    "number": 231,
+    "title": "fix: allow any type for `meta.docs.recommended` in custom rules",
+    "createdAt": "2025-08-08T13:35:18Z",
+    "closedAt": "2025-08-08T19:44:52Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/json",
+    "htmlUrl": "https://github.com/eslint/json/pull/132",
+    "id": 3304066385,
+    "nodeId": "PR_kwDOMOnJ-M6ixHcB",
+    "number": 132,
+    "title": "fix: allow any type for `meta.docs.recommended` in custom rules",
+    "createdAt": "2025-08-08T13:29:50Z",
+    "closedAt": "2025-08-08T19:41:30Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/zh-hans.docs.eslint.org",
+    "htmlUrl": "https://github.com/eslint/zh-hans.docs.eslint.org/pull/124",
+    "id": 3300695518,
+    "nodeId": "PR_kwDOHuQUFs6imWEa",
+    "number": 124,
+    "title": "ci: add `stale` and fix `add-to-triage`",
+    "createdAt": "2025-08-07T14:13:16Z",
+    "closedAt": "2025-08-13T14:44:53Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/rewrite",
+    "htmlUrl": "https://github.com/eslint/rewrite/pull/254",
+    "id": 3300661260,
+    "nodeId": "PR_kwDOLyyFi86imOwH",
+    "number": 254,
+    "title": "ci: create `stale.yml`",
+    "createdAt": "2025-08-07T14:03:53Z",
+    "closedAt": "2025-08-13T14:44:00Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/markdown",
+    "htmlUrl": "https://github.com/eslint/markdown/pull/501",
+    "id": 3300644635,
+    "nodeId": "PR_kwDOAkm7Hs6imLK8",
+    "number": 501,
+    "title": "ci: add `stale` and fix `add-to-triage`",
+    "createdAt": "2025-08-07T13:59:39Z",
+    "closedAt": "2025-08-13T14:45:09Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/json",
+    "htmlUrl": "https://github.com/eslint/json/pull/131",
+    "id": 3300624163,
+    "nodeId": "PR_kwDOMOnJ-M6imGzo",
+    "number": 131,
+    "title": "ci: add `stale` and fix `add-to-triage`",
+    "createdAt": "2025-08-07T13:54:49Z",
+    "closedAt": "2025-08-13T14:47:56Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/js",
+    "htmlUrl": "https://github.com/eslint/js/pull/672",
+    "id": 3300604061,
+    "nodeId": "PR_kwDOAaVztc6imCex",
+    "number": 672,
+    "title": "ci: create `stale.yml`",
+    "createdAt": "2025-08-07T13:50:38Z",
+    "closedAt": "2025-08-13T14:43:48Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/generator-eslint",
+    "htmlUrl": "https://github.com/eslint/generator-eslint/pull/208",
+    "id": 3300582936,
+    "nodeId": "PR_kwDOAPfTOM6il-EZ",
+    "number": 208,
+    "title": "ci: add `stale` and fix `add-to-triage`",
+    "createdAt": "2025-08-07T13:44:47Z",
+    "closedAt": "2025-08-13T14:45:29Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslintrc",
+    "htmlUrl": "https://github.com/eslint/eslintrc/pull/191",
+    "id": 3300568476,
+    "nodeId": "PR_kwDOETsQJc6il68v",
+    "number": 191,
+    "title": "ci: add `stale` and fix `add-to-triage`",
+    "createdAt": "2025-08-07T13:40:37Z",
+    "closedAt": "2025-08-13T14:45:56Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint.org",
+    "htmlUrl": "https://github.com/eslint/eslint.org/pull/748",
+    "id": 3300554728,
+    "nodeId": "PR_kwDOGSAlOM6il3_5",
+    "number": 748,
+    "title": "ci: create `stale.yml`",
+    "createdAt": "2025-08-07T13:36:28Z",
+    "closedAt": "2025-08-13T14:45:34Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint-transforms",
+    "htmlUrl": "https://github.com/eslint/eslint-transforms/pull/33",
+    "id": 3300539542,
+    "nodeId": "PR_kwDOA4Zafs6il0wD",
+    "number": 33,
+    "title": "ci: add `stale` and fix `add-to-triage`",
+    "createdAt": "2025-08-07T13:32:04Z",
+    "closedAt": "2025-08-13T14:46:44Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint-release",
+    "htmlUrl": "https://github.com/eslint/eslint-release/pull/69",
+    "id": 3300289886,
+    "nodeId": "PR_kwDOAvvbFc6ik-ae",
+    "number": 69,
+    "title": "ci: add `stale` and fix `add-to-triage`",
+    "createdAt": "2025-08-07T12:22:10Z",
+    "closedAt": "2025-08-13T14:47:39Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint-github-bot",
+    "htmlUrl": "https://github.com/eslint/eslint-github-bot/pull/225",
+    "id": 3300274355,
+    "nodeId": "PR_kwDOBa-RVM6ik7Bv",
+    "number": 225,
+    "title": "ci: add `stale` and fix `add-to-triage`",
+    "createdAt": "2025-08-07T12:17:27Z",
+    "closedAt": "2025-08-13T14:46:35Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint",
+    "htmlUrl": "https://github.com/eslint/eslint/pull/19994",
+    "id": 3300240331,
+    "nodeId": "PR_kwDOAKjKDc6ikzjE",
+    "number": 19994,
+    "title": "ci: centralize `stale.yml`",
+    "createdAt": "2025-08-07T12:07:10Z",
+    "closedAt": "2025-08-13T14:45:11Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/csstree",
+    "htmlUrl": "https://github.com/eslint/csstree/pull/72",
+    "id": 3300214929,
+    "nodeId": "PR_kwDON89Njs6ikt6w",
+    "number": 72,
+    "title": "ci: add `stale` and fix `add-to-triage`",
+    "createdAt": "2025-08-07T11:59:46Z",
+    "closedAt": "2025-08-13T14:47:49Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/css",
+    "htmlUrl": "https://github.com/eslint/css/pull/230",
+    "id": 3299573528,
+    "nodeId": "PR_kwDONF7wwM6iihP2",
+    "number": 230,
+    "title": "ci: add `stale.yml`",
+    "createdAt": "2025-08-07T08:39:11Z",
+    "closedAt": "2025-08-13T14:43:31Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/create-config",
+    "htmlUrl": "https://github.com/eslint/create-config/pull/188",
+    "id": 3299553914,
+    "nodeId": "PR_kwDOFqe-is6iic8M",
+    "number": 188,
+    "title": "ci: centralize `stale` and fix `add-to-triage`",
+    "createdAt": "2025-08-07T08:33:18Z",
+    "closedAt": "2025-08-13T14:46:06Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/.github",
+    "htmlUrl": "https://github.com/eslint/.github/pull/12",
+    "id": 3299535590,
+    "nodeId": "PR_kwDOEAIzj86iiY4h",
+    "number": 12,
+    "title": "ci: add `stale` and fix `add-to-triage`",
+    "createdAt": "2025-08-07T08:28:14Z",
+    "closedAt": "2025-08-13T15:00:04Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/code-explorer",
+    "htmlUrl": "https://github.com/eslint/code-explorer/pull/124",
+    "id": 3299516124,
+    "nodeId": "PR_kwDOLo6z_M6iiUpE",
+    "number": 124,
+    "title": "ci: add `stale` and fix `add-to-triage`",
+    "createdAt": "2025-08-07T08:21:49Z",
+    "closedAt": "2025-08-13T14:45:40Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/workflows",
+    "htmlUrl": "https://github.com/eslint/workflows/pull/11",
+    "id": 3299254149,
+    "nodeId": "PR_kwDOO9Nass6ihcjp",
+    "number": 11,
+    "title": "fix: `add-to-triage` does not work on PRs from fork",
+    "createdAt": "2025-08-07T06:58:56Z",
+    "closedAt": "2025-08-11T14:17:27Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/markdown",
+    "htmlUrl": "https://github.com/eslint/markdown/pull/498",
+    "id": 3295456051,
+    "nodeId": "PR_kwDOAkm7Hs6iUe5D",
+    "number": 498,
+    "title": "refactor: simplify `no-reversed-media-syntax` with ESQuery selector",
+    "createdAt": "2025-08-06T07:07:01Z",
+    "closedAt": "2025-08-11T14:52:30Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/zh-hans.docs.eslint.org",
+    "htmlUrl": "https://github.com/eslint/zh-hans.docs.eslint.org/pull/123",
+    "id": 3293168022,
+    "nodeId": "PR_kwDOHuQUFs6iM5s7",
+    "number": 123,
+    "title": "ci: centralize `add-to-triage.yml`",
+    "createdAt": "2025-08-05T13:39:22Z",
+    "closedAt": "2025-08-05T14:21:53Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/markdown",
+    "htmlUrl": "https://github.com/eslint/markdown/pull/497",
+    "id": 3292837037,
+    "nodeId": "PR_kwDOAkm7Hs6iLybU",
+    "number": 497,
+    "title": "ci: centralize `add-to-triage.yml`",
+    "createdAt": "2025-08-05T12:01:42Z",
+    "closedAt": "2025-08-05T14:11:56Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/json",
+    "htmlUrl": "https://github.com/eslint/json/pull/129",
+    "id": 3292815601,
+    "nodeId": "PR_kwDOMOnJ-M6iLt9t",
+    "number": 129,
+    "title": "ci: create `add-to-triage.yml`",
+    "createdAt": "2025-08-05T11:55:31Z",
+    "closedAt": "2025-08-05T14:21:07Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/generator-eslint",
+    "htmlUrl": "https://github.com/eslint/generator-eslint/pull/207",
+    "id": 3292767604,
+    "nodeId": "PR_kwDOAPfTOM6iLjnQ",
+    "number": 207,
+    "title": "ci: centralize `add-to-triage.yml`",
+    "createdAt": "2025-08-05T11:40:06Z",
+    "closedAt": "2025-08-05T14:21:39Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslintrc",
+    "htmlUrl": "https://github.com/eslint/eslintrc/pull/190",
+    "id": 3292734392,
+    "nodeId": "PR_kwDOETsQJc6iLcQ3",
+    "number": 190,
+    "title": "ci: create `add-to-triage.yml`",
+    "createdAt": "2025-08-05T11:30:25Z",
+    "closedAt": "2025-08-05T14:21:23Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint-transforms",
+    "htmlUrl": "https://github.com/eslint/eslint-transforms/pull/32",
+    "id": 3292707623,
+    "nodeId": "PR_kwDOA4Zafs6iLWg0",
+    "number": 32,
+    "title": "ci: create `add-to-triage.yml`",
+    "createdAt": "2025-08-05T11:22:45Z",
+    "closedAt": "2025-08-05T14:20:38Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint-release",
+    "htmlUrl": "https://github.com/eslint/eslint-release/pull/68",
+    "id": 3292686288,
+    "nodeId": "PR_kwDOAvvbFc6iLR4P",
+    "number": 68,
+    "title": "ci: centralize `add-to-triage.yml`",
+    "createdAt": "2025-08-05T11:16:05Z",
+    "closedAt": "2025-08-05T14:22:03Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint-github-bot",
+    "htmlUrl": "https://github.com/eslint/eslint-github-bot/pull/224",
+    "id": 3292667881,
+    "nodeId": "PR_kwDOBa-RVM6iLN1P",
+    "number": 224,
+    "title": "ci: centralize `add-to-triage.yml`",
+    "createdAt": "2025-08-05T11:10:18Z",
+    "closedAt": "2025-08-05T14:22:14Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/csstree",
+    "htmlUrl": "https://github.com/eslint/csstree/pull/71",
+    "id": 3292640451,
+    "nodeId": "PR_kwDON89Njs6iLH0_",
+    "number": 71,
+    "title": "ci: create `add-to-triage.yml`",
+    "createdAt": "2025-08-05T11:02:03Z",
+    "closedAt": "2025-08-05T14:22:27Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/create-config",
+    "htmlUrl": "https://github.com/eslint/create-config/pull/187",
+    "id": 3292376865,
+    "nodeId": "PR_kwDOFqe-is6iKNpm",
+    "number": 187,
+    "title": "ci: centralize `add-to-triage.yml`",
+    "createdAt": "2025-08-05T09:45:38Z",
+    "closedAt": "2025-08-05T14:22:54Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/.github",
+    "htmlUrl": "https://github.com/eslint/.github/pull/11",
+    "id": 3292351906,
+    "nodeId": "PR_kwDOEAIzj86iKILL",
+    "number": 11,
+    "title": "ci: create `add-to-triage.yml`",
+    "createdAt": "2025-08-05T09:38:33Z",
+    "closedAt": "2025-08-05T14:20:46Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/code-explorer",
+    "htmlUrl": "https://github.com/eslint/code-explorer/pull/123",
+    "id": 3292311625,
+    "nodeId": "PR_kwDOLo6z_M6iJ_Sh",
+    "number": 123,
+    "title": "ci: create `add-to-triage.yml`",
+    "createdAt": "2025-08-05T09:27:41Z",
+    "closedAt": "2025-08-05T14:23:08Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/markdown",
+    "htmlUrl": "https://github.com/eslint/markdown/pull/495",
+    "id": 3291930524,
+    "nodeId": "PR_kwDOAkm7Hs6iIsgg",
+    "number": 495,
+    "title": "refactor: simplify `no-missing-link-fragments` with ESQuery selector",
+    "createdAt": "2025-08-05T07:29:14Z",
+    "closedAt": "2025-08-11T14:53:21Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/markdown",
+    "htmlUrl": "https://github.com/eslint/markdown/pull/493",
+    "id": 3288852695,
+    "nodeId": "PR_kwDOAkm7Hs6h-PZT",
+    "number": 493,
+    "title": "fix: handle CR in rules to follow CommonMark spec",
+    "createdAt": "2025-08-04T10:20:44Z",
+    "closedAt": "2025-10-20T15:04:46Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/workflows",
+    "htmlUrl": "https://github.com/eslint/workflows/pull/8",
+    "id": 3286771477,
+    "nodeId": "PR_kwDOO9Nass6h3nSI",
+    "number": 8,
+    "title": "feat: create `stale.yml`",
+    "createdAt": "2025-08-03T06:50:22Z",
+    "closedAt": "2025-08-06T16:51:09Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/workflows",
+    "htmlUrl": "https://github.com/eslint/workflows/pull/7",
+    "id": 3285916011,
+    "nodeId": "PR_kwDOO9Nass6h00YH",
+    "number": 7,
+    "title": "feat: create `add-to-triage.yml`",
+    "createdAt": "2025-08-02T13:02:13Z",
+    "closedAt": "2025-08-05T08:34:15Z",
+    "reactions": {
+      "+1": 0
+    }
+  }
+]

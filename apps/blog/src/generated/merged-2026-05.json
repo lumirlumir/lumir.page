@@ -1,0 +1,509 @@
+[
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/code-explorer",
+    "htmlUrl": "https://github.com/eslint/code-explorer/pull/433",
+    "id": 4554631468,
+    "nodeId": "PR_kwDOLo6z_M7g9BU2",
+    "number": 433,
+    "title": "fix: update `@eslint/json` to v2",
+    "createdAt": "2026-05-30T14:07:32Z",
+    "closedAt": "2026-05-31T21:13:42Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/typescript-eslint/typescript-eslint",
+    "htmlUrl": "https://github.com/typescript-eslint/typescript-eslint/pull/12388",
+    "id": 4553871477,
+    "nodeId": "PR_kwDOCd3hms7g6x5q",
+    "number": 12388,
+    "title": "fix(eslint-plugin): [no-unnecessary-template-expression] respect ECMAScript line terminators",
+    "createdAt": "2026-05-30T08:34:01Z",
+    "closedAt": "2026-06-15T16:28:26Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/typescript-eslint/typescript-eslint",
+    "htmlUrl": "https://github.com/typescript-eslint/typescript-eslint/pull/12387",
+    "id": 4553810796,
+    "nodeId": "PR_kwDOCd3hms7g6mr-",
+    "number": 12387,
+    "title": "docs: fix `defineConfig` typos",
+    "createdAt": "2026-05-30T08:07:25Z",
+    "closedAt": "2026-05-30T19:58:51Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/typescript-eslint/typescript-eslint",
+    "htmlUrl": "https://github.com/typescript-eslint/typescript-eslint/pull/12377",
+    "id": 4545879167,
+    "nodeId": "PR_kwDOCd3hms7ggrxA",
+    "number": 12377,
+    "title": "docs: update TypeScript version reference in Dependency Version",
+    "createdAt": "2026-05-29T05:18:41Z",
+    "closedAt": "2026-05-29T15:56:23Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/typescript-eslint/typescript-eslint",
+    "htmlUrl": "https://github.com/typescript-eslint/typescript-eslint/pull/12374",
+    "id": 4538419349,
+    "nodeId": "PR_kwDOCd3hms7gIR8p",
+    "number": 12374,
+    "title": "fix(rule-schema-to-typescript-types): respect ECMAScript line terminators",
+    "createdAt": "2026-05-28T07:05:12Z",
+    "closedAt": "2026-06-07T15:26:56Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/reactjs/ko.react.dev",
+    "htmlUrl": "https://github.com/reactjs/ko.react.dev/pull/1520",
+    "id": 4531690588,
+    "nodeId": "PR_kwDOChzKxs7fyWyZ",
+    "number": 1520,
+    "title": "docs: fix typos",
+    "createdAt": "2026-05-27T10:42:23Z",
+    "closedAt": "2026-05-27T10:48:49Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/typescript-eslint/typescript-eslint",
+    "htmlUrl": "https://github.com/typescript-eslint/typescript-eslint/pull/12357",
+    "id": 4511943203,
+    "nodeId": "PR_kwDOCd3hms7ey1qm",
+    "number": 12357,
+    "title": "docs: update references to `@stylistic/eslint-plugin` rules in documentation",
+    "createdAt": "2026-05-24T14:44:59Z",
+    "closedAt": "2026-05-27T13:07:38Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/typescript-eslint/typescript-eslint",
+    "htmlUrl": "https://github.com/typescript-eslint/typescript-eslint/pull/12352",
+    "id": 4496014889,
+    "nodeId": "PR_kwDOCd3hms7eAkaZ",
+    "number": 12352,
+    "title": "fix(eslint-plugin): respect ECMAScript line terminators in ts-comment rules",
+    "createdAt": "2026-05-21T15:54:31Z",
+    "closedAt": "2026-05-27T13:09:21Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/generator-eslint",
+    "htmlUrl": "https://github.com/eslint/generator-eslint/pull/270",
+    "id": 4495108276,
+    "nodeId": "PR_kwDOAPfTOM7d9mCr",
+    "number": 270,
+    "title": "ci: fix CI failure on `main` branch",
+    "createdAt": "2026-05-21T13:53:55Z",
+    "closedAt": "2026-06-05T21:55:33Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/workflows",
+    "htmlUrl": "https://github.com/eslint/workflows/pull/60",
+    "id": 4495093829,
+    "nodeId": "PR_kwDOO9Nass7d9i6v",
+    "number": 60,
+    "title": "fix: accept inputs from the caller workflow to fix pnpm CI failure",
+    "createdAt": "2026-05-21T13:52:04Z",
+    "closedAt": "2026-06-01T04:47:40Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/typescript-eslint/typescript-eslint",
+    "htmlUrl": "https://github.com/typescript-eslint/typescript-eslint/pull/12347",
+    "id": 4478397682,
+    "nodeId": "PR_kwDOCd3hms7dHiE-",
+    "number": 12347,
+    "title": "chore: avoid deprecated `@eslint/js@10.0.0`",
+    "createdAt": "2026-05-19T14:49:26Z",
+    "closedAt": "2026-05-27T13:33:33Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/reactjs/ko.react.dev",
+    "htmlUrl": "https://github.com/reactjs/ko.react.dev/pull/1514",
+    "id": 4459869718,
+    "nodeId": "PR_kwDOChzKxs7cNTot",
+    "number": 1514,
+    "title": "chore: update `eslint` and `eslint-markdown`",
+    "createdAt": "2026-05-16T12:30:29Z",
+    "closedAt": "2026-05-16T12:35:37Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/reactjs/ko.react.dev",
+    "htmlUrl": "https://github.com/reactjs/ko.react.dev/pull/1513",
+    "id": 4459840612,
+    "nodeId": "PR_kwDOChzKxs7cNObI",
+    "number": 1513,
+    "title": "docs: translate `useEffectEvent` and `useOptimistic`",
+    "createdAt": "2026-05-16T12:19:12Z",
+    "closedAt": "2026-05-16T12:25:55Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/reactjs/ko.react.dev",
+    "htmlUrl": "https://github.com/reactjs/ko.react.dev/pull/1512",
+    "id": 4458253935,
+    "nodeId": "PR_kwDOChzKxs7cIgiw",
+    "number": 1512,
+    "title": "docs: fix typos",
+    "createdAt": "2026-05-16T02:47:04Z",
+    "closedAt": "2026-05-16T02:50:03Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/typescript-eslint/typescript-eslint",
+    "htmlUrl": "https://github.com/typescript-eslint/typescript-eslint/pull/12334",
+    "id": 4438074692,
+    "nodeId": "PR_kwDOCd3hms7bIA4R",
+    "number": 12334,
+    "title": "chore: remove obsolete `@eslint-community/eslint-utils` typings",
+    "createdAt": "2026-05-13T13:00:59Z",
+    "closedAt": "2026-05-27T13:11:49Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/typescript-eslint/typescript-eslint",
+    "htmlUrl": "https://github.com/typescript-eslint/typescript-eslint/pull/12333",
+    "id": 4437834275,
+    "nodeId": "PR_kwDOCd3hms7bHNoQ",
+    "number": 12333,
+    "title": "chore: add `unifiedjs.vscode-mdx` to `.vscode/extensions.json`",
+    "createdAt": "2026-05-13T12:26:15Z",
+    "closedAt": "2026-05-18T21:00:29Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint",
+    "htmlUrl": "https://github.com/eslint/eslint/pull/20860",
+    "id": 4418924845,
+    "nodeId": "PR_kwDOAKjKDc7aJmIR",
+    "number": 20860,
+    "title": "ci: ensure auto-created PRs run CI",
+    "createdAt": "2026-05-11T07:32:58Z",
+    "closedAt": "2026-05-14T18:37:43Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/typescript-eslint/typescript-eslint",
+    "htmlUrl": "https://github.com/typescript-eslint/typescript-eslint/pull/12321",
+    "id": 4415982301,
+    "nodeId": "PR_kwDOCd3hms7aAkLy",
+    "number": 12321,
+    "title": "fix(project-service): throw error cause in `getParsedConfigFileFromTSServer`",
+    "createdAt": "2026-05-10T15:12:06Z",
+    "closedAt": "2026-05-17T00:51:34Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/code-explorer",
+    "htmlUrl": "https://github.com/eslint/code-explorer/pull/412",
+    "id": 4415847446,
+    "nodeId": "PR_kwDOLo6z_M7aAJ-U",
+    "number": 412,
+    "title": "chore: update `tsconfig.json` to use project references",
+    "createdAt": "2026-05-10T14:17:21Z",
+    "closedAt": "2026-05-11T21:12:50Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/code-explorer",
+    "htmlUrl": "https://github.com/eslint/code-explorer/pull/411",
+    "id": 4415742331,
+    "nodeId": "PR_kwDOLo6z_M7Z_2Az",
+    "number": 411,
+    "title": "ci: faster installation of playwright in CI",
+    "createdAt": "2026-05-10T13:31:25Z",
+    "closedAt": "2026-05-11T21:12:02Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/typescript-eslint/typescript-eslint",
+    "htmlUrl": "https://github.com/typescript-eslint/typescript-eslint/pull/12316",
+    "id": 4407126868,
+    "nodeId": "PR_kwDOCd3hms7ZkcyV",
+    "number": 12316,
+    "title": "chore: remove obsolete `eslint-plugin-eslint-comments` typings",
+    "createdAt": "2026-05-08T14:28:45Z",
+    "closedAt": "2026-05-08T18:58:47Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/typescript-eslint/typescript-eslint",
+    "htmlUrl": "https://github.com/typescript-eslint/typescript-eslint/pull/12314",
+    "id": 4404447090,
+    "nodeId": "PR_kwDOCd3hms7ZbiCT",
+    "number": 12314,
+    "title": "chore: update deprecated configs in `.vscode/settings.json`",
+    "createdAt": "2026-05-08T06:51:29Z",
+    "closedAt": "2026-05-17T00:50:36Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/typescript-eslint/typescript-eslint",
+    "htmlUrl": "https://github.com/typescript-eslint/typescript-eslint/pull/12313",
+    "id": 4399794847,
+    "nodeId": "PR_kwDOCd3hms7ZMhXA",
+    "number": 12313,
+    "title": "docs: update stale links to latest",
+    "createdAt": "2026-05-07T15:06:11Z",
+    "closedAt": "2026-05-08T12:38:08Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/js",
+    "htmlUrl": "https://github.com/eslint/js/pull/748",
+    "id": 4399540497,
+    "nodeId": "PR_kwDOAaVztc7ZLrSk",
+    "number": 748,
+    "title": "chore: update stale links and use latest `eslint`",
+    "createdAt": "2026-05-07T14:29:09Z",
+    "closedAt": "2026-05-23T12:06:55Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/tsc-meetings",
+    "htmlUrl": "https://github.com/eslint/tsc-meetings/pull/702",
+    "id": 4398318855,
+    "nodeId": "PR_kwDOA7CQYc7ZHore",
+    "number": 702,
+    "title": "chore: update ESLint to v10",
+    "createdAt": "2026-05-07T11:17:58Z",
+    "closedAt": "2026-05-07T12:47:38Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/create-config",
+    "htmlUrl": "https://github.com/eslint/create-config/pull/245",
+    "id": 4397824362,
+    "nodeId": "PR_kwDOFqe-is7ZF_7_",
+    "number": 245,
+    "title": "ci: add Node.js 26 to CI",
+    "createdAt": "2026-05-07T09:55:26Z",
+    "closedAt": "2026-05-07T10:00:59Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/css",
+    "htmlUrl": "https://github.com/eslint/css/pull/444",
+    "id": 4397813784,
+    "nodeId": "PR_kwDONF7wwM7ZF9rE",
+    "number": 444,
+    "title": "ci: add Node.js 26 to CI",
+    "createdAt": "2026-05-07T09:53:55Z",
+    "closedAt": "2026-05-07T10:13:31Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint-release",
+    "htmlUrl": "https://github.com/eslint/eslint-release/pull/99",
+    "id": 4397784979,
+    "nodeId": "PR_kwDOAvvbFc7ZF3mT",
+    "number": 99,
+    "title": "ci: add Node.js 26 to CI",
+    "createdAt": "2026-05-07T09:49:47Z",
+    "closedAt": "2026-05-07T09:57:28Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint-transforms",
+    "htmlUrl": "https://github.com/eslint/eslint-transforms/pull/73",
+    "id": 4397771670,
+    "nodeId": "PR_kwDOA4Zafs7ZF0w3",
+    "number": 73,
+    "title": "ci: add Node.js 26 to CI",
+    "createdAt": "2026-05-07T09:47:41Z",
+    "closedAt": "2026-05-07T10:04:42Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/generator-eslint",
+    "htmlUrl": "https://github.com/eslint/generator-eslint/pull/268",
+    "id": 4397747527,
+    "nodeId": "PR_kwDOAPfTOM7ZFvqE",
+    "number": 268,
+    "title": "ci: add Node.js 26 to CI",
+    "createdAt": "2026-05-07T09:44:06Z",
+    "closedAt": "2026-05-07T10:08:21Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/json",
+    "htmlUrl": "https://github.com/eslint/json/pull/237",
+    "id": 4397711866,
+    "nodeId": "PR_kwDOMOnJ-M7ZFoH6",
+    "number": 237,
+    "title": "ci: add Node.js 26 to CI",
+    "createdAt": "2026-05-07T09:38:18Z",
+    "closedAt": "2026-05-07T09:45:59Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/markdown",
+    "htmlUrl": "https://github.com/eslint/markdown/pull/654",
+    "id": 4397698823,
+    "nodeId": "PR_kwDOAkm7Hs7ZFlZf",
+    "number": 654,
+    "title": "ci: add Node.js 26 to CI",
+    "createdAt": "2026-05-07T09:36:22Z",
+    "closedAt": "2026-05-07T09:53:17Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/rewrite",
+    "htmlUrl": "https://github.com/eslint/rewrite/pull/448",
+    "id": 4397666974,
+    "nodeId": "PR_kwDOLyyFi87ZFeqh",
+    "number": 448,
+    "title": "ci: add Node.js 26 to CI",
+    "createdAt": "2026-05-07T09:31:33Z",
+    "closedAt": "2026-05-07T10:22:26Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/css",
+    "htmlUrl": "https://github.com/eslint/css/pull/443",
+    "id": 4397590585,
+    "nodeId": "PR_kwDONF7wwM7ZFO0T",
+    "number": 443,
+    "title": "test: run type tests with TypeScript 7",
+    "createdAt": "2026-05-07T09:18:50Z",
+    "closedAt": "2026-05-07T21:25:05Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/json",
+    "htmlUrl": "https://github.com/eslint/json/pull/236",
+    "id": 4397539116,
+    "nodeId": "PR_kwDOMOnJ-M7ZFEDB",
+    "number": 236,
+    "title": "test: run type tests with TypeScript 7",
+    "createdAt": "2026-05-07T09:10:50Z",
+    "closedAt": "2026-05-07T21:19:58Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/markdown",
+    "htmlUrl": "https://github.com/eslint/markdown/pull/653",
+    "id": 4397489335,
+    "nodeId": "PR_kwDOAkm7Hs7ZE5yd",
+    "number": 653,
+    "title": "test: run type tests with TypeScript 7",
+    "createdAt": "2026-05-07T09:03:21Z",
+    "closedAt": "2026-05-07T21:15:32Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/typescript-eslint/typescript-eslint",
+    "htmlUrl": "https://github.com/typescript-eslint/typescript-eslint/pull/12310",
+    "id": 4385426166,
+    "nodeId": "PR_kwDOCd3hms7Ydlbi",
+    "number": 12310,
+    "title": "docs: update ESLint FAQ example to use `no-unused-vars` rule",
+    "createdAt": "2026-05-05T15:58:19Z",
+    "closedAt": "2026-05-17T00:51:13Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/markdown",
+    "htmlUrl": "https://github.com/eslint/markdown/pull/652",
+    "id": 4384052794,
+    "nodeId": "PR_kwDOAkm7Hs7YZBTX",
+    "number": 652,
+    "title": "fix: allow `InlineConfigComment` node to be reported",
+    "createdAt": "2026-05-05T12:33:45Z",
+    "closedAt": "2026-05-13T21:30:54Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/js",
+    "htmlUrl": "https://github.com/eslint/js/pull/746",
+    "id": 4377546407,
+    "nodeId": "PR_kwDOAaVztc7YDtJs",
+    "number": 746,
+    "title": "test: use type only import in type test to fix CI failure",
+    "createdAt": "2026-05-04T14:58:07Z",
+    "closedAt": "2026-05-04T19:21:56Z",
+    "reactions": {
+      "+1": 0
+    }
+  }
+]

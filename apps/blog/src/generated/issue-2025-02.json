@@ -1,0 +1,41 @@
+[
+  {
+    "repositoryUrl": "https://api.github.com/repos/1ilsang/dev",
+    "htmlUrl": "https://github.com/1ilsang/dev/issues/543",
+    "id": 2875216319,
+    "nodeId": "I_kwDOHVtTps6rYFG_",
+    "number": 543,
+    "title": "[🧊] @mdn/yari-content-ko Organizer 합류 여정",
+    "createdAt": "2025-02-24T14:44:28Z",
+    "closedAt": "2025-02-25T15:22:05Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/reactjs/ko.react.dev",
+    "htmlUrl": "https://github.com/reactjs/ko.react.dev/issues/1143",
+    "id": 2870669058,
+    "nodeId": "I_kwDOChzKxs6rGu8C",
+    "number": 1143,
+    "title": "혹시 이슈에 `[변역 필요]` 템플릿은 없나요?",
+    "createdAt": "2025-02-22T11:03:20Z",
+    "closedAt": "2025-03-17T07:30:45Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/prettier/prettier",
+    "htmlUrl": "https://github.com/prettier/prettier/issues/17094",
+    "id": 2842406306,
+    "nodeId": "I_kwDOBHn_e86pa62i",
+    "number": 17094,
+    "title": "`v3.5.0` is a BREAKING CHANGE",
+    "createdAt": "2025-02-10T13:25:34Z",
+    "closedAt": "2025-02-10T13:40:23Z",
+    "reactions": {
+      "+1": 0
+    }
+  }
+]

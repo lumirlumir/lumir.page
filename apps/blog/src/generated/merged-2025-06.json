@@ -1,0 +1,496 @@
+[
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/markdown",
+    "htmlUrl": "https://github.com/eslint/markdown/pull/446",
+    "id": 3177994116,
+    "nodeId": "PR_kwDOAkm7Hs6cLZg8",
+    "number": 446,
+    "title": "fix!: move certain types to import them from `@eslint/markdown/types`",
+    "createdAt": "2025-06-26T06:48:55Z",
+    "closedAt": "2025-07-10T05:17:33Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/css",
+    "htmlUrl": "https://github.com/eslint/css/pull/182",
+    "id": 3174407571,
+    "nodeId": "PR_kwDONF7wwM6b_mV8",
+    "number": 182,
+    "title": "chore: fix CI error related to prettier `fmt`",
+    "createdAt": "2025-06-25T06:41:13Z",
+    "closedAt": "2025-06-25T09:53:07Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/markdown",
+    "htmlUrl": "https://github.com/eslint/markdown/pull/444",
+    "id": 3174290137,
+    "nodeId": "PR_kwDOAkm7Hs6b_Odw",
+    "number": 444,
+    "title": "docs: replace AST-related description from no-duplicate-definitions",
+    "createdAt": "2025-06-25T05:48:46Z",
+    "closedAt": "2025-06-25T14:51:05Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/markdown",
+    "htmlUrl": "https://github.com/eslint/markdown/pull/438",
+    "id": 3167521196,
+    "nodeId": "PR_kwDOAkm7Hs6bob1t",
+    "number": 438,
+    "title": "fix: update `no-duplicate-headings` to align with CommonMark spec",
+    "createdAt": "2025-06-23T09:48:48Z",
+    "closedAt": "2025-06-25T14:57:01Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/markdown",
+    "htmlUrl": "https://github.com/eslint/markdown/pull/432",
+    "id": 3165861132,
+    "nodeId": "PR_kwDOAkm7Hs6bjA9U",
+    "number": 432,
+    "title": "chore: fix `tsconfig.json` to include `.js` and `.ts` files in `src` dir",
+    "createdAt": "2025-06-22T11:00:55Z",
+    "closedAt": "2025-06-23T08:55:08Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/markdown",
+    "htmlUrl": "https://github.com/eslint/markdown/pull/431",
+    "id": 3165117314,
+    "nodeId": "PR_kwDOAkm7Hs6bguO-",
+    "number": 431,
+    "title": "test: correct indentation in `fenced-code-language` test cases",
+    "createdAt": "2025-06-21T14:06:32Z",
+    "closedAt": "2025-06-21T15:46:58Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/markdown",
+    "htmlUrl": "https://github.com/eslint/markdown/pull/428",
+    "id": 3162545674,
+    "nodeId": "PR_kwDOAkm7Hs6bYDfT",
+    "number": 428,
+    "title": "chore: fix wrong `@fileoverview` description",
+    "createdAt": "2025-06-20T09:25:56Z",
+    "closedAt": "2025-06-20T18:48:20Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/css",
+    "htmlUrl": "https://github.com/eslint/css/pull/179",
+    "id": 3162491062,
+    "nodeId": "PR_kwDONF7wwM6bX3LV",
+    "number": 179,
+    "title": "chore: fix wrong JSDoc tag",
+    "createdAt": "2025-06-20T09:10:09Z",
+    "closedAt": "2025-06-21T14:42:53Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/json",
+    "htmlUrl": "https://github.com/eslint/json/pull/114",
+    "id": 3162211955,
+    "nodeId": "PR_kwDOMOnJ-M6bW6bh",
+    "number": 114,
+    "title": "test: add tests for JSON5 parsing in `JSONLanguage`",
+    "createdAt": "2025-06-20T07:22:40Z",
+    "closedAt": "2025-06-20T12:02:33Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/css",
+    "htmlUrl": "https://github.com/eslint/css/pull/176",
+    "id": 3157106375,
+    "nodeId": "PR_kwDONF7wwM6bFr6q",
+    "number": 176,
+    "title": "fix: enforce unique items in the options of `prefer-logical-properties`",
+    "createdAt": "2025-06-18T14:27:45Z",
+    "closedAt": "2025-06-19T15:02:50Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/markdown",
+    "htmlUrl": "https://github.com/eslint/markdown/pull/427",
+    "id": 3157054625,
+    "nodeId": "PR_kwDOAkm7Hs6bFggo",
+    "number": 427,
+    "title": "refactor: add default options for `fenced-code-language` and `no-html`",
+    "createdAt": "2025-06-18T14:12:41Z",
+    "closedAt": "2025-06-19T15:23:31Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/markdown",
+    "htmlUrl": "https://github.com/eslint/markdown/pull/426",
+    "id": 3153296817,
+    "nodeId": "PR_kwDOAkm7Hs6a5CWS",
+    "number": 426,
+    "title": "chore: update lint-staged to run `git add README.md` when rules change",
+    "createdAt": "2025-06-17T12:19:01Z",
+    "closedAt": "2025-06-18T14:25:42Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/markdown",
+    "htmlUrl": "https://github.com/eslint/markdown/pull/425",
+    "id": 3153270773,
+    "nodeId": "PR_kwDOAkm7Hs6a484A",
+    "number": 425,
+    "title": "feat: create `no-unused-definitions` rule",
+    "createdAt": "2025-06-17T12:10:08Z",
+    "closedAt": "2025-06-27T12:44:54Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint",
+    "htmlUrl": "https://github.com/eslint/eslint/pull/19862",
+    "id": 3150311363,
+    "nodeId": "PR_kwDOAKjKDc6au_KF",
+    "number": 19862,
+    "title": "fix: handle `null` type `loc` in `getIndexFromLoc` method",
+    "createdAt": "2025-06-16T14:50:49Z",
+    "closedAt": "2025-06-26T19:00:51Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/vitejs/vite",
+    "htmlUrl": "https://github.com/vitejs/vite/pull/20208",
+    "id": 3146976038,
+    "nodeId": "PR_kwDOD1jqbs6akHX4",
+    "number": 20208,
+    "title": "docs: correct heading level in `ssr-options.md`",
+    "createdAt": "2025-06-15T01:53:18Z",
+    "closedAt": "2025-06-16T01:18:27Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/vercel/next.js",
+    "htmlUrl": "https://github.com/vercel/next.js/pull/80541",
+    "id": 3146970121,
+    "nodeId": "PR_kwDOBC3Cis6akGaK",
+    "number": 80541,
+    "title": "docs: fix a typo in `static-exports.mdx`",
+    "createdAt": "2025-06-15T01:42:29Z",
+    "closedAt": "2025-06-16T11:39:12Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/code-explorer",
+    "htmlUrl": "https://github.com/eslint/code-explorer/pull/112",
+    "id": 3146207605,
+    "nodeId": "PR_kwDOLo6z_M6aiAPR",
+    "number": 112,
+    "title": "fix: update incorrect `meta` properties",
+    "createdAt": "2025-06-14T14:10:31Z",
+    "closedAt": "2025-06-21T15:49:33Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/markdown",
+    "htmlUrl": "https://github.com/eslint/markdown/pull/420",
+    "id": 3143004835,
+    "nodeId": "PR_kwDOAkm7Hs6aXJl6",
+    "number": 420,
+    "title": "test: add test for `findOffsets()` util",
+    "createdAt": "2025-06-13T09:56:43Z",
+    "closedAt": "2025-06-13T14:10:30Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/js",
+    "htmlUrl": "https://github.com/eslint/js/pull/664",
+    "id": 3138920794,
+    "nodeId": "PR_kwDOAaVztc6aJTC2",
+    "number": 664,
+    "title": "chore: replace `npm-run-all2` with a native script",
+    "createdAt": "2025-06-12T05:44:26Z",
+    "closedAt": "2025-06-13T14:36:44Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/markdown",
+    "htmlUrl": "https://github.com/eslint/markdown/pull/417",
+    "id": 3138911833,
+    "nodeId": "PR_kwDOAkm7Hs6aJRI7",
+    "number": 417,
+    "title": "chore: replace `npm-prepare` script with npm workspace feature",
+    "createdAt": "2025-06-12T05:38:54Z",
+    "closedAt": "2025-06-19T05:39:20Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/css",
+    "htmlUrl": "https://github.com/eslint/css/pull/170",
+    "id": 3132820085,
+    "nodeId": "PR_kwDONF7wwM6Z0a-x",
+    "number": 170,
+    "title": "chore: update lint-staged to use predefined script",
+    "createdAt": "2025-06-10T09:23:50Z",
+    "closedAt": "2025-06-10T14:05:58Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/markdown",
+    "htmlUrl": "https://github.com/eslint/markdown/pull/416",
+    "id": 3132789240,
+    "nodeId": "PR_kwDOAkm7Hs6Z0UQO",
+    "number": 416,
+    "title": "docs: update installing section in `README.md`",
+    "createdAt": "2025-06-10T09:13:56Z",
+    "closedAt": "2025-06-10T14:07:30Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/json",
+    "htmlUrl": "https://github.com/eslint/json/pull/110",
+    "id": 3132728971,
+    "nodeId": "PR_kwDOMOnJ-M6Z0HEo",
+    "number": 110,
+    "title": "docs: fix wrong `bun` command",
+    "createdAt": "2025-06-10T08:54:33Z",
+    "closedAt": "2025-06-10T09:53:01Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/markdown",
+    "htmlUrl": "https://github.com/eslint/markdown/pull/413",
+    "id": 3132321647,
+    "nodeId": "PR_kwDOAkm7Hs6ZytsA",
+    "number": 413,
+    "title": "feat: update `no-multiple-h1` rule to recognize JSON frontmatter",
+    "createdAt": "2025-06-10T06:35:36Z",
+    "closedAt": "2025-06-17T14:29:19Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/markdown",
+    "htmlUrl": "https://github.com/eslint/markdown/pull/412",
+    "id": 3132278297,
+    "nodeId": "PR_kwDOAkm7Hs6ZykWD",
+    "number": 412,
+    "title": "chore: remove `@types/eslint` and bump mocha",
+    "createdAt": "2025-06-10T06:16:17Z",
+    "closedAt": "2025-06-10T14:08:55Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/rewrite",
+    "htmlUrl": "https://github.com/eslint/rewrite/pull/225",
+    "id": 3129361078,
+    "nodeId": "PR_kwDOLyyFi86Zomvn",
+    "number": 225,
+    "title": "chore: update `package.json` to follow template",
+    "createdAt": "2025-06-09T06:56:27Z",
+    "closedAt": "2025-06-09T10:48:49Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/rewrite",
+    "htmlUrl": "https://github.com/eslint/rewrite/pull/224",
+    "id": 3129244397,
+    "nodeId": "PR_kwDOLyyFi86ZoM-a",
+    "number": 224,
+    "title": "chore: hoist cli tools to root level",
+    "createdAt": "2025-06-09T06:01:36Z",
+    "closedAt": "2025-06-13T14:13:03Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint-github-bot",
+    "htmlUrl": "https://github.com/eslint/eslint-github-bot/pull/222",
+    "id": 3128175990,
+    "nodeId": "PR_kwDOBa-RVM6ZkqsU",
+    "number": 222,
+    "title": "chore: bump dependencies to address security vulnerabilities",
+    "createdAt": "2025-06-08T10:08:08Z",
+    "closedAt": "2025-06-09T14:08:59Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint",
+    "htmlUrl": "https://github.com/eslint/eslint/pull/19831",
+    "id": 3128151999,
+    "nodeId": "PR_kwDOAKjKDc6Zkldt",
+    "number": 19831,
+    "title": "feat: throw error when column is negative in `getIndexFromLoc`",
+    "createdAt": "2025-06-08T09:43:43Z",
+    "closedAt": "2025-06-18T09:35:40Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/css",
+    "htmlUrl": "https://github.com/eslint/css/pull/167",
+    "id": 3128105026,
+    "nodeId": "PR_kwDONF7wwM6Zkbl3",
+    "number": 167,
+    "title": "feat: add support for `getLocFromIndex` and `getIndexFromLoc`",
+    "createdAt": "2025-06-08T08:44:55Z",
+    "closedAt": "2025-09-24T06:41:36Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/json",
+    "htmlUrl": "https://github.com/eslint/json/pull/109",
+    "id": 3128100951,
+    "nodeId": "PR_kwDOMOnJ-M6Zkar3",
+    "number": 109,
+    "title": "feat: add support for `getLocFromIndex` and `getIndexFromLoc`",
+    "createdAt": "2025-06-08T08:40:05Z",
+    "closedAt": "2025-09-24T06:34:44Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/rewrite",
+    "htmlUrl": "https://github.com/eslint/rewrite/pull/222",
+    "id": 3126627563,
+    "nodeId": "PR_kwDOLyyFi86ZfaZ2",
+    "number": 222,
+    "title": "docs: fix bun command and update documentation",
+    "createdAt": "2025-06-07T07:18:47Z",
+    "closedAt": "2025-06-09T10:35:01Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/json",
+    "htmlUrl": "https://github.com/eslint/json/pull/108",
+    "id": 3120675420,
+    "nodeId": "PR_kwDOMOnJ-M6ZLMoK",
+    "number": 108,
+    "title": "build: create `update-rules-docs.js` to automate rule docs generation",
+    "createdAt": "2025-06-05T10:27:49Z",
+    "closedAt": "2025-06-13T14:26:17Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/markdown",
+    "htmlUrl": "https://github.com/eslint/markdown/pull/407",
+    "id": 3113672565,
+    "nodeId": "PR_kwDOAkm7Hs6YzvO3",
+    "number": 407,
+    "title": "docs: fix minor typos",
+    "createdAt": "2025-06-03T12:00:15Z",
+    "closedAt": "2025-06-04T15:53:28Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/json",
+    "htmlUrl": "https://github.com/eslint/json/pull/107",
+    "id": 3109788475,
+    "nodeId": "PR_kwDOMOnJ-M6YmzXE",
+    "number": 107,
+    "title": "ci: create `ci-build-all-pm.yml`",
+    "createdAt": "2025-06-02T11:33:57Z",
+    "closedAt": "2025-06-02T14:29:51Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint-github-bot",
+    "htmlUrl": "https://github.com/eslint/eslint-github-bot/pull/221",
+    "id": 3109752771,
+    "nodeId": "PR_kwDOBa-RVM6Ymr83",
+    "number": 221,
+    "title": "chore: update `.gitignore` and `eslint.config.js`",
+    "createdAt": "2025-06-02T11:24:01Z",
+    "closedAt": "2025-06-02T14:21:22Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint-github-bot",
+    "htmlUrl": "https://github.com/eslint/eslint-github-bot/pull/220",
+    "id": 3109411145,
+    "nodeId": "PR_kwDOBa-RVM6YliZI",
+    "number": 220,
+    "title": "fix: auto assign is not working correctly",
+    "createdAt": "2025-06-02T09:45:23Z",
+    "closedAt": "2025-06-02T14:20:19Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/markdown",
+    "htmlUrl": "https://github.com/eslint/markdown/pull/400",
+    "id": 3109348007,
+    "nodeId": "PR_kwDOAkm7Hs6YlUeA",
+    "number": 400,
+    "title": "ci: create `ci-build-all-pm.yml`",
+    "createdAt": "2025-06-02T09:26:53Z",
+    "closedAt": "2025-06-02T14:38:21Z",
+    "reactions": {
+      "+1": 0
+    }
+  }
+]

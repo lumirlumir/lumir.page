@@ -1,0 +1,301 @@
+[
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint",
+    "htmlUrl": "https://github.com/eslint/eslint/pull/19190",
+    "id": 2701939723,
+    "nodeId": "PR_kwDOAKjKDc6DdomD",
+    "number": 19190,
+    "title": "docs: fix typos in `use-isnan`",
+    "createdAt": "2024-11-28T11:57:03Z",
+    "closedAt": "2024-11-28T12:24:45Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint",
+    "htmlUrl": "https://github.com/eslint/eslint/pull/19189",
+    "id": 2701809579,
+    "nodeId": "PR_kwDOAKjKDc6DdXRi",
+    "number": 19189,
+    "title": "docs: switch the order of words in `no-unreachable`",
+    "createdAt": "2024-11-28T11:17:15Z",
+    "closedAt": "2024-11-28T12:21:56Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint",
+    "htmlUrl": "https://github.com/eslint/eslint/pull/19188",
+    "id": 2701432571,
+    "nodeId": "PR_kwDOAKjKDc6DcdEm",
+    "number": 19188,
+    "title": "docs: add missing backtick to `no-async-promise-executor`",
+    "createdAt": "2024-11-28T09:17:53Z",
+    "closedAt": "2024-11-28T09:29:40Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint",
+    "htmlUrl": "https://github.com/eslint/eslint/pull/19186",
+    "id": 2698252365,
+    "nodeId": "PR_kwDOAKjKDc6DUy5q",
+    "number": 19186,
+    "title": "docs: add backtick in `-0` in `description` of `no-compare-neg-zero`",
+    "createdAt": "2024-11-27T11:31:38Z",
+    "closedAt": "2024-11-27T17:00:07Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/llvm/llvm-project",
+    "htmlUrl": "https://github.com/llvm/llvm-project/pull/117730",
+    "id": 2695189868,
+    "nodeId": "PR_kwDOBITxeM6DNb32",
+    "number": 117730,
+    "title": "[clang-format] fix: add missing `default_extensions` values to `git-clang-format`",
+    "createdAt": "2024-11-26T15:51:33Z",
+    "closedAt": "2024-11-27T06:56:25Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint",
+    "htmlUrl": "https://github.com/eslint/eslint/pull/19180",
+    "id": 2694439678,
+    "nodeId": "PR_kwDOAKjKDc6DLbk6",
+    "number": 19180,
+    "title": "docs: fix typos in `migration-guide.md`",
+    "createdAt": "2024-11-26T12:05:53Z",
+    "closedAt": "2024-11-26T13:55:20Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint",
+    "htmlUrl": "https://github.com/eslint/eslint/pull/19179",
+    "id": 2694033025,
+    "nodeId": "PR_kwDOAKjKDc6DKZQ_",
+    "number": 19179,
+    "title": "docs: fix a typo in `debug.md`",
+    "createdAt": "2024-11-26T10:12:42Z",
+    "closedAt": "2024-11-26T10:24:31Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint",
+    "htmlUrl": "https://github.com/eslint/eslint/pull/19176",
+    "id": 2693692423,
+    "nodeId": "PR_kwDOAKjKDc6DJmgf",
+    "number": 19176,
+    "title": "docs: delete unnecessary horizontal rule(`---`) (v8.x) (follow up)",
+    "createdAt": "2024-11-26T08:33:32Z",
+    "closedAt": "2024-11-26T08:46:57Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint",
+    "htmlUrl": "https://github.com/eslint/eslint/pull/19175",
+    "id": 2693333469,
+    "nodeId": "PR_kwDOAKjKDc6DIv5T",
+    "number": 19175,
+    "title": "docs: delete unnecessary horizontal rule(`---`) in `nodejs-api`",
+    "createdAt": "2024-11-26T06:26:50Z",
+    "closedAt": "2024-11-26T08:20:18Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/toss/es-hangul",
+    "htmlUrl": "https://github.com/toss/es-hangul/pull/293",
+    "id": 2690518362,
+    "nodeId": "PR_kwDOLnPZMM6DBxMV",
+    "number": 293,
+    "title": "docs: create `removeLastCharacter` documentation",
+    "createdAt": "2024-11-25T12:06:13Z",
+    "closedAt": "2024-11-25T14:33:43Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/algolia/docsearch",
+    "htmlUrl": "https://github.com/algolia/docsearch/pull/2377",
+    "id": 2690438100,
+    "nodeId": "PR_kwDOAsbtLs6DBhGD",
+    "number": 2377,
+    "title": "chore: add `--host` option to `playground:start` script in `package.json`",
+    "createdAt": "2024-11-25T11:36:00Z",
+    "closedAt": "2024-11-25T13:16:55Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/vercel/next.js",
+    "htmlUrl": "https://github.com/vercel/next.js/pull/73165",
+    "id": 2690361414,
+    "nodeId": "PR_kwDOBC3Cis6DBaEg",
+    "number": 73165,
+    "title": "chore: remove non-existent hash fragments from URLs",
+    "createdAt": "2024-11-25T11:22:12Z",
+    "closedAt": "2024-12-05T22:14:08Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/vercel/next.js",
+    "htmlUrl": "https://github.com/vercel/next.js/pull/73163",
+    "id": 2690332296,
+    "nodeId": "PR_kwDOBC3Cis6DBUHw",
+    "number": 73163,
+    "title": "docs: add missing punctuation in `developing-using-local-app.md`",
+    "createdAt": "2024-11-25T11:11:30Z",
+    "closedAt": "2024-12-02T22:21:09Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint",
+    "htmlUrl": "https://github.com/eslint/eslint/pull/19165",
+    "id": 2690156259,
+    "nodeId": "PR_kwDOAKjKDc6DA5A6",
+    "number": 19165,
+    "title": "chore: add `repository.directory` property to `package.json`",
+    "createdAt": "2024-11-25T10:27:30Z",
+    "closedAt": "2024-11-25T16:26:40Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint",
+    "htmlUrl": "https://github.com/eslint/eslint/pull/19161",
+    "id": 2687932463,
+    "nodeId": "PR_kwDOAKjKDc6C8RI2",
+    "number": 19161,
+    "title": "docs: add missing punctuation in document",
+    "createdAt": "2024-11-24T15:38:24Z",
+    "closedAt": "2024-12-02T15:55:20Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/algolia/docsearch",
+    "htmlUrl": "https://github.com/algolia/docsearch/pull/2372",
+    "id": 2685378129,
+    "nodeId": "PR_kwDOAsbtLs6C5Ud9",
+    "number": 2372,
+    "title": "chore: add `repository.directory` property to `package.json`",
+    "createdAt": "2024-11-23T05:01:15Z",
+    "closedAt": "2024-11-23T09:01:26Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/algolia/docsearch",
+    "htmlUrl": "https://github.com/algolia/docsearch/pull/2359",
+    "id": 2664193177,
+    "nodeId": "PR_kwDOAsbtLs6CH0YZ",
+    "number": 2359,
+    "title": "refactor: improve readability of `_variables.css`",
+    "createdAt": "2024-11-16T11:10:24Z",
+    "closedAt": "2024-11-16T21:51:03Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/toss/es-hangul",
+    "htmlUrl": "https://github.com/toss/es-hangul/pull/277",
+    "id": 2646727433,
+    "nodeId": "PR_kwDOLnPZMM6BatzL",
+    "number": 277,
+    "title": "docs: fix typos in `introduction.ko.mdx`",
+    "createdAt": "2024-11-10T02:49:26Z",
+    "closedAt": "2024-11-13T08:25:03Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/toss/es-hangul",
+    "htmlUrl": "https://github.com/toss/es-hangul/pull/276",
+    "id": 2646722532,
+    "nodeId": "PR_kwDOLnPZMM6Basze",
+    "number": 276,
+    "title": "docs: fix a typo in `standardizePronunciation.ko.mdx`",
+    "createdAt": "2024-11-10T02:29:05Z",
+    "closedAt": "2024-11-13T08:24:37Z",
+    "reactions": {
+      "+1": 1
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/lerna/lerna",
+    "htmlUrl": "https://github.com/lerna/lerna/pull/4115",
+    "id": 2646241867,
+    "nodeId": "PR_kwDOAtMv2M6BZ5LU",
+    "number": 4115,
+    "title": "docs: fix simple typos in `import/README.md`",
+    "createdAt": "2024-11-09T15:37:44Z",
+    "closedAt": "2024-11-15T13:27:36Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/material-extensions/vscode-material-icon-theme",
+    "htmlUrl": "https://github.com/material-extensions/vscode-material-icon-theme/pull/2665",
+    "id": 2631168243,
+    "nodeId": "PR_kwDOBAsGTM6AuRQe",
+    "number": 2665,
+    "title": "feat: ✨ `.editorconfig-checker.json` and `.ecrc` file icon",
+    "createdAt": "2024-11-03T12:01:47Z",
+    "closedAt": "2024-11-04T13:33:03Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/vercel/next.js",
+    "htmlUrl": "https://github.com/vercel/next.js/pull/72218",
+    "id": 2630434346,
+    "nodeId": "PR_kwDOBC3Cis6AsgWU",
+    "number": 72218,
+    "title": "docs(typo): fix typos in `04-cypress.mdx`",
+    "createdAt": "2024-11-02T12:39:00Z",
+    "closedAt": "2024-11-05T20:45:17Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/vercel/next.js",
+    "htmlUrl": "https://github.com/vercel/next.js/pull/72182",
+    "id": 2629111698,
+    "nodeId": "PR_kwDOBC3Cis6AonPi",
+    "number": 72182,
+    "title": "docs(typo): fix typos in `03-playwright.mdx`",
+    "createdAt": "2024-11-01T14:06:37Z",
+    "closedAt": "2024-11-05T20:42:53Z",
+    "reactions": {
+      "+1": 0
+    }
+  }
+]

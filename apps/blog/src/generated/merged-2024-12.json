@@ -1,0 +1,314 @@
+[
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint",
+    "htmlUrl": "https://github.com/eslint/eslint/pull/19282",
+    "id": 2760908889,
+    "nodeId": "PR_kwDOAKjKDc6GUIou",
+    "number": 19282,
+    "title": "docs: add missing backticks to `sort-imports`",
+    "createdAt": "2024-12-27T13:47:33Z",
+    "closedAt": "2024-12-30T17:48:36Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint",
+    "htmlUrl": "https://github.com/eslint/eslint/pull/19270",
+    "id": 2757497010,
+    "nodeId": "PR_kwDOAKjKDc6GJ4AY",
+    "number": 19270,
+    "title": "docs: add `border-radius` to `hX:target` selector styles",
+    "createdAt": "2024-12-24T09:36:42Z",
+    "closedAt": "2024-12-28T18:28:59Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint",
+    "htmlUrl": "https://github.com/eslint/eslint/pull/19269",
+    "id": 2757469417,
+    "nodeId": "PR_kwDOAKjKDc6GJyIf",
+    "number": 19269,
+    "title": "docs: add missing backticks in various parts of the documentation",
+    "createdAt": "2024-12-24T09:15:39Z",
+    "closedAt": "2024-12-24T11:19:58Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/xvzc/boj-cli",
+    "htmlUrl": "https://github.com/xvzc/boj-cli/pull/32",
+    "id": 2754060339,
+    "nodeId": "PR_kwDOI0vqVM6F-_YQ",
+    "number": 32,
+    "title": "docs: correct typos in `README.md` and `config_example.yaml`",
+    "createdAt": "2024-12-21T14:00:12Z",
+    "closedAt": "2024-12-22T14:05:30Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/sindresorhus/yocto-spinner",
+    "htmlUrl": "https://github.com/sindresorhus/yocto-spinner/pull/3",
+    "id": 2729869974,
+    "nodeId": "PR_kwDOMoIRFs6EsUTg",
+    "number": 3,
+    "title": "Fix `clear()` method return value",
+    "createdAt": "2024-12-10T11:37:36Z",
+    "closedAt": "2024-12-10T21:59:06Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint",
+    "htmlUrl": "https://github.com/eslint/eslint/pull/19233",
+    "id": 2727021060,
+    "nodeId": "PR_kwDOAKjKDc6EiW-H",
+    "number": 19233,
+    "title": "docs: add missing backticks to `no-sequences`",
+    "createdAt": "2024-12-09T13:12:46Z",
+    "closedAt": "2024-12-09T13:21:36Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint",
+    "htmlUrl": "https://github.com/eslint/eslint/pull/19230",
+    "id": 2725054273,
+    "nodeId": "PR_kwDOAKjKDc6Ebl4D",
+    "number": 19230,
+    "title": "docs: update `yoda` to `Yoda` in `yoda.md` for consistency",
+    "createdAt": "2024-12-08T08:42:38Z",
+    "closedAt": "2024-12-09T15:20:03Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint",
+    "htmlUrl": "https://github.com/eslint/eslint/pull/19227",
+    "id": 2724333889,
+    "nodeId": "PR_kwDOAKjKDc6EZSE1",
+    "number": 19227,
+    "title": "docs: add missing backticks to `func-style`",
+    "createdAt": "2024-12-07T04:35:56Z",
+    "closedAt": "2024-12-07T13:48:59Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint",
+    "htmlUrl": "https://github.com/eslint/eslint/pull/19226",
+    "id": 2723430006,
+    "nodeId": "PR_kwDOAKjKDc6EWOjm",
+    "number": 19226,
+    "title": "chore: add missing backticks to `flags.js`",
+    "createdAt": "2024-12-06T16:13:33Z",
+    "closedAt": "2024-12-09T16:28:34Z",
+    "reactions": {
+      "+1": 1
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint",
+    "htmlUrl": "https://github.com/eslint/eslint/pull/19224",
+    "id": 2723196977,
+    "nodeId": "PR_kwDOAKjKDc6EVans",
+    "number": 19224,
+    "title": "docs: add missing header to `prefer-spread`",
+    "createdAt": "2024-12-06T14:30:32Z",
+    "closedAt": "2024-12-06T16:21:55Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint",
+    "htmlUrl": "https://github.com/eslint/eslint/pull/19223",
+    "id": 2722689517,
+    "nodeId": "PR_kwDOAKjKDc6ETo_b",
+    "number": 19223,
+    "title": "docs: add missing backticks to `prefer-destructuring`",
+    "createdAt": "2024-12-06T10:48:38Z",
+    "closedAt": "2024-12-06T11:47:07Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint",
+    "htmlUrl": "https://github.com/eslint/eslint/pull/19222",
+    "id": 2722373918,
+    "nodeId": "PR_kwDOAKjKDc6ESjTC",
+    "number": 19222,
+    "title": "docs: add missing backticks to `no-unneeded-ternary`",
+    "createdAt": "2024-12-06T08:15:36Z",
+    "closedAt": "2024-12-06T09:32:20Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint",
+    "htmlUrl": "https://github.com/eslint/eslint/pull/19220",
+    "id": 2720571359,
+    "nodeId": "PR_kwDOAKjKDc6EMSR1",
+    "number": 19220,
+    "title": "docs: update description of `no-param-reassign`",
+    "createdAt": "2024-12-05T14:29:18Z",
+    "closedAt": "2024-12-06T11:56:06Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint",
+    "htmlUrl": "https://github.com/eslint/eslint/pull/19219",
+    "id": 2720208813,
+    "nodeId": "PR_kwDOAKjKDc6ELCft",
+    "number": 19219,
+    "title": "docs: add missing backticks to `no-new-func`",
+    "createdAt": "2024-12-05T11:56:05Z",
+    "closedAt": "2024-12-05T12:38:42Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint",
+    "htmlUrl": "https://github.com/eslint/eslint/pull/19218",
+    "id": 2720125941,
+    "nodeId": "PR_kwDOAKjKDc6EKwCX",
+    "number": 19218,
+    "title": "chore: fix incorrect `name` property in `integration-tutorial-code`",
+    "createdAt": "2024-12-05T11:18:40Z",
+    "closedAt": "2024-12-05T13:49:12Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint",
+    "htmlUrl": "https://github.com/eslint/eslint/pull/19217",
+    "id": 2719816570,
+    "nodeId": "PR_kwDOAKjKDc6EJsNd",
+    "number": 19217,
+    "title": "docs: add missing backticks to `id-length`",
+    "createdAt": "2024-12-05T09:12:08Z",
+    "closedAt": "2024-12-05T09:22:48Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint",
+    "htmlUrl": "https://github.com/eslint/eslint/pull/19214",
+    "id": 2718105510,
+    "nodeId": "PR_kwDOAKjKDc6EDz7g",
+    "number": 19214,
+    "title": "docs: add missing backticks to `complexity.md`",
+    "createdAt": "2024-12-04T15:27:57Z",
+    "closedAt": "2024-12-04T15:42:20Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint",
+    "htmlUrl": "https://github.com/eslint/eslint/pull/19213",
+    "id": 2717938766,
+    "nodeId": "PR_kwDOAKjKDc6EDO0z",
+    "number": 19213,
+    "title": "docs: add missing `)` to `id-denylist`",
+    "createdAt": "2024-12-04T14:28:53Z",
+    "closedAt": "2024-12-04T14:53:50Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint",
+    "htmlUrl": "https://github.com/eslint/eslint/pull/19207",
+    "id": 2715427859,
+    "nodeId": "PR_kwDOAKjKDc6D6jLo",
+    "number": 19207,
+    "title": "docs: add missing backticks to `eqeqeq`",
+    "createdAt": "2024-12-03T16:06:44Z",
+    "closedAt": "2024-12-03T16:20:23Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint",
+    "htmlUrl": "https://github.com/eslint/eslint/pull/19206",
+    "id": 2714981392,
+    "nodeId": "PR_kwDOAKjKDc6D5Aws",
+    "number": 19206,
+    "title": "docs: add missing backticks to `prefer-object-spread`",
+    "createdAt": "2024-12-03T13:04:05Z",
+    "closedAt": "2024-12-03T13:50:56Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint",
+    "htmlUrl": "https://github.com/eslint/eslint/pull/19205",
+    "id": 2714036696,
+    "nodeId": "PR_kwDOAKjKDc6D1xRY",
+    "number": 19205,
+    "title": "docs: update docs and `description` of `require-unicode-regexp`",
+    "createdAt": "2024-12-03T05:28:37Z",
+    "closedAt": "2024-12-03T13:48:15Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint",
+    "htmlUrl": "https://github.com/eslint/eslint/pull/19203",
+    "id": 2713990381,
+    "nodeId": "PR_kwDOAKjKDc6D1m1x",
+    "number": 19203,
+    "title": "docs: update comments and `description` of `no-script-url`",
+    "createdAt": "2024-12-03T04:57:16Z",
+    "closedAt": "2024-12-03T06:50:23Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint",
+    "htmlUrl": "https://github.com/eslint/eslint/pull/19202",
+    "id": 2713970595,
+    "nodeId": "PR_kwDOAKjKDc6D1ifq",
+    "number": 19202,
+    "title": "docs: add missing backtick to `default-case-last`",
+    "createdAt": "2024-12-03T04:41:04Z",
+    "closedAt": "2024-12-03T06:37:57Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint",
+    "htmlUrl": "https://github.com/eslint/eslint/pull/19199",
+    "id": 2711356218,
+    "nodeId": "PR_kwDOAKjKDc6DuYll",
+    "number": 19199,
+    "title": "docs: replace quote with backtick in `description` of `for-direction`",
+    "createdAt": "2024-12-02T10:17:22Z",
+    "closedAt": "2024-12-02T14:49:49Z",
+    "reactions": {
+      "+1": 0
+    }
+  }
+]

@@ -1,0 +1,28 @@
+[
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/json",
+    "htmlUrl": "https://github.com/eslint/json/issues/213",
+    "id": 3944220127,
+    "nodeId": "I_kwDOMOnJ-M7rGAXf",
+    "number": 213,
+    "title": "Bug: JSON v1.0.1 is not backward-compatible with ESLint v9.39.2",
+    "createdAt": "2026-02-15T14:43:06Z",
+    "closedAt": null,
+    "reactions": {
+      "+1": 2
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/react/react",
+    "htmlUrl": "https://github.com/react/react/issues/35728",
+    "id": 3914710524,
+    "nodeId": "I_kwDOAJy2Ks7pVb38",
+    "number": 35728,
+    "title": "Bug: View Deployment is not working across react.dev and i18n documentation",
+    "createdAt": "2026-02-09T06:29:14Z",
+    "closedAt": null,
+    "reactions": {
+      "+1": 0
+    }
+  }
+]

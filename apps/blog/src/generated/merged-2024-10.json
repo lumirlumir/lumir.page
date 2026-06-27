@@ -1,0 +1,613 @@
+[
+  {
+    "repositoryUrl": "https://api.github.com/repos/lerna/lerna",
+    "htmlUrl": "https://github.com/lerna/lerna/pull/4107",
+    "id": 2626708242,
+    "nodeId": "PR_kwDOAtMv2M6Ag_be",
+    "number": 4107,
+    "title": "docs: fix broken links and add some links in `distribute-tasks.md`",
+    "createdAt": "2024-10-31T12:14:28Z",
+    "closedAt": "2024-11-04T09:06:10Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/lerna/lerna",
+    "htmlUrl": "https://github.com/lerna/lerna/pull/4105",
+    "id": 2626324822,
+    "nodeId": "PR_kwDOAtMv2M6Afykm",
+    "number": 4105,
+    "title": "docs: fixed some typos",
+    "createdAt": "2024-10-31T08:53:38Z",
+    "closedAt": "2024-10-31T10:15:59Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/reactjs/ko.react.dev",
+    "htmlUrl": "https://github.com/reactjs/ko.react.dev/pull/1095",
+    "id": 2622997382,
+    "nodeId": "PR_kwDOChzKxs6AVIay",
+    "number": 1095,
+    "title": "refactor(textlint): update a term `caveats`",
+    "createdAt": "2024-10-30T05:55:13Z",
+    "closedAt": "2024-11-05T03:04:08Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/vercel/next.js",
+    "htmlUrl": "https://github.com/vercel/next.js/pull/72061",
+    "id": 2622911487,
+    "nodeId": "PR_kwDOBC3Cis6AU3BP",
+    "number": 72061,
+    "title": "docs: update `02-jest.mdx`",
+    "createdAt": "2024-10-30T04:59:46Z",
+    "closedAt": "2024-10-30T16:30:10Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/vercel/next.js",
+    "htmlUrl": "https://github.com/vercel/next.js/pull/72059",
+    "id": 2622885210,
+    "nodeId": "PR_kwDOBC3Cis6AUyQB",
+    "number": 72059,
+    "title": "fix: redundant double space in `http.rs`",
+    "createdAt": "2024-10-30T04:42:46Z",
+    "closedAt": "2024-10-30T16:58:52Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/vercel/next.js",
+    "htmlUrl": "https://github.com/vercel/next.js/pull/72058",
+    "id": 2622874981,
+    "nodeId": "PR_kwDOBC3Cis6AUwsb",
+    "number": 72058,
+    "title": "fix: redundant double space in `middleware-plugin.ts`",
+    "createdAt": "2024-10-30T04:36:37Z",
+    "closedAt": "2024-10-30T16:40:13Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/vercel/next.js",
+    "htmlUrl": "https://github.com/vercel/next.js/pull/72057",
+    "id": 2622861394,
+    "nodeId": "PR_kwDOBC3Cis6AUtq_",
+    "number": 72057,
+    "title": "docs(typo): fix typos in `08-testing/index.mdx`",
+    "createdAt": "2024-10-30T04:27:40Z",
+    "closedAt": "2024-10-30T16:26:48Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/vercel/next.js",
+    "htmlUrl": "https://github.com/vercel/next.js/pull/72055",
+    "id": 2622838004,
+    "nodeId": "PR_kwDOBC3Cis6AUog2",
+    "number": 72055,
+    "title": "test: fix redundant double spaces",
+    "createdAt": "2024-10-30T04:11:22Z",
+    "closedAt": "2024-10-30T19:34:01Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/reactjs/ko.react.dev",
+    "htmlUrl": "https://github.com/reactjs/ko.react.dev/pull/1091",
+    "id": 2607838110,
+    "nodeId": "PR_kwDOChzKxs5_lAJ7",
+    "number": 1091,
+    "title": "docs(typo): curly quotes to straight quotes",
+    "createdAt": "2024-10-23T09:05:49Z",
+    "closedAt": "2024-10-26T06:58:30Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/reactjs/ko.react.dev",
+    "htmlUrl": "https://github.com/reactjs/ko.react.dev/pull/1090",
+    "id": 2607746033,
+    "nodeId": "PR_kwDOChzKxs5_ktyt",
+    "number": 1090,
+    "title": "docs: update `scailing-up-with-reducer-and-context.md`",
+    "createdAt": "2024-10-23T08:36:23Z",
+    "closedAt": "2024-10-26T07:09:48Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/reactjs/ko.react.dev",
+    "htmlUrl": "https://github.com/reactjs/ko.react.dev/pull/1089",
+    "id": 2607734396,
+    "nodeId": "PR_kwDOChzKxs5_krTO",
+    "number": 1089,
+    "title": "docs: update `use.md`",
+    "createdAt": "2024-10-23T08:31:22Z",
+    "closedAt": "2024-10-26T07:09:29Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/reactjs/ko.react.dev",
+    "htmlUrl": "https://github.com/reactjs/ko.react.dev/pull/1088",
+    "id": 2607714529,
+    "nodeId": "PR_kwDOChzKxs5_knND",
+    "number": 1088,
+    "title": "docs: update `script.md`",
+    "createdAt": "2024-10-23T08:24:15Z",
+    "closedAt": "2024-10-26T07:09:18Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/reactjs/ko.react.dev",
+    "htmlUrl": "https://github.com/reactjs/ko.react.dev/pull/1087",
+    "id": 2607707514,
+    "nodeId": "PR_kwDOChzKxs5_klpv",
+    "number": 1087,
+    "title": "docs: update `passing-data-deeply-with-context.md`",
+    "createdAt": "2024-10-23T08:21:27Z",
+    "closedAt": "2024-10-26T06:58:52Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/reactjs/ko.react.dev",
+    "htmlUrl": "https://github.com/reactjs/ko.react.dev/pull/1085",
+    "id": 2600030537,
+    "nodeId": "PR_kwDOChzKxs5_NVuh",
+    "number": 1085,
+    "title": "docs(typo): fix typos in `extracting-state-logic-into-a-reducer.md`",
+    "createdAt": "2024-10-20T05:41:38Z",
+    "closedAt": "2024-10-20T11:14:21Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/reactjs/ko.react.dev",
+    "htmlUrl": "https://github.com/reactjs/ko.react.dev/pull/1084",
+    "id": 2598918147,
+    "nodeId": "PR_kwDOChzKxs5_Kn58",
+    "number": 1084,
+    "title": "docs: update `content/learn/index.md`",
+    "createdAt": "2024-10-19T08:54:07Z",
+    "closedAt": "2024-10-20T09:16:36Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/vercel/next.js",
+    "htmlUrl": "https://github.com/vercel/next.js/pull/71510",
+    "id": 2598908730,
+    "nodeId": "PR_kwDOBC3Cis5_KnBJ",
+    "number": 71510,
+    "title": "docs(typo): fix typos in `webpack.mdx`",
+    "createdAt": "2024-10-19T08:43:32Z",
+    "closedAt": "2024-10-29T19:26:47Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/vercel/next.js",
+    "htmlUrl": "https://github.com/vercel/next.js/pull/71509",
+    "id": 2598901340,
+    "nodeId": "PR_kwDOBC3Cis5_KmTl",
+    "number": 71509,
+    "title": "docs(javascript): fix wrong javascript code in `script.mdx`",
+    "createdAt": "2024-10-19T08:36:26Z",
+    "closedAt": "2024-10-29T19:08:35Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/vercel/next.js",
+    "htmlUrl": "https://github.com/vercel/next.js/pull/71240",
+    "id": 2584698313,
+    "nodeId": "PR_kwDOBC3Cis5-eiM6",
+    "number": 71240,
+    "title": "rename: `.md` to `.mdx` in `errors` directory",
+    "createdAt": "2024-10-14T04:28:32Z",
+    "closedAt": "2024-10-17T21:37:12Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/vercel/next.js",
+    "htmlUrl": "https://github.com/vercel/next.js/pull/71239",
+    "id": 2584692174,
+    "nodeId": "PR_kwDOBC3Cis5-eg2k",
+    "number": 71239,
+    "title": "chore: delete redundant blank spaces in `examples`",
+    "createdAt": "2024-10-14T04:21:47Z",
+    "closedAt": "2024-10-29T19:29:54Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/vercel/next.js",
+    "htmlUrl": "https://github.com/vercel/next.js/pull/71238",
+    "id": 2584676324,
+    "nodeId": "PR_kwDOBC3Cis5-edVD",
+    "number": 71238,
+    "title": "docs(javascript): add module exports and experimental metadata",
+    "createdAt": "2024-10-14T04:05:36Z",
+    "closedAt": "2024-10-29T19:54:40Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/vercel/next.js",
+    "htmlUrl": "https://github.com/vercel/next.js/pull/71214",
+    "id": 2583934138,
+    "nodeId": "PR_kwDOBC3Cis5-co1O",
+    "number": 71214,
+    "title": "docs(typo): fix url to URL",
+    "createdAt": "2024-10-13T12:23:55Z",
+    "closedAt": "2024-10-13T15:28:06Z",
+    "reactions": {
+      "+1": 1
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/vercel/next.js",
+    "htmlUrl": "https://github.com/vercel/next.js/pull/71213",
+    "id": 2583930878,
+    "nodeId": "PR_kwDOBC3Cis5-coL5",
+    "number": 71213,
+    "title": "docs(typo): remove unnecessary spaces",
+    "createdAt": "2024-10-13T12:16:08Z",
+    "closedAt": "2024-10-13T15:26:56Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/reactjs/ko.react.dev",
+    "htmlUrl": "https://github.com/reactjs/ko.react.dev/pull/1080",
+    "id": 2583800986,
+    "nodeId": "PR_kwDOChzKxs5-cX1-",
+    "number": 1080,
+    "title": "docs(typo): fix typo bundle bundler bundling linted by textlint",
+    "createdAt": "2024-10-13T08:56:41Z",
+    "closedAt": "2024-10-14T12:37:55Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/vercel/next.js",
+    "htmlUrl": "https://github.com/vercel/next.js/pull/71203",
+    "id": 2583611191,
+    "nodeId": "PR_kwDOBC3Cis5-b-Hk",
+    "number": 71203,
+    "title": "docs(typo): add punctuations and fix cases",
+    "createdAt": "2024-10-13T03:44:23Z",
+    "closedAt": "2024-10-13T15:45:13Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/vercel/next.js",
+    "htmlUrl": "https://github.com/vercel/next.js/pull/71190",
+    "id": 2582801970,
+    "nodeId": "PR_kwDOBC3Cis5-Z6jU",
+    "number": 71190,
+    "title": "fix: Next.js missed a file when renaming `swrDelta` to `expireTime`",
+    "createdAt": "2024-10-12T10:42:27Z",
+    "closedAt": "2024-10-12T17:09:02Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/vercel/next.js",
+    "htmlUrl": "https://github.com/vercel/next.js/pull/71189",
+    "id": 2582780076,
+    "nodeId": "PR_kwDOBC3Cis5-Z2qe",
+    "number": 71189,
+    "title": "chore: delete redundant blank spaces in `packages` directory",
+    "createdAt": "2024-10-12T10:25:41Z",
+    "closedAt": "2024-10-13T16:16:49Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/vercel/next.js",
+    "htmlUrl": "https://github.com/vercel/next.js/pull/71188",
+    "id": 2582714717,
+    "nodeId": "PR_kwDOBC3Cis5-ZsnF",
+    "number": 71188,
+    "title": "docs(typo): fix typos in `turbo.mdx`",
+    "createdAt": "2024-10-12T09:13:47Z",
+    "closedAt": "2024-10-12T17:04:05Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/vercel/next.js",
+    "htmlUrl": "https://github.com/vercel/next.js/pull/71180",
+    "id": 2582584313,
+    "nodeId": "PR_kwDOBC3Cis5-Zbyu",
+    "number": 71180,
+    "title": "docs(terminal): fix wrong terminal command and add missing hash symbols",
+    "createdAt": "2024-10-12T05:56:01Z",
+    "closedAt": "2024-10-12T20:48:40Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/vercel/next.js",
+    "htmlUrl": "https://github.com/vercel/next.js/pull/71175",
+    "id": 2582400775,
+    "nodeId": "PR_kwDOBC3Cis5-Y-XU",
+    "number": 71175,
+    "title": "docs(typo): fix typo javascript",
+    "createdAt": "2024-10-12T01:38:51Z",
+    "closedAt": "2024-10-12T17:05:06Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/vercel/next.js",
+    "htmlUrl": "https://github.com/vercel/next.js/pull/71152",
+    "id": 2581623642,
+    "nodeId": "PR_kwDOBC3Cis5-WwPx",
+    "number": 71152,
+    "title": "docs(typo): fix typo github in cli related docs",
+    "createdAt": "2024-10-11T15:14:52Z",
+    "closedAt": "2024-10-11T17:54:30Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/vercel/next.js",
+    "htmlUrl": "https://github.com/vercel/next.js/pull/71143",
+    "id": 2581144817,
+    "nodeId": "PR_kwDOBC3Cis5-VQsQ",
+    "number": 71143,
+    "title": "docs(javascript): fix wrong javascript code and a typo in `link.mdx`",
+    "createdAt": "2024-10-11T11:30:46Z",
+    "closedAt": "2024-10-12T01:52:26Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/vercel/next.js",
+    "htmlUrl": "https://github.com/vercel/next.js/pull/71137",
+    "id": 2580618570,
+    "nodeId": "PR_kwDOBC3Cis5-TqGG",
+    "number": 71137,
+    "title": "docs(typo): fix redundant double spaces",
+    "createdAt": "2024-10-11T07:11:54Z",
+    "closedAt": "2024-10-11T20:14:12Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/vercel/next.js",
+    "htmlUrl": "https://github.com/vercel/next.js/pull/71134",
+    "id": 2580552591,
+    "nodeId": "PR_kwDOBC3Cis5-TeFQ",
+    "number": 71134,
+    "title": "fix: `next info` command does not output the versions of `npm` `yarn` and `pnpm` correctly",
+    "createdAt": "2024-10-11T06:33:28Z",
+    "closedAt": "2024-11-04T21:56:12Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/vercel/next.js",
+    "htmlUrl": "https://github.com/vercel/next.js/pull/71074",
+    "id": 2578046191,
+    "nodeId": "PR_kwDOBC3Cis5-LsvA",
+    "number": 71074,
+    "title": "docs(javascript): fix wrong javascript code in `11-parallel-routes.mdx`",
+    "createdAt": "2024-10-10T08:19:11Z",
+    "closedAt": "2024-10-10T18:33:10Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/vercel/next.js",
+    "htmlUrl": "https://github.com/vercel/next.js/pull/71033",
+    "id": 2576372458,
+    "nodeId": "PR_kwDOBC3Cis5-Gndy",
+    "number": 71033,
+    "title": "fix: `getStaticProps` appears instead of `generateStaticParams` during app router build",
+    "createdAt": "2024-10-09T16:12:07Z",
+    "closedAt": "2024-10-12T03:12:06Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/reactjs/ko.react.dev",
+    "htmlUrl": "https://github.com/reactjs/ko.react.dev/pull/1079",
+    "id": 2575865151,
+    "nodeId": "PR_kwDOChzKxs5-FA_D",
+    "number": 1079,
+    "title": "docs(typo): fix typo escape hatches linted by textlint",
+    "createdAt": "2024-10-09T12:58:32Z",
+    "closedAt": "2024-10-10T14:59:07Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/reactjs/ko.react.dev",
+    "htmlUrl": "https://github.com/reactjs/ko.react.dev/pull/1076",
+    "id": 2566650764,
+    "nodeId": "PR_kwDOChzKxs59ovtE",
+    "number": 1076,
+    "title": "design: ux improvement in feedback.tsx",
+    "createdAt": "2024-10-04T15:33:11Z",
+    "closedAt": "2024-10-08T01:43:32Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/reactjs/ko.react.dev",
+    "htmlUrl": "https://github.com/reactjs/ko.react.dev/pull/1075",
+    "id": 2565695965,
+    "nodeId": "PR_kwDOChzKxs59liLp",
+    "number": 1075,
+    "title": "docs: update server-actions.md",
+    "createdAt": "2024-10-04T07:44:07Z",
+    "closedAt": "2024-10-12T15:33:31Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/reactjs/ko.react.dev",
+    "htmlUrl": "https://github.com/reactjs/ko.react.dev/pull/1074",
+    "id": 2565505444,
+    "nodeId": "PR_kwDOChzKxs59k7rE",
+    "number": 1074,
+    "title": "docs: update server-components.md",
+    "createdAt": "2024-10-04T05:50:45Z",
+    "closedAt": "2024-10-08T01:42:07Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/reactjs/ko.react.dev",
+    "htmlUrl": "https://github.com/reactjs/ko.react.dev/pull/1073",
+    "id": 2563940737,
+    "nodeId": "PR_kwDOChzKxs59fsAF",
+    "number": 1073,
+    "title": "docs(typo): fix typo in reference/react/index.md",
+    "createdAt": "2024-10-03T12:33:06Z",
+    "closedAt": "2024-10-08T01:42:27Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/reactjs/ko.react.dev",
+    "htmlUrl": "https://github.com/reactjs/ko.react.dev/pull/1072",
+    "id": 2560642821,
+    "nodeId": "PR_kwDOChzKxs59VEQq",
+    "number": 1072,
+    "title": "docs(translation): Fragment.md",
+    "createdAt": "2024-10-02T04:18:45Z",
+    "closedAt": "2024-10-12T15:32:50Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/reactjs/ko.react.dev",
+    "htmlUrl": "https://github.com/reactjs/ko.react.dev/pull/1071",
+    "id": 2560628731,
+    "nodeId": "PR_kwDOChzKxs59VBVh",
+    "number": 1071,
+    "title": "docs(typo): fix typo 'directive' linted by textlint (#819)",
+    "createdAt": "2024-10-02T04:01:55Z",
+    "closedAt": "2024-10-10T14:54:47Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/reactjs/ko.react.dev",
+    "htmlUrl": "https://github.com/reactjs/ko.react.dev/pull/1070",
+    "id": 2559702166,
+    "nodeId": "PR_kwDOChzKxs59R8my",
+    "number": 1070,
+    "title": "docs(typo): fix typo in Suspense.md",
+    "createdAt": "2024-10-01T16:23:37Z",
+    "closedAt": "2024-10-08T01:46:52Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/reactjs/ko.react.dev",
+    "htmlUrl": "https://github.com/reactjs/ko.react.dev/pull/1069",
+    "id": 2559315201,
+    "nodeId": "PR_kwDOChzKxs59QpEr",
+    "number": 1069,
+    "title": "feat: introduction of editorconfig",
+    "createdAt": "2024-10-01T13:50:00Z",
+    "closedAt": "2024-10-10T14:52:43Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/reactjs/ko.react.dev",
+    "htmlUrl": "https://github.com/reactjs/ko.react.dev/pull/1068",
+    "id": 2559215274,
+    "nodeId": "PR_kwDOChzKxs59QSiR",
+    "number": 1068,
+    "title": "fix: turn CRLF into LF for the errors in macOS",
+    "createdAt": "2024-10-01T13:18:37Z",
+    "closedAt": "2024-10-08T01:47:11Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/reactjs/ko.react.dev",
+    "htmlUrl": "https://github.com/reactjs/ko.react.dev/pull/1067",
+    "id": 2559107470,
+    "nodeId": "PR_kwDOChzKxs59P7CZ",
+    "number": 1067,
+    "title": "docs(typo): fix typo 'DOM' linted by textlint",
+    "createdAt": "2024-10-01T12:39:57Z",
+    "closedAt": "2024-10-08T01:47:19Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/reactjs/ko.react.dev",
+    "htmlUrl": "https://github.com/reactjs/ko.react.dev/pull/1066",
+    "id": 2559085223,
+    "nodeId": "PR_kwDOChzKxs59P2I1",
+    "number": 1066,
+    "title": "docs(typo): fix typo 'dispatch' linted by textlint",
+    "createdAt": "2024-10-01T12:30:49Z",
+    "closedAt": "2024-10-12T15:32:35Z",
+    "reactions": {
+      "+1": 0
+    }
+  }
+]

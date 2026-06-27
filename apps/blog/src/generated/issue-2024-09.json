@@ -1,0 +1,28 @@
+[
+  {
+    "repositoryUrl": "https://api.github.com/repos/react/react",
+    "htmlUrl": "https://github.com/react/react/issues/31095",
+    "id": 2554683137,
+    "nodeId": "I_kwDOAJy2Ks6YRV8B",
+    "number": 31095,
+    "title": "[Help Wanted] How can I become a member of reactjs?",
+    "createdAt": "2024-09-29T03:30:13Z",
+    "closedAt": "2024-10-04T15:19:36Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/reactjs/react.dev",
+    "htmlUrl": "https://github.com/reactjs/react.dev/issues/7186",
+    "id": 2544875636,
+    "nodeId": "I_kwDOBlDe9c6Xr7h0",
+    "number": 7186,
+    "title": "[Help Wanted] How can I become a member of reactjs?",
+    "createdAt": "2024-09-24T09:34:27Z",
+    "closedAt": "2024-10-04T15:19:06Z",
+    "reactions": {
+      "+1": 0
+    }
+  }
+]

@@ -1,0 +1,54 @@
+[
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/workflows",
+    "htmlUrl": "https://github.com/eslint/workflows/issues/31",
+    "id": 3571064748,
+    "nodeId": "I_kwDOO9Nass7U2h-s",
+    "number": 31,
+    "title": "Exclude Node.js and npm update from `eslint-app.json5` configuration",
+    "createdAt": "2025-10-30T14:27:55Z",
+    "closedAt": "2025-11-05T20:32:10Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/rewrite",
+    "htmlUrl": "https://github.com/eslint/rewrite/issues/310",
+    "id": 3569318711,
+    "nodeId": "I_kwDOLyyFi87Uv3s3",
+    "number": 310,
+    "title": "Change Request: Make the `data` property stricter",
+    "createdAt": "2025-10-30T07:48:35Z",
+    "closedAt": "2025-12-04T09:39:22Z",
+    "reactions": {
+      "+1": 3
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/rewrite",
+    "htmlUrl": "https://github.com/eslint/rewrite/issues/308",
+    "id": 3569033367,
+    "nodeId": "I_kwDOLyyFi87UuyCX",
+    "number": 308,
+    "title": "Bug: All downstream version-bump builds are failing after the rewrite was released",
+    "createdAt": "2025-10-30T05:49:24Z",
+    "closedAt": "2025-10-30T11:51:39Z",
+    "reactions": {
+      "+1": 1
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/rewrite",
+    "htmlUrl": "https://github.com/eslint/rewrite/issues/286",
+    "id": 3484451637,
+    "nodeId": "I_kwDOLyyFi87PsIM1",
+    "number": 286,
+    "title": "Change Request: Make the `FileProblem` type optionally generic over the `loc` property",
+    "createdAt": "2025-10-05T06:05:20Z",
+    "closedAt": "2025-10-21T14:40:08Z",
+    "reactions": {
+      "+1": 0
+    }
+  }
+]

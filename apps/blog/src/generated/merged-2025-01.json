@@ -1,0 +1,106 @@
+[
+  {
+    "repositoryUrl": "https://api.github.com/repos/material-extensions/vscode-material-icon-theme",
+    "htmlUrl": "https://github.com/material-extensions/vscode-material-icon-theme/pull/2825",
+    "id": 2797597881,
+    "nodeId": "PR_kwDOBAsGTM6IRGW0",
+    "number": 2825,
+    "title": "feat: add `websites` folder icon",
+    "createdAt": "2025-01-19T12:25:34Z",
+    "closedAt": "2025-01-19T12:40:37Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/editorconfig-checker/editorconfig-checker.javascript",
+    "htmlUrl": "https://github.com/editorconfig-checker/editorconfig-checker.javascript/pull/417",
+    "id": 2777618677,
+    "nodeId": "PR_kwDOBRcZ686HMgmE",
+    "number": 417,
+    "title": "fix: add support for `.zip` files in binary download",
+    "createdAt": "2025-01-09T11:55:12Z",
+    "closedAt": "2025-01-09T15:37:24Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint",
+    "htmlUrl": "https://github.com/eslint/eslint/pull/19314",
+    "id": 2770720912,
+    "nodeId": "PR_kwDOAKjKDc6G03rn",
+    "number": 19314,
+    "title": "chore: extract package `name` from `package.json` for public interface",
+    "createdAt": "2025-01-06T13:58:12Z",
+    "closedAt": "2025-01-06T15:26:05Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint",
+    "htmlUrl": "https://github.com/eslint/eslint/pull/19313",
+    "id": 2770344221,
+    "nodeId": "PR_kwDOAKjKDc6GzlX0",
+    "number": 19313,
+    "title": "docs: add missing backticks to `no-void`",
+    "createdAt": "2025-01-06T10:26:11Z",
+    "closedAt": "2025-01-06T15:17:12Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint",
+    "htmlUrl": "https://github.com/eslint/eslint/pull/19311",
+    "id": 2769280184,
+    "nodeId": "PR_kwDOAKjKDc6GwFBq",
+    "number": 19311,
+    "title": "docs: add missing backticks to `default-case-last`",
+    "createdAt": "2025-01-05T13:40:17Z",
+    "closedAt": "2025-01-06T15:13:31Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint",
+    "htmlUrl": "https://github.com/eslint/eslint/pull/19310",
+    "id": 2769273194,
+    "nodeId": "PR_kwDOAKjKDc6GwDos",
+    "number": 19310,
+    "title": "docs: add `eqeqeq` in related rules to `no-eq-null`",
+    "createdAt": "2025-01-05T13:22:55Z",
+    "closedAt": "2025-01-06T16:48:12Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/reactjs/ko.react.dev",
+    "htmlUrl": "https://github.com/reactjs/ko.react.dev/pull/1117",
+    "id": 2769123579,
+    "nodeId": "PR_kwDOChzKxs6Gvlcw",
+    "number": 1117,
+    "title": "docs: cleanup documentation",
+    "createdAt": "2025-01-05T05:31:39Z",
+    "closedAt": "2025-01-13T04:05:38Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint",
+    "htmlUrl": "https://github.com/eslint/eslint/pull/19309",
+    "id": 2768803966,
+    "nodeId": "PR_kwDOAKjKDc6GunBD",
+    "number": 19309,
+    "title": "docs: add missing backticks to `no-else-return`",
+    "createdAt": "2025-01-04T11:51:36Z",
+    "closedAt": "2025-01-04T13:22:39Z",
+    "reactions": {
+      "+1": 0
+    }
+  }
+]

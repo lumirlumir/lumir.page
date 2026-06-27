@@ -1,0 +1,288 @@
+[
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/json",
+    "htmlUrl": "https://github.com/eslint/json/pull/95",
+    "id": 3031700522,
+    "nodeId": "PR_kwDOMOnJ-M6UhtGr",
+    "number": 95,
+    "title": "docs: fixed a typo in `top-level-interop.js`",
+    "createdAt": "2025-04-30T15:43:00Z",
+    "closedAt": "2025-04-30T15:50:59Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/rewrite",
+    "htmlUrl": "https://github.com/eslint/rewrite/pull/182",
+    "id": 3021780726,
+    "nodeId": "PR_kwDOLyyFi86UAUql",
+    "number": 182,
+    "title": "feat: make `TextSourceCodeBase` a generic type",
+    "createdAt": "2025-04-26T11:54:17Z",
+    "closedAt": "2025-04-28T14:37:41Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint.org",
+    "htmlUrl": "https://github.com/eslint/eslint.org/pull/720",
+    "id": 3021635546,
+    "nodeId": "PR_kwDOGSAlOM6T_1fg",
+    "number": 720,
+    "title": "perf: introduce React Compiler to improve performance",
+    "createdAt": "2025-04-26T08:54:54Z",
+    "closedAt": "2025-05-05T02:45:54Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/json",
+    "htmlUrl": "https://github.com/eslint/json/pull/93",
+    "id": 3021563125,
+    "nodeId": "PR_kwDOMOnJ-M6T_muT",
+    "number": 93,
+    "title": "chore: use `defineConfig` and `globalIgnores` in ESLint config",
+    "createdAt": "2025-04-26T06:49:37Z",
+    "closedAt": "2025-05-05T14:19:20Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/markdown",
+    "htmlUrl": "https://github.com/eslint/markdown/pull/352",
+    "id": 3021557354,
+    "nodeId": "PR_kwDOAkm7Hs6T_lit",
+    "number": 352,
+    "title": "chore: update ESLint config file to use `defineConfig`",
+    "createdAt": "2025-04-26T06:40:08Z",
+    "closedAt": "2025-05-05T14:18:37Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint-release",
+    "htmlUrl": "https://github.com/eslint/eslint-release/pull/64",
+    "id": 3021550227,
+    "nodeId": "PR_kwDOAvvbFc6T_kK6",
+    "number": 64,
+    "title": "test: replace `chai` with Node.js `assert` to reduce dependency",
+    "createdAt": "2025-04-26T06:25:05Z",
+    "closedAt": "2025-04-26T16:48:42Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/js",
+    "htmlUrl": "https://github.com/eslint/js/pull/650",
+    "id": 3021541078,
+    "nodeId": "PR_kwDOAaVztc6T_iWY",
+    "number": 650,
+    "title": "chore: move CLI test tools to root level and update `package.json` files",
+    "createdAt": "2025-04-26T06:08:27Z",
+    "closedAt": "2025-04-28T14:15:07Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/code-explorer",
+    "htmlUrl": "https://github.com/eslint/code-explorer/pull/94",
+    "id": 3021490478,
+    "nodeId": "PR_kwDOLo6z_M6T_Xp5",
+    "number": 94,
+    "title": "chore: migrate to ESLint v9",
+    "createdAt": "2025-04-26T04:56:43Z",
+    "closedAt": "2025-04-29T20:21:58Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/RanolP/awesome-baekjoon",
+    "htmlUrl": "https://github.com/RanolP/awesome-baekjoon/pull/9",
+    "id": 3017561204,
+    "nodeId": "PR_kwDOIEVs5c6TyGjX",
+    "number": 9,
+    "title": "docs: add Bananass Framework",
+    "createdAt": "2025-04-24T14:52:16Z",
+    "closedAt": "2025-04-25T03:52:38Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/markdown",
+    "htmlUrl": "https://github.com/eslint/markdown/pull/348",
+    "id": 3010514122,
+    "nodeId": "PR_kwDOAkm7Hs6TaMDC",
+    "number": 348,
+    "title": "fix: `no-missing-label-refs` rule does not respect escaping",
+    "createdAt": "2025-04-22T09:32:29Z",
+    "closedAt": "2025-04-23T05:42:21Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/markdown",
+    "htmlUrl": "https://github.com/eslint/markdown/pull/347",
+    "id": 3010294420,
+    "nodeId": "PR_kwDOAkm7Hs6TZcuC",
+    "number": 347,
+    "title": "test: correct `path` typos in `markdown-language.test.js`",
+    "createdAt": "2025-04-22T08:10:16Z",
+    "closedAt": "2025-04-22T09:50:54Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/code-explorer",
+    "htmlUrl": "https://github.com/eslint/code-explorer/pull/92",
+    "id": 3006109182,
+    "nodeId": "PR_kwDOLo6z_M6TLvJi",
+    "number": 92,
+    "title": "feat: add support for Markdown Front Matter parsing",
+    "createdAt": "2025-04-19T02:44:55Z",
+    "closedAt": "2025-04-23T14:41:20Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/markdown",
+    "htmlUrl": "https://github.com/eslint/markdown/pull/345",
+    "id": 3004696847,
+    "nodeId": "PR_kwDOAkm7Hs6TG7qN",
+    "number": 345,
+    "title": "chore: bump `@eslint/core` and `@eslint/plugin-kit` to latest",
+    "createdAt": "2025-04-18T10:48:13Z",
+    "closedAt": "2025-04-18T15:43:22Z",
+    "reactions": {
+      "+1": 1
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/markdown",
+    "htmlUrl": "https://github.com/eslint/markdown/pull/344",
+    "id": 2995666181,
+    "nodeId": "PR_kwDOAkm7Hs6SoNrx",
+    "number": 344,
+    "title": "fix: enhance fenced code language rule to support tilde as a delimiter",
+    "createdAt": "2025-04-15T08:47:14Z",
+    "closedAt": "2025-04-17T10:50:33Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/markdown",
+    "htmlUrl": "https://github.com/eslint/markdown/pull/343",
+    "id": 2995581367,
+    "nodeId": "PR_kwDOAkm7Hs6Sn7BE",
+    "number": 343,
+    "title": "chore: add eslint fix command for Markdown files in lint-staged",
+    "createdAt": "2025-04-15T08:19:22Z",
+    "closedAt": "2025-04-17T11:11:09Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/markdown",
+    "htmlUrl": "https://github.com/eslint/markdown/pull/342",
+    "id": 2991137883,
+    "nodeId": "PR_kwDOAkm7Hs6SY1ak",
+    "number": 342,
+    "title": "docs: fix inaccurate description in `no-html.md`",
+    "createdAt": "2025-04-13T08:52:21Z",
+    "closedAt": "2025-04-13T09:06:24Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/markdown",
+    "htmlUrl": "https://github.com/eslint/markdown/pull/337",
+    "id": 2974889106,
+    "nodeId": "PR_kwDOAkm7Hs6Rh__J",
+    "number": 337,
+    "title": "chore: create `PULL_REQUEST_TEMPLATE.md`",
+    "createdAt": "2025-04-06T11:23:04Z",
+    "closedAt": "2025-04-06T15:23:11Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/json",
+    "htmlUrl": "https://github.com/eslint/json/pull/92",
+    "id": 2974884694,
+    "nodeId": "PR_kwDOMOnJ-M6Rh_SV",
+    "number": 92,
+    "title": "test: create tests for `JSONRuleDefinition`",
+    "createdAt": "2025-04-06T11:15:20Z",
+    "closedAt": "2025-04-08T10:31:06Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint",
+    "htmlUrl": "https://github.com/eslint/eslint/pull/19604",
+    "id": 2974867937,
+    "nodeId": "PR_kwDOAKjKDc6Rh8XV",
+    "number": 19604,
+    "title": "feat: support `JSRuleDefinition` type",
+    "createdAt": "2025-04-06T10:44:11Z",
+    "closedAt": "2025-04-09T16:11:25Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/markdown",
+    "htmlUrl": "https://github.com/eslint/markdown/pull/336",
+    "id": 2971937107,
+    "nodeId": "PR_kwDOAkm7Hs6RYm1x",
+    "number": 336,
+    "title": "fix: replace `IMarkdownSourceCode` with `MarkdownSourceCode`",
+    "createdAt": "2025-04-04T10:19:57Z",
+    "closedAt": "2025-04-10T07:03:14Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/markdown",
+    "htmlUrl": "https://github.com/eslint/markdown/pull/334",
+    "id": 2970135206,
+    "nodeId": "PR_kwDOAkm7Hs6RSfsP",
+    "number": 334,
+    "title": "feat: add missing `mdast` types to `MarkdownRuleVisitor`",
+    "createdAt": "2025-04-03T16:29:21Z",
+    "closedAt": "2025-04-15T19:12:06Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/markdown",
+    "htmlUrl": "https://github.com/eslint/markdown/pull/332",
+    "id": 2963144868,
+    "nodeId": "PR_kwDOAkm7Hs6Q6u5y",
+    "number": 332,
+    "title": "feat: support `eslint` config comments",
+    "createdAt": "2025-04-01T11:23:38Z",
+    "closedAt": "2025-04-06T18:45:19Z",
+    "reactions": {
+      "+1": 0
+    }
+  }
+]
