@@ -24,18 +24,5 @@
     "reactions": {
       "+1": 0
     }
-  },
-  {
-    "repositoryUrl": "https://api.github.com/repos/mdn/translated-content",
-    "htmlUrl": "https://github.com/mdn/translated-content/pull/26048",
-    "id": 2875456917,
-    "nodeId": "PR_kwDOEw7g686MUNKR",
-    "number": 26048,
-    "title": "docs: fix typos in `http/session/index.md`",
-    "createdAt": "2025-02-24T15:57:06Z",
-    "closedAt": "2025-03-03T12:25:40Z",
-    "reactions": {
-      "+1": 0
-    }
   }
 ]

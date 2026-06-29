@@ -26,19 +26,6 @@
     }
   },
   {
-    "repositoryUrl": "https://api.github.com/repos/eslint/markdown",
-    "htmlUrl": "https://github.com/eslint/markdown/pull/617",
-    "id": 3879443896,
-    "nodeId": "PR_kwDOAkm7Hs7AlLeT",
-    "number": 617,
-    "title": "feat: support Math",
-    "createdAt": "2026-01-31T15:42:45Z",
-    "closedAt": "2026-03-24T16:52:36Z",
-    "reactions": {
-      "+1": 0
-    }
-  },
-  {
     "repositoryUrl": "https://api.github.com/repos/reactjs/ko.react.dev",
     "htmlUrl": "https://github.com/reactjs/ko.react.dev/pull/1450",
     "id": 3878834129,
@@ -104,19 +91,6 @@
     }
   },
   {
-    "repositoryUrl": "https://api.github.com/repos/eslint/code-explorer",
-    "htmlUrl": "https://github.com/eslint/code-explorer/pull/299",
-    "id": 3860902050,
-    "nodeId": "PR_kwDOLo6z_M6_nvLE",
-    "number": 299,
-    "title": "feat: support Math in Markdown",
-    "createdAt": "2026-01-27T14:35:05Z",
-    "closedAt": "2026-05-18T20:29:40Z",
-    "reactions": {
-      "+1": 0
-    }
-  },
-  {
     "repositoryUrl": "https://api.github.com/repos/vitejs/vite",
     "htmlUrl": "https://github.com/vitejs/vite/pull/21497",
     "id": 3855505681,
@@ -125,71 +99,6 @@
     "title": "docs: add missing backticks around `vite.config.js`",
     "createdAt": "2026-01-26T11:06:41Z",
     "closedAt": "2026-01-28T03:14:04Z",
-    "reactions": {
-      "+1": 0
-    }
-  },
-  {
-    "repositoryUrl": "https://api.github.com/repos/eslint/eslint-release",
-    "htmlUrl": "https://github.com/eslint/eslint-release/pull/92",
-    "id": 3852671606,
-    "nodeId": "PR_kwDOAvvbFc6_NCwe",
-    "number": 92,
-    "title": "chore: introduce `prettier`",
-    "createdAt": "2026-01-25T06:14:03Z",
-    "closedAt": "2026-02-11T11:06:39Z",
-    "reactions": {
-      "+1": 0
-    }
-  },
-  {
-    "repositoryUrl": "https://api.github.com/repos/eslint/eslint-transforms",
-    "htmlUrl": "https://github.com/eslint/eslint-transforms/pull/67",
-    "id": 3852641862,
-    "nodeId": "PR_kwDOA4Zafs6_M8rW",
-    "number": 67,
-    "title": "chore: introduce `prettier`",
-    "createdAt": "2026-01-25T05:51:53Z",
-    "closedAt": "2026-02-13T08:33:27Z",
-    "reactions": {
-      "+1": 0
-    }
-  },
-  {
-    "repositoryUrl": "https://api.github.com/repos/eslint/eslint-github-bot",
-    "htmlUrl": "https://github.com/eslint/eslint-github-bot/pull/274",
-    "id": 3852608585,
-    "nodeId": "PR_kwDOBa-RVM6_M2Pa",
-    "number": 274,
-    "title": "chore: introduce `prettier`",
-    "createdAt": "2026-01-25T05:18:57Z",
-    "closedAt": "2026-02-12T12:16:25Z",
-    "reactions": {
-      "+1": 0
-    }
-  },
-  {
-    "repositoryUrl": "https://api.github.com/repos/eslint/js",
-    "htmlUrl": "https://github.com/eslint/js/pull/723",
-    "id": 3851341172,
-    "nodeId": "PR_kwDOAaVztc6_Ixel",
-    "number": 723,
-    "title": "chore: introduce `prettier`",
-    "createdAt": "2026-01-24T14:34:40Z",
-    "closedAt": "2026-02-01T08:18:58Z",
-    "reactions": {
-      "+1": 0
-    }
-  },
-  {
-    "repositoryUrl": "https://api.github.com/repos/eslint/create-config",
-    "htmlUrl": "https://github.com/eslint/create-config/pull/230",
-    "id": 3851253185,
-    "nodeId": "PR_kwDOFqe-is6_IeLF",
-    "number": 230,
-    "title": "chore: introduce `prettier`",
-    "createdAt": "2026-01-24T14:02:20Z",
-    "closedAt": "2026-02-02T14:37:32Z",
     "reactions": {
       "+1": 0
     }
@@ -216,32 +125,6 @@
     "title": "fix(linter): compatibility issue with `DiagnosticData` type in ESLint",
     "createdAt": "2026-01-22T09:11:30Z",
     "closedAt": "2026-01-22T18:09:52Z",
-    "reactions": {
-      "+1": 0
-    }
-  },
-  {
-    "repositoryUrl": "https://api.github.com/repos/eslint/workflows",
-    "htmlUrl": "https://github.com/eslint/workflows/pull/49",
-    "id": 3837899088,
-    "nodeId": "PR_kwDOO9Nass6-brRu",
-    "number": 49,
-    "title": "feat: auto merge dev-dependencies",
-    "createdAt": "2026-01-21T11:54:44Z",
-    "closedAt": "2026-04-10T13:43:00Z",
-    "reactions": {
-      "+1": 0
-    }
-  },
-  {
-    "repositoryUrl": "https://api.github.com/repos/eslint/js",
-    "htmlUrl": "https://github.com/eslint/js/pull/722",
-    "id": 3833968343,
-    "nodeId": "PR_kwDOAaVztc6-Oi7f",
-    "number": 722,
-    "title": "refactor: hoist cli tools to root level",
-    "createdAt": "2026-01-20T14:25:48Z",
-    "closedAt": "2026-02-08T09:38:42Z",
     "reactions": {
       "+1": 0
     }
@@ -281,19 +164,6 @@
     "title": "chore: fix CI failure caused by `knip`",
     "createdAt": "2026-01-16T13:35:14Z",
     "closedAt": "2026-01-16T15:18:26Z",
-    "reactions": {
-      "+1": 0
-    }
-  },
-  {
-    "repositoryUrl": "https://api.github.com/repos/eslint/eslint",
-    "htmlUrl": "https://github.com/eslint/eslint/pull/20431",
-    "id": 3799712967,
-    "nodeId": "PR_kwDOAKjKDc68eMqY",
-    "number": 20431,
-    "title": "docs: add AI acknowledgement section to templates",
-    "createdAt": "2026-01-10T13:22:31Z",
-    "closedAt": "2026-02-16T21:31:07Z",
     "reactions": {
       "+1": 0
     }
@@ -424,6 +294,58 @@
     "title": "fix!: remove `rollup`, extraneous types and migrate to ESM-only",
     "createdAt": "2026-01-01T13:31:36Z",
     "closedAt": "2026-01-15T22:13:49Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/css",
+    "htmlUrl": "https://github.com/eslint/css/pull/337",
+    "id": 3686747258,
+    "nodeId": "PR_kwDONF7wwM62po7S",
+    "number": 337,
+    "title": "fix: update `@eslint/core` to `v1.0.0` and adjust tests",
+    "createdAt": "2025-12-02T17:00:46Z",
+    "closedAt": "2026-01-15T22:17:17Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/json",
+    "htmlUrl": "https://github.com/eslint/json/pull/190",
+    "id": 3686640421,
+    "nodeId": "PR_kwDOMOnJ-M62pRV7",
+    "number": 190,
+    "title": "fix: update `@eslint/core` to `v1.0.0` and adjust tests",
+    "createdAt": "2025-12-02T16:34:08Z",
+    "closedAt": "2026-01-01T17:50:52Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint",
+    "htmlUrl": "https://github.com/eslint/eslint/pull/20348",
+    "id": 3659483049,
+    "nodeId": "PR_kwDOAKjKDc61Ou5z",
+    "number": 20348,
+    "title": "fix: use `MessagePlaceholderData` type from `@eslint/core`",
+    "createdAt": "2025-11-24T15:47:07Z",
+    "closedAt": "2026-01-10T13:36:06Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/markdown",
+    "htmlUrl": "https://github.com/eslint/markdown/pull/564",
+    "id": 3536715144,
+    "nodeId": "PR_kwDOAkm7Hs6u2kJv",
+    "number": 564,
+    "title": "fix!: remove `/types` export",
+    "createdAt": "2025-10-21T14:00:19Z",
+    "closedAt": "2026-01-15T22:20:18Z",
     "reactions": {
       "+1": 0
     }

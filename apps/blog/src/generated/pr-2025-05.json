@@ -1,44 +1,5 @@
 [
   {
-    "repositoryUrl": "https://api.github.com/repos/eslint/json",
-    "htmlUrl": "https://github.com/eslint/json/pull/106",
-    "id": 3105311637,
-    "nodeId": "PR_kwDOMOnJ-M6YYoi6",
-    "number": 106,
-    "title": "docs: create dedicated documentation for JSON",
-    "createdAt": "2025-05-31T10:51:06Z",
-    "closedAt": "2025-06-09T15:09:38Z",
-    "reactions": {
-      "+1": 0
-    }
-  },
-  {
-    "repositoryUrl": "https://api.github.com/repos/eslint/eslint",
-    "htmlUrl": "https://github.com/eslint/eslint/pull/19795",
-    "id": 3099972703,
-    "nodeId": "PR_kwDOAKjKDc6YGlv2",
-    "number": 19795,
-    "title": "docs: add support for custom name parameter to `includeIgnoreFile`",
-    "createdAt": "2025-05-29T11:02:27Z",
-    "closedAt": "2025-06-12T10:11:01Z",
-    "reactions": {
-      "+1": 0
-    }
-  },
-  {
-    "repositoryUrl": "https://api.github.com/repos/eslint/eslint",
-    "htmlUrl": "https://github.com/eslint/eslint/pull/19782",
-    "id": 3097052856,
-    "nodeId": "PR_kwDOAKjKDc6X8rPv",
-    "number": 19782,
-    "title": "perf: improve time complexity of `getLocFromIndex`",
-    "createdAt": "2025-05-28T11:42:02Z",
-    "closedAt": "2025-06-02T21:17:40Z",
-    "reactions": {
-      "+1": 1
-    }
-  },
-  {
     "repositoryUrl": "https://api.github.com/repos/eslint/rewrite",
     "htmlUrl": "https://github.com/eslint/rewrite/pull/213",
     "id": 3093595975,
@@ -65,19 +26,6 @@
     }
   },
   {
-    "repositoryUrl": "https://api.github.com/repos/eslint/eslint",
-    "htmlUrl": "https://github.com/eslint/eslint/pull/19761",
-    "id": 3088195254,
-    "nodeId": "PR_kwDOAKjKDc6XfF1T",
-    "number": 19761,
-    "title": "docs: enhance documentation with links and fix typos",
-    "createdAt": "2025-05-24T07:09:56Z",
-    "closedAt": "2025-06-06T19:45:52Z",
-    "reactions": {
-      "+1": 0
-    }
-  },
-  {
     "repositoryUrl": "https://api.github.com/repos/eslint/create-config",
     "htmlUrl": "https://github.com/eslint/create-config/pull/179",
     "id": 3088183670,
@@ -86,32 +34,6 @@
     "title": "chore: update `.gitignore` to include additional IDE files",
     "createdAt": "2025-05-24T07:00:42Z",
     "closedAt": "2025-05-28T10:46:25Z",
-    "reactions": {
-      "+1": 0
-    }
-  },
-  {
-    "repositoryUrl": "https://api.github.com/repos/eslint/rewrite",
-    "htmlUrl": "https://github.com/eslint/rewrite/pull/212",
-    "id": 3088174652,
-    "nodeId": "PR_kwDOLyyFi86XfBU0",
-    "number": 212,
-    "title": "feat: add support for `getLocFromIndex` and `getIndexFromLoc`",
-    "createdAt": "2025-05-24T06:49:54Z",
-    "closedAt": "2025-08-20T14:48:06Z",
-    "reactions": {
-      "+1": 0
-    }
-  },
-  {
-    "repositoryUrl": "https://api.github.com/repos/eslint/rewrite",
-    "htmlUrl": "https://github.com/eslint/rewrite/pull/211",
-    "id": 3088167577,
-    "nodeId": "PR_kwDOLyyFi86Xe_0p",
-    "number": 211,
-    "title": "feat: add support for custom name parameter to `includeIgnoreFile`",
-    "createdAt": "2025-05-24T06:41:39Z",
-    "closedAt": "2025-06-03T19:29:13Z",
     "reactions": {
       "+1": 0
     }
@@ -299,19 +221,6 @@
     }
   },
   {
-    "repositoryUrl": "https://api.github.com/repos/eslint/markdown",
-    "htmlUrl": "https://github.com/eslint/markdown/pull/376",
-    "id": 3063249962,
-    "nodeId": "PR_kwDOAkm7Hs6WK7S4",
-    "number": 376,
-    "title": "feat: add support for `getLocFromIndex` and `getIndexFromLoc`",
-    "createdAt": "2025-05-14T14:03:41Z",
-    "closedAt": "2025-09-24T10:17:20Z",
-    "reactions": {
-      "+1": 0
-    }
-  },
-  {
     "repositoryUrl": "https://api.github.com/repos/eslint/code-explorer",
     "htmlUrl": "https://github.com/eslint/code-explorer/pull/105",
     "id": 3061881816,
@@ -346,19 +255,6 @@
     "title": "refactor: add missing type to `JavaScriptPanel`",
     "createdAt": "2025-05-13T14:34:05Z",
     "closedAt": "2025-05-13T14:36:59Z",
-    "reactions": {
-      "+1": 0
-    }
-  },
-  {
-    "repositoryUrl": "https://api.github.com/repos/eslint/markdown",
-    "htmlUrl": "https://github.com/eslint/markdown/pull/367",
-    "id": 3051184771,
-    "nodeId": "PR_kwDOAkm7Hs6ViURU",
-    "number": 367,
-    "title": "refactor: migrate type declarations to use the `@import` syntax",
-    "createdAt": "2025-05-09T06:59:08Z",
-    "closedAt": "2025-07-02T15:06:51Z",
     "reactions": {
       "+1": 0
     }
@@ -634,6 +530,45 @@
     "closedAt": "2025-05-06T02:38:38Z",
     "reactions": {
       "+1": 1
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint.org",
+    "htmlUrl": "https://github.com/eslint/eslint.org/pull/720",
+    "id": 3021635546,
+    "nodeId": "PR_kwDOGSAlOM6T_1fg",
+    "number": 720,
+    "title": "perf: introduce React Compiler to improve performance",
+    "createdAt": "2025-04-26T08:54:54Z",
+    "closedAt": "2025-05-05T02:45:54Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/json",
+    "htmlUrl": "https://github.com/eslint/json/pull/93",
+    "id": 3021563125,
+    "nodeId": "PR_kwDOMOnJ-M6T_muT",
+    "number": 93,
+    "title": "chore: use `defineConfig` and `globalIgnores` in ESLint config",
+    "createdAt": "2025-04-26T06:49:37Z",
+    "closedAt": "2025-05-05T14:19:20Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/markdown",
+    "htmlUrl": "https://github.com/eslint/markdown/pull/352",
+    "id": 3021557354,
+    "nodeId": "PR_kwDOAkm7Hs6T_lit",
+    "number": 352,
+    "title": "chore: update ESLint config file to use `defineConfig`",
+    "createdAt": "2025-04-26T06:40:08Z",
+    "closedAt": "2025-05-05T14:18:37Z",
+    "reactions": {
+      "+1": 0
     }
   }
 ]

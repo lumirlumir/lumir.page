@@ -1,19 +1,6 @@
 [
   {
     "repositoryUrl": "https://api.github.com/repos/reactjs/ko.react.dev",
-    "htmlUrl": "https://github.com/reactjs/ko.react.dev/pull/1063",
-    "id": 2555603781,
-    "nodeId": "PR_kwDOChzKxs59D9pz",
-    "number": 1063,
-    "title": "docs(typo): fix typo 'props' linted by textlint",
-    "createdAt": "2024-09-30T05:32:10Z",
-    "closedAt": "2024-10-08T01:46:42Z",
-    "reactions": {
-      "+1": 0
-    }
-  },
-  {
-    "repositoryUrl": "https://api.github.com/repos/reactjs/ko.react.dev",
     "htmlUrl": "https://github.com/reactjs/ko.react.dev/pull/1061",
     "id": 2554695565,
     "nodeId": "PR_kwDOChzKxs59A9zn",
@@ -216,6 +203,32 @@
     "title": "docs(wiki): fix broken links in best-practices-for-translation (#918)",
     "createdAt": "2024-09-01T14:17:21Z",
     "closedAt": "2024-09-03T06:09:28Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/reactjs/ko.react.dev",
+    "htmlUrl": "https://github.com/reactjs/ko.react.dev/pull/1038",
+    "id": 2498593407,
+    "nodeId": "PR_kwDOChzKxs56ClAW",
+    "number": 1038,
+    "title": "docs(wiki): manage wiki at the code level (#971)",
+    "createdAt": "2024-08-31T03:40:10Z",
+    "closedAt": "2024-09-01T13:31:21Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/vercel/next.js",
+    "htmlUrl": "https://github.com/vercel/next.js/pull/69220",
+    "id": 2482931018,
+    "nodeId": "PR_kwDOBC3Cis55PE9w",
+    "number": 69220,
+    "title": "fix: ensure absolute paths are handled correctly with `--file` option in `next lint` command for `lint-staged` compatibility",
+    "createdAt": "2024-08-23T11:25:05Z",
+    "closedAt": "2024-09-04T21:55:47Z",
     "reactions": {
       "+1": 0
     }

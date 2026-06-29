@@ -1,19 +1,6 @@
 [
   {
     "repositoryUrl": "https://api.github.com/repos/lerna/lerna",
-    "htmlUrl": "https://github.com/lerna/lerna/pull/4107",
-    "id": 2626708242,
-    "nodeId": "PR_kwDOAtMv2M6Ag_be",
-    "number": 4107,
-    "title": "docs: fix broken links and add some links in `distribute-tasks.md`",
-    "createdAt": "2024-10-31T12:14:28Z",
-    "closedAt": "2024-11-04T09:06:10Z",
-    "reactions": {
-      "+1": 0
-    }
-  },
-  {
-    "repositoryUrl": "https://api.github.com/repos/lerna/lerna",
     "htmlUrl": "https://github.com/lerna/lerna/pull/4105",
     "id": 2626324822,
     "nodeId": "PR_kwDOAtMv2M6Afykm",
@@ -21,19 +8,6 @@
     "title": "docs: fixed some typos",
     "createdAt": "2024-10-31T08:53:38Z",
     "closedAt": "2024-10-31T10:15:59Z",
-    "reactions": {
-      "+1": 0
-    }
-  },
-  {
-    "repositoryUrl": "https://api.github.com/repos/reactjs/ko.react.dev",
-    "htmlUrl": "https://github.com/reactjs/ko.react.dev/pull/1095",
-    "id": 2622997382,
-    "nodeId": "PR_kwDOChzKxs6AVIay",
-    "number": 1095,
-    "title": "refactor(textlint): update a term `caveats`",
-    "createdAt": "2024-10-30T05:55:13Z",
-    "closedAt": "2024-11-05T03:04:08Z",
     "reactions": {
       "+1": 0
     }
@@ -417,19 +391,6 @@
   },
   {
     "repositoryUrl": "https://api.github.com/repos/vercel/next.js",
-    "htmlUrl": "https://github.com/vercel/next.js/pull/71134",
-    "id": 2580552591,
-    "nodeId": "PR_kwDOBC3Cis5-TeFQ",
-    "number": 71134,
-    "title": "fix: `next info` command does not output the versions of `npm` `yarn` and `pnpm` correctly",
-    "createdAt": "2024-10-11T06:33:28Z",
-    "closedAt": "2024-11-04T21:56:12Z",
-    "reactions": {
-      "+1": 0
-    }
-  },
-  {
-    "repositoryUrl": "https://api.github.com/repos/vercel/next.js",
     "htmlUrl": "https://github.com/vercel/next.js/pull/71074",
     "id": 2578046191,
     "nodeId": "PR_kwDOBC3Cis5-LsvA",
@@ -606,6 +567,19 @@
     "title": "docs(typo): fix typo 'dispatch' linted by textlint",
     "createdAt": "2024-10-01T12:30:49Z",
     "closedAt": "2024-10-12T15:32:35Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/reactjs/ko.react.dev",
+    "htmlUrl": "https://github.com/reactjs/ko.react.dev/pull/1063",
+    "id": 2555603781,
+    "nodeId": "PR_kwDOChzKxs59D9pz",
+    "number": 1063,
+    "title": "docs(typo): fix typo 'props' linted by textlint",
+    "createdAt": "2024-09-30T05:32:10Z",
+    "closedAt": "2024-10-08T01:46:42Z",
     "reactions": {
       "+1": 0
     }

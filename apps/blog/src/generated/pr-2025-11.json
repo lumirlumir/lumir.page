@@ -1,71 +1,6 @@
 [
   {
     "repositoryUrl": "https://api.github.com/repos/eslint/css",
-    "htmlUrl": "https://github.com/eslint/css/pull/335",
-    "id": 3677985925,
-    "nodeId": "PR_kwDONF7wwM62L7xJ",
-    "number": 335,
-    "title": "chore: update `prettier` to fix CI",
-    "createdAt": "2025-11-30T16:17:50Z",
-    "closedAt": "2025-12-01T06:15:53Z",
-    "reactions": {
-      "+1": 0
-    }
-  },
-  {
-    "repositoryUrl": "https://api.github.com/repos/eslint/markdown",
-    "htmlUrl": "https://github.com/eslint/markdown/pull/591",
-    "id": 3677965753,
-    "nodeId": "PR_kwDOAkm7Hs62L3by",
-    "number": 591,
-    "title": "chore: update `prettier` to fix CI",
-    "createdAt": "2025-11-30T16:03:57Z",
-    "closedAt": "2025-12-01T06:13:14Z",
-    "reactions": {
-      "+1": 0
-    }
-  },
-  {
-    "repositoryUrl": "https://api.github.com/repos/eslint/rewrite",
-    "htmlUrl": "https://github.com/eslint/rewrite/pull/334",
-    "id": 3673829985,
-    "nodeId": "PR_kwDOLyyFi861-roP",
-    "number": 334,
-    "title": "fix!: remove `unstable_config_lookup_from_file` from MCP in v10",
-    "createdAt": "2025-11-28T07:00:16Z",
-    "closedAt": "2026-02-06T23:51:59Z",
-    "reactions": {
-      "+1": 0
-    }
-  },
-  {
-    "repositoryUrl": "https://api.github.com/repos/eslint/rewrite",
-    "htmlUrl": "https://github.com/eslint/rewrite/pull/332",
-    "id": 3669930332,
-    "nodeId": "PR_kwDOLyyFi861xqNF",
-    "number": 332,
-    "title": "refactor: fix CI, use `zod` v4, and latest method in `mcp`",
-    "createdAt": "2025-11-27T05:34:10Z",
-    "closedAt": "2025-12-03T11:57:52Z",
-    "reactions": {
-      "+1": 0
-    }
-  },
-  {
-    "repositoryUrl": "https://api.github.com/repos/eslint/eslint",
-    "htmlUrl": "https://github.com/eslint/eslint/pull/20348",
-    "id": 3659483049,
-    "nodeId": "PR_kwDOAKjKDc61Ou5z",
-    "number": 20348,
-    "title": "fix: use `MessagePlaceholderData` type from `@eslint/core`",
-    "createdAt": "2025-11-24T15:47:07Z",
-    "closedAt": "2026-01-10T13:36:06Z",
-    "reactions": {
-      "+1": 0
-    }
-  },
-  {
-    "repositoryUrl": "https://api.github.com/repos/eslint/css",
     "htmlUrl": "https://github.com/eslint/css/pull/328",
     "id": 3633551558,
     "nodeId": "PR_kwDONF7wwM6z3jHR",
@@ -73,19 +8,6 @@
     "title": "test: fix CI failure caused by newly updated baseline",
     "createdAt": "2025-11-17T14:22:21Z",
     "closedAt": "2025-11-17T16:12:22Z",
-    "reactions": {
-      "+1": 0
-    }
-  },
-  {
-    "repositoryUrl": "https://api.github.com/repos/eslint/rewrite",
-    "htmlUrl": "https://github.com/eslint/rewrite/pull/327",
-    "id": 3633316733,
-    "nodeId": "PR_kwDOLyyFi86z2wgt",
-    "number": 327,
-    "title": "fix: make `data` property stricter",
-    "createdAt": "2025-11-17T13:19:34Z",
-    "closedAt": "2025-12-04T09:39:22Z",
     "reactions": {
       "+1": 0
     }
@@ -125,19 +47,6 @@
     "title": "fix: group non-major dev-dependencies correctly",
     "createdAt": "2025-11-13T10:04:29Z",
     "closedAt": "2025-11-16T10:43:26Z",
-    "reactions": {
-      "+1": 0
-    }
-  },
-  {
-    "repositoryUrl": "https://api.github.com/repos/eslint/markdown",
-    "htmlUrl": "https://github.com/eslint/markdown/pull/583",
-    "id": 3616824032,
-    "nodeId": "PR_kwDOAkm7Hs6y_xdu",
-    "number": 583,
-    "title": "fix: recognize HTML heading in `no-missing-link-fragments`",
-    "createdAt": "2025-11-12T14:32:39Z",
-    "closedAt": "2026-03-16T14:59:57Z",
     "reactions": {
       "+1": 0
     }
@@ -455,19 +364,6 @@
     }
   },
   {
-    "repositoryUrl": "https://api.github.com/repos/eslint/create-config",
-    "htmlUrl": "https://github.com/eslint/create-config/pull/220",
-    "id": 3585505266,
-    "nodeId": "PR_kwDOFqe-is6xXSk8",
-    "number": 220,
-    "title": "test: migrate `vitest` and `@vitest/coverage-v8` to v4",
-    "createdAt": "2025-11-04T09:10:28Z",
-    "closedAt": "2026-02-01T00:49:54Z",
-    "reactions": {
-      "+1": 0
-    }
-  },
-  {
     "repositoryUrl": "https://api.github.com/repos/eslint/eslint-release",
     "htmlUrl": "https://github.com/eslint/eslint-release/pull/87",
     "id": 3585315920,
@@ -528,6 +424,71 @@
     "title": "fix: unexpected `undefined` inserted when downloading config",
     "createdAt": "2025-11-02T11:46:08Z",
     "closedAt": "2025-11-02T12:27:21Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/workflows",
+    "htmlUrl": "https://github.com/eslint/workflows/pull/32",
+    "id": 3571170080,
+    "nodeId": "PR_kwDOO9Nass6wo9y1",
+    "number": 32,
+    "title": "fix: move `update-readme` file generated location",
+    "createdAt": "2025-10-30T14:51:05Z",
+    "closedAt": "2025-11-05T15:42:39Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/code-explorer",
+    "htmlUrl": "https://github.com/eslint/code-explorer/pull/223",
+    "id": 3570296021,
+    "nodeId": "PR_kwDOLo6z_M6wmD9u",
+    "number": 223,
+    "title": "refactor: use types from `@eslint/core`",
+    "createdAt": "2025-10-30T11:22:26Z",
+    "closedAt": "2025-11-03T18:57:20Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/.github",
+    "htmlUrl": "https://github.com/eslint/.github/pull/14",
+    "id": 3539746353,
+    "nodeId": "PR_kwDOEAIzj86vApRu",
+    "number": 14,
+    "title": "ci: create `update-readme` workflow",
+    "createdAt": "2025-10-22T08:42:42Z",
+    "closedAt": "2025-11-06T06:10:35Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint-transforms",
+    "htmlUrl": "https://github.com/eslint/eslint-transforms/pull/55",
+    "id": 3539226723,
+    "nodeId": "PR_kwDOA4Zafs6u_BRN",
+    "number": 55,
+    "title": "ci: create `ci-bun.yml`",
+    "createdAt": "2025-10-22T05:55:10Z",
+    "closedAt": "2025-11-05T15:42:09Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/markdown",
+    "htmlUrl": "https://github.com/eslint/markdown/pull/521",
+    "id": 3413656387,
+    "nodeId": "PR_kwDOAkm7Hs6oafFL",
+    "number": 521,
+    "title": "fix: false positives in `no-reversed-media-syntax`",
+    "createdAt": "2025-09-13T15:00:35Z",
+    "closedAt": "2025-11-03T14:56:57Z",
     "reactions": {
       "+1": 0
     }

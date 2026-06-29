@@ -4,6 +4,8 @@
  * Usage: `node path/to/generate-github-contributions.ts <type> <year> <month>`
  */
 
+// TODO: use `GH_PAT` env variable.
+
 // --------------------------------------------------------------------------------
 // Import
 // --------------------------------------------------------------------------------
@@ -39,8 +41,8 @@ function getMonthRange(
 
 const [type, year, month] = process.argv.slice(2);
 
-if (type !== 'issue' && type !== 'merged') {
-  throw new Error('Invalid type. Please provide either `issue` or `merged`.');
+if (type !== 'issue' && type !== 'pr') {
+  throw new Error('Invalid type. Please provide either `issue` or `pr`.');
 }
 
 if (
@@ -64,11 +66,18 @@ const [start, end] = getMonthRange(year, month);
 
 urlGitHubSearchIssues.searchParams.set(
   'q',
-  `created:${start}..${end} author:lumirlumir -org:lumirlumir is:${type}`,
+  `${type === 'issue' ? 'created' : 'merged'}:${start}..${end} author:lumirlumir -org:lumirlumir is:${type}`,
 );
 urlGitHubSearchIssues.searchParams.set('per_page', '100');
 
 const res = await fetch(urlGitHubSearchIssues);
+
+if (!res.ok) {
+  throw new Error(
+    `Failed to fetch data from GitHub API: ${res.status} ${res.statusText}`,
+  );
+}
+
 const data = await res.json();
 
 if (data.total_count >= 100) {

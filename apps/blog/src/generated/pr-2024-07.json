@@ -440,5 +440,18 @@
     "reactions": {
       "+1": 0
     }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/reactjs/ko.react.dev",
+    "htmlUrl": "https://github.com/reactjs/ko.react.dev/pull/972",
+    "id": 2382182262,
+    "nodeId": "PR_kwDOChzKxs5z-9EL",
+    "number": 972,
+    "title": "fix: README.md typo and synchronize with react.dev",
+    "createdAt": "2024-06-30T10:01:51Z",
+    "closedAt": "2024-07-01T01:27:46Z",
+    "reactions": {
+      "+1": 0
+    }
   }
 ]
