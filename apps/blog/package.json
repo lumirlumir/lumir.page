@@ -13,7 +13,8 @@
     "test": "node --run test:types && node --run test:unit",
     "test:types": "next typegen && tsgo -b tsconfig.app.json",
     "test:unit": "vitest run",
-    "count-docs": "node scripts/count-docs.ts"
+    "count-docs": "node scripts/count-docs.ts",
+    "generate:github-contributions": "node scripts/generate-github-contributions.ts"
   },
   "dependencies": {
     "@docsearch/css": "^3.9.0",

@@ -78,19 +78,6 @@
     }
   },
   {
-    "repositoryUrl": "https://api.github.com/repos/eslint/workflows",
-    "htmlUrl": "https://github.com/eslint/workflows/pull/15",
-    "id": 3449017854,
-    "nodeId": "PR_kwDOO9Nass6qRCzy",
-    "number": 15,
-    "title": "feat: create `ci-bun.yml`",
-    "createdAt": "2025-09-24T11:31:29Z",
-    "closedAt": "2025-10-18T10:04:24Z",
-    "reactions": {
-      "+1": 0
-    }
-  },
-  {
     "repositoryUrl": "https://api.github.com/repos/eslint/eslint-github-bot",
     "htmlUrl": "https://github.com/eslint/eslint-github-bot/pull/244",
     "id": 3448927073,
@@ -216,19 +203,6 @@
     "title": "chore: use `test` suffix for test files",
     "createdAt": "2025-09-23T12:59:02Z",
     "closedAt": "2025-09-23T13:24:02Z",
-    "reactions": {
-      "+1": 0
-    }
-  },
-  {
-    "repositoryUrl": "https://api.github.com/repos/eslint/markdown",
-    "htmlUrl": "https://github.com/eslint/markdown/pull/536",
-    "id": 3444874295,
-    "nodeId": "PR_kwDOAkm7Hs6qDQsv",
-    "number": 536,
-    "title": "refactor: replace `findOffsets` helper with native methods",
-    "createdAt": "2025-09-23T11:25:18Z",
-    "closedAt": "2025-10-07T14:23:10Z",
     "reactions": {
       "+1": 0
     }
@@ -411,19 +385,6 @@
     "title": "feat(replacements): add `clang-format` maintenance fork ",
     "createdAt": "2025-09-21T12:13:23Z",
     "closedAt": "2025-09-22T07:55:17Z",
-    "reactions": {
-      "+1": 0
-    }
-  },
-  {
-    "repositoryUrl": "https://api.github.com/repos/eslint/json",
-    "htmlUrl": "https://github.com/eslint/json/pull/151",
-    "id": 3437157501,
-    "nodeId": "PR_kwDOMOnJ-M6ppsYJ",
-    "number": 151,
-    "title": "feat: implement autofix for `no-unnormalized-keys`",
-    "createdAt": "2025-09-20T13:45:27Z",
-    "closedAt": "2026-02-16T21:19:51Z",
     "reactions": {
       "+1": 0
     }
@@ -624,19 +585,6 @@
     }
   },
   {
-    "repositoryUrl": "https://api.github.com/repos/eslint/markdown",
-    "htmlUrl": "https://github.com/eslint/markdown/pull/521",
-    "id": 3413656387,
-    "nodeId": "PR_kwDOAkm7Hs6oafFL",
-    "number": 521,
-    "title": "fix: false positives in `no-reversed-media-syntax`",
-    "createdAt": "2025-09-13T15:00:35Z",
-    "closedAt": "2025-11-03T14:56:57Z",
-    "reactions": {
-      "+1": 0
-    }
-  },
-  {
     "repositoryUrl": "https://api.github.com/repos/eslint/eslint",
     "htmlUrl": "https://github.com/eslint/eslint/pull/20112",
     "id": 3413060499,
@@ -736,6 +684,110 @@
     "title": "fix: wrong location reporting in `fenced-code-language`",
     "createdAt": "2025-09-05T10:17:04Z",
     "closedAt": "2025-09-09T13:49:58Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/code-explorer",
+    "htmlUrl": "https://github.com/eslint/code-explorer/pull/132",
+    "id": 3370237772,
+    "nodeId": "PR_kwDOLo6z_M6mKQAO",
+    "number": 132,
+    "title": "fix: update logo paths in `manifest.json` to use absolute URLs",
+    "createdAt": "2025-08-31T12:56:05Z",
+    "closedAt": "2025-09-02T19:05:09Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/code-explorer",
+    "htmlUrl": "https://github.com/eslint/code-explorer/pull/131",
+    "id": 3368985565,
+    "nodeId": "PR_kwDOLo6z_M6mGXqZ",
+    "number": 131,
+    "title": "refactor: remove unnecessary `\"use client\"` `\"use server\"` directives",
+    "createdAt": "2025-08-30T10:05:33Z",
+    "closedAt": "2025-09-01T17:23:28Z",
+    "reactions": {
+      "+1": 1
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/code-explorer",
+    "htmlUrl": "https://github.com/eslint/code-explorer/pull/130",
+    "id": 3368973082,
+    "nodeId": "PR_kwDOLo6z_M6mGVN6",
+    "number": 130,
+    "title": "chore: use kebab-case for file names",
+    "createdAt": "2025-08-30T09:46:20Z",
+    "closedAt": "2025-09-02T19:05:39Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/workflows",
+    "htmlUrl": "https://github.com/eslint/workflows/pull/12",
+    "id": 3314588672,
+    "nodeId": "PR_kwDOO9Nass6jSR2X",
+    "number": 12,
+    "title": "feat: create `update-readme.yml`",
+    "createdAt": "2025-08-12T14:36:21Z",
+    "closedAt": "2025-09-23T19:08:56Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/markdown",
+    "htmlUrl": "https://github.com/eslint/markdown/pull/490",
+    "id": 3273217159,
+    "nodeId": "PR_kwDOAkm7Hs6hJ96L",
+    "number": 490,
+    "title": "feat: fix false positives and negatives for consecutive backslashes",
+    "createdAt": "2025-07-29T11:14:58Z",
+    "closedAt": "2025-09-02T11:43:48Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/css",
+    "htmlUrl": "https://github.com/eslint/css/pull/167",
+    "id": 3128105026,
+    "nodeId": "PR_kwDONF7wwM6Zkbl3",
+    "number": 167,
+    "title": "feat: add support for `getLocFromIndex` and `getIndexFromLoc`",
+    "createdAt": "2025-06-08T08:44:55Z",
+    "closedAt": "2025-09-24T06:41:36Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/json",
+    "htmlUrl": "https://github.com/eslint/json/pull/109",
+    "id": 3128100951,
+    "nodeId": "PR_kwDOMOnJ-M6Zkar3",
+    "number": 109,
+    "title": "feat: add support for `getLocFromIndex` and `getIndexFromLoc`",
+    "createdAt": "2025-06-08T08:40:05Z",
+    "closedAt": "2025-09-24T06:34:44Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/markdown",
+    "htmlUrl": "https://github.com/eslint/markdown/pull/376",
+    "id": 3063249962,
+    "nodeId": "PR_kwDOAkm7Hs6WK7S4",
+    "number": 376,
+    "title": "feat: add support for `getLocFromIndex` and `getIndexFromLoc`",
+    "createdAt": "2025-05-14T14:03:41Z",
+    "closedAt": "2025-09-24T10:17:20Z",
     "reactions": {
       "+1": 0
     }

@@ -1,44 +1,5 @@
 [
   {
-    "repositoryUrl": "https://api.github.com/repos/eslint/code-explorer",
-    "htmlUrl": "https://github.com/eslint/code-explorer/pull/132",
-    "id": 3370237772,
-    "nodeId": "PR_kwDOLo6z_M6mKQAO",
-    "number": 132,
-    "title": "fix: update logo paths in `manifest.json` to use absolute URLs",
-    "createdAt": "2025-08-31T12:56:05Z",
-    "closedAt": "2025-09-02T19:05:09Z",
-    "reactions": {
-      "+1": 0
-    }
-  },
-  {
-    "repositoryUrl": "https://api.github.com/repos/eslint/code-explorer",
-    "htmlUrl": "https://github.com/eslint/code-explorer/pull/131",
-    "id": 3368985565,
-    "nodeId": "PR_kwDOLo6z_M6mGXqZ",
-    "number": 131,
-    "title": "refactor: remove unnecessary `\"use client\"` `\"use server\"` directives",
-    "createdAt": "2025-08-30T10:05:33Z",
-    "closedAt": "2025-09-01T17:23:28Z",
-    "reactions": {
-      "+1": 1
-    }
-  },
-  {
-    "repositoryUrl": "https://api.github.com/repos/eslint/code-explorer",
-    "htmlUrl": "https://github.com/eslint/code-explorer/pull/130",
-    "id": 3368973082,
-    "nodeId": "PR_kwDOLo6z_M6mGVN6",
-    "number": 130,
-    "title": "chore: use kebab-case for file names",
-    "createdAt": "2025-08-30T09:46:20Z",
-    "closedAt": "2025-09-02T19:05:39Z",
-    "reactions": {
-      "+1": 0
-    }
-  },
-  {
     "repositoryUrl": "https://api.github.com/repos/eslint/eslint-github-bot",
     "htmlUrl": "https://github.com/eslint/eslint-github-bot/pull/230",
     "id": 3355691872,
@@ -164,19 +125,6 @@
     "title": "ci: fix incorrect placement of `stale.yml` file",
     "createdAt": "2025-08-15T09:02:52Z",
     "closedAt": "2025-08-15T14:01:04Z",
-    "reactions": {
-      "+1": 0
-    }
-  },
-  {
-    "repositoryUrl": "https://api.github.com/repos/eslint/workflows",
-    "htmlUrl": "https://github.com/eslint/workflows/pull/12",
-    "id": 3314588672,
-    "nodeId": "PR_kwDOO9Nass6jSR2X",
-    "number": 12,
-    "title": "feat: create `update-readme.yml`",
-    "createdAt": "2025-08-12T14:36:21Z",
-    "closedAt": "2025-09-23T19:08:56Z",
     "reactions": {
       "+1": 0
     }
@@ -637,19 +585,6 @@
     }
   },
   {
-    "repositoryUrl": "https://api.github.com/repos/eslint/markdown",
-    "htmlUrl": "https://github.com/eslint/markdown/pull/493",
-    "id": 3288852695,
-    "nodeId": "PR_kwDOAkm7Hs6h-PZT",
-    "number": 493,
-    "title": "fix: handle CR in rules to follow CommonMark spec",
-    "createdAt": "2025-08-04T10:20:44Z",
-    "closedAt": "2025-10-20T15:04:46Z",
-    "reactions": {
-      "+1": 0
-    }
-  },
-  {
     "repositoryUrl": "https://api.github.com/repos/eslint/workflows",
     "htmlUrl": "https://github.com/eslint/workflows/pull/8",
     "id": 3286771477,
@@ -671,6 +606,45 @@
     "title": "feat: create `add-to-triage.yml`",
     "createdAt": "2025-08-02T13:02:13Z",
     "closedAt": "2025-08-05T08:34:15Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/markdown",
+    "htmlUrl": "https://github.com/eslint/markdown/pull/469",
+    "id": 3235685351,
+    "nodeId": "PR_kwDOAkm7Hs6fLA8k",
+    "number": 469,
+    "title": "fix: handle multiline setext headings in `no-duplicate-headings`",
+    "createdAt": "2025-07-16T12:03:38Z",
+    "closedAt": "2025-08-19T14:42:20Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/code-explorer",
+    "htmlUrl": "https://github.com/eslint/code-explorer/pull/116",
+    "id": 3208221617,
+    "nodeId": "PR_kwDOLo6z_M6dt9Q0",
+    "number": 116,
+    "title": "refactor: complete migration to React 19",
+    "createdAt": "2025-07-07T09:25:39Z",
+    "closedAt": "2025-08-06T14:37:55Z",
+    "reactions": {
+      "+1": 1
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/rewrite",
+    "htmlUrl": "https://github.com/eslint/rewrite/pull/212",
+    "id": 3088174652,
+    "nodeId": "PR_kwDOLyyFi86XfBU0",
+    "number": 212,
+    "title": "feat: add support for `getLocFromIndex` and `getIndexFromLoc`",
+    "createdAt": "2025-05-24T06:49:54Z",
+    "closedAt": "2025-08-20T14:48:06Z",
     "reactions": {
       "+1": 0
     }

@@ -1,0 +1,56 @@
+name: cron
+
+on:
+  schedule:
+    - cron: '0 23 * * *' # Runs every day at 11:00 PM UTC
+
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ !contains(github.ref, 'main') }}
+
+env:
+  HUSKY: 0 # Skip Husky during CI: https://typicode.github.io/husky/how-to.html#ci-server-and-docker
+
+jobs:
+  generate-github-contributions:
+    runs-on: ubuntu-slim
+
+    steps:
+      - name: Set up checkout
+        uses: actions/checkout@v7
+
+      - name: Set up node
+        uses: actions/setup-node@v6
+        with:
+          node-version-file: .nvmrc
+          cache: npm # https://github.com/actions/setup-node#caching-global-packages-data
+
+      - name: Generate GitHub contributions
+        run: |
+          base=$(date -u +%Y-%m-15)
+
+          for offset in 0 1; do
+            year=$(date -u -d "$base -$offset month" +%Y)
+            month=$(date -u -d "$base -$offset month" +%m)
+
+            npm run generate:github-contributions -- issue "$year" "$month"
+            npm run generate:github-contributions -- pr "$year" "$month"
+          done
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v8
+        with:
+          token: ${{ secrets.GH_PAT }}
+          commit-message: 'chore(blog): auto-generate GitHub contributions for issues and merged PRs'
+          branch: 'chore/blog/auto-generate-github-contributions'
+          base: 'main'
+          title: 'chore(blog): auto-generate GitHub contributions for issues and merged PRs'
+          body: |
+            This PR auto-generates GitHub contributions for issues and merged PRs. :tada:
+
+            See [Actions](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}) for more details.

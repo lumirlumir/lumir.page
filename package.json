@@ -72,6 +72,7 @@
     "start:a:m": "npm run start -w apps/moing",
     "analyze": "npm run analyze -w apps/blog",
     "req": "node ./apps/api/src/dev/client.ts",
+    "generate:github-contributions": "npm run generate:github-contributions -w apps/blog",
     "fix": "npm-run-all -c -l -p fix:*",
     "fix:eslint": "eslint --fix --cache --cache-strategy content",
     "fix:stylelint": "stylelint --fix **/*.css",

@@ -14,19 +14,6 @@
   },
   {
     "repositoryUrl": "https://api.github.com/repos/typescript-eslint/typescript-eslint",
-    "htmlUrl": "https://github.com/typescript-eslint/typescript-eslint/pull/12388",
-    "id": 4553871477,
-    "nodeId": "PR_kwDOCd3hms7g6x5q",
-    "number": 12388,
-    "title": "fix(eslint-plugin): [no-unnecessary-template-expression] respect ECMAScript line terminators",
-    "createdAt": "2026-05-30T08:34:01Z",
-    "closedAt": "2026-06-15T16:28:26Z",
-    "reactions": {
-      "+1": 0
-    }
-  },
-  {
-    "repositoryUrl": "https://api.github.com/repos/typescript-eslint/typescript-eslint",
     "htmlUrl": "https://github.com/typescript-eslint/typescript-eslint/pull/12387",
     "id": 4553810796,
     "nodeId": "PR_kwDOCd3hms7g6mr-",
@@ -47,19 +34,6 @@
     "title": "docs: update TypeScript version reference in Dependency Version",
     "createdAt": "2026-05-29T05:18:41Z",
     "closedAt": "2026-05-29T15:56:23Z",
-    "reactions": {
-      "+1": 0
-    }
-  },
-  {
-    "repositoryUrl": "https://api.github.com/repos/typescript-eslint/typescript-eslint",
-    "htmlUrl": "https://github.com/typescript-eslint/typescript-eslint/pull/12374",
-    "id": 4538419349,
-    "nodeId": "PR_kwDOCd3hms7gIR8p",
-    "number": 12374,
-    "title": "fix(rule-schema-to-typescript-types): respect ECMAScript line terminators",
-    "createdAt": "2026-05-28T07:05:12Z",
-    "closedAt": "2026-06-07T15:26:56Z",
     "reactions": {
       "+1": 0
     }
@@ -99,32 +73,6 @@
     "title": "fix(eslint-plugin): respect ECMAScript line terminators in ts-comment rules",
     "createdAt": "2026-05-21T15:54:31Z",
     "closedAt": "2026-05-27T13:09:21Z",
-    "reactions": {
-      "+1": 0
-    }
-  },
-  {
-    "repositoryUrl": "https://api.github.com/repos/eslint/generator-eslint",
-    "htmlUrl": "https://github.com/eslint/generator-eslint/pull/270",
-    "id": 4495108276,
-    "nodeId": "PR_kwDOAPfTOM7d9mCr",
-    "number": 270,
-    "title": "ci: fix CI failure on `main` branch",
-    "createdAt": "2026-05-21T13:53:55Z",
-    "closedAt": "2026-06-05T21:55:33Z",
-    "reactions": {
-      "+1": 0
-    }
-  },
-  {
-    "repositoryUrl": "https://api.github.com/repos/eslint/workflows",
-    "htmlUrl": "https://github.com/eslint/workflows/pull/60",
-    "id": 4495093829,
-    "nodeId": "PR_kwDOO9Nass7d9i6v",
-    "number": 60,
-    "title": "fix: accept inputs from the caller workflow to fix pnpm CI failure",
-    "createdAt": "2026-05-21T13:52:04Z",
-    "closedAt": "2026-06-01T04:47:40Z",
     "reactions": {
       "+1": 0
     }
@@ -502,6 +450,32 @@
     "title": "test: use type only import in type test to fix CI failure",
     "createdAt": "2026-05-04T14:58:07Z",
     "closedAt": "2026-05-04T19:21:56Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/rollup/rollup",
+    "htmlUrl": "https://github.com/rollup/rollup/pull/6368",
+    "id": 4328473334,
+    "nodeId": "PR_kwDOAh_Tpc7VnAmx",
+    "number": 6368,
+    "title": "docs: add missing backticks in `plugin-development`",
+    "createdAt": "2026-04-25T15:07:12Z",
+    "closedAt": "2026-05-01T07:50:49Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/code-explorer",
+    "htmlUrl": "https://github.com/eslint/code-explorer/pull/299",
+    "id": 3860902050,
+    "nodeId": "PR_kwDOLo6z_M6_nvLE",
+    "number": 299,
+    "title": "feat: support Math in Markdown",
+    "createdAt": "2026-01-27T14:35:05Z",
+    "closedAt": "2026-05-18T20:29:40Z",
     "reactions": {
       "+1": 0
     }

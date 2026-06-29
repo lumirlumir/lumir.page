@@ -143,32 +143,6 @@
     }
   },
   {
-    "repositoryUrl": "https://api.github.com/repos/rollup/rollup",
-    "htmlUrl": "https://github.com/rollup/rollup/pull/6368",
-    "id": 4328473334,
-    "nodeId": "PR_kwDOAh_Tpc7VnAmx",
-    "number": 6368,
-    "title": "docs: add missing backticks in `plugin-development`",
-    "createdAt": "2026-04-25T15:07:12Z",
-    "closedAt": "2026-05-01T07:50:49Z",
-    "reactions": {
-      "+1": 0
-    }
-  },
-  {
-    "repositoryUrl": "https://api.github.com/repos/eslint/markdown",
-    "htmlUrl": "https://github.com/eslint/markdown/pull/648",
-    "id": 4300607327,
-    "nodeId": "PR_kwDOAkm7Hs7UMlnz",
-    "number": 648,
-    "title": "fix: type compatibility issue between Markdown v8 and ESLint v9.39.x",
-    "createdAt": "2026-04-21T06:00:43Z",
-    "closedAt": "2026-06-15T15:59:57Z",
-    "reactions": {
-      "+1": 0
-    }
-  },
-  {
     "repositoryUrl": "https://api.github.com/repos/eslint/rewrite",
     "htmlUrl": "https://github.com/eslint/rewrite/pull/437",
     "id": 4291051113,
@@ -283,6 +257,71 @@
     "closedAt": "2026-04-04T14:55:05Z",
     "reactions": {
       "+1": 2
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/markdown",
+    "htmlUrl": "https://github.com/eslint/markdown/pull/637",
+    "id": 4133020619,
+    "nodeId": "PR_kwDOAkm7Hs7NPUUJ",
+    "number": 637,
+    "title": "fix: update TypeScript to v6 and tighten the return type of `getParent`",
+    "createdAt": "2026-03-25T06:43:41Z",
+    "closedAt": "2026-04-28T09:18:08Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/css",
+    "htmlUrl": "https://github.com/eslint/css/pull/409",
+    "id": 4133010224,
+    "nodeId": "PR_kwDONF7wwM7NPSqE",
+    "number": 409,
+    "title": "refactor: update TypeScript to v6",
+    "createdAt": "2026-03-25T06:41:23Z",
+    "closedAt": "2026-04-29T14:24:41Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/json",
+    "htmlUrl": "https://github.com/eslint/json/pull/224",
+    "id": 4132972149,
+    "nodeId": "PR_kwDOMOnJ-M7NPMMx",
+    "number": 224,
+    "title": "refactor: update TypeScript to v6",
+    "createdAt": "2026-03-25T06:33:01Z",
+    "closedAt": "2026-04-14T09:55:20Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/oxc-project/oxc",
+    "htmlUrl": "https://github.com/oxc-project/oxc/pull/19998",
+    "id": 4021239364,
+    "nodeId": "PR_kwDOI7qa7s7H1ssf",
+    "number": 19998,
+    "title": "docs(transform): use the `node:` namespace in the example",
+    "createdAt": "2026-03-04T10:25:47Z",
+    "closedAt": "2026-04-23T21:43:16Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/workflows",
+    "htmlUrl": "https://github.com/eslint/workflows/pull/49",
+    "id": 3837899088,
+    "nodeId": "PR_kwDOO9Nass6-brRu",
+    "number": 49,
+    "title": "feat: auto merge dev-dependencies",
+    "createdAt": "2026-01-21T11:54:44Z",
+    "closedAt": "2026-04-10T13:43:00Z",
+    "reactions": {
+      "+1": 0
     }
   }
 ]
