@@ -25,18 +25,7 @@ const urlGitHubSearchIssues = new URL('https://api.github.com/search/issues');
 function getMonthRange(
   year: string,
   month:
-    | '01'
-    | '02'
-    | '03'
-    | '04'
-    | '05'
-    | '06'
-    | '07'
-    | '08'
-    | '09'
-    | '10'
-    | '11'
-    | '12',
+    '01' | '02' | '03' | '04' | '05' | '06' | '07' | '08' | '09' | '10' | '11' | '12',
 ): readonly [start: string, end: string] {
   const start = new Date(Date.UTC(Number(year), Number(month) - 1, 1));
   const end = new Date(Date.UTC(Number(year), Number(month), 0));

@@ -40,8 +40,7 @@ options = { unknown: 'unknown' };
 
 ({}) as typeof remarkHeadingFromTitle satisfies Function;
 ({}) as Parameters<typeof remarkHeadingFromTitle>[0] satisfies
-  | RemarkHeadingFromTitleOptions
-  | undefined;
+  RemarkHeadingFromTitleOptions | undefined;
 ({}) as ReturnType<typeof remarkHeadingFromTitle> satisfies Function;
 
 // @ts-expect-error - `remarkHeadingFromTitle` should be a function.
