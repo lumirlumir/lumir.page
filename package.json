@@ -2,19 +2,19 @@
   "private": true,
   "name": "lumir.page",
   "type": "module",
-  "packageManager": "npm@11.12.1",
+  "packageManager": "npm@11.16.0",
   "engines": {
-    "node": "^24.15.0"
+    "node": "^24.18.0"
   },
   "devEngines": {
     "runtime": {
       "name": "node",
-      "version": "^24.15.0",
+      "version": "^24.18.0",
       "onFail": "error"
     },
     "packageManager": {
       "name": "npm",
-      "version": ">=11.12.1",
+      "version": ">=11.16.0",
       "onFail": "error"
     }
   },
@@ -85,6 +85,10 @@
     "lint:editorconfig": "editorconfig-checker -config .editorconfig-checker.json",
     "lint:markdownlint": "markdownlint **/*.md",
     "lint:clangformat": "node scripts/clang-format.ts"
+  },
+  "allowScripts": {
+    "clang-format-node": true,
+    "sharp": true
   },
   "devDependencies": {
     "@types/node": "^24.13.2",

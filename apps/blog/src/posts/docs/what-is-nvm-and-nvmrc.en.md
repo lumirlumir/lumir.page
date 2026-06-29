@@ -2,7 +2,7 @@
 title: 'What Are `nvm` and `.nvmrc`?'
 description: '`nvm` is a Node.js version management tool, and it uses a `.nvmrc` file to record the Node.js version required by a project and help install or switch versions easily.'
 created: '2024-07-20'
-updated: '2026-05-17'
+updated: '2026-06-29'
 categories:
   - 'nodejs'
 references:
@@ -32,13 +32,13 @@ In other words, the role of `nvm` is that it "lets you quickly install and use d
 1. Write the version in that `.nvmrc` file.
 
 ```txt
-24.15.0
+24.18.0
 ```
 
 Or write it with `v` at the front.
 
 ```txt
-v24.15.0
+v24.18.0
 ```
 
 ### 2-2. How to Use
