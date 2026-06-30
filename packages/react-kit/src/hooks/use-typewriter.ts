@@ -6,7 +6,7 @@
 // Import
 // --------------------------------------------------------------------------------
 
-import { useEffect, useEffectEvent, useRef, useState } from 'react';
+import { useEffect, useEffectEvent, useState } from 'react';
 
 // --------------------------------------------------------------------------------
 // Typedef
@@ -151,12 +151,12 @@ export function useTypewriter(
     onEraseCompleteProp?.();
   });
 
-  const rafRef = useRef<number | null>(null); // TODO: use closure instead?
-
   useEffect(() => {
     if (pause) {
       return undefined;
     }
+
+    let rafId: number | null = null;
 
     /** Minimal helper to emulate `setTimeout` with rAF(requestAnimationFrame) */
     const setTimeoutRaf = (callback: () => void, delay: number) => {
@@ -164,15 +164,15 @@ export function useTypewriter(
 
       const step = (timestamp: number) => {
         if (timestamp - base >= delay) {
-          rafRef.current = null;
+          rafId = null;
           callback();
           return;
         }
 
-        rafRef.current = requestAnimationFrame(step);
+        rafId = requestAnimationFrame(step);
       };
 
-      rafRef.current = requestAnimationFrame(step);
+      rafId = requestAnimationFrame(step);
     };
 
     if (currentMode === 'write') {
@@ -212,9 +212,8 @@ export function useTypewriter(
     }
 
     return () => {
-      if (rafRef.current !== null) {
-        cancelAnimationFrame(rafRef.current);
-        rafRef.current = null;
+      if (rafId !== null) {
+        cancelAnimationFrame(rafId);
       }
     };
   }, [
