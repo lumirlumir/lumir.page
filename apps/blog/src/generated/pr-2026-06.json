@@ -1,6 +1,19 @@
 [
   {
     "repositoryUrl": "https://api.github.com/repos/eslint/codemods",
+    "htmlUrl": "https://github.com/eslint/codemods/pull/42",
+    "id": 4752514822,
+    "nodeId": "PR_kwDOP7jk_87rAJSf",
+    "number": 42,
+    "title": "ci: add `stale` bot",
+    "createdAt": "2026-06-26T13:53:01Z",
+    "closedAt": "2026-06-28T06:35:52Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/codemods",
     "htmlUrl": "https://github.com/eslint/codemods/pull/40",
     "id": 4736692105,
     "nodeId": "PR_kwDOP7jk_87qM56-",
@@ -164,6 +177,123 @@
     "title": "docs: update `lifecycle-of-reactive-effects`",
     "createdAt": "2026-06-02T11:35:41Z",
     "closedAt": "2026-06-02T11:42:23Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/typescript-eslint/typescript-eslint",
+    "htmlUrl": "https://github.com/typescript-eslint/typescript-eslint/pull/12388",
+    "id": 4553871477,
+    "nodeId": "PR_kwDOCd3hms7g6x5q",
+    "number": 12388,
+    "title": "fix(eslint-plugin): [no-unnecessary-template-expression] respect ECMAScript line terminators",
+    "createdAt": "2026-05-30T08:34:01Z",
+    "closedAt": "2026-06-15T16:28:26Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/typescript-eslint/typescript-eslint",
+    "htmlUrl": "https://github.com/typescript-eslint/typescript-eslint/pull/12374",
+    "id": 4538419349,
+    "nodeId": "PR_kwDOCd3hms7gIR8p",
+    "number": 12374,
+    "title": "fix(rule-schema-to-typescript-types): respect ECMAScript line terminators",
+    "createdAt": "2026-05-28T07:05:12Z",
+    "closedAt": "2026-06-07T15:26:56Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/generator-eslint",
+    "htmlUrl": "https://github.com/eslint/generator-eslint/pull/270",
+    "id": 4495108276,
+    "nodeId": "PR_kwDOAPfTOM7d9mCr",
+    "number": 270,
+    "title": "ci: fix CI failure on `main` branch",
+    "createdAt": "2026-05-21T13:53:55Z",
+    "closedAt": "2026-06-05T21:55:33Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/workflows",
+    "htmlUrl": "https://github.com/eslint/workflows/pull/60",
+    "id": 4495093829,
+    "nodeId": "PR_kwDOO9Nass7d9i6v",
+    "number": 60,
+    "title": "fix: accept inputs from the caller workflow to fix pnpm CI failure",
+    "createdAt": "2026-05-21T13:52:04Z",
+    "closedAt": "2026-06-01T04:47:40Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/csstree",
+    "htmlUrl": "https://github.com/eslint/csstree/pull/135",
+    "id": 4397800917,
+    "nodeId": "PR_kwDON89Njs7ZF67d",
+    "number": 135,
+    "title": "ci: add Node.js 26 to CI",
+    "createdAt": "2026-05-07T09:52:12Z",
+    "closedAt": "2026-06-27T09:51:59Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslintrc",
+    "htmlUrl": "https://github.com/eslint/eslintrc/pull/231",
+    "id": 4397760336,
+    "nodeId": "PR_kwDOETsQJc7ZFyWr",
+    "number": 231,
+    "title": "ci: add Node.js 26 to CI",
+    "createdAt": "2026-05-07T09:46:06Z",
+    "closedAt": "2026-06-27T09:45:02Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/js",
+    "htmlUrl": "https://github.com/eslint/js/pull/747",
+    "id": 4397721674,
+    "nodeId": "PR_kwDOAaVztc7ZFqJ3",
+    "number": 747,
+    "title": "ci: add Node.js 26 to CI",
+    "createdAt": "2026-05-07T09:39:59Z",
+    "closedAt": "2026-06-27T19:32:50Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint",
+    "htmlUrl": "https://github.com/eslint/eslint/pull/20847",
+    "id": 4397654987,
+    "nodeId": "PR_kwDOAKjKDc7ZFcN3",
+    "number": 20847,
+    "title": "ci: add Node.js 26 to CI",
+    "createdAt": "2026-05-07T09:29:35Z",
+    "closedAt": "2026-06-27T09:42:32Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/markdown",
+    "htmlUrl": "https://github.com/eslint/markdown/pull/648",
+    "id": 4300607327,
+    "nodeId": "PR_kwDOAkm7Hs7UMlnz",
+    "number": 648,
+    "title": "fix: type compatibility issue between Markdown v8 and ESLint v9.39.x",
+    "createdAt": "2026-04-21T06:00:43Z",
+    "closedAt": "2026-06-15T15:59:57Z",
     "reactions": {
       "+1": 0
     }

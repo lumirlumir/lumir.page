@@ -13,19 +13,6 @@
     }
   },
   {
-    "repositoryUrl": "https://api.github.com/repos/eslint/markdown",
-    "htmlUrl": "https://github.com/eslint/markdown/pull/624",
-    "id": 3977036046,
-    "nodeId": "PR_kwDOAkm7Hs7Flr6C",
-    "number": 624,
-    "title": "feat: fix incorrect regex pattern in `no-multiple-h1`",
-    "createdAt": "2026-02-23T08:52:13Z",
-    "closedAt": "2026-03-18T17:33:22Z",
-    "reactions": {
-      "+1": 0
-    }
-  },
-  {
     "repositoryUrl": "https://api.github.com/repos/eslint/eslintrc",
     "htmlUrl": "https://github.com/eslint/eslintrc/pull/224",
     "id": 3974732898,
@@ -463,6 +450,149 @@
     "title": "docs: translate `eslint-plugin-react-hooks` section",
     "createdAt": "2026-02-01T06:45:30Z",
     "closedAt": "2026-02-09T13:29:38Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint-release",
+    "htmlUrl": "https://github.com/eslint/eslint-release/pull/92",
+    "id": 3852671606,
+    "nodeId": "PR_kwDOAvvbFc6_NCwe",
+    "number": 92,
+    "title": "chore: introduce `prettier`",
+    "createdAt": "2026-01-25T06:14:03Z",
+    "closedAt": "2026-02-11T11:06:39Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint-transforms",
+    "htmlUrl": "https://github.com/eslint/eslint-transforms/pull/67",
+    "id": 3852641862,
+    "nodeId": "PR_kwDOA4Zafs6_M8rW",
+    "number": 67,
+    "title": "chore: introduce `prettier`",
+    "createdAt": "2026-01-25T05:51:53Z",
+    "closedAt": "2026-02-13T08:33:27Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint-github-bot",
+    "htmlUrl": "https://github.com/eslint/eslint-github-bot/pull/274",
+    "id": 3852608585,
+    "nodeId": "PR_kwDOBa-RVM6_M2Pa",
+    "number": 274,
+    "title": "chore: introduce `prettier`",
+    "createdAt": "2026-01-25T05:18:57Z",
+    "closedAt": "2026-02-12T12:16:25Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/js",
+    "htmlUrl": "https://github.com/eslint/js/pull/723",
+    "id": 3851341172,
+    "nodeId": "PR_kwDOAaVztc6_Ixel",
+    "number": 723,
+    "title": "chore: introduce `prettier`",
+    "createdAt": "2026-01-24T14:34:40Z",
+    "closedAt": "2026-02-01T08:18:58Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/create-config",
+    "htmlUrl": "https://github.com/eslint/create-config/pull/230",
+    "id": 3851253185,
+    "nodeId": "PR_kwDOFqe-is6_IeLF",
+    "number": 230,
+    "title": "chore: introduce `prettier`",
+    "createdAt": "2026-01-24T14:02:20Z",
+    "closedAt": "2026-02-02T14:37:32Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/js",
+    "htmlUrl": "https://github.com/eslint/js/pull/722",
+    "id": 3833968343,
+    "nodeId": "PR_kwDOAaVztc6-Oi7f",
+    "number": 722,
+    "title": "refactor: hoist cli tools to root level",
+    "createdAt": "2026-01-20T14:25:48Z",
+    "closedAt": "2026-02-08T09:38:42Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint",
+    "htmlUrl": "https://github.com/eslint/eslint/pull/20431",
+    "id": 3799712967,
+    "nodeId": "PR_kwDOAKjKDc68eMqY",
+    "number": 20431,
+    "title": "docs: add AI acknowledgement section to templates",
+    "createdAt": "2026-01-10T13:22:31Z",
+    "closedAt": "2026-02-16T21:31:07Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/rewrite",
+    "htmlUrl": "https://github.com/eslint/rewrite/pull/348",
+    "id": 3772527227,
+    "nodeId": "PR_kwDOLyyFi867F1q5",
+    "number": 348,
+    "title": "fix: tighten types of `MergeStrategy` in `object-schema`",
+    "createdAt": "2025-12-31T10:45:20Z",
+    "closedAt": "2026-02-15T10:01:56Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/rewrite",
+    "htmlUrl": "https://github.com/eslint/rewrite/pull/334",
+    "id": 3673829985,
+    "nodeId": "PR_kwDOLyyFi861-roP",
+    "number": 334,
+    "title": "fix!: remove `unstable_config_lookup_from_file` from MCP in v10",
+    "createdAt": "2025-11-28T07:00:16Z",
+    "closedAt": "2026-02-06T23:51:59Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/create-config",
+    "htmlUrl": "https://github.com/eslint/create-config/pull/220",
+    "id": 3585505266,
+    "nodeId": "PR_kwDOFqe-is6xXSk8",
+    "number": 220,
+    "title": "test: migrate `vitest` and `@vitest/coverage-v8` to v4",
+    "createdAt": "2025-11-04T09:10:28Z",
+    "closedAt": "2026-02-01T00:49:54Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/json",
+    "htmlUrl": "https://github.com/eslint/json/pull/151",
+    "id": 3437157501,
+    "nodeId": "PR_kwDOMOnJ-M6ppsYJ",
+    "number": 151,
+    "title": "feat: implement autofix for `no-unnormalized-keys`",
+    "createdAt": "2025-09-20T13:45:27Z",
+    "closedAt": "2026-02-16T21:19:51Z",
     "reactions": {
       "+1": 0
     }

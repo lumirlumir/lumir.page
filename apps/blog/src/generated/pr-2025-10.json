@@ -1,31 +1,5 @@
 [
   {
-    "repositoryUrl": "https://api.github.com/repos/eslint/workflows",
-    "htmlUrl": "https://github.com/eslint/workflows/pull/32",
-    "id": 3571170080,
-    "nodeId": "PR_kwDOO9Nass6wo9y1",
-    "number": 32,
-    "title": "fix: move `update-readme` file generated location",
-    "createdAt": "2025-10-30T14:51:05Z",
-    "closedAt": "2025-11-05T15:42:39Z",
-    "reactions": {
-      "+1": 0
-    }
-  },
-  {
-    "repositoryUrl": "https://api.github.com/repos/eslint/code-explorer",
-    "htmlUrl": "https://github.com/eslint/code-explorer/pull/223",
-    "id": 3570296021,
-    "nodeId": "PR_kwDOLo6z_M6wmD9u",
-    "number": 223,
-    "title": "refactor: use types from `@eslint/core`",
-    "createdAt": "2025-10-30T11:22:26Z",
-    "closedAt": "2025-11-03T18:57:20Z",
-    "reactions": {
-      "+1": 0
-    }
-  },
-  {
     "repositoryUrl": "https://api.github.com/repos/eslint/rewrite",
     "htmlUrl": "https://github.com/eslint/rewrite/pull/309",
     "id": 3569086020,
@@ -34,19 +8,6 @@
     "title": "chore: fix CI failure and ensure the latest `@eslint/core` is used",
     "createdAt": "2025-10-30T06:16:01Z",
     "closedAt": "2025-10-30T11:51:38Z",
-    "reactions": {
-      "+1": 0
-    }
-  },
-  {
-    "repositoryUrl": "https://api.github.com/repos/eslint/.github",
-    "htmlUrl": "https://github.com/eslint/.github/pull/14",
-    "id": 3539746353,
-    "nodeId": "PR_kwDOEAIzj86vApRu",
-    "number": 14,
-    "title": "ci: create `update-readme` workflow",
-    "createdAt": "2025-10-22T08:42:42Z",
-    "closedAt": "2025-11-06T06:10:35Z",
     "reactions": {
       "+1": 0
     }
@@ -78,32 +39,6 @@
     }
   },
   {
-    "repositoryUrl": "https://api.github.com/repos/eslint/csstree",
-    "htmlUrl": "https://github.com/eslint/csstree/pull/92",
-    "id": 3539243838,
-    "nodeId": "PR_kwDON89Njs6u_Ezh",
-    "number": 92,
-    "title": "ci: centralize `ci-package-manager`",
-    "createdAt": "2025-10-22T06:03:36Z",
-    "closedAt": "2025-12-10T06:43:48Z",
-    "reactions": {
-      "+1": 0
-    }
-  },
-  {
-    "repositoryUrl": "https://api.github.com/repos/eslint/eslint-transforms",
-    "htmlUrl": "https://github.com/eslint/eslint-transforms/pull/55",
-    "id": 3539226723,
-    "nodeId": "PR_kwDOA4Zafs6u_BRN",
-    "number": 55,
-    "title": "ci: create `ci-bun.yml`",
-    "createdAt": "2025-10-22T05:55:10Z",
-    "closedAt": "2025-11-05T15:42:09Z",
-    "reactions": {
-      "+1": 0
-    }
-  },
-  {
     "repositoryUrl": "https://api.github.com/repos/eslint/eslint-release",
     "htmlUrl": "https://github.com/eslint/eslint-release/pull/83",
     "id": 3539175480,
@@ -117,58 +52,6 @@
     }
   },
   {
-    "repositoryUrl": "https://api.github.com/repos/eslint/markdown",
-    "htmlUrl": "https://github.com/eslint/markdown/pull/564",
-    "id": 3536715144,
-    "nodeId": "PR_kwDOAkm7Hs6u2kJv",
-    "number": 564,
-    "title": "fix!: remove `/types` export",
-    "createdAt": "2025-10-21T14:00:19Z",
-    "closedAt": "2026-01-15T22:20:18Z",
-    "reactions": {
-      "+1": 0
-    }
-  },
-  {
-    "repositoryUrl": "https://api.github.com/repos/eslint/eslint",
-    "htmlUrl": "https://github.com/eslint/eslint/pull/20227",
-    "id": 3532386757,
-    "nodeId": "PR_kwDOAKjKDc6uoP_V",
-    "number": 20227,
-    "title": "feat!: replace `chalk` with `styleText` and add `color` to `ResultsMeta`",
-    "createdAt": "2025-10-20T13:08:13Z",
-    "closedAt": "2025-12-11T20:07:32Z",
-    "reactions": {
-      "+1": 3
-    }
-  },
-  {
-    "repositoryUrl": "https://api.github.com/repos/eslint/js",
-    "htmlUrl": "https://github.com/eslint/js/pull/702",
-    "id": 3528677571,
-    "nodeId": "PR_kwDOAaVztc6ucVLr",
-    "number": 702,
-    "title": "ci: centralize `ci-package-manager`",
-    "createdAt": "2025-10-18T11:24:45Z",
-    "closedAt": "2025-12-10T06:44:40Z",
-    "reactions": {
-      "+1": 0
-    }
-  },
-  {
-    "repositoryUrl": "https://api.github.com/repos/eslint/generator-eslint",
-    "htmlUrl": "https://github.com/eslint/generator-eslint/pull/237",
-    "id": 3528658169,
-    "nodeId": "PR_kwDOAPfTOM6ucQ3F",
-    "number": 237,
-    "title": "ci: centralize `ci-package-manager`",
-    "createdAt": "2025-10-18T11:12:53Z",
-    "closedAt": "2025-12-10T06:47:01Z",
-    "reactions": {
-      "+1": 0
-    }
-  },
-  {
     "repositoryUrl": "https://api.github.com/repos/eslint/workflows",
     "htmlUrl": "https://github.com/eslint/workflows/pull/26",
     "id": 3528628719,
@@ -177,19 +60,6 @@
     "title": "fix: add `--if-present` to Bun CI",
     "createdAt": "2025-10-18T10:58:29Z",
     "closedAt": "2025-10-18T12:09:32Z",
-    "reactions": {
-      "+1": 0
-    }
-  },
-  {
-    "repositoryUrl": "https://api.github.com/repos/eslint/create-config",
-    "htmlUrl": "https://github.com/eslint/create-config/pull/210",
-    "id": 3528607525,
-    "nodeId": "PR_kwDOFqe-is6ucFaE",
-    "number": 210,
-    "title": "ci: centralize `ci-package-manager`",
-    "createdAt": "2025-10-18T10:46:46Z",
-    "closedAt": "2025-12-10T06:46:22Z",
     "reactions": {
       "+1": 0
     }
@@ -229,19 +99,6 @@
     "title": "ci: centralize `ci-bun.yml`",
     "createdAt": "2025-10-18T10:28:13Z",
     "closedAt": "2025-10-18T14:02:20Z",
-    "reactions": {
-      "+1": 0
-    }
-  },
-  {
-    "repositoryUrl": "https://api.github.com/repos/eslint/json",
-    "htmlUrl": "https://github.com/eslint/json/pull/169",
-    "id": 3528380353,
-    "nodeId": "PR_kwDOMOnJ-M6ubZJt",
-    "number": 169,
-    "title": "ci: centralize `ci-package-manager`",
-    "createdAt": "2025-10-18T09:02:02Z",
-    "closedAt": "2025-12-10T06:41:42Z",
     "reactions": {
       "+1": 0
     }
@@ -411,19 +268,6 @@
     "title": "ci: add Node.js 25 to `ci.yml`",
     "createdAt": "2025-10-17T09:31:29Z",
     "closedAt": "2025-10-17T09:40:51Z",
-    "reactions": {
-      "+1": 0
-    }
-  },
-  {
-    "repositoryUrl": "https://api.github.com/repos/eslint/workflows",
-    "htmlUrl": "https://github.com/eslint/workflows/pull/25",
-    "id": 3518029776,
-    "nodeId": "PR_kwDOO9Nass6t4pIs",
-    "number": 25,
-    "title": "feat: create `ci-package-manager.yml`",
-    "createdAt": "2025-10-15T13:21:28Z",
-    "closedAt": "2025-12-09T16:52:30Z",
     "reactions": {
       "+1": 0
     }
@@ -788,6 +632,45 @@
     "title": "refactor: use `getLocFromIndex` in `no-invalid-label-refs`",
     "createdAt": "2025-10-01T09:27:57Z",
     "closedAt": "2025-10-02T09:11:15Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/workflows",
+    "htmlUrl": "https://github.com/eslint/workflows/pull/15",
+    "id": 3449017854,
+    "nodeId": "PR_kwDOO9Nass6qRCzy",
+    "number": 15,
+    "title": "feat: create `ci-bun.yml`",
+    "createdAt": "2025-09-24T11:31:29Z",
+    "closedAt": "2025-10-18T10:04:24Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/markdown",
+    "htmlUrl": "https://github.com/eslint/markdown/pull/536",
+    "id": 3444874295,
+    "nodeId": "PR_kwDOAkm7Hs6qDQsv",
+    "number": 536,
+    "title": "refactor: replace `findOffsets` helper with native methods",
+    "createdAt": "2025-09-23T11:25:18Z",
+    "closedAt": "2025-10-07T14:23:10Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/markdown",
+    "htmlUrl": "https://github.com/eslint/markdown/pull/493",
+    "id": 3288852695,
+    "nodeId": "PR_kwDOAkm7Hs6h-PZT",
+    "number": 493,
+    "title": "fix: handle CR in rules to follow CommonMark spec",
+    "createdAt": "2025-08-04T10:20:44Z",
+    "closedAt": "2025-10-20T15:04:46Z",
     "reactions": {
       "+1": 0
     }

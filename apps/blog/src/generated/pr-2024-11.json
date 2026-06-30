@@ -143,32 +143,6 @@
     }
   },
   {
-    "repositoryUrl": "https://api.github.com/repos/vercel/next.js",
-    "htmlUrl": "https://github.com/vercel/next.js/pull/73165",
-    "id": 2690361414,
-    "nodeId": "PR_kwDOBC3Cis6DBaEg",
-    "number": 73165,
-    "title": "chore: remove non-existent hash fragments from URLs",
-    "createdAt": "2024-11-25T11:22:12Z",
-    "closedAt": "2024-12-05T22:14:08Z",
-    "reactions": {
-      "+1": 0
-    }
-  },
-  {
-    "repositoryUrl": "https://api.github.com/repos/vercel/next.js",
-    "htmlUrl": "https://github.com/vercel/next.js/pull/73163",
-    "id": 2690332296,
-    "nodeId": "PR_kwDOBC3Cis6DBUHw",
-    "number": 73163,
-    "title": "docs: add missing punctuation in `developing-using-local-app.md`",
-    "createdAt": "2024-11-25T11:11:30Z",
-    "closedAt": "2024-12-02T22:21:09Z",
-    "reactions": {
-      "+1": 0
-    }
-  },
-  {
     "repositoryUrl": "https://api.github.com/repos/eslint/eslint",
     "htmlUrl": "https://github.com/eslint/eslint/pull/19165",
     "id": 2690156259,
@@ -177,19 +151,6 @@
     "title": "chore: add `repository.directory` property to `package.json`",
     "createdAt": "2024-11-25T10:27:30Z",
     "closedAt": "2024-11-25T16:26:40Z",
-    "reactions": {
-      "+1": 0
-    }
-  },
-  {
-    "repositoryUrl": "https://api.github.com/repos/eslint/eslint",
-    "htmlUrl": "https://github.com/eslint/eslint/pull/19161",
-    "id": 2687932463,
-    "nodeId": "PR_kwDOAKjKDc6C8RI2",
-    "number": 19161,
-    "title": "docs: add missing punctuation in document",
-    "createdAt": "2024-11-24T15:38:24Z",
-    "closedAt": "2024-12-02T15:55:20Z",
     "reactions": {
       "+1": 0
     }
@@ -294,6 +255,45 @@
     "title": "docs(typo): fix typos in `03-playwright.mdx`",
     "createdAt": "2024-11-01T14:06:37Z",
     "closedAt": "2024-11-05T20:42:53Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/lerna/lerna",
+    "htmlUrl": "https://github.com/lerna/lerna/pull/4107",
+    "id": 2626708242,
+    "nodeId": "PR_kwDOAtMv2M6Ag_be",
+    "number": 4107,
+    "title": "docs: fix broken links and add some links in `distribute-tasks.md`",
+    "createdAt": "2024-10-31T12:14:28Z",
+    "closedAt": "2024-11-04T09:06:10Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/reactjs/ko.react.dev",
+    "htmlUrl": "https://github.com/reactjs/ko.react.dev/pull/1095",
+    "id": 2622997382,
+    "nodeId": "PR_kwDOChzKxs6AVIay",
+    "number": 1095,
+    "title": "refactor(textlint): update a term `caveats`",
+    "createdAt": "2024-10-30T05:55:13Z",
+    "closedAt": "2024-11-05T03:04:08Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/vercel/next.js",
+    "htmlUrl": "https://github.com/vercel/next.js/pull/71134",
+    "id": 2580552591,
+    "nodeId": "PR_kwDOBC3Cis5-TeFQ",
+    "number": 71134,
+    "title": "fix: `next info` command does not output the versions of `npm` `yarn` and `pnpm` correctly",
+    "createdAt": "2024-10-11T06:33:28Z",
+    "closedAt": "2024-11-04T21:56:12Z",
     "reactions": {
       "+1": 0
     }

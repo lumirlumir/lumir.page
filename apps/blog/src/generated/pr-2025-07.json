@@ -1,18 +1,5 @@
 [
   {
-    "repositoryUrl": "https://api.github.com/repos/eslint/markdown",
-    "htmlUrl": "https://github.com/eslint/markdown/pull/490",
-    "id": 3273217159,
-    "nodeId": "PR_kwDOAkm7Hs6hJ96L",
-    "number": 490,
-    "title": "feat: fix false positives and negatives for consecutive backslashes",
-    "createdAt": "2025-07-29T11:14:58Z",
-    "closedAt": "2025-09-02T11:43:48Z",
-    "reactions": {
-      "+1": 0
-    }
-  },
-  {
     "repositoryUrl": "https://api.github.com/repos/eslint/create-config",
     "htmlUrl": "https://github.com/eslint/create-config/pull/186",
     "id": 3262456509,
@@ -177,19 +164,6 @@
     "title": "refactor: add missing type annotations to variables",
     "createdAt": "2025-07-18T06:38:53Z",
     "closedAt": "2025-07-18T12:18:03Z",
-    "reactions": {
-      "+1": 0
-    }
-  },
-  {
-    "repositoryUrl": "https://api.github.com/repos/eslint/markdown",
-    "htmlUrl": "https://github.com/eslint/markdown/pull/469",
-    "id": 3235685351,
-    "nodeId": "PR_kwDOAkm7Hs6fLA8k",
-    "number": 469,
-    "title": "fix: handle multiline setext headings in `no-duplicate-headings`",
-    "createdAt": "2025-07-16T12:03:38Z",
-    "closedAt": "2025-08-19T14:42:20Z",
     "reactions": {
       "+1": 0
     }
@@ -429,19 +403,6 @@
     }
   },
   {
-    "repositoryUrl": "https://api.github.com/repos/eslint/code-explorer",
-    "htmlUrl": "https://github.com/eslint/code-explorer/pull/116",
-    "id": 3208221617,
-    "nodeId": "PR_kwDOLo6z_M6dt9Q0",
-    "number": 116,
-    "title": "refactor: complete migration to React 19",
-    "createdAt": "2025-07-07T09:25:39Z",
-    "closedAt": "2025-08-06T14:37:55Z",
-    "reactions": {
-      "+1": 1
-    }
-  },
-  {
     "repositoryUrl": "https://api.github.com/repos/eslint/eslint.org",
     "htmlUrl": "https://github.com/eslint/eslint.org/pull/740",
     "id": 3208217235,
@@ -476,6 +437,32 @@
     "title": "chore: update ESLint config to use define config",
     "createdAt": "2025-07-05T14:58:31Z",
     "closedAt": "2025-07-06T15:29:15Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/markdown",
+    "htmlUrl": "https://github.com/eslint/markdown/pull/446",
+    "id": 3177994116,
+    "nodeId": "PR_kwDOAkm7Hs6cLZg8",
+    "number": 446,
+    "title": "fix!: move certain types to import them from `@eslint/markdown/types`",
+    "createdAt": "2025-06-26T06:48:55Z",
+    "closedAt": "2025-07-10T05:17:33Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/markdown",
+    "htmlUrl": "https://github.com/eslint/markdown/pull/367",
+    "id": 3051184771,
+    "nodeId": "PR_kwDOAkm7Hs6ViURU",
+    "number": 367,
+    "title": "refactor: migrate type declarations to use the `@import` syntax",
+    "createdAt": "2025-05-09T06:59:08Z",
+    "closedAt": "2025-07-02T15:06:51Z",
     "reactions": {
       "+1": 0
     }
