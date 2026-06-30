@@ -15,7 +15,7 @@ import { useToggle } from './use-toggle.js';
 // --------------------------------------------------------------------------------
 
 describe('use-toggle', () => {
-  // First overload: `useToggle()`
+  // Boolean toggle: `useToggle()`
   it('Default initial value should be `false` when not provided', async () => {
     const { result } = await renderHook(() => useToggle());
     const [state, toggle] = result.current;
@@ -48,7 +48,7 @@ describe('use-toggle', () => {
     assert.strictEqual(thirdState, false);
   });
 
-  // Second overload: `useToggle(initialValue)`
+  // Boolean toggle: `useToggle(initialValue)`
   it('Initial value should be `true` when provided', async () => {
     const { result } = await renderHook(() => useToggle(true));
     const [state, toggle] = result.current;
@@ -81,7 +81,7 @@ describe('use-toggle', () => {
     assert.strictEqual(thirdState, true);
   });
 
-  // Third overload: `useToggle(initialValue, firstValue, secondValue)`
+  // Explicit value toggle: `useToggle(initialValue, firstValue, secondValue)`
   it('Initial value should be used as the initial state value when three values are provided', async () => {
     const { result } = await renderHook(() => useToggle('open', 'closed', 'open'));
     const [state, toggle] = result.current;

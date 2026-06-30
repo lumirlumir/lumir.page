@@ -15,40 +15,17 @@ import { useCallback, useState } from 'react';
 
 /**
  * `useToggle` is a React hook that simplifies managing a boolean state.
- * It initializes the state to `false` and provides a function to toggle it
- * between `true` and `false`.
+ * It initializes the state to `false` by default, or with the provided boolean
+ * value, and provides a function to toggle it between `true` and `false`.
  *
+ * @param initialValue The optional initial boolean state value. (default: `false`)
  * @returns Current boolean state and a function that toggles it.
  * @example
  * ```tsx
  * import { useToggle } from '@lumir/react-kit/hooks';
  *
  * function Component() {
- *   const [isOpen, toggleIsOpen] = useToggle();
- *
- *   return (
- *     <button type="button" onClick={toggleIsOpen}>
- *       {isOpen ? 'Close' : 'Open'}
- *     </button>
- *   );
- * }
- * ```
- */
-export function useToggle(): readonly [state: boolean, toggle: () => void];
-
-/**
- * `useToggle` is a React hook that simplifies managing a boolean state.
- * It initializes the state with the provided boolean value and provides a
- * function to toggle it between `true` and `false`.
- *
- * @param initialValue The initial boolean state value.
- * @returns Current boolean state and a function that toggles it.
- * @example
- * ```tsx
- * import { useToggle } from '@lumir/react-kit/hooks';
- *
- * function Component() {
- *   const [isOpen, toggleIsOpen] = useToggle(false);
+ *   const [isOpen, toggleIsOpen] = useToggle(); // You can also pass an initial value: `useToggle(true)`
  *
  *   return (
  *     <button type="button" onClick={toggleIsOpen}>
@@ -59,7 +36,7 @@ export function useToggle(): readonly [state: boolean, toggle: () => void];
  * ```
  */
 export function useToggle(
-  initialValue: boolean,
+  initialValue?: boolean,
 ): readonly [state: boolean, toggle: () => void];
 
 /**
