@@ -1,5 +1,18 @@
 [
   {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint",
+    "htmlUrl": "https://github.com/eslint/eslint/pull/21039",
+    "id": 4775406745,
+    "nodeId": "PR_kwDOAKjKDc7sJsM3",
+    "number": 21039,
+    "title": "test: add error locations to `no-constant-binary-expression`",
+    "createdAt": "2026-06-30T09:18:49Z",
+    "closedAt": "2026-06-30T12:46:34Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
     "repositoryUrl": "https://api.github.com/repos/eslint/codemods",
     "htmlUrl": "https://github.com/eslint/codemods/pull/42",
     "id": 4752514822,
