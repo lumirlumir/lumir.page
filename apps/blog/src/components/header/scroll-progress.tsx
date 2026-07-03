@@ -34,11 +34,11 @@ export default function ScrollProgress() {
       return undefined;
     }
 
-    let raf: number | null = null;
+    let rafId: number | null = null;
 
     function requestProgressUpdate() {
-      if (!raf) {
-        raf = requestAnimationFrame(() => {
+      if (!rafId) {
+        rafId = requestAnimationFrame(() => {
           const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
           const progress = maxScroll > 0 ? window.scrollY / maxScroll : 0;
           const roundedProgress = Math.round(progress * 1000) / 1000;
@@ -46,7 +46,7 @@ export default function ScrollProgress() {
 
           scrollProgressRef.current!.style.transform = `scaleX(${clampedProgress})`;
 
-          raf = null;
+          rafId = null;
         });
       }
     }
@@ -57,9 +57,8 @@ export default function ScrollProgress() {
     window.addEventListener('resize', requestProgressUpdate);
 
     return () => {
-      if (raf !== null) {
-        cancelAnimationFrame(raf);
-        raf = null;
+      if (rafId !== null) {
+        cancelAnimationFrame(rafId);
       }
 
       window.removeEventListener('scroll', requestProgressUpdate);
