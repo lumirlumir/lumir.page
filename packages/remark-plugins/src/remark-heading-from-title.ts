@@ -10,6 +10,21 @@ import { fromMarkdown } from 'mdast-util-from-markdown';
 import type { Heading, Root } from 'mdast';
 
 // --------------------------------------------------------------------------------
+// Typedef
+// --------------------------------------------------------------------------------
+
+/**
+ * Options for the `remarkHeadingFromTitle` plugin.
+ */
+export interface RemarkHeadingFromTitleOptions {
+  /**
+   * The title to generate the H1 heading from.
+   * If not provided or an empty string, the plugin will not prepend any heading.
+   */
+  title?: string | undefined;
+}
+
+// --------------------------------------------------------------------------------
 // Export
 // --------------------------------------------------------------------------------
 
@@ -18,17 +33,21 @@ import type { Heading, Root } from 'mdast';
  * @example
  *
  * ```ts
- * import { remark } from 'remark';
+ * import { unified } from 'unified';
+ * import remarkParse from 'remark-parse';
+ * import remarkStringify from 'remark-stringify';
  * import { remarkHeadingFromTitle } from '@lumir/remark-plugins';
  *
- * const file = await remark()
+ * const file = await unified()
+ *   .use(remarkParse)
  *   .use(remarkHeadingFromTitle, { title: 'title' })
+ *   .use(remarkStringify)
  *   .process('paragraph');
  *
  * console.log(file.value); // Output: '# title\n\nparagraph'
  * ```
  */
-export function remarkHeadingFromTitle(options?: { title?: string | undefined }) {
+export function remarkHeadingFromTitle(options?: RemarkHeadingFromTitleOptions) {
   const { title } = options ?? {};
 
   if (typeof title !== 'string' || title === '') {

@@ -14,7 +14,7 @@ import useSpeechRecognition from '@/hooks/use-speech-recognition';
 // --------------------------------------------------------------------------------
 
 export default function useInterviewContent<T extends HTMLElement>() {
-  const contentRef = useRef<T>(null);
+  const contentRef = useRef<T | null>(null);
   const prevContent = useRef<string>('');
   const {
     transcript,
@@ -24,13 +24,13 @@ export default function useInterviewContent<T extends HTMLElement>() {
   } = useSpeechRecognition();
 
   useEffect(() => {
-    // @ts-expect-error -- TODO
-    if (listening) contentRef.current.innerHTML = `${prevContent.current}${transcript}`;
+    if (listening && contentRef.current)
+      contentRef.current.innerHTML = `${prevContent.current}${transcript}`;
   }, [transcript, listening]);
 
   const toggleListening = () => {
-    // @ts-expect-error -- TODO
-    if (!listening) prevContent.current = contentRef.current.innerHTML;
+    if (!listening && contentRef.current)
+      prevContent.current = contentRef.current.innerHTML;
     toggle();
     if (!listening) resetTranscript();
   };

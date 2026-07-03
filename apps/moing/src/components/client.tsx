@@ -12,14 +12,14 @@ import NeonDiv from '@/components/neon-div';
 import { useScenarioContext } from '@/contexts/scenario-context';
 import useInterview from '@/hooks/use-interview';
 
-import './client.css';
+import styles from './client.module.css';
 
 // --------------------------------------------------------------------------------
 // Typedef
 // --------------------------------------------------------------------------------
 
 interface Props {
-  interview: ReturnType<typeof useInterview>;
+  interview: ReturnType<typeof useInterview<HTMLDivElement>>;
 }
 
 // --------------------------------------------------------------------------------
@@ -34,7 +34,7 @@ export default function Client({ interview }: Props) {
   return (
     <NeonDiv
       className={cn(
-        'client',
+        styles.client,
         'transition',
         'custom-scrollbar',
         'custom-main-section',
@@ -44,7 +44,6 @@ export default function Client({ interview }: Props) {
       neonColor="black"
     >
       <div
-        // @ts-expect-error -- TODO
         ref={contentRef}
         contentEditable="true"
         spellCheck="false"

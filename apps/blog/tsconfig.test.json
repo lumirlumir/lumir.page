@@ -22,6 +22,7 @@
     "paths": {
       "@/*": ["./src/*"] // Map the '@' alias to the 'src' directory.
     },
+    "types": ["node"],
 
     /* Language and Environment */
     "jsx": "react-jsx"

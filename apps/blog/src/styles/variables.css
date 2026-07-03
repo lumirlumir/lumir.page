@@ -19,10 +19,12 @@
   --size-36: 2.25rem;
   --size-40: 2.5rem;
   --size-border-radius: 6px;
+  --size-scroll-progress-height: var(--size-2);
   --size-header-height: 64px;
   --size-sidebar-width: 256px;
   --size-nav-width: var(--size-sidebar-width);
   --size-article-padding-large: 45px;
+  --size-article-padding-medium: 24px;
   --size-article-padding-small: 12px;
   --size-letter-spacing-large: -1.5px;
   --size-letter-spacing-medium: -1px;
@@ -35,7 +37,7 @@
 
   /* list */
   --animation-shake: animation-shake 0.6s ease-in-out;
-  --animation-fade-in: animation-fade-in 0.6s ease-in-out;
+  --animation-fade-in: fade-in 0.6s ease-in-out;
   --border-default: 1px solid var(--color-border-default);
 
   /* font */

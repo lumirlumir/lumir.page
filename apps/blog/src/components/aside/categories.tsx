@@ -3,6 +3,12 @@
  */
 
 // --------------------------------------------------------------------------------
+// Environment
+// --------------------------------------------------------------------------------
+
+import 'server-only';
+
+// --------------------------------------------------------------------------------
 // Import
 // --------------------------------------------------------------------------------
 
@@ -10,6 +16,7 @@ import Link from 'next/link';
 import { FaPen } from '@lumir/react-kit/svgs';
 import { cn } from '@lumir/utils';
 import { categoryMeta } from '@/data/category';
+import { type PropsWithLang } from '@/data/lang';
 import createMarkdownCollection from '@/utils/markdown-collection';
 import styles from './categories.module.css';
 
@@ -23,10 +30,10 @@ const markdownCollection = createMarkdownCollection();
 // Export
 // --------------------------------------------------------------------------------
 
-export default async function Categories() {
+export default async function Categories({ lang }: PropsWithLang) {
   return (
     <ul className={styles.categories}>
-      {markdownCollection.nonEmptyCategoryKeys
+      {markdownCollection.nonEmptyCategoryKeys[lang]
         .sort((a, b) => categoryMeta[a].order - categoryMeta[b].order) // Ascending.
         .map(categoryKey => {
           const {
@@ -36,7 +43,10 @@ export default async function Categories() {
 
           return (
             <li key={categoryKey}>
-              <Link className="custom-hover-effect" href={`/categories/${categoryKey}`}>
+              <Link
+                className="custom-hover-effect"
+                href={`/${lang}/categories/${categoryKey}`}
+              >
                 <div className={cn(styles['react-icons'], 'custom-flex-center')}>
                   {reactIcons}
                 </div>
@@ -44,7 +54,7 @@ export default async function Categories() {
                 <div className={styles['name-ko']}>{ko}</div>
                 <div className={cn(styles['count-docs'], 'custom-flex-center')}>
                   <span className="custom-flex-center">
-                    {markdownCollection.category[categoryKey]?.length}
+                    {markdownCollection.byLangCategory[lang][categoryKey].length}
                   </span>
                   <FaPen />
                 </div>

@@ -10,6 +10,7 @@ import { assert, describe, it } from 'vitest';
 import {
   useBooleanState,
   useCountdown,
+  useIsomorphicLayoutEffect,
   usePrevious,
   useScroll,
   useToggle,
@@ -30,6 +31,10 @@ describe('index', () => {
     it('`useCountdown` should be defined', () => {
       assert.isDefined(useCountdown);
       assert.strictEqual(typeof useCountdown, 'function');
+
+    it('`useIsomorphicLayoutEffect` should be defined', () => {
+      assert.isDefined(useIsomorphicLayoutEffect);
+      assert.strictEqual(typeof useIsomorphicLayoutEffect, 'function');
     });
 
     it('`usePrevious` should be defined', () => {

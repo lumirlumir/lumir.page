@@ -1,6 +1,13 @@
 /**
  * @fileoverview Defines fetch helpers.
+ * @see https://docs.github.com/en/rest/users/users
  */
+
+// --------------------------------------------------------------------------------
+// Environment
+// --------------------------------------------------------------------------------
+
+import 'server-only';
 
 // --------------------------------------------------------------------------------
 // Import
@@ -14,12 +21,9 @@ import { GITHUB_REPO_OWNER } from '@/constants';
 
 /**
  * Fetches GitHub user data.
- *
- * @async
- * @returns {Promise<Object>} A promise that resolves to a GitHub user data object.
- * @link https://docs.github.com/en/rest/users/users
- */
-export async function getGithubUsers() {
+ * @returns A promise that resolves to a GitHub user data object.
+ */ // eslint-disable-next-line @typescript-eslint/no-explicit-any -- TODO
+export async function getGithubUsers(): Promise<any> {
   const response = await fetch(`https://api.github.com/users/${GITHUB_REPO_OWNER}`, {
     headers: {
       Authorization: `Bearer ${process.env.GH_PAT}`,

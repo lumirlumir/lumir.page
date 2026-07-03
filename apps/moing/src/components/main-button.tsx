@@ -15,7 +15,7 @@ import { useConfigContext } from '@/contexts/config-context';
 import { useScenarioContext } from '@/contexts/scenario-context';
 import useInterview from '@/hooks/use-interview';
 
-import './main-button.css';
+import styles from './main-button.module.css';
 
 // --------------------------------------------------------------------------------
 // Typedef
@@ -55,7 +55,7 @@ export default function ButtonMain({ interview }: Props) {
   return (
     <div
       className={cn(
-        'main-button',
+        styles['main-button'],
         'custom-flex-center',
         'custom-main-others',
         'transition',

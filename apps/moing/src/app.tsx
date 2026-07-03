@@ -36,7 +36,7 @@ import './app.css';
 export default function App() {
   const { config, updateConfig } = useConfigContext();
   const { section } = useScenarioContext();
-  const interview = useInterview();
+  const interview = useInterview<HTMLDivElement>();
   const timer = useCountdown({
     durationMs: config.time * 60 * 1_000,
     onComplete: interview.submit,
@@ -54,14 +54,14 @@ export default function App() {
   return (
     <>
       <Button
-        type="header-l"
+        type="config"
         icon={<GoGear size="35px" />}
         onClick={() => {
           updateConfig({ visibility: !config.visibility });
         }}
       />
       <Button
-        type="header-r"
+        type="speech"
         icon={<CiMicrophoneOn size="40px" />}
         hoverEffect={interview.listening}
         onClick={() => {
@@ -69,14 +69,14 @@ export default function App() {
         }}
       />
       <Button
-        type="footer-l"
+        type="reload"
         icon={<GrPowerReset size="32px" />}
         onClick={() => {
           window.location.reload();
         }}
       />
       <Button
-        type="footer-r"
+        type="submit"
         icon={<IoIosCheckmarkCircleOutline size="39px" />}
         onClick={() => {
           interview.submit();
@@ -86,7 +86,7 @@ export default function App() {
 
       <Timer timer={timer} />
 
-      <main className={cn('main', 'custom-flex-center', 'custom-scrollbar')}>
+      <main className={cn('custom-flex-center', 'custom-scrollbar')}>
         <div ref={scrollRef}>
           <Title />
           <Server interview={interview} timer={timer} />

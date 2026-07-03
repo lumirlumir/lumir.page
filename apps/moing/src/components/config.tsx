@@ -13,13 +13,13 @@ import NeonDiv from '@/components/neon-div';
 import NeonFont from '@/components/neon-font';
 import { questionTypes, useConfigContext } from '@/contexts/config-context';
 
-import './config.css';
+import styles from './config.module.css';
 
 // --------------------------------------------------------------------------------
 // Helpers
 // --------------------------------------------------------------------------------
 
-function ButtonCount({
+function Counter({
   onClick,
   count,
   label,
@@ -32,7 +32,7 @@ function ButtonCount({
     <NeonFont
       neonColor={count >= 1 ? 'banana' : 'black'}
       neonSize="s"
-      className={cn('button-count', count >= 1 || 'off')}
+      className={cn(styles.counter, count >= 1 || styles.off)}
       style={{
         fontFamily: 'Audiowide',
         fontSize: '40px',
@@ -60,7 +60,7 @@ function Checkbox({
     <NeonFont
       neonColor={isChecked ? 'banana' : 'black'}
       neonSize="s"
-      className="checkbox"
+      className={styles.checkbox}
       style={{
         fontFamily: 'Audiowide',
         fontSize: '40px',
@@ -95,7 +95,7 @@ export default function Config() {
   return (
     <NeonDiv
       className={cn(
-        'config',
+        styles.config,
         'custom-flex-center',
         'custom-scrollbar',
         'custom-main-section',
@@ -122,17 +122,17 @@ export default function Config() {
           ))}
         </div>
         <div>
-          <ButtonCount
+          <Counter
             onClick={e => handleButtonCount(e, 'main')}
             count={config.main}
             label="QUESTION-MAIN:"
           />
-          <ButtonCount
+          <Counter
             onClick={e => handleButtonCount(e, 'sub')}
             count={config.sub}
             label="QUESTION-SUB:"
           />
-          <ButtonCount
+          <Counter
             onClick={e => handleButtonCount(e, 'time')}
             count={config.time}
             label="TIME-LIMIT:"

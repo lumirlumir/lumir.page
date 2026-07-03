@@ -6,18 +6,12 @@ import { clangFormatPath } from 'clang-format-node'; // eslint-disable-line impo
 const args = process.argv[2] === '--fix' ? ['-i'] : ['-n', '-Werror'];
 
 const apps = join(import.meta.dirname, '..', 'apps', 'blog', 'src');
-const archives = join(import.meta.dirname, '..', 'archives');
 
 const appsPaths = readdirSync(apps, { encoding: 'utf8', recursive: true }).map(path =>
   join(apps, path),
 );
-const archivesPaths = readdirSync(archives, { encoding: 'utf8', recursive: true }).map(
-  path => join(archives, path),
-);
 
-const paths = [...appsPaths, ...archivesPaths].filter(path =>
-  /\.(?:c|cpp|h)$/i.test(path),
-);
+const paths = appsPaths.filter(path => /\.(?:c|cpp|h)$/i.test(path));
 
 if (paths.length === 0) {
   console.log('No files found to format');

@@ -124,12 +124,21 @@ describe('markdown-to-html', () => {
 
     it('should add an H1 heading when `title` option is provided', async () => {
       const markdown = 'Foo Bar Baz';
-      const html = '<h1>Awesome Title</h1>\n<p>Foo Bar Baz</p>';
+      const html =
+        '<h1 id="awesome-title"><a aria-hidden="true" tabindex="-1" href="#awesome-title"><span class="icon-link"></span></a>Awesome Title</h1>\n<p>Foo Bar Baz</p>';
 
       assert.strictEqual(
         await markdownToHtml(markdown, { title: 'Awesome Title' }),
         html,
       );
+    });
+
+    it('should use custom Markdown heading IDs when adding self-link anchors', async () => {
+      const markdown = '# Awesome Title {#1-custom-title}';
+      const html =
+        '<h1 id="1-custom-title"><a aria-hidden="true" tabindex="-1" href="#1-custom-title"><span class="icon-link"></span></a>Awesome Title</h1>';
+
+      assert.strictEqual(await markdownToHtml(markdown), html);
     });
   });
 
@@ -140,6 +149,14 @@ describe('markdown-to-html', () => {
 
       assert.strictEqual(await markdownToHtml(markdown), html);
       assert.strictEqual(await markdownToHtmlLite(markdown), html);
+    });
+
+    it('should remove HTML comments', async () => {
+      const markdown =
+        '<!-- before --><section>Hello<!-- hidden --> World</section><!-- after -->';
+      const html = '<section>Hello World</section>';
+
+      assert.strictEqual(await markdownToHtml(markdown), html);
     });
 
     it('should convert GitHub Alert syntax to GitHub Alert HTML', async () => {
@@ -163,6 +180,80 @@ describe('markdown-to-html', () => {
       const html = '<p>I love this! 👍</p>';
 
       assert.strictEqual(await markdownToHtml(markdown), html);
+    });
+
+    it('should add GitHub-style IDs and self-link anchors to Markdown headings', async () => {
+      const markdown = '# Awesome Title\n\n## Usage Guide';
+      const html =
+        '<h1 id="awesome-title"><a aria-hidden="true" tabindex="-1" href="#awesome-title"><span class="icon-link"></span></a>Awesome Title</h1>\n<h2 id="usage-guide"><a aria-hidden="true" tabindex="-1" href="#usage-guide"><span class="icon-link"></span></a>Usage Guide</h2>';
+
+      assert.strictEqual(await markdownToHtml(markdown), html);
+    });
+
+    it('should add self-link anchors to every Markdown heading level', async () => {
+      const markdown =
+        '# Heading 1\n\n## Heading 2\n\n### Heading 3\n\n#### Heading 4\n\n##### Heading 5\n\n###### Heading 6';
+      const html = await markdownToHtml(markdown);
+
+      assert.include(
+        html,
+        '<h1 id="heading-1"><a aria-hidden="true" tabindex="-1" href="#heading-1"><span class="icon-link"></span></a>Heading 1</h1>',
+      );
+      assert.include(
+        html,
+        '<h2 id="heading-2"><a aria-hidden="true" tabindex="-1" href="#heading-2"><span class="icon-link"></span></a>Heading 2</h2>',
+      );
+      assert.include(
+        html,
+        '<h3 id="heading-3"><a aria-hidden="true" tabindex="-1" href="#heading-3"><span class="icon-link"></span></a>Heading 3</h3>',
+      );
+      assert.include(
+        html,
+        '<h4 id="heading-4"><a aria-hidden="true" tabindex="-1" href="#heading-4"><span class="icon-link"></span></a>Heading 4</h4>',
+      );
+      assert.include(
+        html,
+        '<h5 id="heading-5"><a aria-hidden="true" tabindex="-1" href="#heading-5"><span class="icon-link"></span></a>Heading 5</h5>',
+      );
+      assert.include(
+        html,
+        '<h6 id="heading-6"><a aria-hidden="true" tabindex="-1" href="#heading-6"><span class="icon-link"></span></a>Heading 6</h6>',
+      );
+    });
+
+    it('should add unique GitHub-style IDs and self-link anchors to duplicate Markdown headings', async () => {
+      const markdown = '# Repeat\n\n# Repeat';
+      const html =
+        '<h1 id="repeat"><a aria-hidden="true" tabindex="-1" href="#repeat"><span class="icon-link"></span></a>Repeat</h1>\n<h1 id="repeat-1"><a aria-hidden="true" tabindex="-1" href="#repeat-1"><span class="icon-link"></span></a>Repeat</h1>';
+
+      assert.strictEqual(await markdownToHtml(markdown), html);
+    });
+
+    it('should add GitHub-style IDs and self-link anchors to raw HTML headings', async () => {
+      const markdown = '<h2>Raw HTML Heading</h2>';
+      const html =
+        '<h2 id="raw-html-heading"><a aria-hidden="true" tabindex="-1" href="#raw-html-heading"><span class="icon-link"></span></a>Raw HTML Heading</h2>';
+
+      assert.strictEqual(await markdownToHtml(markdown), html);
+    });
+
+    it('should preserve explicit raw HTML heading IDs when adding self-link anchors', async () => {
+      const markdown = '<h2 id="custom-heading">Raw HTML Heading</h2>';
+      const html =
+        '<h2 id="custom-heading"><a aria-hidden="true" tabindex="-1" href="#custom-heading"><span class="icon-link"></span></a>Raw HTML Heading</h2>';
+
+      assert.strictEqual(await markdownToHtml(markdown), html);
+    });
+
+    it('should generate heading IDs before rendering math with KaTeX', async () => {
+      const markdown = '# Area $A$';
+      const html = await markdownToHtml(markdown);
+
+      assert.include(
+        html,
+        '<h1 id="area-a"><a aria-hidden="true" tabindex="-1" href="#area-a"><span class="icon-link"></span></a>Area <span class="katex">',
+      );
+      assert.notInclude(html, 'id="area-aaa"');
     });
 
     it('should add `loading="lazy"` to `<img>` tags', async () => {

@@ -7,25 +7,11 @@
 // --------------------------------------------------------------------------------
 
 import { type JSX } from 'react';
+import { type LangRecord } from '@/data/lang';
 
 // --------------------------------------------------------------------------------
 // Export
 // --------------------------------------------------------------------------------
-
-/**
- * Represents localized display names in English and Korean.
- */
-export interface LocalizedName {
-  /**
-   * The display name in English.
-   */
-  readonly en: string;
-
-  /**
-   * The display name in Korean.
-   */
-  readonly ko: string;
-}
 
 /**
  * Represents shared metadata with localized display names and an associated React icon.
@@ -34,7 +20,7 @@ export interface Meta {
   /**
    * The localized display name in English and Korean.
    */
-  readonly name: LocalizedName;
+  readonly name: LangRecord<string>;
 
   /**
    * The React icon associated with the metadata item, represented as a JSX element.

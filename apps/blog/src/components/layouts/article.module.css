@@ -3,7 +3,7 @@
   width: 100%;
   min-width: 200px;
   max-width: 980px;
-  padding: var(--size-article-padding-large) var(--size-article-padding-small);
+  padding: var(--size-article-padding-large) var(--size-article-padding-medium);
   margin: 0 auto;
 
   @media (width >= 1024px) {
