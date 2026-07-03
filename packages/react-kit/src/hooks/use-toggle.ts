@@ -10,6 +10,25 @@
 import { useCallback, useState } from 'react';
 
 // --------------------------------------------------------------------------------
+// Typedef
+// --------------------------------------------------------------------------------
+
+/**
+ * Options for toggling between two explicit values.
+ */
+export interface UseToggleOptions<T> {
+  /**
+   * The first state value.
+   */
+  firstValue: T;
+
+  /**
+   * The second state value to toggle to.
+   */
+  secondValue: T;
+}
+
+// --------------------------------------------------------------------------------
 // Overload
 // --------------------------------------------------------------------------------
 
@@ -46,8 +65,7 @@ export function useToggle(
  * first and second value.
  *
  * @param initialValue The initial state value or a function that returns it.
- * @param firstValue The first state value.
- * @param secondValue The second state value to toggle to.
+ * @param options Explicit values used for toggling.
  * @returns Current state and a function that toggles it.
  * @example
  * ```tsx
@@ -56,7 +74,10 @@ export function useToggle(
  * type Theme = 'dark' | 'light';
  *
  * function Component() {
- *   const [theme, toggleTheme] = useToggle<Theme>(() => 'light', 'dark', 'light');
+ *   const [theme, toggleTheme] = useToggle<Theme>(() => 'light', {
+ *     firstValue: 'dark',
+ *     secondValue: 'light',
+ *   });
  *
  *   return (
  *     <button type="button" onClick={toggleTheme}>
@@ -68,8 +89,7 @@ export function useToggle(
  */
 export function useToggle<const T>(
   initialValue: NoInfer<T> | (() => NoInfer<T>),
-  firstValue: T,
-  secondValue: T,
+  options: UseToggleOptions<T>,
 ): readonly [state: T, toggle: () => void];
 
 // --------------------------------------------------------------------------------
@@ -78,12 +98,12 @@ export function useToggle<const T>(
 
 export function useToggle<const T>(
   initialValue: boolean | T | (() => T) = false,
-  ...rest: [] | [firstValue: T, secondValue: T]
+  options?: UseToggleOptions<T>,
 ): readonly [state: boolean | T, toggle: () => void] {
   const [state, setState] = useState<boolean | T>(initialValue);
 
-  const firstValue = rest.length === 2 ? rest[0] : !!initialValue;
-  const secondValue = rest.length === 2 ? rest[1] : !initialValue;
+  const firstValue = options === undefined ? !!initialValue : options.firstValue;
+  const secondValue = options === undefined ? !initialValue : options.secondValue;
 
   const toggle = useCallback(() => {
     setState(prevState => (Object.is(prevState, secondValue) ? firstValue : secondValue));
