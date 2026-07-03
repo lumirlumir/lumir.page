@@ -81,17 +81,21 @@ describe('use-toggle', () => {
     assert.strictEqual(thirdState, true);
   });
 
-  // Explicit value toggle: `useToggle(initialValue, firstValue, secondValue)`
-  it('Initial value should be used as the initial state value when three values are provided', async () => {
-    const { result } = await renderHook(() => useToggle('open', 'closed', 'open'));
+  // Explicit value toggle: `useToggle(initialValue, options)`
+  it('Initial value should be used as the initial state value when options are provided', async () => {
+    const { result } = await renderHook(() =>
+      useToggle('open', { firstValue: 'closed', secondValue: 'open' }),
+    );
     const [state, toggle] = result.current;
 
     assert.strictEqual(state, 'open');
     assert.strictEqual(typeof toggle, 'function');
   });
 
-  it('Initial value function should be used as the initial state value when three values are provided', async () => {
-    const { result } = await renderHook(() => useToggle(() => 'open', 'closed', 'open'));
+  it('Initial value function should be used as the initial state value when options are provided', async () => {
+    const { result } = await renderHook(() =>
+      useToggle(() => 'open', { firstValue: 'closed', secondValue: 'open' }),
+    );
     const [state, toggle] = result.current;
 
     assert.strictEqual(state, 'open');
@@ -100,7 +104,7 @@ describe('use-toggle', () => {
 
   it('`toggle` function should toggle between the provided state values', async () => {
     const { act, result } = await renderHook(() =>
-      useToggle<'dark' | 'light'>('light', 'dark', 'light'),
+      useToggle<'dark' | 'light'>('light', { firstValue: 'dark', secondValue: 'light' }),
     );
 
     const [firstState, toggle] = result.current;
