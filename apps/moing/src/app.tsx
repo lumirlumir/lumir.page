@@ -37,7 +37,8 @@ export default function App() {
   const { config, updateConfig } = useConfigContext();
   const { section } = useScenarioContext();
   const interview = useInterview<HTMLDivElement>();
-  const [currentCount, setCurrentCount] = useCountdown(config.time * 60 * 1_000, {
+  const initialCount = config.time * 60 * 1_000;
+  const [currentCount, setCurrentCount] = useCountdown(initialCount, {
     onComplete: interview.submit,
   });
   const [scrollRef, scroll] = useScroll<HTMLDivElement>({ behavior: 'smooth' });
@@ -91,7 +92,7 @@ export default function App() {
           <Server
             interview={interview}
             onTestWriteComplete={() => {
-              setCurrentCount(config.time * 60 * 1_000);
+              setCurrentCount(initialCount);
             }}
           />
           <Client interview={interview} />
