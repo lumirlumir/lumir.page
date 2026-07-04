@@ -6,7 +6,7 @@
 // Import
 // --------------------------------------------------------------------------------
 
-import { useCallback, useEffect, useEffectEvent, useReducer, useRef } from 'react';
+import { useEffect, useEffectEvent, useState } from 'react';
 
 // --------------------------------------------------------------------------------
 // Typedef
@@ -27,52 +27,12 @@ export interface UseCountdownOptions {
    * @default undefined
    */
   onComplete?: (() => void) | undefined;
-}
 
-// --------------------------------------------------------------------------------
-// Helper
-// --------------------------------------------------------------------------------
-
-/**
- * Normalizes a millisecond value by ensuring it's a finite number and not negative.
- */
-function normalizeMs(ms: number) {
-  if (Number.isFinite(ms)) {
-    return Math.max(0, ms);
-  } else {
-    return 0;
-  }
-}
-
-/**
- * Reducer function to manage the countdown state based on dispatched actions.
- */
-function countdownReducer(
-  state: { isActive: boolean; remainingMs: number; runId: number },
-  action: { type: 'sync'; remainingMs: number } | { type: 'set'; duration: number },
-) {
-  switch (action.type) {
-    case 'sync': {
-      return {
-        ...state,
-        isActive: action.remainingMs > 0,
-        remainingMs: action.remainingMs,
-      };
-    }
-
-    case 'set': {
-      const remainingMs = normalizeMs(action.duration);
-
-      return {
-        isActive: remainingMs > 0,
-        remainingMs,
-        runId: state.runId + 1,
-      };
-    }
-
-    default:
-      return state;
-  }
+  /**
+   * Callback function invoked on each countdown tick.
+   * @default undefined
+   */
+  onTick?: (() => void) | undefined;
 }
 
 // --------------------------------------------------------------------------------
@@ -80,91 +40,73 @@ function countdownReducer(
 // --------------------------------------------------------------------------------
 
 /**
- * React hook for a controllable countdown.
+ * Countdown timer hook.
  *
- * @param duration Initial countdown duration in milliseconds.
+ * @param count Countdown duration in milliseconds.
+ * @param options Options for the countdown timer.
+ * @returns A readonly tuple containing the current countdown value and a function to reset the countdown.
+ *
  * @example
  * ```tsx
- * import { useCountdown } from '@lumir/react-kit/hooks';
+ * import { useCountdown, type UseCountdownOptions } from '@lumir/react-kit/hooks';
  *
  * function Component() {
- *   const [remainingMs, countdown] = useCountdown(60_000, {
+ *   const [currentCount, setCurrentCount] = useCountdown(60_000, {
+ *     interval: 100,
  *     onComplete: () => console.log('done'),
+ *     onTick: () => console.log('tick'),
  *   });
  *
  *   return (
- *     <button type="button" onClick={() => countdown.set(60_000)}>
- *       {remainingMs}
+ *     <button type="button" onClick={() => setCurrentCount(60_000)}>
+ *       {currentCount}
  *     </button>
  *   );
  * }
  * ```
  */
 export function useCountdown(
-  duration: number,
-  { interval = 100, onComplete = undefined }: UseCountdownOptions = {},
-): readonly [countdown: number, setCountdown: (duration: number) => void] {
-  const normalizedDuration = normalizeMs(duration);
-  const normalizedInterval = normalizeMs(interval);
+  count: number,
+  {
+    interval = 100,
+    onComplete: onCompleteProp = undefined,
+    onTick: onTickProp = undefined,
+  }: UseCountdownOptions = {},
+): readonly [currentCount: number, setCurrentCount: (duration: number) => void] {
+  const [currentCount, setCurrentCount] = useState(count);
 
-  const [state, dispatch] = useReducer(countdownReducer, normalizedDuration, ms => ({
-    isActive: false,
-    remainingMs: ms,
-    runId: 0,
-  }));
-  const countdownTargetMsRef = useRef<number | null>(null);
-  const remainingMsRef = useRef(state.remainingMs);
-  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-  const onCompleteEvent = useEffectEvent(() => {
-    onComplete?.();
+  const onComplete = useEffectEvent(() => {
+    onCompleteProp?.();
+  });
+  const onTick = useEffectEvent(() => {
+    onTickProp?.();
   });
 
   useEffect(() => {
-    remainingMsRef.current = state.remainingMs;
-  }, [state.remainingMs]);
+    let intervalId: number | null = null;
 
-  useEffect(() => {
-    if (!state.isActive || normalizedInterval === 0) {
-      return undefined;
-    }
+    intervalId = setInterval(() => {
+      if (currentCount === 0) {
+        if (intervalId !== null) {
+          clearInterval(intervalId);
+          intervalId = null;
+        }
 
-    countdownTargetMsRef.current ??= performance.now() + remainingMsRef.current;
+        onComplete();
+      } else {
+        setCurrentCount(prevCount => Math.max(prevCount - interval, 0));
 
-    const tick = () => {
-      const remainingMs = normalizeMs(
-        (countdownTargetMsRef.current ?? performance.now()) - performance.now(),
-      );
-
-      dispatch({ type: 'sync', remainingMs });
-
-      if (remainingMs === 0) {
-        countdownTargetMsRef.current = null;
-        timeoutRef.current = null;
-        onCompleteEvent();
-        return;
+        onTick();
       }
-
-      timeoutRef.current = setTimeout(tick, Math.min(normalizedInterval, remainingMs));
-    };
-
-    timeoutRef.current = setTimeout(
-      tick,
-      Math.min(normalizedInterval, remainingMsRef.current),
-    );
+    }, interval);
 
     return () => {
-      if (timeoutRef.current !== null) {
-        clearTimeout(timeoutRef.current);
-        timeoutRef.current = null;
+      if (intervalId !== null) {
+        clearInterval(intervalId);
+        intervalId = null;
       }
     };
-  }, [normalizedInterval, state.isActive, state.runId]);
+  }, [currentCount, interval]);
 
-  const set = useCallback((nextDuration: number) => {
-    countdownTargetMsRef.current = null;
-    dispatch({ type: 'set', duration: nextDuration });
-  }, []);
-
-  return [state.remainingMs, set] as const;
+  return [currentCount, setCurrentCount] as const;
 }
