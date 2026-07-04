@@ -19,19 +19,19 @@ import { useScenarioContext } from '@/contexts/scenario-context';
  */
 interface TimerProps {
   /**
-   * Remaining time in milliseconds.
+   * Current count of the timer in milliseconds.
    */
-  remaining: number;
+  currentCount: number;
 }
 
 // --------------------------------------------------------------------------------
 // Export
 // --------------------------------------------------------------------------------
 
-export default function Timer({ remaining }: TimerProps) {
+export default function Timer({ currentCount }: TimerProps) {
   const { section } = useScenarioContext();
   const { status } = section.timer;
-  const remainingSeconds = Math.ceil(remaining / 1_000);
+  const remainingSeconds = Math.ceil(currentCount / 1_000);
   const minute = Math.floor((remainingSeconds / 60) % 60);
   const second = Math.floor(remainingSeconds % 60);
 

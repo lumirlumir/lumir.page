@@ -108,9 +108,7 @@ export default function Server({ interview, onTestWriteComplete }: ServerProps) 
           writePostDelay={1000}
           onWriteComplete={() => {
             if (mode === 'auto' || mode === 'result') toNextSection();
-            if (mode === 'test' && text !== '') {
-              onTestWriteComplete();
-            }
+            if (mode === 'test' && text !== '') onTestWriteComplete();
             scroll.intoView({ block: 'end', inline: 'nearest' });
           }}
         />
