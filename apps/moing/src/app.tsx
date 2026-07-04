@@ -84,7 +84,7 @@ export default function App() {
         }}
       />
 
-      <Timer timer={timer} />
+      <Timer remainingMs={timer[0]} />
 
       <main className={cn('custom-flex-center', 'custom-scrollbar')}>
         <div ref={scrollRef}>
