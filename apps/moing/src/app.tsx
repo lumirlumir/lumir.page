@@ -37,7 +37,7 @@ export default function App() {
   const { config, updateConfig } = useConfigContext();
   const { section } = useScenarioContext();
   const interview = useInterview<HTMLDivElement>();
-  const [remaining, countdown] = useCountdown(config.time * 60 * 1_000, {
+  const [remaining, setCountdown] = useCountdown(config.time * 60 * 1_000, {
     onComplete: interview.submit,
   });
   const [scrollRef, scroll] = useScroll<HTMLDivElement>({ behavior: 'smooth' });
@@ -79,7 +79,7 @@ export default function App() {
         icon={<IoIosCheckmarkCircleOutline size="39px" />}
         onClick={() => {
           interview.submit();
-          countdown.set(0);
+          setCountdown(0);
         }}
       />
 
@@ -91,7 +91,7 @@ export default function App() {
           <Server
             interview={interview}
             onTestWriteComplete={() => {
-              countdown.set(config.time * 60 * 1_000);
+              setCountdown(config.time * 60 * 1_000);
             }}
           />
           <Client interview={interview} />

@@ -6,14 +6,7 @@
 // Import
 // --------------------------------------------------------------------------------
 
-import {
-  useCallback,
-  useEffect,
-  useEffectEvent,
-  useMemo,
-  useReducer,
-  useRef,
-} from 'react';
+import { useCallback, useEffect, useEffectEvent, useReducer, useRef } from 'react';
 
 // --------------------------------------------------------------------------------
 // Typedef
@@ -34,17 +27,6 @@ export interface UseCountdownOptions {
    * @default undefined
    */
   onComplete?: (() => void) | undefined;
-}
-
-/**
- * Imperative countdown controls.
- */
-export interface UseCountdownControls {
-  /**
-   * Sets the countdown duration and starts it when the duration is greater than zero.
-   * Passing `0` stops the countdown without invoking `onComplete`.
-   */
-  set: (duration: number) => void;
 }
 
 // --------------------------------------------------------------------------------
@@ -121,11 +103,11 @@ function countdownReducer(
 export function useCountdown(
   duration: number,
   { interval = 100, onComplete = undefined }: UseCountdownOptions = {},
-): readonly [remaining: number, countdown: UseCountdownControls] {
-  const normalizedDurationMs = normalizeMs(duration);
-  const normalizedIntervalMs = normalizeMs(interval);
+): readonly [countdown: number, setCountdown: (duration: number) => void] {
+  const normalizedDuration = normalizeMs(duration);
+  const normalizedInterval = normalizeMs(interval);
 
-  const [state, dispatch] = useReducer(countdownReducer, normalizedDurationMs, ms => ({
+  const [state, dispatch] = useReducer(countdownReducer, normalizedDuration, ms => ({
     isActive: false,
     remainingMs: ms,
     runId: 0,
@@ -143,7 +125,7 @@ export function useCountdown(
   }, [state.remainingMs]);
 
   useEffect(() => {
-    if (!state.isActive || normalizedIntervalMs === 0) {
+    if (!state.isActive || normalizedInterval === 0) {
       return undefined;
     }
 
@@ -163,12 +145,12 @@ export function useCountdown(
         return;
       }
 
-      timeoutRef.current = setTimeout(tick, Math.min(normalizedIntervalMs, remainingMs));
+      timeoutRef.current = setTimeout(tick, Math.min(normalizedInterval, remainingMs));
     };
 
     timeoutRef.current = setTimeout(
       tick,
-      Math.min(normalizedIntervalMs, remainingMsRef.current),
+      Math.min(normalizedInterval, remainingMsRef.current),
     );
 
     return () => {
@@ -177,20 +159,12 @@ export function useCountdown(
         timeoutRef.current = null;
       }
     };
-  }, [normalizedIntervalMs, state.isActive, state.runId]);
+  }, [normalizedInterval, state.isActive, state.runId]);
 
   const set = useCallback((nextDuration: number) => {
     countdownTargetMsRef.current = null;
     dispatch({ type: 'set', duration: nextDuration });
   }, []);
 
-  return [
-    state.remainingMs,
-    useMemo(
-      () => ({
-        set,
-      }),
-      [set],
-    ),
-  ] as const;
+  return [state.remainingMs, set] as const;
 }
