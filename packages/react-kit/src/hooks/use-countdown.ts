@@ -48,7 +48,7 @@ export interface UseCountdownOptions {
 /**
  * Countdown timer hook.
  *
- * @param count Countdown duration in milliseconds.
+ * @param initialCount Initial countdown duration in milliseconds.
  * @param options Options for the countdown timer.
  * @returns A readonly tuple containing the current countdown value and a function to reset the countdown.
  *
@@ -72,14 +72,14 @@ export interface UseCountdownOptions {
  * ```
  */
 export function useCountdown(
-  count: number,
+  initialCount: number,
   {
     interval = 100,
     onComplete: onCompleteProp = undefined,
     onTick: onTickProp = undefined,
   }: UseCountdownOptions = {},
 ): readonly [currentCount: number, setCurrentCount: Dispatch<SetStateAction<number>>] {
-  const [currentCount, setCurrentCount] = useState<number>(count);
+  const [currentCount, setCurrentCount] = useState<number>(initialCount);
 
   const onComplete = useEffectEvent(() => {
     onCompleteProp?.();

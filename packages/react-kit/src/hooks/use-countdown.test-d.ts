@@ -27,8 +27,8 @@ options = {
   onTick: () => {},
 };
 
-// @ts-expect-error - `count` is passed as the first argument, not as an option.
-options = { count: 1_000 };
+// @ts-expect-error - `initialCount` is passed as the first argument, not as an option.
+options = { initialCount: 1_000 };
 // @ts-expect-error - `interval` should be a number.
 options = { interval: '100' };
 // @ts-expect-error - `onComplete` should be a function.
@@ -73,14 +73,14 @@ function useCountdownTypeTest() {
   setCurrentCount(1_000);
   setCurrentCount(prevCount => prevCount + 1_000);
 
-  // @ts-expect-error - `useCountdown` requires count.
+  // @ts-expect-error - `useCountdown` requires initialCount.
   useCountdown();
-  // @ts-expect-error - `count` should be a number.
+  // @ts-expect-error - `initialCount` should be a number.
   useCountdown('1000');
-  // @ts-expect-error - `count` should be passed as the first argument.
-  useCountdown({ count: 1_000 });
-  // @ts-expect-error - `count` should not be included in options.
-  useCountdown(1_000, { count: 1_000 });
+  // @ts-expect-error - `initialCount` should be passed as the first argument.
+  useCountdown({ initialCount: 1_000 });
+  // @ts-expect-error - `initialCount` should not be included in options.
+  useCountdown(1_000, { initialCount: 1_000 });
   // @ts-expect-error - `interval` should be a number.
   useCountdown(1_000, { interval: '100' });
   // @ts-expect-error - `onComplete` should be a function.
