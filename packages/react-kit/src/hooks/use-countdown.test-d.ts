@@ -1,1 +1,94 @@
-// TODO
+/**
+ * @fileoverview Type test for `use-countdown.ts`
+ */
+
+// --------------------------------------------------------------------------------
+// Import
+// --------------------------------------------------------------------------------
+
+import { useCountdown, type UseCountdownOptions } from './use-countdown.js';
+
+// --------------------------------------------------------------------------------
+// Test
+// --------------------------------------------------------------------------------
+
+// --------------------------------------------------------------------------------
+// #region UseCountdownOptions
+
+let options: UseCountdownOptions;
+
+options = {};
+options = { interval: 100 };
+options = { onComplete: () => {} };
+options = { onTick: () => {} };
+options = {
+  interval: 100,
+  onComplete: () => {},
+  onTick: () => {},
+};
+
+// @ts-expect-error - `count` is passed as the first argument, not as an option.
+options = { count: 1_000 };
+// @ts-expect-error - `interval` should be a number.
+options = { interval: '100' };
+// @ts-expect-error - `onComplete` should be a function.
+options = { onComplete: true };
+// @ts-expect-error - `onTick` should be a function.
+options = { onTick: true };
+// @ts-expect-error - `unknown` is not a valid property of `UseCountdownOptions`.
+options = { unknown: 'unknown' };
+
+// #endregion UseCountdownOptions
+// --------------------------------------------------------------------------------
+
+// --------------------------------------------------------------------------------
+// #region useCountdown
+
+({}) as typeof useCountdown satisfies Function;
+({}) as Parameters<typeof useCountdown>[0] satisfies number;
+({}) as Parameters<typeof useCountdown>[1] satisfies UseCountdownOptions | undefined;
+({}) as ReturnType<typeof useCountdown> satisfies readonly [
+  number,
+  (duration: number) => void,
+];
+
+// @ts-expect-error - `useCountdown` should be a function.
+({}) as typeof useCountdown satisfies boolean;
+// @ts-expect-error - `useCountdown` should be a function.
+({}) as typeof useCountdown satisfies string;
+
+function useCountdownTypeTest() {
+  useCountdown(1_000);
+  useCountdown(1_000, undefined);
+  useCountdown(1_000, {});
+  useCountdown(1_000, { interval: 100 });
+  useCountdown(1_000, { onComplete: () => {} });
+  useCountdown(1_000, { onTick: () => {} });
+
+  const [currentCount, setCurrentCount] = useCountdown(1_000);
+  currentCount satisfies number;
+  setCurrentCount satisfies (duration: number) => void;
+
+  setCurrentCount(0);
+  setCurrentCount(1_000);
+
+  // @ts-expect-error - `useCountdown` requires count.
+  useCountdown();
+  // @ts-expect-error - `count` should be a number.
+  useCountdown('1000');
+  // @ts-expect-error - `count` should be passed as the first argument.
+  useCountdown({ count: 1_000 });
+  // @ts-expect-error - `count` should not be included in options.
+  useCountdown(1_000, { count: 1_000 });
+  // @ts-expect-error - `interval` should be a number.
+  useCountdown(1_000, { interval: '100' });
+  // @ts-expect-error - `onComplete` should be a function.
+  useCountdown(1_000, { onComplete: true });
+  // @ts-expect-error - `onTick` should be a function.
+  useCountdown(1_000, { onTick: true });
+  // @ts-expect-error - `setCurrentCount` requires a number.
+  setCurrentCount('0');
+}
+
+// #endregion useCountdown
+// --------------------------------------------------------------------------------

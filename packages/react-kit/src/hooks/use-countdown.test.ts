@@ -131,6 +131,40 @@ describe('use-countdown', () => {
     assert.strictEqual(fourthCount, 400);
   });
 
+  it('`setCurrentCount`: should set the current count to zero without calling `onComplete`', async () => {
+    const onComplete = vi.fn();
+
+    const { act, result } = await renderHook(() =>
+      useCountdown(300, {
+        interval: COUNTDOWN_INTERVAL_MS,
+        onComplete,
+      }),
+    );
+
+    const [firstCount, setCurrentCount] = result.current;
+
+    assert.strictEqual(firstCount, 300);
+    assert.strictEqual(onComplete.mock.calls.length, 0);
+
+    await act(async () => {
+      setCurrentCount(0);
+    });
+
+    const [secondCount] = result.current;
+
+    assert.strictEqual(secondCount, 0);
+    assert.strictEqual(onComplete.mock.calls.length, 0);
+
+    await act(async () => {
+      await vi.advanceTimersByTimeAsync(COUNTDOWN_INTERVAL_MS * 3);
+    });
+
+    const [thirdCount] = result.current;
+
+    assert.strictEqual(thirdCount, 0);
+    assert.strictEqual(onComplete.mock.calls.length, 0);
+  });
+
   it('`onComplete`: should call `onComplete` once when the countdown reaches zero', async () => {
     const onComplete = vi.fn();
 
