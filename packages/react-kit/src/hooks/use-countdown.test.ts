@@ -24,7 +24,7 @@ describe('use-countdown', () => {
   beforeEach(() => {
     vi.useFakeTimers({
       now: 0,
-      toFake: ['setInterval', 'clearInterval'],
+      toFake: ['setTimeout', 'clearTimeout'],
     });
   });
 
@@ -174,79 +174,73 @@ describe('use-countdown', () => {
     assert.strictEqual(onTick.mock.calls.length, 3);
   });
 
-  it.todo(
-    '`onComplete`: should call `onComplete` once when the countdown reaches zero',
-    async () => {
-      const onComplete = vi.fn();
+  it('`onComplete`: should call `onComplete` once when the countdown reaches zero', async () => {
+    const onComplete = vi.fn();
 
-      const { act, result } = await renderHook(() =>
-        useCountdown(200, {
-          interval: COUNTDOWN_INTERVAL_MS,
-          onComplete,
-        }),
-      );
+    const { act, result } = await renderHook(() =>
+      useCountdown(200, {
+        interval: COUNTDOWN_INTERVAL_MS,
+        onComplete,
+      }),
+    );
 
-      const [firstCount] = result.current;
+    const [firstCount] = result.current;
 
-      assert.strictEqual(firstCount, 200);
-      assert.strictEqual(onComplete.mock.calls.length, 0);
+    assert.strictEqual(firstCount, 200);
+    assert.strictEqual(onComplete.mock.calls.length, 0);
 
-      await act(async () => {
-        await vi.advanceTimersByTimeAsync(COUNTDOWN_INTERVAL_MS);
-      });
+    await act(async () => {
+      await vi.advanceTimersByTimeAsync(COUNTDOWN_INTERVAL_MS);
+    });
 
-      const [secondCount] = result.current;
+    const [secondCount] = result.current;
 
-      assert.strictEqual(secondCount, 100);
-      assert.strictEqual(onComplete.mock.calls.length, 0);
+    assert.strictEqual(secondCount, 100);
+    assert.strictEqual(onComplete.mock.calls.length, 0);
 
-      await act(async () => {
-        await vi.advanceTimersByTimeAsync(COUNTDOWN_INTERVAL_MS);
-      });
+    await act(async () => {
+      await vi.advanceTimersByTimeAsync(COUNTDOWN_INTERVAL_MS);
+    });
 
-      const [thirdCount] = result.current;
+    const [thirdCount] = result.current;
 
-      assert.strictEqual(thirdCount, 0);
-      assert.strictEqual(onComplete.mock.calls.length, 1);
+    assert.strictEqual(thirdCount, 0);
+    assert.strictEqual(onComplete.mock.calls.length, 1);
 
-      await act(async () => {
-        await vi.advanceTimersByTimeAsync(COUNTDOWN_INTERVAL_MS * 3);
-      });
+    await act(async () => {
+      await vi.advanceTimersByTimeAsync(COUNTDOWN_INTERVAL_MS * 3);
+    });
 
-      const [fourthCount] = result.current;
+    const [fourthCount] = result.current;
 
-      assert.strictEqual(fourthCount, 0);
-      assert.strictEqual(onComplete.mock.calls.length, 1);
-    },
-  );
+    assert.strictEqual(fourthCount, 0);
+    assert.strictEqual(onComplete.mock.calls.length, 1);
+  });
 
-  it.todo(
-    '`onComplete`: should not call `onComplete` when initial count is zero',
-    async () => {
-      const onComplete = vi.fn();
+  it('`onComplete`: should not call `onComplete` when initial count is zero', async () => {
+    const onComplete = vi.fn();
 
-      const { act, result } = await renderHook(() =>
-        useCountdown(0, {
-          interval: COUNTDOWN_INTERVAL_MS,
-          onComplete,
-        }),
-      );
+    const { act, result } = await renderHook(() =>
+      useCountdown(0, {
+        interval: COUNTDOWN_INTERVAL_MS,
+        onComplete,
+      }),
+    );
 
-      const [firstCount] = result.current;
+    const [firstCount] = result.current;
 
-      assert.strictEqual(firstCount, 0);
-      assert.strictEqual(onComplete.mock.calls.length, 0);
+    assert.strictEqual(firstCount, 0);
+    assert.strictEqual(onComplete.mock.calls.length, 0);
 
-      await act(async () => {
-        await vi.advanceTimersByTimeAsync(COUNTDOWN_INTERVAL_MS * 3);
-      });
+    await act(async () => {
+      await vi.advanceTimersByTimeAsync(COUNTDOWN_INTERVAL_MS * 3);
+    });
 
-      const [secondCount] = result.current;
+    const [secondCount] = result.current;
 
-      assert.strictEqual(secondCount, 0);
-      assert.strictEqual(onComplete.mock.calls.length, 0);
-    },
-  );
+    assert.strictEqual(secondCount, 0);
+    assert.strictEqual(onComplete.mock.calls.length, 0);
+  });
 
   it.todo(
     '`onComplete`: should call the latest `onComplete` callback when it changes (related to `useEffectEvent`)',

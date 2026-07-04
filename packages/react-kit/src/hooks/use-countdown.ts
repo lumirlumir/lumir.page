@@ -83,27 +83,24 @@ export function useCountdown(
   });
 
   useEffect(() => {
-    let intervalId: number | null = null;
+    if (currentCount === 0) {
+      return undefined;
+    }
 
-    intervalId = setInterval(() => {
-      if (currentCount === 0) {
-        if (intervalId !== null) {
-          clearInterval(intervalId);
-          intervalId = null;
-        }
+    const timeoutId = setTimeout(() => {
+      const nextCount = Math.max(currentCount - interval, 0);
 
+      setCurrentCount(nextCount);
+      onTick();
+
+      if (nextCount === 0) {
         onComplete();
-      } else {
-        setCurrentCount(prevCount => Math.max(prevCount - interval, 0));
-
-        onTick();
       }
     }, interval);
 
     return () => {
-      if (intervalId !== null) {
-        clearInterval(intervalId);
-        intervalId = null;
+      if (timeoutId !== null) {
+        clearTimeout(timeoutId);
       }
     };
   }, [currentCount, interval]);
