@@ -27,7 +27,7 @@ describe('use-countdown', () => {
   });
 
   it('Initial return value should use the provided duration and idle controls', async () => {
-    const { result } = await renderHook(() => useCountdown({ durationMs: 3_000 }));
+    const { result } = await renderHook(() => useCountdown(3_000));
     const [remainingMs, countdown] = result.current;
 
     assert.strictEqual(remainingMs, 3_000);
@@ -37,7 +37,7 @@ describe('use-countdown', () => {
   });
 
   it('`start`: should count down by the default interval', async () => {
-    const { act, result } = await renderHook(() => useCountdown({ durationMs: 3_000 }));
+    const { act, result } = await renderHook(() => useCountdown(3_000));
 
     await act(async () => {
       result.current[1].start();
@@ -61,9 +61,9 @@ describe('use-countdown', () => {
     assert.strictEqual(secondMs, 2_000);
   });
 
-  it('`intervalMs`: should control the delay between countdown updates', async () => {
+  it('`interval`: should control the delay between countdown updates', async () => {
     const { act, result } = await renderHook(() =>
-      useCountdown({ durationMs: 1_500, intervalMs: 500 }),
+      useCountdown(1_500, { interval: 500 }),
     );
 
     await act(async () => {
@@ -79,16 +79,15 @@ describe('use-countdown', () => {
     assert.strictEqual(secondMs, 1_000);
   });
 
-  it('`reset`: should use the latest duration option before starting', async () => {
+  it('`reset`: should use the latest duration argument before starting', async () => {
     const { act, rerender, result } = await renderHook(
-      (props?: { durationMs: number }) =>
-        useCountdown({ durationMs: props?.durationMs ?? 1_000 }),
+      (props?: { duration: number }) => useCountdown(props?.duration ?? 1_000),
       {
-        initialProps: { durationMs: 1_000 },
+        initialProps: { duration: 1_000 },
       },
     );
 
-    await rerender({ durationMs: 3_000 });
+    await rerender({ duration: 3_000 });
 
     await act(async () => {
       result.current[1].reset();
@@ -109,7 +108,7 @@ describe('use-countdown', () => {
   });
 
   it('`stop`: should pause the countdown and preserve the remaining time', async () => {
-    const { act, result } = await renderHook(() => useCountdown({ durationMs: 3_000 }));
+    const { act, result } = await renderHook(() => useCountdown(3_000));
 
     await act(async () => {
       result.current[1].start();
@@ -133,7 +132,7 @@ describe('use-countdown', () => {
   });
 
   it('`reset`: should restore the latest default duration and pause the countdown', async () => {
-    const { act, result } = await renderHook(() => useCountdown({ durationMs: 3_000 }));
+    const { act, result } = await renderHook(() => useCountdown(3_000));
 
     await act(async () => {
       result.current[1].start();
@@ -158,9 +157,7 @@ describe('use-countdown', () => {
 
   it('`onComplete`: should run once when the countdown reaches zero', async () => {
     const onComplete = vi.fn();
-    const { act, result } = await renderHook(() =>
-      useCountdown({ durationMs: 2_000, onComplete }),
-    );
+    const { act, result } = await renderHook(() => useCountdown(2_000, { onComplete }));
 
     await act(async () => {
       result.current[1].start();
@@ -196,8 +193,7 @@ describe('use-countdown', () => {
     const secondOnComplete = vi.fn();
     const { act, rerender, result } = await renderHook(
       (props?: { onComplete: () => void }) =>
-        useCountdown({
-          durationMs: 1_000,
+        useCountdown(1_000, {
           onComplete: props?.onComplete,
         }),
       {
@@ -220,7 +216,7 @@ describe('use-countdown', () => {
   });
 
   it('`start`: should remain idle after completion until the countdown is reset', async () => {
-    const { act, result } = await renderHook(() => useCountdown({ durationMs: 1_000 }));
+    const { act, result } = await renderHook(() => useCountdown(1_000));
 
     await act(async () => {
       result.current[1].start();
@@ -244,7 +240,7 @@ describe('use-countdown', () => {
   });
 
   it('`reset` and `start`: should restart from the default duration after completion', async () => {
-    const { act, result } = await renderHook(() => useCountdown({ durationMs: 1_000 }));
+    const { act, result } = await renderHook(() => useCountdown(1_000));
 
     await act(async () => {
       result.current[1].start();

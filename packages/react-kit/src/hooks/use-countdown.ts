@@ -24,15 +24,10 @@ import {
  */
 export interface UseCountdownOptions {
   /**
-   * Initial countdown duration in milliseconds.
-   */
-  durationMs: number;
-
-  /**
    * Interval between countdown updates in milliseconds.
    * @default 100
    */
-  intervalMs?: number | undefined;
+  interval?: number | undefined;
 
   /**
    * Callback function invoked when the countdown reaches zero.
@@ -58,7 +53,7 @@ export interface UseCountdownControls {
   /**
    * Resets the countdown to the initial duration or an optional new duration, and stops it.
    */
-  reset: (durationMs?: UseCountdownOptions['durationMs']) => void;
+  reset: (duration?: number) => void;
 }
 
 // --------------------------------------------------------------------------------
@@ -129,13 +124,13 @@ function countdownReducer(
 /**
  * React hook for a controllable countdown.
  *
+ * @param duration Initial countdown duration in milliseconds.
  * @example
  * ```tsx
  * import { useCountdown } from '@lumir/react-kit/hooks';
  *
  * function Component() {
- *   const [remainingMs, countdown] = useCountdown({
- *     durationMs: 60_000,
+ *   const [remainingMs, countdown] = useCountdown(60_000, {
  *     onComplete: () => console.log('done'),
  *   });
  *
@@ -147,13 +142,12 @@ function countdownReducer(
  * }
  * ```
  */
-export function useCountdown({
-  durationMs,
-  intervalMs = 100,
-  onComplete = undefined,
-}: UseCountdownOptions): readonly [remainingMs: number, countdown: UseCountdownControls] {
-  const normalizedDurationMs = normalizeMs(durationMs);
-  const normalizedIntervalMs = normalizeMs(intervalMs);
+export function useCountdown(
+  duration: number,
+  { interval = 100, onComplete = undefined }: UseCountdownOptions = {},
+): readonly [remainingMs: number, countdown: UseCountdownControls] {
+  const normalizedDurationMs = normalizeMs(duration);
+  const normalizedIntervalMs = normalizeMs(interval);
 
   const [state, dispatch] = useReducer(countdownReducer, normalizedDurationMs, ms => ({
     isActive: false,
