@@ -202,7 +202,7 @@ describe('use-countdown', () => {
   it('`onComplete`: should call the latest `onComplete` callback when it changes (related to `useEffectEvent`)', async () => {
     // This test verifies `useEffectEvent` behavior because, without it,
     // changing `onComplete` would first run the effect cleanup, then
-    // rerun the effect, and finally schedule the `setInterval` timer again
+    // rerun the effect, and finally schedule the `setTimeout` timer again
     // for the full `interval` duration.
 
     const onComplete1 = vi.fn();
@@ -235,15 +235,25 @@ describe('use-countdown', () => {
     assert.strictEqual(onComplete1.mock.calls.length, 0);
     assert.strictEqual(onComplete2.mock.calls.length, 0);
 
-    await rerender({ onComplete: onComplete2 });
-
     await act(async () => {
-      await vi.advanceTimersByTimeAsync(COUNTDOWN_INTERVAL_MS);
+      await vi.advanceTimersByTimeAsync(COUNTDOWN_INTERVAL_MS / 2);
     });
 
     const [thirdCount] = result.current;
 
-    assert.strictEqual(thirdCount, 0);
+    assert.strictEqual(thirdCount, 100);
+    assert.strictEqual(onComplete1.mock.calls.length, 0);
+    assert.strictEqual(onComplete2.mock.calls.length, 0);
+
+    await rerender({ onComplete: onComplete2 });
+
+    await act(async () => {
+      await vi.advanceTimersByTimeAsync(COUNTDOWN_INTERVAL_MS / 2);
+    });
+
+    const [fourthCount] = result.current;
+
+    assert.strictEqual(fourthCount, 0);
     assert.strictEqual(onComplete1.mock.calls.length, 0);
     assert.strictEqual(onComplete2.mock.calls.length, 1);
   });
@@ -294,7 +304,7 @@ describe('use-countdown', () => {
   it('`onTick`: should call the latest `onTick` callback when it changes (related to `useEffectEvent`)', async () => {
     // This test verifies `useEffectEvent` behavior because, without it,
     // changing `onTick` would first run the effect cleanup, then
-    // rerun the effect, and finally schedule the `setInterval` timer again
+    // rerun the effect, and finally schedule the `setTimeout` timer again
     // for the full `interval` duration.
 
     const onTick1 = vi.fn();
@@ -327,15 +337,25 @@ describe('use-countdown', () => {
     assert.strictEqual(onTick1.mock.calls.length, 1);
     assert.strictEqual(onTick2.mock.calls.length, 0);
 
-    await rerender({ onTick: onTick2 });
-
     await act(async () => {
-      await vi.advanceTimersByTimeAsync(COUNTDOWN_INTERVAL_MS);
+      await vi.advanceTimersByTimeAsync(COUNTDOWN_INTERVAL_MS / 2);
     });
 
     const [thirdCount] = result.current;
 
-    assert.strictEqual(thirdCount, 100);
+    assert.strictEqual(thirdCount, 200);
+    assert.strictEqual(onTick1.mock.calls.length, 1);
+    assert.strictEqual(onTick2.mock.calls.length, 0);
+
+    await rerender({ onTick: onTick2 });
+
+    await act(async () => {
+      await vi.advanceTimersByTimeAsync(COUNTDOWN_INTERVAL_MS / 2);
+    });
+
+    const [fourthCount] = result.current;
+
+    assert.strictEqual(fourthCount, 100);
     assert.strictEqual(onTick1.mock.calls.length, 1);
     assert.strictEqual(onTick2.mock.calls.length, 1);
   });
