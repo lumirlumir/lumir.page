@@ -37,7 +37,7 @@ export default function App() {
   const { config, updateConfig } = useConfigContext();
   const { section } = useScenarioContext();
   const interview = useInterview<HTMLDivElement>();
-  const timer = useCountdown({
+  const [remainingMs, countdown] = useCountdown({
     durationMs: config.time * 60 * 1_000,
     onComplete: interview.submit,
   });
@@ -80,16 +80,22 @@ export default function App() {
         icon={<IoIosCheckmarkCircleOutline size="39px" />}
         onClick={() => {
           interview.submit();
-          timer[1].stop();
+          countdown.stop();
         }}
       />
 
-      <Timer remainingMs={timer[0]} />
+      <Timer remainingMs={remainingMs} />
 
       <main className={cn('custom-flex-center', 'custom-scrollbar')}>
         <div ref={scrollRef}>
           <Title />
-          <Server interview={interview} timer={timer} />
+          <Server
+            interview={interview}
+            onTestComplete={() => {
+              countdown.reset(config.time * 60 * 1_000);
+              countdown.start();
+            }}
+          />
           <Client interview={interview} />
           <Config />
           <MainButton interview={interview} />
