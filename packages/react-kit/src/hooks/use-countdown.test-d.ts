@@ -71,6 +71,7 @@ function useCountdownTypeTest() {
 
   setCurrentCount(0);
   setCurrentCount(1_000);
+  setCurrentCount(prevCount => prevCount + 1_000);
 
   // @ts-expect-error - `useCountdown` requires count.
   useCountdown();

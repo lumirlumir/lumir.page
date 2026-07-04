@@ -6,7 +6,13 @@
 // Import
 // --------------------------------------------------------------------------------
 
-import { useEffect, useEffectEvent, useState } from 'react';
+import {
+  useEffect,
+  useEffectEvent,
+  useState,
+  type Dispatch,
+  type SetStateAction,
+} from 'react';
 
 // --------------------------------------------------------------------------------
 // Typedef
@@ -72,8 +78,8 @@ export function useCountdown(
     onComplete: onCompleteProp = undefined,
     onTick: onTickProp = undefined,
   }: UseCountdownOptions = {},
-): readonly [currentCount: number, setCurrentCount: (duration: number) => void] {
-  const [currentCount, setCurrentCount] = useState(count);
+): readonly [currentCount: number, setCurrentCount: Dispatch<SetStateAction<number>>] {
+  const [currentCount, setCurrentCount] = useState<number>(count);
 
   const onComplete = useEffectEvent(() => {
     onCompleteProp?.();
