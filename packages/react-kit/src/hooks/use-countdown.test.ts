@@ -81,7 +81,8 @@ describe('use-countdown', () => {
 
   it('`reset`: should use the latest duration option before starting', async () => {
     const { act, rerender, result } = await renderHook(
-      (props: { durationMs: number }) => useCountdown({ durationMs: props.durationMs }),
+      (props?: { durationMs: number }) =>
+        useCountdown({ durationMs: props?.durationMs ?? 1_000 }),
       {
         initialProps: { durationMs: 1_000 },
       },
@@ -194,10 +195,10 @@ describe('use-countdown', () => {
     const firstOnComplete = vi.fn();
     const secondOnComplete = vi.fn();
     const { act, rerender, result } = await renderHook(
-      (props: { onComplete: () => void }) =>
+      (props?: { onComplete: () => void }) =>
         useCountdown({
           durationMs: 1_000,
-          onComplete: props.onComplete,
+          onComplete: props?.onComplete,
         }),
       {
         initialProps: { onComplete: firstOnComplete },

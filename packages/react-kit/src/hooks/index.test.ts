@@ -31,6 +31,7 @@ describe('index', () => {
     it('`useCountdown` should be defined', () => {
       assert.isDefined(useCountdown);
       assert.strictEqual(typeof useCountdown, 'function');
+    });
 
     it('`useIsomorphicLayoutEffect` should be defined', () => {
       assert.isDefined(useIsomorphicLayoutEffect);

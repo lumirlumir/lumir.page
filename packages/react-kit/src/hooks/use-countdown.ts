@@ -163,11 +163,13 @@ export function useCountdown({
   const remainingMsRef = useRef(state.remainingMs);
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  remainingMsRef.current = state.remainingMs;
-
   const onCompleteEvent = useEffectEvent(() => {
     onComplete?.();
   });
+
+  useEffect(() => {
+    remainingMsRef.current = state.remainingMs;
+  }, [state.remainingMs]);
 
   useEffect(() => {
     if (!state.isActive || normalizedIntervalMs === 0) {
