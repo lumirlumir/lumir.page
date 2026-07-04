@@ -37,7 +37,7 @@ export default function App() {
   const { config, updateConfig } = useConfigContext();
   const { section } = useScenarioContext();
   const interview = useInterview<HTMLDivElement>();
-  const [remainingMs, countdown] = useCountdown(config.time * 60 * 1_000, {
+  const [remaining, countdown] = useCountdown(config.time * 60 * 1_000, {
     onComplete: interview.submit,
   });
   const [scrollRef, scroll] = useScroll<HTMLDivElement>({ behavior: 'smooth' });
@@ -83,7 +83,7 @@ export default function App() {
         }}
       />
 
-      <Timer remainingMs={remainingMs} />
+      <Timer remaining={remaining} />
 
       <main className={cn('custom-flex-center', 'custom-scrollbar')}>
         <div ref={scrollRef}>

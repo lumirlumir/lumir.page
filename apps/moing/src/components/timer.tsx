@@ -21,17 +21,17 @@ interface TimerProps {
   /**
    * Remaining time in milliseconds.
    */
-  remainingMs: number;
+  remaining: number;
 }
 
 // --------------------------------------------------------------------------------
 // Export
 // --------------------------------------------------------------------------------
 
-export default function Timer({ remainingMs }: TimerProps) {
+export default function Timer({ remaining }: TimerProps) {
   const { section } = useScenarioContext();
   const { status } = section.timer;
-  const remainingSeconds = Math.ceil(remainingMs / 1_000);
+  const remainingSeconds = Math.ceil(remaining / 1_000);
   const minute = Math.floor((remainingSeconds / 60) % 60);
   const second = Math.floor(remainingSeconds % 60);
 

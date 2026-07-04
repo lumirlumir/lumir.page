@@ -145,7 +145,7 @@ function countdownReducer(
 export function useCountdown(
   duration: number,
   { interval = 100, onComplete = undefined }: UseCountdownOptions = {},
-): readonly [remainingMs: number, countdown: UseCountdownControls] {
+): readonly [remaining: number, countdown: UseCountdownControls] {
   const normalizedDurationMs = normalizeMs(duration);
   const normalizedIntervalMs = normalizeMs(interval);
 
