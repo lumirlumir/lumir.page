@@ -25,7 +25,7 @@ import styles from './server.module.css';
 
 interface ServerProps {
   interview: ReturnType<typeof useInterview>;
-  onTestComplete: () => void;
+  onTestWriteComplete: () => void;
 }
 
 // --------------------------------------------------------------------------------
@@ -53,7 +53,7 @@ function formatContent(content: string) {
 // Export
 // --------------------------------------------------------------------------------
 
-export default function Server({ interview, onTestComplete }: ServerProps) {
+export default function Server({ interview, onTestWriteComplete }: ServerProps) {
   const { config } = useConfigContext();
   const { section, toNextSection } = useScenarioContext();
   const { content, mode, status } = section.server;
@@ -109,7 +109,7 @@ export default function Server({ interview, onTestComplete }: ServerProps) {
           onWriteComplete={() => {
             if (mode === 'auto' || mode === 'result') toNextSection();
             if (mode === 'test' && text !== '') {
-              onTestComplete();
+              onTestWriteComplete();
             }
             scroll.intoView({ block: 'end', inline: 'nearest' });
           }}

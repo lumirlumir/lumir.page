@@ -41,19 +41,10 @@ export interface UseCountdownOptions {
  */
 export interface UseCountdownControls {
   /**
-   * Starts or resumes the countdown. If the countdown is already active, this has no effect.
+   * Sets the countdown duration and starts it when the duration is greater than zero.
+   * Passing `0` stops the countdown without invoking `onComplete`.
    */
-  start: () => void;
-
-  /**
-   * Stops the countdown. If the countdown is already stopped, this has no effect.
-   */
-  stop: () => void;
-
-  /**
-   * Resets the countdown to the initial duration or an optional new duration, and stops it.
-   */
-  reset: (duration?: number) => void;
+  set: (duration: number) => void;
 }
 
 // --------------------------------------------------------------------------------
@@ -75,40 +66,25 @@ function normalizeMs(ms: number) {
  * Reducer function to manage the countdown state based on dispatched actions.
  */
 function countdownReducer(
-  state: { isActive: boolean; remainingMs: number },
-  action:
-    | { type: 'sync'; remainingMs: number }
-    | { type: 'start' }
-    | { type: 'stop' }
-    | { type: 'reset'; durationMs: number },
+  state: { isActive: boolean; remainingMs: number; runId: number },
+  action: { type: 'sync'; remainingMs: number } | { type: 'set'; duration: number },
 ) {
   switch (action.type) {
     case 'sync': {
       return {
+        ...state,
         isActive: action.remainingMs > 0,
         remainingMs: action.remainingMs,
       };
     }
 
-    case 'start': {
-      const remainingMs = normalizeMs(state.remainingMs);
+    case 'set': {
+      const remainingMs = normalizeMs(action.duration);
 
       return {
         isActive: remainingMs > 0,
         remainingMs,
-      };
-    }
-
-    case 'stop':
-      return {
-        ...state,
-        isActive: false,
-      };
-
-    case 'reset': {
-      return {
-        isActive: false,
-        remainingMs: normalizeMs(action.durationMs),
+        runId: state.runId + 1,
       };
     }
 
@@ -135,7 +111,7 @@ function countdownReducer(
  *   });
  *
  *   return (
- *     <button type="button" onClick={() => countdown.start()}>
+ *     <button type="button" onClick={() => countdown.set(60_000)}>
  *       {remainingMs}
  *     </button>
  *   );
@@ -152,6 +128,7 @@ export function useCountdown(
   const [state, dispatch] = useReducer(countdownReducer, normalizedDurationMs, ms => ({
     isActive: false,
     remainingMs: ms,
+    runId: 0,
   }));
   const countdownTargetMsRef = useRef<number | null>(null);
   const remainingMsRef = useRef(state.remainingMs);
@@ -200,34 +177,20 @@ export function useCountdown(
         timeoutRef.current = null;
       }
     };
-  }, [normalizedIntervalMs, state.isActive]);
+  }, [normalizedIntervalMs, state.isActive, state.runId]);
 
-  const start = useCallback(() => {
-    dispatch({ type: 'start' });
-  }, []);
-
-  const stop = useCallback(() => {
+  const set = useCallback((nextDuration: number) => {
     countdownTargetMsRef.current = null;
-    dispatch({ type: 'stop' });
+    dispatch({ type: 'set', duration: nextDuration });
   }, []);
-
-  const reset = useCallback(
-    (nextDurationMs = normalizedDurationMs) => {
-      countdownTargetMsRef.current = null;
-      dispatch({ type: 'reset', durationMs: nextDurationMs });
-    },
-    [normalizedDurationMs],
-  );
 
   return [
     state.remainingMs,
     useMemo(
       () => ({
-        start,
-        stop,
-        reset,
+        set,
       }),
-      [start, stop, reset],
+      [set],
     ),
   ] as const;
 }

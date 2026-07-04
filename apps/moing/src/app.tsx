@@ -79,7 +79,7 @@ export default function App() {
         icon={<IoIosCheckmarkCircleOutline size="39px" />}
         onClick={() => {
           interview.submit();
-          countdown.stop();
+          countdown.set(0);
         }}
       />
 
@@ -90,9 +90,8 @@ export default function App() {
           <Title />
           <Server
             interview={interview}
-            onTestComplete={() => {
-              countdown.reset(config.time * 60 * 1_000);
-              countdown.start();
+            onTestWriteComplete={() => {
+              countdown.set(config.time * 60 * 1_000);
             }}
           />
           <Client interview={interview} />
