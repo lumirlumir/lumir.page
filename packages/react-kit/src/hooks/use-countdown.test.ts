@@ -15,6 +15,7 @@ import { useCountdown } from './use-countdown.js';
 // --------------------------------------------------------------------------------
 
 const COUNTDOWN_INTERVAL_MS = 100;
+const DEFAULT_COUNTDOWN_INTERVAL_MS = 1_000;
 
 // --------------------------------------------------------------------------------
 // Test
@@ -35,6 +36,30 @@ describe('use-countdown', () => {
 
     assert.strictEqual(currentCount, 1_000);
     assert.strictEqual(typeof setCurrentCount, 'function');
+  });
+
+  it('Default interval should decrease the count every 1000ms', async () => {
+    const { act, result } = await renderHook(() => useCountdown(2_000));
+
+    const [firstCount] = result.current;
+
+    assert.strictEqual(firstCount, 2_000);
+
+    await act(async () => {
+      await vi.advanceTimersByTimeAsync(DEFAULT_COUNTDOWN_INTERVAL_MS - 1);
+    });
+
+    const [secondCount] = result.current;
+
+    assert.strictEqual(secondCount, 2_000);
+
+    await act(async () => {
+      await vi.advanceTimersByTimeAsync(1);
+    });
+
+    const [thirdCount] = result.current;
+
+    assert.strictEqual(thirdCount, 1_000);
   });
 
   it('`interval`: should decrease the count by interval on each tick', async () => {

@@ -24,7 +24,7 @@ import {
 export interface UseCountdownOptions {
   /**
    * Interval between countdown updates in milliseconds.
-   * @default 100
+   * @default 1_000
    */
   interval?: number | undefined;
 
@@ -58,7 +58,7 @@ export interface UseCountdownOptions {
  *
  * function Component() {
  *   const [currentCount, setCurrentCount] = useCountdown(60_000, {
- *     interval: 100,
+ *     interval: 1_000,
  *     onComplete: () => console.log('done'),
  *     onTick: () => console.log('tick'),
  *   });
@@ -74,7 +74,7 @@ export interface UseCountdownOptions {
 export function useCountdown(
   initialCount: number,
   {
-    interval = 100,
+    interval = 1_000,
     onComplete: onCompleteProp = undefined,
     onTick: onTickProp = undefined,
   }: UseCountdownOptions = {},
