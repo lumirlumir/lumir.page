@@ -110,15 +110,14 @@ export function useThemeContext(): ThemeContextValue {
 export function ThemeProvider({ children }: PropsWithChildren) {
   const [theme, toggleTheme] = useToggle<Theme>(
     () => {
-      // During server-side rendering, `document` is not available, so we return the default theme.
-      if (typeof document === 'undefined') {
+      // During server-side rendering, `window` is not available, so we return the default theme.
+      if (typeof window === 'undefined') {
         return defaultTheme;
       }
 
       return (document.documentElement.getAttribute(themeKey) ?? defaultTheme) as Theme;
     },
-    'dark',
-    'light',
+    { firstValue: 'dark', secondValue: 'light' },
   );
 
   useEffect(() => {

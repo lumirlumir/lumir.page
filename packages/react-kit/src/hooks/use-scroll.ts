@@ -2,79 +2,13 @@
  * @fileoverview `useScroll` hook.
  */
 
+/* global ScrollOptions:readonly, ScrollIntoViewOptions:readonly, ScrollToOptions:readonly */
+
 // --------------------------------------------------------------------------------
 // Import
 // --------------------------------------------------------------------------------
 
 import { useCallback, useMemo, useRef, type RefObject } from 'react';
-
-// --------------------------------------------------------------------------------
-// Typedef
-// --------------------------------------------------------------------------------
-
-/**
- * Controls how scrolling is performed.
- *
- * - `'auto'` uses the computed CSS `scroll-behavior` value.
- * - `'instant'` jumps to the target position instantly.
- * - `'smooth'` animates to the target position.
- *
- * @see https://developer.mozilla.org/en-US/docs/Web/API/Element/scrollIntoView#behavior
- * @see https://developer.mozilla.org/en-US/docs/Web/API/Element/scrollTo#behavior
- */
-type ScrollBehavior = 'auto' | 'instant' | 'smooth';
-
-/**
- * Alignment position used by `scrollIntoView()`.
- *
- * @see https://developer.mozilla.org/en-US/docs/Web/API/Element/scrollIntoView#block
- */
-type ScrollLogicalPosition = 'center' | 'end' | 'nearest' | 'start';
-
-/**
- * Common options shared by scroll methods.
- */
-interface ScrollOptions {
-  /**
-   * Scrolling behavior to use when moving to a target.
-   * @default 'auto'
-   */
-  behavior?: ScrollBehavior;
-}
-
-/**
- * Options passed to `Element.scrollIntoView()`.
- */
-interface ScrollIntoViewOptions extends ScrollOptions {
-  /**
-   * Vertical alignment of the target element within the scrollable ancestor.
-   * @default 'start'
-   */
-  block?: ScrollLogicalPosition;
-
-  /**
-   * Horizontal alignment of the target element within the scrollable ancestor.
-   * @default 'nearest'
-   */
-  inline?: ScrollLogicalPosition;
-}
-
-/**
- * Options passed to `Window.scrollTo()`.
- */
-interface ScrollToOptions extends ScrollOptions {
-  /**
-   * Horizontal document coordinate, in pixels, to scroll to.
-   * @default undefined
-   */
-  left?: number;
-
-  /**
-   * Vertical document coordinate, in pixels, to scroll to.
-   * @default undefined
-   */
-  top?: number;
-}
 
 // --------------------------------------------------------------------------------
 // Export
@@ -109,7 +43,7 @@ interface ScrollToOptions extends ScrollOptions {
  * }
  * ```
  */
-export function useScroll<T extends HTMLElement>({
+export function useScroll<T extends HTMLElement = HTMLElement>({
   behavior = 'auto',
 }: ScrollOptions = {}): readonly [
   ref: RefObject<T | null>,
