@@ -355,6 +355,11 @@ export const techStack = [
     name: 'Word',
     confidence: 2,
   },
+  {
+    category: 'Library',
+    name: 'sharp',
+    confidence: 1,
+  },
 ] as const satisfies readonly Stack<
   | 'Markup'
   | 'Style'
@@ -368,4 +373,5 @@ export const techStack = [
   | 'OS'
   | 'Cloud Platform'
   | 'Microsoft Hancom'
+  | 'Library'
 >[];
