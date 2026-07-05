@@ -88,8 +88,8 @@
     "lint:clangformat": "node scripts/clang-format.ts"
   },
   "allowScripts": {
-    "clang-format-node": true,
-    "sharp": true
+    "clang-format-node@3.0.7": true,
+    "sharp@0.34.5": true
   },
   "devDependencies": {
     "@types/node": "^24.13.2",
