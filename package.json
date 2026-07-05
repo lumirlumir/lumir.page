@@ -87,6 +87,10 @@
     "lint:markdownlint": "markdownlint **/*.md",
     "lint:clangformat": "node scripts/clang-format.ts"
   },
+  "allowScripts": {
+    "clang-format-node": true,
+    "sharp": true
+  },
   "devDependencies": {
     "@types/node": "^24.13.2",
     "@typescript/native-preview": "^7.0.0-dev.20260702.3",
