@@ -1,1 +1,54 @@
-[]
+[
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/css",
+    "htmlUrl": "https://github.com/eslint/css/pull/490",
+    "id": 4813148301,
+    "nodeId": "PR_kwDONF7wwM7uDOmu",
+    "number": 490,
+    "title": "chore: add prettier update commit to `.git-blame-ignore-revs`",
+    "createdAt": "2026-07-05T14:10:55Z",
+    "closedAt": "2026-07-05T15:42:39Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/markdown",
+    "htmlUrl": "https://github.com/eslint/markdown/pull/677",
+    "id": 4813129966,
+    "nodeId": "PR_kwDOAkm7Hs7uDLVD",
+    "number": 677,
+    "title": "chore: add prettier update commit to `.git-blame-ignore-revs`",
+    "createdAt": "2026-07-05T14:05:18Z",
+    "closedAt": "2026-07-05T15:39:26Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/rewrite",
+    "htmlUrl": "https://github.com/eslint/rewrite/pull/479",
+    "id": 4813117991,
+    "nodeId": "PR_kwDOLyyFi87uDJI6",
+    "number": 479,
+    "title": "chore: add prettier update commit to `.git-blame-ignore-revs`",
+    "createdAt": "2026-07-05T14:01:38Z",
+    "closedAt": "2026-07-05T15:34:23Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint",
+    "htmlUrl": "https://github.com/eslint/eslint/pull/21056",
+    "id": 4813093300,
+    "nodeId": "PR_kwDOAKjKDc7uDEn5",
+    "number": 21056,
+    "title": "chore: add prettier update commit to `.git-blame-ignore-revs`",
+    "createdAt": "2026-07-05T13:53:36Z",
+    "closedAt": "2026-07-05T15:25:53Z",
+    "reactions": {
+      "+1": 0
+    }
+  }
+]
