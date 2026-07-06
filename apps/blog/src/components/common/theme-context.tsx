@@ -18,8 +18,12 @@ import 'client-only';
 // Import
 // --------------------------------------------------------------------------------
 
-import { createContext, useContext, useEffect, type PropsWithChildren } from 'react';
-import { useToggle } from '@lumir/react-kit/hooks';
+import {
+  createContext,
+  useContext,
+  useSyncExternalStore,
+  type PropsWithChildren,
+} from 'react';
 
 // --------------------------------------------------------------------------------
 // Typedef
@@ -42,16 +46,47 @@ export type ThemeContextValue = readonly [theme: Theme, toggleTheme: () => void]
 // --------------------------------------------------------------------------------
 
 const themeKey = 'data-theme';
+const defaultTheme = 'dark' satisfies Theme;
 const ThemeContext = createContext<ThemeContextValue | undefined>(undefined);
+
+function getThemeSnapshot(): Theme {
+  return document.documentElement.getAttribute(themeKey) === 'light'
+    ? 'light'
+    : defaultTheme;
+}
+
+function getServerThemeSnapshot(): typeof defaultTheme {
+  return defaultTheme;
+}
+
+function subscribeThemeStore(onStoreChange: () => void): () => void {
+  const observer = new MutationObserver(onStoreChange);
+
+  observer.observe(document.documentElement, {
+    attributeFilter: [themeKey],
+    attributes: true,
+  });
+
+  return () => {
+    observer.disconnect();
+  };
+}
+
+function toggleTheme() {
+  const currentTheme = getThemeSnapshot() === 'dark' ? 'light' : 'dark';
+
+  // 1. Update the `data-theme` attribute on the root document element to apply the theme globally.
+  document.documentElement.setAttribute(themeKey, currentTheme);
+
+  // 2. Persist the current theme in `localStorage` to remember the user's preference across sessions.
+  // `localStorage` is scoped per origin, so this key will not conflict across different domains,
+  // protocols, or ports. It can only collide with other apps running on the same origin.
+  localStorage.setItem(themeKey, currentTheme);
+}
 
 // --------------------------------------------------------------------------------
 // Export
 // --------------------------------------------------------------------------------
-
-/**
- * The default theme.
- */
-export const defaultTheme = 'dark' satisfies Theme;
 
 /**
  * Returns the current theme context value.
@@ -108,27 +143,11 @@ export function useThemeContext(): ThemeContextValue {
  * ```
  */
 export function ThemeProvider({ children }: PropsWithChildren) {
-  const [theme, toggleTheme] = useToggle<Theme>(
-    () => {
-      // During server-side rendering, `window` is not available, so we return the default theme.
-      if (typeof window === 'undefined') {
-        return defaultTheme;
-      }
-
-      return (document.documentElement.getAttribute(themeKey) ?? defaultTheme) as Theme;
-    },
-    { firstValue: 'dark', secondValue: 'light' },
+  const theme = useSyncExternalStore<Theme>(
+    subscribeThemeStore,
+    getThemeSnapshot,
+    getServerThemeSnapshot,
   );
-
-  useEffect(() => {
-    // 1. Update the `data-theme` attribute on the root document element to apply the theme globally.
-    document.documentElement.setAttribute(themeKey, theme);
-
-    // 2. Persist the current theme in `localStorage` to remember the user's preference across sessions.
-    // `localStorage` is scoped per origin, so this key will not conflict across different domains,
-    // protocols, or ports. It can only collide with other apps running on the same origin.
-    localStorage.setItem(themeKey, theme);
-  }, [theme]);
 
   // eslint-disable-next-line react/jsx-no-constructed-context-values -- React Compiler automatically optimizes context values.
   return <ThemeContext value={[theme, toggleTheme]}>{children}</ThemeContext>;
