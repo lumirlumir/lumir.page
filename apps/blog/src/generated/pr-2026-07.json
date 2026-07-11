@@ -1,5 +1,18 @@
 [
   {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslintrc",
+    "htmlUrl": "https://github.com/eslint/eslintrc/pull/235",
+    "id": 4853940109,
+    "nodeId": "PR_kwDOETsQJc7wHLkk",
+    "number": 235,
+    "title": "fix: update `js-yaml` to 4.3.0 to address security vulnerability",
+    "createdAt": "2026-07-10T09:51:04Z",
+    "closedAt": "2026-07-10T18:50:02Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
     "repositoryUrl": "https://api.github.com/repos/eslint/codemods",
     "htmlUrl": "https://github.com/eslint/codemods/pull/43",
     "id": 4836582925,
