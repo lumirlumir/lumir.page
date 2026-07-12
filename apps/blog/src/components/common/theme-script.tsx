@@ -40,7 +40,7 @@ function getTheme() {
 
   if(themeLocalStorage) return themeLocalStorage;
 
-  return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+  return matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
 };
 
 document.documentElement.setAttribute('data-theme', getTheme());
