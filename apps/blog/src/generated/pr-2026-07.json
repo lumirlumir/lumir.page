@@ -1,5 +1,18 @@
 [
   {
+    "repositoryUrl": "https://api.github.com/repos/eslint/codemods",
+    "htmlUrl": "https://github.com/eslint/codemods/pull/44",
+    "id": 4867500941,
+    "nodeId": "PR_kwDOP7jk_87wwst_",
+    "number": 44,
+    "title": "ci: add Renovate configuration file",
+    "createdAt": "2026-07-12T14:55:00Z",
+    "closedAt": "2026-07-12T15:10:45Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
     "repositoryUrl": "https://api.github.com/repos/eslint/eslintrc",
     "htmlUrl": "https://github.com/eslint/eslintrc/pull/235",
     "id": 4853940109,
