@@ -37,7 +37,6 @@ export default function ThemeToggle() {
         onClick={toggleTheme}
         aria-label={theme === 'dark' ? 'Dark mode' : 'Light mode'}
         aria-pressed={theme === 'dark'}
-        suppressHydrationWarning // TODO: Remove it later.
       >
         <span className={styles.orb} aria-hidden="true" />
         <span className={styles.shadow} aria-hidden="true" />

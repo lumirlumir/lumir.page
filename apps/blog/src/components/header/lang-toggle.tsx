@@ -20,7 +20,6 @@ import 'client-only';
 // Import
 // --------------------------------------------------------------------------------
 
-import Link from 'next/link';
 import { useSelectedLayoutSegments } from 'next/navigation';
 import { cn } from '@lumir/utils';
 import { langDefault, langKeys, type LangRecord, type PropsWithLang } from '@/data/lang';
@@ -46,13 +45,18 @@ export default function LangToggle({ lang }: PropsWithLang) {
 
   return (
     <div className={cn(styles['lang-toggle'], 'custom-flex-center')}>
-      <Link
+      {/*
+       * Use a native anchor intentionally so switching languages performs a full-page navigation.
+       * Each localized route owns document-level state such as `<html lang>`, and a fresh document
+       * also reruns `ThemeScript` before hydration to restore the persisted `data-theme` safely.
+       */}
+      <a
         className={cn('custom-flex-center', 'custom-hover-effect')}
         href={href}
         aria-label={ariaLabelByLang[lang]}
       >
         {nextLang}
-      </Link>
+      </a>
     </div>
   );
 }
