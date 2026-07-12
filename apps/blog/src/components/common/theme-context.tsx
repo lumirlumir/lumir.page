@@ -50,9 +50,7 @@ const defaultTheme = 'dark' satisfies Theme;
 const ThemeContext = createContext<ThemeContextValue | undefined>(undefined);
 
 function getThemeSnapshot(): Theme {
-  return document.documentElement.getAttribute(themeKey) === 'light'
-    ? 'light'
-    : defaultTheme;
+  return (document.documentElement.getAttribute(themeKey) ?? defaultTheme) as Theme;
 }
 
 function getServerThemeSnapshot(): typeof defaultTheme {
@@ -63,8 +61,8 @@ function subscribeThemeStore(onStoreChange: () => void): () => void {
   const observer = new MutationObserver(onStoreChange);
 
   observer.observe(document.documentElement, {
-    attributeFilter: [themeKey],
     attributes: true,
+    attributeFilter: [themeKey],
   });
 
   return () => {
@@ -73,15 +71,15 @@ function subscribeThemeStore(onStoreChange: () => void): () => void {
 }
 
 function toggleTheme() {
-  const currentTheme = getThemeSnapshot() === 'dark' ? 'light' : 'dark';
+  const nextTheme = getThemeSnapshot() === 'dark' ? 'light' : 'dark';
 
   // 1. Update the `data-theme` attribute on the root document element to apply the theme globally.
-  document.documentElement.setAttribute(themeKey, currentTheme);
+  document.documentElement.setAttribute(themeKey, nextTheme);
 
   // 2. Persist the current theme in `localStorage` to remember the user's preference across sessions.
   // `localStorage` is scoped per origin, so this key will not conflict across different domains,
   // protocols, or ports. It can only collide with other apps running on the same origin.
-  localStorage.setItem(themeKey, currentTheme);
+  localStorage.setItem(themeKey, nextTheme);
 }
 
 // --------------------------------------------------------------------------------
