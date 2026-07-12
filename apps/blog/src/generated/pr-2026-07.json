@@ -1,5 +1,44 @@
 [
   {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslintrc",
+    "htmlUrl": "https://github.com/eslint/eslintrc/pull/235",
+    "id": 4853940109,
+    "nodeId": "PR_kwDOETsQJc7wHLkk",
+    "number": 235,
+    "title": "fix: update `js-yaml` to 4.3.0 to address security vulnerability",
+    "createdAt": "2026-07-10T09:51:04Z",
+    "closedAt": "2026-07-10T18:50:02Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/codemods",
+    "htmlUrl": "https://github.com/eslint/codemods/pull/43",
+    "id": 4836582925,
+    "nodeId": "PR_kwDOP7jk_87vO8UI",
+    "number": 43,
+    "title": "ci: add `add-to-triage.yml`",
+    "createdAt": "2026-07-08T10:26:45Z",
+    "closedAt": "2026-07-08T13:55:35Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint",
+    "htmlUrl": "https://github.com/eslint/eslint/pull/21067",
+    "id": 4836313551,
+    "nodeId": "PR_kwDOAKjKDc7vOCc0",
+    "number": 21067,
+    "title": "chore: restrict `markdownlint-cli2` updates in renovate",
+    "createdAt": "2026-07-08T09:51:07Z",
+    "closedAt": "2026-07-08T10:49:43Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
     "repositoryUrl": "https://api.github.com/repos/eslint/css",
     "htmlUrl": "https://github.com/eslint/css/pull/490",
     "id": 4813148301,
