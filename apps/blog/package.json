@@ -10,7 +10,7 @@
     "build": "node --run test:types && next build",
     "start": "vite preview --open --outDir build --port 3001",
     "analyze": "next experimental-analyze",
-    "test": "node --run test:e2e && node --run test:types && node --run test:unit",
+    "test": "node --run test:types && node --run test:unit && node --run test:e2e",
     "test:e2e": "playwright test",
     "test:types": "next typegen && tsgo -b tsconfig.app.json",
     "test:unit": "vitest run",
