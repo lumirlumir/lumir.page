@@ -25,7 +25,8 @@
   ],
   "scripts": {
     "prepare": "husky",
-    "test": "node --run test:types && node --run test:unit",
+    "test": "node --run test:types && node --run test:unit && node --run test:e2e",
+    "test:e2e": "npm run test:e2e -w apps/blog",
     "test:types": "npm run test:types -w apps/blog && tsgo -b",
     "test:unit": "vitest run --coverage",
     "test:a:a": "npm run test -w apps/api",
