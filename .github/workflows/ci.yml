@@ -67,3 +67,5 @@ jobs:
 
       - name: Test type, unit and browser
         run: node --run test
+        env:
+          GH_PAT: ${{ secrets.GH_PAT }}
