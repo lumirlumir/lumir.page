@@ -318,17 +318,6 @@
     margin-right: var(--size-8) !important;
   }
 
-  &::before {
-    display: table;
-    content: '';
-  }
-
-  &::after {
-    display: table;
-    clear: both;
-    content: '';
-  }
-
   & > *:first-child {
     margin-top: 0 !important;
   }
@@ -340,10 +329,6 @@
   & a:not([href]) {
     color: inherit;
     text-decoration: none;
-  }
-
-  & .absent {
-    color: var(--color-fg-danger);
   }
 
   & p,
@@ -364,11 +349,6 @@
 
   & blockquote > :last-child {
     margin-bottom: 0;
-  }
-
-  & :is(ul, ol).no-list {
-    padding: 0;
-    list-style-type: none;
   }
 
   & ol[type='a s'] {
@@ -451,106 +431,10 @@
     background-color: transparent;
   }
 
-  & img[align='right'] {
-    padding-left: 20px;
-  }
-
-  & img[align='left'] {
-    padding-right: 20px;
-  }
-
   & .emoji {
     max-width: none;
     vertical-align: text-top;
     background-color: transparent;
-  }
-
-  & span.frame {
-    display: block;
-    overflow: hidden;
-  }
-
-  & span.frame > span {
-    display: block;
-    float: left;
-    width: auto;
-    padding: 7px;
-    margin: 13px 0 0;
-    overflow: hidden;
-    border: 1px solid var(--color-border-default);
-  }
-
-  & span.frame span img {
-    display: block;
-    float: left;
-  }
-
-  & span.frame span span {
-    display: block;
-    padding: 5px 0 0;
-    clear: both;
-    color: var(--color-fg-default);
-  }
-
-  & span.align-center {
-    display: block;
-    overflow: hidden;
-    clear: both;
-  }
-
-  & span.align-center > span {
-    display: block;
-    margin: 13px auto 0;
-    overflow: hidden;
-    text-align: center;
-  }
-
-  & span.align-center span img {
-    margin: 0 auto;
-    text-align: center;
-  }
-
-  & span.align-right {
-    display: block;
-    overflow: hidden;
-    clear: both;
-  }
-
-  & span.align-right > span {
-    display: block;
-    margin: 13px 0 0;
-    overflow: hidden;
-    text-align: right;
-  }
-
-  & span.align-right span img {
-    margin: 0;
-    text-align: right;
-  }
-
-  & span.float-left {
-    display: block;
-    float: left;
-    margin-right: 13px;
-    overflow: hidden;
-  }
-
-  & span.float-left span {
-    margin: 13px 0 0;
-  }
-
-  & span.float-right {
-    display: block;
-    float: right;
-    margin-left: 13px;
-    overflow: hidden;
-  }
-
-  & span.float-right > span {
-    display: block;
-    margin: 13px auto 0;
-    overflow: hidden;
-    text-align: right;
   }
 
   & code,
@@ -585,16 +469,6 @@
     background: transparent;
   }
 
-  & .highlight {
-    margin-bottom: var(--size-16);
-  }
-
-  & .highlight pre {
-    margin-bottom: 0;
-    word-break: normal;
-  }
-
-  & .highlight pre,
   & pre {
     padding: var(--size-16);
     overflow: auto;
@@ -614,32 +488,6 @@
     word-wrap: normal;
     background-color: transparent;
     border: 0;
-  }
-
-  & .csv-data :is(td, th) {
-    padding: 5px;
-    overflow: hidden;
-    font-size: 12px;
-    line-height: 1;
-    text-align: left;
-    white-space: nowrap;
-  }
-
-  & .csv-data .blob-num {
-    padding: 10px var(--size-8) 9px;
-    text-align: right;
-    background: var(--color-bg-default);
-    border: 0;
-  }
-
-  & .csv-data tr {
-    border-top: 0;
-  }
-
-  & .csv-data th {
-    font-weight: var(--text-weight-semibold);
-    background: var(--color-bg-muted);
-    border-top: 0;
   }
 
   & [data-footnote-ref]::before {
@@ -684,10 +532,6 @@
 
   & .footnotes li:target {
     color: var(--color-fg-default);
-  }
-
-  & .footnotes .data-footnote-backref g-emoji {
-    font-family: monospace;
   }
 
   & .pl-c {
@@ -822,57 +666,12 @@
     outline: none;
   }
 
-  & g-emoji {
-    display: inline-block;
-    min-width: 1ch;
-    font-family: 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
-    font-size: 1em;
-    font-style: normal !important;
-    font-weight: var(--text-weight-normal);
-    line-height: 1;
-    vertical-align: -0.075em;
-  }
-
-  & g-emoji img {
-    width: 1em;
-    height: 1em;
-  }
-
   & .task-list-item {
     list-style-type: none;
   }
 
-  & .task-list-item label {
-    font-weight: var(--text-weight-normal);
-  }
-
-  & .task-list-item.enabled label {
-    cursor: pointer;
-  }
-
   & .task-list-item + .task-list-item {
     margin-top: var(--size-4);
-  }
-
-  & .task-list-item .handle {
-    display: none;
-  }
-
-  & .task-list-item-checkbox {
-    margin: 0 0.2em 0.25em -1.4em;
-    vertical-align: middle;
-  }
-
-  & .contains-task-list:is(:hover, :focus-within) .task-list-item-convert-container {
-    display: block;
-    width: auto;
-    height: 24px;
-    overflow: visible;
-    clip: auto;
-  }
-
-  & ::-webkit-calendar-picker-indicator {
-    filter: invert(50%);
   }
 
   & .markdown-alert {
@@ -935,10 +734,6 @@
         color: var(--color-fg-danger);
       }
     }
-  }
-
-  & > *:first-child > .heading-element:first-child {
-    margin-top: 0 !important;
   }
 
   /* custom properties: used by `rehype-github-color` */
