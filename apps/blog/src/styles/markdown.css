@@ -1,7 +1,6 @@
 /* stylelint-disable */
 
 .markdown-body {
-  -webkit-text-size-adjust: 100%;
   margin: 0;
   font-family: var(--font-stack-system);
   font-size: 16px;
@@ -16,8 +15,6 @@
   }
 
   & summary {
-    display: list-item;
-
     & :is(h1, h2) {
       padding-bottom: 0;
       border-bottom: 0;
@@ -69,35 +66,11 @@
     font-size: 90%;
   }
 
-  & sub,
-  & sup {
-    font-size: 75%;
-    line-height: 0;
-    position: relative;
-    vertical-align: baseline;
-  }
-
-  & sub {
-    bottom: -0.25em;
-  }
-
-  & sup {
-    top: -0.5em;
-  }
-
   & img {
     border-style: none;
     max-width: 100%;
     box-sizing: content-box;
     border-radius: var(--size-border-radius);
-  }
-
-  & code,
-  & kbd,
-  & pre,
-  & samp {
-    font-family: monospace;
-    font-size: 1em;
   }
 
   & figure {
@@ -108,7 +81,6 @@
     box-sizing: content-box;
     overflow: hidden;
     background: transparent;
-    border-bottom: 1px solid var(--color-border-muted);
     height: 0.25em;
     padding: 0;
     margin: var(--size-24) 0;
@@ -118,17 +90,12 @@
 
   & input {
     font: inherit;
-    margin: 0;
     overflow: visible;
-    font-family: inherit;
-    font-size: inherit;
-    line-height: inherit;
   }
 
   & [type='button'],
   & [type='reset'],
   & [type='submit'] {
-    -webkit-appearance: button;
     appearance: button;
   }
 
@@ -136,11 +103,6 @@
   & [type='radio'] {
     box-sizing: border-box;
     padding: 0;
-  }
-
-  & [type='number']::-webkit-inner-spin-button,
-  & [type='number']::-webkit-outer-spin-button {
-    height: auto;
   }
 
   & [type='search']::-webkit-search-cancel-button,
@@ -155,9 +117,7 @@
   }
 
   & ::-webkit-file-upload-button {
-    -webkit-appearance: button;
     appearance: button;
-    font: inherit;
   }
 
   & a:hover {
@@ -189,11 +149,6 @@
     overflow: auto;
   }
 
-  & td,
-  & th {
-    padding: 0;
-  }
-
   & details summary {
     cursor: pointer;
   }
@@ -207,28 +162,14 @@
     box-shadow: none;
   }
 
-  & a:focus:not(:focus-visible),
-  & [role='button']:focus:not(:focus-visible),
   & input[type='radio']:focus:not(:focus-visible),
   & input[type='checkbox']:focus:not(:focus-visible) {
     outline: solid 1px transparent;
   }
 
-  & a:focus-visible,
-  & [role='button']:focus-visible,
-  & input[type='radio']:focus-visible,
-  & input[type='checkbox']:focus-visible {
-    outline: 2px solid var(--color-focus-outline);
-    outline-offset: -2px;
-    box-shadow: none;
-  }
-
   & a:not([class]):focus,
-  & a:not([class]):focus-visible,
   & input[type='radio']:focus,
-  & input[type='radio']:focus-visible,
-  & input[type='checkbox']:focus,
-  & input[type='checkbox']:focus-visible {
+  & input[type='checkbox']:focus {
     outline-offset: 0;
   }
 
@@ -241,7 +182,6 @@
     vertical-align: middle;
     background-color: var(--color-bg-muted);
     border: solid 1px var(--color-border-neutral-muted);
-    border-bottom-color: var(--color-border-neutral-muted);
     border-radius: var(--size-border-radius);
     box-shadow: inset 0 -1px 0 var(--color-border-neutral-muted);
   }
@@ -295,46 +235,35 @@
 
   & h1 {
     margin: 0.67em 0;
-    font-weight: var(--text-weight-semibold);
     font-size: 2em;
     padding-bottom: 0.3em;
     border-bottom: 1px solid var(--color-border-muted);
   }
 
   & h2 {
-    font-weight: var(--text-weight-semibold);
     font-size: 1.5em;
     padding-bottom: 0.3em;
     border-bottom: 1px solid var(--color-border-muted);
   }
 
   & h3 {
-    font-weight: var(--text-weight-semibold);
     font-size: 1.25em;
   }
 
   & h4 {
-    font-weight: var(--text-weight-semibold);
     font-size: 1em;
   }
 
   & h5 {
-    font-weight: var(--text-weight-semibold);
     font-size: 0.875em;
   }
 
   & h6 {
-    font-weight: var(--text-weight-semibold);
     font-size: 0.85em;
     color: var(--color-fg-muted);
   }
 
   /* #endregion h1, h2, h3, h4, h5, h6 */
-
-  & p {
-    margin-top: 0;
-    margin-bottom: 10px;
-  }
 
   & blockquote {
     margin: 0;
@@ -345,8 +274,6 @@
 
   & ul,
   & ol {
-    margin-top: 0;
-    margin-bottom: 0;
     padding-left: 2em;
   }
 
@@ -366,14 +293,10 @@
   & code,
   & samp {
     font-family: var(--font-stack-monospace);
-    font-size: 12px;
   }
 
   & pre {
-    margin-top: 0;
-    margin-bottom: 0;
     font-family: var(--font-stack-monospace);
-    font-size: 12px;
     word-wrap: normal;
   }
 
@@ -657,12 +580,9 @@
   }
 
   & pre > code {
-    padding: 0;
-    margin: 0;
     word-break: normal;
     white-space: pre;
     background: transparent;
-    border: 0;
   }
 
   & .highlight {
@@ -687,7 +607,6 @@
 
   & pre :is(code, tt) {
     display: inline;
-    max-width: auto;
     padding: 0;
     margin: 0;
     overflow: visible;
