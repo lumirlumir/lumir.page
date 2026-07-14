@@ -8,12 +8,6 @@
   word-wrap: break-word;
   scroll-behavior: auto !important;
 
-  & details,
-  & figcaption,
-  & figure {
-    display: block;
-  }
-
   & summary {
     & :is(h1, h2) {
       padding-bottom: 0;
@@ -88,7 +82,7 @@
     border: 0;
   }
 
-  & input[type='checkbox'] {
+  & [type='checkbox'] {
     box-sizing: border-box;
     padding: 0;
   }
