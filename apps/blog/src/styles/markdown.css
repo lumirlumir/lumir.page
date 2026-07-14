@@ -88,45 +88,13 @@
     border: 0;
   }
 
-  & input {
-    font: inherit;
-    overflow: visible;
-  }
-
-  & [type='button'],
-  & [type='reset'],
-  & [type='submit'] {
-    appearance: button;
-  }
-
-  & [type='checkbox'],
-  & [type='radio'] {
+  & input[type='checkbox'] {
     box-sizing: border-box;
     padding: 0;
   }
 
-  & [type='search']::-webkit-search-cancel-button,
-  & [type='search']::-webkit-search-decoration {
-    -webkit-appearance: none;
-    appearance: none;
-  }
-
-  & ::-webkit-input-placeholder {
-    color: inherit;
-    opacity: 0.54;
-  }
-
-  & ::-webkit-file-upload-button {
-    appearance: button;
-  }
-
   & a:hover {
     text-decoration: underline;
-  }
-
-  & ::placeholder {
-    color: var(--color-fg-muted);
-    opacity: 1;
   }
 
   & hr::before {
@@ -153,23 +121,13 @@
     cursor: pointer;
   }
 
-  & a:focus,
-  & [role='button']:focus,
-  & input[type='radio']:focus,
-  & input[type='checkbox']:focus {
+  & a:focus {
     outline: 2px solid var(--color-focus-outline);
     outline-offset: -2px;
     box-shadow: none;
   }
 
-  & input[type='radio']:focus:not(:focus-visible),
-  & input[type='checkbox']:focus:not(:focus-visible) {
-    outline: solid 1px transparent;
-  }
-
-  & a:not([class]):focus,
-  & input[type='radio']:focus,
-  & input[type='checkbox']:focus {
+  & a:not([class]):focus {
     outline-offset: 0;
   }
 
@@ -305,13 +263,6 @@
     overflow: visible !important;
     vertical-align: text-bottom;
     fill: currentColor;
-  }
-
-  & input::-webkit-outer-spin-button,
-  & input::-webkit-inner-spin-button {
-    margin: 0;
-    -webkit-appearance: none;
-    appearance: none;
   }
 
   & .mr-2 {
@@ -652,9 +603,7 @@
     color: var(--color-syntax-constant-other-reference-link);
   }
 
-  & [role='button']:focus:not(:focus-visible),
   & [role='tabpanel'][tabindex='0']:focus:not(:focus-visible),
-  & button:focus:not(:focus-visible),
   & summary:focus:not(:focus-visible),
   & a:focus:not(:focus-visible) {
     outline: none;
