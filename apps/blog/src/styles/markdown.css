@@ -1,12 +1,11 @@
-/* stylelint-disable */
-
 .markdown-body {
   margin: 0;
+  scroll-behavior: auto !important;
   font-family: var(--font-stack-system);
   font-size: 16px;
   line-height: 1.5;
+  /* stylelint-disable-next-line property-no-deprecated -- TODO: replace the legacy wrapping alias */
   word-wrap: break-word;
-  scroll-behavior: auto !important;
 
   & summary {
     & :is(h1, h2) {
@@ -28,15 +27,15 @@
   }
 
   & a {
-    background-color: transparent;
     color: var(--color-fg-accent);
     text-decoration: none;
+    background-color: transparent;
   }
 
   & abbr[title] {
-    border-bottom: none;
     -webkit-text-decoration: underline dotted;
     text-decoration: underline dotted;
+    border-bottom: none;
   }
 
   & b,
@@ -50,10 +49,10 @@
 
   /* custom */
   & mark {
-    background-color: var(--color-main); /* default: var(--color-bg-attention-muted); */
-    border-radius: var(--size-border-radius); /* default: nothing */
     padding: 0 var(--size-4); /* default: nothing */
     color: var(--color-fg-default);
+    background-color: var(--color-main); /* default: var(--color-bg-attention-muted); */
+    border-radius: var(--size-border-radius); /* default: nothing */
   }
 
   & small {
@@ -61,9 +60,9 @@
   }
 
   & img {
-    border-style: none;
-    max-width: 100%;
     box-sizing: content-box;
+    max-width: 100%;
+    border-style: none;
     border-radius: var(--size-border-radius);
   }
 
@@ -73,11 +72,11 @@
 
   & hr {
     box-sizing: content-box;
-    overflow: hidden;
-    background: transparent;
     height: 0.25em;
     padding: 0;
     margin: var(--size-24) 0;
+    overflow: hidden;
+    background: transparent;
     background-color: var(--color-border-default);
     border: 0;
   }
@@ -97,18 +96,18 @@
   }
 
   & hr::after {
-    display: table;
     clear: both;
+    display: table;
     content: '';
   }
 
   & table {
-    border-spacing: 0;
-    border-collapse: collapse;
     display: block;
     width: max-content;
     max-width: 100%;
     overflow: auto;
+    border-spacing: 0;
+    border-collapse: collapse;
   }
 
   & details summary {
@@ -130,8 +129,8 @@
     padding: var(--size-4);
     font: 11px var(--font-stack-monospace);
     line-height: 10px;
-    color: var(--color-fg-default);
     vertical-align: middle;
+    color: var(--color-fg-default);
     background-color: var(--color-bg-muted);
     border: solid 1px var(--color-border-neutral-muted);
     border-radius: var(--size-border-radius);
@@ -141,19 +140,21 @@
   /* #region h1, h2, h3, h4, h5, h6 */
 
   & :is(h1, h2, h3, h4, h5, h6) {
-    /* Keep linked headings visible below the sticky header. */
-    scroll-margin-top: calc(var(--size-header-height) + var(--size-16));
     margin-top: var(--size-24);
     margin-bottom: var(--size-16);
     font-weight: var(--text-weight-semibold);
     line-height: 1.25;
 
+    /* Keep linked headings visible below the sticky header. */
+    scroll-margin-top: calc(var(--size-header-height) + var(--size-16));
+
     & .icon-link {
-      color: var(--color-fg-default);
-      vertical-align: baseline;
       visibility: hidden;
+      vertical-align: baseline;
+      color: var(--color-fg-default);
     }
 
+    /* stylelint-disable-next-line no-descending-specificity -- TODO: reorganize legacy selectors without changing the cascade */
     & > a[aria-hidden='true'][href^='#'] {
       float: left;
       padding-right: var(--size-4);
@@ -169,10 +170,11 @@
       visibility: visible;
 
       &::before {
+        display: inline-block;
         width: 20px;
         height: 20px;
         content: ' ';
-        display: inline-block;
+        /* stylelint-disable-next-line value-keyword-case -- TODO: normalize the imported GitHub value */
         background-color: currentColor;
         -webkit-mask-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' version='1.1' aria-hidden='true'><path fill-rule='evenodd' d='M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z'></path></svg>");
         mask-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' version='1.1' aria-hidden='true'><path fill-rule='evenodd' d='M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z'></path></svg>");
@@ -186,15 +188,15 @@
   }
 
   & h1 {
+    padding-bottom: 0.3em;
     margin: 0.67em 0;
     font-size: 2em;
-    padding-bottom: 0.3em;
     border-bottom: 1px solid var(--color-border-muted);
   }
 
   & h2 {
-    font-size: 1.5em;
     padding-bottom: 0.3em;
+    font-size: 1.5em;
     border-bottom: 1px solid var(--color-border-muted);
   }
 
@@ -218,8 +220,8 @@
   /* #endregion h1, h2, h3, h4, h5, h6 */
 
   & blockquote {
-    margin: 0;
     padding: 0 1em;
+    margin: 0;
     color: var(--color-fg-muted);
     border-left: 0.25em solid var(--color-border-default);
   }
@@ -249,6 +251,7 @@
 
   & pre {
     font-family: var(--font-stack-monospace);
+    /* stylelint-disable-next-line property-no-deprecated -- TODO: replace the legacy wrapping alias */
     word-wrap: normal;
   }
 
@@ -256,6 +259,7 @@
     display: inline-block;
     overflow: visible !important;
     vertical-align: text-bottom;
+    /* stylelint-disable-next-line value-keyword-case -- TODO: normalize the imported GitHub value */
     fill: currentColor;
   }
 
@@ -271,6 +275,7 @@
     margin-bottom: 0 !important;
   }
 
+  /* stylelint-disable-next-line no-descending-specificity -- TODO: reorganize legacy selectors without changing the cascade */
   & a:not([href]) {
     color: inherit;
     text-decoration: none;
@@ -279,6 +284,7 @@
   & p,
   & blockquote,
   & ul,
+  /* stylelint-disable-next-line no-descending-specificity -- TODO: reorganize legacy selectors without changing the cascade */
   & ol,
   & dl,
   & table,
@@ -414,6 +420,7 @@
     background: transparent;
   }
 
+  /* stylelint-disable-next-line no-duplicate-selectors -- TODO: merge the separated legacy pre rules */
   & pre {
     padding: var(--size-16);
     overflow: auto;
@@ -430,6 +437,7 @@
     margin: 0;
     overflow: visible;
     line-height: inherit;
+    /* stylelint-disable-next-line property-no-deprecated -- TODO: replace the legacy wrapping alias */
     word-wrap: normal;
     background-color: transparent;
     border: 0;
@@ -449,6 +457,7 @@
     border-top: 1px solid var(--color-border-default);
   }
 
+  /* stylelint-disable-next-line no-descending-specificity -- TODO: reorganize legacy selectors without changing the cascade */
   & .footnotes ol {
     padding-left: var(--size-16);
   }
@@ -465,6 +474,7 @@
 
   & .footnotes li:target::before {
     position: absolute;
+    /* stylelint-disable-next-line declaration-block-no-redundant-longhand-properties -- TODO: consolidate these offsets with inset */
     top: calc(var(--size-8) * -1);
     right: calc(var(--size-8) * -1);
     bottom: calc(var(--size-8) * -1);
@@ -514,6 +524,7 @@
     color: var(--color-syntax-string);
   }
 
+  /* stylelint-disable-next-line no-descending-specificity -- TODO: reorganize legacy selectors without changing the cascade */
   & .pl-v,
   & .pl-smw {
     color: var(--color-syntax-variable);
@@ -593,8 +604,8 @@
   }
 
   & .pl-corl {
-    text-decoration: underline;
     color: var(--color-syntax-constant-other-reference-link);
+    text-decoration: underline;
   }
 
   & [role='tabpanel'][tabindex='0']:focus:not(:focus-visible),
@@ -633,8 +644,8 @@
 
     & .markdown-alert-title {
       display: flex;
-      font-weight: var(--text-weight-medium);
       align-items: center;
+      font-weight: var(--text-weight-medium);
       line-height: 1;
     }
 
