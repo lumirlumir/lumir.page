@@ -25,7 +25,8 @@
   ],
   "scripts": {
     "prepare": "husky",
-    "test": "node --run test:types && node --run test:unit",
+    "test": "node --run test:types && node --run test:unit && node --run test:e2e",
+    "test:e2e": "npm run test:e2e -w apps/blog",
     "test:types": "npm run test:types -w apps/blog && tsgo -b",
     "test:unit": "vitest run --coverage",
     "test:a:a": "npm run test -w apps/api",
@@ -99,7 +100,7 @@
     "editorconfig-checker": "^6.1.1",
     "eslint": "^9.39.4",
     "eslint-config-bananass": "^0.7.0",
-    "eslint-markdown": "^0.12.0",
+    "eslint-markdown": "^0.12.1",
     "husky": "^9.1.7",
     "lint-staged": "^17.0.7",
     "markdownlint-cli": "^0.49.0",
