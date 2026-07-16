@@ -10,10 +10,9 @@
   & a {
     color: var(--color-fg-accent);
 
-    &:focus {
+    &:focus-visible {
       outline: 2px solid var(--color-focus-outline);
       outline-offset: -2px;
-      box-shadow: none;
 
       &:not([class]) {
         outline-offset: 0;
@@ -40,10 +39,6 @@
   & img {
     max-width: 100%;
     border-radius: var(--size-border-radius);
-  }
-
-  & figure {
-    margin: 1em var(--size-40);
   }
 
   & hr {
@@ -191,17 +186,16 @@
     margin-bottom: var(--size-16);
   }
 
-  & ul,
-  & ol {
+  & :is(ul, ol) {
     padding-left: 2em;
-  }
 
-  & :is(ul, ol) ol {
-    list-style-type: lower-roman;
-  }
+    & ol {
+      list-style-type: lower-roman;
+    }
 
-  & :is(ul, ol) :is(ul, ol) ol {
-    list-style-type: lower-alpha;
+    & :is(ul, ol) ol {
+      list-style-type: lower-alpha;
+    }
   }
 
   & tt,
@@ -495,12 +489,6 @@
   & .pl-corl {
     color: var(--color-syntax-constant-other-reference-link);
     text-decoration: underline;
-  }
-
-  & summary:focus:not(:focus-visible),
-  & a:focus:not(:focus-visible) {
-    outline: none;
-    box-shadow: none;
   }
 
   & .task-list-item {
