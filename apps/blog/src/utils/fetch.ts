@@ -25,9 +25,6 @@ import { GITHUB_REPO_OWNER } from '@/constants';
  */ // eslint-disable-next-line @typescript-eslint/no-explicit-any -- TODO
 export async function getGithubUsers(): Promise<any> {
   const response = await fetch(`https://api.github.com/users/${GITHUB_REPO_OWNER}`, {
-    headers: {
-      Authorization: `Bearer ${process.env.GH_PAT}`,
-    },
     cache: 'force-cache', // https://nextjs.org/docs/app/guides/upgrading/version-15#fetch-requests
   });
 
