@@ -3,10 +3,6 @@
   line-height: 1.5;
   overflow-wrap: break-word;
 
-  & [hidden] {
-    display: none !important;
-  }
-
   & a {
     color: var(--color-fg-accent);
 
@@ -44,7 +40,6 @@
   & hr {
     height: 0.25em;
     margin: var(--size-24) 0;
-    overflow: hidden;
     background-color: var(--color-border-default);
     border: 0;
   }
@@ -77,6 +72,24 @@
     border: solid 1px var(--color-border-neutral-muted);
     border-radius: var(--size-border-radius);
     box-shadow: inset 0 -1px 0 var(--color-border-neutral-muted);
+  }
+
+  & code,
+  & samp {
+    font-family: var(--font-stack-monospace);
+  }
+
+  & code {
+    padding: 0.2em 0.4em;
+    margin: 0;
+    font-size: 85%;
+    white-space: break-spaces;
+    background-color: var(--color-bg-neutral-muted);
+    border-radius: 6px;
+
+    & br {
+      display: none;
+    }
   }
 
   /* #region h1, h2, h3, h4, h5, h6 */
@@ -120,7 +133,7 @@
       }
     }
 
-    & :is(tt, code) {
+    & code {
       padding: 0 0.2em;
       font-size: inherit;
     }
@@ -197,12 +210,6 @@
     }
   }
 
-  & tt,
-  & code,
-  & samp {
-    font-family: var(--font-stack-monospace);
-  }
-
   & .octicon {
     display: inline-block;
     overflow: visible !important;
@@ -277,27 +284,9 @@
     background-color: var(--color-bg-muted);
   }
 
-  & table img {
-    background-color: transparent;
-  }
-
   & .emoji {
     max-width: none;
     vertical-align: text-top;
-    background-color: transparent;
-  }
-
-  & :is(code, tt) {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    white-space: break-spaces;
-    background-color: var(--color-bg-neutral-muted);
-    border-radius: 6px;
-
-    & br {
-      display: none;
-    }
   }
 
   & del code {
@@ -319,18 +308,14 @@
     background-color: var(--color-bg-muted);
     border-radius: var(--size-border-radius);
 
-    & :is(code, tt) {
-      padding: 0;
-      background-color: transparent;
-    }
-
     & code {
+      padding: 0;
       font-size: 100%;
+      background-color: transparent;
     }
 
     & > code {
       white-space: pre;
-      background: transparent;
     }
   }
 
