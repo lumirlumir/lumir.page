@@ -542,15 +542,10 @@
     text-decoration: underline;
   }
 
-  & [role='tabpanel'][tabindex='0']:focus:not(:focus-visible),
   & summary:focus:not(:focus-visible),
   & a:focus:not(:focus-visible) {
     outline: none;
     box-shadow: none;
-  }
-
-  & [tabindex='0']:focus:not(:focus-visible) {
-    outline: none;
   }
 
   & .task-list-item {
