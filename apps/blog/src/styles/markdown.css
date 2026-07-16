@@ -186,7 +186,7 @@
     border-left: 0.25em solid var(--color-border-default);
   }
 
-  & :is(p, blockquote, ul, ol, dl, table, pre, details) {
+  & :is(p, blockquote, ul, ol, table, pre, details) {
     margin-top: 0;
     margin-bottom: var(--size-16);
   }
@@ -202,10 +202,6 @@
 
   & :is(ul, ol) :is(ul, ol) ol {
     list-style-type: lower-alpha;
-  }
-
-  & dd {
-    margin-left: 0;
   }
 
   & tt,
@@ -266,23 +262,6 @@
     margin-top: 0.25em;
   }
 
-  & dl {
-    padding: 0;
-  }
-
-  & dl dt {
-    padding: 0;
-    margin-top: var(--size-16);
-    font-size: 1em;
-    font-style: italic;
-    font-weight: var(--text-weight-semibold);
-  }
-
-  & dl dd {
-    padding: 0 var(--size-16);
-    margin-bottom: var(--size-16);
-  }
-
   & table th {
     font-weight: var(--text-weight-semibold);
   }
@@ -315,18 +294,17 @@
     background-color: transparent;
   }
 
-  & code,
-  & tt {
+  & :is(code, tt) {
     padding: 0.2em 0.4em;
     margin: 0;
     font-size: 85%;
     white-space: break-spaces;
     background-color: var(--color-bg-neutral-muted);
     border-radius: 6px;
-  }
 
-  & :is(code, tt) br {
-    display: none;
+    & br {
+      display: none;
+    }
   }
 
   & del code {
