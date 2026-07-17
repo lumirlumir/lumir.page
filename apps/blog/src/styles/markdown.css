@@ -177,7 +177,7 @@
     border-left: 0.25em solid var(--color-border-default);
   }
 
-  & :is(p, blockquote, ul, ol, table, pre, details) {
+  & :is(blockquote, details, p, pre, table, ul, ol) {
     margin-top: 0;
     margin-bottom: var(--size-16);
   }
@@ -189,8 +189,13 @@
       list-style-type: lower-roman;
     }
 
-    & :is(ul, ol) ol {
-      list-style-type: lower-alpha;
+    & :is(ul, ol) {
+      margin-top: 0;
+      margin-bottom: 0;
+
+      & ol {
+        list-style-type: lower-alpha;
+      }
     }
   }
 
@@ -231,11 +236,6 @@
 
   & div > ol:not([type]) {
     list-style-type: decimal;
-  }
-
-  & :is(ul, ol) :is(ul, ol) {
-    margin-top: 0;
-    margin-bottom: 0;
   }
 
   & li > p {
@@ -311,30 +311,30 @@
     font-size: 12px;
     color: var(--color-fg-muted);
     border-top: 1px solid var(--color-border-default);
-  }
 
-  & .footnotes ol ul {
-    display: inline-block;
-    padding-left: var(--size-16);
-    margin-top: var(--size-16);
-  }
+    & li {
+      position: relative;
 
-  & .footnotes li {
-    position: relative;
-  }
+      &:target {
+        color: var(--color-fg-default);
+      }
+    }
 
-  & .footnotes li:target::before {
-    position: absolute;
-    inset: calc(var(--size-8) * -1) calc(var(--size-8) * -1) calc(var(--size-8) * -1)
-      calc(var(--size-24) * -1);
-    pointer-events: none;
-    content: '';
-    border: 2px solid var(--color-border-accent-emphasis);
-    border-radius: var(--size-border-radius);
-  }
+    & li:target::before {
+      position: absolute;
+      inset: calc(var(--size-8) * -1) calc(var(--size-8) * -1) calc(var(--size-8) * -1)
+        calc(var(--size-24) * -1);
+      pointer-events: none;
+      content: '';
+      border: 2px solid var(--color-border-accent-emphasis);
+      border-radius: var(--size-border-radius);
+    }
 
-  & .footnotes li:target {
-    color: var(--color-fg-default);
+    & ol ul {
+      display: inline-block;
+      padding-left: var(--size-16);
+      margin-top: var(--size-16);
+    }
   }
 
   & .pl-c {
