@@ -17,6 +17,15 @@
     &:hover {
       text-decoration: underline;
     }
+
+    &:not([href]) {
+      color: inherit;
+      text-decoration: none;
+    }
+  }
+
+  & :is(b, strong) {
+    font-weight: var(--text-weight-semibold);
   }
 
   & img {
