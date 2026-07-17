@@ -1,7 +1,4 @@
 :root {
-  /* color */
-  --color-main: hwb(270deg 60% 10%);
-
   /* size */
   --size-2: 0.125rem;
   --size-4: 0.25rem;
@@ -31,7 +28,6 @@
   --size-letter-spacing-small: -0.5px;
 
   /* text-weight */
-  --text-weight-normal: 400;
   --text-weight-medium: 500;
   --text-weight-semibold: 600;
 
