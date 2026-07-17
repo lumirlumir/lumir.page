@@ -64,7 +64,6 @@
 
   & code {
     padding: 0.2em 0.4em;
-    margin: 0;
     font-family: var(--font-stack-monospace);
     font-size: 85%;
     white-space: break-spaces;
@@ -83,7 +82,6 @@
 
     & .icon-link {
       visibility: hidden;
-      vertical-align: baseline;
       color: var(--color-fg-default);
     }
 
@@ -147,21 +145,6 @@
     color: var(--color-fg-muted);
   }
 
-  & summary {
-    & :is(h1, h2) {
-      padding-bottom: 0;
-      border-bottom: 0;
-    }
-
-    & :is(h1, h2, h3, h4, h5, h6) {
-      display: inline-block;
-
-      & > a[aria-hidden='true'][href^='#'] {
-        margin-left: -40px;
-      }
-    }
-  }
-
   & blockquote {
     padding: 0 1em;
     margin: 0;
@@ -216,10 +199,6 @@
 
   & blockquote > :last-child {
     margin-bottom: 0;
-  }
-
-  & ol[type='1'] {
-    list-style-type: decimal;
   }
 
   & .footnotes ol {
@@ -458,7 +437,6 @@
   & .markdown-alert {
     padding: var(--size-8) var(--size-16);
     margin-bottom: var(--size-16);
-    color: inherit;
     border-left: 0.25em solid var(--color-border-default);
 
     & > :first-child {
