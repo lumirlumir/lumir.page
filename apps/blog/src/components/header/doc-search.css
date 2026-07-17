@@ -3,7 +3,7 @@
 .DocSearch {
   --docsearch-text-color: var(--color-fg-default);
   --docsearch-muted-color: var(--color-fg-muted);
-  --docsearch-highlight-color: var(--color-main);
+  --docsearch-highlight-color: hwb(270deg 60% 10%);
 
   /* modal */
   --docsearch-modal-width: 75vw;

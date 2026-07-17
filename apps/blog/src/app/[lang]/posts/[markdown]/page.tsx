@@ -80,14 +80,14 @@ export default async function Page({ params }: PageProps<'/[lang]/posts/[markdow
   return (
     <>
       <div
-        className="markdown-body"
+        className="markdown"
         // eslint-disable-next-line react/no-danger -- Safe because the content comes from the local file and is controlled.
         dangerouslySetInnerHTML={{
           __html: await markdownToHtml(content, { title: `${title} {#${slug}}` }),
         }}
       />
       {references.length > 0 && ( // TODO: Make a dedicated component for this after we decide on the design.
-        <div className="markdown-body">
+        <div className="markdown">
           <br />
           <h2>Reference</h2>
           <ul>
