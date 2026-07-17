@@ -24,13 +24,6 @@
     font-weight: var(--text-weight-semibold);
   }
 
-  & mark {
-    padding: 0 var(--size-4); /* default: nothing */
-    color: var(--color-fg-default);
-    background-color: var(--color-main); /* default: var(--color-bg-attention-muted); */
-    border-radius: var(--size-border-radius); /* default: nothing */
-  }
-
   & img {
     max-width: 100%;
     border-radius: var(--size-border-radius);
