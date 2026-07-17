@@ -20,10 +20,6 @@
     }
   }
 
-  & :is(b, strong) {
-    font-weight: var(--text-weight-semibold);
-  }
-
   & img {
     max-width: 100%;
     border-radius: var(--size-border-radius);
@@ -74,10 +70,6 @@
     white-space: break-spaces;
     background-color: var(--color-bg-neutral-muted);
     border-radius: 6px;
-
-    & br {
-      display: none;
-    }
   }
 
   & :is(h1, h2, h3, h4, h5, h6) {
