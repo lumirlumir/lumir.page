@@ -66,14 +66,10 @@
     box-shadow: inset 0 -1px 0 var(--color-border-neutral-muted);
   }
 
-  & code,
-  & samp {
-    font-family: var(--font-stack-monospace);
-  }
-
   & code {
     padding: 0.2em 0.4em;
     margin: 0;
+    font-family: var(--font-stack-monospace);
     font-size: 85%;
     white-space: break-spaces;
     background-color: var(--color-bg-neutral-muted);
@@ -279,10 +275,6 @@
 
   & del code {
     text-decoration: inherit;
-  }
-
-  & samp {
-    font-size: 85%;
   }
 
   & pre {
