@@ -329,7 +329,7 @@ export function useSpeechRecognition({
     speechRecognition.onresult = event => {
       const text = event.results[event.results.length - 1][0].transcript;
 
-      setTranscript(prev => `${prev} ${text}`);
+      setTranscript(prev => prev + text);
     };
     speechRecognition.onerror = err => {
       // eslint-disable-next-line no-console -- Needed for user awareness.
