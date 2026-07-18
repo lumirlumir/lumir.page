@@ -69,6 +69,9 @@ describe('use-speech-recognition', () => {
   });
 
   it('`transcript` should not prepend a space to the first recognition result', async () => {
+    const helloResult = { 0: { transcript: 'Hello' }, isFinal: true };
+    const worldResult = { 0: { transcript: ' world' }, isFinal: true };
+
     const { act, result } = await renderHook(() => useSpeechRecognition());
 
     const { transcript: firstTranscript } = result.current;
@@ -77,7 +80,8 @@ describe('use-speech-recognition', () => {
 
     await act(async () => {
       speechRecognition.onresult({
-        results: [[{ transcript: 'Hello' }]],
+        resultIndex: 0,
+        results: [helloResult],
       });
     });
 
@@ -87,13 +91,64 @@ describe('use-speech-recognition', () => {
 
     await act(async () => {
       speechRecognition.onresult({
-        results: [[{ transcript: ' world' }]],
+        resultIndex: 1,
+        results: [helloResult, worldResult],
       });
     });
 
     const { transcript: thirdTranscript } = result.current;
 
     assert.strictEqual(thirdTranscript, 'Hello world');
+  });
+
+  it('`transcript` should append only the final version of an interim result', async () => {
+    const { act, result } = await renderHook(() => useSpeechRecognition());
+
+    await act(async () => {
+      speechRecognition.onresult({
+        resultIndex: 0,
+        results: [{ 0: { transcript: '안' }, isFinal: false }],
+      });
+      speechRecognition.onresult({
+        resultIndex: 0,
+        results: [{ 0: { transcript: '안녕' }, isFinal: false }],
+      });
+    });
+
+    const { transcript: firstTranscript } = result.current;
+
+    assert.strictEqual(firstTranscript, '');
+
+    await act(async () => {
+      speechRecognition.onresult({
+        resultIndex: 0,
+        results: [{ 0: { transcript: '안녕하세요' }, isFinal: true }],
+      });
+    });
+
+    const { transcript: secondTranscript } = result.current;
+
+    assert.strictEqual(secondTranscript, '안녕하세요');
+  });
+
+  it('`transcript` should not duplicate a final result when an interim result is removed', async () => {
+    const finalResult = { 0: { transcript: 'Hello' }, isFinal: true };
+    const interimResult = { 0: { transcript: ' world' }, isFinal: false };
+
+    const { act, result } = await renderHook(() => useSpeechRecognition());
+
+    await act(async () => {
+      speechRecognition.onresult({ resultIndex: 0, results: [finalResult] });
+      speechRecognition.onresult({
+        resultIndex: 1,
+        results: [finalResult, interimResult],
+      });
+      speechRecognition.onresult({ resultIndex: 1, results: [finalResult] });
+    });
+
+    const { transcript } = result.current;
+
+    assert.strictEqual(transcript, 'Hello');
   });
 
   it('`start` should be called only once while the start event is pending', async () => {

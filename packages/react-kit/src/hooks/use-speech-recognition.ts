@@ -334,9 +334,19 @@ export function useSpeechRecognition({
       setListening(false);
     };
     speechRecognition.onresult = event => {
-      const text = event.results[event.results.length - 1][0].transcript;
+      let finalTranscript = '';
 
-      setTranscript(prev => prev + text);
+      for (let i = event.resultIndex; i < event.results.length; i += 1) {
+        const speechRecognitionResult = event.results[i];
+
+        if (speechRecognitionResult.isFinal) {
+          finalTranscript += speechRecognitionResult[0].transcript;
+        }
+      }
+
+      if (finalTranscript) {
+        setTranscript(prev => prev + finalTranscript);
+      }
     };
     speechRecognition.onerror = err => {
       // eslint-disable-next-line no-console -- Needed for user awareness.
