@@ -21,7 +21,7 @@ export default function useInterviewContent<T extends HTMLElement>() {
     transcript,
     resetTranscript,
     toggleListening: toggle,
-  } = useSpeechRecognition({ continuous: true });
+  } = useSpeechRecognition({ continuous: true, lang: 'ko-KR' });
 
   useEffect(() => {
     if (listening && contentRef.current)
