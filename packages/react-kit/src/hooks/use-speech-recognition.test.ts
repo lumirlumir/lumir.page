@@ -6,7 +6,7 @@
 // Import
 // --------------------------------------------------------------------------------
 
-import { afterEach, assert, describe, it, vi } from 'vitest';
+import { afterEach, assert, beforeEach, describe, it, vi } from 'vitest';
 import { renderHook } from 'vitest-browser-react';
 import { useSpeechRecognition } from './use-speech-recognition.js';
 
@@ -15,21 +15,60 @@ import { useSpeechRecognition } from './use-speech-recognition.js';
 // --------------------------------------------------------------------------------
 
 describe('use-speech-recognition', () => {
-  afterEach(() => {
-    vi.unstubAllGlobals();
-  });
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any -- Needed for mocking.
+  let speechRecognition: any;
 
-  it('`transcript` should not prepend a space to the first recognition result', async () => {
-    // Mock
-    const speechRecognition = { onresult: vi.fn(), stop: vi.fn() };
+  beforeEach(() => {
+    speechRecognition = {
+      start: vi.fn(),
+      stop: vi.fn(),
+      onresult: vi.fn(),
+      onstart: vi.fn(),
+    };
 
     function createSpeechRecognition() {
       return speechRecognition;
     }
 
-    vi.stubGlobal('SpeechRecognition', vi.fn(createSpeechRecognition));
+    vi.stubGlobal('SpeechRecognition', createSpeechRecognition);
+  });
 
-    // Test
+  afterEach(() => {
+    vi.unstubAllGlobals();
+  });
+
+  it('`listening` should reset when an option changes during recognition', async () => {
+    const { act, rerender, result } = await renderHook(
+      (props?: { continuous: boolean }) => useSpeechRecognition(props),
+      { initialProps: { continuous: true } },
+    );
+
+    const { listening: firstListening } = result.current;
+
+    assert.strictEqual(firstListening, false);
+
+    await act(async () => {
+      speechRecognition.onstart();
+    });
+
+    const { listening: secondListening } = result.current;
+
+    assert.strictEqual(secondListening, true);
+
+    await rerender({ continuous: false });
+
+    const { listening: thirdListening } = result.current;
+
+    assert.strictEqual(thirdListening, false);
+
+    await act(async () => {
+      result.current.toggleListening();
+    });
+
+    assert.strictEqual(speechRecognition.start.mock.calls.length, 1);
+  });
+
+  it('`transcript` should not prepend a space to the first recognition result', async () => {
     const { act, result } = await renderHook(() => useSpeechRecognition());
 
     const { transcript: firstTranscript } = result.current;

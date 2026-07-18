@@ -347,6 +347,7 @@ export function useSpeechRecognition({
       speechRecognition.onerror = null;
       speechRecognitionRef.current?.stop();
       speechRecognitionRef.current = null;
+      setListening(false);
     };
   }, [continuous, interimResults, lang, maxAlternatives]);
 
