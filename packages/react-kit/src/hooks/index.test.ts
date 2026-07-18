@@ -13,6 +13,7 @@ import {
   useIsomorphicLayoutEffect,
   usePrevious,
   useScroll,
+  useSpeechRecognition,
   useToggle,
   useTypewriter,
 } from './index.js';
@@ -46,6 +47,11 @@ describe('index', () => {
     it('`useScroll` should be defined', () => {
       assert.isDefined(useScroll);
       assert.strictEqual(typeof useScroll, 'function');
+    });
+
+    it('`useSpeechRecognition` should be defined', () => {
+      assert.isDefined(useSpeechRecognition);
+      assert.strictEqual(typeof useSpeechRecognition, 'function');
     });
 
     it('`useToggle` should be defined', () => {

@@ -7,7 +7,7 @@
 // --------------------------------------------------------------------------------
 
 import { useEffect, useRef } from 'react';
-import useSpeechRecognition from '@/hooks/use-speech-recognition';
+import { useSpeechRecognition } from '@lumir/react-kit/hooks';
 
 // --------------------------------------------------------------------------------
 // Export

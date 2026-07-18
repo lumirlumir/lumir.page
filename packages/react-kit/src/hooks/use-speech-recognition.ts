@@ -287,7 +287,7 @@ export type UseSpeechRecognitionOptions = Partial<
 // Export
 // --------------------------------------------------------------------------------
 
-export default function useSpeechRecognition({
+export function useSpeechRecognition({
   continuous,
   interimResults,
   lang,
