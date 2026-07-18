@@ -8,7 +8,7 @@
 // Import
 // --------------------------------------------------------------------------------
 
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 // --------------------------------------------------------------------------------
 // Typedef
@@ -87,6 +87,13 @@ interface SpeechRecognitionEventMap {
 }
 
 /**
+ * Represents an event handler assigned to a `SpeechRecognition` event handler property.
+ * @typeParam K The event name used to select its event object type from `SpeechRecognitionEventMap`.
+ */
+type SpeechRecognitionEventHandler<K extends keyof SpeechRecognitionEventMap> =
+  ((this: SpeechRecognition, event: SpeechRecognitionEventMap[K]) => void) | null;
+
+/**
  * The `SpeechRecognition` interface of the Web Speech API
  * is the controller interface for the recognition service.
  * @see https://developer.mozilla.org/en-US/docs/Web/API/SpeechRecognition
@@ -101,8 +108,6 @@ interface SpeechRecognition extends EventTarget {
    * @default false
    */
   continuous: boolean;
-
-  // TODO: 여기부터
 
   /**
    * Controls whether interim results should be returned (`true`) or not (`false`).
@@ -152,67 +157,67 @@ interface SpeechRecognition extends EventTarget {
    * Handles the `audioend` event.
    * @see https://developer.mozilla.org/en-US/docs/Web/API/SpeechRecognition/audioend_event
    */
-  onaudioend: ((this: SpeechRecognition, event: Event) => void) | null;
+  onaudioend: SpeechRecognitionEventHandler<'audioend'>;
 
   /**
    * Handles the `audiostart` event.
    * @see https://developer.mozilla.org/en-US/docs/Web/API/SpeechRecognition/audiostart_event
    */
-  onaudiostart: ((this: SpeechRecognition, event: Event) => void) | null;
+  onaudiostart: SpeechRecognitionEventHandler<'audiostart'>;
 
   /**
    * Handles the `end` event.
    * @see https://developer.mozilla.org/en-US/docs/Web/API/SpeechRecognition/end_event
    */
-  onend: ((this: SpeechRecognition, event: Event) => void) | null;
+  onend: SpeechRecognitionEventHandler<'end'>;
 
   /**
    * Handles the `error` event.
    * @see https://developer.mozilla.org/en-US/docs/Web/API/SpeechRecognition/error_event
    */
-  onerror: ((this: SpeechRecognition, event: SpeechRecognitionErrorEvent) => void) | null;
+  onerror: SpeechRecognitionEventHandler<'error'>;
 
   /**
    * Handles the `nomatch` event.
    * @see https://developer.mozilla.org/en-US/docs/Web/API/SpeechRecognition/nomatch_event
    */
-  onnomatch: ((this: SpeechRecognition, event: SpeechRecognitionEvent) => void) | null;
+  onnomatch: SpeechRecognitionEventHandler<'nomatch'>;
 
   /**
    * Handles the `result` event.
    * @see https://developer.mozilla.org/en-US/docs/Web/API/SpeechRecognition/result_event
    */
-  onresult: ((this: SpeechRecognition, event: SpeechRecognitionEvent) => void) | null;
+  onresult: SpeechRecognitionEventHandler<'result'>;
 
   /**
    * Handles the `soundend` event.
    * @see https://developer.mozilla.org/en-US/docs/Web/API/SpeechRecognition/soundend_event
    */
-  onsoundend: ((this: SpeechRecognition, event: Event) => void) | null;
+  onsoundend: SpeechRecognitionEventHandler<'soundend'>;
 
   /**
    * Handles the `soundstart` event.
    * @see https://developer.mozilla.org/en-US/docs/Web/API/SpeechRecognition/soundstart_event
    */
-  onsoundstart: ((this: SpeechRecognition, event: Event) => void) | null;
+  onsoundstart: SpeechRecognitionEventHandler<'soundstart'>;
 
   /**
    * Handles the `speechend` event.
    * @see https://developer.mozilla.org/en-US/docs/Web/API/SpeechRecognition/speechend_event
    */
-  onspeechend: ((this: SpeechRecognition, event: Event) => void) | null;
+  onspeechend: SpeechRecognitionEventHandler<'speechend'>;
 
   /**
    * Handles the `speechstart` event.
    * @see https://developer.mozilla.org/en-US/docs/Web/API/SpeechRecognition/speechstart_event
    */
-  onspeechstart: ((this: SpeechRecognition, event: Event) => void) | null;
+  onspeechstart: SpeechRecognitionEventHandler<'speechstart'>;
 
   /**
    * Handles the `start` event.
    * @see https://developer.mozilla.org/en-US/docs/Web/API/SpeechRecognition/start_event
    */
-  onstart: ((this: SpeechRecognition, event: Event) => void) | null;
+  onstart: SpeechRecognitionEventHandler<'start'>;
 
   /**
    * Registers a listener for a typed `SpeechRecognition` event.
@@ -271,14 +276,26 @@ declare global {
   }
 }
 
+/**
+ * Options for the `useSpeechRecognition` hook.
+ */
+export type UseSpeechRecognitionOptions = Partial<
+  Pick<SpeechRecognition, 'continuous' | 'interimResults' | 'lang' | 'maxAlternatives'>
+>;
+
 // --------------------------------------------------------------------------------
 // Export
 // --------------------------------------------------------------------------------
 
-export default function useSpeechRecognition() {
-  const [isListening, setIsListening] = useState<boolean>(false);
+export default function useSpeechRecognition({
+  continuous,
+  interimResults,
+  lang,
+  maxAlternatives,
+}: UseSpeechRecognitionOptions = {}) {
+  const [listening, setListening] = useState<boolean>(false);
   const [transcript, setTranscript] = useState<string>('');
-  const recognitionRef = useRef<SpeechRecognition | null>(null);
+  const speechRecognitionRef = useRef<SpeechRecognition | null>(null);
 
   useEffect(() => {
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -288,59 +305,70 @@ export default function useSpeechRecognition() {
       console.warn(
         'Web Speech API (`SpeechRecognition` or `webkitSpeechRecognition`) is not supported in this browser.',
       );
+
       return undefined;
     }
 
-    const recognition = new SpeechRecognition();
-    recognition.lang = 'ko-KR';
-    recognition.continuous = true;
-    recognition.interimResults = false;
-    recognition.maxAlternatives = 1;
+    const speechRecognition = new SpeechRecognition();
 
-    recognition.onstart = () => setIsListening(true);
-    recognition.onend = () => setIsListening(false);
-    recognition.onresult = event => {
+    if (continuous !== undefined) {
+      speechRecognition.continuous = continuous;
+    }
+    if (interimResults !== undefined) {
+      speechRecognition.interimResults = interimResults;
+    }
+    if (lang !== undefined) {
+      speechRecognition.lang = lang;
+    }
+    if (maxAlternatives !== undefined) {
+      speechRecognition.maxAlternatives = maxAlternatives;
+    }
+
+    speechRecognition.onstart = () => setListening(true);
+    speechRecognition.onend = () => setListening(false);
+    speechRecognition.onresult = event => {
       const text = event.results[event.results.length - 1][0].transcript;
 
       setTranscript(prev => `${prev} ${text}`);
     };
-    recognition.onerror = err => {
+    speechRecognition.onerror = err => {
       // eslint-disable-next-line no-console -- Needed for user awareness.
-      console.warn('Speech recognition error:', err);
-      setIsListening(false);
+      console.error('Speech recognition error:', err);
+
+      setListening(false);
     };
 
-    recognitionRef.current = recognition;
+    speechRecognitionRef.current = speechRecognition;
 
     return () => {
-      recognition.onstart = null;
-      recognition.onend = null;
-      recognition.onresult = null;
-      recognition.onerror = null;
-      recognitionRef.current?.stop();
-      recognitionRef.current = null;
+      speechRecognition.onstart = null;
+      speechRecognition.onend = null;
+      speechRecognition.onresult = null;
+      speechRecognition.onerror = null;
+      speechRecognitionRef.current?.stop();
+      speechRecognitionRef.current = null;
     };
+  }, [continuous, interimResults, lang, maxAlternatives]);
+
+  const resetTranscript = useCallback(() => {
+    setTranscript('');
   }, []);
 
-  const resetTranscript = () => {
-    setTranscript('');
-  };
-
-  const toggleListening = () => {
-    if (!recognitionRef.current) {
+  const toggleListening = useCallback(() => {
+    if (!speechRecognitionRef.current) {
       return;
     }
 
-    if (isListening) {
-      recognitionRef.current?.stop();
+    if (listening) {
+      speechRecognitionRef.current?.stop();
     } else {
-      recognitionRef.current?.start();
+      speechRecognitionRef.current?.start();
     }
-  };
+  }, [listening]);
 
   return {
+    listening,
     transcript,
-    listening: isListening,
     resetTranscript,
     toggleListening,
   };

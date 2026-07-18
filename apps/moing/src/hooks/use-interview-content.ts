@@ -17,11 +17,11 @@ export default function useInterviewContent<T extends HTMLElement>() {
   const contentRef = useRef<T | null>(null);
   const prevContent = useRef<string>('');
   const {
-    transcript,
     listening,
+    transcript,
     resetTranscript,
     toggleListening: toggle,
-  } = useSpeechRecognition();
+  } = useSpeechRecognition({ continuous: true });
 
   useEffect(() => {
     if (listening && contentRef.current)
