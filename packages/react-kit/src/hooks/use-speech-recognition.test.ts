@@ -95,4 +95,18 @@ describe('use-speech-recognition', () => {
 
     assert.strictEqual(thirdTranscript, 'Hello world');
   });
+
+  it('`start` should be called only once while the start event is pending', async () => {
+    const { act, result } = await renderHook(() => useSpeechRecognition());
+
+    const { toggleListening } = result.current;
+
+    await act(async () => {
+      toggleListening();
+      toggleListening();
+      toggleListening();
+    });
+
+    assert.strictEqual(speechRecognition.start.mock.calls.length, 1);
+  });
 });

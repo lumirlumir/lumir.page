@@ -296,6 +296,7 @@ export function useSpeechRecognition({
   const [listening, setListening] = useState<boolean>(false);
   const [transcript, setTranscript] = useState<string>('');
   const speechRecognitionRef = useRef<SpeechRecognition | null>(null);
+  const isStartPendingRef = useRef<boolean>(false);
 
   useEffect(() => {
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -324,8 +325,14 @@ export function useSpeechRecognition({
       speechRecognition.maxAlternatives = maxAlternatives;
     }
 
-    speechRecognition.onstart = () => setListening(true);
-    speechRecognition.onend = () => setListening(false);
+    speechRecognition.onstart = () => {
+      isStartPendingRef.current = false;
+      setListening(true);
+    };
+    speechRecognition.onend = () => {
+      isStartPendingRef.current = false;
+      setListening(false);
+    };
     speechRecognition.onresult = event => {
       const text = event.results[event.results.length - 1][0].transcript;
 
@@ -335,6 +342,7 @@ export function useSpeechRecognition({
       // eslint-disable-next-line no-console -- Needed for user awareness.
       console.error('Speech recognition error:', err);
 
+      isStartPendingRef.current = false;
       setListening(false);
     };
 
@@ -347,6 +355,7 @@ export function useSpeechRecognition({
       speechRecognition.onerror = null;
       speechRecognitionRef.current?.stop();
       speechRecognitionRef.current = null;
+      isStartPendingRef.current = false;
       setListening(false);
     };
   }, [continuous, interimResults, lang, maxAlternatives]);
@@ -356,7 +365,7 @@ export function useSpeechRecognition({
   }, []);
 
   const toggleListening = useCallback(() => {
-    if (!speechRecognitionRef.current) {
+    if (!speechRecognitionRef.current || isStartPendingRef.current) {
       return;
     }
 
@@ -364,6 +373,7 @@ export function useSpeechRecognition({
       speechRecognitionRef.current?.stop();
     } else {
       speechRecognitionRef.current?.start();
+      isStartPendingRef.current = true;
     }
   }, [listening]);
 
