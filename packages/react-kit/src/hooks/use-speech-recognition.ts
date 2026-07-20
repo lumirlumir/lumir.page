@@ -4,6 +4,20 @@
  * @see https://github.com/mdn/dom-examples/blob/main/web-speech-api/speech-color-changer/script.js
  */
 
+/*
+ * The internal state machine prevents overlapping start and stop requests while
+ * the recognition service is transitioning between lifecycle events:
+ *
+ * ```text
+ * idle
+ *   └─ toggle → start() → transitioning
+ *                             └─ start event → listening
+ *                                                 ├─ toggle → stop() → transitioning
+ *                                                 └─ error → transitioning
+ *                                                                      └─ end event → idle
+ * ```
+ */
+
 // --------------------------------------------------------------------------------
 // Import
 // --------------------------------------------------------------------------------
@@ -336,7 +350,9 @@ export function useSpeechRecognition({
   const [listening, setListening] = useState<boolean>(false);
   const [transcript, setTranscript] = useState<string>('');
   const speechRecognitionRef = useRef<SpeechRecognition | null>(null);
-  const isStartPendingRef = useRef<boolean>(false);
+  const speechRecognitionStateRef = useRef<'idle' | 'listening' | 'transitioning'>(
+    'idle',
+  );
 
   useEffect(() => {
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -366,11 +382,11 @@ export function useSpeechRecognition({
     }
 
     speechRecognition.onstart = () => {
-      isStartPendingRef.current = false;
+      speechRecognitionStateRef.current = 'listening';
       setListening(true);
     };
     speechRecognition.onend = () => {
-      isStartPendingRef.current = false;
+      speechRecognitionStateRef.current = 'idle';
       setListening(false);
     };
     speechRecognition.onresult = event => {
@@ -392,7 +408,7 @@ export function useSpeechRecognition({
       // eslint-disable-next-line no-console -- Needed for user awareness.
       console.error('Speech recognition error:', err);
 
-      isStartPendingRef.current = false;
+      speechRecognitionStateRef.current = 'transitioning';
       setListening(false);
     };
 
@@ -405,7 +421,7 @@ export function useSpeechRecognition({
       speechRecognition.onerror = null;
       speechRecognitionRef.current?.stop();
       speechRecognitionRef.current = null;
-      isStartPendingRef.current = false;
+      speechRecognitionStateRef.current = 'idle';
       setListening(false);
     };
   }, [continuous, interimResults, lang, maxAlternatives]);
@@ -415,16 +431,20 @@ export function useSpeechRecognition({
   }, []);
 
   const toggleListening = useCallback(() => {
-    if (!speechRecognitionRef.current || isStartPendingRef.current) {
+    if (
+      !speechRecognitionRef.current ||
+      speechRecognitionStateRef.current === 'transitioning'
+    ) {
       return;
     }
 
     if (listening) {
-      speechRecognitionRef.current?.stop();
+      speechRecognitionRef.current.stop();
     } else {
-      speechRecognitionRef.current?.start();
-      isStartPendingRef.current = true;
+      speechRecognitionRef.current.start();
     }
+
+    speechRecognitionStateRef.current = 'transitioning';
   }, [listening]);
 
   return {

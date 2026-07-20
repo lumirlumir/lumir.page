@@ -164,4 +164,30 @@ describe('use-speech-recognition', () => {
 
     assert.strictEqual(speechRecognition.start.mock.calls.length, 1);
   });
+
+  it('`start` should not be called between the `error` and `end` events', async () => {
+    const errorMock = vi.spyOn(console, 'error').mockImplementation(() => undefined);
+
+    const { act, result } = await renderHook(() => useSpeechRecognition());
+
+    const { toggleListening } = result.current;
+
+    await act(async () => {
+      toggleListening();
+      speechRecognition.onstart();
+      speechRecognition.onerror({ error: 'network' });
+      toggleListening();
+    });
+
+    assert.strictEqual(speechRecognition.start.mock.calls.length, 1);
+
+    await act(async () => {
+      speechRecognition.onend();
+      toggleListening();
+    });
+
+    assert.strictEqual(speechRecognition.start.mock.calls.length, 2);
+
+    errorMock.mockRestore();
+  });
 });
