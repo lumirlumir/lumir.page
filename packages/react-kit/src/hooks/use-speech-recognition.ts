@@ -294,7 +294,7 @@ declare global {
  * Options for the `useSpeechRecognition` hook.
  */
 export type UseSpeechRecognitionOptions = Partial<
-  Pick<SpeechRecognition, 'continuous' | 'interimResults' | 'lang' | 'maxAlternatives'>
+  Pick<SpeechRecognition, 'continuous' | 'lang'>
 >;
 
 // --------------------------------------------------------------------------------
@@ -329,8 +329,8 @@ function getServerSpeechRecognitionSupportSnapshot() {
  * called. Changing an option stops the current recognition and creates a new
  * `SpeechRecognition` instance with the updated options.
  *
- * @param options Recognition settings (`continuous`, `interimResults`, `lang`, and
- * `maxAlternatives`) applied to the underlying `SpeechRecognition` instance.
+ * @param options Recognition settings (`continuous` and `lang`) applied to the
+ * underlying `SpeechRecognition` instance.
  * @returns An object containing `isSupported`, `listening`, `transcript`, `error`,
  * `resetTranscript()`, and `toggleListening()`.
  *
@@ -342,9 +342,7 @@ function getServerSpeechRecognitionSupportSnapshot() {
  *   const { listening, transcript, resetTranscript, toggleListening } =
  *     useSpeechRecognition({
  *       continuous: true,
- *       interimResults: true,
  *       lang: 'en-US',
- *       maxAlternatives: 1,
  *     });
  *
  *   return (
@@ -363,9 +361,7 @@ function getServerSpeechRecognitionSupportSnapshot() {
  */
 export function useSpeechRecognition({
   continuous,
-  interimResults,
   lang,
-  maxAlternatives,
 }: UseSpeechRecognitionOptions = {}) {
   const isSupported = useSyncExternalStore(
     subscribeToSpeechRecognitionSupport,
@@ -392,14 +388,8 @@ export function useSpeechRecognition({
     if (continuous !== undefined) {
       speechRecognition.continuous = continuous;
     }
-    if (interimResults !== undefined) {
-      speechRecognition.interimResults = interimResults;
-    }
     if (lang !== undefined) {
       speechRecognition.lang = lang;
-    }
-    if (maxAlternatives !== undefined) {
-      speechRecognition.maxAlternatives = maxAlternatives;
     }
 
     speechRecognition.onstart = () => {
@@ -443,7 +433,7 @@ export function useSpeechRecognition({
       speechRecognitionStateRef.current = 'idle';
       setListening(false);
     };
-  }, [continuous, interimResults, lang, maxAlternatives]);
+  }, [continuous, lang]);
 
   const resetTranscript = useCallback(() => {
     setTranscript('');
