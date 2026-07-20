@@ -166,8 +166,6 @@ describe('use-speech-recognition', () => {
   });
 
   it('`start` should not be called between the `error` and `end` events', async () => {
-    const errorMock = vi.spyOn(console, 'error').mockImplementation(() => undefined);
-
     const { act, result } = await renderHook(() => useSpeechRecognition());
 
     const { toggleListening } = result.current;
@@ -187,7 +185,44 @@ describe('use-speech-recognition', () => {
     });
 
     assert.strictEqual(speechRecognition.start.mock.calls.length, 2);
+  });
 
-    errorMock.mockRestore();
+  it('`isSupported` should be false when speech recognition is unavailable', async () => {
+    vi.stubGlobal('SpeechRecognition', undefined);
+    vi.stubGlobal('webkitSpeechRecognition', undefined);
+
+    const { result } = await renderHook(() => useSpeechRecognition());
+
+    const { isSupported } = result.current;
+
+    assert.strictEqual(isSupported, false);
+  });
+
+  it('`error` should expose the latest speech recognition error', async () => {
+    const recognitionError = { error: 'network' };
+
+    const { act, result } = await renderHook(() => useSpeechRecognition());
+
+    const { isSupported, error: firstError } = result.current;
+
+    assert.strictEqual(isSupported, true);
+    assert.strictEqual(firstError, null);
+
+    await act(async () => {
+      speechRecognition.onerror(recognitionError);
+    });
+
+    const { error: secondError } = result.current;
+
+    assert.strictEqual(secondError, recognitionError);
+
+    await act(async () => {
+      speechRecognition.onend();
+      result.current.toggleListening();
+    });
+
+    const { error: thirdError } = result.current;
+
+    assert.strictEqual(thirdError, null);
   });
 });

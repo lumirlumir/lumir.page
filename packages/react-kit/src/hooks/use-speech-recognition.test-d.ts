@@ -20,3 +20,7 @@ import {
 ({}) as typeof useSpeechRecognition satisfies Function;
 ({}) as Parameters<typeof useSpeechRecognition>[0] satisfies
   UseSpeechRecognitionOptions | undefined;
+({}) as ReturnType<typeof useSpeechRecognition>['isSupported'] satisfies boolean;
+({}) as ReturnType<
+  typeof useSpeechRecognition
+>['error'] satisfies SpeechRecognitionErrorEvent | null;

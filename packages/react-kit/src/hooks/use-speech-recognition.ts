@@ -22,7 +22,7 @@
 // Import
 // --------------------------------------------------------------------------------
 
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState, useSyncExternalStore } from 'react';
 
 // --------------------------------------------------------------------------------
 // Typedef
@@ -298,6 +298,26 @@ export type UseSpeechRecognitionOptions = Partial<
 >;
 
 // --------------------------------------------------------------------------------
+// Helper
+// --------------------------------------------------------------------------------
+
+function getSpeechRecognition() {
+  return window.SpeechRecognition ?? window.webkitSpeechRecognition;
+}
+
+function subscribeToSpeechRecognitionSupport() {
+  return () => undefined;
+}
+
+function getSpeechRecognitionSupportSnapshot() {
+  return Boolean(getSpeechRecognition());
+}
+
+function getServerSpeechRecognitionSupportSnapshot() {
+  return false;
+}
+
+// --------------------------------------------------------------------------------
 // Export
 // --------------------------------------------------------------------------------
 
@@ -311,8 +331,8 @@ export type UseSpeechRecognitionOptions = Partial<
  *
  * @param options Recognition settings (`continuous`, `interimResults`, `lang`, and
  * `maxAlternatives`) applied to the underlying `SpeechRecognition` instance.
- * @returns An object containing `listening`, `transcript`, `resetTranscript()`, and
- * `toggleListening()`.
+ * @returns An object containing `isSupported`, `listening`, `transcript`, `error`,
+ * `resetTranscript()`, and `toggleListening()`.
  *
  * @example
  * ```tsx
@@ -347,22 +367,23 @@ export function useSpeechRecognition({
   lang,
   maxAlternatives,
 }: UseSpeechRecognitionOptions = {}) {
+  const isSupported = useSyncExternalStore(
+    subscribeToSpeechRecognitionSupport,
+    getSpeechRecognitionSupportSnapshot,
+    getServerSpeechRecognitionSupportSnapshot,
+  );
   const [listening, setListening] = useState<boolean>(false);
   const [transcript, setTranscript] = useState<string>('');
+  const [error, setError] = useState<SpeechRecognitionErrorEvent | null>(null);
   const speechRecognitionRef = useRef<SpeechRecognition | null>(null);
   const speechRecognitionStateRef = useRef<'idle' | 'listening' | 'transitioning'>(
     'idle',
   );
 
   useEffect(() => {
-    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    const SpeechRecognition = getSpeechRecognition();
 
     if (!SpeechRecognition) {
-      // eslint-disable-next-line no-console -- Needed for user awareness.
-      console.warn(
-        'Web Speech API (`SpeechRecognition` or `webkitSpeechRecognition`) is not supported in this browser.',
-      );
-
       return undefined;
     }
 
@@ -405,11 +426,9 @@ export function useSpeechRecognition({
       }
     };
     speechRecognition.onerror = err => {
-      // eslint-disable-next-line no-console -- Needed for user awareness.
-      console.error('Speech recognition error:', err);
-
       speechRecognitionStateRef.current = 'transitioning';
       setListening(false);
+      setError(err);
     };
 
     speechRecognitionRef.current = speechRecognition;
@@ -441,6 +460,7 @@ export function useSpeechRecognition({
     if (listening) {
       speechRecognitionRef.current.stop();
     } else {
+      setError(null);
       speechRecognitionRef.current.start();
     }
 
@@ -448,8 +468,10 @@ export function useSpeechRecognition({
   }, [listening]);
 
   return {
+    isSupported,
     listening,
     transcript,
+    error,
     resetTranscript,
     toggleListening,
   };
