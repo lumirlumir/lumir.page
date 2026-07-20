@@ -287,6 +287,46 @@ export type UseSpeechRecognitionOptions = Partial<
 // Export
 // --------------------------------------------------------------------------------
 
+/**
+ * React hook for controlling speech recognition with the Web Speech API.
+ *
+ * Only final recognition results are appended to `transcript`. The accumulated
+ * transcript persists across recognition sessions until `resetTranscript()` is
+ * called. Changing an option stops the current recognition and creates a new
+ * `SpeechRecognition` instance with the updated options.
+ *
+ * @param options Recognition settings (`continuous`, `interimResults`, `lang`, and
+ * `maxAlternatives`) applied to the underlying `SpeechRecognition` instance.
+ * @returns An object containing `listening`, `transcript`, `resetTranscript()`, and
+ * `toggleListening()`.
+ *
+ * @example
+ * ```tsx
+ * import { useSpeechRecognition } from '@lumir/react-kit/hooks';
+ *
+ * function Component() {
+ *   const { listening, transcript, resetTranscript, toggleListening } =
+ *     useSpeechRecognition({
+ *       continuous: true,
+ *       interimResults: true,
+ *       lang: 'en-US',
+ *       maxAlternatives: 1,
+ *     });
+ *
+ *   return (
+ *     <div>
+ *       <button type="button" onClick={toggleListening}>
+ *         {listening ? 'Stop listening' : 'Start listening'}
+ *       </button>
+ *       <button type="button" onClick={resetTranscript}>
+ *         Reset transcript
+ *       </button>
+ *       <p>{transcript}</p>
+ *     </div>
+ *   );
+ * }
+ * ```
+ */
 export function useSpeechRecognition({
   continuous,
   interimResults,
