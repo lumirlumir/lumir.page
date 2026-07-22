@@ -36,6 +36,7 @@ frontmatter('');
 frontmatter('---\ntitle: Title\n---\nHello, world!');
 frontmatter('').content satisfies string;
 frontmatter('').data satisfies unknown;
+frontmatter<{ title: string }>('').data satisfies { title: string } | null;
 
 // @ts-expect-error - `frontmatter` requires input.
 frontmatter();
@@ -43,6 +44,10 @@ frontmatter();
 frontmatter(123);
 // @ts-expect-error - `data` is unknown and should be narrowed before use.
 frontmatter('').data satisfies string;
+// @ts-expect-error - Typed `data` can be null when front matter is not found.
+frontmatter<{ title: string }>('').data satisfies { title: string };
+// @ts-expect-error - Typed `data` should match the specified data type.
+frontmatter<{ title: string }>('').data satisfies { author: string } | null;
 
 // #endregion frontmatter
 // --------------------------------------------------------------------------------
@@ -69,6 +74,7 @@ frontmatter('').data satisfies string;
 frontmatterData('');
 frontmatterData('---\ntitle: Title\n---\nHello, world!');
 frontmatterData('').data satisfies unknown;
+frontmatterData<{ title: string }>('').data satisfies { title: string } | null;
 
 // @ts-expect-error - `frontmatterData` requires input.
 frontmatterData();
@@ -78,6 +84,10 @@ frontmatterData(123);
 frontmatterData('').content satisfies string;
 // @ts-expect-error - `data` is unknown and should be narrowed before use.
 frontmatterData('').data satisfies string;
+// @ts-expect-error - Typed `data` can be null when front matter is not found.
+frontmatterData<{ title: string }>('').data satisfies { title: string };
+// @ts-expect-error - Typed `data` should match the specified data type.
+frontmatterData<{ title: string }>('').data satisfies { author: string } | null;
 
 // #endregion frontmatterData
 // --------------------------------------------------------------------------------
