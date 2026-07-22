@@ -416,7 +416,9 @@ export function useSpeechRecognition({
       }
     };
     speechRecognition.onerror = err => {
-      speechRecognitionStateRef.current = 'transitioning';
+      if (speechRecognitionStateRef.current !== 'idle') {
+        speechRecognitionStateRef.current = 'transitioning';
+      }
       setListening(false);
       setError(err);
     };

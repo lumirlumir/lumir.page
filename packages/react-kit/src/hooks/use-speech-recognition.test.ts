@@ -249,6 +249,22 @@ describe('use-speech-recognition', () => {
     assert.strictEqual(speechRecognition.start.mock.calls.length, 2);
   });
 
+  it('`start` should be called after the `end` event even if an `error` event follows', async () => {
+    const { act, result } = await renderHook(() => useSpeechRecognition());
+
+    const { toggleListening } = result.current;
+
+    await act(async () => {
+      toggleListening();
+      speechRecognition.onstart();
+      speechRecognition.onend();
+      speechRecognition.onerror({ error: 'network' });
+      toggleListening();
+    });
+
+    assert.strictEqual(speechRecognition.start.mock.calls.length, 2);
+  });
+
   it('`isSupported` should be false when speech recognition is unavailable', async () => {
     vi.stubGlobal('SpeechRecognition', undefined);
     vi.stubGlobal('webkitSpeechRecognition', undefined);
