@@ -15,7 +15,6 @@ import NeonDiv from '@/components/neon-div';
 import { useConfigContext } from '@/contexts/config-context';
 import { useScenarioContext } from '@/contexts/scenario-context';
 import useInterview from '@/hooks/use-interview';
-import useHistoryState from '@/hooks/use-history-state';
 
 import styles from './server.module.css';
 

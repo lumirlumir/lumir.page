@@ -93,7 +93,7 @@ export function useToggle<const T>(
 ): readonly [state: T, toggle: () => void];
 
 // --------------------------------------------------------------------------------
-// Export: Implementation
+// Export
 // --------------------------------------------------------------------------------
 
 export function useToggle<const T>(

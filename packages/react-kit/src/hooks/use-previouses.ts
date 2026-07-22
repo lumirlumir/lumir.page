@@ -6,7 +6,7 @@
 // Import
 // --------------------------------------------------------------------------------
 
-import { useEffect, useEffectEvent, useLayoutEffect, useRef } from 'react';
+import { useEffect, useEffectEvent, useRef } from 'react';
 
 // --------------------------------------------------------------------------------
 // Typedef
@@ -23,14 +23,6 @@ export interface UsePreviousesOptions<T> {
    * @default true
    */
   distinct?: boolean;
-
-  /**
-   * The type of effect to use for tracking previous values.
-   * - `'effect'` (default): Use `useEffect` to track previous values.
-   * - `'layoutEffect'`: Use `useLayoutEffect` to track previous values.
-   * @default 'effect'
-   */
-  effectType?: 'effect' | 'layoutEffect';
 
   /**
    * An optional comparison function to determine if the state has changed.
@@ -65,11 +57,7 @@ export interface UsePreviousesOptions<T> {
  */
 export function usePreviouses<T>(
   value: T,
-  {
-    distinct = true,
-    effectType = 'effect',
-    compareFn: compareFnProp = Object.is,
-  }: UsePreviousesOptions<T> = {},
+  { distinct = true, compareFn: compareFnProp = Object.is }: UsePreviousesOptions<T> = {},
 ): T[] {
   // Without `'use no memo'`, React Compiler throws when `panicThreshold` is not `'none'`
   // because this hook intentionally reads `ref.current` during render.
@@ -77,13 +65,10 @@ export function usePreviouses<T>(
 
   const previousesRef = useRef<T[]>([]);
   const currentValueRef = useRef<T>(value);
-
-  const useSelectedEffect = effectType === 'effect' ? useEffect : useLayoutEffect;
   const compareFn = useEffectEvent(compareFnProp);
 
-  useSelectedEffect(() => {
+  useEffect(() => {
     if (distinct) {
-      // eslint-disable-next-line react-hooks/rules-of-hooks -- `useSelectedEffect` equals either `useEffect` or `useLayoutEffect`.
       if (compareFn(currentValueRef.current, value)) return;
 
       previousesRef.current = [...previousesRef.current, currentValueRef.current];
@@ -93,6 +78,7 @@ export function usePreviouses<T>(
     }
   }, [value, distinct]);
 
+  /* eslint-disable react-hooks/refs -- `usePrevious` intentionally reads the value captured before this render's effect. */
   if (distinct) {
     return compareFnProp(currentValueRef.current, value)
       ? previousesRef.current
@@ -100,4 +86,5 @@ export function usePreviouses<T>(
   } else {
     return previousesRef.current;
   }
+  /* eslint-enable react-hooks/refs */
 }
