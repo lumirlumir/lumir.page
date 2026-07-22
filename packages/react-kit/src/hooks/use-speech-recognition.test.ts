@@ -2,8 +2,6 @@
  * @fileoverview Test for `use-speech-recognition.ts`
  */
 
-// TODO: add more tests
-
 // --------------------------------------------------------------------------------
 // Import
 // --------------------------------------------------------------------------------
@@ -38,6 +36,80 @@ describe('use-speech-recognition', () => {
 
   afterEach(() => {
     vi.unstubAllGlobals();
+  });
+
+  it('default return value should contain the idle speech recognition state', async () => {
+    const { result } = await renderHook(() => useSpeechRecognition());
+
+    const {
+      isSupported,
+      listening,
+      transcript,
+      error,
+      resetTranscript,
+      toggleListening,
+    } = result.current;
+
+    assert.strictEqual(isSupported, true);
+    assert.strictEqual(listening, false);
+    assert.strictEqual(transcript, '');
+    assert.strictEqual(error, null);
+    assert.strictEqual(typeof resetTranscript, 'function');
+    assert.strictEqual(typeof toggleListening, 'function');
+  });
+
+  it('options should be applied to the speech recognition instance', async () => {
+    await renderHook(() => useSpeechRecognition({ continuous: true, lang: 'ko-KR' }));
+
+    assert.strictEqual(speechRecognition.continuous, true);
+    assert.strictEqual(speechRecognition.lang, 'ko-KR');
+  });
+
+  it('`listening` should reflect the `start` and `end` events', async () => {
+    const { act, result } = await renderHook(() => useSpeechRecognition());
+
+    const { listening: firstListening } = result.current;
+
+    assert.strictEqual(firstListening, false);
+
+    await act(async () => {
+      speechRecognition.onstart();
+    });
+
+    const { listening: secondListening } = result.current;
+
+    assert.strictEqual(secondListening, true);
+
+    await act(async () => {
+      speechRecognition.onend();
+    });
+
+    const { listening: thirdListening } = result.current;
+
+    assert.strictEqual(thirdListening, false);
+  });
+
+  it('`resetTranscript` should clear the accumulated transcript', async () => {
+    const { act, result } = await renderHook(() => useSpeechRecognition());
+
+    await act(async () => {
+      speechRecognition.onresult({
+        resultIndex: 0,
+        results: [{ 0: { transcript: 'Hello' }, isFinal: true }],
+      });
+    });
+
+    const { transcript: firstTranscript } = result.current;
+
+    assert.strictEqual(firstTranscript, 'Hello');
+
+    await act(async () => {
+      result.current.resetTranscript();
+    });
+
+    const { transcript: secondTranscript } = result.current;
+
+    assert.strictEqual(secondTranscript, '');
   });
 
   it('`listening` should reset when an option changes during recognition', async () => {
