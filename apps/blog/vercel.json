@@ -1,8 +1,15 @@
 {
   "buildCommand": "node --run count-docs && node --run build",
-  "framework": "nextjs",
-  "ignoreCommand": "node ../../scripts/vercel-ignore-command.ts",
+  "cleanUrls": true,
+  "framework": null,
   "installCommand": "npm install --no-audit --no-fund --prefer-offline --prefix ../..",
-  "outputDirectory": ".next",
-  "regions": ["icn1"]
+  "outputDirectory": "build",
+  "regions": ["icn1"],
+  "redirects": [
+    {
+      "source": "/",
+      "destination": "/ko",
+      "permanent": false
+    }
+  ]
 }

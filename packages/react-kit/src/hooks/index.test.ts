@@ -9,9 +9,12 @@
 import { assert, describe, it } from 'vitest';
 import {
   useBooleanState,
+  useCountdown,
+  useIsomorphicLayoutEffect,
   usePrevious,
   usePreviouses,
   useScroll,
+  useSpeechRecognition,
   useToggle,
   useTypewriter,
 } from './index.js';
@@ -27,6 +30,16 @@ describe('index', () => {
       assert.strictEqual(typeof useBooleanState, 'function');
     });
 
+    it('`useCountdown` should be defined', () => {
+      assert.isDefined(useCountdown);
+      assert.strictEqual(typeof useCountdown, 'function');
+    });
+
+    it('`useIsomorphicLayoutEffect` should be defined', () => {
+      assert.isDefined(useIsomorphicLayoutEffect);
+      assert.strictEqual(typeof useIsomorphicLayoutEffect, 'function');
+    });
+
     it('`usePrevious` should be defined', () => {
       assert.isDefined(usePrevious);
       assert.strictEqual(typeof usePrevious, 'function');
@@ -40,6 +53,11 @@ describe('index', () => {
     it('`useScroll` should be defined', () => {
       assert.isDefined(useScroll);
       assert.strictEqual(typeof useScroll, 'function');
+    });
+
+    it('`useSpeechRecognition` should be defined', () => {
+      assert.isDefined(useSpeechRecognition);
+      assert.strictEqual(typeof useSpeechRecognition, 'function');
     });
 
     it('`useToggle` should be defined', () => {

@@ -1,7 +1,6 @@
 .neon-div {
-  border-radius: 12px;
   border: 2px solid var(--neon-color);
-  filter: brightness(120%);
+  border-radius: 12px;
 
   /**
    * 1st line: glass tube inside
@@ -10,8 +9,9 @@
    * 4th line: glow outside
    */
   box-shadow:
-    0 0 0 2px rgba(0, 0, 0, 0.2) inset,
-    0 0 0 2px rgba(0, 0, 0, 0.2),
+    0 0 0 2px rgb(0 0 0 / 20%) inset,
+    0 0 0 2px rgb(0 0 0 / 20%),
     0 0 calc(16px * var(--neon-size)) var(--neon-color) inset,
     0 0 calc(16px * var(--neon-size)) var(--neon-color);
+  filter: brightness(120%);
 }

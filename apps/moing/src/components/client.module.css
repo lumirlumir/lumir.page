@@ -13,16 +13,17 @@
     &:not(:empty)::before {
       content: '$ Interviewee\000A\000A>\00a0';
     }
+
     &:empty::before {
       content: attr(data-placeholder);
       opacity: 0.5;
     }
 
     &::after {
-      content: '';
       display: block;
-      cursor: text;
       height: var(--main-section-padding);
+      cursor: text;
+      content: '';
     }
   }
 }

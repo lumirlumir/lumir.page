@@ -1,8 +1,8 @@
 .nav {
   position: sticky;
-  top: var(--size-header-height);
+  top: calc(var(--size-scroll-progress-height) + var(--size-header-height));
   box-sizing: border-box;
-  height: calc(100vh - var(--size-header-height));
+  height: calc(100vh - var(--size-scroll-progress-height) - var(--size-header-height));
   padding: var(--size-article-padding-large) var(--size-article-padding-small);
   background-color: var(--color-bg-inset);
   border-left: var(--border-default);

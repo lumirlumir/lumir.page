@@ -6,7 +6,7 @@
 // Import
 // --------------------------------------------------------------------------------
 
-import { useEffect, useEffectEvent, useRef, useState } from 'react';
+import { useEffect, useEffectEvent, useState } from 'react';
 
 // --------------------------------------------------------------------------------
 // Typedef
@@ -21,11 +21,6 @@ type Mode = 'write' | 'erase';
  * Options for the `useTypewriter` hook.
  */
 export interface UseTypewriterOptions {
-  /**
-   * Text to type out.
-   */
-  text: string;
-
   /**
    * The mode of the typewriter effect.
    * - If set to `'write'`, the hook will write the text.
@@ -102,14 +97,17 @@ export interface UseTypewriterOptions {
 /**
  * Simple Typewriter Effect hook.
  *
+ * @param text Text to type out.
+ * @param options Options for the typewriter effect.
+ * @returns A readonly tuple containing the current text.
+ *
  * @example
  * ```tsx
  * import { useTypewriter, type UseTypewriterOptions } from '@lumir/react-kit/hooks';
  *
  * function Component() {
- *   const [currentText] = useTypewriter({
+ *   const [currentText] = useTypewriter('Hello, World!', {
  *     // Default Options
- *     text: 'Hello, World!',
  *     mode: 'write',
  *     writeSpeed: 50,
  *     eraseSpeed: 50,
@@ -127,20 +125,22 @@ export interface UseTypewriterOptions {
  * }
  * ```
  */
-export function useTypewriter({
-  text,
-  mode = 'write',
-  writeSpeed = 50,
-  eraseSpeed = 50,
-  writePreDelay = 0,
-  erasePreDelay = 0,
-  writePostDelay = 1_500,
-  erasePostDelay = 1_500,
-  loop = false,
-  pause = false,
-  onWriteComplete: onWriteCompleteProp = undefined,
-  onEraseComplete: onEraseCompleteProp = undefined,
-}: UseTypewriterOptions): readonly [currentText: string] {
+export function useTypewriter(
+  text: string,
+  {
+    mode = 'write',
+    writeSpeed = 50,
+    eraseSpeed = 50,
+    writePreDelay = 0,
+    erasePreDelay = 0,
+    writePostDelay = 1_500,
+    erasePostDelay = 1_500,
+    loop = false,
+    pause = false,
+    onWriteComplete: onWriteCompleteProp = undefined,
+    onEraseComplete: onEraseCompleteProp = undefined,
+  }: UseTypewriterOptions = {},
+): readonly [currentText: string] {
   const [currentText, setCurrentText] = useState<string>(mode === 'write' ? '' : text);
   const [currentMode, setCurrentMode] = useState<Mode>(mode);
 
@@ -151,12 +151,12 @@ export function useTypewriter({
     onEraseCompleteProp?.();
   });
 
-  const rafRef = useRef<number | null>(null);
-
   useEffect(() => {
     if (pause) {
       return undefined;
     }
+
+    let rafId: number | null = null;
 
     /** Minimal helper to emulate `setTimeout` with rAF(requestAnimationFrame) */
     const setTimeoutRaf = (callback: () => void, delay: number) => {
@@ -164,15 +164,15 @@ export function useTypewriter({
 
       const step = (timestamp: number) => {
         if (timestamp - base >= delay) {
-          rafRef.current = null;
+          rafId = null;
           callback();
           return;
         }
 
-        rafRef.current = requestAnimationFrame(step);
+        rafId = requestAnimationFrame(step);
       };
 
-      rafRef.current = requestAnimationFrame(step);
+      rafId = requestAnimationFrame(step);
     };
 
     if (currentMode === 'write') {
@@ -212,9 +212,8 @@ export function useTypewriter({
     }
 
     return () => {
-      if (rafRef.current !== null) {
-        cancelAnimationFrame(rafRef.current);
-        rafRef.current = null;
+      if (rafId !== null) {
+        cancelAnimationFrame(rafId);
       }
     };
   }, [

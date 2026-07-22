@@ -132,6 +132,14 @@ describe('markdown-to-html', () => {
         html,
       );
     });
+
+    it('should use custom Markdown heading IDs when adding self-link anchors', async () => {
+      const markdown = '# Awesome Title {#1-custom-title}';
+      const html =
+        '<h1 id="1-custom-title"><a aria-hidden="true" tabindex="-1" href="#1-custom-title"><span class="icon-link"></span></a>Awesome Title</h1>';
+
+      assert.strictEqual(await markdownToHtml(markdown), html);
+    });
   });
 
   describe('HTML', () => {
@@ -141,6 +149,14 @@ describe('markdown-to-html', () => {
 
       assert.strictEqual(await markdownToHtml(markdown), html);
       assert.strictEqual(await markdownToHtmlLite(markdown), html);
+    });
+
+    it('should remove HTML comments', async () => {
+      const markdown =
+        '<!-- before --><section>Hello<!-- hidden --> World</section><!-- after -->';
+      const html = '<section>Hello World</section>';
+
+      assert.strictEqual(await markdownToHtml(markdown), html);
     });
 
     it('should convert GitHub Alert syntax to GitHub Alert HTML', async () => {

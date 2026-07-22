@@ -1,0 +1,9 @@
+.lang-toggle {
+  > a {
+    width: var(--size-32);
+    height: var(--size-32);
+    font-size: var(--size-16);
+    font-weight: var(--text-weight-semibold);
+    text-decoration: none;
+  }
+}

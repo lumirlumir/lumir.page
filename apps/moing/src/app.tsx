@@ -7,7 +7,7 @@
 // --------------------------------------------------------------------------------
 
 import { useEffect } from 'react';
-import { useScroll } from '@lumir/react-kit/hooks';
+import { useCountdown, useScroll } from '@lumir/react-kit/hooks';
 import {
   CiMicrophoneOn,
   GoGear,
@@ -26,7 +26,6 @@ import Title from '@/components/title';
 import { useConfigContext } from '@/contexts/config-context';
 import { useScenarioContext } from '@/contexts/scenario-context';
 import useInterview from '@/hooks/use-interview';
-import useTimer from '@/hooks/use-timer';
 
 import './app.css';
 
@@ -38,7 +37,10 @@ export default function App() {
   const { config, updateConfig } = useConfigContext();
   const { section } = useScenarioContext();
   const interview = useInterview<HTMLDivElement>();
-  const timer = useTimer(interview.submit);
+  const initialCount = config.time * 60 * 1_000;
+  const [currentCount, setCurrentCount] = useCountdown(initialCount, {
+    onComplete: interview.submit,
+  });
   const [scrollRef, scroll] = useScroll<HTMLDivElement>({ behavior: 'smooth' });
 
   useEffect(() => {
@@ -78,16 +80,21 @@ export default function App() {
         icon={<IoIosCheckmarkCircleOutline size="39px" />}
         onClick={() => {
           interview.submit();
-          timer.stopTimer();
+          setCurrentCount(0);
         }}
       />
 
-      <Timer timer={timer} />
+      <Timer currentCount={currentCount} />
 
       <main className={cn('custom-flex-center', 'custom-scrollbar')}>
         <div ref={scrollRef}>
           <Title />
-          <Server interview={interview} timer={timer} />
+          <Server
+            interview={interview}
+            onTestWriteComplete={() => {
+              setCurrentCount(initialCount);
+            }}
+          />
           <Client interview={interview} />
           <Config />
           <MainButton interview={interview} />

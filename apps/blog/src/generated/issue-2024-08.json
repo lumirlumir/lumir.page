@@ -1,0 +1,15 @@
+[
+  {
+    "repositoryUrl": "https://api.github.com/repos/pronist/hello",
+    "htmlUrl": "https://github.com/pronist/hello/issues/248",
+    "id": 2442433923,
+    "nodeId": "I_kwDODpVhYs6RlJWD",
+    "number": 248,
+    "title": "[Suggestion] '인기 글' 및 '최근 글'에서의 border-radius",
+    "createdAt": "2024-08-01T13:15:45Z",
+    "closedAt": "2024-08-02T05:25:36Z",
+    "reactions": {
+      "+1": 0
+    }
+  }
+]

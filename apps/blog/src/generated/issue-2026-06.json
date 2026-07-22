@@ -1,0 +1,15 @@
+[
+  {
+    "repositoryUrl": "https://api.github.com/repos/typescript-eslint/typescript-eslint",
+    "htmlUrl": "https://github.com/typescript-eslint/typescript-eslint/issues/12451",
+    "id": 4746332579,
+    "nodeId": "I_kwDOCd3hms8AAAABGudJow",
+    "number": 12451,
+    "title": "Enhancement: Support `RegExp` type generation in `rule-schema-to-typescript-types`",
+    "createdAt": "2026-06-25T18:14:53Z",
+    "closedAt": "2026-06-25T21:24:14Z",
+    "reactions": {
+      "+1": 0
+    }
+  }
+]

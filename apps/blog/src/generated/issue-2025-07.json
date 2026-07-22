@@ -1,0 +1,54 @@
+[
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/csstree",
+    "htmlUrl": "https://github.com/eslint/csstree/issues/63",
+    "id": 3259713221,
+    "nodeId": "I_kwDON89Njs7CS0bF",
+    "number": 63,
+    "title": "Sync with upstream `csstree` repository?",
+    "createdAt": "2025-07-24T12:22:33Z",
+    "closedAt": null,
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/markdown",
+    "htmlUrl": "https://github.com/eslint/markdown/issues/483",
+    "id": 3247972785,
+    "nodeId": "I_kwDOAkm7Hs7BmCGx",
+    "number": 483,
+    "title": "Change Request: Using `cheerio` library instead of manual regex for handling HTML",
+    "createdAt": "2025-07-21T10:01:35Z",
+    "closedAt": null,
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/workflows",
+    "htmlUrl": "https://github.com/eslint/workflows/issues/4",
+    "id": 3239825121,
+    "nodeId": "I_kwDOO9Nass7BG87h",
+    "number": 4,
+    "title": "Which GitHub Actions should be included",
+    "createdAt": "2025-07-17T14:33:16Z",
+    "closedAt": null,
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/rewrite",
+    "htmlUrl": "https://github.com/eslint/rewrite/issues/236",
+    "id": 3198752706,
+    "nodeId": "I_kwDOLyyFi86-qRfC",
+    "number": 236,
+    "title": "Bug: CI failure caused by JSR",
+    "createdAt": "2025-07-03T09:43:20Z",
+    "closedAt": "2025-07-03T21:13:23Z",
+    "reactions": {
+      "+1": 0
+    }
+  }
+]

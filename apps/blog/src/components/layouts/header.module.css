@@ -1,6 +1,6 @@
 .header {
   position: sticky;
-  top: 0;
+  top: var(--size-scroll-progress-height);
   z-index: 1;
   display: flex;
   justify-content: space-between;

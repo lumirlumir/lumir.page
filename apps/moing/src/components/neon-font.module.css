@@ -1,5 +1,5 @@
 .neon-font {
-  animation: NeonAnimation 1.5s ease-in-out infinite alternate;
+  animation: neon-animation 1.5s ease-in-out infinite alternate;
 
   & svg {
     filter: drop-shadow(0 0 calc(2px * var(--neon-size)) var(--neon-color-start))
@@ -7,7 +7,7 @@
   }
 }
 
-@keyframes NeonAnimation {
+@keyframes neon-animation {
   from {
     text-shadow:
       0 0 calc(10px * var(--neon-size)) var(--neon-color-start),
@@ -19,6 +19,7 @@
       0 0 calc(90px * var(--neon-size)) var(--neon-color-end),
       0 0 calc(150px * var(--neon-size)) var(--neon-color-end);
   }
+
   to {
     text-shadow:
       0 0 calc(5px * var(--neon-size)) var(--neon-color-start),

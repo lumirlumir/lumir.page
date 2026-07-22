@@ -1,0 +1,67 @@
+[
+  {
+    "repositoryUrl": "https://api.github.com/repos/airbnb/javascript",
+    "htmlUrl": "https://github.com/airbnb/javascript/issues/3063",
+    "id": 2700911337,
+    "nodeId": "I_kwDOAGMovM6g_KLp",
+    "number": 3063,
+    "title": "[Suggestion] Update comments in `rules` section of  `eslint-config-airbnb-base`",
+    "createdAt": "2024-11-28T06:01:03Z",
+    "closedAt": "2025-01-19T12:41:52Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint.org",
+    "htmlUrl": "https://github.com/eslint/eslint.org/issues/662",
+    "id": 2691320135,
+    "nodeId": "I_kwDOGSAlOM6gaklH",
+    "number": 662,
+    "title": "Suggestion: Add `border-radius` property to `hX:target` selectors",
+    "createdAt": "2024-11-25T16:15:19Z",
+    "closedAt": "2025-01-03T08:08:43Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/algolia/docsearch",
+    "htmlUrl": "https://github.com/algolia/docsearch/issues/2367",
+    "id": 2683519590,
+    "nodeId": "I_kwDOAsbtLs6f80Jm",
+    "number": 2367,
+    "title": "Bug: Text not being entered correctly in the search bar on Android (Samsung) IME",
+    "createdAt": "2024-11-22T15:14:23Z",
+    "closedAt": "2025-07-05T08:36:36Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/algolia/docsearch",
+    "htmlUrl": "https://github.com/algolia/docsearch/issues/2364",
+    "id": 2668424284,
+    "nodeId": "I_kwDOAsbtLs6fDOxc",
+    "number": 2364,
+    "title": "Please adding a support for Next.js's soft navigation using `<Link>` component",
+    "createdAt": "2024-11-18T12:43:33Z",
+    "closedAt": "2025-07-05T08:36:45Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/toss/es-hangul",
+    "htmlUrl": "https://github.com/toss/es-hangul/issues/278",
+    "id": 2646749325,
+    "nodeId": "I_kwDOLnPZMM6dwjCN",
+    "number": 278,
+    "title": "[Docs]: `removeLastCharacter` 문서 누락",
+    "createdAt": "2024-11-10T03:00:49Z",
+    "closedAt": "2024-11-25T14:33:44Z",
+    "reactions": {
+      "+1": 1
+    }
+  }
+]

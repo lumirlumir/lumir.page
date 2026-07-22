@@ -15,7 +15,7 @@ import NeonDiv from '@/components/neon-div';
 import { useConfigContext } from '@/contexts/config-context';
 import { useScenarioContext } from '@/contexts/scenario-context';
 import useInterview from '@/hooks/use-interview';
-import useTimer from '@/hooks/use-timer';
+import useHistoryState from '@/hooks/use-history-state';
 
 import styles from './server.module.css';
 
@@ -23,9 +23,9 @@ import styles from './server.module.css';
 // Typedef
 // --------------------------------------------------------------------------------
 
-interface Props {
+interface ServerProps {
   interview: ReturnType<typeof useInterview>;
-  timer: ReturnType<typeof useTimer>;
+  onTestWriteComplete: () => void;
 }
 
 // --------------------------------------------------------------------------------
@@ -53,12 +53,11 @@ function formatContent(content: string) {
 // Export
 // --------------------------------------------------------------------------------
 
-export default function Server({ interview, timer }: Props) {
+export default function Server({ interview, onTestWriteComplete }: ServerProps) {
   const { config } = useConfigContext();
   const { section, toNextSection } = useScenarioContext();
   const { content, mode, status } = section.server;
   const { question, getInterviewInfo, isInterviewDone, getInterviewHistory } = interview;
-  const { resetTimer } = timer;
   const [scrollRef, scroll] = useScroll<HTMLDivElement>({ behavior: 'smooth' });
   const text = useMemo(() => {
     if (mode === 'test') {
@@ -104,7 +103,7 @@ export default function Server({ interview, timer }: Props) {
           writePostDelay={1000}
           onWriteComplete={() => {
             if (mode === 'auto' || mode === 'result') toNextSection();
-            if (mode === 'test' && text !== '') resetTimer(config.time);
+            if (mode === 'test' && text !== '') onTestWriteComplete();
             scroll.intoView({ block: 'end', inline: 'nearest' });
           }}
         />

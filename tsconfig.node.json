@@ -7,12 +7,18 @@
     "**/*.config.ts",
     "**/*.config.mts",
     "**/*.config.cts",
-    "scripts/**/*.js",
-    "scripts/**/*.mjs",
-    "scripts/**/*.cjs",
-    "scripts/**/*.ts",
-    "scripts/**/*.mts",
-    "scripts/**/*.cts"
+    "**/plugins/**/*.js",
+    "**/plugins/**/*.mjs",
+    "**/plugins/**/*.cjs",
+    "**/plugins/**/*.ts",
+    "**/plugins/**/*.mts",
+    "**/plugins/**/*.cts",
+    "**/scripts/**/*.js",
+    "**/scripts/**/*.mjs",
+    "**/scripts/**/*.cjs",
+    "**/scripts/**/*.ts",
+    "**/scripts/**/*.mts",
+    "**/scripts/**/*.cts"
   ],
   "compilerOptions": {
     /* Modules */

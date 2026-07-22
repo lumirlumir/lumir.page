@@ -21,17 +21,25 @@
   },
   "typesVersions": {
     "*": {
-      "./components": [
+      "components": [
         "./build/components/index.d.ts"
       ],
-      "./hooks": [
+      "hooks": [
         "./build/hooks/index.d.ts"
       ],
-      "./svgs": [
+      "svgs": [
         "./build/svgs/index.d.ts"
       ]
     }
   },
+  "files": [
+    "build",
+    "LICENSE.md",
+    "README.md",
+    "!src/**/*.test.{js,mjs,cjs,jsx,ts,mts,cts,tsx}",
+    "!src/**/*.test-d.{ts,mts,cts,tsx}",
+    "!**/fixtures/**"
+  ],
   "scripts": {
     "build": "tsgo -b tsconfig.build.json",
     "dev": "tsgo -b tsconfig.build.json --watch",
@@ -52,13 +60,13 @@
     }
   },
   "devDependencies": {
-    "@types/react": "^19.2.15",
+    "@types/react": "^19.2.17",
     "@types/react-dom": "^19.2.3",
-    "@vitest/browser-playwright": "^4.1.6",
-    "playwright": "^1.60.0",
-    "react": "^19.2.6",
-    "react-dom": "^19.2.6",
-    "vitest": "^4.1.6",
+    "@vitest/browser-playwright": "^4.1.9",
+    "playwright": "^1.61.1",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
+    "vitest": "^4.1.9",
     "vitest-browser-react": "^2.2.0"
   }
 }

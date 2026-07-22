@@ -32,10 +32,16 @@ describe('use-typewriter', () => {
     });
   });
 
+  it('Default options should start writing from empty text', async () => {
+    const { result } = await renderHook(() => useTypewriter('Hello'));
+
+    const [currentText] = result.current;
+
+    assert.strictEqual(currentText, '');
+  });
+
   it("`mode`: when `mode` is set to `'write'`, initial return value should contain empty text", async () => {
-    const { result } = await renderHook(() =>
-      useTypewriter({ text: 'Hello', mode: 'write' }),
-    );
+    const { result } = await renderHook(() => useTypewriter('Hello', { mode: 'write' }));
 
     const [currentText] = result.current;
 
@@ -43,9 +49,7 @@ describe('use-typewriter', () => {
   });
 
   it("`mode`: when `mode` is set to `'erase'`, initial return value should contain full text", async () => {
-    const { result } = await renderHook(() =>
-      useTypewriter({ text: 'Hello', mode: 'erase' }),
-    );
+    const { result } = await renderHook(() => useTypewriter('Hello', { mode: 'erase' }));
 
     const [currentText] = result.current;
 
@@ -54,8 +58,7 @@ describe('use-typewriter', () => {
 
   it('`writeSpeed`: should respect `writeSpeed` option', async () => {
     const { act, result } = await renderHook(() =>
-      useTypewriter({
-        text: 'Hello',
+      useTypewriter('Hello', {
         mode: 'write',
         writeSpeed: RAF_FRAME_DURATION_MS,
       }),
@@ -128,8 +131,7 @@ describe('use-typewriter', () => {
 
   it('`eraseSpeed`: should respect `eraseSpeed` option', async () => {
     const { act, result } = await renderHook(() =>
-      useTypewriter({
-        text: 'Hello',
+      useTypewriter('Hello', {
         mode: 'erase',
         eraseSpeed: RAF_FRAME_DURATION_MS,
       }),
@@ -202,8 +204,7 @@ describe('use-typewriter', () => {
 
   it('`writePreDelay`: should respect `writePreDelay` option', async () => {
     const { act, result } = await renderHook(() =>
-      useTypewriter({
-        text: 'Hello',
+      useTypewriter('Hello', {
         mode: 'write',
         writePreDelay: RAF_FRAME_DURATION_MS * 2, // 2 frames delay before writing starts
       }),
@@ -235,8 +236,7 @@ describe('use-typewriter', () => {
 
   it('`erasePreDelay`: should respect `erasePreDelay` option', async () => {
     const { act, result } = await renderHook(() =>
-      useTypewriter({
-        text: 'Hello',
+      useTypewriter('Hello', {
         mode: 'erase',
         erasePreDelay: RAF_FRAME_DURATION_MS * 2, // 2 frames delay before erasing starts
       }),
@@ -268,8 +268,7 @@ describe('use-typewriter', () => {
 
   it('`writePostDelay`: should respect `writePostDelay` option', async () => {
     const { act, result } = await renderHook(() =>
-      useTypewriter({
-        text: 'A',
+      useTypewriter('A', {
         mode: 'write',
         writePreDelay: RAF_FRAME_DURATION_MS,
         erasePreDelay: RAF_FRAME_DURATION_MS,
@@ -320,8 +319,7 @@ describe('use-typewriter', () => {
 
   it('`erasePostDelay`: should respect `erasePostDelay` option', async () => {
     const { act, result } = await renderHook(() =>
-      useTypewriter({
-        text: 'A',
+      useTypewriter('A', {
         mode: 'erase',
         writePreDelay: RAF_FRAME_DURATION_MS,
         erasePreDelay: RAF_FRAME_DURATION_MS,
@@ -372,8 +370,7 @@ describe('use-typewriter', () => {
 
   it('`loop`: should write, erase, and write again when `loop` is enabled', async () => {
     const { act, result } = await renderHook(() =>
-      useTypewriter({
-        text: 'AB',
+      useTypewriter('AB', {
         mode: 'write',
         writeSpeed: RAF_FRAME_DURATION_MS,
         eraseSpeed: RAF_FRAME_DURATION_MS,
@@ -451,8 +448,7 @@ describe('use-typewriter', () => {
   it('`pause`: should pause and resume writing when `pause` changes', async () => {
     const { act, rerender, result } = await renderHook(
       (props?: { pause: boolean }) =>
-        useTypewriter({
-          text: 'AB',
+        useTypewriter('AB', {
           mode: 'write',
           writeSpeed: RAF_FRAME_DURATION_MS,
           writePreDelay: RAF_FRAME_DURATION_MS,
@@ -500,8 +496,7 @@ describe('use-typewriter', () => {
     const onWriteComplete = vi.fn();
 
     const { act, result } = await renderHook(() =>
-      useTypewriter({
-        text: 'AB',
+      useTypewriter('AB', {
         mode: 'write',
         writeSpeed: RAF_FRAME_DURATION_MS,
         writePreDelay: RAF_FRAME_DURATION_MS,
@@ -554,8 +549,7 @@ describe('use-typewriter', () => {
 
     const { act, rerender, result } = await renderHook(
       (props?: { onWriteComplete: () => void }) =>
-        useTypewriter({
-          text: 'A',
+        useTypewriter('A', {
           mode: 'write',
           writeSpeed: RAF_FRAME_DURATION_MS,
           writePreDelay: RAF_FRAME_DURATION_MS,
@@ -610,8 +604,7 @@ describe('use-typewriter', () => {
     const onEraseComplete = vi.fn();
 
     const { act, result } = await renderHook(() =>
-      useTypewriter({
-        text: 'AB',
+      useTypewriter('AB', {
         mode: 'erase',
         eraseSpeed: RAF_FRAME_DURATION_MS,
         erasePreDelay: RAF_FRAME_DURATION_MS,
@@ -664,8 +657,7 @@ describe('use-typewriter', () => {
 
     const { act, rerender, result } = await renderHook(
       (props?: { onEraseComplete: () => void }) =>
-        useTypewriter({
-          text: 'A',
+        useTypewriter('A', {
           mode: 'erase',
           eraseSpeed: RAF_FRAME_DURATION_MS,
           erasePreDelay: RAF_FRAME_DURATION_MS,

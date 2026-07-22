@@ -81,7 +81,7 @@ export type QuestionType = (typeof questionTypes)[number];
  * including the current configuration state and helper functions for updating the config
  * and checking if it's complete.
  */
-export type ConfigContextValue = {
+export interface ConfigContextValue {
   /**
    * Current interview configuration.
    */
@@ -96,7 +96,7 @@ export type ConfigContextValue = {
    * Returns whether the required interview configuration is complete.
    */
   readonly isConfigDone: () => boolean;
-};
+}
 
 // --------------------------------------------------------------------------------
 // Helper

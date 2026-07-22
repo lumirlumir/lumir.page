@@ -1,7 +1,6 @@
 .server {
   height: var(--main-section-height);
 
-  /* Selector */
   &.wide {
     height: 600px;
   }
@@ -11,12 +10,6 @@
   }
 
   & .cursor {
-    animation: blink 1s steps(1, end) infinite;
-  }
-}
-
-@keyframes blink {
-  50% {
-    opacity: 0;
+    animation: global(blink) 1s steps(1, end) infinite;
   }
 }

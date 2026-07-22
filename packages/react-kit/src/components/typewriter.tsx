@@ -29,6 +29,11 @@ export interface TypewriterProps
    * @default 'cursor'
    */
   cursorClassName?: string;
+
+  /**
+   * Text to type out.
+   */
+  text: string;
 }
 
 // --------------------------------------------------------------------------------
@@ -85,8 +90,7 @@ export function Typewriter({
   // `HTMLAttributes<HTMLSpanElement>`
   ...props
 }: TypewriterProps) {
-  const [currentText] = useTypewriter({
-    text,
+  const [currentText] = useTypewriter(text, {
     mode,
     writeSpeed,
     eraseSpeed,

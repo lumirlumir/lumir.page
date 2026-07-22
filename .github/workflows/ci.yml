@@ -23,10 +23,10 @@ jobs:
 
     steps:
       - name: Set up checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: Set up node
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v7
         with:
           node-version-file: .nvmrc
           cache: npm # https://github.com/actions/setup-node#caching-global-packages-data
@@ -45,10 +45,10 @@ jobs:
 
     steps:
       - name: Set up checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: Set up node
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v7
         with:
           node-version-file: .nvmrc
           cache: npm # https://github.com/actions/setup-node#caching-global-packages-data

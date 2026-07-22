@@ -1,0 +1,106 @@
+[
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/markdown",
+    "htmlUrl": "https://github.com/eslint/markdown/issues/330",
+    "id": 2955956088,
+    "nodeId": "I_kwDOAkm7Hs6wME94",
+    "number": 330,
+    "title": "Change Request: Support `applyInlineConfig`",
+    "createdAt": "2025-03-28T12:00:05Z",
+    "closedAt": "2025-04-06T18:45:20Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/markdown",
+    "htmlUrl": "https://github.com/eslint/markdown/issues/325",
+    "id": 2946953230,
+    "nodeId": "I_kwDOAkm7Hs6vpvAO",
+    "number": 325,
+    "title": "Change Request: Support Front Matter",
+    "createdAt": "2025-03-25T15:31:21Z",
+    "closedAt": "2025-04-05T06:14:54Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/reactjs/ko.react.dev",
+    "htmlUrl": "https://github.com/reactjs/ko.react.dev/issues/1154",
+    "id": 2922782681,
+    "nodeId": "I_kwDOChzKxs6uNh_Z",
+    "number": 1154,
+    "title": "-",
+    "createdAt": "2025-03-16T05:10:32Z",
+    "closedAt": "2025-03-16T08:20:59Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint",
+    "htmlUrl": "https://github.com/eslint/eslint/issues/19523",
+    "id": 2921778724,
+    "nodeId": "I_kwDOAKjKDc6uJs4k",
+    "number": 19523,
+    "title": "Change Request: Support `name` field to `meta.docs`",
+    "createdAt": "2025-03-15T05:45:26Z",
+    "closedAt": "2025-04-09T17:46:03Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint",
+    "htmlUrl": "https://github.com/eslint/eslint/issues/19521",
+    "id": 2921736741,
+    "nodeId": "I_kwDOAKjKDc6uJiol",
+    "number": 19521,
+    "title": "Change Request: Support generic types for `Rule.RuleModule` type",
+    "createdAt": "2025-03-15T04:59:57Z",
+    "closedAt": "2025-04-09T16:11:26Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/rewrite",
+    "htmlUrl": "https://github.com/eslint/rewrite/issues/166",
+    "id": 2920757335,
+    "nodeId": "I_kwDOLyyFi86uFzhX",
+    "number": 166,
+    "title": "Change Request: Support `getLocFromIndex()` and `getIndexFromLoc()` methods for `TextSourceCodeBase` class",
+    "createdAt": "2025-03-14T16:46:46Z",
+    "closedAt": "2025-08-20T14:48:07Z",
+    "reactions": {
+      "+1": 1
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint",
+    "htmlUrl": "https://github.com/eslint/eslint/issues/19519",
+    "id": 2920576527,
+    "nodeId": "I_kwDOAKjKDc6uFHYP",
+    "number": 19519,
+    "title": "Change Request: Support nested configuration object types in ESLint plugin configs",
+    "createdAt": "2025-03-14T15:38:21Z",
+    "closedAt": "2025-03-17T15:28:58Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/markdown",
+    "htmlUrl": "https://github.com/eslint/markdown/issues/323",
+    "id": 2917077397,
+    "nodeId": "I_kwDOAkm7Hs6t3xGV",
+    "number": 323,
+    "title": "Bug: ESLint built-in types are not compatible with `mdast` node types",
+    "createdAt": "2025-03-13T13:00:06Z",
+    "closedAt": "2025-03-26T14:36:19Z",
+    "reactions": {
+      "+1": 0
+    }
+  }
+]

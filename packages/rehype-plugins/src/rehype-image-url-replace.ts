@@ -13,8 +13,19 @@ import type { Root } from 'hast';
 // Typedef
 // --------------------------------------------------------------------------------
 
+/**
+ * Options for the `rehypeImageUrlReplace` plugin.
+ */
 export interface RehypeImageUrlReplaceOptions {
+  /**
+   * A regular expression to search for in image URLs.
+   * The `y` flag will be ignored if present.
+   */
   searchValue: RegExp;
+
+  /**
+   * A string to replace the matched portion of the image URL.
+   */
   replaceValue: string;
 }
 
@@ -33,13 +44,19 @@ const yFlagRegex = /y/g;
  * @example
  *
  * ```ts
- * import { rehype } from 'rehype';
+ * import { unified } from 'unified';
+ * import rehypeParse from 'rehype-parse';
+ * import rehypeStringify from 'rehype-stringify';
  * import { rehypeImageUrlReplace } from '@lumir/rehype-plugins';
  *
- * const file = await rehype().use(rehypeImageUrlReplace, {
- *   searchValue: /^http:\/\//,
- *   replaceValue: 'https://',
- * }).process('<img src="http://example.com/image.png">');
+ * const file = await unified()
+ *   .use(rehypeParse, { fragment: true })
+ *   .use(rehypeImageUrlReplace, {
+ *     searchValue: /^http:\/\//,
+ *     replaceValue: 'https://',
+ *   })
+ *   .use(rehypeStringify)
+ *   .process('<img src="http://example.com/image.png">');
  *
  * console.log(file.value); // Output: '<img src="https://example.com/image.png">'
  * ```
