@@ -167,6 +167,46 @@ describe('use-speech-recognition', () => {
     assert.strictEqual(speechRecognition.start.mock.calls.length, 1);
   });
 
+  it('an earlier `toggleListening` callback should stop the current recognition', async () => {
+    const { act, result } = await renderHook(() => useSpeechRecognition());
+
+    const { toggleListening } = result.current;
+
+    await act(async () => {
+      toggleListening();
+      speechRecognition.onstart();
+    });
+
+    await act(async () => {
+      toggleListening();
+    });
+
+    assert.strictEqual(speechRecognition.start.mock.calls.length, 1);
+    assert.strictEqual(speechRecognition.stop.mock.calls.length, 1);
+  });
+
+  it('an earlier `toggleListening` callback should start a new recognition after the current recognition ends', async () => {
+    const { act, result } = await renderHook(() => useSpeechRecognition());
+
+    await act(async () => {
+      result.current.toggleListening();
+      speechRecognition.onstart();
+    });
+
+    const { toggleListening } = result.current;
+
+    await act(async () => {
+      speechRecognition.onend();
+    });
+
+    await act(async () => {
+      toggleListening();
+    });
+
+    assert.strictEqual(speechRecognition.start.mock.calls.length, 2);
+    assert.strictEqual(speechRecognition.stop.mock.calls.length, 0);
+  });
+
   it('`start` should not be called between the `error` and `end` events', async () => {
     const { act, result } = await renderHook(() => useSpeechRecognition());
 

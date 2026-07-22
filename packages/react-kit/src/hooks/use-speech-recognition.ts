@@ -447,7 +447,7 @@ export function useSpeechRecognition({
       return;
     }
 
-    if (listening) {
+    if (speechRecognitionStateRef.current === 'listening') {
       speechRecognitionRef.current.stop();
     } else {
       setError(null);
@@ -455,7 +455,7 @@ export function useSpeechRecognition({
     }
 
     speechRecognitionStateRef.current = 'transitioning';
-  }, [listening]);
+  }, []);
 
   return {
     isSupported,
