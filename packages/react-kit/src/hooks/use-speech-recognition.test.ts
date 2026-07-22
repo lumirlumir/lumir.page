@@ -22,6 +22,7 @@ describe('use-speech-recognition', () => {
 
   beforeEach(() => {
     speechRecognition = {
+      abort: vi.fn(),
       start: vi.fn(),
       stop: vi.fn(),
       onresult: vi.fn(),
@@ -68,6 +69,25 @@ describe('use-speech-recognition', () => {
     });
 
     assert.strictEqual(speechRecognition.start.mock.calls.length, 1);
+  });
+
+  it('recognition should be aborted without requesting a result when an option changes', async () => {
+    const { act, rerender, result } = await renderHook(
+      (props?: { continuous: boolean }) => useSpeechRecognition(props),
+      { initialProps: { continuous: true } },
+    );
+
+    const { toggleListening } = result.current;
+
+    await act(async () => {
+      toggleListening();
+      speechRecognition.onstart();
+    });
+
+    await rerender({ continuous: false });
+
+    assert.strictEqual(speechRecognition.abort.mock.calls.length, 1);
+    assert.strictEqual(speechRecognition.stop.mock.calls.length, 0);
   });
 
   it('`transcript` should not prepend a space to the first recognition result', async () => {

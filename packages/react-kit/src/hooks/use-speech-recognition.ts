@@ -325,9 +325,9 @@ function getServerSpeechRecognitionSupportSnapshot() {
  * React hook for controlling speech recognition with the Web Speech API.
  *
  * Only final recognition results are appended to `transcript`. The accumulated
- * transcript persists across recognition sessions until `resetTranscript()` is
- * called. Changing an option stops the current recognition and creates a new
- * `SpeechRecognition` instance with the updated options.
+ * transcript persists across recognition sessions until `resetTranscript()` is called.
+ * Changing an option aborts the current recognition, discards any pending result,
+ * and creates a new `SpeechRecognition` instance with the updated options.
  *
  * @param options Recognition settings (`continuous` and `lang`) applied to the
  * underlying `SpeechRecognition` instance.
@@ -428,7 +428,7 @@ export function useSpeechRecognition({
       speechRecognition.onend = null;
       speechRecognition.onresult = null;
       speechRecognition.onerror = null;
-      speechRecognitionRef.current?.stop();
+      speechRecognitionRef.current?.abort();
       speechRecognitionRef.current = null;
       speechRecognitionStateRef.current = 'idle';
       setListening(false);
