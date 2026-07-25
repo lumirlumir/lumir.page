@@ -6,7 +6,7 @@
 // Import
 // --------------------------------------------------------------------------------
 
-import { useEffect, useEffectEvent, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 
 // --------------------------------------------------------------------------------
 // Typedef
@@ -16,14 +16,6 @@ import { useEffect, useEffectEvent, useRef } from 'react';
  * Options for the `usePreviousesDistinct` hook.
  */
 export interface UsePreviousesDistinctOptions<T> {
-  /**
-   * Whether to only include distinct values in the returned previous values.
-   * - `true` (default): Only include distinct values, excluding consecutive duplicates.
-   * - `false`: Include all values, including consecutive duplicates.
-   * @default true
-   */
-  distinct?: boolean;
-
   /**
    * An optional comparison function to determine if the state has changed.
    * @param prev The previous value.
@@ -57,10 +49,7 @@ export interface UsePreviousesDistinctOptions<T> {
  */
 export function usePreviousesDistinct<T>(
   value: T,
-  {
-    distinct = true,
-    compareFn: compareFnProp = Object.is,
-  }: UsePreviousesDistinctOptions<T> = {},
+  { compareFn = Object.is }: UsePreviousesDistinctOptions<T> = {},
 ): T[] {
   // Without `'use no memo'`, React Compiler throws when `panicThreshold` is not `'none'`
   // because this hook intentionally reads `ref.current` during render.
@@ -68,26 +57,19 @@ export function usePreviousesDistinct<T>(
 
   const previousesRef = useRef<T[]>([]);
   const currentValueRef = useRef<T>(value);
-  const compareFn = useEffectEvent(compareFnProp);
 
   useEffect(() => {
-    if (distinct) {
-      if (compareFn(currentValueRef.current, value)) return;
-
-      previousesRef.current = [...previousesRef.current, currentValueRef.current];
-      currentValueRef.current = value;
-    } else {
-      previousesRef.current = [...previousesRef.current, currentValueRef.current];
+    if (compareFn(currentValueRef.current, value)) {
+      return;
     }
-  }, [value, distinct]);
+
+    previousesRef.current = [...previousesRef.current, currentValueRef.current];
+    currentValueRef.current = value;
+  }, [value, compareFn]);
 
   /* eslint-disable react-hooks/refs -- `usePreviousesDistinct` intentionally reads the value captured before this render's effect. */
-  if (distinct) {
-    return compareFnProp(currentValueRef.current, value)
-      ? previousesRef.current
-      : [...previousesRef.current, currentValueRef.current];
-  } else {
-    return previousesRef.current;
-  }
+  return compareFn(currentValueRef.current, value)
+    ? previousesRef.current
+    : [...previousesRef.current, currentValueRef.current];
   /* eslint-enable react-hooks/refs */
 }
