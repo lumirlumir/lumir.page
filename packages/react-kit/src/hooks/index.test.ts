@@ -12,6 +12,7 @@ import {
   useCountdown,
   useIsomorphicLayoutEffect,
   usePrevious,
+  usePreviousDistinct,
   useScroll,
   useSpeechRecognition,
   useToggle,
@@ -42,6 +43,11 @@ describe('index', () => {
     it('`usePrevious` should be defined', () => {
       assert.isDefined(usePrevious);
       assert.strictEqual(typeof usePrevious, 'function');
+    });
+
+    it('`usePreviousDistinct` should be defined', () => {
+      assert.isDefined(usePreviousDistinct);
+      assert.strictEqual(typeof usePreviousDistinct, 'function');
     });
 
     it('`useScroll` should be defined', () => {
