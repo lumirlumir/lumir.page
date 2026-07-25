@@ -100,16 +100,17 @@ export function usePreviousDistinct<T>(
   // because this hook intentionally reads `ref.current` during render.
   'use no memo';
 
-  const historyRef = useRef<boolean>(history); // TODO: add test
+  // Intentionally preserve the initial `history` mode because changing it
+  // via state or props would alter the hook's return shape. // TODO: add test
+  const initialHistoryRef = useRef<boolean>(history);
   const previousValueRef = useRef<T | readonly T[]>(history ? [] : value);
   const currentValueRef = useRef<T>(value);
 
   useEffect(() => {
     if (!compareFn(currentValueRef.current, value)) {
-      previousValueRef.current = historyRef.current
+      previousValueRef.current = initialHistoryRef.current
         ? [...(previousValueRef.current as readonly T[]), currentValueRef.current]
         : currentValueRef.current;
-
       currentValueRef.current = value;
     }
   }, [value, compareFn]);
@@ -117,7 +118,7 @@ export function usePreviousDistinct<T>(
   /* eslint-disable react-hooks/refs -- Intentionally reads the values captured before this render's effect. */
   return compareFn(currentValueRef.current, value)
     ? previousValueRef.current
-    : historyRef.current
+    : initialHistoryRef.current
       ? [...(previousValueRef.current as readonly T[]), currentValueRef.current]
       : currentValueRef.current;
   /* eslint-enable react-hooks/refs */
