@@ -38,6 +38,7 @@ export interface UsePreviousDistinctOptions<T> {
  * semantics. By default, values are compared using `Object.is`.
  *
  * @param value The current value to track.
+ * @param options Options containing the optional `compareFn`, which defaults to `Object.is`.
  * @template T The type of the value.
  * @returns The previous distinct value, or the current value on the initial render.
  * @example
