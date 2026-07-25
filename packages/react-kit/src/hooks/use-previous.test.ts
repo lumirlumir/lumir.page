@@ -53,4 +53,25 @@ describe('use-previous', () => {
     await rerender();
     assert.strictEqual(result.current, 'hi');
   });
+
+  it('Previous value is updated when the current value does not change', async () => {
+    // Unlike `usePreviousDistinct`, `usePrevious` should return the value
+    // from the immediately preceding render, even when it matches the current value.
+    let value = 0;
+    const { result, rerender } = await renderHook(() => usePrevious(value));
+
+    value = 1;
+    await rerender();
+    assert.strictEqual(result.current, 0);
+
+    await rerender();
+    assert.strictEqual(result.current, 1);
+
+    value = 2;
+    await rerender();
+    assert.strictEqual(result.current, 1);
+
+    await rerender();
+    assert.strictEqual(result.current, 2);
+  });
 });
