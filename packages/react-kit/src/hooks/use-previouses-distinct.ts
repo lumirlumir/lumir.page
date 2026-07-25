@@ -59,12 +59,10 @@ export function usePreviousesDistinct<T>(
   const currentValueRef = useRef<T>(value);
 
   useEffect(() => {
-    if (compareFn(currentValueRef.current, value)) {
-      return;
+    if (!compareFn(currentValueRef.current, value)) {
+      previousesRef.current = [...previousesRef.current, currentValueRef.current];
+      currentValueRef.current = value;
     }
-
-    previousesRef.current = [...previousesRef.current, currentValueRef.current];
-    currentValueRef.current = value;
   }, [value, compareFn]);
 
   /* eslint-disable react-hooks/refs -- `usePreviousesDistinct` intentionally reads the value captured before this render's effect. */
