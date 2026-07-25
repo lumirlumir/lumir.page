@@ -1,5 +1,5 @@
 /**
- * @fileoverview Test for `use-previouses.ts`
+ * @fileoverview Test for `use-previouses-distinct.ts`
  */
 
 // --------------------------------------------------------------------------------
@@ -8,23 +8,23 @@
 
 import { assert, assertType, describe, it } from 'vitest';
 import { renderHook } from 'vitest-browser-react';
-import { usePreviouses } from './use-previouses.js';
+import { usePreviousesDistinct } from './use-previouses-distinct.js';
 
 // --------------------------------------------------------------------------------
 // Test
 // --------------------------------------------------------------------------------
 
-describe('use-previouses', () => {
+describe('use-previouses-distinct', () => {
   describe('unit', () => {
     it('Initial previouses should be empty before the first layout effect update', async () => {
-      const { result } = await renderHook(() => usePreviouses(0));
+      const { result } = await renderHook(() => usePreviousesDistinct(0));
       const initialPreviouses = result.current;
 
       assert.deepStrictEqual(initialPreviouses, []);
     });
 
     it('Same-value rerenders should keep the active value out of previouses', async () => {
-      const { result, rerender } = await renderHook(() => usePreviouses(0));
+      const { result, rerender } = await renderHook(() => usePreviousesDistinct(0));
       const initialPreviouses = result.current;
 
       assert.deepStrictEqual(initialPreviouses, []);
@@ -36,7 +36,7 @@ describe('use-previouses', () => {
 
     it('Previous values should be returned when the tracked value changes', async () => {
       let value: number | string = 0;
-      const { result, rerender } = await renderHook(() => usePreviouses(value));
+      const { result, rerender } = await renderHook(() => usePreviousesDistinct(value));
 
       value = 1;
       await rerender();
@@ -61,15 +61,17 @@ describe('use-previouses', () => {
   });
 
   describe('type', () => {
-    it('`usePreviouses` should be generic and maintain type consistency', () => {
-      assertType<(value: number) => number[]>(usePreviouses<number>);
-      assertType<(value: string) => string[]>(usePreviouses<string>);
-      assertType<(value: { a: number }) => { a: number }[]>(usePreviouses<{ a: number }>);
+    it('`usePreviousesDistinct` should be generic and maintain type consistency', () => {
+      assertType<(value: number) => number[]>(usePreviousesDistinct<number>);
+      assertType<(value: string) => string[]>(usePreviousesDistinct<string>);
+      assertType<(value: { a: number }) => { a: number }[]>(
+        usePreviousesDistinct<{ a: number }>,
+      );
 
       // @ts-expect-error -- Type mismatch should be caught
-      assertType<(value: number) => string[]>(usePreviouses<number>);
+      assertType<(value: number) => string[]>(usePreviousesDistinct<number>);
       // @ts-expect-error -- Type mismatch should be caught
-      assertType<(value: string) => number[]>(usePreviouses<string>);
+      assertType<(value: string) => number[]>(usePreviousesDistinct<string>);
     });
   });
 });

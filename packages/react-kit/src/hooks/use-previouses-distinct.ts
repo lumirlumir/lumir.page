@@ -1,5 +1,5 @@
 /**
- * @fileoverview `usePreviouses` hook.
+ * @fileoverview `usePreviousesDistinct` hook.
  */
 
 // --------------------------------------------------------------------------------
@@ -13,9 +13,9 @@ import { useEffect, useEffectEvent, useRef } from 'react';
 // --------------------------------------------------------------------------------
 
 /**
- * Options for the `usePreviouses` hook.
+ * Options for the `usePreviousesDistinct` hook.
  */
-export interface UsePreviousesOptions<T> {
+export interface UsePreviousesDistinctOptions<T> {
   /**
    * Whether to only include distinct values in the returned previous values.
    * - `true` (default): Only include distinct values, excluding consecutive duplicates.
@@ -39,7 +39,7 @@ export interface UsePreviousesOptions<T> {
 // --------------------------------------------------------------------------------
 
 /**
- * `usePreviouses` hook to get the previous values of a state or prop.
+ * `usePreviousesDistinct` hook to get the previous values of a state or prop.
  * The current value is excluded from the returned previous values, including same-value rerenders.
  *
  * @param value The current value to track.
@@ -47,17 +47,20 @@ export interface UsePreviousesOptions<T> {
  * @returns The previous values before the current render.
  * @example
  * ```tsx
- * import { usePreviouses } from '@lumir/react-kit/hooks';
+ * import { usePreviousesDistinct } from '@lumir/react-kit/hooks';
  *
  * function Component({ count }: { count: number }) {
- *   const countPreviouses = usePreviouses(count);
+ *   const countPreviousesDistinct = usePreviousesDistinct(count);
  *   // Your component logic here...
  * }
  * ```
  */
-export function usePreviouses<T>(
+export function usePreviousesDistinct<T>(
   value: T,
-  { distinct = true, compareFn: compareFnProp = Object.is }: UsePreviousesOptions<T> = {},
+  {
+    distinct = true,
+    compareFn: compareFnProp = Object.is,
+  }: UsePreviousesDistinctOptions<T> = {},
 ): T[] {
   // Without `'use no memo'`, React Compiler throws when `panicThreshold` is not `'none'`
   // because this hook intentionally reads `ref.current` during render.
@@ -78,7 +81,7 @@ export function usePreviouses<T>(
     }
   }, [value, distinct]);
 
-  /* eslint-disable react-hooks/refs -- `usePreviouses` intentionally reads the value captured before this render's effect. */
+  /* eslint-disable react-hooks/refs -- `usePreviousesDistinct` intentionally reads the value captured before this render's effect. */
   if (distinct) {
     return compareFnProp(currentValueRef.current, value)
       ? previousesRef.current
