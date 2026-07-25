@@ -24,10 +24,16 @@ export interface UsePreviousDistinctOptions<T> {
    * @default Object.is
    */
   compareFn?: (prev: T, next: T) => boolean;
+
+  /**
+   * Whether to return all previous distinct values.
+   * @default false
+   */
+  history?: boolean;
 }
 
 // --------------------------------------------------------------------------------
-// Export
+// Overload
 // --------------------------------------------------------------------------------
 
 /**
@@ -53,24 +59,75 @@ export interface UsePreviousDistinctOptions<T> {
  */
 export function usePreviousDistinct<T>(
   value: T,
-  { compareFn = Object.is }: UsePreviousDistinctOptions<T> = {},
-): T {
+  options?: UsePreviousDistinctOptions<T> & { history?: false },
+): T;
+
+/**
+ * `usePreviousDistinct` is a React hook that returns all values preceding the
+ * current distinct value when `history` is enabled.
+ *
+ * TODO
+ *
+ * @param value The current value to track.
+ * @param options Options containing `history: true` and the optional `compareFn`.
+ * @template T The type of the value.
+ * @returns All previous distinct values, or an empty array on the initial render.
+ */
+export function usePreviousDistinct<T>(
+  value: T,
+  options: UsePreviousDistinctOptions<T> & { history: true },
+): readonly T[];
+
+/**
+ * TODO
+ * @param value
+ * @param options
+ */
+export function usePreviousDistinct<T>(
+  value: T,
+  options: UsePreviousDistinctOptions<T>,
+): T | readonly T[];
+
+// --------------------------------------------------------------------------------
+// Export
+// --------------------------------------------------------------------------------
+
+export function usePreviousDistinct<T>(
+  value: T,
+  { compareFn = Object.is, history = false }: UsePreviousDistinctOptions<T> = {},
+): T | readonly T[] {
   // Without `'use no memo'`, React Compiler throws when `panicThreshold` is not `'none'`
   // because this hook intentionally reads `ref.current` during render.
   'use no memo';
 
   const previousValueRef = useRef<T>(value);
+  const previousValuesRef = useRef<T[]>([]);
   const currentValueRef = useRef<T>(value);
 
   useEffect(() => {
     if (!compareFn(currentValueRef.current, value)) {
-      previousValueRef.current = currentValueRef.current;
+      if (history === true) {
+        previousValuesRef.current = [
+          ...previousValuesRef.current,
+          currentValueRef.current,
+        ];
+      } else {
+        previousValueRef.current = currentValueRef.current;
+      }
+
       currentValueRef.current = value;
     }
-  }, [value, compareFn]);
+  }, [value, compareFn, history]);
 
-  // eslint-disable-next-line react-hooks/refs -- Intentionally reads the value captured before this render's effect.
-  return compareFn(currentValueRef.current, value)
-    ? previousValueRef.current
-    : currentValueRef.current;
+  /* eslint-disable react-hooks/refs -- Intentionally reads the values captured before this render's effect. */
+  if (history) {
+    return compareFn(currentValueRef.current, value)
+      ? previousValuesRef.current
+      : [...previousValuesRef.current, currentValueRef.current];
+  } else {
+    return compareFn(currentValueRef.current, value)
+      ? previousValueRef.current
+      : currentValueRef.current;
+  }
+  /* eslint-enable react-hooks/refs */
 }

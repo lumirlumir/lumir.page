@@ -13,7 +13,6 @@ import {
   useIsomorphicLayoutEffect,
   usePrevious,
   usePreviousDistinct,
-  usePreviousesDistinct,
   useScroll,
   useSpeechRecognition,
   useToggle,
@@ -49,11 +48,6 @@ describe('index', () => {
     it('`usePreviousDistinct` should be defined', () => {
       assert.isDefined(usePreviousDistinct);
       assert.strictEqual(typeof usePreviousDistinct, 'function');
-    });
-
-    it('`usePreviousesDistinct` should be defined', () => {
-      assert.isDefined(usePreviousesDistinct);
-      assert.strictEqual(typeof usePreviousesDistinct, 'function');
     });
 
     it('`useScroll` should be defined', () => {

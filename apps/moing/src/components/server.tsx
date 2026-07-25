@@ -8,7 +8,7 @@
 
 import { useEffect, useMemo } from 'react';
 import { Typewriter } from '@lumir/react-kit/components';
-import { usePreviousesDistinct, useScroll } from '@lumir/react-kit/hooks';
+import { usePreviousDistinct, useScroll } from '@lumir/react-kit/hooks';
 import { cn } from '@lumir/utils';
 
 import NeonDiv from '@/components/neon-div';
@@ -71,7 +71,7 @@ export default function Server({ interview, onTestWriteComplete }: ServerProps) 
       return formatContent(content);
     }
   }, [mode, content, question, getInterviewInfo, getInterviewHistory]);
-  const previouses = usePreviousesDistinct<string>(text);
+  const previouses = usePreviousDistinct<string>(text, { history: true });
 
   useEffect(() => {
     if (mode === 'test' && isInterviewDone()) toNextSection();

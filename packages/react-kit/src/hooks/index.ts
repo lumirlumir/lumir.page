@@ -3,7 +3,6 @@ export * from './use-countdown.js';
 export * from './use-isomorphic-layout-effect.js';
 export * from './use-previous.js';
 export * from './use-previous-distinct.js';
-export * from './use-previouses-distinct.js';
 export * from './use-scroll.js';
 export * from './use-speech-recognition.js';
 export * from './use-toggle.js';
