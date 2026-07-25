@@ -78,7 +78,7 @@ export function usePreviouses<T>(
     }
   }, [value, distinct]);
 
-  /* eslint-disable react-hooks/refs -- `usePrevious` intentionally reads the value captured before this render's effect. */
+  /* eslint-disable react-hooks/refs -- `usePreviouses` intentionally reads the value captured before this render's effect. */
   if (distinct) {
     return compareFnProp(currentValueRef.current, value)
       ? previousesRef.current
