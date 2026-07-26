@@ -163,6 +163,7 @@ describe('use-previous-distinct', () => {
 
   it('History should use `compareFn` to collect only distinct values', async () => {
     const initialValue = { id: 1, label: 'initial' };
+
     let value = initialValue;
     const { result, rerender } = await renderHook(() =>
       usePreviousDistinct(value, {
