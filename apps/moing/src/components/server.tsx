@@ -6,16 +6,15 @@
 // Import
 // --------------------------------------------------------------------------------
 
-import { useEffect, useLayoutEffect, useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import { Typewriter } from '@lumir/react-kit/components';
-import { useScroll } from '@lumir/react-kit/hooks';
+import { usePreviousDistinct, useScroll } from '@lumir/react-kit/hooks';
 import { cn } from '@lumir/utils';
 
 import NeonDiv from '@/components/neon-div';
 import { useConfigContext } from '@/contexts/config-context';
 import { useScenarioContext } from '@/contexts/scenario-context';
 import useInterview from '@/hooks/use-interview';
-import useHistoryState from '@/hooks/use-history-state';
 
 import styles from './server.module.css';
 
@@ -59,8 +58,6 @@ export default function Server({ interview, onTestWriteComplete }: ServerProps) 
   const { content, mode, status } = section.server;
   const { question, getInterviewInfo, isInterviewDone, getInterviewHistory } = interview;
   const [scrollRef, scroll] = useScroll<HTMLDivElement>({ behavior: 'smooth' });
-  const { historyState, addHistory } = useHistoryState<string>();
-
   const text = useMemo(() => {
     if (mode === 'test') {
       return question === null
@@ -74,14 +71,11 @@ export default function Server({ interview, onTestWriteComplete }: ServerProps) 
       return formatContent(content);
     }
   }, [mode, content, question, getInterviewInfo, getInterviewHistory]);
-
-  useLayoutEffect(() => {
-    addHistory(text);
-  }, [text, addHistory]);
+  const previousHistory = usePreviousDistinct<string>(text, { history: true });
 
   useEffect(() => {
     if (mode === 'test' && isInterviewDone()) toNextSection();
-  }, [question, isInterviewDone, toNextSection, mode]);
+  }, [mode, question, isInterviewDone, toNextSection]);
 
   return (
     <NeonDiv
@@ -96,7 +90,7 @@ export default function Server({ interview, onTestWriteComplete }: ServerProps) 
       )}
       neonColor="black"
     >
-      <div>{historyState.slice(0, -1)}</div>
+      <div>{previousHistory}</div>
       <div>
         <Typewriter
           key={text}

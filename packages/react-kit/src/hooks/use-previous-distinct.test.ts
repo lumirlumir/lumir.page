@@ -115,4 +115,89 @@ describe('use-previous-distinct', () => {
     await rerender();
     assert.strictEqual(result.current, distinctValue);
   });
+
+  it('History should initially be empty', async () => {
+    const { result } = await renderHook(() => usePreviousDistinct(0, { history: true }));
+
+    assert.deepStrictEqual(result.current, []);
+  });
+
+  it('History should keep the active value out on same-value rerenders', async () => {
+    const { result, rerender } = await renderHook(() =>
+      usePreviousDistinct(0, { history: true }),
+    );
+
+    assert.deepStrictEqual(result.current, []);
+
+    await rerender();
+
+    assert.deepStrictEqual(result.current, []);
+  });
+
+  it('History should contain all previous distinct values', async () => {
+    let value: number | string = 0;
+    const { result, rerender } = await renderHook(() =>
+      usePreviousDistinct(value, { history: true }),
+    );
+
+    value = 1;
+    await rerender();
+    assert.deepStrictEqual(result.current, [0]);
+
+    value = 2;
+    await rerender();
+    assert.deepStrictEqual(result.current, [0, 1]);
+
+    value = 3;
+    await rerender();
+    assert.deepStrictEqual(result.current, [0, 1, 2]);
+
+    value = 'hi';
+    await rerender();
+    assert.deepStrictEqual(result.current, [0, 1, 2, 3]);
+
+    value = 'hello';
+    await rerender();
+    assert.deepStrictEqual(result.current, [0, 1, 2, 3, 'hi']);
+  });
+
+  it('History should use `compareFn` to collect only distinct values', async () => {
+    const initialValue = { id: 1, label: 'initial' };
+
+    let value = initialValue;
+    const { result, rerender } = await renderHook(() =>
+      usePreviousDistinct(value, {
+        compareFn: (prev, next) => prev.id === next.id,
+        history: true,
+      }),
+    );
+
+    value = { id: 1, label: 'updated' };
+    await rerender();
+    assert.deepStrictEqual(result.current, []);
+
+    value = { id: 2, label: 'distinct' };
+    await rerender();
+    assert.deepStrictEqual(result.current, [initialValue]);
+  });
+
+  it('Initial `history` mode should be preserved when the option changes', async () => {
+    const { result, rerender } = await renderHook(
+      (props?: { history: boolean; value: number }) =>
+        usePreviousDistinct(props?.value ?? 0, {
+          history: props?.history ?? true,
+        }),
+      {
+        initialProps: { history: true, value: 0 },
+      },
+    );
+
+    assert.deepStrictEqual(result.current, []);
+
+    await rerender({ history: false, value: 1 });
+    assert.deepStrictEqual(result.current, [0]);
+
+    await rerender({ history: false, value: 2 });
+    assert.deepStrictEqual(result.current, [0, 1]);
+  });
 });
