@@ -179,4 +179,24 @@ describe('use-previous-distinct', () => {
     await rerender();
     assert.deepStrictEqual(result.current, [initialValue]);
   });
+
+  it('Initial `history` mode should be preserved when the option changes', async () => {
+    const { result, rerender } = await renderHook(
+      (props?: { history: boolean; value: number }) =>
+        usePreviousDistinct(props?.value ?? 0, {
+          history: props?.history ?? true,
+        }),
+      {
+        initialProps: { history: true, value: 0 },
+      },
+    );
+
+    assert.deepStrictEqual(result.current, []);
+
+    await rerender({ history: false, value: 1 });
+    assert.deepStrictEqual(result.current, [0]);
+
+    await rerender({ history: false, value: 2 });
+    assert.deepStrictEqual(result.current, [0, 1]);
+  });
 });
