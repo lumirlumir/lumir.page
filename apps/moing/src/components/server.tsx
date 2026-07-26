@@ -71,7 +71,7 @@ export default function Server({ interview, onTestWriteComplete }: ServerProps) 
       return formatContent(content);
     }
   }, [mode, content, question, getInterviewInfo, getInterviewHistory]);
-  const previouses = usePreviousDistinct<string>(text, { history: true });
+  const previousHistory = usePreviousDistinct<string>(text, { history: true });
 
   useEffect(() => {
     if (mode === 'test' && isInterviewDone()) toNextSection();
@@ -90,7 +90,7 @@ export default function Server({ interview, onTestWriteComplete }: ServerProps) 
       )}
       neonColor="black"
     >
-      <div>{previouses}</div>
+      <div>{previousHistory}</div>
       <div>
         <Typewriter
           key={text}
