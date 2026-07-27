@@ -5,7 +5,7 @@ export default {
   languageOptions: {
     syntax: {
       types: {
-        // NOTE: `global()` is CSS Modules specific syntax
+        // NOTE: `global()` is a CSS Modules specific syntax
         'keyframes-name': '| <global()>',
         'global()': 'global( <custom-ident> )',
       },
