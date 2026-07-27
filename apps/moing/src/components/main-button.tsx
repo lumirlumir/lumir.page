@@ -12,28 +12,20 @@ import { cn } from '@lumir/utils';
 import NeonButton from '@/components/neon-button';
 import NeonFont from '@/components/neon-font';
 import { useConfigContext } from '@/contexts/config-context';
+import { useInterviewContext } from '@/contexts/interview-context';
 import { useScenarioContext } from '@/contexts/scenario-context';
-import useInterview from '@/hooks/use-interview';
 
 import styles from './main-button.module.css';
-
-// --------------------------------------------------------------------------------
-// Typedef
-// --------------------------------------------------------------------------------
-
-interface Props {
-  interview: ReturnType<typeof useInterview>;
-}
 
 // --------------------------------------------------------------------------------
 // Export
 // --------------------------------------------------------------------------------
 
-export default function ButtonMain({ interview }: Props) {
+export default function ButtonMain() {
   const { config, updateConfig, isConfigDone } = useConfigContext();
+  const { initInterview } = useInterviewContext();
   const { section, toNextSection, toLastSection, isLastSection } = useScenarioContext();
   const { content, status } = section['main-button'];
-  const { initInterview } = interview;
 
   const onClick: MouseEventHandler<HTMLButtonElement> = e => {
     if (content === 'PRESS') {
