@@ -27,14 +27,3 @@ export interface Meta {
    */
   readonly reactIcons: JSX.Element;
 }
-
-/**
- * Represents shared metadata with an additional `order` property,
- * which can be used for sorting or displaying items in a specific sequence.
- */
-export interface MetaWithOrder extends Meta {
-  /**
-   * The order of the item, which can be used for sorting or displaying items in a specific sequence.
-   */
-  readonly order: number;
-}
