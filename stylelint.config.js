@@ -5,7 +5,7 @@ export default {
   languageOptions: {
     syntax: {
       types: {
-        /* NOTE: `global()` is CSS Modules specific syntax */
+        // NOTE: `global()` is a CSS Modules specific syntax
         'keyframes-name': '| <global()>',
         'global()': 'global( <custom-ident> )',
       },
@@ -13,6 +13,13 @@ export default {
   },
   rules: {
     'import-notation': 'string',
+    'property-no-unknown': [
+      true,
+      {
+        // NOTE: `composes` is a CSS Modules specific property
+        ignoreProperties: ['composes'],
+      },
+    ],
     // Enforce specific media feature breakpoints for consistency
     'media-feature-range-notation': 'context',
     'media-feature-name-allowed-list': ['width'],

@@ -5,10 +5,7 @@
 }
 
 @keyframes pointer-events-none {
-  from {
-    pointer-events: none;
-  }
-
+  from,
   to {
     pointer-events: none;
   }

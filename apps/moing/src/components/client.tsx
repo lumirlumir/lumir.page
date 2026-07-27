@@ -9,27 +9,19 @@
 import { cn } from '@lumir/utils';
 
 import NeonDiv from '@/components/neon-div';
+import { useInterviewContext } from '@/contexts/interview-context';
 import { useScenarioContext } from '@/contexts/scenario-context';
-import useInterview from '@/hooks/use-interview';
 
 import styles from './client.module.css';
-
-// --------------------------------------------------------------------------------
-// Typedef
-// --------------------------------------------------------------------------------
-
-interface Props {
-  interview: ReturnType<typeof useInterview<HTMLDivElement>>;
-}
 
 // --------------------------------------------------------------------------------
 // Export
 // --------------------------------------------------------------------------------
 
-export default function Client({ interview }: Props) {
+export default function Client() {
+  const { contentRef } = useInterviewContext();
   const { section } = useScenarioContext();
   const { status } = section.client;
-  const { contentRef } = interview;
 
   return (
     <NeonDiv

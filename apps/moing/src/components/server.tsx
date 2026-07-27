@@ -13,8 +13,8 @@ import { cn } from '@lumir/utils';
 
 import NeonDiv from '@/components/neon-div';
 import { useConfigContext } from '@/contexts/config-context';
+import { useInterviewContext } from '@/contexts/interview-context';
 import { useScenarioContext } from '@/contexts/scenario-context';
-import useInterview from '@/hooks/use-interview';
 
 import styles from './server.module.css';
 
@@ -23,7 +23,6 @@ import styles from './server.module.css';
 // --------------------------------------------------------------------------------
 
 interface ServerProps {
-  interview: ReturnType<typeof useInterview>;
   onTestWriteComplete: () => void;
 }
 
@@ -52,11 +51,12 @@ function formatContent(content: string) {
 // Export
 // --------------------------------------------------------------------------------
 
-export default function Server({ interview, onTestWriteComplete }: ServerProps) {
+export default function Server({ onTestWriteComplete }: ServerProps) {
   const { config } = useConfigContext();
+  const { question, getInterviewInfo, isInterviewDone, getInterviewHistory } =
+    useInterviewContext();
   const { section, toNextSection } = useScenarioContext();
   const { content, mode, status } = section.server;
-  const { question, getInterviewInfo, isInterviewDone, getInterviewHistory } = interview;
   const [scrollRef, scroll] = useScroll<HTMLDivElement>({ behavior: 'smooth' });
   const text = useMemo(() => {
     if (mode === 'test') {
