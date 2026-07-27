@@ -13,6 +13,7 @@ export default {
   },
   rules: {
     'import-notation': 'string',
+    'property-no-unknown': [true, { ignoreProperties: ['composes'] }],
     // Enforce specific media feature breakpoints for consistency
     'media-feature-range-notation': 'context',
     'media-feature-name-allowed-list': ['width'],
