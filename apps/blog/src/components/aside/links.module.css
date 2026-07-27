@@ -13,6 +13,8 @@
     & > svg {
       width: var(--size-24);
       height: var(--size-24);
+      transform-origin: center;
+      transform-box: fill-box;
     }
 
     &:hover {

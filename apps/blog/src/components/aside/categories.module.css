@@ -26,12 +26,8 @@
       & > svg {
         width: var(--size-24);
         height: var(--size-24);
-      }
-    }
-
-    &:hover {
-      & > div.react-icons {
-        animation: var(--animation-shake);
+        transform-origin: center;
+        transform-box: fill-box;
       }
     }
 
@@ -65,6 +61,12 @@
         width: var(--size-10);
         height: var(--size-10);
         transform: translate(-3px, -10px);
+      }
+    }
+
+    &:hover {
+      & > div.react-icons > svg {
+        animation: var(--animation-shake);
       }
     }
   }
