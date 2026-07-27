@@ -1,5 +1,5 @@
 {
-  "buildCommand": "node --run count-docs && node --run build",
+  "buildCommand": "node -v && node --run count-docs && node --run build",
   "cleanUrls": true,
   "framework": null,
   "installCommand": "npm install --no-audit --no-fund --prefer-offline --prefix ../..",
