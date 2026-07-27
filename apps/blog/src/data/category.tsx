@@ -31,7 +31,7 @@ import {
   SiThealgorithms,
   TbBrandNextjs,
 } from '@lumir/react-kit/svgs';
-import { type MetaWithOrder } from './meta';
+import { type Meta } from './meta';
 
 // --------------------------------------------------------------------------------
 // Typedef
@@ -48,6 +48,7 @@ export type CategoryKey = (typeof categoryKeys)[number];
 
 /**
  * Represents the keys of the category, which are used to identify each category in the `categoryMeta` object.
+ * - NOTE: The order here determines the sidebar order, so modify it with care.
  */
 export const categoryKeys = [
   'html',
@@ -77,7 +78,7 @@ export const categoryKeys = [
 
 /**
  * An object containing metadata for the category fields,
- * including their names in English and Korean, as well as associated React icons and their order.
+ * including their names in English and Korean, as well as associated React icons.
  */
 export const categoryMeta = {
   html: {
@@ -86,7 +87,6 @@ export const categoryMeta = {
       ko: '하이퍼 텍스트 마크업 언어',
     },
     reactIcons: <FaHtml5 />,
-    order: 1,
   },
   markdown: {
     name: {
@@ -94,7 +94,6 @@ export const categoryMeta = {
       ko: '마크다운',
     },
     reactIcons: <FaMarkdown />,
-    order: 2,
   },
   css: {
     name: {
@@ -102,7 +101,6 @@ export const categoryMeta = {
       ko: '캐스케이딩 스타일 시트',
     },
     reactIcons: <FaCss3Alt />,
-    order: 3,
   },
   cpp: {
     name: {
@@ -110,7 +108,6 @@ export const categoryMeta = {
       ko: 'C/C++',
     },
     reactIcons: <SiCplusplus />,
-    order: 4,
   },
   javascript: {
     name: {
@@ -118,7 +115,6 @@ export const categoryMeta = {
       ko: '자바스크립트',
     },
     reactIcons: <RiJavascriptFill />,
-    order: 5,
   },
   nodejs: {
     name: {
@@ -126,7 +122,6 @@ export const categoryMeta = {
       ko: '노드JS',
     },
     reactIcons: <FaNodeJs />,
-    order: 6,
   },
   npm: {
     name: {
@@ -134,7 +129,6 @@ export const categoryMeta = {
       ko: '노드JS 패키지 매니저',
     },
     reactIcons: <FaNpm />,
-    order: 7,
   },
   react: {
     name: {
@@ -142,7 +136,6 @@ export const categoryMeta = {
       ko: '리액트',
     },
     reactIcons: <FaReact />,
-    order: 8,
   },
   nextjs: {
     name: {
@@ -150,7 +143,6 @@ export const categoryMeta = {
       ko: '넥스트JS',
     },
     reactIcons: <TbBrandNextjs />,
-    order: 9,
   },
   linux: {
     name: {
@@ -158,7 +150,6 @@ export const categoryMeta = {
       ko: '리눅스',
     },
     reactIcons: <FaLinux />,
-    order: 10,
   },
   data: {
     name: {
@@ -166,7 +157,6 @@ export const categoryMeta = {
       ko: '데이터 포맷',
     },
     reactIcons: <MdDataObject />,
-    order: 11,
   },
   database: {
     name: {
@@ -174,7 +164,6 @@ export const categoryMeta = {
       ko: '데이터베이스',
     },
     reactIcons: <FaDatabase />,
-    order: 12,
   },
   git: {
     name: {
@@ -182,7 +171,6 @@ export const categoryMeta = {
       ko: '깃/깃허브',
     },
     reactIcons: <FaGithub />,
-    order: 13,
   },
   vscode: {
     name: {
@@ -190,7 +178,6 @@ export const categoryMeta = {
       ko: '비주얼 스튜디오 코드',
     },
     reactIcons: <BiLogoVisualStudio />,
-    order: 14,
   },
   openai: {
     name: {
@@ -198,7 +185,6 @@ export const categoryMeta = {
       ko: '오픈AI',
     },
     reactIcons: <SiOpenai />,
-    order: 15,
   },
   baekjoon: {
     name: {
@@ -206,7 +192,6 @@ export const categoryMeta = {
       ko: '백준',
     },
     reactIcons: <FaCode />,
-    order: 16,
   },
   programmers: {
     name: {
@@ -214,7 +199,6 @@ export const categoryMeta = {
       ko: '프로그래머스',
     },
     reactIcons: <GiHummingbird />,
-    order: 17,
   },
   algorithm: {
     name: {
@@ -222,7 +206,6 @@ export const categoryMeta = {
       ko: '알고리즘',
     },
     reactIcons: <SiThealgorithms />,
-    order: 18,
   },
   network: {
     name: {
@@ -230,7 +213,6 @@ export const categoryMeta = {
       ko: '네트워크',
     },
     reactIcons: <LuNetwork />,
-    order: 19,
   },
   convention: {
     name: {
@@ -238,7 +220,6 @@ export const categoryMeta = {
       ko: '코딩 컨벤션',
     },
     reactIcons: <FaScrewdriverWrench />,
-    order: 20,
   },
   cs: {
     name: {
@@ -246,7 +227,6 @@ export const categoryMeta = {
       ko: '컴퓨터 과학',
     },
     reactIcons: <FaLaptopCode />,
-    order: 21,
   },
   synology: {
     name: {
@@ -254,7 +234,6 @@ export const categoryMeta = {
       ko: '시놀로지 나스',
     },
     reactIcons: <SiSynology />,
-    order: 22,
   },
   essay: {
     name: {
@@ -262,6 +241,5 @@ export const categoryMeta = {
       ko: '에세이',
     },
     reactIcons: <FaBookOpen />,
-    order: 23,
   },
-} as const satisfies Record<CategoryKey, MetaWithOrder>;
+} as const satisfies Record<CategoryKey, Meta>;

@@ -33,35 +33,33 @@ const markdownCollection = createMarkdownCollection();
 export default async function Categories({ lang }: PropsWithLang) {
   return (
     <ul className={styles.categories}>
-      {markdownCollection.nonEmptyCategoryKeys[lang]
-        .sort((a, b) => categoryMeta[a].order - categoryMeta[b].order) // Ascending.
-        .map(categoryKey => {
-          const {
-            name: { en, ko },
-            reactIcons,
-          } = categoryMeta[categoryKey];
+      {markdownCollection.nonEmptyCategoryKeys[lang].map(categoryKey => {
+        const {
+          name: { en, ko },
+          reactIcons,
+        } = categoryMeta[categoryKey];
 
-          return (
-            <li key={categoryKey}>
-              <Link
-                className="custom-hover-effect"
-                href={`/${lang}/categories/${categoryKey}`}
-              >
-                <div className={cn(styles['react-icons'], 'custom-flex-center')}>
-                  {reactIcons}
-                </div>
-                <div className={styles['name-en']}>{en}</div>
-                <div className={styles['name-ko']}>{ko}</div>
-                <div className={cn(styles['count-docs'], 'custom-flex-center')}>
-                  <span className="custom-flex-center">
-                    {markdownCollection.byLangCategory[lang][categoryKey].length}
-                  </span>
-                  <FaPen />
-                </div>
-              </Link>
-            </li>
-          );
-        })}
+        return (
+          <li key={categoryKey}>
+            <Link
+              className="custom-hover-effect"
+              href={`/${lang}/categories/${categoryKey}`}
+            >
+              <div className={cn(styles['react-icons'], 'custom-flex-center')}>
+                {reactIcons}
+              </div>
+              <div className={styles['name-en']}>{en}</div>
+              <div className={styles['name-ko']}>{ko}</div>
+              <div className={cn(styles['count-docs'], 'custom-flex-center')}>
+                <span className="custom-flex-center">
+                  {markdownCollection.byLangCategory[lang][categoryKey].length}
+                </span>
+                <FaPen />
+              </div>
+            </Link>
+          </li>
+        );
+      })}
     </ul>
   );
 }
