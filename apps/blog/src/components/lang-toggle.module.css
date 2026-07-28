@@ -1,7 +1,12 @@
 .lang-toggle {
-  composes: flex-center from global;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   > a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: var(--size-32);
     height: var(--size-32);
     font-size: var(--font-size-md);
