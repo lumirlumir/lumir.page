@@ -13,7 +13,7 @@ import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 
 import { GoogleAnalytics } from '@/components/google-analytics';
-import { ThemeProvider } from '@/components/common/theme-context';
+import { ThemeProvider } from '@/components/theme-context';
 import ThemeScript from '@/components/theme-script';
 
 import Aside from '@/components/layouts/aside';
