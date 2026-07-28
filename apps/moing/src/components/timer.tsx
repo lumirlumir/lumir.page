@@ -39,7 +39,7 @@ export default function Timer({ currentCount }: TimerProps) {
     <footer
       className={cn(
         'timer',
-        'custom-flex-center',
+        'flex-center',
         'transition',
         status === 'hidden' && 'pointer-events-none opacity-0',
       )}

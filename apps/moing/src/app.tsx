@@ -86,7 +86,7 @@ export default function App() {
 
       <Timer currentCount={currentCount} />
 
-      <main className={cn('custom-flex-center', 'custom-scrollbar')}>
+      <main className={cn('flex-center', 'custom-scrollbar')}>
         <div ref={scrollRef}>
           <Title />
           <Server

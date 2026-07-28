@@ -44,14 +44,14 @@ export default function LangToggle({ lang }: PropsWithLang) {
   const href = `/${[nextLang, ...layoutSegments].join('/')}` as const;
 
   return (
-    <div className={cn(styles['lang-toggle'], 'custom-flex-center')}>
+    <div className={styles['lang-toggle']}>
       {/*
        * Use a native anchor intentionally so switching languages performs a full-page navigation.
        * Each localized route owns document-level state such as `<html lang>`, and a fresh document
        * also reruns `ThemeScript` before hydration to restore the persisted `data-theme` safely.
        */}
       <a
-        className={cn('custom-flex-center', 'custom-hover-effect')}
+        className={cn('flex-center', 'custom-hover-effect')}
         href={href}
         aria-label={ariaLabelByLang[lang]}
       >

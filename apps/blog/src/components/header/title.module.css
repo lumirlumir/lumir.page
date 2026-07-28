@@ -1,4 +1,6 @@
 .title {
+  composes: flex-center from global;
+
   & > a > img {
     border-radius: 50%;
   }

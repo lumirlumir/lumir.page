@@ -1,9 +1,3 @@
-.custom-flex-center {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
 .custom-hover-effect {
   transition: all 0.3s ease-in-out;
 

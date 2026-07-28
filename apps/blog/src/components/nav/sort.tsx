@@ -40,14 +40,12 @@ function SortContainer({ children }: PropsWithChildren) {
         className={cn(styles['sort-item'], 'custom-hover-effect')}
         onClick={toggleIsOpen}
       >
-        <div className={cn(styles['react-icons'], 'custom-flex-center')}>
+        <div className={styles['react-icons']}>
           <GrSort />
         </div>
         <div className={styles['name-en']}>Sort</div>
         <div className={styles['name-ko']}>정렬</div>
-        <div className={cn(styles.sort, 'custom-flex-center')}>
-          {isOpen ? <FaAngleUp /> : <FaAngleDown />}
-        </div>
+        <div className={styles.sort}>{isOpen ? <FaAngleUp /> : <FaAngleDown />}</div>
       </div>
       {isOpen ? <ul className={styles.list}>{children}</ul> : null}
     </div>
@@ -69,18 +67,14 @@ function SortItem({ field, sort }: { field: SortableFrontmatterKey; sort: SortKe
 
   return (
     <li className={cn(styles['sort-item'], 'custom-hover-effect')} onClick={onClick}>
-      <div className={cn(styles['react-icons'], 'custom-flex-center')}>
-        {frontmatterMeta[field].reactIcons}
-      </div>
+      <div className={styles['react-icons']}>{frontmatterMeta[field].reactIcons}</div>
       <div
         className={styles['name-en']}
       >{`${frontmatterMeta[field].name.en} / ${sortMeta[sort].name.en}`}</div>
       <div
         className={styles['name-ko']}
       >{`${frontmatterMeta[field].name.ko} / ${sortMeta[sort].name.ko}`}</div>
-      <div className={cn(styles.sort, 'custom-flex-center')}>
-        {sortMeta[sort].reactIcons}
-      </div>
+      <div className={styles.sort}>{sortMeta[sort].reactIcons}</div>
     </li>
   );
 }

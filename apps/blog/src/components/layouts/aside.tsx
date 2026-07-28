@@ -42,10 +42,7 @@ export default function Aside({ children }: PropsWithChildren) {
       >
         {children}
       </aside>
-      <div
-        className={cn(styles.div, visible && styles.visible, 'custom-flex-center')}
-        onClick={toggleVisible}
-      >
+      <div className={cn(styles.div, visible && styles.visible)} onClick={toggleVisible}>
         <HiOutlineMenuAlt2 />
       </div>
     </>

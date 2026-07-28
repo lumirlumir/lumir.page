@@ -1,4 +1,5 @@
 .main-button {
+  composes: flex-center from global;
   animation:
     4s ease-in-out 4s backwards global(fade-in),
     8s ease-in-out pointer-events-none;

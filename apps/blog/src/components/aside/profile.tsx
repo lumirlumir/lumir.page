@@ -13,7 +13,6 @@ import 'server-only';
 // --------------------------------------------------------------------------------
 
 import Link from 'next/link';
-import { cn } from '@lumir/utils';
 import { type PropsWithLang } from '@/data/lang';
 import { getGithubUsers } from '@/utils/fetch';
 import styles from './profile.module.css';
@@ -26,7 +25,7 @@ export default async function Profile({ lang }: PropsWithLang) {
   const { avatar_url: avatarUrl, bio, name } = await getGithubUsers();
 
   return (
-    <div className={cn(styles.profile, 'custom-flex-center')}>
+    <div className={styles.profile}>
       <img
         src={(() => {
           // To avoid downloading a much larger image than needed,

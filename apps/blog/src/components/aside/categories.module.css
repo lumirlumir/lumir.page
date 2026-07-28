@@ -1,3 +1,11 @@
+.react-icons {
+  composes: flex-center from global;
+}
+
+.count-docs {
+  composes: flex-center from global;
+}
+
 .categories {
   --grid-template-rows-1: var(--size-24);
   --grid-template-rows-2: var(--size-16);

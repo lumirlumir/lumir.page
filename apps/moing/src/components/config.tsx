@@ -96,7 +96,6 @@ export default function Config() {
     <NeonDiv
       className={cn(
         styles.config,
-        'custom-flex-center',
         'custom-scrollbar',
         'custom-main-section',
         'transition',
