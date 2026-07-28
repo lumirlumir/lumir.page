@@ -21,7 +21,7 @@ import styles from './title.module.css';
 // Export
 // --------------------------------------------------------------------------------
 
-export default function Title({ lang }: PropsWithLang) {
+export function Title({ lang }: PropsWithLang) {
   return (
     <div className={styles.title}>
       <Link href={`/${lang}`}>

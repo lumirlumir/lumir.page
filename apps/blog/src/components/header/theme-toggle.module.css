@@ -1,12 +1,13 @@
 .theme-toggle {
-  composes: flex-center from global;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   &:hover {
     animation: var(--animation-shake);
   }
 
   & .switch {
-    /* variables */
     --light-color: var(--color-fg-default);
     --dark-color: var(--color-bg-inset);
     --sun-color: #f9d71c;
@@ -14,7 +15,6 @@
     --duration: 0.5s;
     --timing: cubic-bezier(0.68, -0.55, 0.265, 1.55);
 
-    /* properties */
     position: relative;
     display: flex;
     align-items: center;
@@ -30,7 +30,6 @@
     transform: rotate(0deg);
     transition: all var(--duration) var(--timing);
 
-    /* selectors */
     & .orb {
       display: block;
       width: 80%;

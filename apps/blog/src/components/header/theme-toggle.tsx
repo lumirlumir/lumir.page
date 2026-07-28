@@ -26,7 +26,7 @@ import styles from './theme-toggle.module.css';
 // Export
 // --------------------------------------------------------------------------------
 
-export default function ThemeToggle() {
+export function ThemeToggle() {
   const [theme, toggleTheme] = useThemeContext();
 
   return (

@@ -38,7 +38,7 @@ const ariaLabelByLang = {
 // Export
 // --------------------------------------------------------------------------------
 
-export default function LangToggle({ lang }: PropsWithLang) {
+export function LangToggle({ lang }: PropsWithLang) {
   const layoutSegments = useSelectedLayoutSegments();
   const nextLang = langKeys.find(langkey => langkey !== lang) ?? langDefault;
   const href = `/${[nextLang, ...layoutSegments].join('/')}` as const;

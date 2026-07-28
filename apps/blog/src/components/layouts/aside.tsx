@@ -28,7 +28,7 @@ import styles from './aside.module.css';
 // Export
 // --------------------------------------------------------------------------------
 
-export default function Aside({ children }: PropsWithChildren) {
+export function Aside({ children }: PropsWithChildren) {
   const [visible, toggleVisible] = useToggle(false);
 
   return (

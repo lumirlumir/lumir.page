@@ -29,7 +29,7 @@
  * }
  * ```
  */
-export default function ThemeScript() {
+export function ThemeScript() {
   return (
     <script
       // eslint-disable-next-line react/no-danger -- Safe because the script is hardcoded and does not include any user input.

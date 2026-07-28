@@ -14,19 +14,19 @@ import { SpeedInsights } from '@vercel/speed-insights/next';
 
 import { GoogleAnalytics } from '@/components/google-analytics';
 import { ThemeProvider } from '@/components/theme-context';
-import ThemeScript from '@/components/theme-script';
+import { ThemeScript } from '@/components/theme-script';
 
-import Aside from '@/components/layouts/aside';
+import { Aside } from '@/components/layouts/aside';
 
-import Categories from '@/components/aside/categories';
-import Links from '@/components/aside/links';
-import Profile from '@/components/aside/profile';
+import { Categories } from '@/components/aside/categories';
+import { Links } from '@/components/aside/links';
+import { Profile } from '@/components/aside/profile';
 
-import DocSearch from '@/components/header/doc-search';
-import LangToggle from '@/components/header/lang-toggle';
-import ScrollProgress from '@/components/header/scroll-progress';
-import ThemeToggle from '@/components/header/theme-toggle';
-import Title from '@/components/header/title';
+import { DocSearch } from '@/components/header/doc-search';
+import { LangToggle } from '@/components/header/lang-toggle';
+import { ScrollProgress } from '@/components/header/scroll-progress';
+import { ThemeToggle } from '@/components/header/theme-toggle';
+import { Title } from '@/components/header/title';
 
 import { GOOGLE_GA_ID } from '@/constants';
 import { author } from '@/data/author';

@@ -47,7 +47,7 @@ function PostCardItem({ icon, text }: { icon: JSX.Element; text: string }) {
 // Export
 // --------------------------------------------------------------------------------
 
-export default async function PostCard({
+export async function PostCard({
   lang,
   vMarkdownFileMeta: {
     slug,

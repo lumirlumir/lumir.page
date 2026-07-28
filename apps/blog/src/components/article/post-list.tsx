@@ -123,7 +123,7 @@ function SortedPostListSearchParams({ items, lang }: PropsWithLang<PostListProps
 // Export
 // --------------------------------------------------------------------------------
 
-export default function PostList({ items, lang }: PropsWithLang<PostListProps>) {
+export function PostList({ items, lang }: PropsWithLang<PostListProps>) {
   return (
     <Suspense
       fallback={

@@ -26,7 +26,7 @@ import styles from './scroll-progress.module.css';
 // Export
 // --------------------------------------------------------------------------------
 
-export default function ScrollProgress() {
+export function ScrollProgress() {
   const scrollProgressRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {

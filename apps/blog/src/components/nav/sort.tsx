@@ -83,7 +83,7 @@ function SortItem({ field, sort }: { field: SortableFrontmatterKey; sort: SortKe
 // Export
 // --------------------------------------------------------------------------------
 
-export default function Sort() {
+export function Sort() {
   return (
     <SortContainer>
       <SortItem field="title" sort="desc" />

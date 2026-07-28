@@ -23,7 +23,7 @@ import styles from './links.module.css';
 // Export
 // --------------------------------------------------------------------------------
 
-export default function Links({ lang }: PropsWithLang) {
+export function Links({ lang }: PropsWithLang) {
   return (
     <ul className={styles.links}>
       <li>

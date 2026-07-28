@@ -29,7 +29,7 @@ const markdownCollection = createMarkdownCollection();
 // Export
 // --------------------------------------------------------------------------------
 
-export default async function Categories({ lang }: PropsWithLang) {
+export async function Categories({ lang }: PropsWithLang) {
   return (
     <ul className={styles.categories}>
       {markdownCollection.nonEmptyCategoryKeys[lang].map(categoryKey => {

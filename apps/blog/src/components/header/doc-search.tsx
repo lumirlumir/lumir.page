@@ -27,7 +27,7 @@ import './doc-search.css';
 // Export
 // --------------------------------------------------------------------------------
 
-export default function DocSearch() {
+export function DocSearch() {
   return (
     <div className={styles['doc-search']}>
       <DocSearchOriginal
