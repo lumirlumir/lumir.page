@@ -12,7 +12,7 @@ import { type PropsWithChildren } from 'react';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 
-import { GoogleAnalytics } from '@/components/common/google-analytics';
+import { GoogleAnalytics } from '@/components/google-analytics';
 import { ThemeProvider } from '@/components/common/theme-context';
 import ThemeScript from '@/components/common/theme-script';
 
