@@ -27,7 +27,7 @@
     & > span {
       width: var(--size-40);
       color: var(--color-fg-muted);
-      letter-spacing: var(--size-letter-spacing-medium);
+      letter-spacing: var(--letter-spacing-tighter);
     }
   }
 }

@@ -7,7 +7,7 @@
   padding: var(--size-6) var(--size-10);
   margin-right: var(--size-8);
   font-size: var(--font-size-xs);
-  letter-spacing: var(--size-letter-spacing-small);
+  letter-spacing: var(--letter-spacing-tight);
   border: var(--border-default);
   border-radius: var(--size-border-radius);
 
@@ -41,7 +41,7 @@
     line-clamp: 3;
     font-size: var(--font-size-xl);
     font-weight: var(--text-weight-semibold);
-    letter-spacing: var(--size-letter-spacing-medium);
+    letter-spacing: var(--letter-spacing-tighter);
   }
 
   & .description {
@@ -49,7 +49,7 @@
     line-clamp: 4;
     font-size: var(--font-size-sm);
     color: var(--color-fg-muted);
-    letter-spacing: var(--size-letter-spacing-small);
+    letter-spacing: var(--letter-spacing-tight);
   }
 
   &:hover {

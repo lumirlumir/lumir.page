@@ -43,7 +43,7 @@
 
 .DocSearch-Button-Placeholder {
   font-size: var(--font-size-sm);
-  letter-spacing: var(--size-letter-spacing-medium);
+  letter-spacing: var(--letter-spacing-tighter);
 }
 
 .DocSearch-Search-Icon {
@@ -57,7 +57,7 @@
   font-size: var(--font-size-sm);
   font-weight: var(--text-weight-semibold);
   color: var(--color-fg-default);
-  letter-spacing: var(--size-letter-spacing-small);
+  letter-spacing: var(--letter-spacing-tight);
 }
 
 .DocSearch-Logo {
@@ -70,7 +70,7 @@
 .DocSearch-Hit-source {
   font-size: var(--font-size-md);
   color: var(--color-fg-default);
-  letter-spacing: var(--size-letter-spacing-small);
+  letter-spacing: var(--letter-spacing-tight);
 }
 
 .DocSearch-Button-Key,

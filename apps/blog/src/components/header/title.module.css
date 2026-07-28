@@ -24,7 +24,7 @@
       & > .user-bio {
         font-size: var(--font-size-xs);
         color: var(--color-fg-muted);
-        letter-spacing: var(--size-letter-spacing-small);
+        letter-spacing: var(--letter-spacing-tight);
       }
     }
   }

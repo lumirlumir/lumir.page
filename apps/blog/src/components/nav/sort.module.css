@@ -41,14 +41,14 @@
     grid-area: 1 / 2 / 2 / 3;
     font-size: var(--font-size-md);
     font-weight: var(--text-weight-medium);
-    letter-spacing: var(--size-letter-spacing-large);
+    letter-spacing: var(--letter-spacing-tightest);
   }
 
   & > div.name-ko {
     grid-area: 2 / 2 / 3 / 3;
     font-size: var(--font-size-xs);
     color: var(--color-fg-muted);
-    letter-spacing: var(--size-letter-spacing-medium);
+    letter-spacing: var(--letter-spacing-tighter);
   }
 
   & > div.sort {

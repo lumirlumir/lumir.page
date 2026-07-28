@@ -1,3 +1,8 @@
+/**
+ * - font-size: https://tailwindcss.com/docs/font-size
+ * - letter-spacing: https://tailwindcss.com/docs/letter-spacing
+ */
+
 :root {
   /* primitive */
   --size-2: 0.125rem;
@@ -19,7 +24,7 @@
   --size-80: 5rem;
   --size-96: 6rem;
 
-  /* semantic */
+  /* typography */
   --font-size-xs: var(--size-12);
   --font-size-sm: var(--size-14);
   --font-size-md: var(--size-16);
@@ -27,4 +32,7 @@
   --font-size-xl: var(--size-24);
   --font-size-2xl: var(--size-28);
   --font-size-3xl: var(--size-32);
+  --letter-spacing-tight: -0.025em;
+  --letter-spacing-tighter: -0.05em;
+  --letter-spacing-tightest: -0.075em;
 }

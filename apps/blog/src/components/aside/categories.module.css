@@ -42,14 +42,14 @@
     & > div.name-en {
       grid-area: 1 / 2 / 2 / 3;
       font-weight: var(--text-weight-medium);
-      letter-spacing: var(--size-letter-spacing-medium);
+      letter-spacing: var(--letter-spacing-tighter);
     }
 
     & > div.name-ko {
       grid-area: 2 / 2 / 3 / 3;
       font-size: var(--font-size-xs);
       color: var(--color-fg-muted);
-      letter-spacing: var(--size-letter-spacing-medium);
+      letter-spacing: var(--letter-spacing-tighter);
     }
 
     & > div.count-docs {
@@ -60,7 +60,7 @@
         height: var(--size-20);
         font-size: var(--font-size-xs);
         font-weight: var(--text-weight-semibold);
-        letter-spacing: var(--size-letter-spacing-medium);
+        letter-spacing: var(--letter-spacing-tighter);
         border: var(--border-default);
         border-radius: 50%;
       }
