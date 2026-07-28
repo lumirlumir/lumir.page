@@ -2,8 +2,6 @@
  * @fileoverview Markdown modules for the blog application.
  */
 
-// TODO: auto-generate this file using a script.
-
 // --------------------------------------------------------------------------------
 // Environment
 // --------------------------------------------------------------------------------
