@@ -1,4 +1,5 @@
 /**
+ * - spacing: https://designsystem.porsche.com/v4/tokens/spacing/
  * - font-size: https://tailwindcss.com/docs/font-size
  * - font-weight: https://tailwindcss.com/docs/font-weight
  * - letter-spacing: https://tailwindcss.com/docs/letter-spacing
@@ -24,6 +25,12 @@
   --size-64: 4rem;
   --size-80: 5rem;
   --size-96: 6rem;
+
+  /* spacing */
+  --spacing-static-xs: var(--size-4);
+  --spacing-static-sm: var(--size-8);
+  --spacing-static-md: var(--size-16);
+  --spacing-static-lg: var(--size-32);
 
   /* typography */
   --font-size-xs: var(--size-12);

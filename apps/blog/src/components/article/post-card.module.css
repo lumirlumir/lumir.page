@@ -5,14 +5,14 @@
 
 .post-card-item {
   padding: var(--size-6) var(--size-10);
-  margin-right: var(--size-8);
+  margin-right: var(--spacing-static-sm);
   font-size: var(--font-size-xs);
   letter-spacing: var(--letter-spacing-tight);
   border: var(--border-default);
   border-radius: var(--size-border-radius);
 
   & > .react-icons {
-    padding-right: var(--size-4);
+    padding-right: var(--spacing-static-xs);
   }
 
   @media (width >= 640px) {
@@ -23,8 +23,8 @@
 .post-card {
   display: flex;
   flex-direction: column;
-  gap: var(--size-8);
-  padding: var(--size-16) var(--size-24);
+  gap: var(--spacing-static-sm);
+  padding: var(--spacing-static-md) var(--size-24);
   background-color: var(--color-bg-default);
   border: var(--border-default);
   border-radius: var(--size-border-radius);

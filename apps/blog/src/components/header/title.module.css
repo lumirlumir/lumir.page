@@ -13,10 +13,10 @@
     & > div {
       display: grid;
       grid-template-rows: 2fr 1fr;
-      padding-left: var(--size-16);
+      padding-left: var(--spacing-static-md);
 
       & > .user-name {
-        padding: var(--size-8) 0;
+        padding: var(--spacing-static-sm) 0;
         font-size: var(--font-size-lg);
         font-weight: var(--font-weight-semibold);
       }
