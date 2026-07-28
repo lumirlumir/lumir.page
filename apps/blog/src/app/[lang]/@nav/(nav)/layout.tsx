@@ -7,12 +7,13 @@
 // --------------------------------------------------------------------------------
 
 import { type PropsWithChildren } from 'react';
-import Nav from '@/components/layouts/nav';
+import { cn } from '@lumir/utils';
+import styles from './layout.module.css';
 
 // --------------------------------------------------------------------------------
 // Default Export
 // --------------------------------------------------------------------------------
 
 export default function Layout({ children }: PropsWithChildren) {
-  return <Nav>{children}</Nav>;
+  return <nav className={cn(styles.nav, 'custom-scrollbar-y-regular')}>{children}</nav>;
 }

@@ -55,7 +55,7 @@
   --letter-spacing-tighter: -0.05em;
   --letter-spacing-tightest: -0.075em;
 
-  --line-height-tighter: 1;
-  --line-height-tight: 1.25;
   --line-height-normal: 1.5;
+  --line-height-tight: 1.25;
+  --line-height-tighter: 1;
 }
