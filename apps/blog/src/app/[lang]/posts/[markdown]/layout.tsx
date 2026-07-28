@@ -7,7 +7,6 @@
 // --------------------------------------------------------------------------------
 
 import { type PropsWithChildren } from 'react';
-import Article from '@/components/layouts/article';
 import Giscus from '@/components/section/giscus';
 import { type LangKey } from '@/data/lang';
 import styles from './layout.module.css';
@@ -24,11 +23,11 @@ export default async function Layout({
   const lang = awaitedParams.lang as LangKey;
 
   return (
-    <Article>
+    <>
       {children}
       <section className={styles.section}>
         <Giscus lang={lang} />
       </section>
-    </Article>
+    </>
   );
 }

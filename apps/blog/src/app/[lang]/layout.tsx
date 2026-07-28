@@ -96,7 +96,9 @@ export default async function RootLayout({
             <Links lang={lang} />
             <Categories lang={lang} />
           </Aside>
-          <main>{children}</main>
+          <main>
+            <article>{children}</article>
+          </main>
           {nav}
 
           <Analytics />

@@ -51,6 +51,19 @@
   & > main {
     grid-area: 3 / 1 / 4 / 3;
     contain: paint; /* `overflow: hidden` prevent children's `position: sticky` from working. So I used it instead. */
+
+    & > article {
+      box-sizing: border-box;
+      width: 100%;
+      min-width: 200px;
+      max-width: 980px;
+      padding: var(--size-article-padding-large) var(--size-article-padding-medium);
+      margin: 0 auto;
+
+      @media (width >= 1024px) {
+        padding: var(--size-article-padding-large);
+      }
+    }
   }
 
   & > nav {

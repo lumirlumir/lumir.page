@@ -6,7 +6,6 @@
 // Import
 // --------------------------------------------------------------------------------
 
-import Article from '@/components/layouts/article';
 import { author } from '@/data/author';
 import type { LangKey } from '@/data/lang';
 
@@ -31,5 +30,5 @@ export default async function Page({ params }: PageProps<'/[lang]'>) {
 
   const dictionary = getDictionary(author.lumirlumir.name);
 
-  return <Article>{dictionary[lang]}</Article>;
+  return dictionary[lang];
 }
