@@ -13,17 +13,15 @@ import 'server-only';
 // --------------------------------------------------------------------------------
 
 import Link from 'next/link';
+import { author } from '@/data/author';
 import { type PropsWithLang } from '@/data/lang';
-import { getGithubUsers } from '@/utils/fetch';
 import styles from './title.module.css';
 
 // --------------------------------------------------------------------------------
 // Export
 // --------------------------------------------------------------------------------
 
-export default async function Title({ lang }: PropsWithLang) {
-  const { avatar_url: avatarUrl, bio, name } = await getGithubUsers();
-
+export default function Title({ lang }: PropsWithLang) {
   return (
     <div className={styles.title}>
       <Link href={`/${lang}`}>
@@ -31,21 +29,21 @@ export default async function Title({ lang }: PropsWithLang) {
           src={(() => {
             // To avoid downloading a much larger image than needed,
             // we can add a query parameter to the avatar URL to request a smaller size.
-            const url = new URL(avatarUrl);
+            const url = new URL(author.lumirlumir.avatarUrl);
             url.searchParams.set('s', '40');
             return url.toString();
           })()}
           width={40}
           height={40}
-          alt={`${name}'s GitHub profile`}
+          alt={`${author.lumirlumir.name}'s GitHub profile`}
         />
       </Link>
 
       <div>
         <div className={styles['user-name']}>
-          <Link href={`/${lang}`}>{name}</Link>
+          <Link href={`/${lang}`}>{author.lumirlumir.name}</Link>
         </div>
-        <div className={styles['user-bio']}>{bio}</div>
+        <div className={styles['user-bio']}>{author.lumirlumir.bio}</div>
       </div>
     </div>
   );
