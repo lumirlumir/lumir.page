@@ -47,7 +47,7 @@
 
     & > div.name-ko {
       grid-area: 2 / 2 / 3 / 3;
-      font-size: var(--size-11);
+      font-size: var(--font-size-xs);
       color: var(--color-fg-muted);
       letter-spacing: var(--size-letter-spacing-medium);
     }
@@ -58,7 +58,7 @@
       & > span {
         width: var(--size-20);
         height: var(--size-20);
-        font-size: var(--size-12);
+        font-size: var(--font-size-xs);
         font-weight: var(--text-weight-semibold);
         letter-spacing: var(--size-letter-spacing-medium);
         border: var(--border-default);

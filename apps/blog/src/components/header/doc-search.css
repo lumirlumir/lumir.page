@@ -42,7 +42,7 @@
 }
 
 .DocSearch-Button-Placeholder {
-  font-size: var(--size-14);
+  font-size: var(--font-size-sm);
   letter-spacing: var(--size-letter-spacing-medium);
 }
 
@@ -54,7 +54,7 @@
 }
 
 .DocSearch-Cancel {
-  font-size: var(--size-14);
+  font-size: var(--font-size-sm);
   font-weight: var(--text-weight-semibold);
   color: var(--color-fg-default);
   letter-spacing: var(--size-letter-spacing-small);
@@ -68,7 +68,7 @@
 }
 
 .DocSearch-Hit-source {
-  font-size: var(--size-16);
+  font-size: var(--font-size-md);
   color: var(--color-fg-default);
   letter-spacing: var(--size-letter-spacing-small);
 }
@@ -78,7 +78,7 @@
   width: fit-content;
   padding: var(--size-2) var(--size-4);
   font-family: var(--font-stack-monospace);
-  font-size: var(--size-12);
+  font-size: var(--font-size-xs);
   color: var(--color-fg-default);
   background-color: var(--color-bg-muted);
   border: solid 1px var(--color-border-neutral-muted);

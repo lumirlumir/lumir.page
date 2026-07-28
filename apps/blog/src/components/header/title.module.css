@@ -17,12 +17,12 @@
 
       & > .user-name {
         padding: var(--size-8) 0;
-        font-size: calc(var(--size-10) * 2); /* 2fr */
+        font-size: var(--font-size-lg);
         font-weight: var(--text-weight-semibold);
       }
 
       & > .user-bio {
-        font-size: var(--size-10); /* 1fr */
+        font-size: var(--font-size-xs);
         color: var(--color-fg-muted);
         letter-spacing: var(--size-letter-spacing-small);
       }

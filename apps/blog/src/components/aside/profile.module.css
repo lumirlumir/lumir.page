@@ -9,12 +9,12 @@
 
   & > .user-name {
     padding: var(--size-16) 0;
-    font-size: var(--size-20);
+    font-size: var(--font-size-lg);
     font-weight: var(--text-weight-semibold);
   }
 
   & > .user-bio {
-    font-size: var(--size-12);
+    font-size: var(--font-size-xs);
     color: var(--color-fg-muted);
     letter-spacing: var(--size-letter-spacing-small);
   }

@@ -1,4 +1,5 @@
 .markdown {
+  font-size: var(--font-size-md);
   line-height: 1.5;
   overflow-wrap: break-word;
 
@@ -60,7 +61,7 @@
   & kbd {
     display: inline-block;
     padding: var(--size-4);
-    font: 11px var(--font-stack-monospace);
+    font: var(--font-size-xs) var(--font-stack-monospace);
     line-height: 10px;
     vertical-align: middle;
     color: var(--color-fg-default);
@@ -73,7 +74,7 @@
   & code {
     padding: 0.2em 0.4em;
     font-family: var(--font-stack-monospace);
-    font-size: 85%;
+    font-size: 0.875em;
     white-space: break-spaces;
     background-color: var(--color-bg-neutral-muted);
     border-radius: 6px;
@@ -126,30 +127,30 @@
   & h1 {
     padding-bottom: 0.3em;
     margin: 0.67em 0;
-    font-size: 2em;
+    font-size: var(--font-size-3xl);
     border-bottom: 1px solid var(--color-border-muted);
   }
 
   & h2 {
     padding-bottom: 0.3em;
-    font-size: 1.5em;
+    font-size: var(--font-size-xl);
     border-bottom: 1px solid var(--color-border-muted);
   }
 
   & h3 {
-    font-size: 1.25em;
+    font-size: var(--font-size-lg);
   }
 
   & h4 {
-    font-size: 1em;
+    font-size: var(--font-size-md);
   }
 
   & h5 {
-    font-size: 0.875em;
+    font-size: var(--font-size-sm);
   }
 
   & h6 {
-    font-size: 0.85em;
+    font-size: var(--font-size-sm);
     color: var(--color-fg-muted);
   }
 
@@ -256,7 +257,7 @@
     padding: var(--size-16);
     overflow: auto;
     font-family: var(--font-stack-monospace);
-    font-size: 85%;
+    font-size: 0.875em;
     line-height: 1.45;
     color: var(--color-fg-default);
     overflow-wrap: normal;
@@ -283,7 +284,7 @@
   }
 
   & .footnotes {
-    font-size: 12px;
+    font-size: var(--font-size-xs);
     color: var(--color-fg-muted);
     border-top: 1px solid var(--color-border-default);
 

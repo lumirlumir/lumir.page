@@ -4,7 +4,7 @@
   > a {
     width: var(--size-32);
     height: var(--size-32);
-    font-size: var(--size-16);
+    font-size: var(--font-size-md);
     font-weight: var(--text-weight-semibold);
     text-decoration: none;
   }

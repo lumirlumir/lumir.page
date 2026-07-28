@@ -6,7 +6,7 @@
 .post-card-item {
   padding: var(--size-6) var(--size-10);
   margin-right: var(--size-8);
-  font-size: var(--size-12);
+  font-size: var(--font-size-xs);
   letter-spacing: var(--size-letter-spacing-small);
   border: var(--border-default);
   border-radius: var(--size-border-radius);
@@ -16,7 +16,7 @@
   }
 
   @media (width >= 640px) {
-    font-size: var(--size-14);
+    font-size: var(--font-size-sm);
   }
 }
 
@@ -39,7 +39,7 @@
   & .title {
     -webkit-line-clamp: 3;
     line-clamp: 3;
-    font-size: var(--size-24);
+    font-size: var(--font-size-xl);
     font-weight: var(--text-weight-semibold);
     letter-spacing: var(--size-letter-spacing-medium);
   }
@@ -47,7 +47,7 @@
   & .description {
     -webkit-line-clamp: 4;
     line-clamp: 4;
-    font-size: var(--size-14);
+    font-size: var(--font-size-sm);
     color: var(--color-fg-muted);
     letter-spacing: var(--size-letter-spacing-small);
   }
@@ -64,13 +64,13 @@
     & .title {
       -webkit-line-clamp: 1;
       line-clamp: 1;
-      font-size: var(--size-28);
+      font-size: var(--font-size-2xl);
     }
 
     & .description {
       -webkit-line-clamp: 2;
       line-clamp: 2;
-      font-size: var(--size-16);
+      font-size: var(--font-size-md);
     }
   }
 }
