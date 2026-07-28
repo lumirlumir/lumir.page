@@ -17,7 +17,6 @@ import { ThemeProvider } from '@/components/common/theme-context';
 import ThemeScript from '@/components/common/theme-script';
 
 import Aside from '@/components/layouts/aside';
-import Header from '@/components/layouts/header';
 import Main from '@/components/layouts/main';
 
 import Categories from '@/components/aside/categories';
@@ -84,14 +83,14 @@ export default async function RootLayout({
         <ThemeScript />
         <ThemeProvider>
           <ScrollProgress />
-          <Header>
+          <header>
             <Title lang={lang} />
             <FlexContainer>
               <DocSearch />
               <LangToggle lang={lang} />
               <ThemeToggle />
             </FlexContainer>
-          </Header>
+          </header>
           <Aside>
             <Profile lang={lang} />
             <Links lang={lang} />

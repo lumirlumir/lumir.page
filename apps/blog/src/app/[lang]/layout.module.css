@@ -12,7 +12,34 @@
   }
 
   & > header {
+    position: sticky;
+    top: var(--size-scroll-progress-height);
+    z-index: 1;
+    display: flex;
     grid-area: 2 / 1 / 3 / 3;
+    justify-content: space-between;
+    padding: 0 var(--size-article-padding-small);
+    background-color: inherit;
+    border-bottom: var(--border-default);
+
+    @media (width >= 1024px) {
+      padding: 0 calc(var(--size-article-padding-small) * 2) 0
+        var(--size-article-padding-large);
+    }
+
+    @media (width >= 1280px) {
+      display: grid;
+      grid-template-columns: var(--size-sidebar-width) 1fr min-content;
+      padding: 0 calc(var(--size-article-padding-small) * 2) 0 0;
+
+      > div:first-child {
+        grid-area: 1 / 1 / 2 / 2;
+      }
+
+      > div:last-child {
+        grid-area: 1 / 3 / 2 / 4;
+      }
+    }
   }
 
   & > aside {
