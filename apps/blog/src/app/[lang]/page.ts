@@ -7,18 +7,20 @@
 // --------------------------------------------------------------------------------
 
 import { author } from '@/data/author';
-import type { LangKey } from '@/data/lang';
+import { type LangKey, type LangRecord } from '@/data/lang';
 
 // --------------------------------------------------------------------------------
 // Helper
 // --------------------------------------------------------------------------------
 
-function getDictionary(name: string) {
-  return {
-    ko: `안녕하세요, ${name}의 블로그입니다.`,
-    en: `Hello, It's ${name}'s blog.`,
-  };
-}
+const dictionary = {
+  ko: {
+    name: (name: string) => `안녕하세요, ${name}의 블로그입니다.`,
+  },
+  en: {
+    name: (name: string) => `Hello, It's ${name}'s blog.`,
+  },
+} as const satisfies LangRecord<{ name: (name: string) => string }>;
 
 // --------------------------------------------------------------------------------
 // Default Export
@@ -28,7 +30,5 @@ export default async function Page({ params }: PageProps<'/[lang]'>) {
   const awaitedParams = await params;
   const lang = awaitedParams.lang as LangKey;
 
-  const dictionary = getDictionary(author.lumirlumir.name);
-
-  return dictionary[lang];
+  return dictionary[lang].name(author.lumirlumir.name);
 }
