@@ -40,7 +40,7 @@
   & > div.name-en {
     grid-area: 1 / 2 / 2 / 3;
     font-size: var(--font-size-md);
-    font-weight: var(--text-weight-medium);
+    font-weight: var(--font-weight-medium);
     letter-spacing: var(--letter-spacing-tightest);
   }
 

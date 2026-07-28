@@ -55,7 +55,7 @@
 
 .DocSearch-Cancel {
   font-size: var(--font-size-sm);
-  font-weight: var(--text-weight-semibold);
+  font-weight: var(--font-weight-semibold);
   color: var(--color-fg-default);
   letter-spacing: var(--letter-spacing-tight);
 }

@@ -18,7 +18,7 @@
       & > .user-name {
         padding: var(--size-8) 0;
         font-size: var(--font-size-lg);
-        font-weight: var(--text-weight-semibold);
+        font-weight: var(--font-weight-semibold);
       }
 
       & > .user-bio {

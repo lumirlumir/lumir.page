@@ -9,10 +9,6 @@
   --size-article-padding-medium: 24px;
   --size-article-padding-small: 12px;
 
-  /* text-weight */
-  --text-weight-medium: 500;
-  --text-weight-semibold: 600;
-
   /* list */
   --animation-shake: shake 0.6s ease-in-out;
   --animation-fade-in: fade-in 0.6s ease-in-out;

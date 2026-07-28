@@ -41,7 +41,7 @@
 
     & > div.name-en {
       grid-area: 1 / 2 / 2 / 3;
-      font-weight: var(--text-weight-medium);
+      font-weight: var(--font-weight-medium);
       letter-spacing: var(--letter-spacing-tighter);
     }
 
@@ -59,7 +59,7 @@
         width: var(--size-20);
         height: var(--size-20);
         font-size: var(--font-size-xs);
-        font-weight: var(--text-weight-semibold);
+        font-weight: var(--font-weight-semibold);
         letter-spacing: var(--letter-spacing-tighter);
         border: var(--border-default);
         border-radius: 50%;

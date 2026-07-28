@@ -26,7 +26,7 @@
   }
 
   & :is(b, strong) {
-    font-weight: var(--text-weight-semibold);
+    font-weight: var(--font-weight-semibold);
   }
 
   & img {
@@ -83,7 +83,7 @@
   & :is(h1, h2, h3, h4, h5, h6) {
     margin-top: var(--size-24);
     margin-bottom: var(--size-16);
-    font-weight: var(--text-weight-semibold);
+    font-weight: var(--font-weight-semibold);
     line-height: 1.25;
     scroll-margin-top: calc(
       var(--size-header-height) + var(--size-16)
@@ -223,7 +223,7 @@
   }
 
   & table th {
-    font-weight: var(--text-weight-semibold);
+    font-weight: var(--font-weight-semibold);
   }
 
   & table :is(th, td) {
@@ -368,7 +368,7 @@
   }
 
   & .pl-sr .pl-cce {
-    font-weight: bold;
+    font-weight: var(--font-weight-bold);
     color: var(--color-syntax-string-regexp);
   }
 
@@ -379,7 +379,7 @@
   & .pl-mh,
   & .pl-mh .pl-en,
   & .pl-ms {
-    font-weight: bold;
+    font-weight: var(--font-weight-bold);
     color: var(--color-syntax-markup-heading);
   }
 
@@ -389,7 +389,7 @@
   }
 
   & .pl-mb {
-    font-weight: bold;
+    font-weight: var(--font-weight-bold);
     color: var(--color-syntax-markup-bold);
   }
 
@@ -414,7 +414,7 @@
   }
 
   & .pl-mdr {
-    font-weight: bold;
+    font-weight: var(--font-weight-bold);
     color: var(--color-syntax-meta-diff-range);
   }
 
@@ -455,7 +455,7 @@
     & .markdown-alert-title {
       display: flex;
       align-items: center;
-      font-weight: var(--text-weight-medium);
+      font-weight: var(--font-weight-medium);
       line-height: 1;
     }
 

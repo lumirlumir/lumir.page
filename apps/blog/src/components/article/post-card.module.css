@@ -40,7 +40,7 @@
     -webkit-line-clamp: 3;
     line-clamp: 3;
     font-size: var(--font-size-xl);
-    font-weight: var(--text-weight-semibold);
+    font-weight: var(--font-weight-semibold);
     letter-spacing: var(--letter-spacing-tighter);
   }
 

@@ -1,5 +1,6 @@
 /**
  * - font-size: https://tailwindcss.com/docs/font-size
+ * - font-weight: https://tailwindcss.com/docs/font-weight
  * - letter-spacing: https://tailwindcss.com/docs/letter-spacing
  */
 
@@ -32,6 +33,9 @@
   --font-size-xl: var(--size-24);
   --font-size-2xl: var(--size-28);
   --font-size-3xl: var(--size-32);
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
   --letter-spacing-tight: -0.025em;
   --letter-spacing-tighter: -0.05em;
   --letter-spacing-tightest: -0.075em;
