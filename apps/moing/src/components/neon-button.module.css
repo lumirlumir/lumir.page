@@ -1,7 +1,7 @@
 .neon-button {
   position: relative;
   overflow: hidden;
-  border-radius: 6px;
+  border-radius: var(--border-radius-md);
   transition: all 0.6s ease-out;
 
   & > button {

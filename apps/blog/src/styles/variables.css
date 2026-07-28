@@ -1,6 +1,5 @@
 :root {
   /* size */
-  --size-border-radius: 6px;
   --size-scroll-progress-height: var(--size-2);
   --size-header-height: 64px;
   --size-sidebar-width: 256px;

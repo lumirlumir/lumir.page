@@ -1,4 +1,5 @@
 /**
+ * - border-radius: https://tailwindcss.com/docs/border-radius
  * - spacing: https://designsystem.porsche.com/v4/tokens/spacing/
  * - font-size: https://tailwindcss.com/docs/font-size
  * - font-weight: https://tailwindcss.com/docs/font-weight
@@ -25,6 +26,10 @@
   --size-64: 4rem;
   --size-80: 5rem;
   --size-96: 6rem;
+
+  /* border */
+  --border-radius-md: var(--size-6);
+  --border-radius-circle: 50%;
 
   /* spacing */
   --spacing-static-xs: var(--size-4);

@@ -9,7 +9,7 @@
   font-size: var(--font-size-xs);
   letter-spacing: var(--letter-spacing-tight);
   border: var(--border-default);
-  border-radius: var(--size-border-radius);
+  border-radius: var(--border-radius-md);
 
   & > .react-icons {
     padding-right: var(--spacing-static-xs);
@@ -27,7 +27,7 @@
   padding: var(--spacing-static-md) var(--size-24);
   background-color: var(--color-bg-default);
   border: var(--border-default);
-  border-radius: var(--size-border-radius);
+  border-radius: var(--border-radius-md);
 
   & .title,
   & .description {

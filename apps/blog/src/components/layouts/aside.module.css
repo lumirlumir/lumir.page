@@ -37,7 +37,7 @@
   background-color: var(--color-bg-inset);
   border-right: var(--border-default);
   border-bottom: var(--border-default);
-  border-bottom-right-radius: var(--size-border-radius);
+  border-bottom-right-radius: var(--border-radius-md);
   transform: translateX(0);
   transition: transform 0.75s ease-in-out;
 

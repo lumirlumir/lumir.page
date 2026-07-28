@@ -3,7 +3,7 @@
 
   &:hover {
     background-color: var(--color-bg-neutral-muted);
-    border-radius: var(--size-border-radius);
+    border-radius: var(--border-radius-md);
   }
 }
 
@@ -29,7 +29,7 @@
 
   &::-webkit-scrollbar-thumb {
     background-color: var(--color-border-default);
-    border-radius: var(--size-border-radius);
+    border-radius: var(--border-radius-md);
   }
 
   /* Fallback for browsers that don't support `::-webkit-scrollbar` (e.g. Firefox). */
@@ -48,7 +48,7 @@
 
   &::-webkit-scrollbar-thumb {
     background-color: var(--color-border-default);
-    border-radius: var(--size-border-radius);
+    border-radius: var(--border-radius-md);
   }
 
   /* Fallback for browsers that don't support `::-webkit-scrollbar` (e.g. Firefox). */

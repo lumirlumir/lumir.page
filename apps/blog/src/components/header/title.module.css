@@ -2,7 +2,7 @@
   composes: flex-center from global;
 
   & > a > img {
-    border-radius: 50%;
+    border-radius: var(--border-radius-circle);
   }
 
   & > div {

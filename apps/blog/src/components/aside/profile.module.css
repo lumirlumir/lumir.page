@@ -4,7 +4,7 @@
   margin: var(--spacing-static-md);
 
   & > img {
-    border-radius: 50%;
+    border-radius: var(--border-radius-circle);
   }
 
   & > .user-name {

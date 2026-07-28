@@ -5,6 +5,6 @@
   @media (width >= 768px) {
     width: 256px;
     border: var(--border-default);
-    border-radius: var(--size-border-radius);
+    border-radius: var(--border-radius-md);
   }
 }
