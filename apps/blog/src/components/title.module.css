@@ -1,5 +1,7 @@
 .title {
-  composes: flex-center from global;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   & > a > img {
     border-radius: var(--border-radius-circle);
@@ -15,13 +17,13 @@
       grid-template-rows: 2fr 1fr;
       padding-left: var(--spacing-static-md);
 
-      & > .user-name {
+      & > :first-child {
         padding: var(--spacing-static-sm) 0;
         font-size: var(--font-size-lg);
         font-weight: var(--font-weight-semibold);
       }
 
-      & > .user-bio {
+      & > :last-child {
         font-size: var(--font-size-xs);
         color: var(--color-fg-muted);
         letter-spacing: var(--letter-spacing-tight);

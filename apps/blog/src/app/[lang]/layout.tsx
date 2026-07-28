@@ -26,7 +26,7 @@ import { DocSearch } from '@/components/header/doc-search';
 import { LangToggle } from '@/components/lang-toggle';
 import { ScrollProgress } from '@/components/header/scroll-progress';
 import { ThemeToggle } from '@/components/header/theme-toggle';
-import { Title } from '@/components/header/title';
+import { Title } from '@/components/title';
 
 import { GOOGLE_GA_ID } from '@/constants';
 import { author } from '@/data/author';
