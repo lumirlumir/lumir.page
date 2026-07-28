@@ -1,6 +1,6 @@
 .links {
   composes: flex-center from global;
-  padding: var(--size-8) 0 var(--size-16);
+  padding: var(--spacing-static-sm) 0 var(--spacing-static-md);
   list-style: none;
 
   & > li > a {
@@ -27,7 +27,7 @@
     & > span {
       width: var(--size-40);
       color: var(--color-fg-muted);
-      letter-spacing: var(--size-letter-spacing-medium);
+      letter-spacing: var(--letter-spacing-tighter);
     }
   }
 }

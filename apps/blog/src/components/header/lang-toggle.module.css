@@ -4,8 +4,8 @@
   > a {
     width: var(--size-32);
     height: var(--size-32);
-    font-size: var(--size-16);
-    font-weight: var(--text-weight-semibold);
+    font-size: var(--font-size-md);
+    font-weight: var(--font-weight-semibold);
     text-decoration: none;
   }
 }

@@ -2,7 +2,7 @@
   composes: flex-center from global;
 
   & > a > img {
-    border-radius: 50%;
+    border-radius: var(--border-radius-circle);
   }
 
   & > div {
@@ -13,18 +13,18 @@
     & > div {
       display: grid;
       grid-template-rows: 2fr 1fr;
-      padding-left: var(--size-16);
+      padding-left: var(--spacing-static-md);
 
       & > .user-name {
-        padding: var(--size-8) 0;
-        font-size: calc(var(--size-10) * 2); /* 2fr */
-        font-weight: var(--text-weight-semibold);
+        padding: var(--spacing-static-sm) 0;
+        font-size: var(--font-size-lg);
+        font-weight: var(--font-weight-semibold);
       }
 
       & > .user-bio {
-        font-size: var(--size-10); /* 1fr */
+        font-size: var(--font-size-xs);
         color: var(--color-fg-muted);
-        letter-spacing: var(--size-letter-spacing-small);
+        letter-spacing: var(--letter-spacing-tight);
       }
     }
   }

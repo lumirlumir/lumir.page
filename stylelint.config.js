@@ -12,6 +12,7 @@ export default {
     },
   },
   rules: {
+    'custom-property-empty-line-before': null,
     'import-notation': 'string',
     'property-no-unknown': [
       true,

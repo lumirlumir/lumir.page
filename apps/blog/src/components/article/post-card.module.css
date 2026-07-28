@@ -5,29 +5,29 @@
 
 .post-card-item {
   padding: var(--size-6) var(--size-10);
-  margin-right: var(--size-8);
-  font-size: var(--size-12);
-  letter-spacing: var(--size-letter-spacing-small);
+  margin-right: var(--spacing-static-sm);
+  font-size: var(--font-size-xs);
+  letter-spacing: var(--letter-spacing-tight);
   border: var(--border-default);
-  border-radius: var(--size-border-radius);
+  border-radius: var(--border-radius-md);
 
   & > .react-icons {
-    padding-right: var(--size-4);
+    padding-right: var(--spacing-static-xs);
   }
 
   @media (width >= 640px) {
-    font-size: var(--size-14);
+    font-size: var(--font-size-sm);
   }
 }
 
 .post-card {
   display: flex;
   flex-direction: column;
-  gap: var(--size-8);
-  padding: var(--size-16) var(--size-24);
+  gap: var(--spacing-static-sm);
+  padding: var(--spacing-static-md) var(--size-24);
   background-color: var(--color-bg-default);
   border: var(--border-default);
-  border-radius: var(--size-border-radius);
+  border-radius: var(--border-radius-md);
 
   & .title,
   & .description {
@@ -39,17 +39,17 @@
   & .title {
     -webkit-line-clamp: 3;
     line-clamp: 3;
-    font-size: var(--size-24);
-    font-weight: var(--text-weight-semibold);
-    letter-spacing: var(--size-letter-spacing-medium);
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-semibold);
+    letter-spacing: var(--letter-spacing-tighter);
   }
 
   & .description {
     -webkit-line-clamp: 4;
     line-clamp: 4;
-    font-size: var(--size-14);
+    font-size: var(--font-size-sm);
     color: var(--color-fg-muted);
-    letter-spacing: var(--size-letter-spacing-small);
+    letter-spacing: var(--letter-spacing-tight);
   }
 
   &:hover {
@@ -64,13 +64,13 @@
     & .title {
       -webkit-line-clamp: 1;
       line-clamp: 1;
-      font-size: var(--size-28);
+      font-size: var(--font-size-2xl);
     }
 
     & .description {
       -webkit-line-clamp: 2;
       line-clamp: 2;
-      font-size: var(--size-16);
+      font-size: var(--font-size-md);
     }
   }
 }

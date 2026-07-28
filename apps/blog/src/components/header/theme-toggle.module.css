@@ -26,7 +26,7 @@
     cursor: pointer;
     background: none;
     border: 0;
-    border-radius: 50%;
+    border-radius: var(--border-radius-circle);
     transform: rotate(0deg);
     transition: all var(--duration) var(--timing);
 
@@ -36,7 +36,7 @@
       width: 80%;
       height: 80%;
       background-color: var(--light-color);
-      border-radius: 50%;
+      border-radius: var(--border-radius-circle);
       transition: all var(--duration) var(--timing);
     }
 
@@ -48,7 +48,7 @@
       width: 80%;
       height: 80%;
       background-color: var(--dark-color);
-      border-radius: 50%;
+      border-radius: var(--border-radius-circle);
       transform: rotate(20deg);
       transform-origin: 100% 100%;
       transition:
@@ -74,7 +74,7 @@
         height: calc(var(--circle-size) * 0.12);
         content: '';
         background-color: var(--sun-color);
-        border-radius: 50%;
+        border-radius: var(--border-radius-circle);
       }
 
       &::before {

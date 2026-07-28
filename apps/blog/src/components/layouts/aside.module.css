@@ -15,7 +15,7 @@
   }
 
   & > ul:not(:last-child) {
-    margin: 16px 0;
+    margin: var(--spacing-static-md) 0;
     border-bottom: var(--border-default);
   }
 
@@ -37,7 +37,7 @@
   background-color: var(--color-bg-inset);
   border-right: var(--border-default);
   border-bottom: var(--border-default);
-  border-bottom-right-radius: var(--size-border-radius);
+  border-bottom-right-radius: var(--border-radius-md);
   transform: translateX(0);
   transition: transform 0.75s ease-in-out;
 
@@ -48,7 +48,7 @@
   & > svg {
     width: 100%;
     height: 100%;
-    margin: var(--size-4);
+    margin: var(--spacing-static-xs);
   }
 
   @media (width >= 1280px) {

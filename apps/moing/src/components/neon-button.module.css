@@ -1,7 +1,7 @@
 .neon-button {
   position: relative;
   overflow: hidden;
-  border-radius: 6px;
+  border-radius: var(--border-radius-md);
   transition: all 0.6s ease-out;
 
   & > button {
@@ -57,7 +57,7 @@
   &:hover,
   &.hover {
     background: var(--color-primary-white);
-    border-radius: 15px;
+    border-radius: var(--border-radius-xl);
     box-shadow:
       0 0 5px var(--color-primary-white),
       0 0 25px var(--color-primary-white),

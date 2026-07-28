@@ -1,10 +1,10 @@
 .doc-search {
   composes: flex-center from global;
-  margin: var(--size-10) var(--size-8) var(--size-10) 0;
+  margin: var(--size-10) var(--spacing-static-sm) var(--size-10) 0;
 
   @media (width >= 768px) {
     width: 256px;
     border: var(--border-default);
-    border-radius: var(--size-border-radius);
+    border-radius: var(--border-radius-md);
   }
 }

@@ -3,7 +3,7 @@
   grid-template-rows: var(--size-scroll-progress-height) var(--size-header-height) 1fr;
   grid-template-columns: var(--size-sidebar-width) 1fr;
   font-family: var(--font-stack-system);
-  line-height: 1;
+  line-height: var(--line-height-tighter);
   color: var(--color-fg-default);
   background-color: var(--color-bg-inset);
 

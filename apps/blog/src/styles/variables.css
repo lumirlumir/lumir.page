@@ -1,21 +1,5 @@
 :root {
   /* size */
-  --size-2: 0.125rem;
-  --size-4: 0.25rem;
-  --size-6: 0.375rem;
-  --size-8: 0.5rem;
-  --size-10: 0.625rem;
-  --size-11: 0.6875rem;
-  --size-12: 0.75rem;
-  --size-14: 0.875rem;
-  --size-16: 1rem;
-  --size-20: 1.25rem;
-  --size-24: 1.5rem;
-  --size-28: 1.75rem;
-  --size-32: 2rem;
-  --size-36: 2.25rem;
-  --size-40: 2.5rem;
-  --size-border-radius: 6px;
   --size-scroll-progress-height: var(--size-2);
   --size-header-height: 64px;
   --size-sidebar-width: 256px;
@@ -23,13 +7,6 @@
   --size-article-padding-large: 45px;
   --size-article-padding-medium: 24px;
   --size-article-padding-small: 12px;
-  --size-letter-spacing-large: -1.5px;
-  --size-letter-spacing-medium: -1px;
-  --size-letter-spacing-small: -0.5px;
-
-  /* text-weight */
-  --text-weight-medium: 500;
-  --text-weight-semibold: 600;
 
   /* list */
   --animation-shake: shake 0.6s ease-in-out;
