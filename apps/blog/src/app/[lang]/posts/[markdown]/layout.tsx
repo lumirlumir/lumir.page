@@ -8,9 +8,9 @@
 
 import { type PropsWithChildren } from 'react';
 import Article from '@/components/layouts/article';
-import Section from '@/components/layouts/section';
 import Giscus from '@/components/section/giscus';
 import { type LangKey } from '@/data/lang';
+import styles from './layout.module.css';
 
 // --------------------------------------------------------------------------------
 // Default Export
@@ -26,9 +26,9 @@ export default async function Layout({
   return (
     <Article>
       {children}
-      <Section>
+      <section className={styles.section}>
         <Giscus lang={lang} />
-      </Section>
+      </section>
     </Article>
   );
 }
