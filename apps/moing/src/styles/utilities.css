@@ -20,7 +20,7 @@
   width: var(--main-section-width);
   padding: var(--main-section-padding);
   margin: 40px auto;
-  line-height: 1.5;
+  line-height: var(--line-height-normal);
 }
 
 .custom-main-section-bash {

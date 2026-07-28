@@ -1,6 +1,6 @@
 .markdown {
   font-size: var(--font-size-md);
-  line-height: 1.5;
+  line-height: var(--line-height-normal);
   overflow-wrap: break-word;
 
   & a {
@@ -84,7 +84,7 @@
     margin-top: var(--size-24);
     margin-bottom: var(--size-16);
     font-weight: var(--font-weight-semibold);
-    line-height: 1.25;
+    line-height: var(--line-height-tight);
     scroll-margin-top: calc(
       var(--size-header-height) + var(--size-16)
     ); /* Keep linked headings visible below the sticky header. */
@@ -456,7 +456,7 @@
       display: flex;
       align-items: center;
       font-weight: var(--font-weight-medium);
-      line-height: 1;
+      line-height: var(--line-height-tighter);
     }
 
     &.markdown-alert-note {

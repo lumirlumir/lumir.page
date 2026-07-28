@@ -8,7 +8,7 @@ body,
   display: grid;
   grid-template-rows: var(--grid-height) 1fr var(--grid-height);
   grid-template-columns: var(--grid-width) 1fr var(--grid-width);
-  line-height: 1;
+  line-height: var(--line-height-tighter);
   color: var(--color-primary-white);
   background: var(--color-background) 0 / 15px 20px;
 
