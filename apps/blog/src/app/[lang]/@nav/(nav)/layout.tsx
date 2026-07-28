@@ -1,22 +1,18 @@
 /**
- * @fileoverview Navigation slot for category routes.
+ * @fileoverview Layout for routes with navigation.
  */
 
 // --------------------------------------------------------------------------------
 // Import
 // --------------------------------------------------------------------------------
 
+import { type PropsWithChildren } from 'react';
 import Nav from '@/components/layouts/nav';
-import Sort from '@/components/nav/sort';
 
 // --------------------------------------------------------------------------------
 // Default Export
 // --------------------------------------------------------------------------------
 
-export default function Page() {
-  return (
-    <Nav>
-      <Sort />
-    </Nav>
-  );
+export default function Layout({ children }: PropsWithChildren) {
+  return <Nav>{children}</Nav>;
 }
