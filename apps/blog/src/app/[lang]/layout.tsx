@@ -69,6 +69,7 @@ export const metadata: Metadata = {
 
 export default async function RootLayout({
   children,
+  nav,
   params,
 }: PropsWithChildren<LayoutProps<'/[lang]'>>) {
   const awaitedParams = await params;
@@ -96,6 +97,7 @@ export default async function RootLayout({
             <Categories lang={lang} />
           </Aside>
           <main>{children}</main>
+          {nav}
 
           <Analytics />
           <SpeedInsights />

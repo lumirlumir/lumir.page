@@ -1,18 +1,17 @@
 /**
- * @fileoverview Layout.
+ * @fileoverview Navigation slot for post routes.
  */
 
 // --------------------------------------------------------------------------------
 // Import
 // --------------------------------------------------------------------------------
 
-import { type PropsWithChildren } from 'react';
-import Article from '@/components/layouts/article';
+import Nav from '@/components/layouts/nav';
 
 // --------------------------------------------------------------------------------
 // Default Export
 // --------------------------------------------------------------------------------
 
-export default function Layout({ children }: PropsWithChildren) {
-  return <Article>{children}</Article>;
+export default function Page() {
+  return <Nav />;
 }
