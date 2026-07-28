@@ -17,7 +17,6 @@ import { ThemeProvider } from '@/components/common/theme-context';
 import ThemeScript from '@/components/common/theme-script';
 
 import Aside from '@/components/layouts/aside';
-import Body from '@/components/layouts/body';
 import Header from '@/components/layouts/header';
 import Main from '@/components/layouts/main';
 
@@ -37,6 +36,7 @@ import { author } from '@/data/author';
 import { langKeys, type LangKey } from '@/data/lang';
 
 import '@/styles/index.css';
+import styles from './layout.module.css';
 
 // --------------------------------------------------------------------------------
 // Named Export
@@ -80,7 +80,7 @@ export default async function RootLayout({
     // Use `suppressHydrationWarning` because `ThemeScript` may change the initial `data-theme`.
     // https://react.dev/reference/react-dom/client/hydrateRoot#suppressing-unavoidable-hydration-mismatch-errors
     <html className="custom-scrollbar-y-bold" lang={lang} suppressHydrationWarning>
-      <Body>
+      <body className={styles.body}>
         <ThemeScript />
         <ThemeProvider>
           <ScrollProgress />
@@ -103,7 +103,7 @@ export default async function RootLayout({
           <SpeedInsights />
           <GoogleAnalytics gaId={GOOGLE_GA_ID} />
         </ThemeProvider>
-      </Body>
+      </body>
     </html>
   );
 }
