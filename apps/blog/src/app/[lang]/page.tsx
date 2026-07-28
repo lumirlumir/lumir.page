@@ -7,8 +7,8 @@
 // --------------------------------------------------------------------------------
 
 import Article from '@/components/layouts/article';
+import { author } from '@/data/author';
 import type { LangKey } from '@/data/lang';
-import { getGithubUsers } from '@/utils/fetch';
 
 // --------------------------------------------------------------------------------
 // Helper
@@ -29,8 +29,7 @@ export default async function Page({ params }: PageProps<'/[lang]'>) {
   const awaitedParams = await params;
   const lang = awaitedParams.lang as LangKey;
 
-  const { name } = await getGithubUsers();
-  const dictionary = getDictionary(name);
+  const dictionary = getDictionary(author.lumirlumir.name);
 
   return <Article>{dictionary[lang]}</Article>;
 }

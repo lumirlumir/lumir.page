@@ -33,8 +33,8 @@ import ThemeToggle from '@/components/header/theme-toggle';
 import Title from '@/components/header/title';
 
 import { GOOGLE_GA_ID } from '@/constants';
+import { author } from '@/data/author';
 import { langKeys, type LangKey } from '@/data/lang';
-import { getGithubUsers } from '@/utils/fetch';
 
 import '@/styles/index.css';
 
@@ -57,17 +57,13 @@ export function generateStaticParams(): Awaited<PageProps<'/[lang]'>['params']>[
   }));
 }
 
-export async function generateMetadata(): Promise<Metadata> {
-  const { bio, name } = await getGithubUsers();
-
-  return {
-    title: {
-      template: `%s | ${name}`,
-      default: name,
-    },
-    description: bio,
-  };
-}
+export const metadata: Metadata = {
+  title: {
+    template: `%s | ${author.lumirlumir.name}`,
+    default: author.lumirlumir.name,
+  },
+  description: author.lumirlumir.bio,
+};
 
 // --------------------------------------------------------------------------------
 // Default Export

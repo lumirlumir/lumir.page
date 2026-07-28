@@ -15,17 +15,15 @@ import 'server-only';
 import Link from 'next/link';
 import { FaGithub, FaHouseChimney } from '@lumir/react-kit/svgs';
 import { cn } from '@lumir/utils';
+import { author } from '@/data/author';
 import { type PropsWithLang } from '@/data/lang';
-import { getGithubUsers } from '@/utils/fetch';
 import styles from './links.module.css';
 
 // --------------------------------------------------------------------------------
 // Export
 // --------------------------------------------------------------------------------
 
-export default async function Links({ lang }: PropsWithLang) {
-  const { html_url: htmlUrl } = await getGithubUsers();
-
+export default function Links({ lang }: PropsWithLang) {
   return (
     <ul className={styles.links}>
       <li>
@@ -35,7 +33,10 @@ export default async function Links({ lang }: PropsWithLang) {
         </Link>
       </li>
       <li>
-        <Link className={cn('flex-center', 'custom-hover-effect')} href={htmlUrl}>
+        <Link
+          className={cn('flex-center', 'custom-hover-effect')}
+          href={author.lumirlumir.htmlUrl}
+        >
           <FaGithub />
           <span className="flex-center">GitHub</span>
         </Link>
