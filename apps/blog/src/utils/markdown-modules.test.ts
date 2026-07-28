@@ -6,7 +6,7 @@
 // Test
 // --------------------------------------------------------------------------------
 
-import { globSync } from 'node:fs';
+import { globSync, readFileSync } from 'node:fs';
 import { assert, describe, it } from 'vitest';
 import markdownModules from './markdown-modules.js';
 
@@ -15,14 +15,16 @@ import markdownModules from './markdown-modules.js';
 // --------------------------------------------------------------------------------
 
 describe('markdown-modules', () => {
-  it('should match every Markdown file in posts docs with the module registry keys', async () => {
-    const postFileKeys = globSync('*.md', {
-      cwd: new URL('../posts/docs/', import.meta.url),
-    })
-      .map(fileName => fileName.replace(/\.md$/, ''))
-      .sort();
-    const moduleKeys = Object.keys(markdownModules).sort();
+  it('should map every Markdown post id to the contents of its matching file', () => {
+    const postModules = Object.fromEntries(
+      globSync('*.md', {
+        cwd: new URL('../posts/docs/', import.meta.url),
+      }).map(fileName => [
+        fileName.replace(/\.md$/, ''),
+        readFileSync(new URL(`../posts/docs/${fileName}`, import.meta.url), 'utf8'),
+      ]),
+    );
 
-    assert.deepStrictEqual(moduleKeys, postFileKeys);
+    assert.deepStrictEqual(markdownModules, postModules);
   });
 });
