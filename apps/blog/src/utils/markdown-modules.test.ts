@@ -19,7 +19,7 @@ describe('markdown-modules', () => {
     const postFileKeys = globSync('*.md', {
       cwd: new URL('../posts/docs/', import.meta.url),
     })
-      .map(fileName => `../posts/docs/${fileName}`)
+      .map(fileName => fileName.replace(/\.md$/, ''))
       .sort();
     const moduleKeys = Object.keys(markdownModules).sort();
 

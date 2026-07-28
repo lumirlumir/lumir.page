@@ -15,7 +15,7 @@ import createMarkdownCollection from './markdown-collection.js';
 
 vi.mock('@/utils/markdown-modules', () => ({
   default: {
-    '../posts/docs/simple-post.ko.md': `---
+    'simple-post.ko': `---
 title: Korean Mock Post
 description: Korean mock post description.
 created: '2024-01-01'
@@ -29,7 +29,7 @@ references:
 ## Korean Mock Post
 
 Korean body.`,
-    '../posts/docs/simple-post.en.md': `---
+    'simple-post.en': `---
 title: English Mock Post
 description: English mock post description.
 created: '2024-02-01'
