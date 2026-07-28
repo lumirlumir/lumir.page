@@ -27,6 +27,9 @@ import { type PropsWithLang } from '@/data/lang';
 // Export
 // --------------------------------------------------------------------------------
 
+/**
+ * Giscus component for embedding comments section.
+ */
 export default function Giscus({ lang }: PropsWithLang) {
   const [theme] = useThemeContext();
 
