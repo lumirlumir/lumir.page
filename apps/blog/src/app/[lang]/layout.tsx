@@ -17,7 +17,6 @@ import { ThemeProvider } from '@/components/common/theme-context';
 import ThemeScript from '@/components/common/theme-script';
 
 import Aside from '@/components/layouts/aside';
-import Main from '@/components/layouts/main';
 
 import Categories from '@/components/aside/categories';
 import Links from '@/components/aside/links';
@@ -96,7 +95,7 @@ export default async function RootLayout({
             <Links lang={lang} />
             <Categories lang={lang} />
           </Aside>
-          <Main>{children}</Main>
+          <main>{children}</main>
 
           <Analytics />
           <SpeedInsights />
