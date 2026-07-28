@@ -15,14 +15,12 @@ import { type PropsWithLang, type LangRecord } from '@/data/lang';
 
 const dictionary = {
   ko: {
-    alt: 'GitHub GIF 불러오는 중',
     content: (content: string) => `${content} 불러오는 중` as const,
   },
   en: {
-    alt: 'GitHub GIF loading',
     content: (content: string) => `Loading ${content}` as const,
   },
-} as const satisfies LangRecord<{ alt: string; content: (content: string) => string }>;
+} as const satisfies LangRecord<{ content: (content: string) => string }>;
 
 // --------------------------------------------------------------------------------
 // Export
@@ -36,12 +34,7 @@ export function Loading({ content, lang }: PropsWithLang<{ content: string }>) {
     <div className={styles.loading} role="status">
       <div>
         <div>
-          <img
-            src="/images/loading.gif"
-            width={48}
-            height={48}
-            alt={dictionary[lang].alt}
-          />
+          <img src="/images/loading.gif" width={48} height={48} alt="" />
         </div>
         <div>{dictionary[lang].content(content)}...</div>
       </div>
