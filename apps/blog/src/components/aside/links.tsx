@@ -27,20 +27,17 @@ export default async function Links({ lang }: PropsWithLang) {
   const { html_url: htmlUrl } = await getGithubUsers();
 
   return (
-    <ul className={cn(styles.links, 'custom-flex-center')}>
+    <ul className={styles.links}>
       <li>
-        <Link
-          className={cn('custom-flex-center', 'custom-hover-effect')}
-          href={`/${lang}`}
-        >
+        <Link className={cn('flex-center', 'custom-hover-effect')} href={`/${lang}`}>
           <FaHouseChimney />
-          <span className="custom-flex-center">Home</span>
+          <span className="flex-center">Home</span>
         </Link>
       </li>
       <li>
-        <Link className={cn('custom-flex-center', 'custom-hover-effect')} href={htmlUrl}>
+        <Link className={cn('flex-center', 'custom-hover-effect')} href={htmlUrl}>
           <FaGithub />
-          <span className="custom-flex-center">GitHub</span>
+          <span className="flex-center">GitHub</span>
         </Link>
       </li>
     </ul>

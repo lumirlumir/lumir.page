@@ -1,4 +1,6 @@
 .lang-toggle {
+  composes: flex-center from global;
+
   > a {
     width: var(--size-32);
     height: var(--size-32);

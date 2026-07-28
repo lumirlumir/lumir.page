@@ -14,7 +14,6 @@ import 'server-only';
 
 import Link from 'next/link';
 import { FaPen } from '@lumir/react-kit/svgs';
-import { cn } from '@lumir/utils';
 import { categoryMeta } from '@/data/category';
 import { type PropsWithLang } from '@/data/lang';
 import createMarkdownCollection from '@/utils/markdown-collection';
@@ -45,13 +44,11 @@ export default async function Categories({ lang }: PropsWithLang) {
               className="custom-hover-effect"
               href={`/${lang}/categories/${categoryKey}`}
             >
-              <div className={cn(styles['react-icons'], 'custom-flex-center')}>
-                {reactIcons}
-              </div>
+              <div className={styles['react-icons']}>{reactIcons}</div>
               <div className={styles['name-en']}>{en}</div>
               <div className={styles['name-ko']}>{ko}</div>
-              <div className={cn(styles['count-docs'], 'custom-flex-center')}>
-                <span className="custom-flex-center">
+              <div className={styles['count-docs']}>
+                <span className="flex-center">
                   {markdownCollection.byLangCategory[lang][categoryKey].length}
                 </span>
                 <FaPen />

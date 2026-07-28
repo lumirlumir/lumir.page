@@ -30,7 +30,7 @@ export default function ThemeToggle() {
   const [theme, toggleTheme] = useThemeContext();
 
   return (
-    <div className={cn(styles['theme-toggle'], 'custom-flex-center')}>
+    <div className={styles['theme-toggle']}>
       <button
         type="button"
         className={styles.switch}

@@ -1,4 +1,5 @@
 .profile {
+  composes: flex-center from global;
   flex-direction: column;
   margin: var(--size-16);
 

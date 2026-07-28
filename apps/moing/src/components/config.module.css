@@ -1,4 +1,5 @@
 .config {
+  composes: flex-center from global;
   height: calc(var(--main-section-height) * 1.5);
 
   & > div {

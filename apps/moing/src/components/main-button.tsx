@@ -48,7 +48,6 @@ export default function ButtonMain() {
     <div
       className={cn(
         styles['main-button'],
-        'custom-flex-center',
         'custom-main-others',
         'transition',
         (isLastSection() && isConfigDone()) || status !== 'hidden'

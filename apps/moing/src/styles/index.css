@@ -1,6 +1,7 @@
 /* External */
 @import '@lumir/styles/normalize.css';
 @import '@lumir/styles/animations.css';
+@import '@lumir/styles/utilities.css';
 
 /* Internal */
 @import './typography.css';

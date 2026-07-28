@@ -1,4 +1,6 @@
 .loading {
+  composes: flex-center from global;
+
   & > div {
     flex-direction: column;
 

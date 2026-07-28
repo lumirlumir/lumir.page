@@ -6,7 +6,6 @@
 // Import
 // --------------------------------------------------------------------------------
 
-import { cn } from '@lumir/utils';
 import styles from './loading.module.css';
 
 // --------------------------------------------------------------------------------
@@ -15,8 +14,8 @@ import styles from './loading.module.css';
 
 export default function Loading({ content }: { content: string }) {
   return (
-    <div className={cn(styles.loading, 'custom-flex-center')}>
-      <div className="custom-flex-center">
+    <div className={styles.loading}>
+      <div className="flex-center">
         <div>
           <img
             src="/images/loading.gif"

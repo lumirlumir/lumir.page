@@ -41,7 +41,7 @@ export default function Button({ type, icon, onClick, hoverEffect = false }: Pro
     <div
       className={cn(
         `${type}`,
-        'custom-flex-center',
+        'flex-center',
         'transition',
         status === 'hidden' && 'pointer-events-none opacity-0',
         status === 'visible' && 'pointer-events-none',

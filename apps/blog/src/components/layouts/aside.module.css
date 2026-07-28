@@ -25,6 +25,7 @@
 }
 
 .div {
+  composes: flex-center from global;
   position: fixed;
   top: calc(
     var(--size-scroll-progress-height) + var(--size-header-height)
