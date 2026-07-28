@@ -131,8 +131,7 @@ class MarkdownCollection {
    */
   #ensureMap(): MarkdownCollectionMap {
     for (const [key, markdown] of Object.entries(markdownModules)) {
-      const id = key.replace(/^\.\.\/posts\/docs\//, '').replace(/\.md$/, '');
-      const { id: sanitizedId, slug: sanitizedSlug, lang: sanitizedLang } = assertId(id);
+      const { id: sanitizedId, slug: sanitizedSlug, lang: sanitizedLang } = assertId(key);
 
       // If the Markdown file has already been processed and cached, skip the loading and processing steps.
       const cached = this.#map.get(sanitizedId);
@@ -225,7 +224,7 @@ class MarkdownCollection {
     }
 
     const { id: sanitizedId, slug: sanitizedSlug, lang: sanitizedLang } = assertId(id);
-    const key = `../posts/docs/${sanitizedId}.md` as keyof typeof markdownModules;
+    const key = sanitizedId as keyof typeof markdownModules;
 
     if (!(key in markdownModules)) {
       throw new Error(`Markdown file not found: \`${sanitizedId}\``);
@@ -252,7 +251,7 @@ class MarkdownCollection {
    */
   async loadVMarkdownFile(id: VMarkdownFile['id']): Promise<VMarkdownFile> {
     const { id: sanitizedId, slug: sanitizedSlug, lang: sanitizedLang } = assertId(id);
-    const key = `../posts/docs/${sanitizedId}.md` as keyof typeof markdownModules;
+    const key = sanitizedId as keyof typeof markdownModules;
 
     if (!(key in markdownModules)) {
       throw new Error(`Markdown file not found: \`${sanitizedId}\``);
