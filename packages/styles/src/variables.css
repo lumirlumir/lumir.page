@@ -29,6 +29,7 @@
 
   /* border */
   --border-radius-md: var(--size-6);
+  --border-radius-xl: var(--size-12);
   --border-radius-circle: 50%;
 
   /* spacing */

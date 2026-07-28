@@ -57,7 +57,7 @@
   &:hover,
   &.hover {
     background: var(--color-primary-white);
-    border-radius: 15px;
+    border-radius: var(--border-radius-xl);
     box-shadow:
       0 0 5px var(--color-primary-white),
       0 0 25px var(--color-primary-white),
