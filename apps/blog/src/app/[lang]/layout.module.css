@@ -2,6 +2,7 @@
   display: grid;
   grid-template-rows: var(--size-scroll-progress-height) var(--size-header-height) 1fr;
   grid-template-columns: var(--size-sidebar-width) minmax(0, 1fr);
+  overflow-x: clip;
   font-family: var(--font-stack-system);
   line-height: var(--line-height-tighter);
   color: var(--color-fg-default);
