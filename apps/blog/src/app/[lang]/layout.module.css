@@ -23,6 +23,11 @@
     background-color: inherit;
     border-bottom: var(--border-default);
 
+    > div:last-child {
+      display: flex;
+      justify-content: space-between;
+    }
+
     @media (width >= 1024px) {
       padding: 0 calc(var(--size-article-padding-small) * 2) 0
         var(--size-article-padding-large);
