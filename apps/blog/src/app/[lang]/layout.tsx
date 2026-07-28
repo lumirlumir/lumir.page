@@ -17,16 +17,12 @@ import { ThemeProvider } from '@/components/common/theme-context';
 import ThemeScript from '@/components/common/theme-script';
 
 import Aside from '@/components/layouts/aside';
-import Body from '@/components/layouts/body';
-import Header from '@/components/layouts/header';
-import Main from '@/components/layouts/main';
 
 import Categories from '@/components/aside/categories';
 import Links from '@/components/aside/links';
 import Profile from '@/components/aside/profile';
 
 import DocSearch from '@/components/header/doc-search';
-import FlexContainer from '@/components/header/flex-container';
 import LangToggle from '@/components/header/lang-toggle';
 import ScrollProgress from '@/components/header/scroll-progress';
 import ThemeToggle from '@/components/header/theme-toggle';
@@ -37,6 +33,7 @@ import { author } from '@/data/author';
 import { langKeys, type LangKey } from '@/data/lang';
 
 import '@/styles/index.css';
+import styles from './layout.module.css';
 
 // --------------------------------------------------------------------------------
 // Named Export
@@ -71,6 +68,7 @@ export const metadata: Metadata = {
 
 export default async function RootLayout({
   children,
+  nav,
   params,
 }: PropsWithChildren<LayoutProps<'/[lang]'>>) {
   const awaitedParams = await params;
@@ -80,30 +78,33 @@ export default async function RootLayout({
     // Use `suppressHydrationWarning` because `ThemeScript` may change the initial `data-theme`.
     // https://react.dev/reference/react-dom/client/hydrateRoot#suppressing-unavoidable-hydration-mismatch-errors
     <html className="custom-scrollbar-y-bold" lang={lang} suppressHydrationWarning>
-      <Body>
+      <body className={styles.body}>
         <ThemeScript />
         <ThemeProvider>
           <ScrollProgress />
-          <Header>
+          <header>
             <Title lang={lang} />
-            <FlexContainer>
+            <div>
               <DocSearch />
               <LangToggle lang={lang} />
               <ThemeToggle />
-            </FlexContainer>
-          </Header>
+            </div>
+          </header>
           <Aside>
             <Profile lang={lang} />
             <Links lang={lang} />
             <Categories lang={lang} />
           </Aside>
-          <Main>{children}</Main>
+          <main>
+            <article>{children}</article>
+          </main>
+          {nav}
 
           <Analytics />
           <SpeedInsights />
           <GoogleAnalytics gaId={GOOGLE_GA_ID} />
         </ThemeProvider>
-      </Body>
+      </body>
     </html>
   );
 }

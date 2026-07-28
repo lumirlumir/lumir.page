@@ -1,24 +1,19 @@
 /**
- * @fileoverview main.
+ * @fileoverview Layout for routes with navigation.
  */
-
-// --------------------------------------------------------------------------------
-// Environment
-// --------------------------------------------------------------------------------
-
-import 'server-only';
 
 // --------------------------------------------------------------------------------
 // Import
 // --------------------------------------------------------------------------------
 
 import { type PropsWithChildren } from 'react';
-import styles from './main.module.css';
+import { cn } from '@lumir/utils';
+import styles from './layout.module.css';
 
 // --------------------------------------------------------------------------------
-// Export
+// Default Export
 // --------------------------------------------------------------------------------
 
-export default function Main({ children }: PropsWithChildren) {
-  return <main className={styles.main}>{children}</main>;
+export default function Layout({ children }: PropsWithChildren) {
+  return <nav className={cn(styles.nav, 'custom-scrollbar-y-regular')}>{children}</nav>;
 }
