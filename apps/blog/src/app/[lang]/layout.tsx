@@ -81,7 +81,7 @@ export default async function RootLayout({
       <body className={styles.body}>
         <ThemeScript />
         <ThemeProvider>
-          <ScrollProgress />
+          <ScrollProgress className={styles['scroll-progress']} />
           <header>
             <Title lang={lang} />
             <div>
