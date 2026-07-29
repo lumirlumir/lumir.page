@@ -2,6 +2,9 @@
   /* size */
   --size-scroll-progress-height: var(--size-2);
   --size-header-height: 64px;
+  --size-content-top-offset: calc(
+    var(--size-scroll-progress-height) + var(--size-header-height)
+  );
   --size-sidebar-width: 256px;
   --size-article-padding-large: 45px;
   --size-article-padding-medium: 24px;

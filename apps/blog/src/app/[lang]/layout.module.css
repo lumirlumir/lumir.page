@@ -53,19 +53,19 @@
   }
 
   & > aside:first-of-type {
-    top: calc(var(--size-scroll-progress-height) + var(--size-header-height));
+    top: var(--size-content-top-offset);
     left: 0;
   }
 
   & > aside:last-of-type {
-    top: calc(var(--size-scroll-progress-height) + var(--size-header-height));
+    top: var(--size-content-top-offset);
     right: 0;
     transform: translateX(100%);
   }
 
   & > main {
     grid-area: 3 / 1 / 4 / -1;
-    contain: paint; /* `overflow: hidden` prevent children's `position: sticky` from working. So I used it instead. */
+    contain: paint; /* `overflow: hidden` prevent children's `position: sticky` from working. */
 
     & > article {
       box-sizing: border-box;
