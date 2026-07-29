@@ -18,7 +18,7 @@
       padding-left: var(--spacing-static-md);
 
       & > :first-child {
-        padding: var(--spacing-static-sm) 0;
+        padding-bottom: var(--spacing-static-xs);
         font-size: var(--font-size-lg);
         font-weight: var(--font-weight-semibold);
       }
