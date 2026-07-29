@@ -3,11 +3,7 @@
   align-items: center;
   justify-content: center;
 
-  &:hover {
-    animation: var(--animation-shake);
-  }
-
-  & .switch {
+  & > button {
     --light-color: var(--color-fg-default);
     --dark-color: var(--color-bg-inset);
     --sun-color: #f9d71c;
@@ -29,6 +25,10 @@
     border-radius: var(--border-radius-circle);
     transform: rotate(0deg);
     transition: all var(--duration) var(--timing);
+
+    &:hover {
+      animation: var(--animation-shake);
+    }
 
     & .orb {
       display: block;

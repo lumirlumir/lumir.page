@@ -25,7 +25,7 @@ import { Profile } from '@/components/aside/profile';
 import { DocSearch } from '@/components/header/doc-search';
 import { LangToggle } from '@/components/lang-toggle';
 import { ScrollProgress } from '@/components/header/scroll-progress';
-import { ThemeToggle } from '@/components/header/theme-toggle';
+import { ThemeToggle } from '@/components/theme-toggle';
 import { Title } from '@/components/title';
 
 import { GOOGLE_GA_ID } from '@/constants';
@@ -87,7 +87,7 @@ export default async function RootLayout({
             <div>
               <DocSearch />
               <LangToggle lang={lang} />
-              <ThemeToggle />
+              <ThemeToggle lang={lang} />
             </div>
           </header>
           <Aside>
