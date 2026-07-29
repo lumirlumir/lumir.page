@@ -76,7 +76,8 @@
 
   @media (width >= 768px) {
     grid-template-columns:
-      var(--size-sidebar-width) minmax(0, 1fr)
+      var(--size-sidebar-width)
+      minmax(0, 1fr)
       var(--size-sidebar-width);
 
     & > main {
