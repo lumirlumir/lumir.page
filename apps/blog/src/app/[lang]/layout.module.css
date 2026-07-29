@@ -48,7 +48,7 @@
     }
   }
 
-  & > aside {
+  & > aside:first-of-type {
     z-index: 1;
     grid-area: 3 / 1 / 4 / 2;
   }
@@ -71,7 +71,7 @@
     }
   }
 
-  & > nav {
+  & > aside:last-of-type {
     grid-area: 3 / 3 / 4 / 4;
     justify-self: end;
     width: var(--size-nav-width);
@@ -87,7 +87,7 @@
       grid-area: 3 / 1 / 4 / 3;
     }
 
-    & > nav {
+    & > aside:last-of-type {
       transform: translateX(0); /* TODO: Move to `Nav` component. */
     }
   }

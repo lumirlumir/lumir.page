@@ -98,7 +98,7 @@ export default async function RootLayout({
           <main>
             <article>{children}</article>
           </main>
-          {nav}
+          <aside>{nav}</aside>
 
           <Analytics />
           <SpeedInsights />
