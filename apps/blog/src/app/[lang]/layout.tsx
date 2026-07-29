@@ -24,7 +24,7 @@ import { Profile } from '@/components/aside/profile';
 
 import { DocSearch } from '@/components/header/doc-search';
 import { LangToggle } from '@/components/lang-toggle';
-import { ScrollProgress } from '@/components/header/scroll-progress';
+import { ScrollProgress } from '@/components/scroll-progress';
 import { ThemeToggle } from '@/components/theme-toggle';
 import { Title } from '@/components/title';
 
