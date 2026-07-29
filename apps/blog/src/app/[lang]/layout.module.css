@@ -71,22 +71,20 @@
 
   & > aside:last-of-type {
     grid-area: 3 / 3 / 4 / 4;
-    justify-self: end;
-    width: var(--size-nav-width);
-    transform: translateX(100%); /* TODO: Move to `Nav` component. */
+    transform: translateX(100%);
   }
 
   @media (width >= 768px) {
     grid-template-columns:
       var(--size-sidebar-width) minmax(0, 1fr)
-      var(--size-nav-width);
+      var(--size-sidebar-width);
 
     & > main {
       grid-area: 3 / 1 / 4 / 3;
     }
 
     & > aside:last-of-type {
-      transform: translateX(0); /* TODO: Move to `Nav` component. */
+      transform: translateX(0);
     }
   }
 
