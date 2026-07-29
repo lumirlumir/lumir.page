@@ -95,10 +95,10 @@ export default async function RootLayout({
             <Links lang={lang} />
             <Categories lang={lang} />
           </Aside>
+          <aside>{nav}</aside>
           <main>
             <article>{children}</article>
           </main>
-          <aside>{nav}</aside>
 
           <Analytics />
           <SpeedInsights />
