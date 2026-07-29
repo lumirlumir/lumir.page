@@ -87,18 +87,37 @@
       minmax(0, 1fr)
       var(--size-sidebar-width);
 
-    & > main {
-      grid-area: 3 / 1 / 4 / 3;
-    }
-
     & > aside:last-of-type {
       transform: translateX(0);
+    }
+
+    & > main {
+      grid-area: 3 / 1 / 4 / 3;
     }
   }
 
   @media (width >= 1280px) {
-    & > main {
+    grid-template-columns:
+      minmax(0, 1fr)
+      var(--size-sidebar-width)
+      minmax(0, 980px)
+      var(--size-sidebar-width)
+      minmax(0, 1fr);
+
+    & > aside {
+      position: sticky;
+    }
+
+    & > aside:first-of-type {
       grid-area: 3 / 2 / 4 / 3;
+    }
+
+    & > aside:last-of-type {
+      grid-area: 3 / 4 / 4 / 5;
+    }
+
+    & > main {
+      grid-area: 3 / 3 / 4 / 4;
     }
   }
 }
