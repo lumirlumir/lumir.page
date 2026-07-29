@@ -31,6 +31,7 @@ export default defineConfig({
       ],
   retries: isCI ? 1 : 0,
   testDir: './tests',
+  workers: '75%',
 
   projects: [
     {
@@ -46,6 +47,6 @@ export default defineConfig({
   webServer: {
     command: 'node --run dev',
     url,
-    reuseExistingServer: false,
+    reuseExistingServer: !isCI,
   },
 });

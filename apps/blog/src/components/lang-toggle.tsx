@@ -2,8 +2,6 @@
  * @fileoverview lang-toggle.
  */
 
-// TODO: handle search params and hash params when switching language.
-
 // --------------------------------------------------------------------------------
 // Directive
 // --------------------------------------------------------------------------------
@@ -56,6 +54,12 @@ export function LangToggle({ lang }: PropsWithLang) {
       <a
         className="custom-hover-effect"
         href={href}
+        onClick={e => {
+          // Preserve search params and hash params when switching language.
+          const url = new URL(window.location.href);
+          url.pathname = url.pathname.replace(`/${lang}`, `/${nextLang}`);
+          e.currentTarget.href = url.href;
+        }}
         aria-label={dictionary[lang].ariaLabel}
       >
         {nextLang}

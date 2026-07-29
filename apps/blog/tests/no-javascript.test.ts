@@ -59,6 +59,26 @@ test.describe('pages rendered without JavaScript', () => {
         page.getByRole('heading', { level: 3, name: /1-1\. What Is Markdown\?/ }),
       ).toBeVisible();
     });
+
+    test('Korean post language toggle should preserve the post pathname', async ({
+      page,
+    }) => {
+      const response = await page.goto('/ko/posts/everything-about-markdown#usage-guide');
+
+      expect(response?.status()).toBe(200);
+
+      const langToggle = page.getByRole('link', {
+        name: '언어를 영어로 전환',
+      });
+
+      await expect(langToggle).toHaveAttribute(
+        'href',
+        '/en/posts/everything-about-markdown',
+      );
+      await langToggle.click();
+      await expect(page).toHaveURL(/\/en\/posts\/everything-about-markdown$/);
+      await expect(page.locator('html')).toHaveAttribute('lang', 'en');
+    });
   });
 
   test.describe('categories', () => {
@@ -102,6 +122,23 @@ test.describe('pages rendered without JavaScript', () => {
         'href',
         '/en/posts/everything-about-markdown',
       );
+    });
+
+    test('Korean category language toggle should preserve the category pathname', async ({
+      page,
+    }) => {
+      const response = await page.goto('/ko/categories/markdown?field=title&sort=asc');
+
+      expect(response?.status()).toBe(200);
+
+      const langToggle = page.getByRole('link', {
+        name: '언어를 영어로 전환',
+      });
+
+      await expect(langToggle).toHaveAttribute('href', '/en/categories/markdown');
+      await langToggle.click();
+      await expect(page).toHaveURL(/\/en\/categories\/markdown$/);
+      await expect(page.locator('html')).toHaveAttribute('lang', 'en');
     });
   });
 });
