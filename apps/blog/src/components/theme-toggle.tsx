@@ -19,23 +19,45 @@ import 'client-only';
 // --------------------------------------------------------------------------------
 
 import { cn } from '@lumir/utils';
-import { useThemeContext } from '@/components/common/theme-context';
+import { useThemeContext, type Theme } from '@/components/theme-context';
+import { type LangRecord, type PropsWithLang } from '@/data/lang';
 import styles from './theme-toggle.module.css';
+
+// --------------------------------------------------------------------------------
+// Helper
+// --------------------------------------------------------------------------------
+
+const dictionary = {
+  ko: {
+    ariaLabel: {
+      dark: '다크 모드',
+      light: '라이트 모드',
+    },
+  },
+  en: {
+    ariaLabel: {
+      dark: 'Dark mode',
+      light: 'Light mode',
+    },
+  },
+} as const satisfies LangRecord<{ ariaLabel: Record<Theme, string> }>;
 
 // --------------------------------------------------------------------------------
 // Export
 // --------------------------------------------------------------------------------
 
-export default function ThemeToggle() {
+/**
+ * Renders a localized button that toggles between the light and dark themes.
+ */
+export function ThemeToggle({ lang }: PropsWithLang) {
   const [theme, toggleTheme] = useThemeContext();
 
   return (
     <div className={styles['theme-toggle']}>
       <button
         type="button"
-        className={styles.switch}
         onClick={toggleTheme}
-        aria-label={theme === 'dark' ? 'Dark mode' : 'Light mode'}
+        aria-label={dictionary[lang].ariaLabel[theme]}
         aria-pressed={theme === 'dark'}
       >
         <span className={styles.orb} aria-hidden="true" />

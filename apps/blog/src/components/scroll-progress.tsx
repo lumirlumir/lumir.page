@@ -26,7 +26,10 @@ import styles from './scroll-progress.module.css';
 // Export
 // --------------------------------------------------------------------------------
 
-export default function ScrollProgress() {
+/**
+ * Renders a fixed progress bar that reflects the current document scroll position.
+ */
+export function ScrollProgress() {
   const scrollProgressRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {

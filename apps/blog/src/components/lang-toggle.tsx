@@ -21,7 +21,6 @@ import 'client-only';
 // --------------------------------------------------------------------------------
 
 import { useSelectedLayoutSegments } from 'next/navigation';
-import { cn } from '@lumir/utils';
 import { langDefault, langKeys, type LangRecord, type PropsWithLang } from '@/data/lang';
 import styles from './lang-toggle.module.css';
 
@@ -29,16 +28,20 @@ import styles from './lang-toggle.module.css';
 // Helper
 // --------------------------------------------------------------------------------
 
-const ariaLabelByLang = {
-  ko: '언어를 영어로 전환',
-  en: 'Switch language to Korean',
-} as const satisfies LangRecord<string>;
+const dictionary = {
+  ko: {
+    ariaLabel: '언어를 영어로 전환',
+  },
+  en: {
+    ariaLabel: 'Switch language to Korean',
+  },
+} as const satisfies LangRecord<{ ariaLabel: string }>;
 
 // --------------------------------------------------------------------------------
 // Export
 // --------------------------------------------------------------------------------
 
-export default function LangToggle({ lang }: PropsWithLang) {
+export function LangToggle({ lang }: PropsWithLang) {
   const layoutSegments = useSelectedLayoutSegments();
   const nextLang = langKeys.find(langkey => langkey !== lang) ?? langDefault;
   const href = `/${[nextLang, ...layoutSegments].join('/')}` as const;
@@ -51,9 +54,9 @@ export default function LangToggle({ lang }: PropsWithLang) {
        * also reruns `ThemeScript` before hydration to restore the persisted `data-theme` safely.
        */}
       <a
-        className={cn('flex-center', 'custom-hover-effect')}
+        className="custom-hover-effect"
         href={href}
-        aria-label={ariaLabelByLang[lang]}
+        aria-label={dictionary[lang].ariaLabel}
       >
         {nextLang}
       </a>

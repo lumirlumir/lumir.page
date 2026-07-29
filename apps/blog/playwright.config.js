@@ -46,6 +46,6 @@ export default defineConfig({
   webServer: {
     command: 'node --run dev',
     url,
-    reuseExistingServer: !isCI,
+    reuseExistingServer: false,
   },
 });

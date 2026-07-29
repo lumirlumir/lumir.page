@@ -12,21 +12,21 @@ import { type PropsWithChildren } from 'react';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 
-import { GoogleAnalytics } from '@/components/common/google-analytics';
-import { ThemeProvider } from '@/components/common/theme-context';
-import ThemeScript from '@/components/common/theme-script';
+import { GoogleAnalytics } from '@/components/google-analytics';
+import { ThemeProvider } from '@/components/theme-context';
+import { ThemeScript } from '@/components/theme-script';
 
-import Aside from '@/components/layouts/aside';
+import { Aside } from '@/components/layouts/aside';
 
-import Categories from '@/components/aside/categories';
-import Links from '@/components/aside/links';
-import Profile from '@/components/aside/profile';
+import { Categories } from '@/components/aside/categories';
+import { Links } from '@/components/aside/links';
+import { Profile } from '@/components/aside/profile';
 
-import DocSearch from '@/components/header/doc-search';
-import LangToggle from '@/components/header/lang-toggle';
-import ScrollProgress from '@/components/header/scroll-progress';
-import ThemeToggle from '@/components/header/theme-toggle';
-import Title from '@/components/header/title';
+import { DocSearch } from '@/components/header/doc-search';
+import { LangToggle } from '@/components/lang-toggle';
+import { ScrollProgress } from '@/components/scroll-progress';
+import { ThemeToggle } from '@/components/theme-toggle';
+import { Title } from '@/components/title';
 
 import { GOOGLE_GA_ID } from '@/constants';
 import { author } from '@/data/author';
@@ -87,7 +87,7 @@ export default async function RootLayout({
             <div>
               <DocSearch />
               <LangToggle lang={lang} />
-              <ThemeToggle />
+              <ThemeToggle lang={lang} />
             </div>
           </header>
           <Aside>

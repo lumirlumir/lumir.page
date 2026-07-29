@@ -21,7 +21,7 @@ import styles from './profile.module.css';
 // Export
 // --------------------------------------------------------------------------------
 
-export default function Profile({ lang }: PropsWithLang) {
+export function Profile({ lang }: PropsWithLang) {
   return (
     <div className={styles.profile}>
       <img
