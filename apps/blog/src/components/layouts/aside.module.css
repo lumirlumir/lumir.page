@@ -10,10 +10,6 @@
     margin: var(--spacing-static-md) 0;
     border-bottom: var(--border-default);
   }
-
-  @media (width >= 1280px) {
-    transform: translateX(0);
-  }
 }
 
 .div {

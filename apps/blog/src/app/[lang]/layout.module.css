@@ -57,6 +57,7 @@
   & > aside:first-of-type {
     top: var(--size-content-top-offset);
     left: 0;
+    border-right: var(--border-default);
   }
 
   & > aside:last-of-type {
@@ -112,6 +113,8 @@
 
     & > aside:first-of-type {
       grid-area: 3 / 2 / 4 / 3;
+      border-right: none;
+      transform: translateX(0);
     }
 
     & > aside:last-of-type {
