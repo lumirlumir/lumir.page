@@ -51,7 +51,13 @@
     z-index: 1;
     width: var(--size-sidebar-width);
     height: calc(100vh - var(--size-content-top-offset));
+    background-color: var(--color-bg-inset);
     transition: transform 0.6s ease-in-out;
+
+    & > ul:not(:last-child) {
+      margin: var(--spacing-static-md) 0;
+      border-bottom: var(--border-default);
+    }
   }
 
   & > aside:first-of-type {

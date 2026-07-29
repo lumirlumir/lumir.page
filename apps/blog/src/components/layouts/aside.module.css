@@ -1,14 +1,8 @@
 .aside {
-  background-color: var(--color-bg-inset);
   transform: translateX(-100%);
 
   &.visible {
     transform: translateX(0);
-  }
-
-  & > ul:not(:last-child) {
-    margin: var(--spacing-static-md) 0;
-    border-bottom: var(--border-default);
   }
 }
 
