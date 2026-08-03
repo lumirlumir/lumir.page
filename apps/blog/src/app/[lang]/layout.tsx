@@ -16,7 +16,7 @@ import { GoogleAnalytics } from '@/components/google-analytics';
 import { ThemeProvider } from '@/components/theme-context';
 import { ThemeScript } from '@/components/theme-script';
 
-import { Aside } from '@/components/layouts/aside';
+import { AsideToggle } from '@/components/aside-toggle';
 
 import { Categories } from '@/components/aside/categories';
 import { Links } from '@/components/aside/links';
@@ -90,11 +90,12 @@ export default async function RootLayout({
               <ThemeToggle lang={lang} />
             </div>
           </header>
-          <Aside>
+          <aside className="custom-scrollbar-y-regular">
             <Profile lang={lang} />
             <Links lang={lang} />
             <Categories lang={lang} />
-          </Aside>
+          </aside>
+          <AsideToggle className={styles['aside-toggle']} lang={lang} />
           <aside>{nav}</aside>
           <main>
             <article>{children}</article>

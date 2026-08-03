@@ -1,12 +1,4 @@
-.aside {
-  transform: translateX(-100%);
-
-  &.visible {
-    transform: translateX(0);
-  }
-}
-
-.div {
+.button {
   position: fixed;
   top: var(--size-content-top-offset);
   z-index: 1;
@@ -15,7 +7,11 @@
   justify-content: center;
   width: 32px;
   height: 32px;
+  padding: 0;
+  color: inherit;
+  cursor: pointer;
   background-color: var(--color-bg-inset);
+  border: 0;
   border-right: var(--border-default);
   border-bottom: var(--border-default);
   border-bottom-right-radius: var(--border-radius-md);

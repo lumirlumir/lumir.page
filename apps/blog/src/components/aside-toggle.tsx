@@ -1,5 +1,5 @@
 /**
- * @fileoverview aside.
+ * @fileoverview Aside toggle.
  */
 
 // --------------------------------------------------------------------------------
@@ -18,33 +18,43 @@ import 'client-only';
 // Import
 // --------------------------------------------------------------------------------
 
-import { type PropsWithChildren } from 'react';
 import { useToggle } from '@lumir/react-kit/hooks';
 import { HiOutlineMenuAlt2 } from '@lumir/react-kit/svgs';
 import { cn } from '@lumir/utils';
-import styles from './aside.module.css';
+import { type LangRecord, type PropsWithLang } from '@/data/lang';
+import styles from './aside-toggle.module.css';
+
+// --------------------------------------------------------------------------------
+// Helper
+// --------------------------------------------------------------------------------
+
+const dictionary = {
+  ko: {
+    close: '사이드바 닫기',
+    open: '사이드바 열기',
+  },
+  en: {
+    close: 'Close sidebar',
+    open: 'Open sidebar',
+  },
+} as const satisfies LangRecord<{ close: string; open: string }>;
 
 // --------------------------------------------------------------------------------
 // Export
 // --------------------------------------------------------------------------------
 
-export function Aside({ children }: PropsWithChildren) {
+export function AsideToggle({ className, lang }: PropsWithLang<{ className: string }>) {
   const [visible, toggleVisible] = useToggle(false);
 
   return (
-    <>
-      <aside
-        className={cn(
-          styles.aside,
-          visible && styles.visible,
-          'custom-scrollbar-y-regular',
-        )}
-      >
-        {children}
-      </aside>
-      <div className={cn(styles.div, visible && styles.visible)} onClick={toggleVisible}>
-        <HiOutlineMenuAlt2 />
-      </div>
-    </>
+    <button
+      className={cn(styles.button, visible && styles.visible, className)}
+      type="button"
+      aria-expanded={visible}
+      aria-label={visible ? dictionary[lang].close : dictionary[lang].open}
+      onClick={toggleVisible}
+    >
+      <HiOutlineMenuAlt2 aria-hidden="true" />
+    </button>
   );
 }

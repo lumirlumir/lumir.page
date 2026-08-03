@@ -64,12 +64,17 @@
     top: var(--size-content-top-offset);
     left: 0;
     border-right: var(--border-default);
+    transform: translateX(-100%);
   }
 
   & > aside:last-of-type {
     top: var(--size-content-top-offset);
     right: 0;
     transform: translateX(100%);
+  }
+
+  &:has(> .aside-toggle[aria-expanded='true']) > aside:first-of-type {
+    transform: translateX(0);
   }
 
   & > main {
