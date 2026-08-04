@@ -1,0 +1,28 @@
+[
+  {
+    "repositoryUrl": "https://api.github.com/repos/bruits/satteri",
+    "htmlUrl": "https://github.com/bruits/satteri/issues/194",
+    "id": 5054181154,
+    "nodeId": "I_kwDORtxNZM8AAAABLUCvIg",
+    "number": 194,
+    "title": "Support selecting YAML and TOML front matter independently",
+    "createdAt": "2026-08-03T21:00:01Z",
+    "closedAt": null,
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/bruits/satteri",
+    "htmlUrl": "https://github.com/bruits/satteri/issues/191",
+    "id": 5036105374,
+    "nodeId": "I_kwDORtxNZM8AAAABLCzeng",
+    "number": 191,
+    "title": "`markdownToMdast` and `mdxToMdast` should return `Root`",
+    "createdAt": "2026-08-01T08:14:28Z",
+    "closedAt": null,
+    "reactions": {
+      "+1": 0
+    }
+  }
+]
