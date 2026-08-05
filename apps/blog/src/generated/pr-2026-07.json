@@ -1,5 +1,44 @@
 [
   {
+    "repositoryUrl": "https://api.github.com/repos/eslint/codemods",
+    "htmlUrl": "https://github.com/eslint/codemods/pull/59",
+    "id": 5027916645,
+    "nodeId": "PR_kwDOP7jk_8747N97",
+    "number": 59,
+    "title": "ci: add `update-readme` workflow",
+    "createdAt": "2026-07-31T08:34:02Z",
+    "closedAt": "2026-07-31T15:22:17Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/workflows",
+    "htmlUrl": "https://github.com/eslint/workflows/pull/68",
+    "id": 4976240965,
+    "nodeId": "PR_kwDOO9Nass72VHnX",
+    "number": 68,
+    "title": "ci: fix `stale` bot",
+    "createdAt": "2026-07-25T14:52:21Z",
+    "closedAt": "2026-07-28T15:34:28Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint",
+    "htmlUrl": "https://github.com/eslint/eslint/pull/21141",
+    "id": 4975995264,
+    "nodeId": "PR_kwDOAKjKDc72UX-k",
+    "number": 21141,
+    "title": "ci: add `triage:no` label to Dependabot PRs",
+    "createdAt": "2026-07-25T13:42:47Z",
+    "closedAt": "2026-07-28T14:58:38Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
     "repositoryUrl": "https://api.github.com/repos/eslint/markdown",
     "htmlUrl": "https://github.com/eslint/markdown/pull/698",
     "id": 4975924885,
