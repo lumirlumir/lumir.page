@@ -90,7 +90,7 @@
   },
   "allowScripts": {
     "clang-format-node@3.0.7": true,
-    "sharp@0.34.5": true
+    "sharp@0.35.3": true
   },
   "devDependencies": {
     "@types/node": "^24.13.3",

@@ -17,8 +17,8 @@
     "@lumir/react-kit": "*",
     "@lumir/styles": "*",
     "@lumir/utils": "*",
-    "react": "^19.2.6",
-    "react-dom": "^19.2.6"
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8"
   },
   "devDependencies": {
     "@babel/core": "^7.29.7",
