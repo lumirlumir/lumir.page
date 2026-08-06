@@ -34,7 +34,7 @@ html[data-theme='dark'] {
   --color-fg-attention: #d29922;
   --color-fg-danger: #f85149;
   --color-fg-done: #ab7df8;
-  --color-bg-inset: #010409; /* custom color */
+  --color-bg-inset: #010400; /* custom color */
   --color-bg-default: #0d1117;
   --color-bg-muted: #151b23;
   --color-bg-neutral-muted: #656c7633;
