@@ -12,6 +12,7 @@ import { type PropsWithChildren } from 'react';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 
+import { CursorSplash } from '@/components/cursor-splash';
 import { GoogleAnalytics } from '@/components/google-analytics';
 import { ThemeProvider } from '@/components/theme-context';
 import { ThemeScript } from '@/components/theme-script';
@@ -80,6 +81,7 @@ export default async function RootLayout({
     <html className="custom-scrollbar-y-bold" lang={lang} suppressHydrationWarning>
       <body className={styles.body}>
         <ThemeScript />
+        <CursorSplash />
         <ThemeProvider>
           <ScrollProgress className={styles['scroll-progress']} />
           <header>
