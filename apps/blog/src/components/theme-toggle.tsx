@@ -40,7 +40,7 @@ const dictionary = {
       light: 'Light mode',
     },
   },
-} as const satisfies LangRecord<{ ariaLabel: Record<Theme, string> }>;
+} as const satisfies LangRecord<Record<'ariaLabel', Record<Theme, string>>>;
 
 // --------------------------------------------------------------------------------
 // Export
