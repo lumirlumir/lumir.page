@@ -1,7 +1,6 @@
 /* External */
 @import '@lumir/styles/normalize.css';
 @import '@lumir/styles/animations.css';
-@import '@lumir/styles/utilities.css';
 @import '@lumir/styles/variables.css';
 @import 'katex/dist/katex.min.css';
 
@@ -9,3 +8,25 @@
 @import './markdown.css';
 @import './utilities.css';
 @import './variables.css';
+
+html {
+  scroll-behavior: smooth;
+  color: var(--color-ink);
+  background-color: var(--color-paper);
+}
+
+body {
+  transition:
+    color 0.22s ease,
+    background-color 0.22s ease;
+}
+
+::selection {
+  color: #fff8ed;
+  background-color: var(--color-vermillion);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-focus-outline);
+  outline-offset: 3px;
+}

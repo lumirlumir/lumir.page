@@ -1,21 +1,40 @@
 .profile {
-  composes: flex-center from global;
+  display: flex;
   flex-direction: column;
-  margin: var(--spacing-static-md);
+  align-items: flex-start;
+  justify-content: center;
+  padding: 42px 18px 24px;
+  margin: 0;
+  font-family: var(--font-stack-serif);
+  border-bottom: 3px double var(--color-hairline-strong);
 
   & > img {
-    border-radius: var(--border-radius-circle);
+    width: 72px;
+    height: 72px;
+    padding: 4px;
+    object-fit: cover;
+    border: 1px solid var(--color-hairline-strong);
+    filter: grayscale(0.75) contrast(1.04);
   }
 
   & > .user-name {
-    padding: var(--spacing-static-md) 0;
-    font-size: var(--font-size-lg);
-    font-weight: var(--font-weight-semibold);
+    padding: 18px 0 8px;
+    font-size: 1.65rem;
+    font-style: italic;
+    font-weight: 600;
+    letter-spacing: -0.05em;
+
+    & a {
+      color: inherit;
+      text-decoration: none;
+    }
   }
 
   & > .user-bio {
-    font-size: var(--font-size-xs);
-    color: var(--color-fg-muted);
-    letter-spacing: var(--letter-spacing-tight);
+    font-family: var(--font-stack-monospace);
+    font-size: 0.55rem;
+    line-height: 1.6;
+    color: var(--color-ink-soft);
+    letter-spacing: 0.08em;
   }
 }

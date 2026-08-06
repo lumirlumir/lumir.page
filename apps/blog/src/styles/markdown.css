@@ -1,6 +1,7 @@
 .markdown {
-  font-size: var(--font-size-md);
-  line-height: var(--line-height-normal);
+  font-family: var(--font-stack-serif);
+  font-size: clamp(0.98rem, 1.3vw, 1.06rem);
+  line-height: 1.9;
   overflow-wrap: break-word;
 
   & a {
@@ -31,14 +32,17 @@
 
   & img {
     max-width: 100%;
-    border-radius: var(--border-radius-md);
+    padding: 6px;
+    background-color: var(--color-paper-soft);
+    border: 1px solid var(--color-hairline);
   }
 
   & hr {
-    height: 0.25em;
-    margin: var(--size-24) 0;
-    background-color: var(--color-border-default);
+    height: 3px;
+    margin: 44px 0;
+    background-color: transparent;
     border: 0;
+    border-top: 3px double var(--color-hairline-strong);
   }
 
   & [type='checkbox'] {
@@ -81,10 +85,11 @@
   }
 
   & :is(h1, h2, h3, h4, h5, h6) {
-    margin-top: var(--size-24);
-    margin-bottom: var(--spacing-static-md);
+    margin-top: 2.15em;
+    margin-bottom: 0.7em;
     font-weight: var(--font-weight-semibold);
-    line-height: var(--line-height-tight);
+    line-height: 1.25;
+    letter-spacing: -0.045em;
     scroll-margin-top: calc(
       var(--size-header-height) + var(--size-16)
     ); /* Keep linked headings visible below the sticky header. */
@@ -125,20 +130,20 @@
   }
 
   & h1 {
-    padding-bottom: 0.3em;
-    margin: 0.67em 0;
-    font-size: var(--font-size-3xl);
-    border-bottom: 1px solid var(--color-border-muted);
+    padding-bottom: 0.35em;
+    margin: 0.75em 0;
+    font-size: clamp(2.25rem, 5vw, 4rem);
+    border-bottom: 3px double var(--color-hairline-strong);
   }
 
   & h2 {
-    padding-bottom: 0.3em;
-    font-size: var(--font-size-xl);
-    border-bottom: 1px solid var(--color-border-muted);
+    padding-bottom: 0.42em;
+    font-size: clamp(1.65rem, 3.4vw, 2.55rem);
+    border-bottom: 1px solid var(--color-hairline-strong);
   }
 
   & h3 {
-    font-size: var(--font-size-lg);
+    font-size: clamp(1.28rem, 2.6vw, 1.72rem);
   }
 
   & h4 {
@@ -155,15 +160,18 @@
   }
 
   & blockquote {
-    padding: 0 1em;
-    margin: 0;
-    color: var(--color-fg-muted);
-    border-left: 0.25em solid var(--color-border-default);
+    padding: 18px 24px;
+    margin: 32px 0;
+    font-size: 1.08em;
+    font-style: italic;
+    color: var(--color-ink-soft);
+    background-color: var(--color-paper-soft);
+    border-left: 3px solid var(--color-vermillion);
   }
 
   & :is(blockquote, details, p, pre, table, ul, ol) {
     margin-top: 0;
-    margin-bottom: var(--spacing-static-md);
+    margin-bottom: 1.45em;
   }
 
   & :is(ul, ol) {
@@ -254,15 +262,16 @@
   }
 
   & pre {
-    padding: var(--spacing-static-md);
+    padding: 20px;
     overflow: auto;
     font-family: var(--font-stack-monospace);
     font-size: 0.875em;
     line-height: 1.45;
     color: var(--color-fg-default);
     overflow-wrap: normal;
-    background-color: var(--color-bg-muted);
-    border-radius: var(--border-radius-md);
+    background-color: var(--color-paper-soft);
+    border: 1px solid var(--color-hairline);
+    border-radius: 0;
 
     & code {
       padding: 0;
