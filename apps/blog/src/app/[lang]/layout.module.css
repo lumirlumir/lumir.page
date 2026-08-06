@@ -1,15 +1,13 @@
 .body {
   display: grid;
   grid-template-rows: var(--size-scroll-progress-height) var(--size-header-height) 1fr;
-  grid-template-columns: var(--size-sidebar-width) minmax(0, 1fr);
-  overflow-x: clip;
+  grid-template-columns: minmax(0, 1fr);
   font-family: var(--font-stack-system);
-  line-height: var(--line-height-tighter);
   color: var(--color-fg-default);
   background-color: var(--color-bg-inset);
 
   & > .scroll-progress {
-    grid-area: 1 / 1 / 2 / 3;
+    grid-area: 1 / 1 / 2 / -1;
   }
 
   & > header {
@@ -17,7 +15,7 @@
     top: var(--size-scroll-progress-height);
     z-index: 1;
     display: flex;
-    grid-area: 2 / 1 / 3 / 3;
+    grid-area: 2 / 1 / 3 / -1;
     justify-content: space-between;
     padding: 0 var(--size-article-padding-small);
     background-color: inherit;
@@ -49,13 +47,39 @@
   }
 
   & > aside {
+    position: fixed;
     z-index: 1;
-    grid-area: 3 / 1 / 4 / 2;
+    width: var(--size-sidebar-width);
+    height: calc(100vh - var(--size-content-top-offset));
+    background-color: var(--color-bg-inset);
+    transition: transform 0.6s ease-in-out;
+
+    & > ul:not(:last-child) {
+      margin: var(--spacing-static-md) 0;
+      border-bottom: var(--border-default);
+    }
+  }
+
+  & > aside:first-of-type {
+    top: var(--size-content-top-offset);
+    left: 0;
+    border-right: var(--border-default);
+    transform: translateX(-100%);
+  }
+
+  & > aside:last-of-type {
+    top: var(--size-content-top-offset);
+    right: 0;
+    transform: translateX(100%);
+  }
+
+  &:has(> .aside-toggle[aria-expanded='true']) > aside:first-of-type {
+    transform: translateX(0);
   }
 
   & > main {
-    grid-area: 3 / 1 / 4 / 3;
-    contain: paint; /* `overflow: hidden` prevent children's `position: sticky` from working. So I used it instead. */
+    grid-area: 3 / 1 / 4 / -1;
+    contain: paint; /* `overflow: hidden` prevent children's `position: sticky` from working. */
 
     & > article {
       box-sizing: border-box;
@@ -71,26 +95,45 @@
     }
   }
 
-  & > nav {
-    grid-area: 3 / 2 / 4 / 3;
-    justify-self: end;
-    width: var(--size-nav-width);
-    transform: translateX(100%); /* TODO: Move to `Nav` component. */
-  }
-
   @media (width >= 768px) {
-    & > main {
-      margin-right: var(--size-nav-width);
+    grid-template-columns:
+      var(--size-sidebar-width)
+      minmax(0, 1fr)
+      var(--size-sidebar-width);
+
+    & > aside:last-of-type {
+      transform: translateX(0);
     }
 
-    & > nav {
-      transform: translateX(0); /* TODO: Move to `Nav` component. */
+    & > main {
+      grid-area: 3 / 1 / 4 / 3;
     }
   }
 
   @media (width >= 1280px) {
-    & > main {
+    grid-template-columns:
+      minmax(0, 1fr)
+      var(--size-sidebar-width)
+      minmax(0, 980px)
+      var(--size-sidebar-width)
+      minmax(0, 1fr);
+
+    & > aside {
+      position: sticky;
+    }
+
+    & > aside:first-of-type {
       grid-area: 3 / 2 / 4 / 3;
+      border-right: none;
+      transform: translateX(0);
+    }
+
+    & > aside:last-of-type {
+      grid-area: 3 / 4 / 4 / 5;
+    }
+
+    & > main {
+      grid-area: 3 / 3 / 4 / 4;
     }
   }
 }

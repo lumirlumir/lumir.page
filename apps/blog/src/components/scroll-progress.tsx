@@ -18,9 +18,18 @@ import 'client-only';
 // Import
 // --------------------------------------------------------------------------------
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, type HTMLAttributes } from 'react';
 import { cn } from '@lumir/utils';
 import styles from './scroll-progress.module.css';
+
+// --------------------------------------------------------------------------------
+// Typedef
+// --------------------------------------------------------------------------------
+
+/**
+ * Props for the `ScrollProgress` component.
+ */
+export type ScrollProgressProps = HTMLAttributes<HTMLDivElement>;
 
 // --------------------------------------------------------------------------------
 // Export
@@ -29,7 +38,7 @@ import styles from './scroll-progress.module.css';
 /**
  * Renders a fixed progress bar that reflects the current document scroll position.
  */
-export function ScrollProgress() {
+export function ScrollProgress({ className, ...props }: ScrollProgressProps) {
   const scrollProgressRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
@@ -70,7 +79,7 @@ export function ScrollProgress() {
   }, []);
 
   return (
-    <div className={cn('scroll-progress', styles['scroll-progress'])}>
+    <div className={cn(styles['scroll-progress'], className)} {...props}>
       <div ref={scrollProgressRef} className={styles['scroll-progress-bar']} />
     </div>
   );
