@@ -15,7 +15,6 @@ import 'server-only';
 import { LmSearch } from '@lumir/react-kit/svgs';
 import { type LangRecord, type PropsWithLang } from '@/data/lang';
 import createMarkdownCollection from '@/utils/markdown-collection';
-import { markdownToText } from '@/utils/markdown-to-text';
 import { LocalSearch, type LocalSearchProps } from './localsearch';
 
 // --------------------------------------------------------------------------------
@@ -137,33 +136,13 @@ const dictionary = {
 // Export
 // --------------------------------------------------------------------------------
 
-export async function Search(props: PropsWithLang) {
-  const documents = await Promise.all(
-    Object.values(markdownCollection.byLangSlug[props.lang]).map(
-      async ({
-        id,
-        slug,
-        lang,
-        data: { title, description, created, updated, categories },
-      }) => ({
-        id,
-        slug,
-        lang,
-        title: await markdownToText(title),
-        description: await markdownToText(description),
-        created,
-        updated,
-        categories,
-      }),
-    ),
-  );
-
+export function Search({ lang }: PropsWithLang) {
   return (
     <LocalSearch
+      vMarkdownFileMetas={Object.values(markdownCollection.byLangSlug[lang])}
+      translations={dictionary[lang].translations}
       icon={<LmSearch aria-hidden="true" color="white" size={28} strokeWidth="1.5" />}
       maxResults={10}
-      translations={dictionary[props.lang].translations}
-      documents={documents}
     />
   );
 }

@@ -22,7 +22,6 @@ import { useShortcut } from '@lumir/react-kit/hooks';
 import MiniSearch, { type SearchResult } from 'minisearch';
 import { useRouter } from 'next/navigation';
 import {
-  useCallback,
   useDeferredValue,
   useMemo,
   useRef,
@@ -30,7 +29,6 @@ import {
   type KeyboardEvent,
   type ReactNode,
 } from 'react';
-import { type Frontmatter } from '@/data/frontmatter';
 import { type VMarkdownFileMeta } from '@/data/v-markdown-file';
 import styles from './localsearch.module.css';
 
@@ -38,10 +36,7 @@ import styles from './localsearch.module.css';
 // Typedef
 // --------------------------------------------------------------------------------
 
-type SearchDocument = Pick<VMarkdownFileMeta, 'id' | 'slug' | 'lang'> &
-  Pick<Frontmatter, 'title' | 'description' | 'created' | 'updated' | 'categories'>;
-
-type StoredSearchDocument = SearchResult & SearchDocument;
+type StoredSearchDocument = SearchResult & VMarkdownFileMeta;
 
 /**
  * Props for the `SearchClient` component.
@@ -50,7 +45,7 @@ export interface LocalSearchProps {
   /**
    * Search documents to index on the client.
    */
-  readonly documents: SearchDocument[];
+  readonly vMarkdownFileMetas: VMarkdownFileMeta[];
 
   /**
    * Translations for the search UI.
@@ -259,14 +254,12 @@ export interface LocalSearchProps {
 
   /**
    * The icon to display.
-   *
    * @default undefined
    */
   readonly icon?: ReactNode;
 
   /**
    * The maximum number of search results to display.
-   *
    * @default 10
    */
   readonly maxResults?: number;
@@ -277,7 +270,7 @@ export interface LocalSearchProps {
 // --------------------------------------------------------------------------------
 
 export function LocalSearch({
-  documents,
+  vMarkdownFileMetas,
   translations: {
     placeholder,
     button: { buttonAriaLabel, buttonText },
@@ -316,8 +309,12 @@ export function LocalSearch({
   const router = useRouter();
 
   const miniSearch = useMemo(() => {
-    const search = new MiniSearch<SearchDocument>({
+    const search = new MiniSearch<VMarkdownFileMeta>({
       fields: ['title', 'description'],
+      extractField: (document, fieldName) =>
+        fieldName === 'title' || fieldName === 'description'
+          ? document.data[fieldName]
+          : document[fieldName as keyof VMarkdownFileMeta],
       searchOptions: {
         boost: {
           title: 2,
@@ -326,21 +323,13 @@ export function LocalSearch({
         fuzzy: 0.2,
         prefix: true,
       },
-      storeFields: [
-        'id',
-        'slug',
-        'title',
-        'description',
-        'created',
-        'updated',
-        'categories',
-      ] satisfies (keyof SearchDocument)[],
+      storeFields: ['id', 'slug', 'lang', 'data'] satisfies (keyof VMarkdownFileMeta)[],
     });
 
-    search.addAll(documents);
+    search.addAll(vMarkdownFileMetas);
 
     return search;
-  }, [documents]);
+  }, [vMarkdownFileMetas]);
 
   const results = useMemo(() => {
     if (deferredQuery.length === 0) {
@@ -358,7 +347,7 @@ export function LocalSearch({
   // Callback
   // ------------------------------------------------------------------------------
 
-  const openDialog = useCallback(() => {
+  function openDialog() {
     const dialog = dialogRef.current;
 
     if (dialog === null) {
@@ -370,10 +359,18 @@ export function LocalSearch({
     }
 
     inputRef.current?.focus();
-  }, []);
+  }
 
   function closeDialog() {
-    dialogRef.current?.close();
+    const dialog = dialogRef.current;
+
+    if (dialog === null) {
+      return;
+    }
+
+    if (dialog.open) {
+      dialog.close();
+    }
   }
 
   function updateQuery(nextQuery: string) {
@@ -386,7 +383,7 @@ export function LocalSearch({
     inputRef.current?.focus();
   }
 
-  function navigateToResult(document: SearchDocument) {
+  function navigateToResult(document: VMarkdownFileMeta) {
     closeDialog();
     router.push(`/${document.lang}/posts/${document.slug}`);
   }
@@ -504,17 +501,17 @@ export function LocalSearch({
                         onClick={() => navigateToResult(document)}
                       >
                         <span>
-                          <span>{document.title}</span>
+                          <span>{document.data.title}</span>
                           <span>
                             {pathPrefix} / {document.slug}
                           </span>
-                          <span>{document.description}</span>
+                          <span>{document.data.description}</span>
                           <span>
-                            <span>{document.created}</span>
+                            <span>{document.data.created}</span>
                             <span>
-                              {updatedText} {document.updated}
+                              {updatedText} {document.data.updated}
                             </span>
-                            {document.categories.map(category => (
+                            {document.data.categories.map(category => (
                               <span key={category}>{category}</span>
                             ))}
                           </span>
