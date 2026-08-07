@@ -24,7 +24,6 @@ import { useRouter } from 'next/navigation';
 import {
   useCallback,
   useDeferredValue,
-  useId,
   useMemo,
   useRef,
   useState,
@@ -311,14 +310,10 @@ export function LocalSearch({
   icon = undefined,
   maxResults = 10,
 }: PropsWithLang<LocalSearchProps>) {
-  // ------------------------------------------------------------------------------
-  // Variable
-  // ------------------------------------------------------------------------------
-
   const dialogRef = useRef<HTMLDialogElement | null>(null);
   const inputRef = useRef<HTMLInputElement | null>(null);
+
   const router = useRouter();
-  const resultsId = useId();
   const [query, setQuery] = useState<string>('');
   const deferredQuery = useDeferredValue(query.trim());
   const [activeIndex, setActiveIndex] = useState<number>(0);
@@ -464,7 +459,6 @@ export function LocalSearch({
                 onKeyDown={onInputKeyDown}
                 placeholder={placeholder}
                 aria-label={searchInputLabel}
-                aria-controls={resultsId}
               />
               {query.length > 0 && (
                 <button
@@ -504,7 +498,7 @@ export function LocalSearch({
             {query.length > 0 && results.length > 0 ? (
               <section>
                 <div>{sourceText}</div>
-                <ul id={resultsId}>
+                <ul>
                   {results.map((document, index) => (
                     <li key={document.id}>
                       <button
