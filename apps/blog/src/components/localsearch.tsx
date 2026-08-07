@@ -94,32 +94,16 @@ export interface SearchDocument {
 /**
  * Props for the `SearchClient` component.
  */
-export interface SearchClientProps {
+export interface LocalSearchProps {
   /**
    * Language key used to build localized result routes.
    */
   readonly lang: LangKey;
 
   /**
-   * The icon to display.
-   *
-   * @default undefined
+   * Search documents to index on the client.
    */
-  readonly icon?: ReactNode;
-
-  /**
-   * The maximum number of search results to display.
-   *
-   * @default 10
-   */
-  readonly maxResults?: number;
-
-  /**
-   * The placeholder for the search input.
-   *
-   * @default "Search"
-   */
-  readonly placeholder?: string;
+  readonly documents: SearchDocument[];
 
   /**
    * Translations for the search UI.
@@ -322,9 +306,25 @@ export interface SearchClientProps {
   };
 
   /**
-   * Search documents to index on the client.
+   * The icon to display.
+   *
+   * @default undefined
    */
-  readonly documents: SearchDocument[];
+  readonly icon?: ReactNode;
+
+  /**
+   * The maximum number of search results to display.
+   *
+   * @default 10
+   */
+  readonly maxResults?: number;
+
+  /**
+   * The placeholder for the search input.
+   *
+   * @default "Search"
+   */
+  readonly placeholder?: string;
 }
 
 // --------------------------------------------------------------------------------
@@ -398,7 +398,7 @@ export default function SearchClient({
 
   // TODO: From here
   documents,
-}: SearchClientProps) {
+}: LocalSearchProps) {
   const dialogRef = useRef<HTMLDialogElement | null>(null);
   const inputRef = useRef<HTMLInputElement | null>(null);
   const router = useRouter();

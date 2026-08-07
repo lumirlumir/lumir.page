@@ -17,7 +17,7 @@ import { type LangRecord, type PropsWithLang } from '@/data/lang';
 import { type VMarkdownFileMeta } from '@/data/v-markdown-file';
 import createMarkdownCollection from '@/utils/markdown-collection';
 import { markdownToText } from '@/utils/markdown-to-text';
-import SearchClient, { type SearchClientProps, type SearchDocument } from './localsearch';
+import SearchClient, { type LocalSearchProps, type SearchDocument } from './localsearch';
 
 // --------------------------------------------------------------------------------
 // Helper
@@ -158,7 +158,7 @@ const dictionary = {
   },
 } as const satisfies LangRecord<{
   placeholder: string;
-  translations: SearchClientProps['translations'];
+  translations: LocalSearchProps['translations'];
 }>;
 
 // --------------------------------------------------------------------------------
