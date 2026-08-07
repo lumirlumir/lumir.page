@@ -6,7 +6,6 @@
   "exports": {
     "./animations.css": "./src/animations.css",
     "./normalize.css": "./src/normalize.css",
-    "./utilities.css": "./src/utilities.css",
     "./variables.css": "./src/variables.css",
     "./package.json": "./package.json"
   },
