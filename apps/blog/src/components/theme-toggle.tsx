@@ -19,8 +19,9 @@ import 'client-only';
 // --------------------------------------------------------------------------------
 
 import { cn } from '@lumir/utils';
-import { useThemeContext, type Theme } from '@/components/theme-context';
+import { useThemeContext } from '@/components/theme-context';
 import { type LangRecord, type PropsWithLang } from '@/data/lang';
+import { themeDefault, type Theme } from '@/data/theme';
 import styles from './theme-toggle.module.css';
 
 // --------------------------------------------------------------------------------
@@ -58,7 +59,7 @@ export function ThemeToggle({ lang }: PropsWithLang) {
         type="button"
         onClick={toggleTheme}
         aria-label={dictionary[lang].ariaLabel[theme]}
-        aria-pressed={theme === 'dark'}
+        aria-pressed={theme === themeDefault}
       >
         <span className={styles.orb} aria-hidden="true" />
         <span className={styles.shadow} aria-hidden="true" />

@@ -24,16 +24,11 @@ import {
   useSyncExternalStore,
   type PropsWithChildren,
 } from 'react';
+import { themeDefault, themeKey, themeKeys, type Theme } from '@/data/theme';
 
 // --------------------------------------------------------------------------------
 // Typedef
 // --------------------------------------------------------------------------------
-
-/**
- * Represents the available application theme modes.
- * @default 'dark'
- */
-export type Theme = 'dark' | 'light';
 
 /**
  * Defines the shape of the context value provided by the `ThemeContext`,
@@ -45,16 +40,14 @@ export type ThemeContextValue = readonly [theme: Theme, toggleTheme: () => void]
 // Helper
 // --------------------------------------------------------------------------------
 
-const themeKey = 'data-theme';
-const defaultTheme = 'dark' satisfies Theme;
 const ThemeContext = createContext<ThemeContextValue | undefined>(undefined);
 
 function getThemeSnapshot(): Theme {
-  return (document.documentElement.getAttribute(themeKey) ?? defaultTheme) as Theme;
+  return (document.documentElement.getAttribute(themeKey) ?? themeDefault) as Theme;
 }
 
-function getServerThemeSnapshot(): typeof defaultTheme {
-  return defaultTheme;
+function getServerThemeSnapshot(): typeof themeDefault {
+  return themeDefault;
 }
 
 function subscribeThemeStore(onStoreChange: () => void): () => void {
@@ -71,7 +64,7 @@ function subscribeThemeStore(onStoreChange: () => void): () => void {
 }
 
 function toggleTheme() {
-  const nextTheme = getThemeSnapshot() === 'dark' ? 'light' : 'dark';
+  const nextTheme = getThemeSnapshot() === themeKeys[0] ? themeKeys[1] : themeKeys[0];
 
   // 1. Update the `data-theme` attribute on the root document element to apply the theme globally.
   document.documentElement.setAttribute(themeKey, nextTheme);
