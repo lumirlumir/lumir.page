@@ -20,7 +20,6 @@ describe('use-shortcut', () => {
 
     const event = new KeyboardEvent('keydown', {
       cancelable: true,
-      ctrlKey: true,
       key: 'k',
     });
 
@@ -33,43 +32,52 @@ describe('use-shortcut', () => {
     const callback = vi.fn();
     await renderHook(() => useShortcut('k', callback));
 
-    dispatchEvent(new KeyboardEvent('keydown', { ctrlKey: true, key: 'K' }));
+    dispatchEvent(new KeyboardEvent('keydown', { key: 'K' }));
 
     assert.strictEqual(callback.mock.calls.length, 1);
   });
 
-  it('Ctrl shortcut should run the callback', async () => {
+  it('Ctrl shortcut should run the callback when `ctrlKey` is true', async () => {
     const callback = vi.fn();
-    await renderHook(() => useShortcut('k', callback));
+    await renderHook(() => useShortcut('k', callback, { ctrlKey: true }));
 
     dispatchEvent(new KeyboardEvent('keydown', { ctrlKey: true, key: 'k' }));
 
     assert.strictEqual(callback.mock.calls.length, 1);
   });
 
-  it('Command shortcut should run the callback', async () => {
+  it('Command shortcut should run the callback when `metaKey` is true', async () => {
     const callback = vi.fn();
-    await renderHook(() => useShortcut('k', callback));
+    await renderHook(() => useShortcut('k', callback, { metaKey: true }));
 
     dispatchEvent(new KeyboardEvent('keydown', { key: 'k', metaKey: true }));
 
     assert.strictEqual(callback.mock.calls.length, 1);
   });
 
-  it('Matching key without Ctrl or Command should not run the callback', async () => {
+  it('Ctrl shortcut should not run the callback when `ctrlKey` uses its false default', async () => {
     const callback = vi.fn();
     await renderHook(() => useShortcut('k', callback));
 
-    dispatchEvent(new KeyboardEvent('keydown', { key: 'k' }));
+    dispatchEvent(new KeyboardEvent('keydown', { ctrlKey: true, key: 'k' }));
 
     assert.strictEqual(callback.mock.calls.length, 0);
   });
 
-  it('Different key with Ctrl should not run the callback', async () => {
+  it('Command shortcut should not run the callback when `metaKey` uses its false default', async () => {
     const callback = vi.fn();
     await renderHook(() => useShortcut('k', callback));
 
-    dispatchEvent(new KeyboardEvent('keydown', { ctrlKey: true, key: 'p' }));
+    dispatchEvent(new KeyboardEvent('keydown', { key: 'k', metaKey: true }));
+
+    assert.strictEqual(callback.mock.calls.length, 0);
+  });
+
+  it('Different key should not run the callback', async () => {
+    const callback = vi.fn();
+    await renderHook(() => useShortcut('k', callback));
+
+    dispatchEvent(new KeyboardEvent('keydown', { key: 'p' }));
 
     assert.strictEqual(callback.mock.calls.length, 0);
   });

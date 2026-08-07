@@ -15,17 +15,39 @@
 import { useEffect } from 'react';
 
 // --------------------------------------------------------------------------------
+// Typedef
+// --------------------------------------------------------------------------------
+
+/**
+ * Modifier key states required by `useShortcut`.
+ */
+export interface UseShortcutOptions {
+  /**
+   * Whether the Ctrl key must be active.
+   * @default false
+   */
+  ctrlKey?: boolean;
+
+  /**
+   * Whether the Command key must be active.
+   * @default false
+   */
+  metaKey?: boolean;
+}
+
+// --------------------------------------------------------------------------------
 // Export
 // --------------------------------------------------------------------------------
 
 /**
- * React hook that runs a callback when a `Ctrl` or `Command` keyboard shortcut is pressed.
+ * React hook that runs a callback when a keyboard shortcut is pressed.
  *
  * Key matching is case-insensitive. When the shortcut matches, the browser's
  * default action is prevented before the callback runs.
  *
- * @param key The key to combine with Ctrl or Command.
+ * @param key The shortcut key.
  * @param callback The function to run when the shortcut is pressed.
+ * @param options Required Ctrl and Command key states. Both default to `false`.
  *
  * @example
  * ```tsx
@@ -34,17 +56,22 @@ import { useEffect } from 'react';
  * function Component() {
  *   useShortcut('k', () => {
  *     console.log('Shortcut pressed');
- *   });
+ *   }, { ctrlKey: true });
  *
- *   return <div>Press Ctrl+K or Command+K</div>;
+ *   return <div>Press Ctrl+K</div>;
  * }
  * ```
  */
-export function useShortcut(key: string, callback: () => void): void {
+export function useShortcut(
+  key: string,
+  callback: () => void,
+  { ctrlKey = false, metaKey = false }: UseShortcutOptions = {},
+): void {
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (
-        (event.ctrlKey || event.metaKey) &&
+        event.ctrlKey === ctrlKey &&
+        event.metaKey === metaKey &&
         event.key.toLowerCase() === key.toLowerCase()
       ) {
         event.preventDefault();
@@ -57,5 +84,5 @@ export function useShortcut(key: string, callback: () => void): void {
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, [key, callback]);
+  }, [ctrlKey, metaKey, key, callback]);
 }
