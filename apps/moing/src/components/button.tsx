@@ -13,6 +13,8 @@ import NeonButton from '@/components/neon-button';
 import NeonFont from '@/components/neon-font';
 import { useScenarioContext } from '@/contexts/scenario-context';
 
+import styles from './button.module.css';
+
 // --------------------------------------------------------------------------------
 // Typedef
 // --------------------------------------------------------------------------------
@@ -41,8 +43,7 @@ export default function Button({ type, icon, onClick, hoverEffect = false }: Pro
     <div
       className={cn(
         `${type}`,
-        'flex-center',
-        'transition',
+        styles.button,
         status === 'hidden' && 'pointer-events-none opacity-0',
         status === 'visible' && 'pointer-events-none',
       )}

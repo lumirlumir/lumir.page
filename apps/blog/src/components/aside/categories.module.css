@@ -1,9 +1,13 @@
 .react-icons {
-  composes: flex-center from global;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .count-docs {
-  composes: flex-center from global;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .categories {
@@ -56,6 +60,9 @@
       grid-area: 1 / 3 / 3 / 4;
 
       & > span {
+        display: flex;
+        align-items: center;
+        justify-content: center;
         width: var(--size-20);
         height: var(--size-20);
         font-size: var(--font-size-xs);

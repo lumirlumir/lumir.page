@@ -1,5 +1,6 @@
-.flex-center {
+.timer {
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: var(--transition);
 }

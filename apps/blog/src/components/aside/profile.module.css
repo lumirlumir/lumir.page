@@ -1,6 +1,8 @@
 .profile {
-  composes: flex-center from global;
+  display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
   margin: var(--spacing-static-md);
 
   & > img {

@@ -98,7 +98,6 @@ export default function Config() {
         styles.config,
         'custom-scrollbar',
         'custom-main-section',
-        'transition',
         'select-none',
         config.visibility || 'custom-invisible-section',
       )}

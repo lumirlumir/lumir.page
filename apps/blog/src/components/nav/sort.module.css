@@ -1,9 +1,13 @@
 .react-icons {
-  composes: flex-center from global;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .sort {
-  composes: flex-center from global;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .list {

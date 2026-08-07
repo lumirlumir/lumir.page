@@ -49,7 +49,6 @@ export default function ButtonMain() {
       className={cn(
         styles['main-button'],
         'custom-main-others',
-        'transition',
         (isLastSection() && isConfigDone()) || status !== 'hidden'
           ? ''
           : 'pointer-events-none opacity-0',

@@ -48,9 +48,7 @@ export async function Categories({ lang }: PropsWithLang) {
               <div className={styles['name-en']}>{en}</div>
               <div className={styles['name-ko']}>{ko}</div>
               <div className={styles['count-docs']}>
-                <span className="flex-center">
-                  {markdownCollection.byLangCategory[lang][categoryKey].length}
-                </span>
+                <span>{markdownCollection.byLangCategory[lang][categoryKey].length}</span>
                 <FaPen />
               </div>
             </Link>

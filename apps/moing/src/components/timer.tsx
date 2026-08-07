@@ -9,6 +9,7 @@
 import { cn } from '@lumir/utils';
 import NeonFont from '@/components/neon-font';
 import { useScenarioContext } from '@/contexts/scenario-context';
+import styles from './timer.module.css';
 
 // --------------------------------------------------------------------------------
 // Typedef
@@ -19,6 +20,12 @@ import { useScenarioContext } from '@/contexts/scenario-context';
  */
 interface TimerProps {
   /**
+   * CSS class name for the timer component.
+   * @default ''
+   */
+  className?: string;
+
+  /**
    * Current count of the timer in milliseconds.
    */
   currentCount: number;
@@ -28,7 +35,7 @@ interface TimerProps {
 // Export
 // --------------------------------------------------------------------------------
 
-export default function Timer({ currentCount }: TimerProps) {
+export default function Timer({ className = '', currentCount }: TimerProps) {
   const { section } = useScenarioContext();
   const { status } = section.timer;
   const remainingSeconds = Math.ceil(currentCount / 1_000);
@@ -38,9 +45,8 @@ export default function Timer({ currentCount }: TimerProps) {
   return (
     <footer
       className={cn(
-        'timer',
-        'flex-center',
-        'transition',
+        styles.timer,
+        className,
         status === 'hidden' && 'pointer-events-none opacity-0',
       )}
     >

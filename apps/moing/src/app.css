@@ -33,6 +33,9 @@ body,
   }
 
   & > main {
+    display: flex;
     grid-area: 1 / 2 / 4 / 3;
+    align-items: center;
+    justify-content: center;
   }
 }
