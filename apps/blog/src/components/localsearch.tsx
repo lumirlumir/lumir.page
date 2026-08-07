@@ -32,6 +32,7 @@ import {
   type KeyboardEvent,
   type ReactNode,
 } from 'react';
+import { type Frontmatter } from '@/data/frontmatter';
 import { type LangKey } from '@/data/lang';
 import styles from './localsearch.module.css';
 
@@ -39,7 +40,7 @@ import styles from './localsearch.module.css';
 // Typedef
 // --------------------------------------------------------------------------------
 
-export interface SearchDocument {
+interface SearchDocument extends Frontmatter {
   /**
    * Stable identifier used by MiniSearch and result lookup.
    */
@@ -49,36 +50,6 @@ export interface SearchDocument {
    * Post slug used to build the result href.
    */
   readonly slug: string;
-
-  /**
-   * Searchable post title.
-   */
-  readonly title: string;
-
-  /**
-   * Searchable post description.
-   */
-  readonly description: string;
-
-  /**
-   * Post creation date.
-   */
-  readonly created: string;
-
-  /**
-   * Post update date.
-   */
-  readonly updated: string;
-
-  /**
-   * Post categories shown in the search result metadata.
-   */
-  readonly categories: string[];
-
-  /**
-   * Post references used by the search index.
-   */
-  readonly references: string[];
 
   /**
    * Searchable categories joined into a single string.
