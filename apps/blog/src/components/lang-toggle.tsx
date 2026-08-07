@@ -19,6 +19,8 @@ import 'client-only';
 // --------------------------------------------------------------------------------
 
 import { useSelectedLayoutSegments } from 'next/navigation';
+import { useRef } from 'react';
+import { useShortcut } from '@lumir/react-kit/hooks';
 import { langDefault, langKeys, type LangRecord, type PropsWithLang } from '@/data/lang';
 import styles from './lang-toggle.module.css';
 
@@ -40,9 +42,14 @@ const dictionary = {
 // --------------------------------------------------------------------------------
 
 export function LangToggle({ lang }: PropsWithLang) {
+  const anchorRef = useRef<HTMLAnchorElement>(null);
   const layoutSegments = useSelectedLayoutSegments();
   const nextLang = langKeys.find(langkey => langkey !== lang) ?? langDefault;
   const href = `/${[nextLang, ...layoutSegments].join('/')}` as const;
+
+  useShortcut('l', () => {
+    anchorRef.current?.click();
+  });
 
   return (
     <div className={styles['lang-toggle']}>
@@ -52,6 +59,7 @@ export function LangToggle({ lang }: PropsWithLang) {
        * also reruns `ThemeScript` before hydration to restore the persisted `data-theme` safely.
        */}
       <a
+        ref={anchorRef}
         className="custom-hover-effect"
         href={href}
         onClick={e => {

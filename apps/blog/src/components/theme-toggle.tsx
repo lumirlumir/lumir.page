@@ -18,6 +18,7 @@ import 'client-only';
 // Import
 // --------------------------------------------------------------------------------
 
+import { useShortcut } from '@lumir/react-kit/hooks';
 import { cn } from '@lumir/utils';
 import { useThemeContext } from '@/contexts/theme';
 import { type LangRecord, type PropsWithLang } from '@/data/lang';
@@ -52,6 +53,8 @@ const dictionary = {
  */
 export function ThemeToggle({ lang }: PropsWithLang) {
   const [theme, toggleTheme] = useThemeContext();
+
+  useShortcut('t', toggleTheme);
 
   return (
     <div className={styles['theme-toggle']}>
