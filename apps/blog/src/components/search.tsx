@@ -14,36 +14,13 @@ import 'server-only';
 
 import { LmSearch } from '@lumir/react-kit/svgs';
 import { type LangRecord, type PropsWithLang } from '@/data/lang';
-import { type VMarkdownFileMeta } from '@/data/v-markdown-file';
 import createMarkdownCollection from '@/utils/markdown-collection';
 import { markdownToText } from '@/utils/markdown-to-text';
-import { LocalSearch, type LocalSearchProps, type SearchDocument } from './localsearch';
+import { LocalSearch, type LocalSearchProps } from './localsearch';
 
 // --------------------------------------------------------------------------------
 // Helper
 // --------------------------------------------------------------------------------
-
-/**
- * Creates search documents from Markdown frontmatter only.
- * @param vMarkdownFiles The Markdown files to convert into search documents.
- */
-async function createSearchDocuments(
-  vMarkdownFiles: VMarkdownFileMeta[],
-): Promise<SearchDocument[]> {
-  return Promise.all(
-    vMarkdownFiles.map(
-      async ({ slug, data: { title, description, created, updated, categories } }) => ({
-        id: slug,
-        slug,
-        title: await markdownToText(title),
-        description: await markdownToText(description),
-        created,
-        updated,
-        categories,
-      }),
-    ),
-  );
-}
 
 const dictionary = {
   ko: {
@@ -159,8 +136,18 @@ const dictionary = {
 // --------------------------------------------------------------------------------
 
 export async function Search({ lang }: PropsWithLang) {
-  const documents = await createSearchDocuments(
-    Object.values(createMarkdownCollection().byLangSlug[lang]),
+  const documents = await Promise.all(
+    Object.values(createMarkdownCollection().byLangSlug[lang]).map(
+      async ({ slug, data: { title, description, created, updated, categories } }) => ({
+        id: slug,
+        slug,
+        title: await markdownToText(title),
+        description: await markdownToText(description),
+        created,
+        updated,
+        categories,
+      }),
+    ),
   );
 
   return (

@@ -39,7 +39,7 @@ import styles from './localsearch.module.css';
 // Typedef
 // --------------------------------------------------------------------------------
 
-export interface SearchDocument extends Pick<
+interface SearchDocument extends Pick<
   Frontmatter,
   'title' | 'description' | 'created' | 'updated' | 'categories'
 > {
