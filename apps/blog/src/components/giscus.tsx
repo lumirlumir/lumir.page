@@ -19,7 +19,7 @@ import 'client-only';
 // --------------------------------------------------------------------------------
 
 import GiscusOriginal from '@giscus/react';
-import { useThemeContext } from '@/components/theme-context';
+import { useThemeContext } from '@/contexts/theme';
 import { GITHUB_REPO_FULL_NAME } from '@/constants';
 import { type PropsWithLang } from '@/data/lang';
 

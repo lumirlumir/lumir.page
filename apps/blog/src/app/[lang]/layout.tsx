@@ -12,22 +12,22 @@ import { type PropsWithChildren } from 'react';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 
-import { CursorSplash } from '@/components/cursor-splash';
-import { GoogleAnalytics } from '@/components/google-analytics';
-import { ThemeProvider } from '@/components/theme-context';
-import { ThemeScript } from '@/components/theme-script';
-
-import { AsideToggle } from '@/components/aside-toggle';
-
 import { Categories } from '@/components/aside/categories';
 import { Links } from '@/components/aside/links';
 import { Profile } from '@/components/aside/profile';
 
 import { DocSearch } from '@/components/header/doc-search';
+
+import { AsideToggle } from '@/components/aside-toggle';
+import { CursorSplash } from '@/components/cursor-splash';
+import { GoogleAnalytics } from '@/components/google-analytics';
 import { LangToggle } from '@/components/lang-toggle';
 import { ScrollProgress } from '@/components/scroll-progress';
-import { ThemeToggle } from '@/components/theme-toggle';
+import { ThemeScript } from '@/components/theme-script';
 import { Title } from '@/components/title';
+import { ThemeToggle } from '@/components/theme-toggle';
+
+import { ThemeProvider } from '@/contexts/theme';
 
 import { GOOGLE_GA_ID } from '@/constants';
 import { author } from '@/data/author';

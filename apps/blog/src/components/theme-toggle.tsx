@@ -19,7 +19,7 @@ import 'client-only';
 // --------------------------------------------------------------------------------
 
 import { cn } from '@lumir/utils';
-import { useThemeContext } from '@/components/theme-context';
+import { useThemeContext } from '@/contexts/theme';
 import { type LangRecord, type PropsWithLang } from '@/data/lang';
 import { themeDefault, type Theme } from '@/data/theme';
 import styles from './theme-toggle.module.css';
