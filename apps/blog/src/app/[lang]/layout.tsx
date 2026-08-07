@@ -23,9 +23,9 @@ import { Categories } from '@/components/aside/categories';
 import { Links } from '@/components/aside/links';
 import { Profile } from '@/components/aside/profile';
 
-import Search from '@/components/header/search';
 import { LangToggle } from '@/components/lang-toggle';
 import { ScrollProgress } from '@/components/scroll-progress';
+import { Search } from '@/components/search';
 import { ThemeToggle } from '@/components/theme-toggle';
 import { Title } from '@/components/title';
 

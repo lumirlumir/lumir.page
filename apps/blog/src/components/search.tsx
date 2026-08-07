@@ -89,7 +89,7 @@ const koTranslations = {
 // Export
 // --------------------------------------------------------------------------------
 
-export default async function Search({ lang }: PropsWithLang) {
+export async function Search({ lang }: PropsWithLang) {
   const documents = await createSearchDocuments(
     Object.values(createMarkdownCollection().byLangSlug[lang]),
   );
