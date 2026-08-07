@@ -137,16 +137,18 @@ const dictionary = {
 // Export
 // --------------------------------------------------------------------------------
 
-export async function Search({ lang }: PropsWithLang) {
+export async function Search(props: PropsWithLang) {
   const documents = await Promise.all(
-    Object.values(markdownCollection.byLangSlug[lang]).map(
+    Object.values(markdownCollection.byLangSlug[props.lang]).map(
       async ({
         id,
         slug,
+        lang,
         data: { title, description, created, updated, categories },
       }) => ({
         id,
         slug,
+        lang,
         title: await markdownToText(title),
         description: await markdownToText(description),
         created,
@@ -159,9 +161,8 @@ export async function Search({ lang }: PropsWithLang) {
   return (
     <LocalSearch
       icon={<LmSearch aria-hidden="true" color="white" size={28} strokeWidth="1.5" />}
-      lang={lang}
       maxResults={10}
-      translations={dictionary[lang].translations}
+      translations={dictionary[props.lang].translations}
       documents={documents}
     />
   );

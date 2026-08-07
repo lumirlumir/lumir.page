@@ -31,7 +31,6 @@ import {
   type ReactNode,
 } from 'react';
 import { type Frontmatter } from '@/data/frontmatter';
-import { type PropsWithLang } from '@/data/lang';
 import { type VMarkdownFileMeta } from '@/data/v-markdown-file';
 import styles from './localsearch.module.css';
 
@@ -39,7 +38,7 @@ import styles from './localsearch.module.css';
 // Typedef
 // --------------------------------------------------------------------------------
 
-type SearchDocument = Pick<VMarkdownFileMeta, 'id' | 'slug'> &
+type SearchDocument = Pick<VMarkdownFileMeta, 'id' | 'slug' | 'lang'> &
   Pick<Frontmatter, 'title' | 'description' | 'created' | 'updated' | 'categories'>;
 
 type StoredSearchDocument = SearchResult & SearchDocument;
@@ -278,7 +277,6 @@ export interface LocalSearchProps {
 // --------------------------------------------------------------------------------
 
 export function LocalSearch({
-  lang,
   documents,
   translations: {
     placeholder,
@@ -309,14 +307,13 @@ export function LocalSearch({
   },
   icon = undefined,
   maxResults = 10,
-}: PropsWithLang<LocalSearchProps>) {
+}: LocalSearchProps) {
   const dialogRef = useRef<HTMLDialogElement | null>(null);
   const inputRef = useRef<HTMLInputElement | null>(null);
-
-  const router = useRouter();
   const [query, setQuery] = useState<string>('');
-  const deferredQuery = useDeferredValue(query.trim());
   const [activeIndex, setActiveIndex] = useState<number>(0);
+  const deferredQuery = useDeferredValue(query.trim());
+  const router = useRouter();
 
   const miniSearch = useMemo(() => {
     const search = new MiniSearch<SearchDocument>({
@@ -391,7 +388,7 @@ export function LocalSearch({
 
   function navigateToResult(document: SearchDocument) {
     closeDialog();
-    router.push(`/${lang}/posts/${document.slug}`);
+    router.push(`/${document.lang}/posts/${document.slug}`);
   }
 
   function onInputKeyDown(event: KeyboardEvent<HTMLInputElement>) {
