@@ -44,7 +44,6 @@ export default function Button({ type, icon, onClick, hoverEffect = false }: Pro
       className={cn(
         `${type}`,
         styles.button,
-        'transition',
         status === 'hidden' && 'pointer-events-none opacity-0',
         status === 'visible' && 'pointer-events-none',
       )}

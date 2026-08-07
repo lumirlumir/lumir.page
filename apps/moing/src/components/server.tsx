@@ -84,7 +84,6 @@ export default function Server({ onTestWriteComplete }: ServerProps) {
         'custom-scrollbar',
         'custom-main-section',
         'custom-main-section-bash',
-        'transition',
         status !== 'hidden' && !config.visibility ? '' : 'custom-invisible-section',
         mode === 'result' && styles.wide,
       )}

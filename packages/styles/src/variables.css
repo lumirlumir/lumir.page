@@ -31,8 +31,13 @@
   --border-radius-md: var(--size-6);
   --border-radius-xl: var(--size-12);
   --border-radius-circle: 50%;
+  --border-radius-pill: 999px;
 
   /* spacing */
+  --spacing-fluid-xs: clamp(var(--size-4), calc(0.25vw + var(--size-2)), var(--size-8));
+  --spacing-fluid-sm: clamp(var(--size-8), calc(0.5vw + var(--size-4)), var(--size-16));
+  --spacing-fluid-md: clamp(var(--size-16), calc(1.25vw + var(--size-8)), var(--size-32));
+
   --spacing-static-xs: var(--size-4);
   --spacing-static-sm: var(--size-8);
   --spacing-static-md: var(--size-16);
@@ -50,7 +55,12 @@
   --font-weight-medium: 500;
   --font-weight-semibold: 600;
   --font-weight-bold: 700;
+  --font-weight-extrabold: 800;
 
+  --letter-spacing-widest: 0.1em;
+  --letter-spacing-wider: 0.05em;
+  --letter-spacing-wide: 0.025em;
+  --letter-spacing-normal: 0;
   --letter-spacing-tight: -0.025em;
   --letter-spacing-tighter: -0.05em;
   --letter-spacing-tightest: -0.075em;

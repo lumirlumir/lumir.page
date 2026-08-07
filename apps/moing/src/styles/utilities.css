@@ -43,11 +43,6 @@
   opacity: 0;
 }
 
-/* Transitions & Animation: https://tailwindcss.com/docs/transition-property */
-.transition {
-  transition: all 2s ease-in-out;
-}
-
 /* Interactivity: https://tailwindcss.com/docs/pointer-events */
 .pointer-events-none {
   pointer-events: none;

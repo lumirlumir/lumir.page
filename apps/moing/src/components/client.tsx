@@ -27,7 +27,6 @@ export default function Client() {
     <NeonDiv
       className={cn(
         styles.client,
-        'transition',
         'custom-scrollbar',
         'custom-main-section',
         'custom-main-section-bash',

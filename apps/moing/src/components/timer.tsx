@@ -47,7 +47,6 @@ export default function Timer({ className = '', currentCount }: TimerProps) {
       className={cn(
         styles.timer,
         className,
-        'transition',
         status === 'hidden' && 'pointer-events-none opacity-0',
       )}
     >
