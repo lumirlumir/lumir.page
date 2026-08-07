@@ -18,7 +18,7 @@ import 'client-only';
 // Import
 // --------------------------------------------------------------------------------
 
-import MiniSearch from 'minisearch';
+import MiniSearch, { type SearchResult } from 'minisearch';
 import { useRouter } from 'next/navigation';
 import {
   useCallback,
@@ -33,26 +33,17 @@ import {
 } from 'react';
 import { type Frontmatter } from '@/data/frontmatter';
 import { type PropsWithLang } from '@/data/lang';
+import { type VMarkdownFileMeta } from '@/data/v-markdown-file';
 import styles from './localsearch.module.css';
 
 // --------------------------------------------------------------------------------
 // Typedef
 // --------------------------------------------------------------------------------
 
-interface SearchDocument extends Pick<
-  Frontmatter,
-  'title' | 'description' | 'created' | 'updated' | 'categories'
-> {
-  /**
-   * Stable identifier used by MiniSearch and result lookup.
-   */
-  readonly id: string;
+type SearchDocument = Pick<VMarkdownFileMeta, 'id' | 'slug'> &
+  Pick<Frontmatter, 'title' | 'description' | 'created' | 'updated' | 'categories'>;
 
-  /**
-   * Post slug used to build the result href.
-   */
-  readonly slug: string;
-}
+type StoredSearchDocument = SearchResult & SearchDocument;
 
 /**
  * Props for the `SearchClient` component.
@@ -330,28 +321,30 @@ export function LocalSearch({
 
   const miniSearch = useMemo(() => {
     const search = new MiniSearch<SearchDocument>({
-      fields: ['title', 'description', 'created', 'updated', 'slug'],
+      fields: ['title', 'description'],
       searchOptions: {
         boost: {
-          title: 4,
-          description: 2,
-          slug: 1.5,
+          title: 2,
+          description: 1,
         },
         fuzzy: 0.2,
         prefix: true,
       },
-      storeFields: ['id'],
+      storeFields: [
+        'id',
+        'slug',
+        'title',
+        'description',
+        'created',
+        'updated',
+        'categories',
+      ] satisfies (keyof SearchDocument)[],
     });
 
     search.addAll(documents);
 
     return search;
   }, [documents]);
-
-  const documentsById = useMemo(
-    () => new Map(documents.map(document => [document.id, document])),
-    [documents],
-  );
 
   const results = useMemo(() => {
     if (normalizedQuery.length === 0) {
@@ -360,10 +353,8 @@ export function LocalSearch({
 
     return miniSearch
       .search(normalizedQuery)
-      .slice(0, maxResults)
-      .map(result => documentsById.get(String(result.id)))
-      .filter(document => document !== undefined);
-  }, [documentsById, maxResults, miniSearch, normalizedQuery]);
+      .slice(0, maxResults) as StoredSearchDocument[];
+  }, [maxResults, miniSearch, normalizedQuery]);
 
   const activeResult = results[activeIndex];
 

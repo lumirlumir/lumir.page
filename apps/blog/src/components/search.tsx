@@ -22,6 +22,8 @@ import { LocalSearch, type LocalSearchProps } from './localsearch';
 // Helper
 // --------------------------------------------------------------------------------
 
+const markdownCollection = createMarkdownCollection();
+
 const dictionary = {
   ko: {
     translations: {
@@ -137,9 +139,13 @@ const dictionary = {
 
 export async function Search({ lang }: PropsWithLang) {
   const documents = await Promise.all(
-    Object.values(createMarkdownCollection().byLangSlug[lang]).map(
-      async ({ slug, data: { title, description, created, updated, categories } }) => ({
-        id: slug,
+    Object.values(markdownCollection.byLangSlug[lang]).map(
+      async ({
+        id,
+        slug,
+        data: { title, description, created, updated, categories },
+      }) => ({
+        id,
         slug,
         title: await markdownToText(title),
         description: await markdownToText(description),
