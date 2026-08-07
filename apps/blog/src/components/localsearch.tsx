@@ -451,11 +451,11 @@ export function LocalSearch({
   return (
     <div className={styles.localsearch}>
       <button type="button" aria-label={buttonAriaLabel} onClick={openDialog}>
-        <span data-trigger-label>
+        <span>
           <span>{icon}</span>
-          <span data-trigger-text>{buttonText}</span>
+          <span>{buttonText}</span>
         </span>
-        <span data-trigger-keys aria-hidden="true">
+        <span aria-hidden="true">
           <kbd>Ctrl</kbd>
           <kbd>K</kbd>
         </span>
@@ -469,9 +469,9 @@ export function LocalSearch({
         // https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/dialog#closedby
         closedby="any"
       >
-        <div data-panel>
-          <div data-search-header>
-            <div data-search-box>
+        <div>
+          <div>
+            <div>
               <span>{icon}</span>
               <input
                 ref={inputRef}
@@ -486,7 +486,6 @@ export function LocalSearch({
               {query.length > 0 && (
                 <button
                   type="button"
-                  data-reset-button
                   onClick={resetSearch}
                   title={resetButtonTitle}
                   aria-label={resetButtonAriaLabel}
@@ -497,7 +496,6 @@ export function LocalSearch({
             </div>
             <button
               type="button"
-              data-cancel-button
               onClick={closeDialog}
               aria-label={cancelButtonAriaLabel}
             >
@@ -505,16 +503,16 @@ export function LocalSearch({
             </button>
           </div>
 
-          <div data-search-body className="custom-scrollbar-y-bold">
+          <div>
             {query.length === 0 ? (
-              <section data-empty>
+              <section>
                 <h3>{titleText}</h3>
                 <p>{helpText}</p>
               </section>
             ) : null}
 
             {query.length > 0 && results.length === 0 ? (
-              <section data-empty>
+              <section>
                 <h3>{noResultsText}</h3>
                 <p>&quot;{query}&quot;</p>
               </section>
@@ -522,7 +520,7 @@ export function LocalSearch({
 
             {query.length > 0 && results.length > 0 ? (
               <section>
-                <div data-source>{sourceText}</div>
+                <div>{sourceText}</div>
                 <ul id={resultsId}>
                   {results.map((document, index) => (
                     <li key={document.id}>
@@ -531,13 +529,13 @@ export function LocalSearch({
                         data-active={index === activeIndex}
                         onClick={() => navigateToResult(document)}
                       >
-                        <span data-hit-content>
-                          <span data-hit-title>{document.title}</span>
-                          <span data-hit-path>
+                        <span>
+                          <span>{document.title}</span>
+                          <span>
                             {pathPrefix} / {document.slug}
                           </span>
-                          <span data-hit-description>{document.description}</span>
-                          <span data-meta>
+                          <span>{document.description}</span>
+                          <span>
                             <span>{document.created}</span>
                             <span>
                               {updatedText} {document.updated}
@@ -556,16 +554,16 @@ export function LocalSearch({
           </div>
 
           <footer>
-            <span data-command>
+            <span>
               <kbd aria-label={selectKeyAriaLabel}>Enter</kbd>
               <span>{selectText}</span>
             </span>
-            <span data-command>
+            <span>
               <kbd aria-label={navigateUpKeyAriaLabel}>↑</kbd>
               <kbd aria-label={navigateDownKeyAriaLabel}>↓</kbd>
               <span>{navigateText}</span>
             </span>
-            <span data-command>
+            <span>
               <kbd aria-label={closeKeyAriaLabel}>Esc</kbd>
               <span>{closeText}</span>
             </span>
