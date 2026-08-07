@@ -29,5 +29,5 @@ export const configKey = 'data-config';
  * The default application configuration.
  */
 export const configDefault = {
-  cursorSplash: true,
+  cursorSplash: false,
 } as const satisfies Config;
