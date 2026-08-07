@@ -53,8 +53,8 @@ async function createSearchDocuments(
 
 const dictionary = {
   ko: {
-    placeholder: '검색',
     translations: {
+      placeholder: '검색',
       button: {
         buttonAriaLabel: '검색',
         buttonText: '검색',
@@ -105,8 +105,8 @@ const dictionary = {
     },
   },
   en: {
-    placeholder: 'Search',
     translations: {
+      placeholder: 'Search',
       button: {
         buttonAriaLabel: 'Search',
         buttonText: 'Search',
@@ -157,7 +157,6 @@ const dictionary = {
     },
   },
 } as const satisfies LangRecord<{
-  placeholder: string;
   translations: LocalSearchProps['translations'];
 }>;
 
@@ -175,7 +174,6 @@ export async function Search({ lang }: PropsWithLang) {
       icon={<LmSearch aria-hidden="true" color="white" size={28} strokeWidth="1.5" />}
       lang={lang}
       maxResults={10}
-      placeholder={dictionary[lang].placeholder}
       translations={dictionary[lang].translations}
       documents={documents}
     />

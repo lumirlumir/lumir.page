@@ -39,7 +39,7 @@ import styles from './localsearch.module.css';
 // Typedef
 // --------------------------------------------------------------------------------
 
-interface SearchDocument extends Frontmatter {
+export interface SearchDocument extends Frontmatter {
   /**
    * Stable identifier used by MiniSearch and result lookup.
    */
@@ -79,6 +79,11 @@ export interface LocalSearchProps {
    * Translations for the search UI.
    */
   readonly translations: {
+    /**
+     * The placeholder for the search input.
+     */
+    readonly placeholder: string;
+
     /**
      * Translations for the search button.
      */
@@ -305,6 +310,7 @@ export function LocalSearch({
   lang,
   documents,
   translations: {
+    placeholder,
     button: { buttonAriaLabel, buttonText },
     dialog: {
       dialogAriaLabel,
@@ -332,7 +338,6 @@ export function LocalSearch({
   },
   icon = undefined,
   maxResults = 10,
-  placeholder = 'Search',
 }: LocalSearchProps) {
   const dialogRef = useRef<HTMLDialogElement | null>(null);
   const inputRef = useRef<HTMLInputElement | null>(null);
