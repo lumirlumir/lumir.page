@@ -37,11 +37,15 @@ Before any Next.js work, find and read the relevant doc in `node_modules/next/di
 
 Run from repo root:
 
-- `npm run test`
+- `npm run test:types`
+- `npm run test:unit`
+- `npm run test:e2e -w apps/blog -- --workers=1`
 - `npm run build:pkg`
 - `npm run build:b` when the change affects `apps/blog/` runtime or production output
 - `npm run build:m` when the change affects `apps/moing/` runtime or production output
 - `npm run lint`
+
+Always run Playwright E2E tests with exactly one worker, regardless of the default in `playwright.config.js`. Do not use `npm run test` for final validation because it does not forward the required `--workers=1` option.
 
 Sandbox note:
 
