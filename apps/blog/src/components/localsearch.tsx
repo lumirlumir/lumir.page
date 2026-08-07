@@ -18,12 +18,12 @@ import 'client-only';
 // Import
 // --------------------------------------------------------------------------------
 
+import { useShortcut } from '@lumir/react-kit/hooks';
 import MiniSearch, { type SearchResult } from 'minisearch';
 import { useRouter } from 'next/navigation';
 import {
   useCallback,
   useDeferredValue,
-  useEffect,
   useId,
   useMemo,
   useRef,
@@ -428,21 +428,11 @@ export function LocalSearch({
   }
 
   // ------------------------------------------------------------------------------
-  // Effect
+  // Hook
   // ------------------------------------------------------------------------------
 
-  useEffect(() => {
-    function onKeyDown(event: globalThis.KeyboardEvent) {
-      if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 'k') {
-        event.preventDefault();
-        openDialog();
-      }
-    }
-
-    document.addEventListener('keydown', onKeyDown);
-
-    return () => document.removeEventListener('keydown', onKeyDown);
-  }, [openDialog]);
+  useShortcut('k', openDialog, { ctrlKey: true });
+  useShortcut('k', openDialog, { metaKey: true });
 
   // ------------------------------------------------------------------------------
   // Return
