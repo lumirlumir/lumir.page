@@ -28,7 +28,7 @@ import {
   type SetStateAction,
 } from 'react';
 import { configDefault, configKey, type Config } from '@/data/config';
-import { isConfig } from '@/utils/is-config';
+import { isConfig } from '@/utils/is';
 
 // --------------------------------------------------------------------------------
 // Typedef
