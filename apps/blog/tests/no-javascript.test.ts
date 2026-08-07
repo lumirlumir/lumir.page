@@ -90,13 +90,18 @@ test.describe('pages rendered without JavaScript', () => {
       expect(response?.status()).toBe(200);
       await expect(page.locator('html')).toHaveAttribute('lang', 'ko');
       await expect(page.locator('main')).toBeVisible();
-      await expect(page.locator('article')).toBeVisible();
 
-      const postLink = page
-        .locator('article')
-        .getByRole('link', { name: /마크다운.*모든 것/ });
+      const categoryPage = page.locator('[data-page="category"]');
 
+      await expect(categoryPage).toBeVisible();
+
+      const postLink = categoryPage.locator(
+        'a[href="/ko/posts/everything-about-markdown"]',
+      );
+
+      await expect(postLink).toHaveCount(1);
       await expect(postLink).toBeVisible();
+      await expect(postLink).toContainText(/마크다운.*모든 것/);
       await expect(postLink).toHaveAttribute(
         'href',
         '/ko/posts/everything-about-markdown',
@@ -111,13 +116,18 @@ test.describe('pages rendered without JavaScript', () => {
       expect(response?.status()).toBe(200);
       await expect(page.locator('html')).toHaveAttribute('lang', 'en');
       await expect(page.locator('main')).toBeVisible();
-      await expect(page.locator('article')).toBeVisible();
 
-      const postLink = page
-        .locator('article')
-        .getByRole('link', { name: /Everything about Markdown/ });
+      const categoryPage = page.locator('[data-page="category"]');
 
+      await expect(categoryPage).toBeVisible();
+
+      const postLink = categoryPage.locator(
+        'a[href="/en/posts/everything-about-markdown"]',
+      );
+
+      await expect(postLink).toHaveCount(1);
       await expect(postLink).toBeVisible();
+      await expect(postLink).toContainText(/Everything about Markdown/);
       await expect(postLink).toHaveAttribute(
         'href',
         '/en/posts/everything-about-markdown',

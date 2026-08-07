@@ -1,3 +1,6 @@
 .section {
-  margin: var(--spacing-static-lg) 0;
+  max-width: 760px;
+  padding-top: 40px;
+  margin: 64px auto 0;
+  border-top: 3px double var(--color-hairline-strong);
 }
