@@ -3,6 +3,12 @@
  */
 
 // --------------------------------------------------------------------------------
+// Import
+// --------------------------------------------------------------------------------
+
+import { themeKey, themeKeys } from '@/data/theme';
+
+// --------------------------------------------------------------------------------
 // Export
 // --------------------------------------------------------------------------------
 
@@ -31,12 +37,8 @@
  */
 export function ThemeScript() {
   return (
-    <script
-      // eslint-disable-next-line react/no-danger -- Safe because the script is hardcoded and does not include any user input.
-      dangerouslySetInnerHTML={{
-        __html:
-          "document.documentElement.setAttribute('data-theme', localStorage.getItem('data-theme') ?? (matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark'));",
-      }}
-    />
+    <script>
+      {`document.documentElement.setAttribute('${themeKey}', localStorage.getItem('${themeKey}') ?? (matchMedia('(prefers-color-scheme: ${themeKeys[1]})').matches ? '${themeKeys[1]}' : '${themeKeys[0]}'));`}
+    </script>
   );
 }

@@ -30,7 +30,7 @@ Before any Next.js work, find and read the relevant doc in `node_modules/next/di
 
 - In a fresh clone, run `git pull -p` from the repo root before `npm install` to pull the latest branch state and prune stale remote-tracking branches.
 - Then run `npm install` from the repo root before attempting tests, builds, lint, or package changes.
-- Before running browser tests, run `npx playwright install chromium --with-deps --only-shell` from the repo root.
+- Before running browser tests, check whether the Chromium shell required by the currently installed Playwright version is already installed. Only when it is not installed, run `npx playwright install chromium --with-deps --only-shell` from the repo root.
 - Do not start validation or implementation work until the install has completed successfully, because the workspace dependencies are required across the monorepo.
 
 ## Test/Build/Lint Workflow (required before finalizing)
