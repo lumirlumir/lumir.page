@@ -30,9 +30,9 @@ import { ThemeToggle } from '@/components/theme-toggle';
 import { ConfigProvider } from '@/contexts/config';
 import { ThemeProvider } from '@/contexts/theme';
 
-import { GOOGLE_GA_ID } from '@/constants';
 import { author } from '@/data/author';
 import { langKeys, type LangKey } from '@/data/lang';
+import { googleGaId } from '@/data/site';
 
 import '@/styles/index.css';
 import styles from './layout.module.css';
@@ -107,7 +107,7 @@ export default async function RootLayout({
 
             <Analytics />
             <SpeedInsights />
-            <GoogleAnalytics gaId={GOOGLE_GA_ID} />
+            <GoogleAnalytics gaId={googleGaId} />
           </ThemeProvider>
         </ConfigProvider>
       </body>
