@@ -11,7 +11,7 @@ import { cn } from '@lumir/utils';
 
 import NeonButton from '@/components/neon-button';
 import NeonFont from '@/components/neon-font';
-import { useScenarioContext } from '@/contexts/scenario-context';
+import { useScenarioContext } from '@/contexts/scenario';
 
 import styles from './button.module.css';
 

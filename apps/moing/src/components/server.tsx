@@ -12,9 +12,9 @@ import { usePreviousDistinct, useScroll } from '@lumir/react-kit/hooks';
 import { cn } from '@lumir/utils';
 
 import NeonDiv from '@/components/neon-div';
-import { useConfigContext } from '@/contexts/config-context';
-import { useInterviewContext } from '@/contexts/interview-context';
-import { useScenarioContext } from '@/contexts/scenario-context';
+import { useConfigContext } from '@/contexts/config';
+import { useInterviewContext } from '@/contexts/interview';
+import { useScenarioContext } from '@/contexts/scenario';
 
 import styles from './server.module.css';
 

@@ -7,7 +7,7 @@
 // --------------------------------------------------------------------------------
 
 import { type MetadataRoute } from 'next';
-import { WEBSITE_URL } from '@/constants';
+import { websiteUrl } from '@/data/site';
 
 // --------------------------------------------------------------------------------
 // Named Export
@@ -29,6 +29,6 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: '*',
       allow: '/',
     },
-    sitemap: `${WEBSITE_URL}/sitemap.xml`,
+    sitemap: `${websiteUrl}/sitemap.xml`,
   };
 }

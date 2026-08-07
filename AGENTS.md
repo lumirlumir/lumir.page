@@ -30,18 +30,22 @@ Before any Next.js work, find and read the relevant doc in `node_modules/next/di
 
 - In a fresh clone, run `git pull -p` from the repo root before `npm install` to pull the latest branch state and prune stale remote-tracking branches.
 - Then run `npm install` from the repo root before attempting tests, builds, lint, or package changes.
-- Before running browser tests, run `npx playwright install chromium --with-deps --only-shell` from the repo root.
+- Before running browser tests, check whether the Chromium shell required by the currently installed Playwright version is already installed. Only when it is not installed, run `npx playwright install chromium --with-deps --only-shell` from the repo root.
 - Do not start validation or implementation work until the install has completed successfully, because the workspace dependencies are required across the monorepo.
 
 ## Test/Build/Lint Workflow (required before finalizing)
 
 Run from repo root:
 
-- `npm run test`
+- `npm run test:types`
+- `npm run test:unit`
+- `npm run test:e2e -w apps/blog -- --workers=1`
 - `npm run build:pkg`
 - `npm run build:b` when the change affects `apps/blog/` runtime or production output
 - `npm run build:m` when the change affects `apps/moing/` runtime or production output
 - `npm run lint`
+
+Always run Playwright E2E tests with exactly one worker, regardless of the default in `playwright.config.js`. Do not use `npm run test` for final validation because it does not forward the required `--workers=1` option.
 
 Sandbox note:
 
