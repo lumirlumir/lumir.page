@@ -32,10 +32,7 @@ async function createSearchDocuments(
 ): Promise<SearchDocument[]> {
   return Promise.all(
     vMarkdownFiles.map(
-      async ({
-        slug,
-        data: { title, description, created, updated, categories, references },
-      }) => ({
+      async ({ slug, data: { title, description, created, updated, categories } }) => ({
         id: slug,
         slug,
         title: await markdownToText(title),
@@ -43,9 +40,6 @@ async function createSearchDocuments(
         created,
         updated,
         categories,
-        references,
-        categoriesText: categories.join(' '),
-        referencesText: references.join(' '),
       }),
     ),
   );
@@ -72,7 +66,7 @@ const dictionary = {
         startScreen: {
           titleText: '문서 메타데이터 검색',
           helpText:
-            '제목, 설명, 날짜, 카테고리, 참조, 슬러그를 먼저 검색합니다. 본문 검색은 나중에 추가할 수 있습니다.',
+            '제목, 설명, 날짜, 슬러그를 먼저 검색합니다. 본문 검색은 나중에 추가할 수 있습니다.',
           recentSearchesTitle: '최근 검색',
           noRecentSearchesText: '최근 검색 결과가 없습니다.',
           saveRecentSearchButtonTitle: '검색 결과 저장하기',
@@ -124,7 +118,7 @@ const dictionary = {
         startScreen: {
           titleText: 'Search docs metadata',
           helpText:
-            'Titles, descriptions, dates, categories, references, and slugs are indexed first. Body search can be added later.',
+            'Titles, descriptions, dates, and slugs are indexed first. Body search can be added later.',
           recentSearchesTitle: 'Recent Searches',
           noRecentSearchesText: 'No recent searches.',
           saveRecentSearchButtonTitle: 'Save this search',

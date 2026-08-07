@@ -39,7 +39,10 @@ import styles from './localsearch.module.css';
 // Typedef
 // --------------------------------------------------------------------------------
 
-export interface SearchDocument extends Frontmatter {
+export interface SearchDocument extends Pick<
+  Frontmatter,
+  'title' | 'description' | 'created' | 'updated' | 'categories'
+> {
   /**
    * Stable identifier used by MiniSearch and result lookup.
    */
@@ -49,16 +52,6 @@ export interface SearchDocument extends Frontmatter {
    * Post slug used to build the result href.
    */
   readonly slug: string;
-
-  /**
-   * Searchable categories joined into a single string.
-   */
-  readonly categoriesText: string;
-
-  /**
-   * Searchable references joined into a single string.
-   */
-  readonly referencesText: string;
 }
 
 /**
@@ -337,20 +330,11 @@ export function LocalSearch({
 
   const miniSearch = useMemo(() => {
     const search = new MiniSearch<SearchDocument>({
-      fields: [
-        'title',
-        'description',
-        'created',
-        'updated',
-        'categoriesText',
-        'referencesText',
-        'slug',
-      ],
+      fields: ['title', 'description', 'created', 'updated', 'slug'],
       searchOptions: {
         boost: {
           title: 4,
           description: 2,
-          categoriesText: 2,
           slug: 1.5,
         },
         fuzzy: 0.2,
