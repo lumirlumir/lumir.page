@@ -306,12 +306,6 @@ function getPostHref(lang: LangKey, slug: string): Route {
   return `/${lang}/posts/${slug}` as Route;
 }
 
-function isSearchDocument(
-  document: SearchDocument | undefined,
-): document is SearchDocument {
-  return document !== undefined;
-}
-
 // --------------------------------------------------------------------------------
 // Export
 // --------------------------------------------------------------------------------
@@ -417,7 +411,7 @@ export function LocalSearch({
       .search(normalizedQuery)
       .slice(0, maxResults)
       .map(result => documentsById.get(String(result.id)))
-      .filter(isSearchDocument);
+      .filter(document => document !== undefined);
   }, [documentsById, maxResults, miniSearch, normalizedQuery]);
 
   const activeResult = results[activeIndex];
