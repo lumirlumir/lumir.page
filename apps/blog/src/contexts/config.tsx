@@ -21,12 +21,14 @@ import 'client-only';
 import {
   createContext,
   useContext,
-  useState,
+  useMemo,
+  useSyncExternalStore,
   type Dispatch,
   type PropsWithChildren,
   type SetStateAction,
 } from 'react';
-import { configDefault, type Config } from '@/data/config';
+import { configDefault, configKey, type Config } from '@/data/config';
+import { isConfig } from '@/utils/is-config';
 
 // --------------------------------------------------------------------------------
 // Typedef
@@ -46,6 +48,55 @@ export type ConfigContextValue = readonly [
 // --------------------------------------------------------------------------------
 
 const ConfigContext = createContext<ConfigContextValue | undefined>(undefined);
+const configChangeEvent = `${configKey}-change`;
+const configDefaultSnapshot = JSON.stringify(configDefault);
+
+function parseConfig(snapshot: string): Config {
+  try {
+    const config: unknown = JSON.parse(snapshot);
+
+    if (isConfig(config)) {
+      return config;
+    }
+  } catch {
+    // Invalid persisted configurations fall back to the default.
+  }
+
+  return configDefault;
+}
+
+function getConfigSnapshot(): string {
+  return localStorage.getItem(configKey) ?? configDefaultSnapshot;
+}
+
+function getServerConfigSnapshot(): string {
+  return configDefaultSnapshot;
+}
+
+function subscribeConfigStore(onStoreChange: () => void): () => void {
+  function onStorageChange(event: StorageEvent) {
+    if (event.key === configKey) {
+      onStoreChange();
+    }
+  }
+
+  window.addEventListener('storage', onStorageChange);
+  window.addEventListener(configChangeEvent, onStoreChange);
+
+  return () => {
+    window.removeEventListener('storage', onStorageChange);
+    window.removeEventListener(configChangeEvent, onStoreChange);
+  };
+}
+
+function setConfig(value: SetStateAction<Config>) {
+  const config = parseConfig(getConfigSnapshot());
+  const nextConfig = typeof value === 'function' ? value(config) : value;
+
+  localStorage.setItem(configKey, JSON.stringify(nextConfig));
+  // Notify the current tab because the `storage` event only fires in other tabs.
+  dispatchEvent(new Event(configChangeEvent));
+}
 
 // --------------------------------------------------------------------------------
 // Export
@@ -75,7 +126,12 @@ export function useConfigContext(): ConfigContextValue {
  * @returns A context provider wrapping the given children.
  */
 export function ConfigProvider({ children }: PropsWithChildren) {
-  const [config, setConfig] = useState<Config>(configDefault);
+  const snapshot = useSyncExternalStore(
+    subscribeConfigStore,
+    getConfigSnapshot,
+    getServerConfigSnapshot,
+  );
+  const config = useMemo(() => parseConfig(snapshot), [snapshot]);
 
   // eslint-disable-next-line react/jsx-no-constructed-context-values -- React Compiler automatically optimizes context values.
   return <ConfigContext value={[config, setConfig]}>{children}</ConfigContext>;
