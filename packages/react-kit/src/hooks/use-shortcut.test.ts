@@ -73,6 +73,61 @@ describe('use-shortcut', () => {
     assert.strictEqual(callback.mock.calls.length, 0);
   });
 
+  it('Shortcut typed in a focused input should not run the callback', async () => {
+    const callback = vi.fn();
+    await renderHook(() => useShortcut('k', callback));
+    const input = document.createElement('input');
+
+    document.body.append(input);
+    input.focus();
+    input.dispatchEvent(new KeyboardEvent('keydown', { bubbles: true, key: 'k' }));
+    input.remove();
+
+    assert.strictEqual(callback.mock.calls.length, 0);
+  });
+
+  it('Shortcut typed in a focused textarea should not run the callback', async () => {
+    const callback = vi.fn();
+    await renderHook(() => useShortcut('k', callback));
+    const textarea = document.createElement('textarea');
+
+    document.body.append(textarea);
+    textarea.focus();
+    textarea.dispatchEvent(new KeyboardEvent('keydown', { bubbles: true, key: 'k' }));
+    textarea.remove();
+
+    assert.strictEqual(callback.mock.calls.length, 0);
+  });
+
+  it('Shortcut typed in a focused select should not run the callback', async () => {
+    const callback = vi.fn();
+    await renderHook(() => useShortcut('k', callback));
+    const select = document.createElement('select');
+
+    document.body.append(select);
+    select.focus();
+    select.dispatchEvent(new KeyboardEvent('keydown', { bubbles: true, key: 'k' }));
+    select.remove();
+
+    assert.strictEqual(callback.mock.calls.length, 0);
+  });
+
+  it('Shortcut typed in focused contenteditable content should not run the callback', async () => {
+    const callback = vi.fn();
+    await renderHook(() => useShortcut('k', callback));
+    const contenteditable = document.createElement('div');
+
+    contenteditable.contentEditable = 'true';
+    document.body.append(contenteditable);
+    contenteditable.focus();
+    contenteditable.dispatchEvent(
+      new KeyboardEvent('keydown', { bubbles: true, key: 'k' }),
+    );
+    contenteditable.remove();
+
+    assert.strictEqual(callback.mock.calls.length, 0);
+  });
+
   it('Different key should not run the callback', async () => {
     const callback = vi.fn();
     await renderHook(() => useShortcut('k', callback));

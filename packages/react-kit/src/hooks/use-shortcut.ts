@@ -43,7 +43,8 @@ export interface UseShortcutOptions {
  * React hook that runs a callback when a keyboard shortcut is pressed.
  *
  * Key matching is case-insensitive. When the shortcut matches, the browser's
- * default action is prevented before the callback runs.
+ * default action is prevented before the callback runs. Keyboard events from
+ * editable controls are ignored.
  *
  * @param key The shortcut key.
  * @param callback The function to run when the shortcut is pressed.
@@ -69,6 +70,15 @@ export function useShortcut(
 ): void {
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
+      if (
+        event.target instanceof HTMLInputElement ||
+        event.target instanceof HTMLTextAreaElement ||
+        event.target instanceof HTMLSelectElement ||
+        (event.target instanceof HTMLElement && event.target.isContentEditable)
+      ) {
+        return;
+      }
+
       if (
         event.ctrlKey === ctrlKey &&
         event.metaKey === metaKey &&
