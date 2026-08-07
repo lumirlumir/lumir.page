@@ -341,30 +341,11 @@ function isSearchDocument(
   return document !== undefined;
 }
 
-function Key({
-  ariaLabel,
-  children,
-}: {
-  /**
-   * The aria-label for the keycap.
-   *
-   * @default undefined
-   */
-  readonly ariaLabel?: string;
-
-  /**
-   * The visible keycap text.
-   */
-  readonly children: string;
-}) {
-  return <kbd aria-label={ariaLabel}>{children}</kbd>;
-}
-
 // --------------------------------------------------------------------------------
 // Export
 // --------------------------------------------------------------------------------
 
-export default function SearchClient({
+export function LocalSearch({
   lang,
   icon = undefined,
   maxResults = 10,
@@ -537,8 +518,8 @@ export default function SearchClient({
           <span data-trigger-text>{buttonText}</span>
         </span>
         <span data-trigger-keys aria-hidden="true">
-          <Key>Ctrl</Key>
-          <Key>K</Key>
+          <kbd>Ctrl</kbd>
+          <kbd>K</kbd>
         </span>
       </button>
 
@@ -638,16 +619,16 @@ export default function SearchClient({
 
           <footer>
             <span data-command>
-              <Key ariaLabel={selectKeyAriaLabel}>Enter</Key>
+              <kbd aria-label={selectKeyAriaLabel}>Enter</kbd>
               <span>{selectText}</span>
             </span>
             <span data-command>
-              <Key ariaLabel={navigateUpKeyAriaLabel}>↑</Key>
-              <Key ariaLabel={navigateDownKeyAriaLabel}>↓</Key>
+              <kbd aria-label={navigateUpKeyAriaLabel}>↑</kbd>
+              <kbd aria-label={navigateDownKeyAriaLabel}>↓</kbd>
               <span>{navigateText}</span>
             </span>
             <span data-command>
-              <Key ariaLabel={closeKeyAriaLabel}>Esc</Key>
+              <kbd aria-label={closeKeyAriaLabel}>Esc</kbd>
               <span>{closeText}</span>
             </span>
           </footer>

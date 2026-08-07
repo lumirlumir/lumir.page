@@ -17,7 +17,7 @@ import { type LangRecord, type PropsWithLang } from '@/data/lang';
 import { type VMarkdownFileMeta } from '@/data/v-markdown-file';
 import createMarkdownCollection from '@/utils/markdown-collection';
 import { markdownToText } from '@/utils/markdown-to-text';
-import SearchClient, { type LocalSearchProps, type SearchDocument } from './localsearch';
+import { LocalSearch, type LocalSearchProps, type SearchDocument } from './localsearch';
 
 // --------------------------------------------------------------------------------
 // Helper
@@ -171,7 +171,7 @@ export async function Search({ lang }: PropsWithLang) {
   );
 
   return (
-    <SearchClient
+    <LocalSearch
       icon={<LmSearch aria-hidden="true" color="white" size={28} strokeWidth="1.5" />}
       lang={lang}
       maxResults={10}
