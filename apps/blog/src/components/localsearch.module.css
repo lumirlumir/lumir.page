@@ -92,7 +92,6 @@
 
     &::backdrop {
       background-color: rgb(1 4 9 / 65%);
-      backdrop-filter: blur(2px);
     }
 
     @media (width < 768px) {

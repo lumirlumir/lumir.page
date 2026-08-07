@@ -22,6 +22,7 @@ import MiniSearch, { type SearchResult } from 'minisearch';
 import { useRouter } from 'next/navigation';
 import {
   useCallback,
+  useDeferredValue,
   useEffect,
   useId,
   useMemo,
@@ -311,12 +312,16 @@ export function LocalSearch({
   icon = undefined,
   maxResults = 10,
 }: PropsWithLang<LocalSearchProps>) {
+  // ------------------------------------------------------------------------------
+  // Variable
+  // ------------------------------------------------------------------------------
+
   const dialogRef = useRef<HTMLDialogElement | null>(null);
   const inputRef = useRef<HTMLInputElement | null>(null);
   const router = useRouter();
   const resultsId = useId();
   const [query, setQuery] = useState<string>('');
-  const normalizedQuery = query.trim();
+  const deferredQuery = useDeferredValue(query.trim());
   const [activeIndex, setActiveIndex] = useState<number>(0);
 
   const miniSearch = useMemo(() => {
@@ -347,16 +352,20 @@ export function LocalSearch({
   }, [documents]);
 
   const results = useMemo(() => {
-    if (normalizedQuery.length === 0) {
+    if (deferredQuery.length === 0) {
       return [];
     }
 
     return miniSearch
-      .search(normalizedQuery)
+      .search(deferredQuery)
       .slice(0, maxResults) as StoredSearchDocument[];
-  }, [maxResults, miniSearch, normalizedQuery]);
+  }, [maxResults, miniSearch, deferredQuery]);
 
   const activeResult = results[activeIndex];
+
+  // ------------------------------------------------------------------------------
+  // Callback
+  // ------------------------------------------------------------------------------
 
   const openDialog = useCallback(() => {
     const dialog = dialogRef.current;
@@ -371,19 +380,6 @@ export function LocalSearch({
 
     inputRef.current?.focus();
   }, []);
-
-  useEffect(() => {
-    function onKeyDown(event: globalThis.KeyboardEvent) {
-      if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 'k') {
-        event.preventDefault();
-        openDialog();
-      }
-    }
-
-    document.addEventListener('keydown', onKeyDown);
-
-    return () => document.removeEventListener('keydown', onKeyDown);
-  }, [openDialog]);
 
   function closeDialog() {
     dialogRef.current?.close();
@@ -430,6 +426,27 @@ export function LocalSearch({
       navigateToResult(activeResult);
     }
   }
+
+  // ------------------------------------------------------------------------------
+  // Effect
+  // ------------------------------------------------------------------------------
+
+  useEffect(() => {
+    function onKeyDown(event: globalThis.KeyboardEvent) {
+      if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 'k') {
+        event.preventDefault();
+        openDialog();
+      }
+    }
+
+    document.addEventListener('keydown', onKeyDown);
+
+    return () => document.removeEventListener('keydown', onKeyDown);
+  }, [openDialog]);
+
+  // ------------------------------------------------------------------------------
+  // Return
+  // ------------------------------------------------------------------------------
 
   return (
     <div className={styles.localsearch}>
@@ -489,21 +506,21 @@ export function LocalSearch({
           </div>
 
           <div data-search-body className="custom-scrollbar-y-bold">
-            {normalizedQuery.length === 0 ? (
+            {query.length === 0 ? (
               <section data-empty>
                 <h3>{titleText}</h3>
                 <p>{helpText}</p>
               </section>
             ) : null}
 
-            {normalizedQuery.length > 0 && results.length === 0 ? (
+            {query.length > 0 && results.length === 0 ? (
               <section data-empty>
                 <h3>{noResultsText}</h3>
-                <p>&quot;{normalizedQuery}&quot;</p>
+                <p>&quot;{query}&quot;</p>
               </section>
             ) : null}
 
-            {results.length > 0 ? (
+            {query.length > 0 && results.length > 0 ? (
               <section>
                 <div data-source>{sourceText}</div>
                 <ul id={resultsId}>
