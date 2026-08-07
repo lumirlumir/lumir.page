@@ -14,7 +14,6 @@ import 'server-only';
 
 import Link from 'next/link';
 import { FaGithub, FaHouseChimney } from '@lumir/react-kit/svgs';
-import { cn } from '@lumir/utils';
 import { author } from '@/data/author';
 import { type PropsWithLang } from '@/data/lang';
 import styles from './links.module.css';
@@ -27,18 +26,15 @@ export function Links({ lang }: PropsWithLang) {
   return (
     <ul className={styles.links}>
       <li>
-        <Link className={cn('flex-center', 'custom-hover-effect')} href={`/${lang}`}>
+        <Link className="custom-hover-effect" href={`/${lang}`}>
           <FaHouseChimney />
-          <span className="flex-center">Home</span>
+          <span>Home</span>
         </Link>
       </li>
       <li>
-        <Link
-          className={cn('flex-center', 'custom-hover-effect')}
-          href={author.lumirlumir.htmlUrl}
-        >
+        <Link className="custom-hover-effect" href={author.lumirlumir.htmlUrl}>
           <FaGithub />
-          <span className="flex-center">GitHub</span>
+          <span>GitHub</span>
         </Link>
       </li>
     </ul>
