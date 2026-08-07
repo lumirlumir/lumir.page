@@ -4,6 +4,7 @@ export * from './use-isomorphic-layout-effect.js';
 export * from './use-previous.js';
 export * from './use-previous-distinct.js';
 export * from './use-scroll.js';
+export * from './use-shortcut.js';
 export * from './use-speech-recognition.js';
 export * from './use-toggle.js';
 export * from './use-typewriter.js';
