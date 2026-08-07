@@ -303,9 +303,7 @@ export interface LocalSearchProps {
 
 export function LocalSearch({
   lang,
-  icon = undefined,
-  maxResults = 10,
-  placeholder = 'Search',
+  documents,
   translations: {
     button: { buttonAriaLabel, buttonText },
     dialog: {
@@ -332,9 +330,9 @@ export function LocalSearch({
       },
     },
   },
-
-  // TODO: From here
-  documents,
+  icon = undefined,
+  maxResults = 10,
+  placeholder = 'Search',
 }: LocalSearchProps) {
   const dialogRef = useRef<HTMLDialogElement | null>(null);
   const inputRef = useRef<HTMLInputElement | null>(null);
