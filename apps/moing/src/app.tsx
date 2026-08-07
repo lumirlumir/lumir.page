@@ -7,15 +7,7 @@
 // --------------------------------------------------------------------------------
 
 import { useEffect } from 'react';
-import { cn } from '@lumir/utils';
-
-import Button from '@/components/button';
-import MainButton from '@/components/main-button';
-import SectionClient from '@/components/section-client';
-import SectionConfig from '@/components/section-config';
-import SectionServer from '@/components/section-server';
-import Timer from '@/components/timer';
-import Title from '@/components/title';
+import { useCountdown, useScroll } from '@lumir/react-kit/hooks';
 import {
   CiMicrophoneOn,
   GoGear,
@@ -23,11 +15,16 @@ import {
   IoIosCheckmarkCircleOutline,
 } from '@lumir/react-kit/svgs';
 
-import useScenario from '@/hooks/use-scenario';
-import useConfig from '@/hooks/use-config';
-import useInterview from '@/hooks/use-interview';
-import useTimer from '@/hooks/use-timer';
-import useScroll from '@/hooks/use-scroll';
+import Button from '@/components/button';
+import Client from '@/components/client';
+import Config from '@/components/config';
+import MainButton from '@/components/main-button';
+import Server from '@/components/server';
+import Timer from '@/components/timer';
+import Title from '@/components/title';
+import { useConfigContext } from '@/contexts/config-context';
+import { useInterviewContext } from '@/contexts/interview-context';
+import { useScenarioContext } from '@/contexts/scenario-context';
 
 import './app.css';
 
@@ -36,68 +33,69 @@ import './app.css';
 // --------------------------------------------------------------------------------
 
 export default function App() {
-  const scenario = useScenario();
-  const config = useConfig();
-  const interview = useInterview();
-  const timer = useTimer(interview.submit);
-  const { scrollRef, scroll } = useScroll<HTMLDivElement>();
+  const { config, updateConfig } = useConfigContext();
+  const { listening, submit, toggleListening } = useInterviewContext();
+  const { section } = useScenarioContext();
+  const initialCount = config.time * 60 * 1_000;
+  const [currentCount, setCurrentCount] = useCountdown(initialCount, {
+    onComplete: submit,
+  });
+  const [scrollRef, scroll] = useScroll<HTMLDivElement>({ behavior: 'smooth' });
 
   useEffect(() => {
-    const timeout = setTimeout(scroll, 2000);
+    const timeout = setTimeout(() => {
+      scroll.intoView({ block: 'end', inline: 'nearest' });
+    }, 2000);
+
     return () => clearTimeout(timeout);
-  }, [scenario.getSectionObj, scroll]);
+  }, [section, scroll]);
 
   return (
     <>
       <Button
-        type="header-l"
+        type="config"
         icon={<GoGear size="35px" />}
-        scenario={scenario}
         onClick={() => {
-          config.handleConfigState({ visibility: !config.configState.visibility });
+          updateConfig({ visibility: !config.visibility });
         }}
       />
       <Button
-        type="header-r"
+        type="speech"
         icon={<CiMicrophoneOn size="40px" />}
-        hoverEffect={interview.listening}
-        scenario={scenario}
+        hoverEffect={listening}
         onClick={() => {
-          interview.toggleListening();
+          toggleListening();
         }}
       />
       <Button
-        type="footer-l"
+        type="reload"
         icon={<GrPowerReset size="32px" />}
-        scenario={scenario}
         onClick={() => {
           window.location.reload();
         }}
       />
       <Button
-        type="footer-r"
+        type="submit"
         icon={<IoIosCheckmarkCircleOutline size="39px" />}
-        scenario={scenario}
         onClick={() => {
-          interview.submit();
-          timer.stopTimer();
+          submit();
+          setCurrentCount(0);
         }}
       />
 
-      <Timer scenario={scenario} timer={timer} />
+      <Timer className="timer" currentCount={currentCount} />
 
-      <main className={cn('main', 'custom-flex-center', 'custom-scrollbar')}>
+      <main className="custom-scrollbar">
         <div ref={scrollRef}>
-          <Title scenario={scenario} />
-          <SectionServer
-            scenario={scenario}
-            config={config}
-            interview={interview}
-            timer={timer}
+          <Title />
+          <Server
+            onTestWriteComplete={() => {
+              setCurrentCount(initialCount);
+            }}
           />
-          <SectionClient scenario={scenario} interview={interview} />
-          <SectionConfig config={config} />
-          <MainButton scenario={scenario} config={config} interview={interview} />
+          <Client />
+          <Config />
+          <MainButton />
         </div>
       </main>
     </>

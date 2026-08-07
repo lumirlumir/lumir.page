@@ -27,12 +27,15 @@ const frontmatterRegex =
 /**
  * Parses the front matter from a string and returns the content without the front matter and the parsed data.
  * If no front matter is found, it returns the original content and `null` data.
+ * @template Data The expected type of the parsed front matter data. Defaults to `unknown`.
  * @example
  *
  * ```ts
  * import { frontmatter } from '@lumir/utils';
  *
- * const result = frontmatter(`---\ntitle: Title\nauthor: Author\n---\nHello, world!`);
+ * type Data = { title: string; author: string };
+ *
+ * const result = frontmatter<Data>(`---\ntitle: Title\nauthor: Author\n---\nHello, world!`);
  *
  * console.log(result);
  * // {
@@ -44,9 +47,11 @@ const frontmatterRegex =
  * // }
  * ```
  */
-export function frontmatter(input: string): {
+export function frontmatter<Data = unknown>(
+  input: string,
+): {
   content: string;
-  data: unknown;
+  data: Data | null;
 } {
   const match = input.match(frontmatterRegex);
 
@@ -66,12 +71,15 @@ export function frontmatter(input: string): {
 /**
  * Parses the front matter from a string and returns only the parsed data.
  * If no front matter is found, it returns `null` data.
+ * @template Data The expected type of the parsed front matter data. Defaults to `unknown`.
  * @example
  *
  * ```ts
  * import { frontmatterData } from '@lumir/utils';
  *
- * const result = frontmatterData(`---\ntitle: Title\nauthor: Author\n---\nHello, world!`);
+ * type Data = { title: string; author: string };
+ *
+ * const result = frontmatterData<Data>(`---\ntitle: Title\nauthor: Author\n---\nHello, world!`);
  *
  * console.log(result);
  * // {
@@ -82,7 +90,11 @@ export function frontmatter(input: string): {
  * // }
  * ```
  */
-export function frontmatterData(input: string): { data: unknown } {
+export function frontmatterData<Data = unknown>(
+  input: string,
+): {
+  data: Data | null;
+} {
   const match = input.match(frontmatterRegex);
 
   if (!match) {

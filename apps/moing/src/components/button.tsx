@@ -11,16 +11,17 @@ import { cn } from '@lumir/utils';
 
 import NeonButton from '@/components/neon-button';
 import NeonFont from '@/components/neon-font';
-import useScenario from '@/hooks/use-scenario';
+import { useScenarioContext } from '@/contexts/scenario-context';
+
+import styles from './button.module.css';
 
 // --------------------------------------------------------------------------------
 // Typedef
 // --------------------------------------------------------------------------------
 
 interface Props {
-  type: 'header-l' | 'header-r' | 'footer-l' | 'footer-r';
+  type: 'config' | 'speech' | 'reload' | 'submit';
   icon: React.ReactElement;
-  scenario: ReturnType<typeof useScenario>;
   onClick: React.MouseEventHandler<HTMLButtonElement>;
 
   /**
@@ -34,24 +35,17 @@ interface Props {
 // Export
 // --------------------------------------------------------------------------------
 
-export default function Button({
-  type,
-  icon,
-  scenario,
-  onClick,
-  hoverEffect = false,
-}: Props) {
-  const { visibility, clickability } = scenario.getSectionObj()[type];
+export default function Button({ type, icon, onClick, hoverEffect = false }: Props) {
+  const { section } = useScenarioContext();
+  const { status } = section[type];
 
   return (
     <div
       className={cn(
-        'button',
-        'custom-flex-center',
-        'transition',
-        type,
-        visibility || 'pointer-events-none opacity-0',
-        clickability || 'pointer-events-none',
+        `${type}`,
+        styles.button,
+        status === 'hidden' && 'pointer-events-none opacity-0',
+        status === 'visible' && 'pointer-events-none',
       )}
     >
       <NeonButton

@@ -1,20 +1,23 @@
 .profile {
+  display: flex;
   flex-direction: column;
-  margin: var(--size-16);
+  align-items: center;
+  justify-content: center;
+  margin: var(--spacing-static-md);
 
   & > img {
-    border-radius: 50%;
+    border-radius: var(--border-radius-circle);
   }
 
   & > .user-name {
-    padding: var(--size-16) 0;
-    font-size: var(--size-20);
-    font-weight: var(--text-weight-semibold);
+    padding: var(--spacing-static-md) 0;
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-semibold);
   }
 
   & > .user-bio {
-    font-size: var(--size-12);
+    font-size: var(--font-size-xs);
     color: var(--color-fg-muted);
-    letter-spacing: var(--size-letter-spacing-small);
+    letter-spacing: var(--letter-spacing-tight);
   }
 }

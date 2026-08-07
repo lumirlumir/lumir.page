@@ -1,6 +1,0 @@
-{
-  "scripts": {
-    "build": "node src/index.js",
-    "watch": "node --watch src/index.js"
-  }
-}

@@ -9,10 +9,16 @@
 'use client';
 
 // --------------------------------------------------------------------------------
+// Environment
+// --------------------------------------------------------------------------------
+
+import 'client-only';
+
+// --------------------------------------------------------------------------------
 // Import
 // --------------------------------------------------------------------------------
 
-import { usePathname, useSearchParams, useRouter } from 'next/navigation';
+import { usePathname, useSearchParams } from 'next/navigation';
 import { type PropsWithChildren } from 'react';
 import { useToggle } from '@lumir/react-kit/hooks';
 import { FaAngleDown, FaAngleUp, GrSort } from '@lumir/react-kit/svgs';
@@ -34,52 +40,41 @@ function SortContainer({ children }: PropsWithChildren) {
         className={cn(styles['sort-item'], 'custom-hover-effect')}
         onClick={toggleIsOpen}
       >
-        <div className={cn(styles['react-icons'], 'custom-flex-center')}>
+        <div className={styles['react-icons']}>
           <GrSort />
         </div>
         <div className={styles['name-en']}>Sort</div>
         <div className={styles['name-ko']}>정렬</div>
-        <div className={cn(styles.order, 'custom-flex-center')}>
-          {isOpen ? <FaAngleUp /> : <FaAngleDown />}
-        </div>
+        <div className={styles.sort}>{isOpen ? <FaAngleUp /> : <FaAngleDown />}</div>
       </div>
       {isOpen ? <ul className={styles.list}>{children}</ul> : null}
     </div>
   );
 }
 
-function SortItem({ sort, order }: { sort: SortableFrontmatterKey; order: SortKey }) {
+function SortItem({ field, sort }: { field: SortableFrontmatterKey; sort: SortKey }) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const { replace } = useRouter();
 
-  function onClick(sort: SortableFrontmatterKey, order: SortKey) {
-    const params = new URLSearchParams(searchParams);
+  function onClick() {
+    const params = new URLSearchParams(searchParams.toString());
 
+    params.set('field', field);
     params.set('sort', sort);
-    params.set('order', order);
 
-    // @ts-expect-error -- TODO
-    replace(`${pathname}?${params.toString()}`);
+    window.history.replaceState(null, '', `${pathname}?${params.toString()}`);
   }
 
   return (
-    <li
-      className={cn(styles['sort-item'], 'custom-hover-effect')}
-      onClick={() => onClick(sort, order)}
-    >
-      <div className={cn(styles['react-icons'], 'custom-flex-center')}>
-        {frontmatterMeta[sort].reactIcons}
-      </div>
+    <li className={cn(styles['sort-item'], 'custom-hover-effect')} onClick={onClick}>
+      <div className={styles['react-icons']}>{frontmatterMeta[field].reactIcons}</div>
       <div
         className={styles['name-en']}
-      >{`${frontmatterMeta[sort].name.en} / ${sortMeta[order].name.en}`}</div>
+      >{`${frontmatterMeta[field].name.en} / ${sortMeta[sort].name.en}`}</div>
       <div
         className={styles['name-ko']}
-      >{`${frontmatterMeta[sort].name.ko} / ${sortMeta[order].name.ko}`}</div>
-      <div className={cn(styles.order, 'custom-flex-center')}>
-        {sortMeta[order].reactIcons}
-      </div>
+      >{`${frontmatterMeta[field].name.ko} / ${sortMeta[sort].name.ko}`}</div>
+      <div className={styles.sort}>{sortMeta[sort].reactIcons}</div>
     </li>
   );
 }
@@ -88,15 +83,15 @@ function SortItem({ sort, order }: { sort: SortableFrontmatterKey; order: SortKe
 // Export
 // --------------------------------------------------------------------------------
 
-export default function Sort() {
+export function Sort() {
   return (
     <SortContainer>
-      <SortItem sort="title" order="desc" />
-      <SortItem sort="title" order="asc" />
-      <SortItem sort="created" order="desc" />
-      <SortItem sort="created" order="asc" />
-      <SortItem sort="updated" order="desc" />
-      <SortItem sort="updated" order="asc" />
+      <SortItem field="title" sort="desc" />
+      <SortItem field="title" sort="asc" />
+      <SortItem field="created" sort="desc" />
+      <SortItem field="created" sort="asc" />
+      <SortItem field="updated" sort="desc" />
+      <SortItem field="updated" sort="asc" />
     </SortContainer>
   );
 }

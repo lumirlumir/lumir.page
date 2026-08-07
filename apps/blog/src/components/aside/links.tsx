@@ -3,34 +3,38 @@
  */
 
 // --------------------------------------------------------------------------------
+// Environment
+// --------------------------------------------------------------------------------
+
+import 'server-only';
+
+// --------------------------------------------------------------------------------
 // Import
 // --------------------------------------------------------------------------------
 
 import Link from 'next/link';
 import { FaGithub, FaHouseChimney } from '@lumir/react-kit/svgs';
-import { cn } from '@lumir/utils';
-import { getGithubUsers } from '@/utils/fetch';
+import { author } from '@/data/author';
+import { type PropsWithLang } from '@/data/lang';
 import styles from './links.module.css';
 
 // --------------------------------------------------------------------------------
 // Export
 // --------------------------------------------------------------------------------
 
-export default async function Links() {
-  const { html_url: htmlUrl } = await getGithubUsers();
-
+export function Links({ lang }: PropsWithLang) {
   return (
-    <ul className={cn(styles.links, 'custom-flex-center')}>
+    <ul className={styles.links}>
       <li>
-        <Link className={cn('custom-flex-center', 'custom-hover-effect')} href="/">
+        <Link className="custom-hover-effect" href={`/${lang}`}>
           <FaHouseChimney />
-          <span className="custom-flex-center">Home</span>
+          <span>Home</span>
         </Link>
       </li>
       <li>
-        <Link className={cn('custom-flex-center', 'custom-hover-effect')} href={htmlUrl}>
+        <Link className="custom-hover-effect" href={author.lumirlumir.htmlUrl}>
           <FaGithub />
-          <span className="custom-flex-center">GitHub</span>
+          <span>GitHub</span>
         </Link>
       </li>
     </ul>

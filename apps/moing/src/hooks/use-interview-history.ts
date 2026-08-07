@@ -7,37 +7,34 @@
 // --------------------------------------------------------------------------------
 
 import { useRef } from 'react';
-import { questionTypes, type Config } from '@/hooks/use-config';
+import { questionTypes, type Config, type QuestionType } from '@/contexts/config-context';
+import { type InterviewObj } from '@/hooks/use-interview-obj';
 
 // --------------------------------------------------------------------------------
 // Export
 // --------------------------------------------------------------------------------
 
 export default function useInterviewHistory() {
-  const historyRef = useRef([]);
-  const questionTypeRef = useRef<string[]>([]);
-  const rowRef = useRef<number | null>(null);
-  const colRef = useRef<number | null>(null);
+  const historyRef = useRef<InterviewObj[]>([]);
+  const questionTypeRef = useRef<QuestionType[]>([]);
+  const rowRef = useRef<number>(0);
+  const colRef = useRef<number>(0);
 
-  const initInterviewHistory = (configState: Config) => {
-    const { main, sub } = configState;
+  const initInterviewHistory = (config: Config) => {
+    const { main, sub } = config;
 
-    questionTypeRef.current = questionTypes.filter(key => configState[key]); // Extract only the keys with true values
+    questionTypeRef.current = questionTypes.filter(key => config[key]); // Extract only the keys with true values
     rowRef.current = main;
     colRef.current = sub + 1;
   };
-  // @ts-expect-error -- TODO
   const isQuestionMain = () => historyRef.current.length % colRef.current === 0;
   const isInterviewDone = () =>
     historyRef.current.length ===
-    // @ts-expect-error -- TODO
     questionTypeRef.current.length * rowRef.current * colRef.current;
   const getQuestionMainHistory = () => {
     const questionMainHistory = [];
 
-    // @ts-expect-error -- TODO
     for (let i = 0; i < historyRef.current.length; i += colRef.current) {
-      // @ts-expect-error -- TODO
       questionMainHistory.push(historyRef.current[i].question);
     }
 
@@ -46,19 +43,16 @@ export default function useInterviewHistory() {
   const getInterviewInfo = () => ({
     questionType:
       questionTypeRef.current[
-        // @ts-expect-error -- TODO
         Math.floor(historyRef.current.length / (rowRef.current * colRef.current))
       ],
     questionMain:
-      // @ts-expect-error -- TODO
       (Math.floor(historyRef.current.length / colRef.current) % rowRef.current) + 1,
-    // @ts-expect-error -- TODO
     questionSub: (historyRef.current.length % colRef.current) + 1,
   });
   const getInterviewHistory = () => {
     let str = '';
 
-    const printAllStrings = obj => {
+    const printAllStrings = (obj: InterviewObj) => {
       Object.values(obj).map(val => {
         if (typeof val === 'string') {
           str += `---\n\n${val}\n\n`;
@@ -71,11 +65,8 @@ export default function useInterviewHistory() {
 
     for (let i = 0; i < historyRef.current.length; i += 1) {
       const questionType =
-        // @ts-expect-error -- TODO
         questionTypeRef.current[Math.floor(i / (rowRef.current * colRef.current))];
-      // @ts-expect-error -- TODO
       const questionMain = (Math.floor(i / colRef.current) % rowRef.current) + 1;
-      // @ts-expect-error -- TODO
       const questionSub = (i % colRef.current) + 1;
 
       str += `> ${questionType.toUpperCase()}분야 ${questionMain}-${questionSub}번 문제, 해설, 사용자 답변, 피드백, 성적입니다.\n\n`;

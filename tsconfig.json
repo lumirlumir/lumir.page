@@ -1,0 +1,35 @@
+{
+  "files": [],
+  "references": [
+    {
+      "path": "./apps/api/tsconfig.json"
+    },
+    {
+      "path": "./apps/blog/tsconfig.json"
+    },
+    {
+      "path": "./apps/moing/tsconfig.json"
+    },
+    {
+      "path": "./packages/react-kit/tsconfig.json"
+    },
+    {
+      "path": "./packages/rehype-plugins/tsconfig.json"
+    },
+    {
+      "path": "./packages/remark-plugins/tsconfig.json"
+    },
+    {
+      "path": "./packages/types/tsconfig.json"
+    },
+    {
+      "path": "./packages/utils/tsconfig.json"
+    },
+    {
+      "path": "./playground/tsconfig.json"
+    },
+    {
+      "path": "./tsconfig.node.json"
+    }
+  ]
+}

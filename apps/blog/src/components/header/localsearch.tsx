@@ -26,6 +26,7 @@ import {
   type KeyboardEvent,
   type ReactNode,
 } from 'react';
+import { type LangKey } from '@/data/lang';
 import styles from './search.module.css';
 
 // --------------------------------------------------------------------------------
@@ -88,6 +89,11 @@ export interface SearchDocument {
  * Props for the `SearchClient` component.
  */
 export interface SearchClientProps {
+  /**
+   * Language key used to build localized result routes.
+   */
+  readonly lang: LangKey;
+
   /**
    * The icon to display.
    *
@@ -313,8 +319,8 @@ export interface SearchClientProps {
 // Helper
 // --------------------------------------------------------------------------------
 
-function getPostHref(slug: string): Route {
-  return `/posts/${slug}` as Route;
+function getPostHref(lang: LangKey, slug: string): Route {
+  return `/${lang}/posts/${slug}` as Route;
 }
 
 function isSearchDocument(
@@ -347,6 +353,7 @@ function Key({
 // --------------------------------------------------------------------------------
 
 export default function SearchClient({
+  lang,
   icon = undefined,
   maxResults = 10,
   placeholder = 'Search',
@@ -483,7 +490,7 @@ export default function SearchClient({
 
   function navigateToResult(document: SearchDocument) {
     closeDialog();
-    router.push(getPostHref(document.slug));
+    router.push(getPostHref(lang, document.slug));
   }
 
   function onDialogClose() {

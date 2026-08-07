@@ -1,0 +1,103 @@
+.neon-button {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--border-radius-md);
+  transition: all 0.6s ease-out;
+
+  & > button {
+    padding: 10px;
+    line-height: normal;
+    color: inherit;
+    letter-spacing: 4px;
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+  }
+
+  & > span {
+    position: absolute;
+
+    &:nth-child(1) {
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--color-primary-white-a20));
+      animation: btn-anim1 1s linear infinite;
+    }
+
+    &:nth-child(2) {
+      top: -100%;
+      right: 0;
+      width: 2px;
+      height: 100%;
+      background: linear-gradient(180deg, transparent, var(--color-primary-white-a20));
+      animation: btn-anim2 1s linear infinite 0.25s;
+    }
+
+    &:nth-child(3) {
+      right: -100%;
+      bottom: 0;
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(270deg, transparent, var(--color-primary-white-a20));
+      animation: btn-anim3 1s linear infinite 0.5s;
+    }
+
+    &:nth-child(4) {
+      bottom: -100%;
+      left: 0;
+      width: 2px;
+      height: 100%;
+      background: linear-gradient(360deg, transparent, var(--color-primary-white-a20));
+      animation: btn-anim4 1s linear infinite 0.75s;
+    }
+  }
+
+  &:hover,
+  &.hover {
+    background: var(--color-primary-white);
+    border-radius: var(--border-radius-xl);
+    box-shadow:
+      0 0 5px var(--color-primary-white),
+      0 0 25px var(--color-primary-white),
+      0 0 50px var(--color-primary-white),
+      0 0 100px var(--color-primary-white);
+
+    & > button {
+      color: var(--color-primary-black);
+
+      & svg {
+        fill: var(--color-primary-black);
+      }
+    }
+  }
+}
+
+@keyframes btn-anim1 {
+  50%,
+  100% {
+    left: 100%;
+  }
+}
+
+@keyframes btn-anim2 {
+  50%,
+  100% {
+    top: 100%;
+  }
+}
+
+@keyframes btn-anim3 {
+  50%,
+  100% {
+    right: 100%;
+  }
+}
+
+@keyframes btn-anim4 {
+  50%,
+  100% {
+    bottom: 100%;
+  }
+}

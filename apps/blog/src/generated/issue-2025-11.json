@@ -1,0 +1,67 @@
+[
+  {
+    "repositoryUrl": "https://api.github.com/repos/modelcontextprotocol/typescript-sdk",
+    "htmlUrl": "https://github.com/modelcontextprotocol/typescript-sdk/issues/1180",
+    "id": 3670237063,
+    "nodeId": "I_kwDOM2nl2s7aw1-H",
+    "number": 1180,
+    "title": "[BUG] TS2589: Type instantiation is excessively deep and possibly infinite",
+    "createdAt": "2025-11-27T07:46:34Z",
+    "closedAt": "2025-11-28T07:25:31Z",
+    "reactions": {
+      "+1": 1
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint",
+    "htmlUrl": "https://github.com/eslint/eslint/issues/20334",
+    "id": 3633231951,
+    "nodeId": "I_kwDOAKjKDc7YjrhP",
+    "number": 20334,
+    "title": "Rule Change: add `uniqueItems: true` in `new-cap`, `no-shadow`, `no-underscore-dangle`, `no-warning-comments`, and `class-methods-use-this` in v11",
+    "createdAt": "2025-11-17T12:56:39Z",
+    "closedAt": null,
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint",
+    "htmlUrl": "https://github.com/eslint/eslint/issues/20333",
+    "id": 3633220722,
+    "nodeId": "I_kwDOAKjKDc7Yjoxy",
+    "number": 20333,
+    "title": "Bug: add `uniqueItems: true` in `new-cap`, `no-shadow`, `no-underscore-dangle`, `no-warning-comments`, and `class-methods-use-this` in v11",
+    "createdAt": "2025-11-17T12:53:40Z",
+    "closedAt": "2025-11-17T12:56:57Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/create-config",
+    "htmlUrl": "https://github.com/eslint/create-config/issues/223",
+    "id": 3604882216,
+    "nodeId": "I_kwDOFqe-is7W3iMo",
+    "number": 223,
+    "title": "Change Request: Remove `eslintrc` support",
+    "createdAt": "2025-11-09T12:01:56Z",
+    "closedAt": null,
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/markdown",
+    "htmlUrl": "https://github.com/eslint/markdown/issues/577",
+    "id": 3582350307,
+    "nodeId": "I_kwDOAkm7Hs7VhlPj",
+    "number": 577,
+    "title": "Bug: ESLint 9.39.0 breaks the downstream Markdown plugin build",
+    "createdAt": "2025-11-03T14:33:15Z",
+    "closedAt": "2025-11-20T20:06:03Z",
+    "reactions": {
+      "+1": 0
+    }
+  }
+]

@@ -9,10 +9,21 @@
 import { useState } from 'react';
 
 // --------------------------------------------------------------------------------
+// Typedef
+// --------------------------------------------------------------------------------
+
+export interface InterviewObj {
+  readonly question: string | null;
+  readonly answerSystem: string | null;
+  readonly answerUser: string | null;
+  readonly feedback: unknown | null; // TODO: remove `unknown`
+}
+
+// --------------------------------------------------------------------------------
 // Helper
 // --------------------------------------------------------------------------------
 
-const INTERVIEW_OBJ = Object.freeze({
+const INTERVIEW_OBJ: InterviewObj = Object.freeze({
   question: null,
   answerSystem: null,
   answerUser: null,
@@ -24,44 +35,42 @@ const INTERVIEW_OBJ = Object.freeze({
 // --------------------------------------------------------------------------------
 
 export default function useInterviewObj() {
-  const [interviewObjState, setInterviewObjState] = useState(INTERVIEW_OBJ);
+  const [interviewObj, setInterviewObj] = useState<InterviewObj>(INTERVIEW_OBJ);
 
   const initInterviewObj = () => {
-    setInterviewObjState(prevState => ({
+    setInterviewObj(prevState => ({
       ...prevState,
       ...INTERVIEW_OBJ,
     }));
   };
-  const addInterviewObj = obj => {
-    setInterviewObjState(prevState => ({
+  const addInterviewObj = (obj: Partial<InterviewObj>) => {
+    setInterviewObj(prevState => ({
       ...prevState,
       ...obj,
     }));
   };
   const isInterviewObjEmpty = () =>
-    interviewObjState.question === null &&
-    interviewObjState.answerSystem === null &&
-    interviewObjState.answerUser === null &&
-    interviewObjState.feedback === null;
+    interviewObj.question === null &&
+    interviewObj.answerSystem === null &&
+    interviewObj.answerUser === null &&
+    interviewObj.feedback === null;
   const isInterviewObjFull = () =>
-    interviewObjState.question !== null &&
-    interviewObjState.answerSystem !== null &&
-    interviewObjState.answerUser !== null &&
-    interviewObjState.feedback !== null;
+    interviewObj.question !== null &&
+    interviewObj.answerSystem !== null &&
+    interviewObj.answerUser !== null &&
+    interviewObj.feedback !== null;
   const isOnlyFeedbackEmpty = () =>
-    interviewObjState.question !== null &&
-    interviewObjState.answerSystem !== null &&
-    interviewObjState.answerUser !== null &&
-    interviewObjState.feedback === null;
-  const getQuestion = () => interviewObjState.question;
+    interviewObj.question !== null &&
+    interviewObj.answerSystem !== null &&
+    interviewObj.answerUser !== null &&
+    interviewObj.feedback === null;
 
   return {
-    interviewObjState,
+    interviewObj,
     initInterviewObj,
     addInterviewObj,
     isInterviewObjEmpty,
     isInterviewObjFull,
     isOnlyFeedbackEmpty,
-    getQuestion,
   };
 }

@@ -1,0 +1,41 @@
+[
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/workflows",
+    "htmlUrl": "https://github.com/eslint/workflows/issues/59",
+    "id": 4295358844,
+    "nodeId": "I_kwDOO9Nass8AAAABAAX5fA",
+    "number": 59,
+    "title": "Change Request: Renovate bot needs an explicit exception in the GitHub branch protection rules to perform auto-merge",
+    "createdAt": "2026-04-20T11:41:53Z",
+    "closedAt": null,
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/inikulin/parse5",
+    "htmlUrl": "https://github.com/inikulin/parse5/issues/1747",
+    "id": 4293320499,
+    "nodeId": "I_kwDOAIc7gc7_5t8z",
+    "number": 1747,
+    "title": "v8.0.1 is a breaking change",
+    "createdAt": "2026-04-20T05:31:15Z",
+    "closedAt": "2026-06-24T12:15:49Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/workflows",
+    "htmlUrl": "https://github.com/eslint/workflows/issues/58",
+    "id": 4290849609,
+    "nodeId": "I_kwDOO9Nass7_wStJ",
+    "number": 58,
+    "title": "Change Request: Add missing `\"extra-label\": \"triage:no\"` to `release-please-config.json` to hide Release Please PRs from the triage board",
+    "createdAt": "2026-04-19T12:44:35Z",
+    "closedAt": "2026-05-04T14:03:45Z",
+    "reactions": {
+      "+1": 0
+    }
+  }
+]

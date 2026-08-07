@@ -29,15 +29,15 @@ export type SortKey = keyof typeof sortMeta;
 export const sortMeta = {
   asc: {
     name: {
-      ko: '오름차순',
       en: 'Asc',
+      ko: '오름차순',
     },
     reactIcons: <FaArrowUpShortWide />,
   },
   desc: {
     name: {
-      ko: '내림차순',
       en: 'Desc',
+      ko: '내림차순',
     },
     reactIcons: <FaArrowDownWideShort />,
   },

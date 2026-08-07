@@ -1,5 +1,5 @@
 /**
- * @fileoverview Server wrapper for doc-search.
+ * @fileoverview Server wrapper for local search.
  */
 
 // --------------------------------------------------------------------------------
@@ -7,8 +7,9 @@
 // --------------------------------------------------------------------------------
 
 import { LmSearch } from '@lumir/react-kit/svgs';
-import { type VMarkdownFile } from '@/data/v-markdown-file';
-import { markdownCollectionSlug } from '@/utils/markdown-collection';
+import { type PropsWithLang } from '@/data/lang';
+import { type VMarkdownFileMeta } from '@/data/v-markdown-file';
+import createMarkdownCollection from '@/utils/markdown-collection';
 import { markdownToText } from '@/utils/markdown-to-text';
 import SearchClient, { type SearchClientProps, type SearchDocument } from './localsearch';
 
@@ -20,8 +21,8 @@ import SearchClient, { type SearchClientProps, type SearchDocument } from './loc
  * Creates search documents from Markdown frontmatter only.
  * @param vMarkdownFiles The Markdown files to convert into search documents.
  */
-async function createDocSearchDocuments(
-  vMarkdownFiles: VMarkdownFile[],
+async function createSearchDocuments(
+  vMarkdownFiles: VMarkdownFileMeta[],
 ): Promise<SearchDocument[]> {
   return Promise.all(
     vMarkdownFiles.map(
@@ -88,12 +89,15 @@ const koTranslations = {
 // Export
 // --------------------------------------------------------------------------------
 
-export default async function DocSearch({ lang = 'ko' }: { lang?: 'en' | 'ko' } = {}) {
-  const documents = await createDocSearchDocuments(Object.values(markdownCollectionSlug));
+export default async function Search({ lang }: PropsWithLang) {
+  const documents = await createSearchDocuments(
+    Object.values(createMarkdownCollection().byLangSlug[lang]),
+  );
 
   return (
     <SearchClient
       icon={<LmSearch aria-hidden="true" color="white" size={28} strokeWidth="1.5" />}
+      lang={lang}
       maxResults={10}
       placeholder={lang === 'ko' ? '검색' : 'Search'}
       translations={lang === 'ko' ? koTranslations : {}}

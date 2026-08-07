@@ -46,19 +46,28 @@ describe('cn', () => {
     assert.strictEqual(cn(NaN), '');
     assert.strictEqual(cn(0), '');
 
-    // objects
-    assert.strictEqual(cn({}), '');
+    // null
     assert.strictEqual(cn(null), '');
+
+    // objects
+    // @ts-expect-error -- Objects are not valid input for `cn`
+    assert.strictEqual(cn({}), '');
+    // @ts-expect-error -- Objects are not valid input for `cn`
     assert.strictEqual(cn({ a: 1 }), '');
+    // @ts-expect-error -- Objects are not valid input for `cn`
     assert.strictEqual(cn({ a: 1 }, { b: 2 }), '');
 
     // arrays
+    // @ts-expect-error -- Arrays are not valid input for `cn`
     assert.strictEqual(cn([]), '');
+    // @ts-expect-error -- Arrays are not valid input for `cn`
     assert.strictEqual(cn(['foo']), '');
+    // @ts-expect-error -- Arrays are not valid input for `cn`
     assert.strictEqual(cn(['foo', 'bar']), '');
 
     // functions
     assert.strictEqual(
+      // @ts-expect-error -- Functions are not valid input for `cn`
       cn(() => {}),
       '',
     );

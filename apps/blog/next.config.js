@@ -3,15 +3,29 @@
  */
 
 // --------------------------------------------------------------------------------
-// Helpers
+// Import
+// --------------------------------------------------------------------------------
+
+import { fileURLToPath } from 'node:url';
+
+// --------------------------------------------------------------------------------
+// Helper
 // --------------------------------------------------------------------------------
 
 const isProd = process.env.NODE_ENV === 'production';
+const isTypegen = process.argv.includes('typegen');
+const isAnalyze = process.argv.includes('experimental-analyze');
+
+// --------------------------------------------------------------------------------
+// Export
+// --------------------------------------------------------------------------------
 
 /** @type {import('next').NextConfig} */
-const nextConfig = {
+export default {
+  agentRules: false, // The repository root already provides Next.js agent rules.
   pageExtensions: ['js', 'mjs', 'jsx', 'ts', 'mts', 'tsx', 'md', 'mdx'],
   images: {
+    unoptimized: true, // For static export, we need to disable image optimization.
     remotePatterns: [
       {
         hostname: 'avatars.githubusercontent.com', // Allow GitHub profile image.
@@ -28,20 +42,21 @@ const nextConfig = {
     },
   }),
   typedRoutes: true,
-
-  webpack(config) {
-    // Add a rule to handle Markdown files as raw text.
-    config.module.rules.push({
-      test: /\.md$/,
-      type: 'asset/source',
-    });
-
-    return config;
+  typescript: {
+    ignoreBuildErrors: true, // Typecheck will be handled separately.
+  },
+  output: 'export', // For static export, we need to set output to 'export'.
+  trailingSlash: false, // For static export, we don't want trailing slashes.
+  skipTrailingSlashRedirect: true, // For static export, we don't want to redirect to trailing slashes.
+  distDir: isTypegen || isAnalyze ? '.next' : 'build', // For static export, use a separate dist directory to prevent type generation conflicts.
+  turbopack: {
+    rules: {
+      '*.md': {
+        loaders: [
+          fileURLToPath(new URL('./plugins/markdown-loader.js', import.meta.url)),
+        ],
+        as: '*.js',
+      },
+    },
   },
 };
-
-// --------------------------------------------------------------------------------
-// Export
-// --------------------------------------------------------------------------------
-
-export default nextConfig;

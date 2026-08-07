@@ -1,15 +1,9 @@
-.custom-flex-center {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
 .custom-hover-effect {
   transition: all 0.3s ease-in-out;
 
   &:hover {
     background-color: var(--color-bg-neutral-muted);
-    border-radius: var(--size-border-radius);
+    border-radius: var(--border-radius-md);
   }
 }
 
@@ -18,6 +12,11 @@
 
   &::-webkit-scrollbar {
     display: none;
+  }
+
+  /* Fallback for browsers that don't support `::-webkit-scrollbar` (e.g. Firefox). */
+  @supports not selector(::-webkit-scrollbar) {
+    scrollbar-width: none;
   }
 }
 
@@ -30,7 +29,13 @@
 
   &::-webkit-scrollbar-thumb {
     background-color: var(--color-border-default);
-    border-radius: var(--size-border-radius);
+    border-radius: var(--border-radius-md);
+  }
+
+  /* Fallback for browsers that don't support `::-webkit-scrollbar` (e.g. Firefox). */
+  @supports not selector(::-webkit-scrollbar) {
+    scrollbar-color: var(--color-border-default) transparent;
+    scrollbar-width: thin;
   }
 }
 
@@ -43,6 +48,12 @@
 
   &::-webkit-scrollbar-thumb {
     background-color: var(--color-border-default);
-    border-radius: var(--size-border-radius);
+    border-radius: var(--border-radius-md);
+  }
+
+  /* Fallback for browsers that don't support `::-webkit-scrollbar` (e.g. Firefox). */
+  @supports not selector(::-webkit-scrollbar) {
+    scrollbar-color: var(--color-border-default) transparent;
+    scrollbar-width: thin;
   }
 }

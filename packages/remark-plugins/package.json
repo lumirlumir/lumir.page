@@ -3,6 +3,7 @@
   "name": "@lumir/remark-plugins",
   "version": "0.0.0-private",
   "type": "module",
+  "sideEffects": false,
   "exports": {
     ".": {
       "types": "./build/index.d.ts",
@@ -17,9 +18,17 @@
       ]
     }
   },
+  "files": [
+    "build",
+    "LICENSE.md",
+    "README.md",
+    "!src/**/*.test.{js,mjs,cjs,jsx,ts,mts,cts,tsx}",
+    "!src/**/*.test-d.{ts,mts,cts,tsx}",
+    "!**/fixtures/**"
+  ],
   "scripts": {
-    "build": "tsgo",
-    "dev": "tsgo --watch",
+    "build": "tsgo -b tsconfig.build.json",
+    "dev": "tsgo -b tsconfig.build.json --watch",
     "test": "vitest run"
   },
   "dependencies": {
@@ -28,7 +37,11 @@
   },
   "devDependencies": {
     "@types/mdast": "^4.0.4",
-    "remark": "^15.0.1",
-    "vitest": "^4.1.4"
+    "rehype-stringify": "^10.0.1",
+    "remark-parse": "^11.0.0",
+    "remark-rehype": "^11.1.2",
+    "remark-stringify": "^11.0.0",
+    "unified": "^11.0.5",
+    "vitest": "^4.1.9"
   }
 }

@@ -8,7 +8,7 @@
 
 import { type HTMLAttributes, type PropsWithChildren } from 'react';
 import { cn } from '@lumir/utils';
-import './neon-font.css';
+import styles from './neon-font.module.css';
 
 // --------------------------------------------------------------------------------
 // Typedef
@@ -84,7 +84,7 @@ export default function NeonFont({
 }: PropsWithChildren<Props> = {}) {
   return (
     <span
-      className={cn('neon-font', className)}
+      className={cn(styles['neon-font'], className)}
       style={{
         ['--neon-color-start' as string]: colorMap[neonColor][0],
         ['--neon-color-end' as string]: colorMap[neonColor][1],

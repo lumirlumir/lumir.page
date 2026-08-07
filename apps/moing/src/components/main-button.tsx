@@ -6,37 +6,28 @@
 // Import
 // --------------------------------------------------------------------------------
 
+import { type MouseEventHandler } from 'react';
 import { cn } from '@lumir/utils';
 
 import NeonButton from '@/components/neon-button';
 import NeonFont from '@/components/neon-font';
-import useConfig from '@/hooks/use-config';
-import useScenario from '@/hooks/use-scenario';
-import useInterview from '@/hooks/use-interview';
+import { useConfigContext } from '@/contexts/config-context';
+import { useInterviewContext } from '@/contexts/interview-context';
+import { useScenarioContext } from '@/contexts/scenario-context';
 
-import './main-button.css';
-
-// --------------------------------------------------------------------------------
-// Typedef
-// --------------------------------------------------------------------------------
-
-interface Props {
-  scenario: ReturnType<typeof useScenario>;
-  config: ReturnType<typeof useConfig>;
-  interview: ReturnType<typeof useInterview>;
-}
+import styles from './main-button.module.css';
 
 // --------------------------------------------------------------------------------
 // Export
 // --------------------------------------------------------------------------------
 
-export default function ButtonMain({ scenario, config, interview }: Props) {
-  const { getSectionObj, toNextSection, toLastSection, isLastSection } = scenario;
-  const { content, visibility } = getSectionObj()['main-button'];
-  const { configState, handleConfigState, isConfigDone } = config;
-  const { initInterview } = interview;
+export default function ButtonMain() {
+  const { config, updateConfig, isConfigDone } = useConfigContext();
+  const { initInterview } = useInterviewContext();
+  const { section, toNextSection, toLastSection, isLastSection } = useScenarioContext();
+  const { content, status } = section['main-button'];
 
-  const onClick = e => {
+  const onClick: MouseEventHandler<HTMLButtonElement> = e => {
     if (content === 'PRESS') {
       toNextSection();
     }
@@ -46,8 +37,8 @@ export default function ButtonMain({ scenario, config, interview }: Props) {
         return;
       }
       if (isConfigDone()) {
-        handleConfigState({ visibility: false });
-        initInterview(configState);
+        updateConfig({ visibility: false });
+        initInterview(config);
       }
       toNextSection();
     }
@@ -56,16 +47,14 @@ export default function ButtonMain({ scenario, config, interview }: Props) {
   return (
     <div
       className={cn(
-        'main-button',
-        'custom-flex-center',
+        styles['main-button'],
         'custom-main-others',
-        'transition',
-        (isLastSection() && isConfigDone()) || visibility
+        (isLastSection() && isConfigDone()) || status !== 'hidden'
           ? ''
           : 'pointer-events-none opacity-0',
       )}
     >
-      <NeonButton style={{ padding: '20px 30px' }} onClick={e => onClick(e)}>
+      <NeonButton style={{ padding: '20px 30px' }} onClick={onClick}>
         <NeonFont
           neonColor="white"
           neonSize="s"

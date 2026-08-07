@@ -1,9 +1,15 @@
 .links {
-  padding: var(--size-8) 0 var(--size-16);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-static-sm) 0 var(--spacing-static-md);
   list-style: none;
 
   & > li > a {
+    display: flex;
     flex-direction: column;
+    align-items: center;
+    justify-content: center;
     padding: var(--size-6);
 
     & > * {
@@ -13,6 +19,8 @@
     & > svg {
       width: var(--size-24);
       height: var(--size-24);
+      transform-origin: center;
+      transform-box: fill-box;
     }
 
     &:hover {
@@ -22,9 +30,12 @@
     }
 
     & > span {
+      display: flex;
+      align-items: center;
+      justify-content: center;
       width: var(--size-40);
       color: var(--color-fg-muted);
-      letter-spacing: var(--size-letter-spacing-medium);
+      letter-spacing: var(--letter-spacing-tighter);
     }
   }
 }

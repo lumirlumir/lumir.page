@@ -1,9 +1,10 @@
 /* External */
 @import '@lumir/styles/normalize.css';
+@import '@lumir/styles/animations.css';
+@import '@lumir/styles/variables.css';
 @import 'katex/dist/katex.min.css';
 
 /* Internal */
-@import './animations.css';
 @import './markdown.css';
 @import './utilities.css';
 @import './variables.css';

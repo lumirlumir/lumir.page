@@ -1,0 +1,30 @@
+.client {
+  height: var(--main-section-height);
+  transition: var(--transition);
+
+  & > div {
+    width: 100%;
+    height: 100%;
+    outline: none;
+
+    & div::before {
+      content: '\000A>\00a0';
+    }
+
+    &:not(:empty)::before {
+      content: '$ Interviewee\000A\000A>\00a0';
+    }
+
+    &:empty::before {
+      content: attr(data-placeholder);
+      opacity: 0.5;
+    }
+
+    &::after {
+      display: block;
+      height: var(--main-section-padding);
+      cursor: text;
+      content: '';
+    }
+  }
+}

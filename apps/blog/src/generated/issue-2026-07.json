@@ -1,0 +1,119 @@
+[
+  {
+    "repositoryUrl": "https://api.github.com/repos/bruits/satteri",
+    "htmlUrl": "https://github.com/bruits/satteri/issues/190",
+    "id": 5031201277,
+    "nodeId": "I_kwDORtxNZM8AAAABK-IJ_Q",
+    "number": 190,
+    "title": "Private vulnerability reporting link in `SECURITY.md` is unavailable",
+    "createdAt": "2026-07-31T15:52:13Z",
+    "closedAt": "2026-08-02T20:28:54Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/bruits/satteri",
+    "htmlUrl": "https://github.com/bruits/satteri/issues/187",
+    "id": 5030928160,
+    "nodeId": "I_kwDORtxNZM8AAAABK93fIA",
+    "number": 187,
+    "title": "GFM autolink nodes can be emitted without position information",
+    "createdAt": "2026-07-31T15:17:45Z",
+    "closedAt": null,
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/bruits/satteri",
+    "htmlUrl": "https://github.com/bruits/satteri/issues/186",
+    "id": 5030751146,
+    "nodeId": "I_kwDORtxNZM8AAAABK9srqg",
+    "number": 186,
+    "title": "Standalone CR line endings are not reflected in mdast positions",
+    "createdAt": "2026-07-31T14:56:47Z",
+    "closedAt": "2026-08-03T11:23:31Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/bruits/satteri",
+    "htmlUrl": "https://github.com/bruits/satteri/issues/185",
+    "id": 5030617436,
+    "nodeId": "I_kwDORtxNZM8AAAABK9khXA",
+    "number": 185,
+    "title": "Incorrect position offsets and columns for surrogate pairs",
+    "createdAt": "2026-07-31T14:41:32Z",
+    "closedAt": "2026-07-31T14:50:49Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/markdown",
+    "htmlUrl": "https://github.com/eslint/markdown/issues/703",
+    "id": 5000267094,
+    "nodeId": "I_kwDOAkm7Hs8AAAABKgoFVg",
+    "number": 703,
+    "title": "Change Request: Support `languageOptions.parser` to improve parser performance by integrating a Rust parser",
+    "createdAt": "2026-07-28T15:28:08Z",
+    "closedAt": null,
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/humanwhocodes/momoa",
+    "htmlUrl": "https://github.com/humanwhocodes/momoa/issues/236",
+    "id": 4892388020,
+    "nodeId": "I_kwDOC2jYRc8AAAABI5vqtA",
+    "number": 236,
+    "title": "Feature Request: Migrate `@humanwhocodes/momoa` to ESM-only",
+    "createdAt": "2026-07-15T12:21:39Z",
+    "closedAt": null,
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/humanwhocodes/momoa",
+    "htmlUrl": "https://github.com/humanwhocodes/momoa/issues/235",
+    "id": 4892184391,
+    "nodeId": "I_kwDOC2jYRc8AAAABI5jPRw",
+    "number": 235,
+    "title": "`@humanwhocodes/momoa` hasn’t been released properly",
+    "createdAt": "2026-07-15T11:54:07Z",
+    "closedAt": null,
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/create-config",
+    "htmlUrl": "https://github.com/eslint/create-config/issues/257",
+    "id": 4888678890,
+    "nodeId": "I_kwDOFqe-is8AAAABI2NR6g",
+    "number": 257,
+    "title": "Change Request: Restrict access to internal modules by declaring `\"exports\": {}` in `package.json`",
+    "createdAt": "2026-07-15T02:15:53Z",
+    "closedAt": null,
+    "reactions": {
+      "+1": 1
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/markdown",
+    "htmlUrl": "https://github.com/eslint/markdown/issues/680",
+    "id": 4829276727,
+    "nodeId": "I_kwDOAkm7Hs8AAAABH9jqNw",
+    "number": 680,
+    "title": "Change Request: Export `MarkdownSyntaxElement`",
+    "createdAt": "2026-07-07T14:05:46Z",
+    "closedAt": "2026-07-25T20:08:45Z",
+    "reactions": {
+      "+1": 1
+    }
+  }
+]

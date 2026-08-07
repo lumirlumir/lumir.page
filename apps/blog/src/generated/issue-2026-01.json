@@ -1,0 +1,41 @@
+[
+  {
+    "repositoryUrl": "https://api.github.com/repos/reactjs/react.dev",
+    "htmlUrl": "https://github.com/reactjs/react.dev/issues/8281",
+    "id": 3874896430,
+    "nodeId": "I_kwDOBlDe9c7m9jou",
+    "number": 8281,
+    "title": "[Bug]: View Deployment is not working across react.dev and i18n documentation",
+    "createdAt": "2026-01-30T09:44:09Z",
+    "closedAt": null,
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint-community/eslint-plugin-eslint-comments",
+    "htmlUrl": "https://github.com/eslint-community/eslint-plugin-eslint-comments/issues/269",
+    "id": 3796558418,
+    "nodeId": "I_kwDOIxfmuM7iSuJS",
+    "number": 269,
+    "title": "Ready for the next breaking change",
+    "createdAt": "2026-01-09T11:15:13Z",
+    "closedAt": null,
+    "reactions": {
+      "+1": 3
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/markdown",
+    "htmlUrl": "https://github.com/eslint/markdown/issues/605",
+    "id": 3781592515,
+    "nodeId": "I_kwDOAkm7Hs7hZoXD",
+    "number": 605,
+    "title": "Change Request: Remove the `recommended-legacy` config from `@eslint/markdown` v8",
+    "createdAt": "2026-01-05T13:57:41Z",
+    "closedAt": "2026-02-15T14:51:05Z",
+    "reactions": {
+      "+1": 0
+    }
+  }
+]

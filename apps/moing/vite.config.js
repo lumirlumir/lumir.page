@@ -3,6 +3,7 @@ import { resolve } from 'node:path';
 import { loadEnvFile } from 'node:process';
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
+import babel from '@rolldown/plugin-babel';
 
 if (existsSync(resolve(import.meta.dirname, '.env'))) {
   loadEnvFile(resolve(import.meta.dirname, '.env'));
@@ -13,21 +14,19 @@ export default defineConfig({
     outDir: 'build',
   },
   define: {
-    'process.env.BACKEND_PORT': JSON.stringify(process.env.BACKEND_PORT),
-    'process.env.BACKEND_IP': JSON.stringify(process.env.BACKEND_IP),
+    'process.env.BACKEND_URL': JSON.stringify(process.env.BACKEND_URL),
   },
   plugins: [
-    react({
-      babel: {
-        plugins: [
-          [
-            'babel-plugin-react-compiler',
-            {
-              panicThreshold: 'critical_errors',
-            },
-          ],
+    react(),
+    babel({
+      plugins: [
+        [
+          'babel-plugin-react-compiler',
+          {
+            panicThreshold: 'critical_errors',
+          },
         ],
-      },
+      ],
     }),
   ],
   preview: {

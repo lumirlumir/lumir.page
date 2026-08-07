@@ -7,46 +7,58 @@
 // --------------------------------------------------------------------------------
 
 import { cn } from '@lumir/utils';
-
 import NeonFont from '@/components/neon-font';
-import useScenario from '@/hooks/use-scenario';
-import useTimer from '@/hooks/use-timer';
+import { useScenarioContext } from '@/contexts/scenario-context';
+import styles from './timer.module.css';
 
 // --------------------------------------------------------------------------------
 // Typedef
 // --------------------------------------------------------------------------------
 
-interface Props {
-  scenario: ReturnType<typeof useScenario>;
-  timer: ReturnType<typeof useTimer>;
+/**
+ * Props for the Timer component.
+ */
+interface TimerProps {
+  /**
+   * CSS class name for the timer component.
+   * @default ''
+   */
+  className?: string;
+
+  /**
+   * Current count of the timer in milliseconds.
+   */
+  currentCount: number;
 }
 
 // --------------------------------------------------------------------------------
 // Export
 // --------------------------------------------------------------------------------
 
-export default function Timer({ scenario, timer }: Props) {
-  const { visibility } = scenario.getSectionObj().timer;
-  const { getTimer } = timer;
+export default function Timer({ className = '', currentCount }: TimerProps) {
+  const { section } = useScenarioContext();
+  const { status } = section.timer;
+  const remainingSeconds = Math.ceil(currentCount / 1_000);
+  const minute = Math.floor((remainingSeconds / 60) % 60);
+  const second = Math.floor(remainingSeconds % 60);
 
   return (
     <footer
       className={cn(
-        'timer',
-        'custom-flex-center',
-        'transition',
-        visibility || 'pointer-events-none opacity-0',
+        styles.timer,
+        className,
+        status === 'hidden' && 'pointer-events-none opacity-0',
       )}
     >
       <NeonFont
-        neonColor={getTimer().minute === 0 ? 'red' : 'white'}
+        neonColor={minute === 0 ? 'red' : 'white'}
         neonSize="s"
         style={{
           fontFamily: 'Audiowide',
           fontSize: '35px',
         }}
       >
-        {getTimer().timer}
+        {`${String(minute).padStart(2, '0')} : ${String(second).padStart(2, '0')}`}
       </NeonFont>
     </footer>
   );

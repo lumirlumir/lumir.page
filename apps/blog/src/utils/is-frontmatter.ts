@@ -2,7 +2,11 @@
  * @fileoverview Defines a type guard for Markdown frontmatter data.
  */
 
-/* eslint-disable import/prefer-default-export  -- TODO */
+// --------------------------------------------------------------------------------
+// Environment
+// --------------------------------------------------------------------------------
+
+import 'server-only';
 
 // --------------------------------------------------------------------------------
 // Import

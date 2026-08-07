@@ -3,6 +3,7 @@
   "name": "@lumir/react-kit",
   "version": "0.0.0-private",
   "type": "module",
+  "sideEffects": false,
   "exports": {
     "./components": {
       "types": "./build/components/index.d.ts",
@@ -20,27 +21,35 @@
   },
   "typesVersions": {
     "*": {
-      "./components": [
+      "components": [
         "./build/components/index.d.ts"
       ],
-      "./hooks": [
+      "hooks": [
         "./build/hooks/index.d.ts"
       ],
-      "./svgs": [
+      "svgs": [
         "./build/svgs/index.d.ts"
       ]
     }
   },
+  "files": [
+    "build",
+    "LICENSE.md",
+    "README.md",
+    "!src/**/*.test.{js,mjs,cjs,jsx,ts,mts,cts,tsx}",
+    "!src/**/*.test-d.{ts,mts,cts,tsx}",
+    "!**/fixtures/**"
+  ],
   "scripts": {
-    "build": "tsgo",
-    "dev": "tsgo --watch",
+    "build": "tsgo -b tsconfig.build.json",
+    "dev": "tsgo -b tsconfig.build.json --watch",
     "test": "vitest run"
   },
   "peerDependencies": {
-    "@types/react": "^19.0.0",
-    "@types/react-dom": "^19.0.0",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "@types/react": "^19.2.0",
+    "@types/react-dom": "^19.2.0",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
   },
   "peerDependenciesMeta": {
     "@types/react": {
@@ -51,13 +60,13 @@
     }
   },
   "devDependencies": {
-    "@types/react": "^19.2.14",
-    "@types/react-dom": "^19.2.3",
-    "@vitest/browser-playwright": "^4.1.4",
-    "playwright": "^1.59.1",
-    "react": "^19.2.5",
-    "react-dom": "^19.2.5",
-    "vitest": "^4.1.4",
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.4",
+    "@vitest/browser-playwright": "^4.1.9",
+    "playwright": "^1.62.0",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
+    "vitest": "^4.1.9",
     "vitest-browser-react": "^2.2.0"
   }
 }

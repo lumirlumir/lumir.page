@@ -1,0 +1,71 @@
+/**
+ * - border-radius: https://tailwindcss.com/docs/border-radius
+ * - spacing: https://designsystem.porsche.com/v4/tokens/spacing/
+ * - font-size: https://tailwindcss.com/docs/font-size
+ * - font-weight: https://tailwindcss.com/docs/font-weight
+ * - letter-spacing: https://tailwindcss.com/docs/letter-spacing
+ */
+
+:root {
+  /* primitive */
+  --size-2: 0.125rem;
+  --size-4: 0.25rem;
+  --size-6: 0.375rem;
+  --size-8: 0.5rem;
+  --size-10: 0.625rem;
+  --size-12: 0.75rem;
+  --size-14: 0.875rem;
+  --size-16: 1rem;
+  --size-20: 1.25rem;
+  --size-24: 1.5rem;
+  --size-28: 1.75rem;
+  --size-32: 2rem;
+  --size-36: 2.25rem;
+  --size-40: 2.5rem;
+  --size-48: 3rem;
+  --size-64: 4rem;
+  --size-80: 5rem;
+  --size-96: 6rem;
+
+  /* border */
+  --border-radius-md: var(--size-6);
+  --border-radius-xl: var(--size-12);
+  --border-radius-circle: 50%;
+  --border-radius-pill: 999px;
+
+  /* spacing */
+  --spacing-fluid-xs: clamp(var(--size-4), calc(0.25vw + var(--size-2)), var(--size-8));
+  --spacing-fluid-sm: clamp(var(--size-8), calc(0.5vw + var(--size-4)), var(--size-16));
+  --spacing-fluid-md: clamp(var(--size-16), calc(1.25vw + var(--size-8)), var(--size-32));
+
+  --spacing-static-xs: var(--size-4);
+  --spacing-static-sm: var(--size-8);
+  --spacing-static-md: var(--size-16);
+  --spacing-static-lg: var(--size-32);
+
+  /* typography */
+  --font-size-xs: var(--size-12);
+  --font-size-sm: var(--size-14);
+  --font-size-md: var(--size-16);
+  --font-size-lg: var(--size-20);
+  --font-size-xl: var(--size-24);
+  --font-size-2xl: var(--size-28);
+  --font-size-3xl: var(--size-32);
+
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --font-weight-extrabold: 800;
+
+  --letter-spacing-widest: 0.1em;
+  --letter-spacing-wider: 0.05em;
+  --letter-spacing-wide: 0.025em;
+  --letter-spacing-normal: 0;
+  --letter-spacing-tight: -0.025em;
+  --letter-spacing-tighter: -0.05em;
+  --letter-spacing-tightest: -0.075em;
+
+  --line-height-normal: 1.5;
+  --line-height-tight: 1.25;
+  --line-height-tighter: 1;
+}
