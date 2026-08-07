@@ -28,7 +28,6 @@ import {
   useMemo,
   useRef,
   useState,
-  type ChangeEvent,
   type KeyboardEvent,
   type ReactNode,
 } from 'react';
@@ -385,25 +384,19 @@ export function LocalSearch({
     dialogRef.current?.close();
   }
 
-  function resetSearch() {
-    setQuery('');
+  function updateQuery(nextQuery: string) {
+    setQuery(nextQuery);
     setActiveIndex(0);
+  }
+
+  function resetSearch() {
+    updateQuery('');
     inputRef.current?.focus();
   }
 
   function navigateToResult(document: SearchDocument) {
     closeDialog();
     router.push(`/${lang}/posts/${document.slug}`);
-  }
-
-  function onDialogClose() {
-    setQuery('');
-    setActiveIndex(0);
-  }
-
-  function onQueryChange(event: ChangeEvent<HTMLInputElement>) {
-    setQuery(event.target.value);
-    setActiveIndex(0);
   }
 
   function onInputKeyDown(event: KeyboardEvent<HTMLInputElement>) {
@@ -454,7 +447,7 @@ export function LocalSearch({
       <dialog
         ref={dialogRef}
         aria-label={dialogAriaLabel}
-        onClose={onDialogClose}
+        onClose={() => updateQuery('')}
         // Specifies the types of user actions that can be used to close the `<dialog>` element.
         // https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/dialog#closedby
         closedby="any"
@@ -467,7 +460,7 @@ export function LocalSearch({
                 ref={inputRef}
                 type="search"
                 value={query}
-                onChange={onQueryChange}
+                onChange={event => updateQuery(event.target.value)}
                 onKeyDown={onInputKeyDown}
                 placeholder={placeholder}
                 aria-label={searchInputLabel}
