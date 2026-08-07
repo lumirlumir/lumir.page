@@ -80,10 +80,6 @@ const dictionary = {
           favoriteSearchesTitle: '즐겨찾기',
           removeFavoriteSearchButtonTitle: '즐겨찾기에서 검색 결과 삭제하기',
         },
-        errorScreen: {
-          titleText: '결과를 가져올 수 없습니다',
-          helpText: '네트워크 연결을 확인해주세요.',
-        },
         noResultsScreen: {
           noResultsText: '검색 결과가 없습니다',
           suggestedQueryText: '아래 검색어를 시도해보세요',
@@ -135,10 +131,6 @@ const dictionary = {
           removeRecentSearchButtonTitle: 'Remove this search from history',
           favoriteSearchesTitle: 'Favorite',
           removeFavoriteSearchButtonTitle: 'Remove this search from favorites',
-        },
-        errorScreen: {
-          titleText: 'Unable to fetch results',
-          helpText: 'You might want to check your network connection.',
         },
         noResultsScreen: {
           noResultsText: 'No results for',

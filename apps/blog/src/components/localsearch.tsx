@@ -230,21 +230,6 @@ export interface SearchClientProps {
       };
 
       /**
-       * Translations for the error screen.
-       */
-      readonly errorScreen: {
-        /**
-         * The error screen title.
-         */
-        readonly titleText: string;
-
-        /**
-         * The error screen help text.
-         */
-        readonly helpText: string;
-      };
-
-      /**
        * Translations for the no-results screen.
        */
       readonly noResultsScreen: {
