@@ -61,7 +61,7 @@ export interface Frontmatter {
 /**
  * Represents the key of the frontmatter defined in the `frontmatterMeta` object.
  */
-export type FrontmatterKey = keyof Frontmatter;
+export type FrontmatterKey = (typeof frontmatterKeys)[number];
 
 /**
  * Represents the keys of the frontmatter that can be sorted, excluding `description` and `categories` which are not typically used for sorting.
@@ -74,6 +74,15 @@ export type SortableFrontmatterKey = Exclude<
 // --------------------------------------------------------------------------------
 // Export
 // --------------------------------------------------------------------------------
+
+export const frontmatterKeys = [
+  'title',
+  'description',
+  'created',
+  'updated',
+  'categories',
+  'references',
+] as const satisfies readonly (keyof Frontmatter)[];
 
 /**
  * An object containing metadata for the frontmatter fields,
