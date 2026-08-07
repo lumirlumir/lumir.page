@@ -33,7 +33,7 @@ import {
   type ReactNode,
 } from 'react';
 import { type LangKey } from '@/data/lang';
-import styles from './search.module.css';
+import styles from './localsearch.module.css';
 
 // --------------------------------------------------------------------------------
 // Typedef
