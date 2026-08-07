@@ -332,12 +332,8 @@ export function LocalSearch({
   const router = useRouter();
   const resultsId = useId();
   const [query, setQuery] = useState<string>('');
+  const normalizedQuery = query.trim();
   const [activeIndex, setActiveIndex] = useState<number>(0);
-
-  const documentsById = useMemo(
-    () => new Map(documents.map(document => [document.id, document])),
-    [documents],
-  );
 
   const miniSearch = useMemo(() => {
     const search = new MiniSearch<SearchDocument>({
@@ -368,21 +364,10 @@ export function LocalSearch({
     return search;
   }, [documents]);
 
-  const normalizedQuery = query.trim();
-
-  const openDialog = useCallback(() => {
-    const dialog = dialogRef.current;
-
-    if (dialog === null) {
-      return;
-    }
-
-    if (!dialog.open) {
-      dialog.showModal();
-    }
-
-    inputRef.current?.focus();
-  }, []);
+  const documentsById = useMemo(
+    () => new Map(documents.map(document => [document.id, document])),
+    [documents],
+  );
 
   const results = useMemo(() => {
     if (normalizedQuery.length === 0) {
@@ -397,6 +382,20 @@ export function LocalSearch({
   }, [documentsById, maxResults, miniSearch, normalizedQuery]);
 
   const activeResult = results[activeIndex];
+
+  const openDialog = useCallback(() => {
+    const dialog = dialogRef.current;
+
+    if (dialog === null) {
+      return;
+    }
+
+    if (!dialog.open) {
+      dialog.showModal();
+    }
+
+    inputRef.current?.focus();
+  }, []);
 
   useEffect(() => {
     function onKeyDown(event: globalThis.KeyboardEvent) {
