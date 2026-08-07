@@ -27,6 +27,7 @@ import { ThemeScript } from '@/components/theme-script';
 import { Title } from '@/components/title';
 import { ThemeToggle } from '@/components/theme-toggle';
 
+import { ConfigProvider } from '@/contexts/config';
 import { ThemeProvider } from '@/contexts/theme';
 
 import { GOOGLE_GA_ID } from '@/constants';
@@ -81,32 +82,34 @@ export default async function RootLayout({
     <html className="custom-scrollbar-y-bold" lang={lang} suppressHydrationWarning>
       <body className={styles.body}>
         <ThemeScript />
-        <CursorSplash />
-        <ThemeProvider>
-          <ScrollProgress className={styles['scroll-progress']} />
-          <header>
-            <Title lang={lang} />
-            <div>
-              <DocSearch />
-              <LangToggle lang={lang} />
-              <ThemeToggle lang={lang} />
-            </div>
-          </header>
-          <aside className="custom-scrollbar-y-regular">
-            <Profile lang={lang} />
-            <Links lang={lang} />
-            <Categories lang={lang} />
-          </aside>
-          <AsideToggle className={styles['aside-toggle']} lang={lang} />
-          <aside>{nav}</aside>
-          <main>
-            <article>{children}</article>
-          </main>
+        <ConfigProvider>
+          <ThemeProvider>
+            <CursorSplash />
+            <ScrollProgress className={styles['scroll-progress']} />
+            <header>
+              <Title lang={lang} />
+              <div>
+                <DocSearch />
+                <LangToggle lang={lang} />
+                <ThemeToggle lang={lang} />
+              </div>
+            </header>
+            <aside className="custom-scrollbar-y-regular">
+              <Profile lang={lang} />
+              <Links lang={lang} />
+              <Categories lang={lang} />
+            </aside>
+            <AsideToggle className={styles['aside-toggle']} lang={lang} />
+            <aside>{nav}</aside>
+            <main>
+              <article>{children}</article>
+            </main>
 
-          <Analytics />
-          <SpeedInsights />
-          <GoogleAnalytics gaId={GOOGLE_GA_ID} />
-        </ThemeProvider>
+            <Analytics />
+            <SpeedInsights />
+            <GoogleAnalytics gaId={GOOGLE_GA_ID} />
+          </ThemeProvider>
+        </ConfigProvider>
       </body>
     </html>
   );

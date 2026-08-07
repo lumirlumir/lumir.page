@@ -31,7 +31,7 @@ export default defineConfig({
       ],
   retries: isCI ? 1 : 0,
   testDir: './tests',
-  workers: '75%',
+  workers: '50%',
 
   projects: [
     {
