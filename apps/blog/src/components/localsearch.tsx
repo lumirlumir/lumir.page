@@ -124,282 +124,214 @@ export interface SearchClientProps {
   /**
    * Translations for the search UI.
    */
-  readonly translations?: {
+  readonly translations: {
     /**
      * Translations for the search button.
      */
-    readonly button?: {
+    readonly button: {
       /**
        * The aria-label for the search button.
-       *
-       * @default "Open search dialog"
        */
-      readonly buttonAriaLabel?: string;
+      readonly buttonAriaLabel: string;
 
       /**
        * The text to display on the search button.
-       *
-       * @default "Search"
        */
-      readonly buttonText?: string;
+      readonly buttonText: string;
     };
 
     /**
      * Translations for the search dialog.
      */
-    readonly dialog?: {
+    readonly dialog: {
       /**
        * The aria-label for the search dialog.
-       *
-       * @default "Search"
        */
-      readonly dialogAriaLabel?: string;
+      readonly dialogAriaLabel: string;
 
       /**
        * Translations for the search box controls.
        */
-      readonly searchBox?: {
+      readonly searchBox: {
         /**
          * The text to display on the reset button.
-         *
-         * @default "Clear"
          */
-        readonly resetButtonText?: string;
+        readonly resetButtonText: string;
 
         /**
          * The title for the reset button.
-         *
-         * @default "Clear the query"
          */
-        readonly resetButtonTitle?: string;
+        readonly resetButtonTitle: string;
 
         /**
          * The aria-label for the reset button.
-         *
-         * @default "Clear the query"
          */
-        readonly resetButtonAriaLabel?: string;
+        readonly resetButtonAriaLabel: string;
 
         /**
          * The text to display on the cancel button.
-         *
-         * @default "Cancel"
          */
-        readonly cancelButtonText?: string;
+        readonly cancelButtonText: string;
 
         /**
          * The aria-label for the cancel button.
-         *
-         * @default "Cancel"
          */
-        readonly cancelButtonAriaLabel?: string;
+        readonly cancelButtonAriaLabel: string;
 
         /**
          * The aria-label for the search input.
-         *
-         * @default "Search"
          */
-        readonly searchInputLabel?: string;
+        readonly searchInputLabel: string;
       };
 
       /**
        * Translations for the initial empty search screen.
        */
-      readonly startScreen?: {
+      readonly startScreen: {
         /**
          * The title to display before the user enters a query.
-         *
-         * @default "Search docs metadata"
          */
-        readonly titleText?: string;
+        readonly titleText: string;
 
         /**
          * The help text to display before the user enters a query.
-         *
-         * @default "Titles, descriptions, dates, categories, references, and slugs are indexed first. Body search can be added later."
          */
-        readonly helpText?: string;
+        readonly helpText: string;
 
         /**
          * The title for recent searches.
-         *
-         * @default "Recent Searches"
          */
-        readonly recentSearchesTitle?: string;
+        readonly recentSearchesTitle: string;
 
         /**
          * The text displayed when there are no recent searches.
-         *
-         * @default "No recent searches."
          */
-        readonly noRecentSearchesText?: string;
+        readonly noRecentSearchesText: string;
 
         /**
          * The title for the button that saves a recent search.
-         *
-         * @default "Save this search"
          */
-        readonly saveRecentSearchButtonTitle?: string;
+        readonly saveRecentSearchButtonTitle: string;
 
         /**
          * The title for the button that removes a recent search.
-         *
-         * @default "Remove this search from history"
          */
-        readonly removeRecentSearchButtonTitle?: string;
+        readonly removeRecentSearchButtonTitle: string;
 
         /**
          * The title for favorite searches.
-         *
-         * @default "Favorite"
          */
-        readonly favoriteSearchesTitle?: string;
+        readonly favoriteSearchesTitle: string;
 
         /**
          * The title for the button that removes a favorite search.
-         *
-         * @default "Remove this search from favorites"
          */
-        readonly removeFavoriteSearchButtonTitle?: string;
+        readonly removeFavoriteSearchButtonTitle: string;
       };
 
       /**
        * Translations for the error screen.
        */
-      readonly errorScreen?: {
+      readonly errorScreen: {
         /**
          * The error screen title.
-         *
-         * @default "Unable to fetch results"
          */
-        readonly titleText?: string;
+        readonly titleText: string;
 
         /**
          * The error screen help text.
-         *
-         * @default "You might want to check your network connection."
          */
-        readonly helpText?: string;
+        readonly helpText: string;
       };
 
       /**
        * Translations for the no-results screen.
        */
-      readonly noResultsScreen?: {
+      readonly noResultsScreen: {
         /**
          * The text to display when no results match the query.
-         *
-         * @default "No results for"
          */
-        readonly noResultsText?: string;
+        readonly noResultsText: string;
 
         /**
          * The text displayed before a suggested query.
-         *
-         * @default "Try searching for"
          */
-        readonly suggestedQueryText?: string;
+        readonly suggestedQueryText: string;
 
         /**
          * The text prompting users to report missing results.
-         *
-         * @default "Believe this query should return results?"
          */
-        readonly reportMissingResultsText?: string;
+        readonly reportMissingResultsText: string;
 
         /**
          * The text for the link that reports missing results.
-         *
-         * @default "Let us know."
          */
-        readonly reportMissingResultsLinkText?: string;
+        readonly reportMissingResultsLinkText: string;
       };
 
       /**
        * Translations for the results screen.
        */
-      readonly resultsScreen?: {
+      readonly resultsScreen: {
         /**
          * The source label to display above search results.
-         *
-         * @default "Posts"
          */
-        readonly sourceText?: string;
+        readonly sourceText: string;
 
         /**
          * The path prefix to display before each result slug.
-         *
-         * @default "blog / posts"
          */
-        readonly pathPrefix?: string;
+        readonly pathPrefix: string;
 
         /**
          * The label to display before each result update date.
-         *
-         * @default "Updated"
          */
-        readonly updatedText?: string;
+        readonly updatedText: string;
       };
 
       /**
        * Translations for the search dialog footer.
        */
-      readonly footer?: {
+      readonly footer: {
         /**
          * The text that explains the select command.
-         *
-         * @default "Select"
          */
-        readonly selectText?: string;
+        readonly selectText: string;
 
         /**
          * The aria-label for the select keycap.
-         *
-         * @default "Enter"
          */
-        readonly selectKeyAriaLabel?: string;
+        readonly selectKeyAriaLabel: string;
 
         /**
          * The text that explains the navigate command.
-         *
-         * @default "Navigate"
          */
-        readonly navigateText?: string;
+        readonly navigateText: string;
 
         /**
          * The aria-label for the navigate-up keycap.
-         *
-         * @default "Arrow up"
          */
-        readonly navigateUpKeyAriaLabel?: string;
+        readonly navigateUpKeyAriaLabel: string;
 
         /**
          * The aria-label for the navigate-down keycap.
-         *
-         * @default "Arrow down"
          */
-        readonly navigateDownKeyAriaLabel?: string;
+        readonly navigateDownKeyAriaLabel: string;
 
         /**
          * The text that explains the close command.
-         *
-         * @default "Close"
          */
-        readonly closeText?: string;
+        readonly closeText: string;
 
         /**
          * The aria-label for the close keycap.
-         *
-         * @default "Escape"
          */
-        readonly closeKeyAriaLabel?: string;
+        readonly closeKeyAriaLabel: string;
 
         /**
          * The text displayed before the search provider name.
-         *
-         * @default ""
          */
-        readonly searchByText?: string;
+        readonly searchByText: string;
       };
     };
   };
@@ -453,38 +385,31 @@ export default function SearchClient({
   maxResults = 10,
   placeholder = 'Search',
   translations: {
-    button: { buttonAriaLabel = 'Open search dialog', buttonText = 'Search' } = {},
+    button: { buttonAriaLabel, buttonText },
     dialog: {
-      dialogAriaLabel = 'Search',
+      dialogAriaLabel,
       searchBox: {
-        resetButtonText = 'Clear',
-        resetButtonTitle = 'Clear the query',
-        resetButtonAriaLabel = 'Clear the query',
-        cancelButtonText = 'Cancel',
-        cancelButtonAriaLabel = 'Cancel',
-        searchInputLabel = 'Search',
-      } = {},
-      startScreen: {
-        titleText = 'Search docs metadata',
-        helpText = 'Titles, descriptions, dates, categories, references, and slugs are indexed first. Body search can be added later.',
-      } = {},
-      noResultsScreen: { noResultsText = 'No results for' } = {},
-      resultsScreen: {
-        sourceText = 'Posts',
-        pathPrefix = 'blog / posts',
-        updatedText = 'Updated',
-      } = {},
+        resetButtonText,
+        resetButtonTitle,
+        resetButtonAriaLabel,
+        cancelButtonText,
+        cancelButtonAriaLabel,
+        searchInputLabel,
+      },
+      startScreen: { titleText, helpText },
+      noResultsScreen: { noResultsText },
+      resultsScreen: { sourceText, pathPrefix, updatedText },
       footer: {
-        selectText = 'Select',
-        selectKeyAriaLabel = 'Enter',
-        navigateText = 'Navigate',
-        navigateUpKeyAriaLabel = 'Arrow up',
-        navigateDownKeyAriaLabel = 'Arrow down',
-        closeText = 'Close',
-        closeKeyAriaLabel = 'Escape',
-      } = {},
-    } = {},
-  } = {},
+        selectText,
+        selectKeyAriaLabel,
+        navigateText,
+        navigateUpKeyAriaLabel,
+        navigateDownKeyAriaLabel,
+        closeText,
+        closeKeyAriaLabel,
+      },
+    },
+  },
 
   // TODO: From here
   documents,
