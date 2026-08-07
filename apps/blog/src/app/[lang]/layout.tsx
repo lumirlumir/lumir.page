@@ -12,26 +12,27 @@ import { type PropsWithChildren } from 'react';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 
-import { CursorSplash } from '@/components/cursor-splash';
-import { GoogleAnalytics } from '@/components/google-analytics';
-import { ThemeProvider } from '@/components/theme-context';
-import { ThemeScript } from '@/components/theme-script';
-
-import { AsideToggle } from '@/components/aside-toggle';
-
 import { Categories } from '@/components/aside/categories';
 import { Links } from '@/components/aside/links';
 import { Profile } from '@/components/aside/profile';
 
 import { DocSearch } from '@/components/header/doc-search';
+
+import { AsideToggle } from '@/components/aside-toggle';
+import { CursorSplash } from '@/components/cursor-splash';
+import { GoogleAnalytics } from '@/components/google-analytics';
 import { LangToggle } from '@/components/lang-toggle';
 import { ScrollProgress } from '@/components/scroll-progress';
-import { ThemeToggle } from '@/components/theme-toggle';
+import { ThemeScript } from '@/components/theme-script';
 import { Title } from '@/components/title';
+import { ThemeToggle } from '@/components/theme-toggle';
 
-import { GOOGLE_GA_ID } from '@/constants';
+import { ConfigProvider } from '@/contexts/config';
+import { ThemeProvider } from '@/contexts/theme';
+
 import { author } from '@/data/author';
 import { langKeys, type LangKey } from '@/data/lang';
+import { googleGaId } from '@/data/site';
 
 import '@/styles/index.css';
 import styles from './layout.module.css';
@@ -81,32 +82,34 @@ export default async function RootLayout({
     <html className="custom-scrollbar-y-bold" lang={lang} suppressHydrationWarning>
       <body className={styles.body}>
         <ThemeScript />
-        <CursorSplash />
-        <ThemeProvider>
-          <ScrollProgress className={styles['scroll-progress']} />
-          <header>
-            <Title lang={lang} />
-            <div>
-              <DocSearch />
-              <LangToggle lang={lang} />
-              <ThemeToggle lang={lang} />
-            </div>
-          </header>
-          <aside className="custom-scrollbar-y-regular">
-            <Profile lang={lang} />
-            <Links lang={lang} />
-            <Categories lang={lang} />
-          </aside>
-          <AsideToggle className={styles['aside-toggle']} lang={lang} />
-          <aside>{nav}</aside>
-          <main>
-            <article>{children}</article>
-          </main>
+        <ConfigProvider>
+          <ThemeProvider>
+            <CursorSplash />
+            <ScrollProgress className={styles['scroll-progress']} />
+            <header>
+              <Title lang={lang} />
+              <div>
+                <DocSearch />
+                <LangToggle lang={lang} />
+                <ThemeToggle lang={lang} />
+              </div>
+            </header>
+            <aside className="custom-scrollbar-y-regular">
+              <Profile lang={lang} />
+              <Links lang={lang} />
+              <Categories lang={lang} />
+            </aside>
+            <AsideToggle className={styles['aside-toggle']} lang={lang} />
+            <aside>{nav}</aside>
+            <main>
+              <article>{children}</article>
+            </main>
 
-          <Analytics />
-          <SpeedInsights />
-          <GoogleAnalytics gaId={GOOGLE_GA_ID} />
-        </ThemeProvider>
+            <Analytics />
+            <SpeedInsights />
+            <GoogleAnalytics gaId={googleGaId} />
+          </ThemeProvider>
+        </ConfigProvider>
       </body>
     </html>
   );

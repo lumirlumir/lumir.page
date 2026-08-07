@@ -9,8 +9,8 @@
 import { cn } from '@lumir/utils';
 
 import NeonDiv from '@/components/neon-div';
-import { useInterviewContext } from '@/contexts/interview-context';
-import { useScenarioContext } from '@/contexts/scenario-context';
+import { useInterviewContext } from '@/contexts/interview';
+import { useScenarioContext } from '@/contexts/scenario';
 
 import styles from './client.module.css';
 

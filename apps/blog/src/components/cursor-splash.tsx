@@ -19,7 +19,8 @@ import 'client-only';
 // --------------------------------------------------------------------------------
 
 import { CursorSplash as CursorSplashOriginal } from '@lumir/react-kit/components';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
+import { useConfigContext } from '@/contexts/config';
 import styles from './cursor-splash.module.css';
 
 // --------------------------------------------------------------------------------
@@ -37,13 +38,16 @@ const cursorSplashMediaQuery =
  * Renders the cursor splash effect when the consumer media query matches.
  */
 export function CursorSplash() {
-  const [enabled, setEnabled] = useState(false);
+  const [{ cursorSplash }, setConfig] = useConfigContext();
 
   useEffect(() => {
     const mediaQueryList = window.matchMedia(cursorSplashMediaQuery);
 
     function updateEnabled() {
-      setEnabled(mediaQueryList.matches);
+      setConfig(config => ({
+        ...config,
+        cursorSplash: mediaQueryList.matches,
+      }));
     }
 
     updateEnabled();
@@ -52,9 +56,9 @@ export function CursorSplash() {
     return () => {
       mediaQueryList.removeEventListener('change', updateEnabled);
     };
-  }, []);
+  }, [setConfig]);
 
-  if (!enabled) {
+  if (!cursorSplash) {
     return null;
   } else {
     return (

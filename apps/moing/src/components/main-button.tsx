@@ -11,9 +11,9 @@ import { cn } from '@lumir/utils';
 
 import NeonButton from '@/components/neon-button';
 import NeonFont from '@/components/neon-font';
-import { useConfigContext } from '@/contexts/config-context';
-import { useInterviewContext } from '@/contexts/interview-context';
-import { useScenarioContext } from '@/contexts/scenario-context';
+import { useConfigContext } from '@/contexts/config';
+import { useInterviewContext } from '@/contexts/interview';
+import { useScenarioContext } from '@/contexts/scenario';
 
 import styles from './main-button.module.css';
 

@@ -48,7 +48,7 @@ import rehypeKatex from 'rehype-katex';
 import rehypeStarryNight from 'rehype-starry-night';
 import rehypeStringify from 'rehype-stringify';
 import { unified } from 'unified';
-import { GITHUB_REPO_FULL_NAME } from '@/constants';
+import { githubRepoFullName } from '@/data/site';
 
 // --------------------------------------------------------------------------------
 // Typedef
@@ -94,7 +94,7 @@ export async function markdownToHtml(
     .use(remarkCustomHeadingId)
     .use(
       remarkGitHub, // Use after `remarkCustomHeadingId` to avoid converting issue/PR references syntax (e.g., `#1`) used in custom heading IDs into links by mistake.
-      { repository: GITHUB_REPO_FULL_NAME },
+      { repository: githubRepoFullName },
     )
     .use(remarkRehype, { allowDangerousHtml: true })
     .use(rehypeRaw)
