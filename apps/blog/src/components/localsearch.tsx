@@ -9,6 +9,12 @@
 'use client';
 
 // --------------------------------------------------------------------------------
+// Environment
+// --------------------------------------------------------------------------------
+
+import 'client-only';
+
+// --------------------------------------------------------------------------------
 // Import
 // --------------------------------------------------------------------------------
 
@@ -213,6 +219,67 @@ export interface SearchClientProps {
          * @default "Titles, descriptions, dates, categories, references, and slugs are indexed first. Body search can be added later."
          */
         readonly helpText?: string;
+
+        /**
+         * The title for recent searches.
+         *
+         * @default "Recent Searches"
+         */
+        readonly recentSearchesTitle?: string;
+
+        /**
+         * The text displayed when there are no recent searches.
+         *
+         * @default "No recent searches."
+         */
+        readonly noRecentSearchesText?: string;
+
+        /**
+         * The title for the button that saves a recent search.
+         *
+         * @default "Save this search"
+         */
+        readonly saveRecentSearchButtonTitle?: string;
+
+        /**
+         * The title for the button that removes a recent search.
+         *
+         * @default "Remove this search from history"
+         */
+        readonly removeRecentSearchButtonTitle?: string;
+
+        /**
+         * The title for favorite searches.
+         *
+         * @default "Favorite"
+         */
+        readonly favoriteSearchesTitle?: string;
+
+        /**
+         * The title for the button that removes a favorite search.
+         *
+         * @default "Remove this search from favorites"
+         */
+        readonly removeFavoriteSearchButtonTitle?: string;
+      };
+
+      /**
+       * Translations for the error screen.
+       */
+      readonly errorScreen?: {
+        /**
+         * The error screen title.
+         *
+         * @default "Unable to fetch results"
+         */
+        readonly titleText?: string;
+
+        /**
+         * The error screen help text.
+         *
+         * @default "You might want to check your network connection."
+         */
+        readonly helpText?: string;
       };
 
       /**
@@ -225,6 +292,27 @@ export interface SearchClientProps {
          * @default "No results for"
          */
         readonly noResultsText?: string;
+
+        /**
+         * The text displayed before a suggested query.
+         *
+         * @default "Try searching for"
+         */
+        readonly suggestedQueryText?: string;
+
+        /**
+         * The text prompting users to report missing results.
+         *
+         * @default "Believe this query should return results?"
+         */
+        readonly reportMissingResultsText?: string;
+
+        /**
+         * The text for the link that reports missing results.
+         *
+         * @default "Let us know."
+         */
+        readonly reportMissingResultsLinkText?: string;
       };
 
       /**
@@ -305,6 +393,13 @@ export interface SearchClientProps {
          * @default "Escape"
          */
         readonly closeKeyAriaLabel?: string;
+
+        /**
+         * The text displayed before the search provider name.
+         *
+         * @default ""
+         */
+        readonly searchByText?: string;
       };
     };
   };
