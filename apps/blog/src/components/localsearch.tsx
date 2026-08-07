@@ -19,7 +19,6 @@ import 'client-only';
 // --------------------------------------------------------------------------------
 
 import MiniSearch from 'minisearch';
-import { type Route } from 'next';
 import { useRouter } from 'next/navigation';
 import {
   useCallback,
@@ -299,14 +298,6 @@ export interface LocalSearchProps {
 }
 
 // --------------------------------------------------------------------------------
-// Helper
-// --------------------------------------------------------------------------------
-
-function getPostHref(lang: LangKey, slug: string): Route {
-  return `/${lang}/posts/${slug}` as Route;
-}
-
-// --------------------------------------------------------------------------------
 // Export
 // --------------------------------------------------------------------------------
 
@@ -441,7 +432,7 @@ export function LocalSearch({
 
   function navigateToResult(document: SearchDocument) {
     closeDialog();
-    router.push(getPostHref(lang, document.slug));
+    router.push(`/${lang}/posts/${document.slug}`);
   }
 
   function onDialogClose() {
