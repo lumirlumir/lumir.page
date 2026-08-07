@@ -32,7 +32,7 @@ import {
   type ReactNode,
 } from 'react';
 import { type Frontmatter } from '@/data/frontmatter';
-import { type LangKey } from '@/data/lang';
+import { type PropsWithLang } from '@/data/lang';
 import styles from './localsearch.module.css';
 
 // --------------------------------------------------------------------------------
@@ -65,11 +65,6 @@ export interface SearchDocument extends Frontmatter {
  * Props for the `SearchClient` component.
  */
 export interface LocalSearchProps {
-  /**
-   * Language key used to build localized result routes.
-   */
-  readonly lang: LangKey;
-
   /**
    * Search documents to index on the client.
    */
@@ -293,13 +288,6 @@ export interface LocalSearchProps {
    * @default 10
    */
   readonly maxResults?: number;
-
-  /**
-   * The placeholder for the search input.
-   *
-   * @default "Search"
-   */
-  readonly placeholder?: string;
 }
 
 // --------------------------------------------------------------------------------
@@ -338,7 +326,7 @@ export function LocalSearch({
   },
   icon = undefined,
   maxResults = 10,
-}: LocalSearchProps) {
+}: PropsWithLang<LocalSearchProps>) {
   const dialogRef = useRef<HTMLDialogElement | null>(null);
   const inputRef = useRef<HTMLInputElement | null>(null);
   const router = useRouter();
