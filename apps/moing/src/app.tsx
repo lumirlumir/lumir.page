@@ -14,7 +14,6 @@ import {
   GrPowerReset,
   IoIosCheckmarkCircleOutline,
 } from '@lumir/react-kit/svgs';
-import { cn } from '@lumir/utils';
 
 import Button from '@/components/button';
 import Client from '@/components/client';
@@ -84,9 +83,9 @@ export default function App() {
         }}
       />
 
-      <Timer currentCount={currentCount} />
+      <Timer className="timer" currentCount={currentCount} />
 
-      <main className={cn('flex-center', 'custom-scrollbar')}>
+      <main className="custom-scrollbar">
         <div ref={scrollRef}>
           <Title />
           <Server

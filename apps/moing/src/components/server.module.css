@@ -1,5 +1,6 @@
 .server {
   height: var(--main-section-height);
+  transition: var(--transition);
 
   &.wide {
     height: 600px;

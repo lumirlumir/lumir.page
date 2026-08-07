@@ -7,7 +7,10 @@
   list-style: none;
 
   & > li > a {
+    display: flex;
     gap: 7px;
+    align-items: center;
+    justify-content: center;
     padding: 7px 9px;
     color: inherit;
     text-decoration: none;
@@ -26,6 +29,9 @@
     }
 
     & > span {
+      display: flex;
+      align-items: center;
+      justify-content: center;
       width: auto;
       font-family: var(--font-stack-monospace);
       font-size: 0.58rem;

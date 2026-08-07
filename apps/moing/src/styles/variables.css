@@ -16,4 +16,5 @@
   --main-section-width: 620px;
   --main-section-height: max(150px, 20vh);
   --main-section-padding: 40px;
+  --transition: all 2s ease-in-out;
 }

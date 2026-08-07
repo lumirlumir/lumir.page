@@ -25,7 +25,6 @@ export default function Title() {
     <div
       className={cn(
         styles.title,
-        'transition',
         'select-none',
         'custom-main-others',
         status === 'hidden' && 'pointer-events-none opacity-0',

@@ -61,6 +61,9 @@
       grid-column: 3;
 
       & > span {
+        display: flex;
+        align-items: center;
+        justify-content: center;
         width: 22px;
         height: 22px;
         font-family: var(--font-stack-monospace);

@@ -1,5 +1,6 @@
 .client {
   height: var(--main-section-height);
+  transition: var(--transition);
 
   & > div {
     width: 100%;
