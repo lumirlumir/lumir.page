@@ -11,6 +11,7 @@ import {
   useBooleanState,
   useCountdown,
   useIsomorphicLayoutEffect,
+  useOs,
   usePrevious,
   usePreviousDistinct,
   useScroll,
@@ -39,6 +40,11 @@ describe('index', () => {
     it('`useIsomorphicLayoutEffect` should be defined', () => {
       assert.isDefined(useIsomorphicLayoutEffect);
       assert.strictEqual(typeof useIsomorphicLayoutEffect, 'function');
+    });
+
+    it('`useOs` should be defined', () => {
+      assert.isDefined(useOs);
+      assert.strictEqual(typeof useOs, 'function');
     });
 
     it('`usePrevious` should be defined', () => {

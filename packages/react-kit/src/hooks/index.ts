@@ -1,6 +1,7 @@
 export * from './use-boolean-state.js';
 export * from './use-countdown.js';
 export * from './use-isomorphic-layout-effect.js';
+export * from './use-os.js';
 export * from './use-previous.js';
 export * from './use-previous-distinct.js';
 export * from './use-scroll.js';
