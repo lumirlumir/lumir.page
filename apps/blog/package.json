@@ -18,8 +18,6 @@
     "generate:github-contributions": "node scripts/generate-github-contributions.ts"
   },
   "dependencies": {
-    "@docsearch/css": "^3.9.0",
-    "@docsearch/react": "^3.9.0",
     "@giscus/react": "^3.1.0",
     "@lumir/react-kit": "*",
     "@lumir/rehype-plugins": "*",
@@ -32,6 +30,7 @@
     "client-only": "^0.0.1",
     "katex": "^0.18.1",
     "mdast-util-to-string": "^4.0.0",
+    "minisearch": "^7.2.0",
     "next": "^16.3.0",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
