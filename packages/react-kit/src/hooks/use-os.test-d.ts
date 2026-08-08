@@ -13,7 +13,7 @@ import { useOs, type UseOsReturn } from './use-os.js';
 // --------------------------------------------------------------------------------
 
 // --------------------------------------------------------------------------------
-// #region UseOsReturnValue
+// #region UseOsReturn
 
 let os: UseOsReturn;
 
@@ -30,7 +30,7 @@ os = 'mac';
 // @ts-expect-error - `UseOsReturnValue` should be a string union.
 os = true;
 
-// #endregion UseOsReturnValue
+// #endregion UseOsReturn
 // --------------------------------------------------------------------------------
 
 // --------------------------------------------------------------------------------
