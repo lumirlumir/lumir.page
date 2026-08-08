@@ -17,6 +17,7 @@ import { useOs } from './use-os.js';
 describe('use-os', () => {
   afterEach(() => {
     vi.restoreAllMocks();
+    Reflect.deleteProperty(document, 'ontouchend');
   });
 
   it('`Macintosh` user agent should return `macos`', async () => {
@@ -97,8 +98,6 @@ describe('use-os', () => {
     const { result } = await renderHook(() => useOs());
 
     assert.strictEqual(result.current, 'ios');
-
-    Reflect.deleteProperty(document, 'ontouchend');
   });
 
   it('`Win32` user agent should return `windows`', async () => {
