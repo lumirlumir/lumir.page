@@ -25,9 +25,9 @@ os = 'android';
 os = 'linux';
 os = 'chromeos';
 
-// @ts-expect-error - `mac` is not a valid `UseOsReturnValue`.
+// @ts-expect-error - `mac` is not a valid `UseOsReturn`.
 os = 'mac';
-// @ts-expect-error - `UseOsReturnValue` should be a string union.
+// @ts-expect-error - `UseOsReturn` should be a string union.
 os = true;
 
 // #endregion UseOsReturn
