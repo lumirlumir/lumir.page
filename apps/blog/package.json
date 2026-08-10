@@ -18,7 +18,7 @@
     "generate:github-contributions": "node scripts/generate-github-contributions.ts"
   },
   "dependencies": {
-    "@docsearch/css": "^3.9.0",
+    "@docsearch/css": "^5.0.0",
     "@docsearch/react": "^3.9.0",
     "@giscus/react": "^3.1.0",
     "@lumir/react-kit": "*",
