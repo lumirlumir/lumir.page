@@ -20,7 +20,7 @@
     "number": 187,
     "title": "GFM autolink nodes can be emitted without position information",
     "createdAt": "2026-07-31T15:17:45Z",
-    "closedAt": null,
+    "closedAt": "2026-08-04T12:45:46Z",
     "reactions": {
       "+1": 0
     }
@@ -98,7 +98,7 @@
     "number": 257,
     "title": "Change Request: Restrict access to internal modules by declaring `\"exports\": {}` in `package.json`",
     "createdAt": "2026-07-15T02:15:53Z",
-    "closedAt": null,
+    "closedAt": "2026-08-10T05:24:18Z",
     "reactions": {
       "+1": 1
     }
