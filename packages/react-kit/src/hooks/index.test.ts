@@ -15,6 +15,7 @@ import {
   usePrevious,
   usePreviousDistinct,
   useScroll,
+  useScrollProgress,
   useShortcut,
   useSpeechRecognition,
   useToggle,
@@ -60,6 +61,11 @@ describe('index', () => {
     it('`useScroll` should be defined', () => {
       assert.isDefined(useScroll);
       assert.strictEqual(typeof useScroll, 'function');
+    });
+
+    it('`useScrollProgress` should be defined', () => {
+      assert.isDefined(useScrollProgress);
+      assert.strictEqual(typeof useScrollProgress, 'function');
     });
 
     it('`useShortcut` should be defined', () => {
