@@ -1,6 +1,45 @@
 [
   {
     "repositoryUrl": "https://api.github.com/repos/bruits/satteri",
+    "htmlUrl": "https://github.com/bruits/satteri/issues/211",
+    "id": 5138837224,
+    "nodeId": "I_kwDORtxNZM8AAAABMkxu6A",
+    "number": 211,
+    "title": "Parenthesized link titles containing an opening parenthesis are not parsed as links",
+    "createdAt": "2026-08-13T07:16:13Z",
+    "closedAt": "2026-08-14T00:01:51Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/bruits/satteri",
+    "htmlUrl": "https://github.com/bruits/satteri/issues/210",
+    "id": 5138764074,
+    "nodeId": "I_kwDORtxNZM8AAAABMktRKg",
+    "number": 210,
+    "title": "Disabling GFM still applies tilde-related emphasis delimiter behavior",
+    "createdAt": "2026-08-13T07:06:37Z",
+    "closedAt": "2026-08-13T08:59:04Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/bruits/satteri",
+    "htmlUrl": "https://github.com/bruits/satteri/issues/209",
+    "id": 5138738361,
+    "nodeId": "I_kwDORtxNZM8AAAABMkrsuQ",
+    "number": 209,
+    "title": "Native binding version enforcement expects 0.8.1 for satteri 0.9.5",
+    "createdAt": "2026-08-13T07:02:58Z",
+    "closedAt": null,
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/bruits/satteri",
     "htmlUrl": "https://github.com/bruits/satteri/issues/194",
     "id": 5054181154,
     "nodeId": "I_kwDORtxNZM8AAAABLUCvIg",
