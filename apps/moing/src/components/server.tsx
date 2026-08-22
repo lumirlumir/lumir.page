@@ -6,16 +6,15 @@
 // Import
 // --------------------------------------------------------------------------------
 
-import { useEffect, useLayoutEffect, useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import { Typewriter } from '@lumir/react-kit/components';
-import { useScroll } from '@lumir/react-kit/hooks';
+import { usePreviousDistinct, useScroll } from '@lumir/react-kit/hooks';
 import { cn } from '@lumir/utils';
 
 import NeonDiv from '@/components/neon-div';
-import { useConfigContext } from '@/contexts/config-context';
-import { useScenarioContext } from '@/contexts/scenario-context';
-import useInterview from '@/hooks/use-interview';
-import useHistoryState from '@/hooks/use-history-state';
+import { useConfigContext } from '@/contexts/config';
+import { useInterviewContext } from '@/contexts/interview';
+import { useScenarioContext } from '@/contexts/scenario';
 
 import styles from './server.module.css';
 
@@ -24,7 +23,6 @@ import styles from './server.module.css';
 // --------------------------------------------------------------------------------
 
 interface ServerProps {
-  interview: ReturnType<typeof useInterview>;
   onTestWriteComplete: () => void;
 }
 
@@ -53,14 +51,13 @@ function formatContent(content: string) {
 // Export
 // --------------------------------------------------------------------------------
 
-export default function Server({ interview, onTestWriteComplete }: ServerProps) {
+export default function Server({ onTestWriteComplete }: ServerProps) {
   const { config } = useConfigContext();
+  const { question, getInterviewInfo, isInterviewDone, getInterviewHistory } =
+    useInterviewContext();
   const { section, toNextSection } = useScenarioContext();
   const { content, mode, status } = section.server;
-  const { question, getInterviewInfo, isInterviewDone, getInterviewHistory } = interview;
   const [scrollRef, scroll] = useScroll<HTMLDivElement>({ behavior: 'smooth' });
-  const { historyState, addHistory } = useHistoryState<string>();
-
   const text = useMemo(() => {
     if (mode === 'test') {
       return question === null
@@ -74,14 +71,11 @@ export default function Server({ interview, onTestWriteComplete }: ServerProps) 
       return formatContent(content);
     }
   }, [mode, content, question, getInterviewInfo, getInterviewHistory]);
-
-  useLayoutEffect(() => {
-    addHistory(text);
-  }, [text, addHistory]);
+  const previousHistory = usePreviousDistinct<string>(text, { history: true });
 
   useEffect(() => {
     if (mode === 'test' && isInterviewDone()) toNextSection();
-  }, [question, isInterviewDone, toNextSection, mode]);
+  }, [mode, question, isInterviewDone, toNextSection]);
 
   return (
     <NeonDiv
@@ -90,13 +84,12 @@ export default function Server({ interview, onTestWriteComplete }: ServerProps) 
         'custom-scrollbar',
         'custom-main-section',
         'custom-main-section-bash',
-        'transition',
         status !== 'hidden' && !config.visibility ? '' : 'custom-invisible-section',
         mode === 'result' && styles.wide,
       )}
       neonColor="black"
     >
-      <div>{historyState.slice(0, -1)}</div>
+      <div>{previousHistory}</div>
       <div>
         <Typewriter
           key={text}

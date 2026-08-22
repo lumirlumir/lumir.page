@@ -3,6 +3,7 @@
   top: 0;
   z-index: 100;
   pointer-events: none;
+  transition: var(--transition);
 
   & h1 {
     margin: 0;

@@ -1,3 +1,15 @@
+.react-icons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sort {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .list {
   padding: 0;
   margin: 0;
@@ -14,8 +26,8 @@
   display: grid;
   grid-template-rows: var(--grid-template-rows-1) var(--grid-template-rows-2);
   grid-template-columns: var(--grid-template-columns) 1fr var(--grid-template-columns);
-  padding: var(--size-8) 0;
-  margin: var(--size-4) 0;
+  padding: var(--spacing-static-sm) 0;
+  margin: var(--spacing-static-xs) 0;
   cursor: pointer;
 
   & > div.react-icons {
@@ -24,27 +36,23 @@
     & > svg {
       width: var(--size-24);
       height: var(--size-24);
-    }
-  }
-
-  &:hover {
-    & > div.react-icons {
-      animation: var(--animation-shake);
+      transform-origin: center;
+      transform-box: fill-box;
     }
   }
 
   & > div.name-en {
     grid-area: 1 / 2 / 2 / 3;
-    font-size: var(--size-16);
-    font-weight: var(--text-weight-medium);
-    letter-spacing: var(--size-letter-spacing-large);
+    font-size: var(--font-size-md);
+    font-weight: var(--font-weight-medium);
+    letter-spacing: var(--letter-spacing-tightest);
   }
 
   & > div.name-ko {
     grid-area: 2 / 2 / 3 / 3;
-    font-size: var(--size-11);
+    font-size: var(--font-size-xs);
     color: var(--color-fg-muted);
-    letter-spacing: var(--size-letter-spacing-medium);
+    letter-spacing: var(--letter-spacing-tighter);
   }
 
   & > div.sort {
@@ -53,6 +61,12 @@
     & > svg {
       width: var(--size-24);
       height: var(--size-24);
+    }
+  }
+
+  &:hover {
+    & > div.react-icons > svg {
+      animation: var(--animation-shake);
     }
   }
 }

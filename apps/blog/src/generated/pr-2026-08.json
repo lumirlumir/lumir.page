@@ -1,0 +1,80 @@
+[
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/markdown",
+    "htmlUrl": "https://github.com/eslint/markdown/pull/712",
+    "id": 5139499037,
+    "nodeId": "PR_kwDOAkm7Hs7-e294",
+    "number": 712,
+    "title": "docs: describe default values for `frontmatter` and `math` options",
+    "createdAt": "2026-08-13T08:42:50Z",
+    "closedAt": "2026-08-13T10:15:22Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/markdown",
+    "htmlUrl": "https://github.com/eslint/markdown/pull/711",
+    "id": 5139403596,
+    "nodeId": "PR_kwDOAkm7Hs7-ejiX",
+    "number": 711,
+    "title": "chore: apply EditorConfig formatting to existing files",
+    "createdAt": "2026-08-13T08:30:22Z",
+    "closedAt": "2026-08-13T16:15:53Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint",
+    "htmlUrl": "https://github.com/eslint/eslint/pull/21202",
+    "id": 5098052016,
+    "nodeId": "PR_kwDOAKjKDc78bBWe",
+    "number": 21202,
+    "title": "docs: update ESLint peer dependency to `^10.0.0` in shareable configs",
+    "createdAt": "2026-08-08T15:00:46Z",
+    "closedAt": "2026-08-09T07:15:05Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/create-config",
+    "htmlUrl": "https://github.com/eslint/create-config/pull/262",
+    "id": 5098004060,
+    "nodeId": "PR_kwDOFqe-is78a4UH",
+    "number": 262,
+    "title": "feat!: restrict access to internal modules",
+    "createdAt": "2026-08-08T14:48:20Z",
+    "closedAt": "2026-08-10T05:24:17Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/markdown",
+    "htmlUrl": "https://github.com/eslint/markdown/pull/708",
+    "id": 5068009814,
+    "nodeId": "PR_kwDOAkm7Hs7662Wb",
+    "number": 708,
+    "title": "fix: add `mdast` type augmentation for TOML and JSON nodes",
+    "createdAt": "2026-08-05T06:25:31Z",
+    "closedAt": "2026-08-05T15:42:25Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/toss/react-simplikit",
+    "htmlUrl": "https://github.com/toss/react-simplikit/pull/379",
+    "id": 4463543117,
+    "nodeId": "PR_kwDONc-1Qs7cYF-b",
+    "number": 379,
+    "title": "fix(usePrevious): opt out `usePrevious` hook from React Compiler",
+    "createdAt": "2026-05-17T12:58:01Z",
+    "closedAt": "2026-08-17T06:09:56Z",
+    "reactions": {
+      "+1": 0
+    }
+  }
+]

@@ -1,0 +1,123 @@
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  & > button {
+    --light-color: var(--color-fg-default);
+    --dark-color: var(--color-bg-inset);
+    --sun-color: #f9d71c;
+    --circle-size: 2rem;
+    --duration: 0.5s;
+    --timing: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--circle-size);
+    height: var(--circle-size);
+    padding: 0;
+    overflow: hidden;
+    cursor: pointer;
+    background: none;
+    border: 0;
+    border-radius: var(--border-radius-circle);
+    transform: rotate(0deg);
+    transition: all var(--duration) var(--timing);
+
+    &:hover {
+      animation: var(--animation-shake);
+    }
+
+    & .orb {
+      display: block;
+      width: 80%;
+      height: 80%;
+      background-color: var(--light-color);
+      border-radius: var(--border-radius-circle);
+      transition: all var(--duration) var(--timing);
+    }
+
+    & .shadow {
+      position: absolute;
+      top: -5%;
+      right: 0;
+      display: block;
+      width: 80%;
+      height: 80%;
+      background-color: var(--dark-color);
+      border-radius: var(--border-radius-circle);
+      transform: rotate(20deg);
+      transform-origin: 100% 100%;
+      transition:
+        all var(--duration) var(--timing),
+        background-color 0s;
+    }
+
+    & .sunray {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      display: block;
+      width: calc(var(--circle-size) * 0.12);
+      height: 20%;
+      opacity: 0;
+      transition: all var(--duration) var(--timing);
+
+      &::before,
+      &::after {
+        position: absolute;
+        left: 0;
+        width: calc(var(--circle-size) * 0.12);
+        height: calc(var(--circle-size) * 0.12);
+        content: '';
+        background-color: var(--sun-color);
+        border-radius: var(--border-radius-circle);
+      }
+
+      &::before {
+        top: 0;
+      }
+
+      &::after {
+        bottom: 0;
+      }
+    }
+
+    & .sunray1 {
+      transform: translate(-50%, -50%);
+    }
+
+    & .sunray2 {
+      transform: translate(-50%, -50%) rotate(45deg);
+    }
+
+    & .sunray3 {
+      transform: translate(-50%, -50%) rotate(90deg);
+    }
+
+    & .sunray4 {
+      transform: translate(-50%, -50%) rotate(135deg);
+    }
+
+    html[data-theme='light'] & {
+      transform: rotate(45deg);
+
+      & .orb {
+        width: 50%;
+        height: 50%;
+        background-color: var(--sun-color);
+      }
+
+      & .shadow {
+        transform: rotate(90deg);
+      }
+
+      & .sunray {
+        height: 90%;
+        opacity: 1;
+      }
+    }
+  }
+}

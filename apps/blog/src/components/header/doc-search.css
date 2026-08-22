@@ -31,19 +31,19 @@
   width: 100%;
   height: 100%;
   margin: 0;
-  border-radius: var(--size-border-radius);
+  border-radius: var(--border-radius-md);
   transition: all 0.3s ease-in-out;
 
   &:hover {
     background-color: var(--color-bg-neutral-muted);
-    border-radius: var(--size-border-radius);
+    border-radius: var(--border-radius-md);
     box-shadow: none;
   }
 }
 
 .DocSearch-Button-Placeholder {
-  font-size: var(--size-14);
-  letter-spacing: var(--size-letter-spacing-medium);
+  font-size: var(--font-size-sm);
+  letter-spacing: var(--letter-spacing-tighter);
 }
 
 .DocSearch-Search-Icon {
@@ -54,10 +54,10 @@
 }
 
 .DocSearch-Cancel {
-  font-size: var(--size-14);
-  font-weight: var(--text-weight-semibold);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
   color: var(--color-fg-default);
-  letter-spacing: var(--size-letter-spacing-small);
+  letter-spacing: var(--letter-spacing-tight);
 }
 
 .DocSearch-Logo {
@@ -68,9 +68,9 @@
 }
 
 .DocSearch-Hit-source {
-  font-size: var(--size-16);
+  font-size: var(--font-size-md);
   color: var(--color-fg-default);
-  letter-spacing: var(--size-letter-spacing-small);
+  letter-spacing: var(--letter-spacing-tight);
 }
 
 .DocSearch-Button-Key,
@@ -78,11 +78,11 @@
   width: fit-content;
   padding: var(--size-2) var(--size-4);
   font-family: var(--font-stack-monospace);
-  font-size: var(--size-12);
+  font-size: var(--font-size-xs);
   color: var(--color-fg-default);
   background-color: var(--color-bg-muted);
   border: solid 1px var(--color-border-neutral-muted);
-  border-radius: var(--size-border-radius);
+  border-radius: var(--border-radius-md);
   box-shadow: inset 0 -1px 0 var(--color-border-neutral-muted);
 }
 

@@ -1,9 +1,3 @@
-.custom-flex-center {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
 .custom-scrollbar {
   overflow-y: auto;
 
@@ -26,7 +20,7 @@
   width: var(--main-section-width);
   padding: var(--main-section-padding);
   margin: 40px auto;
-  line-height: 1.5;
+  line-height: var(--line-height-normal);
 }
 
 .custom-main-section-bash {
@@ -47,11 +41,6 @@
 /* Filters: https://tailwindcss.com/docs/opacity */
 .opacity-0 {
   opacity: 0;
-}
-
-/* Transitions & Animation: https://tailwindcss.com/docs/transition-property */
-.transition {
-  transition: all 2s ease-in-out;
 }
 
 /* Interactivity: https://tailwindcss.com/docs/pointer-events */

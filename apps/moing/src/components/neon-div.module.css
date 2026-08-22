@@ -1,6 +1,6 @@
 .neon-div {
   border: 2px solid var(--neon-color);
-  border-radius: 12px;
+  border-radius: var(--border-radius-xl);
 
   /**
    * 1st line: glass tube inside

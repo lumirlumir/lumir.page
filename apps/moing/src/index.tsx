@@ -9,8 +9,9 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 
-import { ConfigProvider } from '@/contexts/config-context';
-import { ScenarioProvider } from '@/contexts/scenario-context';
+import { ConfigProvider } from '@/contexts/config';
+import { InterviewProvider } from '@/contexts/interview';
+import { ScenarioProvider } from '@/contexts/scenario';
 
 import App from './app';
 
@@ -23,9 +24,11 @@ import '@/styles/index.css';
 createRoot(document.getElementById('app') as HTMLDivElement).render(
   <StrictMode>
     <ConfigProvider>
-      <ScenarioProvider>
-        <App />
-      </ScenarioProvider>
+      <InterviewProvider>
+        <ScenarioProvider>
+          <App />
+        </ScenarioProvider>
+      </InterviewProvider>
     </ConfigProvider>
   </StrictMode>,
 );

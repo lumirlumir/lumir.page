@@ -12,31 +12,30 @@ import { type PropsWithChildren } from 'react';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 
-import { GoogleAnalytics } from '@/components/common/google-analytics';
-import { ThemeProvider } from '@/components/common/theme-context';
-import ThemeScript from '@/components/common/theme-script';
+import { Categories } from '@/components/aside/categories';
+import { Links } from '@/components/aside/links';
+import { Profile } from '@/components/aside/profile';
 
-import Aside from '@/components/layouts/aside';
-import Body from '@/components/layouts/body';
-import Header from '@/components/layouts/header';
-import Main from '@/components/layouts/main';
+import { DocSearch } from '@/components/header/doc-search';
 
-import Categories from '@/components/aside/categories';
-import Links from '@/components/aside/links';
-import Profile from '@/components/aside/profile';
+import { AsideToggle } from '@/components/aside-toggle';
+import { CursorSplash } from '@/components/cursor-splash';
+import { GoogleAnalytics } from '@/components/google-analytics';
+import { LangToggle } from '@/components/lang-toggle';
+import { ScrollProgress } from '@/components/scroll-progress';
+import { ThemeScript } from '@/components/theme-script';
+import { Title } from '@/components/title';
+import { ThemeToggle } from '@/components/theme-toggle';
 
-import DocSearch from '@/components/header/doc-search';
-import FlexContainer from '@/components/header/flex-container';
-import LangToggle from '@/components/header/lang-toggle';
-import ScrollProgress from '@/components/header/scroll-progress';
-import ThemeToggle from '@/components/header/theme-toggle';
-import Title from '@/components/header/title';
+import { ConfigProvider } from '@/contexts/config';
+import { ThemeProvider } from '@/contexts/theme';
 
-import { GOOGLE_GA_ID } from '@/constants';
+import { author } from '@/data/author';
 import { langKeys, type LangKey } from '@/data/lang';
-import { getGithubUsers } from '@/utils/fetch';
+import { googleGaId } from '@/data/site';
 
 import '@/styles/index.css';
+import styles from './layout.module.css';
 
 // --------------------------------------------------------------------------------
 // Named Export
@@ -57,17 +56,13 @@ export function generateStaticParams(): Awaited<PageProps<'/[lang]'>['params']>[
   }));
 }
 
-export async function generateMetadata(): Promise<Metadata> {
-  const { bio, name } = await getGithubUsers();
-
-  return {
-    title: {
-      template: `%s | ${name}`,
-      default: name,
-    },
-    description: bio,
-  };
-}
+export const metadata: Metadata = {
+  title: {
+    template: `%s | ${author.lumirlumir.name}`,
+    default: author.lumirlumir.name,
+  },
+  description: author.lumirlumir.bio,
+};
 
 // --------------------------------------------------------------------------------
 // Default Export
@@ -75,6 +70,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function RootLayout({
   children,
+  nav,
   params,
 }: PropsWithChildren<LayoutProps<'/[lang]'>>) {
   const awaitedParams = await params;
@@ -84,30 +80,37 @@ export default async function RootLayout({
     // Use `suppressHydrationWarning` because `ThemeScript` may change the initial `data-theme`.
     // https://react.dev/reference/react-dom/client/hydrateRoot#suppressing-unavoidable-hydration-mismatch-errors
     <html className="custom-scrollbar-y-bold" lang={lang} suppressHydrationWarning>
-      <Body>
+      <body className={styles.body}>
         <ThemeScript />
-        <ThemeProvider>
-          <ScrollProgress />
-          <Header>
-            <Title lang={lang} />
-            <FlexContainer>
-              <DocSearch />
-              <LangToggle lang={lang} />
-              <ThemeToggle />
-            </FlexContainer>
-          </Header>
-          <Aside>
-            <Profile lang={lang} />
-            <Links lang={lang} />
-            <Categories lang={lang} />
-          </Aside>
-          <Main>{children}</Main>
+        <ConfigProvider>
+          <ThemeProvider>
+            <CursorSplash />
+            <ScrollProgress className={styles['scroll-progress']} />
+            <header>
+              <Title lang={lang} />
+              <div>
+                <DocSearch />
+                <LangToggle lang={lang} />
+                <ThemeToggle lang={lang} />
+              </div>
+            </header>
+            <aside className="custom-scrollbar-y-regular">
+              <Profile lang={lang} />
+              <Links lang={lang} />
+              <Categories lang={lang} />
+            </aside>
+            <AsideToggle className={styles['aside-toggle']} lang={lang} />
+            <aside>{nav}</aside>
+            <main>
+              <article>{children}</article>
+            </main>
 
-          <Analytics />
-          <SpeedInsights />
-          <GoogleAnalytics gaId={GOOGLE_GA_ID} />
-        </ThemeProvider>
-      </Body>
+            <Analytics />
+            <SpeedInsights />
+            <GoogleAnalytics gaId={googleGaId} />
+          </ThemeProvider>
+        </ConfigProvider>
+      </body>
     </html>
   );
 }

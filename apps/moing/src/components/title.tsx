@@ -9,7 +9,7 @@
 import { cn } from '@lumir/utils';
 
 import NeonFont from '@/components/neon-font';
-import { useScenarioContext } from '@/contexts/scenario-context';
+import { useScenarioContext } from '@/contexts/scenario';
 
 import styles from './title.module.css';
 
@@ -25,7 +25,6 @@ export default function Title() {
     <div
       className={cn(
         styles.title,
-        'transition',
         'select-none',
         'custom-main-others',
         status === 'hidden' && 'pointer-events-none opacity-0',

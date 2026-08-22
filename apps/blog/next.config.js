@@ -22,6 +22,7 @@ const isAnalyze = process.argv.includes('experimental-analyze');
 
 /** @type {import('next').NextConfig} */
 export default {
+  agentRules: false, // The repository root already provides Next.js agent rules.
   pageExtensions: ['js', 'mjs', 'jsx', 'ts', 'mts', 'tsx', 'md', 'mdx'],
   images: {
     unoptimized: true, // For static export, we need to disable image optimization.

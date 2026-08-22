@@ -14,7 +14,6 @@ import {
   GrPowerReset,
   IoIosCheckmarkCircleOutline,
 } from '@lumir/react-kit/svgs';
-import { cn } from '@lumir/utils';
 
 import Button from '@/components/button';
 import Client from '@/components/client';
@@ -23,9 +22,9 @@ import MainButton from '@/components/main-button';
 import Server from '@/components/server';
 import Timer from '@/components/timer';
 import Title from '@/components/title';
-import { useConfigContext } from '@/contexts/config-context';
-import { useScenarioContext } from '@/contexts/scenario-context';
-import useInterview from '@/hooks/use-interview';
+import { useConfigContext } from '@/contexts/config';
+import { useInterviewContext } from '@/contexts/interview';
+import { useScenarioContext } from '@/contexts/scenario';
 
 import './app.css';
 
@@ -35,11 +34,11 @@ import './app.css';
 
 export default function App() {
   const { config, updateConfig } = useConfigContext();
+  const { listening, submit, toggleListening } = useInterviewContext();
   const { section } = useScenarioContext();
-  const interview = useInterview<HTMLDivElement>();
   const initialCount = config.time * 60 * 1_000;
   const [currentCount, setCurrentCount] = useCountdown(initialCount, {
-    onComplete: interview.submit,
+    onComplete: submit,
   });
   const [scrollRef, scroll] = useScroll<HTMLDivElement>({ behavior: 'smooth' });
 
@@ -63,9 +62,9 @@ export default function App() {
       <Button
         type="speech"
         icon={<CiMicrophoneOn size="40px" />}
-        hoverEffect={interview.listening}
+        hoverEffect={listening}
         onClick={() => {
-          interview.toggleListening();
+          toggleListening();
         }}
       />
       <Button
@@ -79,25 +78,24 @@ export default function App() {
         type="submit"
         icon={<IoIosCheckmarkCircleOutline size="39px" />}
         onClick={() => {
-          interview.submit();
+          submit();
           setCurrentCount(0);
         }}
       />
 
-      <Timer currentCount={currentCount} />
+      <Timer className="timer" currentCount={currentCount} />
 
-      <main className={cn('custom-flex-center', 'custom-scrollbar')}>
+      <main className="custom-scrollbar">
         <div ref={scrollRef}>
           <Title />
           <Server
-            interview={interview}
             onTestWriteComplete={() => {
               setCurrentCount(initialCount);
             }}
           />
-          <Client interview={interview} />
+          <Client />
           <Config />
-          <MainButton interview={interview} />
+          <MainButton />
         </div>
       </main>
     </>

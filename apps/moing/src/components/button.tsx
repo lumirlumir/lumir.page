@@ -11,7 +11,9 @@ import { cn } from '@lumir/utils';
 
 import NeonButton from '@/components/neon-button';
 import NeonFont from '@/components/neon-font';
-import { useScenarioContext } from '@/contexts/scenario-context';
+import { useScenarioContext } from '@/contexts/scenario';
+
+import styles from './button.module.css';
 
 // --------------------------------------------------------------------------------
 // Typedef
@@ -40,9 +42,8 @@ export default function Button({ type, icon, onClick, hoverEffect = false }: Pro
   return (
     <div
       className={cn(
-        `${type}-button`,
-        'custom-flex-center',
-        'transition',
+        `${type}`,
+        styles.button,
         status === 'hidden' && 'pointer-events-none opacity-0',
         status === 'visible' && 'pointer-events-none',
       )}

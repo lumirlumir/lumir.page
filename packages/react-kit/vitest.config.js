@@ -5,7 +5,9 @@ export default defineConfig({
   test: {
     browser: {
       enabled: true,
+      headless: true,
       provider: playwright(),
+      screenshotFailures: false,
       instances: [{ browser: 'chromium' }],
     },
     include: ['src/**/*.test.{js,mjs,cjs,jsx,ts,mts,cts,tsx}'],

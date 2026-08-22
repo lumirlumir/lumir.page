@@ -1,5 +1,6 @@
 .markdown {
-  line-height: 1.5;
+  font-size: var(--font-size-md);
+  line-height: var(--line-height-normal);
   overflow-wrap: break-word;
 
   & a {
@@ -25,12 +26,12 @@
   }
 
   & :is(b, strong) {
-    font-weight: var(--text-weight-semibold);
+    font-weight: var(--font-weight-semibold);
   }
 
   & img {
     max-width: 100%;
-    border-radius: var(--size-border-radius);
+    border-radius: var(--border-radius-md);
   }
 
   & hr {
@@ -59,31 +60,31 @@
 
   & kbd {
     display: inline-block;
-    padding: var(--size-4);
-    font: 11px var(--font-stack-monospace);
+    padding: var(--spacing-static-xs);
+    font: var(--font-size-xs) var(--font-stack-monospace);
     line-height: 10px;
     vertical-align: middle;
     color: var(--color-fg-default);
     background-color: var(--color-bg-muted);
     border: solid 1px var(--color-border-neutral-muted);
-    border-radius: var(--size-border-radius);
+    border-radius: var(--border-radius-md);
     box-shadow: inset 0 -1px 0 var(--color-border-neutral-muted);
   }
 
   & code {
     padding: 0.2em 0.4em;
     font-family: var(--font-stack-monospace);
-    font-size: 85%;
+    font-size: 0.875em;
     white-space: break-spaces;
     background-color: var(--color-bg-neutral-muted);
-    border-radius: 6px;
+    border-radius: var(--border-radius-md);
   }
 
   & :is(h1, h2, h3, h4, h5, h6) {
     margin-top: var(--size-24);
-    margin-bottom: var(--size-16);
-    font-weight: var(--text-weight-semibold);
-    line-height: 1.25;
+    margin-bottom: var(--spacing-static-md);
+    font-weight: var(--font-weight-semibold);
+    line-height: var(--line-height-tight);
     scroll-margin-top: calc(
       var(--size-header-height) + var(--size-16)
     ); /* Keep linked headings visible below the sticky header. */
@@ -95,8 +96,8 @@
 
     & > a[aria-hidden='true'][href^='#'] {
       float: left;
-      padding-right: var(--size-4);
-      margin-left: -24px;
+      padding-right: var(--spacing-static-xs);
+      margin-left: calc(var(--size-24) * -1);
       text-decoration: none;
 
       &:focus {
@@ -126,30 +127,30 @@
   & h1 {
     padding-bottom: 0.3em;
     margin: 0.67em 0;
-    font-size: 2em;
+    font-size: var(--font-size-3xl);
     border-bottom: 1px solid var(--color-border-muted);
   }
 
   & h2 {
     padding-bottom: 0.3em;
-    font-size: 1.5em;
+    font-size: var(--font-size-xl);
     border-bottom: 1px solid var(--color-border-muted);
   }
 
   & h3 {
-    font-size: 1.25em;
+    font-size: var(--font-size-lg);
   }
 
   & h4 {
-    font-size: 1em;
+    font-size: var(--font-size-md);
   }
 
   & h5 {
-    font-size: 0.875em;
+    font-size: var(--font-size-sm);
   }
 
   & h6 {
-    font-size: 0.85em;
+    font-size: var(--font-size-sm);
     color: var(--color-fg-muted);
   }
 
@@ -162,7 +163,7 @@
 
   & :is(blockquote, details, p, pre, table, ul, ol) {
     margin-top: 0;
-    margin-bottom: var(--size-16);
+    margin-bottom: var(--spacing-static-md);
   }
 
   & :is(ul, ol) {
@@ -190,7 +191,7 @@
   }
 
   & .mr-2 {
-    margin-right: var(--size-8) !important;
+    margin-right: var(--spacing-static-sm) !important;
   }
 
   & > :first-child {
@@ -210,11 +211,11 @@
   }
 
   & .footnotes ol {
-    padding-left: var(--size-16);
+    padding-left: var(--spacing-static-md);
   }
 
   & li > p {
-    margin-top: var(--size-16);
+    margin-top: var(--spacing-static-md);
   }
 
   & li + li {
@@ -222,7 +223,7 @@
   }
 
   & table th {
-    font-weight: var(--text-weight-semibold);
+    font-weight: var(--font-weight-semibold);
   }
 
   & table :is(th, td) {
@@ -253,15 +254,15 @@
   }
 
   & pre {
-    padding: var(--size-16);
+    padding: var(--spacing-static-md);
     overflow: auto;
     font-family: var(--font-stack-monospace);
-    font-size: 85%;
+    font-size: 0.875em;
     line-height: 1.45;
     color: var(--color-fg-default);
     overflow-wrap: normal;
     background-color: var(--color-bg-muted);
-    border-radius: var(--size-border-radius);
+    border-radius: var(--border-radius-md);
 
     & code {
       padding: 0;
@@ -283,7 +284,7 @@
   }
 
   & .footnotes {
-    font-size: 12px;
+    font-size: var(--font-size-xs);
     color: var(--color-fg-muted);
     border-top: 1px solid var(--color-border-default);
 
@@ -297,18 +298,18 @@
 
     & li:target::before {
       position: absolute;
-      inset: calc(var(--size-8) * -1) calc(var(--size-8) * -1) calc(var(--size-8) * -1)
-        calc(var(--size-24) * -1);
+      inset: calc(var(--spacing-static-sm) * -1) calc(var(--spacing-static-sm) * -1)
+        calc(var(--spacing-static-sm) * -1) calc(var(--size-24) * -1);
       pointer-events: none;
       content: '';
       border: 2px solid var(--color-border-accent-emphasis);
-      border-radius: var(--size-border-radius);
+      border-radius: var(--border-radius-md);
     }
 
     & ol ul {
       display: inline-block;
-      padding-left: var(--size-16);
-      margin-top: var(--size-16);
+      padding-left: var(--spacing-static-md);
+      margin-top: var(--spacing-static-md);
     }
   }
 
@@ -367,7 +368,7 @@
   }
 
   & .pl-sr .pl-cce {
-    font-weight: bold;
+    font-weight: var(--font-weight-bold);
     color: var(--color-syntax-string-regexp);
   }
 
@@ -378,7 +379,7 @@
   & .pl-mh,
   & .pl-mh .pl-en,
   & .pl-ms {
-    font-weight: bold;
+    font-weight: var(--font-weight-bold);
     color: var(--color-syntax-markup-heading);
   }
 
@@ -388,7 +389,7 @@
   }
 
   & .pl-mb {
-    font-weight: bold;
+    font-weight: var(--font-weight-bold);
     color: var(--color-syntax-markup-bold);
   }
 
@@ -413,7 +414,7 @@
   }
 
   & .pl-mdr {
-    font-weight: bold;
+    font-weight: var(--font-weight-bold);
     color: var(--color-syntax-meta-diff-range);
   }
 
@@ -435,12 +436,12 @@
   }
 
   & .task-list-item + .task-list-item {
-    margin-top: var(--size-4);
+    margin-top: var(--spacing-static-xs);
   }
 
   & .markdown-alert {
-    padding: var(--size-8) var(--size-16);
-    margin-bottom: var(--size-16);
+    padding: var(--spacing-static-sm) var(--spacing-static-md);
+    margin-bottom: var(--spacing-static-md);
     border-left: 0.25em solid var(--color-border-default);
 
     & > :first-child {
@@ -454,8 +455,8 @@
     & .markdown-alert-title {
       display: flex;
       align-items: center;
-      font-weight: var(--text-weight-medium);
-      line-height: 1;
+      font-weight: var(--font-weight-medium);
+      line-height: var(--line-height-tighter);
     }
 
     &.markdown-alert-note {
@@ -506,7 +507,7 @@
   }
 
   & .ml-1 {
-    margin-left: 4px !important;
+    margin-left: var(--spacing-static-xs) !important;
   }
 
   & .color-border-subtle {
@@ -514,7 +515,7 @@
   }
 
   & .circle {
-    border-radius: 50% !important;
+    border-radius: var(--border-radius-circle) !important;
   }
 
   & .border {

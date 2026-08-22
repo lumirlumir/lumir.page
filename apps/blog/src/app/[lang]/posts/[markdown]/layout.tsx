@@ -7,11 +7,9 @@
 // --------------------------------------------------------------------------------
 
 import { type PropsWithChildren } from 'react';
-import Article from '@/components/layouts/article';
-import Nav from '@/components/layouts/nav';
-import Section from '@/components/layouts/section';
-import Giscus from '@/components/section/giscus';
+import { Giscus } from '@/components/giscus';
 import { type LangKey } from '@/data/lang';
+import styles from './layout.module.css';
 
 // --------------------------------------------------------------------------------
 // Default Export
@@ -26,13 +24,10 @@ export default async function Layout({
 
   return (
     <>
-      <Article>
-        {children}
-        <Section>
-          <Giscus lang={lang} />
-        </Section>
-      </Article>
-      <Nav />
+      {children}
+      <section className={styles.section}>
+        <Giscus lang={lang} />
+      </section>
     </>
   );
 }

@@ -1,0 +1,17 @@
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  & > div {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-static-md);
+    align-items: center;
+    justify-content: center;
+
+    & > :last-child {
+      color: var(--color-fg-muted);
+    }
+  }
+}
