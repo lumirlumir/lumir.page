@@ -65,6 +65,19 @@
     }
   },
   {
+    "repositoryUrl": "https://api.github.com/repos/eslint/markdown",
+    "htmlUrl": "https://github.com/eslint/markdown/pull/664",
+    "id": 4540727481,
+    "nodeId": "PR_kwDOAkm7Hs7gP0Aa",
+    "number": 664,
+    "title": "feat!: add `meta.languages` to rules and update `recommended` config",
+    "createdAt": "2026-05-28T13:22:22Z",
+    "closedAt": "2026-08-24T15:03:41Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
     "repositoryUrl": "https://api.github.com/repos/toss/react-simplikit",
     "htmlUrl": "https://github.com/toss/react-simplikit/pull/379",
     "id": 4463543117,
