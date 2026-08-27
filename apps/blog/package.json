@@ -57,7 +57,7 @@
     "@lumir/types": "*",
     "@playwright/test": "^1.62.0",
     "@types/react": "^19.2.18",
-    "@types/react-dom": "^19.2.4",
+    "@types/react-dom": "^19.2.5",
     "vite": "^8.1.5",
     "vitest": "^4.1.10"
   }
