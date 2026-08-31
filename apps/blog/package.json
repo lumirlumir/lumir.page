@@ -32,7 +32,7 @@
     "client-only": "^0.0.1",
     "katex": "^0.18.4",
     "mdast-util-to-string": "^4.0.0",
-    "next": "^16.3.2",
+    "next": "^16.3.3",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
     "rehype-autolink-headings": "^7.1.0",
