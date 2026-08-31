@@ -21,10 +21,7 @@
   "files": [
     "build",
     "LICENSE.md",
-    "README.md",
-    "!src/**/*.test.{js,mjs,cjs,jsx,ts,mts,cts,tsx}",
-    "!src/**/*.test-d.{ts,mts,cts,tsx}",
-    "!**/fixtures/**"
+    "README.md"
   ],
   "scripts": {
     "build": "tsgo -b tsconfig.build.json",
