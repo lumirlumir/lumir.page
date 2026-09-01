@@ -1,6 +1,84 @@
 [
   {
     "repositoryUrl": "https://api.github.com/repos/eslint/markdown",
+    "htmlUrl": "https://github.com/eslint/markdown/pull/726",
+    "id": 5301907960,
+    "nodeId": "PR_kwDOAkm7Hs8AAAABBnxPvQ",
+    "number": 726,
+    "title": "fix: handle empty ATX headings in `no-missing-atx-heading-space`",
+    "createdAt": "2026-08-31T15:28:25Z",
+    "closedAt": "2026-08-31T20:22:44Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint",
+    "htmlUrl": "https://github.com/eslint/eslint/pull/21266",
+    "id": 5277195445,
+    "nodeId": "PR_kwDOAKjKDc8AAAABBUwGLA",
+    "number": 21266,
+    "title": "test: add error locations to `no-extra-boolean-cast`",
+    "createdAt": "2026-08-28T10:18:58Z",
+    "closedAt": "2026-08-29T12:12:48Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint",
+    "htmlUrl": "https://github.com/eslint/eslint/pull/21265",
+    "id": 5276730008,
+    "nodeId": "PR_kwDOAKjKDc8AAAABBUYOkA",
+    "number": 21265,
+    "title": "ci: skip EMFILE test on Node.js 26",
+    "createdAt": "2026-08-28T09:19:50Z",
+    "closedAt": "2026-08-29T08:08:03Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/markdown",
+    "htmlUrl": "https://github.com/eslint/markdown/pull/723",
+    "id": 5268861957,
+    "nodeId": "PR_kwDOAkm7Hs8AAAABBOIpkw",
+    "number": 723,
+    "title": "chore: specify type arguments for `MarkdownLanguage`",
+    "createdAt": "2026-08-27T14:46:24Z",
+    "closedAt": "2026-08-31T13:35:11Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/markdown",
+    "htmlUrl": "https://github.com/eslint/markdown/pull/722",
+    "id": 5268569295,
+    "nodeId": "PR_kwDOAkm7Hs8AAAABBN5tAQ",
+    "number": 722,
+    "title": "fix: handle `symbol` in `validateLanguageOptions`",
+    "createdAt": "2026-08-27T14:17:00Z",
+    "closedAt": "2026-08-31T13:18:51Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/json",
+    "htmlUrl": "https://github.com/eslint/json/pull/271",
+    "id": 5171840627,
+    "nodeId": "PR_kwDOMOnJ-M8AAAABABNp-w",
+    "number": 271,
+    "title": "fix: allow additional properties in `JSONLanguageOptions`",
+    "createdAt": "2026-08-17T12:25:37Z",
+    "closedAt": "2026-08-30T13:16:22Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/markdown",
     "htmlUrl": "https://github.com/eslint/markdown/pull/712",
     "id": 5139499037,
     "nodeId": "PR_kwDOAkm7Hs7-e294",
