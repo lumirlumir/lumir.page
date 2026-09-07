@@ -4,7 +4,7 @@
 
 void DS_make_set(int p[], int u) { p[u] = u; }
 
-int DS_find_set(int p[], int u) {  // Root Node¸¦ Ã£À½.
+int DS_find_set(int p[], int u) {  // Root Nodeë¥¼ ì°¾ìŒ.
   if (u == p[u])
     return u;
   else
