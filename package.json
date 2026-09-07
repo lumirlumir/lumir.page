@@ -95,9 +95,9 @@
   "devDependencies": {
     "@types/node": "^24.13.3",
     "@typescript/native-preview": "^7.0.0-dev.20260707.2",
-    "@vitest/coverage-v8": "^4.1.10",
+    "@vitest/coverage-v8": "^5.0.0",
     "clang-format-node": "^3.0.7",
-    "editorconfig-checker": "^6.1.1",
+    "editorconfig-checker": "^7.0.0",
     "eslint": "^9.39.4",
     "eslint-config-bananass": "^0.8.0",
     "eslint-markdown": "^0.12.1",
@@ -111,6 +111,6 @@
     "stylelint-config-standard": "^40.0.0",
     "stylelint-order": "^8.1.1",
     "typescript": "^6.0.3",
-    "vitest": "^4.1.8"
+    "vitest": "^5.0.0"
   }
 }
