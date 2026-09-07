@@ -64,6 +64,6 @@
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
     "vitest": "^5.0.0",
-    "vitest-browser-react": "^2.2.0"
+    "vitest-browser-react": "^2.3.0"
   }
 }
