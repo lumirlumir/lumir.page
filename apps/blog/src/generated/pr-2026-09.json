@@ -1,1 +1,28 @@
-[]
+[
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/json",
+    "htmlUrl": "https://github.com/eslint/json/pull/280",
+    "id": 5358315929,
+    "nodeId": "PR_kwDOMOnJ-M8AAAABCUty6A",
+    "number": 280,
+    "title": "refactor: use `Set` instead of `Map` in `no-duplicate-keys`",
+    "createdAt": "2026-09-05T13:37:34Z",
+    "closedAt": "2026-09-05T15:10:25Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/rewrite",
+    "htmlUrl": "https://github.com/eslint/rewrite/pull/505",
+    "id": 5302033799,
+    "nodeId": "PR_kwDOLyyFi88AAAABBn3t2w",
+    "number": 505,
+    "title": "docs: clarify parameter description in `getText`",
+    "createdAt": "2026-08-31T15:41:08Z",
+    "closedAt": "2026-09-01T21:56:13Z",
+    "reactions": {
+      "+1": 0
+    }
+  }
+]
