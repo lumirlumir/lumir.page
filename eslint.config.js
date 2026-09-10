@@ -161,6 +161,7 @@ export default defineConfig([
       'md/no-irregular-dash': ['error', { skipCode: false, skipInlineCode: false }],
       'md/no-irregular-whitespace': ['error', { skipCode: false, skipInlineCode: false }],
       'md/no-tab': ['error', { skipCode: false, skipInlineCode: false }],
+      'md/no-trailing-heading-punctuation': 'error',
       'md/no-url-trailing-slash': 'error',
       'md/require-heading-id': 'off',
       'md/require-image-title': 'off', // Too tight.
