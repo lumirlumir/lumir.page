@@ -78,11 +78,11 @@
 
 추진 내용 | \~3.25 | \~4.15 | \~4.30 | \~5.15 | \~5.31 | \~6.17
 --- | :---: | :---: | :---: | :---: | :---: | :---:
-Common_Acquisition of development related knowledge | O | O | O | O
-Front-End_Design | | O | O
-Front-End_Implementation | | | | O | O
-Back-End_ChatGPT | | | O | O
-Common_Testing and debugging | | | | | O
+Common_Acquisition of development related knowledge | O | O | O | O | | |
+Front-End_Design | | O | O | | | |
+Front-End_Implementation | | | | O | O | |
+Back-End_ChatGPT | | | O | O | | |
+Common_Testing and debugging | | | | | O | |
 Common_Feedback | | | | | | O
 
 ### 1-5. Meeting Info
@@ -212,11 +212,11 @@ Front-End 개발은 현재 설계한 방식대로 계속 진행한다면 좋은 
 
 개발 간 협업 및 일관성을 위해 다양한 도구 및 규칙들을 활용한다.
 
-- Static analysis tool
+- Static Analysis Tool
   - EditorConfig: Global Convention
-  - esLint: JavaScript Convention
-  - Prettier: JavaScript and misc Convention
-  - markdownlint: Markdown Convention
+  - ESLint: JavaScript Convention
+  - Prettier: JavaScript and Misc Convention
+  - Markdownlint: Markdown Convention
 
 - Rules
   - Conventional Commit Message

@@ -84,7 +84,7 @@ It creates(initializes) an `npm` package and creates `package.json`.
 
 > aliases: `-y`
 
-Through the `--yes` flag, you can get the same effect as entering <Kbd>y</kbd> for every answer without having to answer questions.
+Through the `--yes` flag, you can get the same effect as entering <kbd>y</kbd> for every answer without having to answer questions.
 
 Mainly, because changing `package.json` is more intuitive than configuring it directly in the terminal, this is used to skip terminal configuration and create `package.json` through the `npm init --yes` command.
 

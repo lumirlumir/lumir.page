@@ -9,8 +9,6 @@ categories:
 references: []
 ---
 
-<!-- markdownlint-disable MD028 -->
-
 JavaScript represents strings using [UTF-16 encoding](https://developer.mozilla.org/ko/docs/Glossary/Code_unit). The Hangul Unicode knowledge worth knowing when contributing to [`koregexp`](https://github.com/lumirlumir/koregexp) is below.
 
 1. [***Compatibility Hangul Jamo***](#1-compatibility-hangul-jamo)

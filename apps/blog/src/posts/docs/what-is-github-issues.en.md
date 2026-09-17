@@ -77,7 +77,7 @@ Explains how to change ***Projects*** to ***Public*** or ***Private***, manage *
 
 ## 3. ***Tracklists***(Task Lists)
 
-As of the time of writing, it says, 'Task lists are in private beta and subject to change. We have temporarily paused beta onboarding.' Currently, detailed task management using the <code>```[tasklist]</code> syntax is not possible.
+As of the time of writing, it says, 'Task lists are in private beta and subject to change. We have temporarily paused beta onboarding.' Currently, detailed task management using the `` ```[tasklist] `` syntax is not possible.
 
 Instead, it is possible to manage detailed tasks using only the `- []` checklist feature of ***Github Markdown***. You can check detailed progress, such as how many tasks have been completed, just below the title.
 

@@ -18,8 +18,6 @@ references:
   - 'https://docs.github.com/ko/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax'
 ---
 
-<!-- markdownlint-disable MD003 MD004 MD024 MD029 MD033 MD035 MD046 MD049 MD050 MD055 MD060 -->
-
 Markdown<sup>Markdown</sup> file extensions end with `.md`. When developing, you will probably encounter a file named `README.md` at least once, and this can be considered the most representative Markdown file.
 
 There is also AsciiDoc syntax with the `.adoc` extension, which is similar to Markdown but has more complex syntax and can create more varied forms of documents. However, because the syntax is much more complex and there are fewer supported platforms, there are many restrictions on its use.
@@ -81,21 +79,16 @@ It starts with `#`.
   ####### This is ATX style H7 (not supported)
   ```
 
+<!-- eslint-disable markdown/no-multiple-h1, markdown/no-duplicate-headings, markdown/heading-increment -->
+
 - Output
 
-  <!-- markdownlint-disable-next-line -->
   # This is ATX style H1
-  <!-- markdownlint-disable-next-line -->
   ## This is ATX style H2
-  <!-- markdownlint-disable-next-line -->
   ### This is ATX style H3
-  <!-- markdownlint-disable-next-line -->
   #### This is ATX style H4
-  <!-- markdownlint-disable-next-line -->
   ##### This is ATX style H5
-  <!-- markdownlint-disable-next-line -->
   ###### This is ATX style H6
-  <!-- markdownlint-disable-next-line -->
   ####### This is H7(not supported)
 
 #### 2-1-2. Closed ATX style
@@ -116,22 +109,19 @@ It starts with `#` and ends with `#`.
   ####### This is Closed ATX style H7(not supported) #######
   ```
 
+<!-- eslint-disable md/consistent-heading-style -->
+
 - Output
 
-  <!-- markdownlint-disable-next-line -->
   # This is Closed ATX style H1 #
-  <!-- markdownlint-disable-next-line -->
   ## This is Closed ATX style H2 ##
-  <!-- markdownlint-disable-next-line -->
   ### This is Closed ATX style H3 ###
-  <!-- markdownlint-disable-next-line -->
   #### This is Closed ATX style H4 ####
-  <!-- markdownlint-disable-next-line -->
   ##### This is Closed ATX style H5 #####
-  <!-- markdownlint-disable-next-line -->
   ###### This is Closed ATX style H6 ######
-  <!-- markdownlint-disable-next-line -->
   ####### This is Closed ATX style H7(not supported) #######
+
+<!-- eslint-enable md/consistent-heading-style -->
 
 #### 2-1-3. Setext style
 
@@ -153,17 +143,18 @@ The number of `=` characters does not matter.
   =
   ```
 
+<!-- eslint-disable md/consistent-heading-style -->
+
 - Output
 
-  <!-- markdownlint-disable-next-line -->
   This is Setext style H1
   =============
 
-  <!-- markdownlint-disable-next-line -->
   This is Setext style H1
   =
 
-<!-- markdownlint-disable-next-line -->
+<!-- eslint-enable md/consistent-heading-style -->
+
 ##### 2-1-3-2. Small Heading: `<h2>`
 
 The number of `-` characters does not matter.
@@ -178,15 +169,19 @@ The number of `-` characters does not matter.
   -
   ```
 
+<!-- eslint-disable md/consistent-heading-style -->
+
 - Output
 
-  <!-- markdownlint-disable-next-line -->
   This is Setext style H2
   -------------
 
-  <!-- markdownlint-disable-next-line -->
   This is Setext style H2
   -
+
+<!-- eslint-enable md/consistent-heading-style -->
+
+<!-- eslint-enable markdown/no-multiple-h1, markdown/no-duplicate-headings, markdown/heading-increment -->
 
 ### 2-2. Line Breaks
 
@@ -700,13 +695,15 @@ You can also put a URL or email address inside angle brackets(`<>`, Angle Bracke
   - email link: <address@example.com>
   ```
 
+<!-- eslint-disable markdown/no-bare-urls -->
+
 - Output
-  <!-- markdownlint-disable-next-line -->
   - external link: https://www.google.com
   - external link: <https://www.google.com>
-  <!-- markdownlint-disable-next-line -->
   - email link: address@example.com
   - email link: <address@example.com>
+
+<!-- eslint-enable markdown/no-bare-urls -->
 
 #### 2-8-4. Internal(Hash) Links
 
@@ -746,11 +743,15 @@ When writing the link inside parentheses, spaces must be connected with `-`, and
   [Link to bookmark](#bookmark)
   ```
 
+<!-- eslint-disable markdown/no-html -->
+
 - Output
 
   <a id="bookmark">bookmark</a>
 
   [Link to bookmark](#bookmark)
+
+<!-- eslint-enable markdown/no-html -->
 
 ### 2-9. Images
 
@@ -837,10 +838,14 @@ Because Markdown style has no size adjustment feature, use the HTML `<img src=""
   <img src="1.png" width="40%" height="30%" title="%(ratio) size setting" alt="RubberDuck"></img>
   ```
 
+<!-- eslint-disable markdown/no-html -->
+
 - Output
 
   <img src="/apps/blog/public/images/posts/everything-about-markdown/1.webp?raw=true" width="450px" height="300px" title="px(pixel) size setting" alt="RubberDuck"></img><br>
   <img src="/apps/blog/public/images/posts/everything-about-markdown/1.webp?raw=true" width="40%" height="30%" title="%(ratio) size setting" alt="RubberDuck"></img>
+
+<!-- eslint-enable markdown/no-html -->
 
 ### 2-10. Code
 
@@ -954,6 +959,8 @@ Use the `<pre><code>{code}</code></pre>` tag.
   </pre>
   ```
 
+<!-- eslint-disable markdown/no-html -->
+
 - Output
 
   <pre><code>public class BootSpringBootApplication {
@@ -961,6 +968,8 @@ Use the `<pre><code>{code}</code></pre>` tag.
       System.out.println("Hello World!");
     }
   }</code></pre>
+
+<!-- eslint-enable markdown/no-html -->
 
 ### 2-11. Backslash(`\`) Escapes
 
@@ -1137,9 +1146,13 @@ Generally, this is a feature supported only by GitHub and a few other platforms.
   - [x] @mentions, #refs, [links](link), **formatting**, and <del>tags</del> supported
   ```
 
+<!-- eslint-disable markdown/no-html -->
+
 - Output
 
   - [x] @mentions, #refs, [links](link), **formatting**, and <del>tags</del> supported
+
+<!-- eslint-enable markdown/no-html -->
 
 ### 3-2. Math Expressions
 
@@ -1413,10 +1426,14 @@ Even if no extension is installed in ***VScode***, you can use the Markdown Prev
 
 This is an extension pack that lets you use Markdown Preview<sup>Preview</sup> in ***VScode*** with GitHub's Markdown theme style. Below is the description of that extension pack.
 
+<!-- eslint-disable markdown/no-missing-label-refs -->
+
 - Dark GitHub Markdown Preview - CSS that makes the Markdown preview match GitHub's dark themed style.
 - Markdown Emoji - Adds :emoji: support to the Markdown preview.
 - Markdown Checkboxes - Adds - [ ] tasklist support to the Markdown preview
 - Markdown yaml Preamble - Adds support for rendering the yaml frontmatter as a table. Be sure to set "markdown.previewFrontMatter": "show"
+
+<!-- eslint-enable markdown/no-missing-label-refs -->
 
 ### 4-3. Typora
 
