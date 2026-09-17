@@ -29,7 +29,7 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "yaml": "^2.9.0"
+    "yaml": "^2.9.1"
   },
   "devDependencies": {
     "vitest": "^5.0.0"
