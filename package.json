@@ -87,14 +87,14 @@
     "lint:clangformat": "node scripts/clang-format.ts"
   },
   "allowScripts": {
-    "clang-format-node@3.0.7": true,
+    "clang-format-node@4.0.0": true,
     "sharp@0.35.3": true
   },
   "devDependencies": {
     "@types/node": "^24.13.3",
     "@typescript/native-preview": "^7.0.0-dev.20260707.2",
     "@vitest/coverage-v8": "^5.0.1",
-    "clang-format-node": "^3.0.7",
+    "clang-format-node": "^4.0.0",
     "editorconfig-checker": "^7.0.0",
     "eslint": "^9.39.5",
     "eslint-config-bananass": "^0.8.0",
