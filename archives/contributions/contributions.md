@@ -1,7 +1,6 @@
 <!-- This file is auto-generated. Please do not edit it directly. -->
 
 <!-- eslint-disable -->
-<!-- markdownlint-disable -->
 
 # Open Source Contribution Journey
 

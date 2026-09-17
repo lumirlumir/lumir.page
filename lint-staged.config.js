@@ -7,6 +7,5 @@ export default {
   '*.{js,mjs,cjs,jsx,ts,mts,cts,tsx,json,jsonc,json5,md}':
     'eslint --fix --cache --cache-strategy content',
   '*.css': 'stylelint --fix',
-  '*.md': 'markdownlint --fix',
   '*.{h,c,cpp}': 'clang-format -i',
 };

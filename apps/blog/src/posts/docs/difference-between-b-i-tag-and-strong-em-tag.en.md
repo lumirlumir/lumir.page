@@ -11,13 +11,13 @@ references:
   - 'https://www.codeit.kr/community/questions/UXVlc3Rpb246NWUzNDUyMjU4MGU1MTMzNzNkOTYyNzYy'
 ---
 
-<!-- markdownlint-disable MD033 -->
-
 The `<b>` and `<strong>` ***Tag*** emphasize a specific character or string with **bold text**, while the `<i>` and `<em>` ***Tag*** emphasize it with *italics*. If each pair of ***Tag*** did exactly the same thing, only one ***Tag*** from each pair would need to exist. However, ***HTML*** contains both kinds of ***Tag***. Then what is the difference between these two kinds of ***Tag***? Let us look at the differences between the `<b>`, `<i>` ***Tag*** and their corresponding `<strong>`, `<em>` ***Tag***.
 
 ## 1. Common Points
 
 Both kinds of ***Tag*** emphasize a specific character or string with **bold text** or *italics*. In the table below, there is no visible difference between the `<b>` and `<strong>` ***Tag*** or between the `<i>` and `<em>` ***Tag***.
+
+<!-- eslint-disable markdown/no-html -->
 
 Tag | Usage Example | Result
 :---: | :--- | :---:
@@ -26,6 +26,8 @@ No tag | `sample text` | sample text
 `<strong>` | `<strong>sample text</strong>` | <strong>sample text</strong>
 `<i>` | `<i>sample text</i>` | <i>sample text</i>
 `<em>` | `<em>sample text</em>` | <em>sample text</em>
+
+<!-- eslint-enable markdown/no-html -->
 
 ## 2. Differences
 

@@ -18,8 +18,6 @@ references:
   - 'https://docs.github.com/ko/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax'
 ---
 
-<!-- markdownlint-disable MD003 MD004 MD024 MD029 MD033 MD035 MD046 MD049 MD050 MD055 MD060 -->
-
 마크다운<sup>Markdown</sup> 파일의 확장자는 `.md`로 끝난다. 개발을 하다 보면 `README.md`라는 이름의 파일을 한 번쯤 만나게 되는데, 이것이 가장 대표적인 마크다운 파일이라 할 수 있다.
 
 마크다운과 비슷하지만 문법이 좀 더 복잡한 `.adoc` 확장자의 AsciiDoc 문법도 있으며, 좀 더 다양한 형태의 문서를 만들 수 있다. 다만, 문법이 훨씬 복잡하고 지원 플랫폼이 적어 사용에 제약이 많다.
@@ -81,21 +79,16 @@ references:
   ####### This is ATX style H7 (지원되지 않음)
   ```
 
+<!-- eslint-disable markdown/no-multiple-h1, markdown/heading-increment -->
+
 - 출력
 
-  <!-- markdownlint-disable-next-line -->
   # This is ATX style H1 {#atx-style-h1}
-  <!-- markdownlint-disable-next-line -->
   ## This is ATX style H2 {#atx-style-h2}
-  <!-- markdownlint-disable-next-line -->
   ### This is ATX style H3 {#atx-style-h3}
-  <!-- markdownlint-disable-next-line -->
   #### This is ATX style H4 {#atx-style-h4}
-  <!-- markdownlint-disable-next-line -->
   ##### This is ATX style H5 {#atx-style-h5}
-  <!-- markdownlint-disable-next-line -->
   ###### This is ATX style H6 {#atx-style-h6}
-  <!-- markdownlint-disable-next-line -->
   ####### This is H7(지원되지 않음)
 
 #### 2-1-2. Closed ATX style {#2-1-2-closed-atx-style}
@@ -116,22 +109,19 @@ references:
   ####### This is Closed ATX style H7(지원되지 않음) #######
   ```
 
+<!-- eslint-disable md/consistent-heading-style -->
+
 - 출력
 
-  <!-- markdownlint-disable-next-line -->
   # This is Closed ATX style H1 {#closed-atx-style-h1} #
-  <!-- markdownlint-disable-next-line -->
   ## This is Closed ATX style H2 {#closed-atx-style-h2} ##
-  <!-- markdownlint-disable-next-line -->
   ### This is Closed ATX style H3 {#closed-atx-style-h3} ###
-  <!-- markdownlint-disable-next-line -->
   #### This is Closed ATX style H4 {#closed-atx-style-h4} ####
-  <!-- markdownlint-disable-next-line -->
   ##### This is Closed ATX style H5 {#closed-atx-style-h5} #####
-  <!-- markdownlint-disable-next-line -->
   ###### This is Closed ATX style H6 {#closed-atx-style-h6} ######
-  <!-- markdownlint-disable-next-line -->
   ####### This is Closed ATX style H7(지원되지 않음) #######
+
+<!-- eslint-enable md/consistent-heading-style -->
 
 #### 2-1-3. Setext style {#2-1-3-setext-style}
 
@@ -153,17 +143,18 @@ references:
   =
   ```
 
+<!-- eslint-disable md/consistent-heading-style -->
+
 - 출력
 
-  <!-- markdownlint-disable-next-line -->
   This is Setext style H1 {#setext-style-h1-example-1}
   =============
 
-  <!-- markdownlint-disable-next-line -->
   This is Setext style H1 {#setext-style-h1-example-2}
   =
 
-<!-- markdownlint-disable-next-line -->
+<!-- eslint-enable md/consistent-heading-style -->
+
 ##### 2-1-3-2. 작은 제목: `<h2>` {#2-1-3-2-setext-small-heading-h2}
 
 `-`의 개수는 상관 없다.
@@ -178,15 +169,19 @@ references:
   -
   ```
 
+<!-- eslint-disable md/consistent-heading-style -->
+
 - 출력
 
-  <!-- markdownlint-disable-next-line -->
   This is Setext style H2 {#setext-style-h2-example-1}
   -------------
 
-  <!-- markdownlint-disable-next-line -->
   This is Setext style H2 {#setext-style-h2-example-2}
   -
+
+<!-- eslint-enable md/consistent-heading-style -->
+
+<!-- eslint-enable markdown/no-multiple-h1, markdown/heading-increment -->
 
 ### 2-2. 줄 바꿈(Line Breaks) {#2-2-line-breaks}
 
@@ -700,13 +695,15 @@ HTML에서 이용하는 `<!-- -->` 기호를 사용한다.
   - 이메일링크: <address@example.com>
   ```
 
+<!-- eslint-disable markdown/no-bare-urls -->
+
 - 출력
-  <!-- markdownlint-disable-next-line -->
   - 외부링크: https://www.google.com
   - 외부링크: <https://www.google.com>
-  <!-- markdownlint-disable-next-line -->
   - 이메일링크: address@example.com
   - 이메일링크: <address@example.com>
+
+<!-- eslint-enable markdown/no-bare-urls -->
 
 #### 2-8-4. 내부(해시) 링크 {#2-8-4-internal-hash-links}
 
@@ -746,11 +743,15 @@ HTML에서 이용하는 `<!-- -->` 기호를 사용한다.
   [Link to bookmark](#bookmark)
   ```
 
+<!-- eslint-disable markdown/no-html -->
+
 - 출력
 
   <a id="bookmark">bookmark</a>
 
   [Link to bookmark](#bookmark)
+
+<!-- eslint-enable markdown/no-html -->
 
 ### 2-9. 이미지(Images) {#2-9-images}
 
@@ -837,10 +838,14 @@ Markdown style은 사이즈 조절 기능이 없기 때문에, HTML `<img src=""
   <img src="1.png" width="40%" height="30%" title="%(비율) 크기 설정" alt="RubberDuck"></img>
   ```
 
+<!-- eslint-disable markdown/no-html -->
+
 - 출력
 
   <img src="/apps/blog/public/images/posts/everything-about-markdown/1.webp?raw=true" width="450px" height="300px" title="px(픽셀) 크기 설정" alt="RubberDuck"></img><br>
   <img src="/apps/blog/public/images/posts/everything-about-markdown/1.webp?raw=true" width="40%" height="30%" title="%(비율) 크기 설정" alt="RubberDuck"></img>
+
+<!-- eslint-enable markdown/no-html -->
 
 ### 2-10. 코드(Code) {#2-10-code}
 
@@ -954,6 +959,8 @@ Markdown style은 사이즈 조절 기능이 없기 때문에, HTML `<img src=""
   </pre>
   ```
 
+<!-- eslint-disable markdown/no-html -->
+
 - 출력
 
   <pre><code>public class BootSpringBootApplication {
@@ -961,6 +968,8 @@ Markdown style은 사이즈 조절 기능이 없기 때문에, HTML `<img src=""
       System.out.println("Hello World!");
     }
   }</code></pre>
+
+<!-- eslint-enable markdown/no-html -->
 
 ### 2-11. Backslash(`\`) Escapes {#2-11-backslash-escapes}
 
@@ -1137,9 +1146,13 @@ Markdown style은 사이즈 조절 기능이 없기 때문에, HTML `<img src=""
   - [x] @mentions, #refs, [links](link), **formatting**, and <del>tags</del> supported
   ```
 
+<!-- eslint-disable markdown/no-html -->
+
 - 출력
 
   - [x] @mentions, #refs, [links](link), **formatting**, and <del>tags</del> supported
+
+<!-- eslint-enable markdown/no-html -->
 
 ### 3-2. 수학 식(수식, 표현식) {#3-2-math-expressions}
 
@@ -1413,10 +1426,14 @@ guidelines for this project](docs/CONTRIBUTING.md)
 
 ***VScode***에서 깃허브의 마크다운 테마 스타일로 마크다운 프리뷰<sup>Preview</sup>를 이용할 수 있게 해주는 확장 팩이다. 아래는 해당 확장 팩에 대한 설명이다.
 
+<!-- eslint-disable markdown/no-missing-label-refs -->
+
 - Dark GitHub Markdown Preview - CSS that makes the Markdown preview match GitHub's dark themed style.
 - Markdown Emoji - Adds :emoji: support to the Markdown preview.
 - Markdown Checkboxes - Adds - [ ] tasklist support to the Markdown preview
 - Markdown yaml Preamble - Adds support for rendering the yaml frontmatter as a table. Be sure to set "markdown.previewFrontMatter": "show"
+
+<!-- eslint-enable markdown/no-missing-label-refs -->
 
 ### 4-3. Typora {#4-3-typora}
 
