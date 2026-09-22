@@ -1,5 +1,18 @@
 [
   {
+    "repositoryUrl": "https://api.github.com/repos/eslint/create-config",
+    "htmlUrl": "https://github.com/eslint/create-config/pull/269",
+    "id": 5471955662,
+    "nodeId": "PR_kwDOFqe-is8AAAABDu19vw",
+    "number": 269,
+    "title": "ci: fix CI failure on `main`",
+    "createdAt": "2026-09-16T08:10:06Z",
+    "closedAt": "2026-09-16T09:24:11Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
     "repositoryUrl": "https://api.github.com/repos/eslint/json",
     "htmlUrl": "https://github.com/eslint/json/pull/281",
     "id": 5358523835,
