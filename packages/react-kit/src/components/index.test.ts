@@ -7,7 +7,7 @@
 // --------------------------------------------------------------------------------
 
 import { assert, describe, it } from 'vitest';
-import { CursorSplash, SVGWrapper, Typewriter } from './index.js';
+import { CursorSplash, Dialog, SVGWrapper, Typewriter } from './index.js';
 
 // --------------------------------------------------------------------------------
 // Test
@@ -18,6 +18,11 @@ describe('index', () => {
     it('`CursorSplash` should be defined', () => {
       assert.isDefined(CursorSplash);
       assert.strictEqual(typeof CursorSplash, 'function');
+    });
+
+    it('`Dialog` should be defined', () => {
+      assert.isDefined(Dialog);
+      assert.strictEqual(typeof Dialog, 'function');
     });
 
     it('`SVGWrapper` should be defined', () => {
