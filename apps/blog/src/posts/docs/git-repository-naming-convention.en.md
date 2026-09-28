@@ -14,7 +14,7 @@ references:
 
 For consistent and readable Repository management, let us look at commonly used Git Repository naming rules.
 
-## 1. kebab-case with lower case
+## 1. kebab-case with lower case {#1-lowercase-kebab-case}
 
 I referred to a Stack Overflow answer related to Git Repository naming rules. The referenced content is as follows.
 

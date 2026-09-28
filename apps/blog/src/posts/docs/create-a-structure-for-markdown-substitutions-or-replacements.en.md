@@ -27,7 +27,7 @@ However, the biggest drawback of using the GitHub Markdown API is that it lacks 
 
 For this, it is important to understand the series of flows by which the current blog converts Markdown documents to HTML and then converts them to JSX components. (When I made this blog, I paid a lot of attention to the code structure, so the actual logic is much larger. Therefore, I will cover only the essential parts here.)
 
-## 1. Until Markdown Is Converted to JSX
+## 1. Until Markdown Is Converted to JSX {#1-convert-markdown-to-jsx}
 
 If we list the series of steps for converting a Markdown document to JSX, they are as follows.
 
@@ -47,9 +47,9 @@ The current blog development does not use all of the methods above, but they are
 
 In this article, we will cover the 'substitution' structure among these.
 
-## 2. Let Us Use Substitutions
+## 2. Let Us Use Substitutions {#2-use-replacements}
 
-### 2-1. What Is a Substitution?
+### 2-1. What Is a Substitution? {#2-1-what-is-replacement}
 
 Then what is a substitution? It is simple. If you have experience writing formulas with the `$ ... $` form in packages that support LaTex syntax, such as [MathJax](https://www.mathjax.org) and [KaTex](https://katex.org), then you have already used substitutions. Here, the substitution passes the content between `$` symbols to a specific function<sup>Function</sup> or module<sup>Module</sup>, converts it into a mathematical formula, and then uses it.
 
@@ -74,7 +74,7 @@ $ ... $
 $$ ... $$
 ```
 
-#### 2-1-2. Official [react.dev](https://github.com/reactjs/react.dev) Documentation
+#### 2-1-2. Official [react.dev](https://github.com/reactjs/react.dev) Documentation {#2-1-2-react-dev-official-docs}
 
 ```md
 ## Using React for a part of your existing page {/*using-react-for-a-part-of-your-existing-page*/}
@@ -107,7 +107,7 @@ The following substitution sets HTML attributes<sup>Attribute</sup>.
 [## ... ##]
 ```
 
-#### 2-1-4. GitHub Actions<sup>GitHub Actions</sup>
+#### 2-1-4. GitHub Actions<sup>GitHub Actions</sup> {#2-1-4-github-actions}
 
 ```yml
 - name: Set up cache
@@ -123,7 +123,7 @@ The following substitution passes the value<sup>Value</sup> of a variable.
 ${{ ... }}
 ```
 
-### 2-2. Then What Substitution Should We Use?
+### 2-2. Then What Substitution Should We Use? {#2-2-which-replacement-to-use}
 
 In fact, deciding which substitution to use depends on the decision of an individual or organization. However, if you use common Markdown syntax, for example the `**` symbol used for emphasis or the `##` symbol used for a heading<sup>Heading</sup>, conflicts can occur between the substitution and Markdown syntax, so it is better to avoid those parts.
 
@@ -131,7 +131,7 @@ The substitution forms presented as examples above do not have concerns about co
 
 Also, there is no need to use only one substitution form. As long as you can manage consistent substitution forms, it does not matter much whether you mix several substitution symbols or create extensible substitutions by using a specific prefix<sup>Prefix</sup> or suffix<sup>Suffix</sup>.
 
-### 2-3. How Should Substitutions Be Transformed?
+### 2-3. How Should Substitutions Be Transformed? {#2-3-how-to-transform-replacements}
 
 Now that we have decided on a substitution structure, it is time to change the substitutions into the actual values I want. What would be good? The simplest method is to use JavaScript's<sup>JavaScript</sup> `replace` function and capture groups<sup>Capture Group</sup> in regular expressions.
 

@@ -10,7 +10,7 @@ references: []
 
 Let us look at the criteria for classifying software developer roles.
 
-## 1. Platform Perspective
+## 1. Platform Perspective {#1-by-platform}
 
 ### 1-1. Windows Software Developer
 
@@ -48,7 +48,7 @@ The technologies to learn are as follows.
   - You only need to do one of the two.
   - A Mac is needed to set up the development environment.
 
-### 1-4. System Software(Embedded) Developer
+### 1-4. System Software(Embedded) Developer {#1-4-system-embedded-software-developer}
 
 A software developer who handles execution and data processing in IoT environments(small machines, sensors, and so on). They implement hardware control, operating systems, small network features, and more.
 
@@ -70,7 +70,7 @@ The technologies to learn are as follows.
 >
 > After the Unity Engine, games can be developed using C# and the Unity Engine. However, to develop games like normal game consoles(console game machines), you must study the WIN32API language.
 
-## 2. Work Environment Perspective
+## 2. Work Environment Perspective {#2-by-work-environment}
 
 ### 2-1. Network Software Developer
 
@@ -92,7 +92,7 @@ The technologies to learn are as follows.
 - RDBMS: ***Oracle***, ***MSSQL***, ***MariaDB***
 - BigData: ***Python***, ***R***, ***MongoDB***
 
-### 2-3. Solution(Product) Software Developer
+### 2-3. Solution(Product) Software Developer {#2-3-solution-product-software-developer}
 
 A software developer who finds problem-solving situations across several system environments, productizes them, and performs data processing. Because there are no constraints from the execution environment, they need to study languages related to many different fields. To develop other solution(product) software, they can develop ERP solutions that process corporate business, MES solutions that process manufacturing production work, and other solutions such as V3, ALZip, Alyac, Excel, and PowerPoint.
 
@@ -100,7 +100,7 @@ A software developer who finds problem-solving situations across several system 
 
 This is one of the software developer roles that receives a high salary. They are responsible for development work that finds and systematizes common parts of various modules or data flows. They must have a lot of development experience, know many business domains, and also have related IT knowledge and coding skills. That is why they receive a high salary.
 
-### 2-5. AI(Artificial Intelligence) Software Developer
+### 2-5. AI(Artificial Intelligence) Software Developer {#2-5-ai-software-developer}
 
 This is one of the software developer roles that receives a high salary. However, there is not just one or two things to study.
 

@@ -42,7 +42,7 @@ An object that represents information related to a process(program).
 
 This object exists only in Node.js and does not exist in JavaScript running in a web browser.
 
-#### 2-2-1. Property
+#### 2-2-1. Property {#2-2-1-process-property}
 
 Property | Explanation
 --- | ---
@@ -53,7 +53,7 @@ Property | Explanation
 `process.version` | Node.js version.
 `process.versions` | Versions of Node.js and dependent programs.
 
-#### 2-2-2. Method
+#### 2-2-2. Method {#2-2-2-process-method}
 
 Method | Explanation
 --- | ---

@@ -12,7 +12,7 @@ references:
 
 Let us look at `react` and `react-dom`, which are essential parts of React development.
 
-## 1. Installing `react`, `react-dom`
+## 1. Installing `react`, `react-dom` {#1-install-react-and-react-dom}
 
 Install `react` and `react-dom` as `dependencies`.
 

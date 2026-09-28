@@ -30,11 +30,11 @@ For example, the two pieces of code above perform the same task of loading the E
 
 > A module means encapsulating related code into one code unit.
 
-## 1. JavaScript CommonJS Module Export/Import (`require`)
+## 1. JavaScript CommonJS Module Export/Import (`require`) {#1-javascript-commonjs-export-and-import-require}
 
 Let us look at the first method, exporting and importing modules based on CommonJS.
 
-### 1-1. Why the CommonJS Module System Is Needed
+### 1-1. Why the CommonJS Module System Is Needed {#1-1-why-commonjs-module-system-is-needed}
 
 Although the ES6 module system is increasingly used in many projects, unfortunately it is still not always possible to code using the `import` keyword. In browser environments that use the `<script>` tag and also in Node.js, ES Module support has begun, but CommonJS is still adopted as the default module system for backward compatibility. In situations where tools such as Babel that transform(transpile) ES6 code cannot be used, you must use the `require` keyword whether you like it or not. Therefore, it helps to know how to use CommonJS to some extent.
 
@@ -105,7 +105,7 @@ console.log(currency.usToCanadian(30));
 
 Next, let us look at how to export and import only one object from one JavaScript module file.
 
-#### 1-4-1. Export a Single Object
+#### 1-4-1. Export a Single Object {#1-4-1-export-single-object}
 
 This time, the example code was slightly modified, and the two functions below were grouped into an object and exported. You can assign the object to export to the `module.exports` variable.
 
@@ -130,7 +130,7 @@ obj.usToCanadian = function (us) {
 module.exports = obj;
 ```
 
-#### 1-4-2. Import a Single Object
+#### 1-4-2. Import a Single Object {#1-4-2-import-single-object}
 
 The one object exported above can be assigned to a variable through the `require` keyword, and through that variable you can access functions set on properties as if accessing a normal object.
 
@@ -157,19 +157,19 @@ console.log(currency.usToCanadian(30));
 32.97
 ```
 
-## 2. JavaScript ES Module Export/Import (`import`)
+## 2. JavaScript ES Module Export/Import (`import`) {#2-javascript-es-module-export-and-import}
 
 Let us look at the second method, exporting and importing modules based on ES6.
 
-### 2-1. Benefits of the ES6 Module System
+### 2-1. Benefits of the ES6 Module System {#2-1-benefits-of-es6-module-system}
 
 Because the ES6 module system is a more recent specification, it has several advantages over the CommonJS method. First, readability is good because it uses keywords dedicated to module management, such as `import`, `from`, `export`, and `default`. Also, because it works asynchronously and only loads the parts actually used from the module, there are advantages in performance and memory. In addition, there are features that CommonJS does not support, such as Named Parameters, which will be covered later.
 
-### 2-2. Multiple Objects
+### 2-2. Multiple Objects {#2-2-es-module-multiple-objects}
 
 First, let us look at how to export and import multiple objects from one JavaScript module file.
 
-#### 2-2-1. Export Multiple Objects
+#### 2-2-1. Export Multiple Objects {#2-2-1-export-es-module-multiple-objects}
 
 In CommonJS, multiple objects to export were assigned as properties of the `exports` variable, but in ES6, they are declared explicitly using the `export` keyword, the partner of the `import` keyword. At this time, the name of the variable or function being exported becomes the name used as-is when importing it, so this is called Named Exports.
 
@@ -199,7 +199,7 @@ const usToCanadian = function (us) {
 export { usToCanadian };
 ```
 
-#### 2-2-2. Import Multiple Objects
+#### 2-2-2. Import Multiple Objects {#2-2-2-import-es-module-multiple-objects}
 
 When importing multiple objects(Named Exports), you can use ES6 Destructuring syntax to selectively use only the necessary objects globally, or attach an alias to all objects and access them through that alias.
 
@@ -232,11 +232,11 @@ console.log(currency.usToCanadian(30));
 32.97
 ```
 
-### 2-3. Single Object
+### 2-3. Single Object {#2-3-es-module-single-object}
 
 Next, let us look at how to export and import only one object from one JavaScript module file.
 
-#### 2-3-1. Export a Single Object
+#### 2-3-1. Export a Single Object {#2-3-1-export-es-module-single-object}
 
 In CommonJS, a single object to export was assigned to the `module.exports` variable, but in ES6, the `export default` keyword is used instead to declare it explicitly. Because only one object is exported from one module, this is called Default Export.
 
@@ -282,7 +282,7 @@ obj.usToCanadian = function (us) {
 export default obj;
 ```
 
-#### 2-3-2. Import a Single Object
+#### 2-3-2. Import a Single Object {#2-3-2-import-es-module-single-object}
 
 When importing one object(Default Export), simply use the `import` keyword, give it any name you want, and access properties through that object.
 

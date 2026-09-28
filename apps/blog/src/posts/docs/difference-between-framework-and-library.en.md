@@ -23,13 +23,13 @@ A framework includes features essential for application development, such as cod
 
 In other words, framework code does not include completed features. A framework is the skeleton of a program that provides a blueprint for an application, not a finished product. It provides the basic foundation of an application and tells developers where to modify and use it. This is a structure in which the framework itself defines the software development flow, tells developers what is needed, and calls and uses developers' code when necessary.
 
-### 1-1. Characteristics
+### 1-1. Characteristics {#1-1-framework-characteristics}
 
 - It consists of several classes or components that provide abstractions of specific concepts.
 - Components are reusable.
 - Patterns can be operationalized at a high level.
 
-### 1-2. Advantages
+### 1-2. Advantages {#1-2-framework-advantages}
 
 - Increased development convenience.
 - Reduced development time.
@@ -41,12 +41,12 @@ In other words, framework code does not include completed features. A framework 
 - Easy debugging and application monitoring.
 - Standardized, so quality above a certain level can be expected.
 
-### 1-3. Disadvantages
+### 1-3. Disadvantages {#1-3-framework-disadvantages}
 
 - If dependency becomes high, direct development becomes difficult and development ability may decline somewhat.
 - It takes a long time to learn.
 
-### 1-4. Examples
+### 1-4. Examples {#1-4-framework-examples}
 
 - ***Java***-based server development: ***Spring***
 - ***Python***-based server development: ***Django***, ***Flask***
@@ -59,13 +59,13 @@ In other words, framework code does not include completed features. A framework 
 
 A library is a group of prewritten code composed of functions, methods, classes, and so on. It helps developers finish development faster because they do not need to rewrite code to implement specific features. Most programming languages include basic libraries, and developers can also add their own libraries.
 
-### 2-1. Examples
+### 2-1. Examples {#2-1-library-examples}
 
 - ***Python***: ***Tensorflow***, ***Pandas***, ***Beautifulsoup***, modules installed with ***pip***
 - ***JavaScript***(***Node.js***): ***jQuery***, ***React***, ***Redux***, ***Three.js***, modules installed with ***npm***
 - ***C++***: Standard Template Library(***STL***)
 
-### 2-2. Is ***React.js*** Not a Framework?
+### 2-2. Is ***React.js*** Not a Framework? {#2-2-is-react-js-not-a-framework}
 
 ![React JavaScript library for building user interfaces](/apps/blog/public/images/posts/difference-between-framework-and-library/1.webp?raw=true)
 
@@ -81,15 +81,15 @@ As shown above, ***React*** has a basic frame for program flow, but you do not n
 
 Also, because ***React*** is a library, it can be easily attached to and used with other frameworks.
 
-### 2-3. Then What about ***Express.js***?
+### 2-3. Then What about ***Express.js***? {#2-3-what-about-express-js}
 
 ![Express Fast, unopinionated, minimalist web framework for Node.js](/apps/blog/public/images/posts/difference-between-framework-and-library/2.webp?raw=true)
 
 As stated on the homepage, ***Express.js*** is a web framework. By using the advantages of ***Node.js***'s solid asynchronous communication support, it is lightweight and fast, and you can write easily applicable web apps and REST APIs.
 
-## 3. Differences between Frameworks and Libraries
+## 3. Differences between Frameworks and Libraries {#3-framework-vs-library}
 
-### 3-1. Differences
+### 3-1. Differences {#3-1-framework-library-differences}
 
 What is the difference between a library and a framework? It is in the concept of 'inversion of control.' In other words, it is about who holds the Flow of the application.
 
@@ -109,7 +109,7 @@ On the other hand, with a library, the user creates the overall flow and imports
 >
 > In the case of a library, the user must directly control the flow of the application, but in the case of a framework, it provides positions where code can be connected and has control-flow authority to call the code connected by the user when needed.
 
-### 3-2. Summary
+### 3-2. Summary {#3-2-framework-library-summary}
 
 ![alt text](/apps/blog/public/images/posts/difference-between-framework-and-library/3.webp?raw=true)
 

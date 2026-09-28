@@ -35,7 +35,7 @@ It is the <u>top-level(root) object</u> of ***JavaScript*** and the <u>***Global
 
 ![window object](/apps/blog/public/images/posts/composition-of-javascript/2.webp?raw=true)
 
-### 1-1. Role
+### 1-1. Role {#1-1-window-object-role}
 
 The `window` object has two roles.
 
@@ -49,7 +49,7 @@ The `window` object has two roles.
     window.open(); // closes the window
     ```
 
-### 1-2. Characteristics
+### 1-2. Characteristics {#1-2-window-object-characteristics}
 
 The ***Property*** or ***Method*** of the `window` object can be used directly while omitting `window`.
 
@@ -69,7 +69,7 @@ console.log(a.id); // 1
 console.log(window.a.id); // 1
 ```
 
-## 2. Core(***JavaScript***, ***ECMAScript***)
+## 2. Core(***JavaScript***, ***ECMAScript***) {#2-javascript-ecmascript-core}
 
 > Core features of ***JavaScript***
 
@@ -79,7 +79,7 @@ This is the low-level part of the language, such as syntax, types, declarations,
 
 Such 'host environments(browsers, ***Node.js***, ***Adobe Flash***, and so on)' basically implement ***ECMAScript*** and provide extensions such as the ***DOM*** and ***BOM***.
 
-## 3. Document Object Model(***DOM***)
+## 3. Document Object Model(***DOM***) {#3-document-object-model-dom}
 
 > ***Method*** and ***Interface*** values that manipulate web page content
 
@@ -95,7 +95,7 @@ The ***DOM*** transforms the entire page into objects in a node hierarchy(Node T
 
 ![Document Object](/apps/blog/public/images/posts/composition-of-javascript/3.webp?raw=true)
 
-### 3-1. Structure of the ***DOM*** (The ***HTML*** ***DOM*** tree of objects)
+### 3-1. Structure of the ***DOM*** (The ***HTML*** ***DOM*** tree of objects) {#3-1-dom-structure}
 
 ![The HTML DOM tree of objects](/apps/blog/public/images/posts/composition-of-javascript/4.webp?raw=true)
 
@@ -107,7 +107,7 @@ Attribute Node | <u>***Attribute*** values</u> such as `name` and `value` inside
 Text Node | <u>***Text***</u> in an ***HTML*** document
 Comment Node | <u>***Comment***</u> in an ***HTML*** document
 
-## 4. Browser Object Model(***BOM***)
+## 4. Browser Object Model(***BOM***) {#4-browser-object-model-bom}
 
 > ***Method*** and ***Interface*** values that interact with the browser
 

@@ -12,13 +12,13 @@ references:
 
 Let us look at Babel, a useful tool that helps developers code in JavaScript with the latest syntax regardless of the execution environment. The content below is based on Babel 7.
 
-## 1. The JavaScript Developer's Dilemma
+## 1. The JavaScript Developer's Dilemma {#1-javascript-developer-dilemma}
 
 The syntax of the JavaScript language is evolving quickly, but the environments that actually run JavaScript code often fail to support it. For example, in the case of browsers, there are so many types that it is difficult to individually identify which browser supports which specification, and in the case of Node.js, language syntax support also differs by version, so although not as much as browsers, similar problems occur.
 
 In this situation, JavaScript developers fall into an interesting dilemma. If they use the latest syntax from ES6 or later when coding in JavaScript, the code they wrote may not work in some execution environments; but if they code conservatively so that it runs in every environment, they must write code in the old ES5 or earlier style, whether they want to or not.
 
-## 2. Babel: JavaScript Transpiler(Compiler)
+## 2. Babel: JavaScript Transpiler(Compiler) {#2-babel-javascript-transpiler-compiler}
 
 What appeared to solve this developer dilemma is Babel, a JavaScript transpiler. Many developers also call Babel a JavaScript compiler more casually, but strictly speaking, compile means the process of changing source code written by humans into machine code that computers can understand, while transpile means the process of changing only the form of source code while keeping the same language so that it can run in another execution environment. Therefore, because JavaScript is an interpreted language and not a compiled language such as C or Java, a compilation process is not needed. However, in the actual JavaScript community, these two terms are used interchangeably, so there is probably no need to care too much about what it is called.
 
@@ -87,7 +87,7 @@ $ npx babel before.js
 
 Huh? The form of the source code is exactly the same as it was first written. The reason is that we have not yet told Babel how to transform the code.
 
-## 6. Plugin/Preset Configuration
+## 6. Plugin/Preset Configuration {#6-plugin-preset-configuration}
 
 You can tell Babel syntax transformation rules through plugins or presets. Usually, a plugin is used when applying rules one by one in detail, and a preset is used when applying multiple rules at once.
 
