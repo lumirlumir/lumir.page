@@ -7,7 +7,11 @@
 // --------------------------------------------------------------------------------
 
 import { assert, describe, it } from 'vitest';
-import { remarkCustomHeadingId, remarkHeadingFromTitle } from './index.js';
+import {
+  customHeadingIdRegex,
+  remarkCustomHeadingId,
+  remarkHeadingFromTitle,
+} from './index.js';
 import packageJson from '../package.json' with { type: 'json' };
 
 // --------------------------------------------------------------------------------
@@ -22,6 +26,11 @@ describe('index', () => {
   });
 
   describe('exports', () => {
+    it('`customHeadingIdRegex` should capture a custom heading ID', () => {
+      assert.isDefined(customHeadingIdRegex);
+      assert.strictEqual(typeof customHeadingIdRegex, 'object');
+    });
+
     it('`remarkCustomHeadingId` should be defined', () => {
       assert.isDefined(remarkCustomHeadingId);
       assert.strictEqual(typeof remarkCustomHeadingId, 'function');
