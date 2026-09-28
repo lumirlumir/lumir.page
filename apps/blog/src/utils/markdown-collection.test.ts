@@ -6,10 +6,61 @@
 // Import
 // --------------------------------------------------------------------------------
 
-import { strict as assert } from 'node:assert';
-import { globSync } from 'node:fs';
-import { describe, it } from 'vitest';
+import { assert, describe, it, vi } from 'vitest';
 import createMarkdownCollection from './markdown-collection.js';
+
+// --------------------------------------------------------------------------------
+// Mock
+// --------------------------------------------------------------------------------
+
+vi.hoisted(() => {
+  const markdownModules = {
+    'simple-post.ko': `---
+title: Korean Mock Post
+description: Korean mock post description.
+created: '2024-01-01'
+updated: '2024-01-02'
+categories:
+  - javascript
+  - markdown
+references:
+  - https://example.com/ko
+---
+## Korean Mock Post
+
+Korean body.`,
+    'simple-post.en': `---
+title: English Mock Post
+description: English mock post description.
+created: '2024-02-01'
+updated: '2024-02-02'
+categories:
+  - nextjs
+references: []
+---
+## English Mock Post
+
+English body.`,
+  };
+  const { entries } = Object;
+
+  // Vite transforms import.meta.glob into an object before the module runs.
+  // Replace only its Markdown entries and immediately restore Object.entries.
+  const entriesMock = vi.spyOn(Object, 'entries').mockImplementation(value => {
+    const result = entries(value);
+
+    if (
+      result.length > 0 &&
+      result.every(([path]) => path.startsWith('./') && path.endsWith('.md'))
+    ) {
+      entriesMock.mockRestore();
+
+      return entries(markdownModules).map(([id, markdown]) => [`./${id}.md`, markdown]);
+    }
+
+    return result;
+  });
+});
 
 // --------------------------------------------------------------------------------
 // Test
@@ -24,112 +75,223 @@ describe('markdown-collection', () => {
   });
 
   describe('loadVMarkdownFileMeta', () => {
-    it('should load Korean Markdown metadata from a matching file', async () => {
+    it('should load Markdown metadata from the module registry - ko', async () => {
       const markdownCollection = createMarkdownCollection();
-      const metadata = await markdownCollection.loadVMarkdownFileMeta('2558.ko');
 
-      assert.strictEqual(metadata.id, '2558.ko');
-      assert.strictEqual(metadata.slug, '2558');
-      assert.strictEqual(metadata.lang, 'ko');
-      assert.strictEqual(metadata.data.title, '2558번: A+B - 2');
-      assert.deepStrictEqual(metadata.data.categories, ['baekjoon']);
+      assert.deepStrictEqual(
+        await markdownCollection.loadVMarkdownFileMeta('simple-post.ko'),
+        {
+          id: 'simple-post.ko',
+          slug: 'simple-post',
+          lang: 'ko',
+          data: {
+            title: 'Korean Mock Post',
+            description: 'Korean mock post description.',
+            created: '2024-01-01',
+            updated: '2024-01-02',
+            categories: ['javascript', 'markdown'],
+            references: ['https://example.com/ko'],
+          },
+        },
+      );
     });
 
-    it('should load English Markdown metadata from a matching file', async () => {
+    it('should load Markdown metadata from the module registry - en', async () => {
       const markdownCollection = createMarkdownCollection();
-      const metadata = await markdownCollection.loadVMarkdownFileMeta('2558.en');
 
-      assert.strictEqual(metadata.id, '2558.en');
-      assert.strictEqual(metadata.slug, '2558');
-      assert.strictEqual(metadata.lang, 'en');
-      assert.strictEqual(metadata.data.title, '2558: A+B - 2');
-      assert.deepStrictEqual(metadata.data.categories, ['baekjoon']);
+      assert.deepStrictEqual(
+        await markdownCollection.loadVMarkdownFileMeta('simple-post.en'),
+        {
+          id: 'simple-post.en',
+          slug: 'simple-post',
+          lang: 'en',
+          data: {
+            title: 'English Mock Post',
+            description: 'English mock post description.',
+            created: '2024-02-01',
+            updated: '2024-02-02',
+            categories: ['nextjs'],
+            references: [],
+          },
+        },
+      );
     });
 
-    it('should reject a Markdown id without a matching file', async () => {
+    it('should throw when a requested Markdown file is missing from the module registry', async () => {
       const markdownCollection = createMarkdownCollection();
+      let caughtError: unknown;
 
-      await assert.rejects(
-        markdownCollection.loadVMarkdownFileMeta('missing-post.ko'),
-        /Markdown file not found: `missing-post.ko`/,
+      try {
+        await markdownCollection.loadVMarkdownFileMeta('missing-post.ko');
+      } catch (error) {
+        caughtError = error;
+      }
+
+      assert.ok(caughtError instanceof Error);
+      assert.strictEqual(
+        caughtError.message,
+        'Markdown file not found: `missing-post.ko`',
       );
     });
   });
 
   describe('loadVMarkdownFile', () => {
-    it('should load Korean Markdown content from a matching file', async () => {
+    it('should load Markdown content from the module registry - ko', async () => {
       const markdownCollection = createMarkdownCollection();
-      const file = await markdownCollection.loadVMarkdownFile('2558.ko');
 
-      assert.strictEqual(file.id, '2558.ko');
-      assert.strictEqual(file.lang, 'ko');
-      assert.strictEqual(file.data.title, '2558번: A+B - 2');
-      assert.match(file.content, /6개월만에 코딩공부를 다시 시작했더니/);
+      assert.deepStrictEqual(
+        await markdownCollection.loadVMarkdownFile('simple-post.ko'),
+        {
+          id: 'simple-post.ko',
+          slug: 'simple-post',
+          lang: 'ko',
+          data: {
+            title: 'Korean Mock Post',
+            description: 'Korean mock post description.',
+            created: '2024-01-01',
+            updated: '2024-01-02',
+            categories: ['javascript', 'markdown'],
+            references: ['https://example.com/ko'],
+          },
+          content: '## Korean Mock Post\n\nKorean body.',
+        },
+      );
     });
 
-    it('should load English Markdown content from a matching file', async () => {
+    it('should load Markdown content from the module registry - en', async () => {
       const markdownCollection = createMarkdownCollection();
-      const file = await markdownCollection.loadVMarkdownFile('2558.en');
 
-      assert.strictEqual(file.id, '2558.en');
-      assert.strictEqual(file.lang, 'en');
-      assert.strictEqual(file.data.title, '2558: A+B - 2');
-      assert.match(file.content, /After starting to study coding again/);
+      assert.deepStrictEqual(
+        await markdownCollection.loadVMarkdownFile('simple-post.en'),
+        {
+          id: 'simple-post.en',
+          slug: 'simple-post',
+          lang: 'en',
+          data: {
+            title: 'English Mock Post',
+            description: 'English mock post description.',
+            created: '2024-02-01',
+            updated: '2024-02-02',
+            categories: ['nextjs'],
+            references: [],
+          },
+          content: '## English Mock Post\n\nEnglish body.',
+        },
+      );
     });
 
-    it('should reject a Markdown id without a matching file', async () => {
+    it('should throw when a requested Markdown file is missing from the module registry', async () => {
       const markdownCollection = createMarkdownCollection();
+      let caughtError: unknown;
 
-      await assert.rejects(
-        markdownCollection.loadVMarkdownFile('missing-post.ko'),
-        /Markdown file not found: `missing-post.ko`/,
+      try {
+        await markdownCollection.loadVMarkdownFile('missing-post.ko');
+      } catch (error) {
+        caughtError = error;
+      }
+
+      assert.ok(caughtError instanceof Error);
+      assert.strictEqual(
+        caughtError.message,
+        'Markdown file not found: `missing-post.ko`',
       );
     });
   });
 
   describe('byLangSlug', () => {
-    it('should index every Markdown file by language and slug', () => {
+    it('should index Markdown metadata by language and slug', () => {
       const markdownCollection = createMarkdownCollection();
-      const fileNames = globSync('*.md', {
-        cwd: new URL('../posts/docs/', import.meta.url),
-      });
 
-      assert.deepStrictEqual(
-        Object.keys(markdownCollection.byLangSlug.ko).sort(),
-        fileNames
-          .filter(name => name.endsWith('.ko.md'))
-          .map(name => name.slice(0, -6))
-          .sort(),
-      );
-      assert.deepStrictEqual(
-        Object.keys(markdownCollection.byLangSlug.en).sort(),
-        fileNames
-          .filter(name => name.endsWith('.en.md'))
-          .map(name => name.slice(0, -6))
-          .sort(),
-      );
+      assert.deepStrictEqual(markdownCollection.byLangSlug.ko['simple-post'], {
+        id: 'simple-post.ko',
+        slug: 'simple-post',
+        lang: 'ko',
+        data: {
+          title: 'Korean Mock Post',
+          description: 'Korean mock post description.',
+          created: '2024-01-01',
+          updated: '2024-01-02',
+          categories: ['javascript', 'markdown'],
+          references: ['https://example.com/ko'],
+        },
+      });
+      assert.deepStrictEqual(markdownCollection.byLangSlug.en['simple-post'], {
+        id: 'simple-post.en',
+        slug: 'simple-post',
+        lang: 'en',
+        data: {
+          title: 'English Mock Post',
+          description: 'English mock post description.',
+          created: '2024-02-01',
+          updated: '2024-02-02',
+          categories: ['nextjs'],
+          references: [],
+        },
+      });
     });
   });
 
   describe('byLangCategory', () => {
-    it('should index Markdown metadata under its language and category', () => {
+    it('should index Markdown metadata by language and category', () => {
       const markdownCollection = createMarkdownCollection();
 
-      assert.ok(
-        markdownCollection.byLangCategory.ko.baekjoon.some(file => file.id === '2558.ko'),
-      );
-      assert.ok(
-        markdownCollection.byLangCategory.en.baekjoon.some(file => file.id === '2558.en'),
-      );
+      assert.deepStrictEqual(markdownCollection.byLangCategory.ko.javascript, [
+        {
+          id: 'simple-post.ko',
+          slug: 'simple-post',
+          lang: 'ko',
+          data: {
+            title: 'Korean Mock Post',
+            description: 'Korean mock post description.',
+            created: '2024-01-01',
+            updated: '2024-01-02',
+            categories: ['javascript', 'markdown'],
+            references: ['https://example.com/ko'],
+          },
+        },
+      ]);
+      assert.deepStrictEqual(markdownCollection.byLangCategory.ko.markdown, [
+        {
+          id: 'simple-post.ko',
+          slug: 'simple-post',
+          lang: 'ko',
+          data: {
+            title: 'Korean Mock Post',
+            description: 'Korean mock post description.',
+            created: '2024-01-01',
+            updated: '2024-01-02',
+            categories: ['javascript', 'markdown'],
+            references: ['https://example.com/ko'],
+          },
+        },
+      ]);
+      assert.deepStrictEqual(markdownCollection.byLangCategory.en.nextjs, [
+        {
+          id: 'simple-post.en',
+          slug: 'simple-post',
+          lang: 'en',
+          data: {
+            title: 'English Mock Post',
+            description: 'English mock post description.',
+            created: '2024-02-01',
+            updated: '2024-02-02',
+            categories: ['nextjs'],
+            references: [],
+          },
+        },
+      ]);
+      assert.deepStrictEqual(markdownCollection.byLangCategory.en.javascript, []);
     });
   });
 
   describe('nonEmptyCategoryKeys', () => {
-    it('should include categories used by Markdown files in each language', () => {
+    it('should return non-empty category keys from the module registry', () => {
       const markdownCollection = createMarkdownCollection();
 
-      assert.ok(markdownCollection.nonEmptyCategoryKeys.ko.includes('baekjoon'));
-      assert.ok(markdownCollection.nonEmptyCategoryKeys.en.includes('baekjoon'));
+      assert.deepStrictEqual(markdownCollection.nonEmptyCategoryKeys, {
+        ko: ['markdown', 'javascript'],
+        en: ['nextjs'],
+      });
     });
   });
 });
