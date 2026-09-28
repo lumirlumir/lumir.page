@@ -7,7 +7,14 @@
 // --------------------------------------------------------------------------------
 
 import { assert, describe, it } from 'vitest';
-import { cn, frontmatter, frontmatterData } from './index.js';
+import {
+  cn,
+  frontmatter,
+  frontmatterData,
+  countWords,
+  readingTime,
+  readingTimeWithCount,
+} from './index.js';
 import packageJson from '../package.json' with { type: 'json' };
 
 // --------------------------------------------------------------------------------
@@ -22,6 +29,25 @@ describe('index', () => {
   });
 
   describe('exports', () => {
+    it('`readingTime` should estimate reading time through the package entry point', () => {
+      assert.deepStrictEqual(readingTime('Hello, world!'), {
+        minutes: 1,
+        time: 600,
+        words: { total: 2 },
+      });
+    });
+
+    it('`countWords` should count words through the package entry point', () => {
+      assert.deepStrictEqual(countWords('Hello, world!'), { total: 2 });
+    });
+
+    it('`readingTimeWithCount` should estimate time through the package entry point', () => {
+      assert.deepStrictEqual(readingTimeWithCount({ total: 300 }), {
+        minutes: 2,
+        time: 90000,
+      });
+    });
+
     it('`cn` should be defined', () => {
       assert.isDefined(cn);
       assert.strictEqual(typeof cn, 'function');

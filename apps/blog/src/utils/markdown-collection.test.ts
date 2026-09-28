@@ -6,8 +6,9 @@
 // Import
 // --------------------------------------------------------------------------------
 
-import { assert, describe, it, vi } from 'vitest';
-import createMarkdownCollection from './markdown-collection.js';
+import { assert, beforeEach, describe, it, vi } from 'vitest';
+
+let createMarkdownCollection: (typeof import('./markdown-collection.js'))['default'];
 
 // --------------------------------------------------------------------------------
 // Mock
@@ -16,7 +17,9 @@ import createMarkdownCollection from './markdown-collection.js';
 // Vite transforms `import.meta.glob` before runtime, so intercept `Object.entries`
 // before the collection module is imported. Replace entries matching Markdown
 // paths with mock data, then immediately restore the original function.
-vi.hoisted(() => {
+beforeEach(async () => {
+  vi.resetModules();
+
   const markdownModules = {
     'simple-post.ko': `---
 title: Korean Mock Post
@@ -44,6 +47,23 @@ references: []
 ## English Mock Post
 
 English body.`,
+    'long-post.en': `---
+title: Long Post
+description: ${'metadata '.repeat(300)}
+created: '2024-01-01'
+updated: '2024-01-02'
+categories: []
+references: []
+---
+${'word '.repeat(300)}`,
+    'empty-post.en': `---
+title: Empty Post
+description: ${'metadata '.repeat(300)}
+created: '2024-01-01'
+updated: '2024-01-02'
+categories: []
+references: []
+---`,
   };
   const { entries } = Object;
 
@@ -61,6 +81,12 @@ English body.`,
 
     return result;
   });
+
+  try {
+    ({ default: createMarkdownCollection } = await import('./markdown-collection.js'));
+  } finally {
+    entriesMock.mockRestore();
+  }
 });
 
 // --------------------------------------------------------------------------------
@@ -76,6 +102,26 @@ describe('markdown-collection', () => {
   });
 
   describe('loadVMarkdownFileMeta', () => {
+    it('should store display minutes calculated from the body without frontmatter', async () => {
+      const markdownCollection = createMarkdownCollection();
+      const metadata = await markdownCollection.loadVMarkdownFileMeta('long-post.en');
+
+      assert.strictEqual(metadata.readingTime, 2);
+      assert.notProperty(metadata, 'content');
+      assert.strictEqual(
+        await markdownCollection.loadVMarkdownFileMeta('long-post.en'),
+        metadata,
+      );
+      assert.strictEqual(markdownCollection.byLangSlug.en['long-post'], metadata);
+    });
+
+    it('should store zero minutes for an empty body even with long frontmatter', async () => {
+      const markdownCollection = createMarkdownCollection();
+      const metadata = await markdownCollection.loadVMarkdownFileMeta('empty-post.en');
+
+      assert.strictEqual(metadata.readingTime, 0);
+    });
+
     it('should load Markdown metadata from the module registry - ko', async () => {
       const markdownCollection = createMarkdownCollection();
 
@@ -85,6 +131,7 @@ describe('markdown-collection', () => {
           id: 'simple-post.ko',
           slug: 'simple-post',
           lang: 'ko',
+          readingTime: 1,
           data: {
             title: 'Korean Mock Post',
             description: 'Korean mock post description.',
@@ -106,6 +153,7 @@ describe('markdown-collection', () => {
           id: 'simple-post.en',
           slug: 'simple-post',
           lang: 'en',
+          readingTime: 1,
           data: {
             title: 'English Mock Post',
             description: 'English mock post description.',
@@ -137,6 +185,40 @@ describe('markdown-collection', () => {
   });
 
   describe('loadVMarkdownFile', () => {
+    it('should cache reading time when content is loaded before metadata', async () => {
+      const markdownCollection = createMarkdownCollection();
+      const file = await markdownCollection.loadVMarkdownFile('long-post.en');
+      const metadata = await markdownCollection.loadVMarkdownFileMeta('long-post.en');
+
+      assert.strictEqual(file.content, 'word '.repeat(300));
+      assert.strictEqual(file.readingTime, 2);
+      assert.strictEqual(metadata.readingTime, 2);
+      assert.strictEqual(markdownCollection.byLangSlug.en['long-post'], metadata);
+    });
+
+    it('should preserve reading time when metadata is loaded before content', async () => {
+      const markdownCollection = createMarkdownCollection();
+      const metadata = await markdownCollection.loadVMarkdownFileMeta('long-post.en');
+      const file = await markdownCollection.loadVMarkdownFile('long-post.en');
+
+      assert.strictEqual(metadata.readingTime, 2);
+      assert.strictEqual(file.readingTime, 2);
+      assert.strictEqual(
+        await markdownCollection.loadVMarkdownFileMeta('long-post.en'),
+        metadata,
+      );
+    });
+
+    it('should return and cache zero minutes for an empty body', async () => {
+      const markdownCollection = createMarkdownCollection();
+      const file = await markdownCollection.loadVMarkdownFile('empty-post.en');
+      const metadata = await markdownCollection.loadVMarkdownFileMeta('empty-post.en');
+
+      assert.strictEqual(file.content, '');
+      assert.strictEqual(file.readingTime, 0);
+      assert.strictEqual(metadata.readingTime, 0);
+    });
+
     it('should load Markdown content from the module registry - ko', async () => {
       const markdownCollection = createMarkdownCollection();
 
@@ -146,6 +228,7 @@ describe('markdown-collection', () => {
           id: 'simple-post.ko',
           slug: 'simple-post',
           lang: 'ko',
+          readingTime: 1,
           data: {
             title: 'Korean Mock Post',
             description: 'Korean mock post description.',
@@ -168,6 +251,7 @@ describe('markdown-collection', () => {
           id: 'simple-post.en',
           slug: 'simple-post',
           lang: 'en',
+          readingTime: 1,
           data: {
             title: 'English Mock Post',
             description: 'English mock post description.',
@@ -200,6 +284,22 @@ describe('markdown-collection', () => {
   });
 
   describe('byLangSlug', () => {
+    it('should calculate reading time when the slug index is accessed before loading files', async () => {
+      const markdownCollection = createMarkdownCollection();
+      const metadata = markdownCollection.byLangSlug.en['long-post'];
+
+      assert.strictEqual(metadata.readingTime, 2);
+      assert.strictEqual(markdownCollection.byLangSlug.en['empty-post'].readingTime, 0);
+      assert.strictEqual(
+        await markdownCollection.loadVMarkdownFileMeta('long-post.en'),
+        metadata,
+      );
+      assert.strictEqual(
+        (await markdownCollection.loadVMarkdownFile('long-post.en')).readingTime,
+        2,
+      );
+    });
+
     it('should index Markdown metadata by language and slug', () => {
       const markdownCollection = createMarkdownCollection();
 
@@ -207,6 +307,7 @@ describe('markdown-collection', () => {
         id: 'simple-post.ko',
         slug: 'simple-post',
         lang: 'ko',
+        readingTime: 1,
         data: {
           title: 'Korean Mock Post',
           description: 'Korean mock post description.',
@@ -220,6 +321,7 @@ describe('markdown-collection', () => {
         id: 'simple-post.en',
         slug: 'simple-post',
         lang: 'en',
+        readingTime: 1,
         data: {
           title: 'English Mock Post',
           description: 'English mock post description.',
@@ -241,6 +343,7 @@ describe('markdown-collection', () => {
           id: 'simple-post.ko',
           slug: 'simple-post',
           lang: 'ko',
+          readingTime: 1,
           data: {
             title: 'Korean Mock Post',
             description: 'Korean mock post description.',
@@ -256,6 +359,7 @@ describe('markdown-collection', () => {
           id: 'simple-post.ko',
           slug: 'simple-post',
           lang: 'ko',
+          readingTime: 1,
           data: {
             title: 'Korean Mock Post',
             description: 'Korean mock post description.',
@@ -271,6 +375,7 @@ describe('markdown-collection', () => {
           id: 'simple-post.en',
           slug: 'simple-post',
           lang: 'en',
+          readingTime: 1,
           data: {
             title: 'English Mock Post',
             description: 'English mock post description.',
