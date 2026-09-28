@@ -10,7 +10,7 @@ references: []
 
 Let us look at the differences between ***VScode***(Visual Studio Code) and ***Visual Studio***.
 
-## 1. ***VScode***
+## 1. ***VScode*** {#1-vscode}
 
 ***VScode*** is a <u>free</u> code editor. It is much faster and lighter than ***Visual Studio***. By default, if no ***Extension*** is installed, it provides only simple features similar to Notepad. Instead, you can install the features you need as extensions, which allows it to get close to the level of an ***IDE***.
 
@@ -28,7 +28,7 @@ Let us look at the differences between ***VScode***(Visual Studio Code) and ***V
 - Because it is highly extensible, individual configuration can be difficult.
 - Additional development environments must be configured.
 
-## 2. ***Visual Studio***
+## 2. ***Visual Studio*** {#2-visual-studio}
 
 It is a full-featured integrated development environment (***IDE***, Integrated Development Environment). It is available on ***Windows*** and ***Mac OS***. It supports software development, analysis, debugging, testing, collaboration, deployment, and more. You can develop for ***Web***, ***Mobile***, and ***Desktop*** with ***.NET***, and support for ***Unity***, ***Azure***, and ***Docker*** is included by default.
 
@@ -43,7 +43,7 @@ It is optimized for ***.NET*** and ***C*** family language development and has m
 
 - It is slow and heavy.
 
-## 3. ***VScode*** vs ***Visual Studio***
+## 3. ***VScode*** vs ***Visual Studio*** {#3-vscode-vs-visual-studio}
 
 Then which should you use between ***VScode*** and ***Visual Studio***?
 

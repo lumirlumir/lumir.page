@@ -70,7 +70,7 @@ The output result is as follows.
 
 In Next.js, using `__dirname` can behave differently from a normal Node.js environment. The reason is that Next.js bundles code at build time and distinguishes between server and client environments. In Next.js, when `__dirname` is executed on the server, it points to the path of the bundled file, so it may return a path different from what you expect, and caution is needed.
 
-### 2-1. Differences
+### 2-1. Differences {#2-1-differences}
 
 1. `process.cwd()`: Returns the directory where the current process is executed, that is, the **project root directory**. In the case of Next.js, this mainly points to the root directory of the project and is suitable for use when finding files.
 
@@ -100,6 +100,6 @@ process.cwd(): /
 __dirname: /.next/server/app
 ```
 
-### 2-3. Conclusion
+### 2-3. Conclusion {#2-3-conclusion}
 
 When finding file paths in a Next.js project, using `process.cwd()` is much more stable. Because `process.cwd()` always points to the root directory of the project, it can be used more consistently when specifying file paths. **Therefore, in a Next.js environment, using `process.cwd()` is recommended over `__dirname`.**

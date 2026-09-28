@@ -119,7 +119,7 @@ It is mainly used for constants, environment variable definitions, and so on. Th
   MACRO_CASE
   ```
 
-## 4. kebab-case
+## 4. kebab-case {#4-kebab-case}
 
 Write it by placing a dash(`-`) between each word.
 

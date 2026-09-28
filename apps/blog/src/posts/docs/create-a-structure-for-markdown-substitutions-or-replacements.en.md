@@ -57,7 +57,7 @@ You can think of string interpolation<sup>String Interpolation</sup>, such as `$
 
 Then if someone asks, "Is the structure that uses substitutions used often?", I can say, "It is used often." The various substitution structures I looked at to use the substitution structure of the current blog are as follows.
 
-#### 2-1-1. MathJax and Katex
+#### 2-1-1. MathJax and Katex {#2-1-1-mathjax-and-katex}
 
 ```md
 **The Cauchy-Schwarz Inequality**
@@ -95,7 +95,7 @@ The following substitution sets the URI Fragment. (A URI Fragment means the `#fr
 {/* ... */}
 ```
 
-#### 2-1-3. Tistory Blog
+#### 2-1-3. Tistory Blog {#2-1-3-tistory-blog}
 
 ```html
 <li><a href="[##_tag_link_##]" class="[##_tag_class_##]">[##_tag_name_##]</a></li>
@@ -150,6 +150,6 @@ Through the method above, you should be able to extract and process the string i
 
 However, if the entire Markdown document is put into the logic above, conversion time may take longer than expected, so it is important to optimize by applying conversion logic only to the necessary parts.
 
-### 3. Closing
+### 3. Closing {#3-closing}
 
 We looked at how to create and use Markdown substitutions with a simple example. The content above can also be considered a kind of Markdown preprocessing<sup>Preprocessing</sup> process. This is not about how to use a library or framework or about a specific setting; it explains a part where developers must design and build the flow themselves, so I hope it can be used as a reference like, "This kind of method exists too!"

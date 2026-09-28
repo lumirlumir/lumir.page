@@ -57,7 +57,7 @@ Unlike `console.log()`, it is used to check all properties of an object. It is m
 
 `console.dir()` outputs elements in a tree structure like ***JSON*** and is useful when you want to see the full representation of a ***DOM*** ***JS*** object. In other words, use `console.dir()` when you want to see an object's data.
 
-## 3. Summary
+## 3. Summary {#3-summary}
 
 <u> | Structure | Object | Function
 --- | --- | --- | ---
@@ -66,9 +66,9 @@ Unlike `console.log()`, it is used to check all properties of an object. It is m
 
 It is convenient to use `console.dir()` for objects and properties, and `console.log()` for the rest.
 
-## 4. Examples
+## 4. Examples {#4-examples}
 
-### 4-1. `document` Output
+### 4-1. `document` Output {#4-1-document-output}
 
 - `console.log()`: Outputs a tree structure in ***HTML*** form.
 
@@ -88,7 +88,7 @@ It is convenient to use `console.dir()` for objects and properties, and `console
 
   ![console.dir()](/apps/blog/public/images/posts/difference-between-console-log-and-console-dir/4.webp?raw=true)
 
-### 4-3. Function `a()` Output
+### 4-3. Function `a()` Output {#4-3-function-a-output}
 
 - Functions(objects) are output in the same way.
 - If you use `console.log(a());` and `console.dir(a());`, the `()` causes the function to execute, so both output `true`.

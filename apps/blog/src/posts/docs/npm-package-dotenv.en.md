@@ -115,7 +115,7 @@ DB_PASS: 1234
 
 A React project built with CRA(create-react-app) already includes the `dotenv` package, so no separate installation is needed. However, a React project built directly through Webpack and similar tools does not include the `dotenv` package, so installation is required.
 
-### 5-1. React Project Built with CRA
+### 5-1. React Project Built with CRA {#5-1-react-project-built-with-cra}
 
 Because the `dotenv` package is already included, environment variables can be used simply by creating a `.env` file at the project Root and declaring variables, without adding a separate package or configuring Webpack.
 
@@ -133,9 +133,9 @@ REACT_APP_API_KEY=1234asdf
 
 - If you add or modify variables in `.env`, the server must be restarted for the settings to be applied.
 
-### 5-2. React Project Built with Webpack
+### 5-2. React Project Built with Webpack {#5-2-react-project-built-with-webpack}
 
-#### 5-2-1. Possible Errors
+#### 5-2-1. Possible Errors {#5-2-1-possible-errors}
 
 If you use the methods in Common JS and ES modules explained above in React in the same way, you are likely to encounter an `Error` like the following.
 
@@ -236,7 +236,7 @@ module.exports = {
 }
 ```
 
-##### 5-2-2-3. `dotenv-webpack` Package
+##### 5-2-2-3. `dotenv-webpack` Package {#5-2-2-3-dotenv-webpack-package}
 
 There is also a simple method of using the `dotenv-webpack` package instead of `dotenv`.
 
@@ -262,7 +262,7 @@ module.exports = {
 }
 ```
 
-### 5-3. Summary
+### 5-3. Summary {#5-3-summary}
 
 React project built with CRA.
 
@@ -344,7 +344,7 @@ DB_PASS: 5678
 
 This method is very useful when you cannot know in advance whether a project is based on CommonJS or ES modules. This is because it works regardless of which module system the corresponding Node.js runtime uses.
 
-## 8. Common Mistakes in ES Modules
+## 8. Common Mistakes in ES Modules {#8-common-mistakes-in-es-modules}
 
 When using ES modules, you need to be a bit more careful than when using CommonJS. Let us reproduce a common problem.
 
@@ -418,7 +418,7 @@ DB_PASS: 1234
 
 As such, it is safe to call the `dotenv.config()` function as early as possible after the program starts.
 
-## 9. Already Configured Environment Variables
+## 9. Already Configured Environment Variables {#9-already-configured-environment-variables}
 
 Be careful because environment variables already configured at the operating system level are not overwritten by environment variable values read from a file through `dotenv`. For example, if you set the `DB_PASS` environment variable in advance before running the program on a Linux-based operating system as follows,
 
@@ -478,7 +478,7 @@ DB_USER: root
 DB_PASS: 0000
 ```
 
-## 10. Security Precautions
+## 10. Security Precautions {#10-security-precautions}
 
 Because `.env` files usually contain sensitive credentials such as database passwords or API keys for third-party services, uploading them to a code repository such as Github can be quite dangerous. Especially in collaborative projects, it is desirable to configure the `.gitignore` file so that developers cannot accidentally upload them to the code repository.
 

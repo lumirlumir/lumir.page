@@ -31,7 +31,7 @@ There is no need to install `npm` separately; it is automatically installed toge
 
 When following various courses or development documents, you can see several flags such as `--save-dev` and `-g` attached to various commands such as `npm install`; let us find out what they are and what roles they play.
 
-## 1. `npm`
+## 1. `npm` {#1-npm}
 
 ### 1-1. Flags {#1-1-npm-flags}
 
@@ -53,7 +53,7 @@ You can check the version of `npm`.
   10.8.1
   ```
 
-## 2. `npm init`
+## 2. `npm init` {#2-npm-init}
 
 > aliases: `create`, `innit`
 
@@ -92,7 +92,7 @@ Mainly, because changing `package.json` is more intuitive than configuring it di
 npm init --yes
 ```
 
-## 3. `npm install`
+## 3. `npm install` {#3-npm-install}
 
 > aliases: `add`, `i`, `in`, `ins`, `inst`, `insta`, `instal`, `isnt`, `isnta`, `isntal`, `isntall`
 
@@ -183,7 +183,7 @@ Because `devDependencies` files are used only for development, it may be wastefu
 
 If `npm install --production` is run on `packages.json` recorded as above, only the `react` package is installed, excluding `eslint`.
 
-## 4. `npm uninstall`
+## 4. `npm uninstall` {#4-npm-uninstall}
 
 > aliases: `unlink`, `remove`, `rm`, `r`, `un`
 
@@ -194,7 +194,7 @@ If you enter the package name to delete after the command, all files related to 
 npm uninstall [<@scope>/]<pkg>...
 ```
 
-## 5. `npm update`
+## 5. `npm update` {#5-npm-update}
 
 > aliases: `up`, `upgrade`, `udpate`
 

@@ -82,7 +82,7 @@ In HTML, consecutive spaces are treated as a single space, so consecutive spaces
 
   left|&emsp;|right
 
-## 4. Output Result Comparison
+## 4. Output Result Comparison {#4-output-result-comparison}
 
 - Input
 

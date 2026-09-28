@@ -74,7 +74,7 @@ The priority of protection rules is applied higher when they include the name of
 
 If you want to add an exception to an existing specific protection rule, add a new protection rule with higher priority.
 
-## 2. Protect matching branches
+## 2. Protect matching branches {#2-protect-matching-branches}
 
 ### 2-1. Require a pull request before merging {#2-1-require-pull-request-before-merging}
 
@@ -82,7 +82,7 @@ If you want to add an exception to an existing specific protection rule, add a n
 
 Require a PR before merging. To Commit to the relevant Branch, a direct Push from Local is not possible, and you must create a separate Branch and proceed with a Pull Request. In other words, you cannot Push directly to the Branch, and changes can only be reflected through a PR. This is used during collaboration to protect a Branch from direct Pushes from Local and to force code review. Each person works on their own Branch(unprotected), then reflects the code into the shared Branch through a PR.
 
-#### 2-1-1. Require approvals
+#### 2-1-1. Require approvals {#2-1-1-require-approvals}
 
 Determine the number of people required for PR approval. Merging proceeds only when at least a certain number of people approve. For example, if the required member count is 3, three approvals are required before merging proceeds.
 
@@ -122,13 +122,13 @@ Before merging, always make sure status tests are run against the latest Branch 
 
 Before merging, every Conversation created through code review in the PR must be resolved(Solved) before merging is allowed.
 
-### 2-4. Require signed commits
+### 2-4. Require signed commits {#2-4-require-signed-commits}
 
 > Commits pushed to matching branches must have verified signatures.
 
 Only signed(Verified) Commits can be Pushed. Usually, when a GPG Key is registered in GitHub and a person with that Key makes a Commit, a signed(Verified) mark appears.
 
-### 2-5. Require linear history
+### 2-5. Require linear history {#2-5-require-linear-history}
 
 > Prevent merge commits from being pushed to matching branches.
 
@@ -144,7 +144,7 @@ Require linear History.
 
 Deployment must succeed before merging. Among the environments configured in the Repository, you can select the targets whose deployment success should be checked.
 
-### 2-7. Lock branch
+### 2-7. Lock branch {#2-7-lock-branch}
 
 > Branch is read-only. Users cannot push to the branch.
 
@@ -158,13 +158,13 @@ Even users with administrator permissions cannot merge unless they follow all th
 
 ## 3. Rules applied to everyone including administrators {#3-rules-for-administrators}
 
-### 3-1. Allow force pushes
+### 3-1. Allow force pushes {#3-1-allow-force-pushes}
 
 > Permit force pushes for all users with push access.
 
 Determine whether to allow force Pushes. A force Push replaces all Commits that exist in Git with the Commits of the current Branch. It is recommended not to use it if possible.
 
-### 3-2. Allow deletions
+### 3-2. Allow deletions {#3-2-allow-deletions}
 
 > Allow users with push access to delete matching branches.
 

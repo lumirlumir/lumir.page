@@ -18,11 +18,11 @@ For consistent and readable Repository management, let us look at commonly used 
 
 I referred to a Stack Overflow answer related to Git Repository naming rules. The referenced content is as follows.
 
-### 1-1. First answer
+### 1-1. First answer {#1-1-first-answer}
 
 > `_` is harder to type than `-`
 
-### 1-2. Second answer
+### 1-2. Second answer {#1-2-second-answer}
 
 > The problem with camel case is that there are often different interpretations of words - for example, checkinService vs checkInService. Going along with Aaron's answer, it is difficult with auto-completion if you have many similarly named repos to have to constantly check if the person who created the repo you care about used a certain breakdown of the upper and lower cases. avoid upper case.
 >
@@ -33,7 +33,7 @@ I referred to a Stack Overflow answer related to Git Repository naming rules. Th
 > 1. be specific. you may find you have to differentiate between similar ideas later - ie use purchase-rest-service instead of service or rest-service.
 > 1. be consistent. consider usage from the various GIT vendors - how do you want your repositories to be sorted/grouped?
 
-### 1-3. Third answer
+### 1-3. Third answer {#1-3-third-answer}
 
 > `lowercase-with-hyphens` is the style I most often see on Github.*
 >
@@ -43,7 +43,7 @@ I referred to a Stack Overflow answer related to Git Repository naming rules. Th
 >
 > *Anecdotal; I haven't collected any data.
 
-### 1-4. Summary
+### 1-4. Summary {#1-4-summary}
 
 In summary, it is as follows.
 

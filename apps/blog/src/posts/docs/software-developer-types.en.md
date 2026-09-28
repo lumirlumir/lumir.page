@@ -12,7 +12,7 @@ Let us look at the criteria for classifying software developer roles.
 
 ## 1. Platform Perspective {#1-by-platform}
 
-### 1-1. Windows Software Developer
+### 1-1. Windows Software Developer {#1-1-windows-software-developer}
 
 A software developer who handles execution and data processing in a Windows environment.
 
@@ -22,7 +22,7 @@ The technologies to learn are as follows.
 - RDBMS: ***Oracle***, ***MSSQL***, ***MariaDB***
 - Grid Component: ***Chart FX***, ***DevExpress***, ***C1 Component***
 
-### 1-2. Web Software Developer
+### 1-2. Web Software Developer {#1-2-web-software-developer}
 
 A software developer who handles execution and data processing in a web environment.
 
@@ -36,7 +36,7 @@ The technologies to learn are as follows.
 - RDBMS: ***Oracle***, ***MSSQL***, ***MariaDB***
 - Grid Component: ***Chart FX***, ***DevExpress***, ***ComponentOne***
 
-### 1-3. App Software Developer
+### 1-3. App Software Developer {#1-3-app-software-developer}
 
 A software developer who handles execution and data processing in a mobile app environment.
 
@@ -57,7 +57,7 @@ The technologies to learn are as follows.
 - Windows screen and data processing: ***Win32API***, ***Visual C++***, ***.NET***, ***Delphi***, ***C++ QT***
 - Console screen and data processing: ***Assembly Language***, ***C***, ***C++***
 
-### 1-5. Game Software Developer
+### 1-5. Game Software Developer {#1-5-game-software-developer}
 
 A software developer who handles execution and data processing in a game environment.
 
@@ -72,7 +72,7 @@ The technologies to learn are as follows.
 
 ## 2. Work Environment Perspective {#2-by-work-environment}
 
-### 2-1. Network Software Developer
+### 2-1. Network Software Developer {#2-1-network-software-developer}
 
 A software developer who handles execution and data processing in a network environment. They develop only pure network features.
 
@@ -82,7 +82,7 @@ The technologies to learn are as follows.
 - Console screen and data processing: ***C Socket***, ***C++ Socket***, ***C# TCP/IP Socket***, ***C# Serial Bus***, ***Java Socket***
 - Solution: ***Zero MQ(Message Queue)***, ***IBM MQ(Message Queue)***, ***Apache Active MQ(Message Queue)***, ***Rabbit MQ(Message Queue)***
 
-### 2-2. Database Software Developer
+### 2-2. Database Software Developer {#2-2-database-software-developer}
 
 A software developer who handles execution and data processing in a database environment.
 
@@ -96,7 +96,7 @@ The technologies to learn are as follows.
 
 A software developer who finds problem-solving situations across several system environments, productizes them, and performs data processing. Because there are no constraints from the execution environment, they need to study languages related to many different fields. To develop other solution(product) software, they can develop ERP solutions that process corporate business, MES solutions that process manufacturing production work, and other solutions such as V3, ALZip, Alyac, Excel, and PowerPoint.
 
-### 2-4. Common Business Software Developer
+### 2-4. Common Business Software Developer {#2-4-common-business-software-developer}
 
 This is one of the software developer roles that receives a high salary. They are responsible for development work that finds and systematizes common parts of various modules or data flows. They must have a lot of development experience, know many business domains, and also have related IT knowledge and coding skills. That is why they receive a high salary.
 
@@ -112,7 +112,7 @@ The technologies to learn are as follows.
 - Artificial intelligence Library: ***PyTorch***, ***Tensorflow***, ***Keras***
 - Computer science knowledge: ***Software Engineering***, ***Algorithms***, ***Data Structures***
 
-### 2-6. Blockchain Developer
+### 2-6. Blockchain Developer {#2-6-blockchain-developer}
 
 This is a detailed field of financial security, and it refers to developers who design software using Block Chain technology. They may develop virtual cryptocurrencies(Bitcoin, Ethereum, and so on) using Block Chain technology, and they also work to popularize it so it can be used in real life.
 
@@ -125,7 +125,7 @@ The technologies to learn are as follows.
   - Asymmetric key(public key): ***Diffie-Hellman key exchange***, ***DSS***, ***ElGamal***, ***ECC***, ***RSA***
 - Ability to understand the flow and trends of the financial economy
 
-### 2-7. SAP ABAP Software Developer
+### 2-7. SAP ABAP Software Developer {#2-7-sap-abap-software-developer}
 
 I think this may be the role that receives the highest salary among developers. It is said that a third-year freelance developer earns more than ten million won per month. This means it is that difficult to enter and has a high barrier to entry.
 

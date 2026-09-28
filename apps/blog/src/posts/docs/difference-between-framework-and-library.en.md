@@ -15,7 +15,7 @@ references:
 
 What is the difference between a Framework and a Library? Many people confuse the two, and some even use them with the same meaning. Both share the common point of being prebuilt reusable sets of code, but there is a clear difference between them. A framework is not merely a prebuilt semi-finished product or a set of extensible abstract libraries. To understand what a framework is, you need to know how it differs from a library. First, let us look at the concepts of frameworks and libraries.
 
-## 1. Framework
+## 1. Framework {#1-framework}
 
 As the name suggests, a framework means a frame, skeleton, or infrastructure. It is a representative technology that applies the concept of ***Inversion of Control(IoC)***, and can be described as 'a set of classes and interfaces that cooperate with each other to solve a specific software problem.' This is one way to solve the lack of integration and consistency that occurs during object-oriented development.
 
@@ -55,7 +55,7 @@ In other words, framework code does not include completed features. A framework 
 - Web frontend development: ***Angular.js***, ***Vue.js***
 - Android app development: ***Flutter***
 
-## 2. Library
+## 2. Library {#2-library}
 
 A library is a group of prewritten code composed of functions, methods, classes, and so on. It helps developers finish development faster because they do not need to rewrite code to implement specific features. Most programming languages include basic libraries, and developers can also add their own libraries.
 

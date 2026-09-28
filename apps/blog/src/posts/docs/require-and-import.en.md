@@ -38,18 +38,18 @@ Let us look at the first method, exporting and importing modules based on Common
 
 Although the ES6 module system is increasingly used in many projects, unfortunately it is still not always possible to code using the `import` keyword. In browser environments that use the `<script>` tag and also in Node.js, ES Module support has begun, but CommonJS is still adopted as the default module system for backward compatibility. In situations where tools such as Babel that transform(transpile) ES6 code cannot be used, you must use the `require` keyword whether you like it or not. Therefore, it helps to know how to use CommonJS to some extent.
 
-### 1-2. Cautions
+### 1-2. Cautions {#1-2-cautions}
 
 When exporting modules in the CommonJS method, you do not declare them explicitly as in ES6; instead, you must set the object to export as a specific variable or a property of that variable. In particular, the most confusing part is that the similar-looking `exports` variable and `module.exports` variable must be used properly depending on the situation. Basically, remember only the following two rules.
 
 1. When exporting multiple objects, assign them as properties of the `exports` variable.
 1. When exporting exactly one object, assign it to the `module.exports` variable itself.
 
-### 1-3. Multiple Objects
+### 1-3. Multiple Objects {#1-3-multiple-objects}
 
 First, let us look at how to export and import multiple objects from one JavaScript module file.
 
-#### 1-3-1. Export Multiple Objects
+#### 1-3-1. Export Multiple Objects {#1-3-1-export-multiple-objects}
 
 Below is JavaScript example code that converts U.S. and Canadian dollars to each other. This file has three functions, but only the two functions below were exported so they can be accessed from another file. Set the functions to export as properties of the `exports` variable.
 
@@ -74,7 +74,7 @@ exports.canadianToUs = canadianToUs; // export 1
 exports.usToCanadian = usToCanadian; // export 2
 ```
 
-#### 1-3-2. Import Multiple Objects
+#### 1-3-2. Import Multiple Objects {#1-3-2-import-multiple-objects}
 
 The multiple objects exported above can be loaded all at once through the `require` keyword and assigned to a variable, and the exported objects can be accessed through that variable.
 
@@ -101,7 +101,7 @@ console.log(currency.usToCanadian(30));
 32.97
 ```
 
-### 1-4. Single Object
+### 1-4. Single Object {#1-4-single-object}
 
 Next, let us look at how to export and import only one object from one JavaScript module file.
 
@@ -311,6 +311,6 @@ console.log(currency.usToCanadian(30));
 32.97
 ```
 
-## 3. Closing
+## 3. Closing {#3-closing}
 
 One thing to note is that if you are using ES modules purely with the latest version of Node.js without Babel, you must add the `.js` extension when using `import`.

@@ -26,7 +26,7 @@ For communication with team members and convenient tracking of past records, it 
 1. Limit <u>each line of the `Body` to 72 English characters</u>.
 1. Explain <u>what and why</u> rather than how.
 
-## 2. Commit Message Structure
+## 2. Commit Message Structure {#2-commit-message-structure}
 
 ```sh
 # Separate Header, Body, and Footer with blank lines.
@@ -102,7 +102,7 @@ $ git commit -m "Commit Message 1st Line
 > Commit Message Last Line"
 ```
 
-## 4. Commit Message Examples
+## 4. Commit Message Examples {#4-commit-message-examples}
 
 ```sh
 $ git commit -m "fix: fix scroll issue when opening modal in Safari

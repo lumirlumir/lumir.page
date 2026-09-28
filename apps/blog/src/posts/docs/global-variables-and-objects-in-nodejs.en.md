@@ -13,19 +13,19 @@ references:
 
 The top-level object of JavaScript running in a web browser is the `window` object. However, because Node.js does not run in the browser, it does not have a `window` object; instead, it has global variables and global functions.
 
-## 1. Global Variables
+## 1. Global Variables {#1-global-variables}
 
 Variable | Explanation
 --- | ---
 `__filename` | Returns the file path of the currently running code.
 `__dirname` | Returns the directory path of the currently running code.
 
-## 2. Global Objects
+## 2. Global Objects {#2-global-objects}
 
 They can be used anywhere in the code. You can use them like `global.console.log()`, and `global` can be omitted.
 (JavaScript's built-in objects such as `String`, `Number`, and `Math` are also included.)
 
-### 2-1. `console` Object
+### 2-1. `console` Object {#2-1-console-object}
 
 An object that displays results in the console window.
 
@@ -36,7 +36,7 @@ Method | Explanation
 
 > For more details about `console.log()` and `console.dir()`, see another Markdown document.
 
-### 2-2. `process` Object
+### 2-2. `process` Object {#2-2-process-object}
 
 An object that represents information related to a process(program).
 
@@ -63,7 +63,7 @@ Method | Explanation
 `process.cpuUsage()` | Returns a cpu usage information object.
 `process.memoryUsage()` | Returns a memory usage information object.
 
-### 2-3. `exports` Object
+### 2-3. `exports` Object {#2-3-exports-object}
 
 An object used when creating modules.
 

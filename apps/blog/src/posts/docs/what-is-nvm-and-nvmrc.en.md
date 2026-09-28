@@ -14,7 +14,7 @@ references:
 
 Let us look at `nvm` and `.nvmrc`, which are used for smooth collaboration during Node.js work.
 
-## 1. What Is `nvm`?
+## 1. What Is `nvm`? {#1-what-is-nvm}
 
 `nvm` is the Version Manager for Node.js, and its [Github Repository](https://github.com/nvm-sh/nvm) contains the following introduction.
 
@@ -22,7 +22,7 @@ Let us look at `nvm` and `.nvmrc`, which are used for smooth collaboration durin
 
 In other words, the role of `nvm` is that it "lets you quickly install and use different versions of Node through the CLI."
 
-## 2. What Is `.nvmrc`?
+## 2. What Is `.nvmrc`? {#2-what-is-nvmrc}
 
 `.nvmrc` is a file where you can record the Node.js version needed to run a project. When running a Node.js project made by someone else, you have probably experienced at least once that version problems prevented the project from running or prevented some libraries from being used. Rather than writing the version in the `README.md` file, it is much more useful to let collaborators sync versions with a single command.
 

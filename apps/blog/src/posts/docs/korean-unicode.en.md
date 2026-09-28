@@ -27,7 +27,7 @@ JavaScript represents strings using [UTF-16 encoding](https://developer.mozilla.
 >
 > - [Hangul letter code reference table - vowels](https://cosmic.mearie.org/f/ngsdoc/appendix_coderef2.htm)
 
-## 1. ***Compatibility Hangul Jamo***
+## 1. ***Compatibility Hangul Jamo*** {#1-compatibility-hangul-jamo}
 
 > [!IMPORTANT]
 >
@@ -112,7 +112,7 @@ Among these, let's look at the initial consonants, medial vowels, and final cons
 
 </details>
 
-## 2. ***Modern Hangul Jamo***
+## 2. ***Modern Hangul Jamo*** {#2-modern-hangul-jamo}
 
 > [!IMPORTANT]
 >
@@ -185,7 +185,7 @@ Among these, let's look at the initial consonants, medial vowels, and final cons
 
 </details>
 
-## 3. ***Precomposed Hangul Syllables***
+## 3. ***Precomposed Hangul Syllables*** {#3-precomposed-hangul-syllables}
 
 The Unicode values of characters that can be represented as ***Precomposed Hangul Syllables*** range from `\uAC00` to `\uD7A3`, giving a total of **11,172** codes for representing all Hangul syllables.
 

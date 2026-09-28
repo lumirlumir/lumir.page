@@ -22,7 +22,7 @@ You can load the `path` module through code like the following.
 const path = require("path");
 ```
 
-## 2. Methods
+## 2. Methods {#2-methods}
 
 ### 2-1. `path.normalize()` {#2-1-path-normalize}
 

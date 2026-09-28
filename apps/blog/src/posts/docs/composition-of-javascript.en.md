@@ -29,7 +29,7 @@ The figure below gives a broad overview of the features available when the host 
 
 ![window, JavaScript, DOM, BOM](/apps/blog/public/images/posts/composition-of-javascript/1.webp?raw=true)
 
-## 1. `window` Object
+## 1. `window` Object {#1-window-object}
 
 It is the <u>top-level(root) object</u> of ***JavaScript*** and the <u>***Global***</u> object to which every object belongs. It is called the global object because it can be accessed from anywhere, and it consists of many objectified components.
 
@@ -115,36 +115,36 @@ It represents additional objects provided by the browser(host environment) to co
 
 Using the ***BOM***, you can access and manipulate the browser window.
 
-### 4-1. `navigator`
+### 4-1. `navigator` {#4-1-navigator}
 
 The `navigator` object provides information about the browser and operating system. The object has various ***Property*** values, and the best-known ***Property*** values are `navigator.userAgent`, which provides information about the browser currently in use, and `navigator.platform`, which provides information about the operating system(***Windows***, ***Linux***, ***Mac***, and so on) on which the browser is running. This is mainly used to resolve compatibility issues.
 
 ![navigator object](/apps/blog/public/images/posts/composition-of-javascript/5.webp?raw=true)
 
-### 4-2. `screen`
+### 4-2. `screen` {#4-2-screen}
 
 The `screen` object provides information about the screen. It includes width(`width`), height(`height`), pixels(`pixelDepth`), color(`colorDepth`), screen orientation(`orientation`), and width and height excluding the taskbar(`availWidth`, `availHeight`). Use it when you want different behavior depending on screen size.
 
 ![screen object](/apps/blog/public/images/posts/composition-of-javascript/6.webp?raw=true)
 
-### 4-3. `location`
+### 4-3. `location` {#4-3-location}
 
 The `location` object provides information about the ***URL*** address, allowing you to read the current ***URL*** and change(redirect) to a new ***URL***.
 
 ![location object](/apps/blog/public/images/posts/composition-of-javascript/7.webp?raw=true)
 
-### 4-4. `frames`
+### 4-4. `frames` {#4-4-frames}
 
 The `frames` object is described below.
 
 Returns the `window` itself, which is an ***array-like object***, listing the direct sub-frames of the current `window`.
 
-### 4-5. `history`
+### 4-5. `history` {#4-5-history}
 
 The `history` object provides a way to manipulate the browser's session history, that is, the visit history of the tab or frame that loaded the current page.
 
 ![history object](/apps/blog/public/images/posts/composition-of-javascript/8.webp?raw=true)
 
-### 4-6. `XMLHttpRequest`
+### 4-6. `XMLHttpRequest` {#4-6-xmlhttprequest}
 
 The `XMLHttpRequest`(***XHR***) object is used when interacting with a server. With ***XHR***, you can fetch data from a ***URL*** without refreshing the page. Using this, you can update part of the page without interrupting the user's work.

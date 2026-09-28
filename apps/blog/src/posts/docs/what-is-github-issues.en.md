@@ -29,7 +29,7 @@ It can be used together with ***Pull Request***, used together with ***Projects*
 
 ***Issues*** have numbers such as `#1`, `#2`, and `#3`. If you enter this in a ***Commit Message*** as `"Commit Message... #1"`, the related ***Commit*** is automatically shown in the ***Issues***.
 
-## 2. ***Projects***
+## 2. ***Projects*** {#2-projects}
 
 As ***Issues*** increase, management inevitably becomes difficult. Among countless ***Issues***, it will not be easy to distinguish and classify 'what I need to do now' or 'what a team member needs to proceed with.'
 
@@ -37,15 +37,15 @@ Therefore, ***Projects*** are used to automatically classify and visualize these
 
 For how to use them, I recommend creating ***Projects*** and ***Issues*** for testing, then directly clicking and checking various features. Because it is ***Spreadsheet***-based, you should be able to understand the rough features easily without a user manual.
 
-### 2-1. Learn about ***Projects***
+### 2-1. Learn about ***Projects*** {#2-1-learn-about-projects}
 
 An overview of ***Projects***.
 
-### 2-2. Create ***Projects***
+### 2-2. Create ***Projects*** {#2-2-create-projects}
 
 Explains how to create and copy organization or user ***Projects***. It also explains how to ***Migration*** from the old version, ***Projects Classic***.
 
-### 2-3. Manage Items in ***Projects***
+### 2-3. Manage Items in ***Projects*** {#2-3-manage-items-in-projects}
 
 Explains how to bring ***Issues*** items into ***Projects***.
 
@@ -53,7 +53,7 @@ Explains how to bring ***Issues*** items into ***Projects***.
 
 Explains ***Field***.
 
-### 2-5. Customize Views
+### 2-5. Customize Views {#2-5-customize-views}
 
 Explains ***Layout*** options such as ***Table***, ***Board***, and ***Roadmap***.
 
@@ -67,11 +67,11 @@ There are three ways to automate ***Projects***.
 1. Using the ***Github API***.
 1. Using ***Github Workflows***.
 
-### 2-7. View ***Insights***
+### 2-7. View ***Insights*** {#2-7-view-insights}
 
 Explains ***Insights***, a feature that can create charts related to ***Projects***.
 
-### 2-8. Manage ***Projects***
+### 2-8. Manage ***Projects*** {#2-8-manage-projects}
 
 Explains how to change ***Projects*** to ***Public*** or ***Private***, manage ***Access***, manage ***Template***, and so on.
 
@@ -85,7 +85,7 @@ Instead, it is possible to manage detailed tasks using only the `- []` checklist
 
 ![tasklist](/apps/blog/public/images/posts/what-is-github-issues/2.webp?raw=true)
 
-## 4. ***Projects Classic***
+## 4. ***Projects Classic*** {#4-projects-classic}
 
 '***4. Projects Classic***' is the previous ***Github*** project management system and refers to the old version.
 
@@ -98,6 +98,6 @@ In other words, people who used ***Projects Classic*** can continue using it or 
 
 Therefore, people who want to use ***Projects*** for the first time must use the latest version, ***Projects***.
 
-## 5. ***Labels*** and ***Milestones***
+## 5. ***Labels*** and ***Milestones*** {#5-labels-and-milestones}
 
 Explains ***Labels*** and ***Milestones*** in the ***Issues*** tab of a ***Repository***. There is nothing very difficult, so please read the official documentation carefully.

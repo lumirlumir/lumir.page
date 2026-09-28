@@ -24,7 +24,7 @@ There is also AsciiDoc syntax with the `.adoc` extension, which is similar to Ma
 
 ## 1. About Markdown<sup>Markdown</sup> {#1-about-markdown}
 
-### 1-1. What Is Markdown?
+### 1-1. What Is Markdown? {#1-1-what-is-markdown}
 
 [Markdown](https://www.markdownguide.org/getting-started) is a text-based markup language created by John Gruber in 2004. It is easy to read and write, and it is easy to convert to HTML. By using simple syntax made of special characters and symbols, content can be written faster on the web and recognized more intuitively.
 
@@ -55,13 +55,13 @@ At this time, how a Markdown document is expressed differs depending on CSS sett
 
 Each Markdown syntax is converted into an HTML tag<sup>Tag</sup> and output in the browser. Not every HTML tag is supported, and only some important syntax is provided.
 
-### 2-1. Headings
+### 2-1. Headings {#2-1-headings}
 
 This expresses headings that are converted into `<h1>`, `<h2>`, `<h3>`, `<h4>`, `<h5>`, and `<h6>` tags.
 
 Just as a book has many levels in its table of contents but only one book title, one Markdown file should use only one `<h1>`(main heading).
 
-#### 2-1-1. ATX style
+#### 2-1-1. ATX style {#2-1-1-atx-style}
 
 Heading levels 1 through 6 are supported. (`<h1>`-`<h6>`)
 
@@ -91,7 +91,7 @@ It starts with `#`.
   ###### This is ATX style H6 {#atx-style-h6}
   ####### This is H7(not supported)
 
-#### 2-1-2. Closed ATX style
+#### 2-1-2. Closed ATX style {#2-1-2-closed-atx-style}
 
 Heading levels 1 through 6 are supported. (`<h1>`-`<h6>`)
 
@@ -123,7 +123,7 @@ It starts with `#` and ends with `#`.
 
 <!-- eslint-enable md/consistent-heading-style -->
 
-#### 2-1-3. Setext style
+#### 2-1-3. Setext style {#2-1-3-setext-style}
 
 Only heading levels 1 through 2 are supported. (`<h1>`-`<h2>`)
 
@@ -183,7 +183,7 @@ The number of `-` characters does not matter.
 
 <!-- eslint-enable markdown/no-multiple-h1, markdown/heading-increment -->
 
-### 2-2. Line Breaks
+### 2-2. Line Breaks {#2-2-line-breaks}
 
 For Line Breaks, enter at least two spaces(<code>  </code>) at the end of a sentence, or directly enter the HTML `<br>` tag at the end of a sentence.
 
@@ -231,7 +231,7 @@ Directly enter the HTML `<br>` tag.
   - To make a line break, enter the `<br>` tag at the end of the sentence. <br>
     like this
 
-### 2-3. Horizontal Rules
+### 2-3. Horizontal Rules {#2-3-horizontal-rules}
 
 Enter at least <u>three</u> of each symbol, `-`, `_`, or `*`, to express a Horizontal Rules<sup>Horizontal Rules</sup> element that is converted into an `<hr>` tag.
 
@@ -303,7 +303,7 @@ When previewing a Markdown document, it is often used for *page breaks*.
 
 <!-- eslint-enable md/consistent-thematic-break-style -- Re-enable -->
 
-### 2-4. Comments
+### 2-4. Comments {#2-4-comments}
 
 Use the `[//]: #` and `<!-- -->` symbols to express a Comment<sup>Comment</sup>.
 
@@ -359,7 +359,7 @@ Use the `<!-- -->` symbol used in HTML.
 
   -- end --
 
-### 2-5. Emphasis
+### 2-5. Emphasis {#2-5-emphasis}
 
 This expresses 'Emphasis<sup>Emphasis</sup>' that is converted into `<em>`(italic), `<strong>`(bold), and `<del>`(strikethrough) tags respectively.
 
@@ -405,7 +405,7 @@ Wrap it with the `**` or `__` symbol.
 
 <!-- eslint-enable md/consistent-strong-style -- Re-enable -->
 
-#### 2-5-3. Strikethrough
+#### 2-5-3. Strikethrough {#2-5-3-strikethrough}
 
 Wrap it with the `~~` symbol.
 
@@ -439,7 +439,7 @@ All the content explained above can be mixed and used.
 
 <!-- eslint-enable md/consistent-delete-style -- Re-enable -->
 
-### 2-6. Blockquotes
+### 2-6. Blockquotes {#2-6-blockquotes}
 
 This expresses a 'Blockquote<sup>Blockquotes</sup>' that is converted into a `<blockquote>` tag.
 
@@ -484,7 +484,7 @@ Other Markdown elements can be included inside a blockquote. (headings, lists, c
   >   ```
   >
 
-### 2-7. Lists
+### 2-7. Lists {#2-7-lists}
 
 This expresses 'Lists<sup>Lists</sup>' that are converted into `<ol>`, `<ul>`, and `<li>` tags.
 
@@ -492,7 +492,7 @@ An item that starts with `1.` is converted into `<ol>`, and an item that starts 
 
 Sub-lists can be written through indentation.
 
-#### 2-7-1. Ordered Lists
+#### 2-7-1. Ordered Lists {#2-7-1-ordered-lists}
 
 Use numbers(`0, 1, 2, 3, ...`) and a period(`.`). At this time, it can start from `0.` or `1.`.
 
@@ -536,7 +536,7 @@ No matter what number is entered, the order is defined in ascending order.
   3. third
   2. second
 
-#### 2-7-2. Unordered Lists
+#### 2-7-2. Unordered Lists {#2-7-2-unordered-lists}
 
 Use the `-`, `*`, and `+` symbols.
 
@@ -600,7 +600,7 @@ This expresses 'Links, Anchor<sup>Links, Anchor</sup>' that are converted into `
 
 At this time, a 'link' opens in the current tab by default, but it can also be made to open in a new tab.
 
-#### 2-8-1. External Links
+#### 2-8-1. External Links {#2-8-1-external-links}
 
 The content of `"description Optional Title"` can be omitted, and it appears when the mouse is placed over the link<sup>Hovering</sup>.
 
@@ -626,7 +626,7 @@ The content of `"description Optional Title"` can be omitted, and it appears whe
   - [Google](https://www.google.com "Hello Google")
   - [Naver](https://www.naver.com "Hello Naver")
 
-#### 2-8-2. Reference Links
+#### 2-8-2. Reference Links {#2-8-2-reference-links}
 
 The content of `"description Optional Title"` can be omitted, and it appears when the mouse is placed over the link<sup>Hovering</sup>.
 
@@ -680,7 +680,7 @@ The content of `"description Optional Title"` can be omitted, and it appears whe
 
   [reference link]: https://www.naver.com "Hello Naver"
 
-#### 2-8-3. Automatic Links
+#### 2-8-3. Automatic Links {#2-8-3-automatic-links}
 
 URLs or E-mail Address<sup>E-mail Address</sup> values in a document automatically form links even without angle brackets(`<>`).
 
@@ -753,7 +753,7 @@ When writing the link inside parentheses, spaces must be connected with `-`, and
 
 <!-- eslint-enable markdown/no-html -->
 
-### 2-9. Images
+### 2-9. Images {#2-9-images}
 
 This expresses 'Images<sup>Images</sup>' that are converted into `<img>`.
 
@@ -761,7 +761,7 @@ The syntax is similar to Link<sup>Link</sup>, but `!` must be added at the front
 
 #### 2-9-1. Markdown style {#2-9-1-markdown-images}
 
-##### 2-9-1-1. External Images
+##### 2-9-1-1. External Images {#2-9-1-1-external-images}
 
 ```md
 ![Alt text Alt text](Link Link)
@@ -783,7 +783,7 @@ The syntax is similar to Link<sup>Link</sup>, but `!` must be added at the front
   ![Seokchon Lake Rubber Duck](/apps/blog/public/images/posts/everything-about-markdown/1.webp?raw=true)
   ![Seokchon Lake Rubber Duck](/apps/blog/public/images/posts/everything-about-markdown/1.webp?raw=true "RubberDuck")
 
-##### 2-9-1-2. Reference Images
+##### 2-9-1-2. Reference Images {#2-9-1-2-reference-images}
 
 ```md
 ![Alt text Alt text][Reference Reference]
@@ -847,7 +847,7 @@ Because Markdown style has no size adjustment feature, use the HTML `<img src=""
 
 <!-- eslint-enable markdown/no-html -->
 
-### 2-10. Code
+### 2-10. Code {#2-10-code}
 
 This expresses 'Code<sup>Code</sup>' that is converted into `<pre>` and `<code>` tags.
 
@@ -971,7 +971,7 @@ Use the `<pre><code>{code}</code></pre>` tag.
 
 <!-- eslint-enable markdown/no-html -->
 
-### 2-11. Backslash(`\`) Escapes
+### 2-11. Backslash(`\`) Escapes {#2-11-backslash-escapes}
 
 When expressing special characters, put `\` before the character to be displayed and write the special character.
 
@@ -1109,7 +1109,7 @@ The `|`(Vertical Bar) symbols at the far left and far right can be omitted. (How
   Cell4|Cell5|Cell6
   Cell7|Cell8|Cell9
 
-### 2-13. Raw HTML
+### 2-13. Raw HTML {#2-13-raw-html}
 
 Instead of Markdown syntax, HTML can be used directly.
 As with adding the underline `<u></u>` seen earlier, it is useful when using features not supported by Markdown syntax. However, note that not every HTML tag is supported.
@@ -1118,7 +1118,7 @@ As with adding the underline `<u></u>` seen earlier, it is useful when using fea
 
 The syntax mentioned above is standard Markdown syntax that applies commonly to all Markdown. GitHub<sup>GitHub</sup> additionally supports advanced Markdown syntax such as checklists and alert boxes, and this is called GFM<sup>GitHub Flavored Markdown</sup>. However, be careful because this syntax does not guarantee the same behavior on platforms other than GitHub.
 
-### 3-1. Check Lists
+### 3-1. Check Lists {#3-1-check-lists}
 
 Write `- [x]` at the start of a line to mark a completed list item.
 
@@ -1154,7 +1154,7 @@ Generally, this is a feature supported only by GitHub and a few other platforms.
 
 <!-- eslint-enable markdown/no-html -->
 
-### 3-2. Math Expressions
+### 3-2. Math Expressions {#3-2-math-expressions}
 
 This feature is supported only by a few platforms, including GitHub. (Since May 19, 2022, GitHub officially provides math expression rendering.)
 
@@ -1206,7 +1206,7 @@ To add a math expression as a block, start a new line and delimit the expression
   \left( \sum_{k=1}^n a_k b_k \right)^2 \leq \left( \sum_{k=1}^n a_k^2 \right) \left( \sum_{k=1}^n b_k^2 \right)
   $$
 
-### 3-3. Alert Boxes
+### 3-3. Alert Boxes {#3-3-alert-boxes}
 
 Alert boxes(warnings) are a Markdown extension based on blockquote syntax that can be used to emphasize important information. On GitHub, alert boxes are displayed with unique colors and icons to indicate the importance of content.
 
@@ -1250,7 +1250,7 @@ To add an alert box, use a special blockquote line that specifies the type, foll
 > [!CAUTION]
 > Advises about risks or negative outcomes of certain actions.
 
-### 3-4. Summary and Collapse
+### 3-4. Summary and Collapse {#3-4-summary-and-collapse}
 
 You can use summary and collapse features with the `<details>` and `<summary>` tags.
 
@@ -1270,7 +1270,7 @@ You can use summary and collapse features with the `<details>` and `<summary>` t
     Write detailed content here.
   </details>
 
-### 3-5. Emoji
+### 3-5. Emoji {#3-5-emoji}
 
 You can add emoji to text by entering `:EMOJICODE:`(colon, emoji name, colon) in order.
 
@@ -1288,7 +1288,7 @@ To see the full list of available emoji and codes, refer to [Emoji-Cheat-Sheet](
 
   @octocat :+1: This PR looks great - it's ready to merge! :shipit:
 
-### 3-6. Supported Color Models
+### 3-6. Supported Color Models {#3-6-supported-color-models}
 
 In issues, pull requests, and discussions, you can use backticks(<code>\`</code>) to represent colors within a sentence. Supported color models inside backticks(<code>\`</code>) display a visualization of the color.
 
@@ -1315,7 +1315,7 @@ HSL|`hsl(H,S,L)`|`hsl(212, 92%, 45%)`|![Screenshot of rendered GitHub Markdown s
 > - In supported color models, there can be no leading or trailing spaces inside backticks(<code>\`</code>).
 > - Color visualization is supported only in issues, pull requests, and discussions.
 
-### 3-7. People and Team Mentions
+### 3-7. People and Team Mentions {#3-7-people-and-team-mentions}
 
 You can mention people or teams on GitHub by entering a user name or team name with `@`. This triggers a notification and can draw that user's attention to the conversation. Also, when editing a note that mentions a user name or team name, that user receives a notification.
 
@@ -1351,7 +1351,7 @@ Issue or pull request URL | `https://github.com/jlord/sheetsee.js/issues/26` | `
 `Username/Repository#` and issue or pull request number | `jlord/sheetsee.js#26` | `jlord/sheetsee.js#26`
 `Organization_name/Repository#` and issue or pull request number | `github-linguist/linguist#4039` | `github-linguist/linguist#4039`
 
-### 3-9. Footnotes
+### 3-9. Footnotes {#3-9-footnotes}
 
 You can add footnotes to content using square bracket(`[]`) syntax.
 
@@ -1383,13 +1383,13 @@ You can add footnotes to content using square bracket(`[]`) syntax.
 >
 > - Footnotes are not supported in wiki.
 
-### 3-10. Section Links
+### 3-10. Section Links {#3-10-section-links}
 
 Hover over a section heading to link directly to a section of the rendered file.
 
 ![section link](/apps/blog/public/images/posts/everything-about-markdown/10.webp?raw=true)
 
-### 3-11. Relative Links
+### 3-11. Relative Links {#3-11-relative-links}
 
 By defining relative links and image paths in a rendered file, readers can move to other files in the repository.
 
@@ -1410,15 +1410,15 @@ guidelines for this project](docs/CONTRIBUTING.md)
 
 Relative links are easier for users who clone the repository to use. Absolute links may not work in a clone of the repository. It is recommended to use relative links to reference other files in the repository.
 
-## 4. Markdown Editors
+## 4. Markdown Editors {#4-markdown-editors}
 
-### 4-1. Notepad
+### 4-1. Notepad {#4-1-notepad}
 
 Markdown has easy syntax, so there is no problem working in Notepad without using an editor. However, to improve work speed, it is recommended to use an editor such as ***VScode***. Editors render Markdown in real time and show it on screen, and they can be used quickly with shortcuts and similar features.
 
-### 4-2. VScode
+### 4-2. VScode {#4-2-vscode}
 
-#### 4-2-1. Original
+#### 4-2-1. Original {#4-2-1-original}
 
 Even if no extension is installed in ***VScode***, you can use the Markdown Preview<sup>Preview</sup> provided by default. However, some features supported by GitHub Markdown cannot be used, and the theme style is also slightly different.
 
@@ -1435,11 +1435,11 @@ This is an extension pack that lets you use Markdown Preview<sup>Preview</sup> i
 
 <!-- eslint-enable markdown/no-missing-label-refs -->
 
-### 4-3. Typora
+### 4-3. Typora {#4-3-typora}
 
 This is a free editor with an attractive clean design. It can reduce work time by automatically completing syntax that would otherwise be typed manually. It is recommended for people using Markdown for the first time.
 
-## 5. Markdown Usage
+## 5. Markdown Usage {#5-markdown-usage}
 
 Markdown can be used anywhere it is supported. Examples include blog services such as ***GitHub*** and ***Velog***, ***WordPress***, ***Slack***, ***Notion***, ***Discord***, and so on.
 
