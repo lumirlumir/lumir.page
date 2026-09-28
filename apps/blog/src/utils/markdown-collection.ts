@@ -19,18 +19,6 @@ import { langKeys, type LangKey, type LangRecord } from '@/data/lang';
 import { type VMarkdownFileMeta, type VMarkdownFile } from '@/data/v-markdown-file';
 import { isFrontmatter } from '@/utils/is';
 
-// Normalize path keys because Vite and Turbopack use different prefixes with `base`.
-const markdownModules = Object.fromEntries(
-  Object.entries(
-    import.meta.glob('./*.md', {
-      base: '../posts/docs',
-      eager: true,
-      import: 'default',
-      query: '?raw',
-    }),
-  ).map(([path, markdown]) => [path.slice(path.lastIndexOf('/') + 1, -3), markdown]),
-) as Record<string, string>;
-
 // --------------------------------------------------------------------------------
 // Typedef
 // --------------------------------------------------------------------------------
@@ -51,6 +39,20 @@ type MarkdownCollectionByLangCategory = LangRecord<
  * Regex to validate the `id` of a Markdown file, which should follow the format `{slug}.{lang}`.
  */
 const idRegex = new RegExp(`^(?<slug>[a-z0-9-]+)\\.(?<lang>${langKeys.join('|')})$`);
+
+/**
+ * Markdown modules for the blog application.
+ */
+const markdownModules = Object.fromEntries(
+  Object.entries(
+    import.meta.glob('./*.md', {
+      base: '../posts/docs',
+      eager: true,
+      import: 'default',
+      query: '?raw',
+    }),
+  ).map(([path, markdown]) => [path.slice(path.lastIndexOf('/') + 1, -3), markdown]),
+) as Record<string, string>;
 
 /**
  * Asserts that the provided id conforms to the expected format.
