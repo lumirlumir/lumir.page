@@ -18,7 +18,6 @@ import { type Frontmatter } from '@/data/frontmatter';
 import { langKeys, type LangKey, type LangRecord } from '@/data/lang';
 import { type VMarkdownFileMeta, type VMarkdownFile } from '@/data/v-markdown-file';
 import { isFrontmatter } from '@/utils/is';
-import markdownModules from '@/utils/markdown-modules';
 
 // --------------------------------------------------------------------------------
 // Typedef
@@ -40,6 +39,20 @@ type MarkdownCollectionByLangCategory = LangRecord<
  * Regex to validate the `id` of a Markdown file, which should follow the format `{slug}.{lang}`.
  */
 const idRegex = new RegExp(`^(?<slug>[a-z0-9-]+)\\.(?<lang>${langKeys.join('|')})$`);
+
+/**
+ * Markdown modules for the blog application.
+ */
+const markdownModules = Object.fromEntries(
+  Object.entries(
+    import.meta.glob('./*.md', {
+      base: '../posts/docs',
+      eager: true,
+      import: 'default',
+      query: '?raw',
+    }),
+  ).map(([path, markdown]) => [path.slice(path.lastIndexOf('/') + 1, -3), markdown]),
+) as Record<string, string>;
 
 /**
  * Asserts that the provided id conforms to the expected format.
@@ -224,7 +237,7 @@ class MarkdownCollection {
     }
 
     const { id: sanitizedId, slug: sanitizedSlug, lang: sanitizedLang } = assertId(id);
-    const key = sanitizedId as keyof typeof markdownModules;
+    const key = sanitizedId;
 
     if (!(key in markdownModules)) {
       throw new Error(`Markdown file not found: \`${sanitizedId}\``);
@@ -251,7 +264,7 @@ class MarkdownCollection {
    */
   async loadVMarkdownFile(id: VMarkdownFile['id']): Promise<VMarkdownFile> {
     const { id: sanitizedId, slug: sanitizedSlug, lang: sanitizedLang } = assertId(id);
-    const key = sanitizedId as keyof typeof markdownModules;
+    const key = sanitizedId;
 
     if (!(key in markdownModules)) {
       throw new Error(`Markdown file not found: \`${sanitizedId}\``);
