@@ -13,6 +13,9 @@ import createMarkdownCollection from './markdown-collection.js';
 // Mock
 // --------------------------------------------------------------------------------
 
+// Vite transforms `import.meta.glob` before runtime, so intercept `Object.entries`
+// before the collection module is imported. Replace entries matching Markdown
+// paths with mock data, then immediately restore the original function.
 vi.hoisted(() => {
   const markdownModules = {
     'simple-post.ko': `---
@@ -44,8 +47,6 @@ English body.`,
   };
   const { entries } = Object;
 
-  // Vite transforms import.meta.glob into an object before the module runs.
-  // Replace only its Markdown entries and immediately restore Object.entries.
   const entriesMock = vi.spyOn(Object, 'entries').mockImplementation(value => {
     const result = entries(value);
 
