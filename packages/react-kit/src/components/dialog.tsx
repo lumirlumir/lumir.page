@@ -13,9 +13,9 @@
 // --------------------------------------------------------------------------------
 
 import {
-  useRef,
   type ButtonHTMLAttributes,
   type DialogHTMLAttributes,
+  type MouseEvent,
   type ReactNode,
   type RefObject,
 } from 'react';
@@ -75,17 +75,14 @@ export interface DialogProps extends Omit<
 export function Dialog({
   trigger,
   triggerProps,
-  dialogRef: externalDialogRef,
+  dialogRef,
   children,
   ...dialogProps
 }: DialogProps) {
-  const internalDialogRef = useRef<HTMLDialogElement>(null);
-  const dialogRef = externalDialogRef ?? internalDialogRef;
+  function openDialog(event: MouseEvent<HTMLButtonElement>) {
+    const dialog = event.currentTarget.nextElementSibling;
 
-  function openDialog() {
-    const dialog = dialogRef.current;
-
-    if (dialog !== null && !dialog.open) {
+    if (dialog instanceof HTMLDialogElement && !dialog.open) {
       dialog.showModal();
     }
   }
