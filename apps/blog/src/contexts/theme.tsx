@@ -43,7 +43,9 @@ export type ThemeContextValue = readonly [theme: Theme, toggleTheme: () => void]
 const ThemeContext = createContext<ThemeContextValue | undefined>(undefined);
 
 function getThemeSnapshot(): Theme {
-  return (document.documentElement.getAttribute(themeKey) ?? themeDefault) as Theme;
+  const theme = document.documentElement.getAttribute(themeKey);
+
+  return theme === themeKeys[0] || theme === themeKeys[1] ? theme : themeDefault;
 }
 
 function getServerThemeSnapshot(): typeof themeDefault {
