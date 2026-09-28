@@ -18,7 +18,18 @@ import { type Frontmatter } from '@/data/frontmatter';
 import { langKeys, type LangKey, type LangRecord } from '@/data/lang';
 import { type VMarkdownFileMeta, type VMarkdownFile } from '@/data/v-markdown-file';
 import { isFrontmatter } from '@/utils/is';
-import markdownModules from '@/utils/markdown-modules';
+
+// Normalize path keys because Vite and Turbopack use different prefixes with `base`.
+const markdownModules = Object.fromEntries(
+  Object.entries(
+    import.meta.glob('./*.md', {
+      base: '../posts/docs',
+      eager: true,
+      import: 'default',
+      query: '?raw',
+    }),
+  ).map(([path, markdown]) => [path.slice(path.lastIndexOf('/') + 1, -3), markdown]),
+) as Record<string, string>;
 
 // --------------------------------------------------------------------------------
 // Typedef
@@ -224,7 +235,7 @@ class MarkdownCollection {
     }
 
     const { id: sanitizedId, slug: sanitizedSlug, lang: sanitizedLang } = assertId(id);
-    const key = sanitizedId as keyof typeof markdownModules;
+    const key = sanitizedId;
 
     if (!(key in markdownModules)) {
       throw new Error(`Markdown file not found: \`${sanitizedId}\``);
@@ -251,7 +262,7 @@ class MarkdownCollection {
    */
   async loadVMarkdownFile(id: VMarkdownFile['id']): Promise<VMarkdownFile> {
     const { id: sanitizedId, slug: sanitizedSlug, lang: sanitizedLang } = assertId(id);
-    const key = sanitizedId as keyof typeof markdownModules;
+    const key = sanitizedId;
 
     if (!(key in markdownModules)) {
       throw new Error(`Markdown file not found: \`${sanitizedId}\``);
