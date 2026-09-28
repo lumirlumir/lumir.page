@@ -38,7 +38,7 @@ import { themeKey, themeKeys } from '@/data/theme';
 export function ThemeScript() {
   return (
     <script>
-      {`document.documentElement.setAttribute('${themeKey}', localStorage.getItem('${themeKey}') ?? (matchMedia('(prefers-color-scheme: ${themeKeys[1]})').matches ? '${themeKeys[1]}' : '${themeKeys[0]}'));`}
+      {`const savedTheme = localStorage.getItem('${themeKey}'); document.documentElement.setAttribute('${themeKey}', savedTheme === '${themeKeys[0]}' || savedTheme === '${themeKeys[1]}' ? savedTheme : (matchMedia('(prefers-color-scheme: ${themeKeys[1]})').matches ? '${themeKeys[1]}' : '${themeKeys[0]}'));`}
     </script>
   );
 }
