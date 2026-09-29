@@ -31,14 +31,14 @@
 // Typedef
 // --------------------------------------------------------------------------------
 
-export interface ReadingTimeOptions {
+export interface ReadtimeOptions {
   /** Defaults to spaces, newlines, carriage returns, and tabs. */
   wordBound?: (char: string) => boolean;
   /** Reading speed in words per minute. Defaults to 200. */
   wordsPerMinute?: number;
 }
 
-export interface ReadingTimeStats {
+export interface ReadtimeStats {
   /** Estimated reading time in milliseconds. */
   time: number;
   /** Display minutes, rounded to two decimal places and then rounded up. */
@@ -49,7 +49,7 @@ export interface WordCountStats {
   total: number;
 }
 
-export type ReadingTimeResult = ReadingTimeStats & {
+export type ReadtimeResult = ReadtimeStats & {
   words: WordCountStats;
 };
 
@@ -102,10 +102,7 @@ function isPunctuation(char: string): boolean {
  * Counts words using the original reading-time algorithm, including CJK characters.
  * Markdown and HTML are counted as supplied, without parsing their markup.
  */
-export function countWords(
-  text: string,
-  options: ReadingTimeOptions = {},
-): WordCountStats {
+export function countWords(text: string, options: ReadtimeOptions = {}): WordCountStats {
   let words = 0;
   let start = 0;
   let end = text.length - 1;
@@ -147,10 +144,10 @@ export function countWords(
  * Estimates reading time from an existing word count at 200 words per minute by default.
  * Returns display minutes and the estimated duration in milliseconds.
  */
-export function readingTimeWithCount(
+export function readtimeWithCount(
   words: WordCountStats,
-  options: ReadingTimeOptions = {},
-): ReadingTimeStats {
+  options: ReadtimeOptions = {},
+): ReadtimeStats {
   const { wordsPerMinute = 200 } = options;
   const minutes = words.total / wordsPerMinute;
   const time = Math.round(minutes * 60 * 1000);
@@ -163,17 +160,14 @@ export function readingTimeWithCount(
  * Estimates reading time for text, Markdown, or HTML using the original algorithm.
  * @example
  * ```ts
- * import { readingTime } from '@lumir/utils';
+ * import { readtime } from '@lumir/utils';
  *
- * readingTime('Hello, world!');
+ * readtime('Hello, world!');
  * // { minutes: 1, time: 600, words: { total: 2 } }
  * ```
  */
-export function readingTime(
-  text: string,
-  options: ReadingTimeOptions = {},
-): ReadingTimeResult {
+export function readtime(text: string, options: ReadtimeOptions = {}): ReadtimeResult {
   const words = countWords(text, options);
 
-  return { ...readingTimeWithCount(words, options), words };
+  return { ...readtimeWithCount(words, options), words };
 }

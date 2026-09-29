@@ -12,7 +12,7 @@ import 'server-only';
 // Import
 // --------------------------------------------------------------------------------
 
-import { frontmatter, readingTime } from '@lumir/utils';
+import { frontmatter, readtime } from '@lumir/utils';
 import { categoryKeys, type CategoryKey } from '@/data/category';
 import { type Frontmatter } from '@/data/frontmatter';
 import { langKeys, type LangKey, type LangRecord } from '@/data/lang';
@@ -162,7 +162,7 @@ class MarkdownCollection {
         slug: sanitizedSlug,
         lang: sanitizedLang,
         data: sanitizedData,
-        readingTime: readingTime(content).minutes,
+        readtime: readtime(content).minutes,
       });
     }
 
@@ -252,7 +252,7 @@ class MarkdownCollection {
       slug: sanitizedSlug,
       lang: sanitizedLang,
       data: sanitizedData,
-      readingTime: readingTime(content).minutes,
+      readtime: readtime(content).minutes,
     };
 
     // Cache the metadata in `#map` for future reference.
@@ -274,7 +274,7 @@ class MarkdownCollection {
 
     const { data, content } = frontmatter(markdownModules[key]);
     const sanitizedData = assertFrontmatter(data, sanitizedId);
-    const { minutes } = readingTime(content);
+    const { minutes } = readtime(content);
 
     // Get a chance to cache the metadata in `#map` if it hasn't been cached already.
     if (!this.#map.has(sanitizedId)) {
@@ -283,7 +283,7 @@ class MarkdownCollection {
         slug: sanitizedSlug,
         lang: sanitizedLang,
         data: sanitizedData,
-        readingTime: minutes,
+        readtime: minutes,
       });
     }
 
@@ -292,7 +292,7 @@ class MarkdownCollection {
       slug: sanitizedSlug,
       lang: sanitizedLang,
       data: sanitizedData,
-      readingTime: minutes,
+      readtime: minutes,
       content,
     };
   }
@@ -312,7 +312,7 @@ class MarkdownCollection {
    *       id: 'example-post.ko',
    *       slug: 'example-post',
    *       lang: 'ko',
-   *       readingTime: 1,
+   *       readtime: 1,
    *       data: {
    *         title: 'Example Post',
    *         description: 'This is an example post.',
@@ -345,7 +345,7 @@ class MarkdownCollection {
    *         id: 'example-post.ko',
    *         slug: 'example-post',
    *         lang: 'ko',
-   *         readingTime: 1,
+   *         readtime: 1,
    *         data: {
    *           title: 'Example Post',
    *           description: 'This is an example post.',

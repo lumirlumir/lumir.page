@@ -106,7 +106,7 @@ describe('markdown-collection', () => {
       const markdownCollection = createMarkdownCollection();
       const metadata = await markdownCollection.loadVMarkdownFileMeta('long-post.en');
 
-      assert.strictEqual(metadata.readingTime, 2);
+      assert.strictEqual(metadata.readtime, 2);
       assert.notProperty(metadata, 'content');
       assert.strictEqual(
         await markdownCollection.loadVMarkdownFileMeta('long-post.en'),
@@ -119,7 +119,7 @@ describe('markdown-collection', () => {
       const markdownCollection = createMarkdownCollection();
       const metadata = await markdownCollection.loadVMarkdownFileMeta('empty-post.en');
 
-      assert.strictEqual(metadata.readingTime, 0);
+      assert.strictEqual(metadata.readtime, 0);
     });
 
     it('should load Markdown metadata from the module registry - ko', async () => {
@@ -131,7 +131,7 @@ describe('markdown-collection', () => {
           id: 'simple-post.ko',
           slug: 'simple-post',
           lang: 'ko',
-          readingTime: 1,
+          readtime: 1,
           data: {
             title: 'Korean Mock Post',
             description: 'Korean mock post description.',
@@ -153,7 +153,7 @@ describe('markdown-collection', () => {
           id: 'simple-post.en',
           slug: 'simple-post',
           lang: 'en',
-          readingTime: 1,
+          readtime: 1,
           data: {
             title: 'English Mock Post',
             description: 'English mock post description.',
@@ -191,8 +191,8 @@ describe('markdown-collection', () => {
       const metadata = await markdownCollection.loadVMarkdownFileMeta('long-post.en');
 
       assert.strictEqual(file.content, 'word '.repeat(300));
-      assert.strictEqual(file.readingTime, 2);
-      assert.strictEqual(metadata.readingTime, 2);
+      assert.strictEqual(file.readtime, 2);
+      assert.strictEqual(metadata.readtime, 2);
       assert.strictEqual(markdownCollection.byLangSlug.en['long-post'], metadata);
     });
 
@@ -201,8 +201,8 @@ describe('markdown-collection', () => {
       const metadata = await markdownCollection.loadVMarkdownFileMeta('long-post.en');
       const file = await markdownCollection.loadVMarkdownFile('long-post.en');
 
-      assert.strictEqual(metadata.readingTime, 2);
-      assert.strictEqual(file.readingTime, 2);
+      assert.strictEqual(metadata.readtime, 2);
+      assert.strictEqual(file.readtime, 2);
       assert.strictEqual(
         await markdownCollection.loadVMarkdownFileMeta('long-post.en'),
         metadata,
@@ -215,8 +215,8 @@ describe('markdown-collection', () => {
       const metadata = await markdownCollection.loadVMarkdownFileMeta('empty-post.en');
 
       assert.strictEqual(file.content, '');
-      assert.strictEqual(file.readingTime, 0);
-      assert.strictEqual(metadata.readingTime, 0);
+      assert.strictEqual(file.readtime, 0);
+      assert.strictEqual(metadata.readtime, 0);
     });
 
     it('should load Markdown content from the module registry - ko', async () => {
@@ -228,7 +228,7 @@ describe('markdown-collection', () => {
           id: 'simple-post.ko',
           slug: 'simple-post',
           lang: 'ko',
-          readingTime: 1,
+          readtime: 1,
           data: {
             title: 'Korean Mock Post',
             description: 'Korean mock post description.',
@@ -251,7 +251,7 @@ describe('markdown-collection', () => {
           id: 'simple-post.en',
           slug: 'simple-post',
           lang: 'en',
-          readingTime: 1,
+          readtime: 1,
           data: {
             title: 'English Mock Post',
             description: 'English mock post description.',
@@ -288,14 +288,14 @@ describe('markdown-collection', () => {
       const markdownCollection = createMarkdownCollection();
       const metadata = markdownCollection.byLangSlug.en['long-post'];
 
-      assert.strictEqual(metadata.readingTime, 2);
-      assert.strictEqual(markdownCollection.byLangSlug.en['empty-post'].readingTime, 0);
+      assert.strictEqual(metadata.readtime, 2);
+      assert.strictEqual(markdownCollection.byLangSlug.en['empty-post'].readtime, 0);
       assert.strictEqual(
         await markdownCollection.loadVMarkdownFileMeta('long-post.en'),
         metadata,
       );
       assert.strictEqual(
-        (await markdownCollection.loadVMarkdownFile('long-post.en')).readingTime,
+        (await markdownCollection.loadVMarkdownFile('long-post.en')).readtime,
         2,
       );
     });
@@ -307,7 +307,7 @@ describe('markdown-collection', () => {
         id: 'simple-post.ko',
         slug: 'simple-post',
         lang: 'ko',
-        readingTime: 1,
+        readtime: 1,
         data: {
           title: 'Korean Mock Post',
           description: 'Korean mock post description.',
@@ -321,7 +321,7 @@ describe('markdown-collection', () => {
         id: 'simple-post.en',
         slug: 'simple-post',
         lang: 'en',
-        readingTime: 1,
+        readtime: 1,
         data: {
           title: 'English Mock Post',
           description: 'English mock post description.',
@@ -343,7 +343,7 @@ describe('markdown-collection', () => {
           id: 'simple-post.ko',
           slug: 'simple-post',
           lang: 'ko',
-          readingTime: 1,
+          readtime: 1,
           data: {
             title: 'Korean Mock Post',
             description: 'Korean mock post description.',
@@ -359,7 +359,7 @@ describe('markdown-collection', () => {
           id: 'simple-post.ko',
           slug: 'simple-post',
           lang: 'ko',
-          readingTime: 1,
+          readtime: 1,
           data: {
             title: 'Korean Mock Post',
             description: 'Korean mock post description.',
@@ -375,7 +375,7 @@ describe('markdown-collection', () => {
           id: 'simple-post.en',
           slug: 'simple-post',
           lang: 'en',
-          readingTime: 1,
+          readtime: 1,
           data: {
             title: 'English Mock Post',
             description: 'English mock post description.',

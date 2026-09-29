@@ -41,7 +41,7 @@ export interface VMarkdownFileMeta {
   /**
    * Estimated reading time of the Markdown body in display minutes, excluding frontmatter.
    */
-  readonly readingTime: number;
+  readonly readtime: number;
 }
 
 /**

@@ -12,8 +12,8 @@ import {
   frontmatter,
   frontmatterData,
   countWords,
-  readingTime,
-  readingTimeWithCount,
+  readtime,
+  readtimeWithCount,
 } from './index.js';
 import packageJson from '../package.json' with { type: 'json' };
 
@@ -29,8 +29,8 @@ describe('index', () => {
   });
 
   describe('exports', () => {
-    it('`readingTime` should estimate reading time through the package entry point', () => {
-      assert.deepStrictEqual(readingTime('Hello, world!'), {
+    it('`readtime` should estimate reading time through the package entry point', () => {
+      assert.deepStrictEqual(readtime('Hello, world!'), {
         minutes: 1,
         time: 600,
         words: { total: 2 },
@@ -41,8 +41,8 @@ describe('index', () => {
       assert.deepStrictEqual(countWords('Hello, world!'), { total: 2 });
     });
 
-    it('`readingTimeWithCount` should estimate time through the package entry point', () => {
-      assert.deepStrictEqual(readingTimeWithCount({ total: 300 }), {
+    it('`readtimeWithCount` should estimate time through the package entry point', () => {
+      assert.deepStrictEqual(readtimeWithCount({ total: 300 }), {
         minutes: 2,
         time: 90000,
       });
