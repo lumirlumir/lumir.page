@@ -85,6 +85,7 @@ describe('markdown-collection', () => {
           id: 'simple-post.ko',
           slug: 'simple-post',
           lang: 'ko',
+          readtime: 1,
           data: {
             title: 'Korean Mock Post',
             description: 'Korean mock post description.',
@@ -106,6 +107,7 @@ describe('markdown-collection', () => {
           id: 'simple-post.en',
           slug: 'simple-post',
           lang: 'en',
+          readtime: 1,
           data: {
             title: 'English Mock Post',
             description: 'English mock post description.',
@@ -146,6 +148,7 @@ describe('markdown-collection', () => {
           id: 'simple-post.ko',
           slug: 'simple-post',
           lang: 'ko',
+          readtime: 1,
           data: {
             title: 'Korean Mock Post',
             description: 'Korean mock post description.',
@@ -168,6 +171,7 @@ describe('markdown-collection', () => {
           id: 'simple-post.en',
           slug: 'simple-post',
           lang: 'en',
+          readtime: 1,
           data: {
             title: 'English Mock Post',
             description: 'English mock post description.',
@@ -207,6 +211,7 @@ describe('markdown-collection', () => {
         id: 'simple-post.ko',
         slug: 'simple-post',
         lang: 'ko',
+        readtime: 1,
         data: {
           title: 'Korean Mock Post',
           description: 'Korean mock post description.',
@@ -220,6 +225,7 @@ describe('markdown-collection', () => {
         id: 'simple-post.en',
         slug: 'simple-post',
         lang: 'en',
+        readtime: 1,
         data: {
           title: 'English Mock Post',
           description: 'English mock post description.',
@@ -241,6 +247,7 @@ describe('markdown-collection', () => {
           id: 'simple-post.ko',
           slug: 'simple-post',
           lang: 'ko',
+          readtime: 1,
           data: {
             title: 'Korean Mock Post',
             description: 'Korean mock post description.',
@@ -256,6 +263,7 @@ describe('markdown-collection', () => {
           id: 'simple-post.ko',
           slug: 'simple-post',
           lang: 'ko',
+          readtime: 1,
           data: {
             title: 'Korean Mock Post',
             description: 'Korean mock post description.',
@@ -271,6 +279,7 @@ describe('markdown-collection', () => {
           id: 'simple-post.en',
           slug: 'simple-post',
           lang: 'en',
+          readtime: 1,
           data: {
             title: 'English Mock Post',
             description: 'English mock post description.',
