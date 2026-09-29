@@ -1,5 +1,18 @@
 [
   {
+    "repositoryUrl": "https://api.github.com/repos/eslint/markdown",
+    "htmlUrl": "https://github.com/eslint/markdown/pull/743",
+    "id": 5500548551,
+    "nodeId": "PR_kwDOAkm7Hs8AAAABEF3URw",
+    "number": 743,
+    "title": "fix: mask footnote references in `no-reversed-media-syntax`",
+    "createdAt": "2026-09-18T14:09:25Z",
+    "closedAt": "2026-09-22T22:25:02Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
     "repositoryUrl": "https://api.github.com/repos/eslint/create-config",
     "htmlUrl": "https://github.com/eslint/create-config/pull/269",
     "id": 5471955662,
@@ -73,6 +86,19 @@
     "title": "fix: allow additional properties in `CSSLanguageOptions`",
     "createdAt": "2026-08-17T12:37:08Z",
     "closedAt": "2026-09-15T12:40:18Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/json",
+    "htmlUrl": "https://github.com/eslint/json/pull/259",
+    "id": 4892235009,
+    "nodeId": "PR_kwDOMOnJ-M7yAi5a",
+    "number": 259,
+    "title": "fix: handle empty and whitespace-only JSON inputs",
+    "createdAt": "2026-07-15T12:01:22Z",
+    "closedAt": "2026-09-24T04:42:37Z",
     "reactions": {
       "+1": 0
     }
