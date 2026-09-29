@@ -161,8 +161,8 @@ class MarkdownCollection {
         id: sanitizedId,
         slug: sanitizedSlug,
         lang: sanitizedLang,
-        data: sanitizedData,
         readtime: readtime(content).minutes,
+        data: sanitizedData,
       });
     }
 
@@ -251,8 +251,8 @@ class MarkdownCollection {
       id: sanitizedId,
       slug: sanitizedSlug,
       lang: sanitizedLang,
-      data: sanitizedData,
       readtime: readtime(content).minutes,
+      data: sanitizedData,
     };
 
     // Cache the metadata in `#map` for future reference.
@@ -282,8 +282,8 @@ class MarkdownCollection {
         id: sanitizedId,
         slug: sanitizedSlug,
         lang: sanitizedLang,
-        data: sanitizedData,
         readtime: minutes,
+        data: sanitizedData,
       });
     }
 
@@ -291,8 +291,8 @@ class MarkdownCollection {
       id: sanitizedId,
       slug: sanitizedSlug,
       lang: sanitizedLang,
-      data: sanitizedData,
       readtime: minutes,
+      data: sanitizedData,
       content,
     };
   }
