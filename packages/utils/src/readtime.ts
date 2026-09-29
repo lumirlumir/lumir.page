@@ -31,17 +31,8 @@
 // Typedef
 // --------------------------------------------------------------------------------
 
-export interface ReadtimeOptions {
-  /**
-   * Defaults to spaces, tabs, carriage returns, and line feeds.
-   */
-  isWordBound?: (char: string) => boolean;
-
-  /**
-   * Reading speed in words per minute.
-   * @default 200
-   */
-  wordsPerMinute?: number;
+export interface WordCountStats {
+  total: number;
 }
 
 export interface ReadtimeStats {
@@ -56,8 +47,17 @@ export interface ReadtimeStats {
   minutes: number;
 }
 
-export interface WordCountStats {
-  total: number;
+export interface ReadtimeOptions {
+  /**
+   * Defaults to spaces, tabs, carriage returns, and line feeds.
+   */
+  isWordBound?: (char: string) => boolean;
+
+  /**
+   * Reading speed in words per minute.
+   * @default 200
+   */
+  wordsPerMinute?: number;
 }
 
 export type ReadtimeResult = ReadtimeStats & {
