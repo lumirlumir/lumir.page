@@ -1,9 +1,9 @@
 /**
  * @fileoverview Reading time estimation, ported from `ngryman/reading-time` without streams.
- * @see https://github.com/ngryman/reading-time/tree/1d07a5cb1c01950e4a0b0dce9aab7192fedd9b92
+ * @see https://github.com/ngryman/reading-time/tree/v2.0.0-1
  */
 
-/*!
+/*
  * The MIT License (MIT)
  *
  * Copyright (c) Nicolas Gryman <ngryman@gmail.com> (ngryman.sh)
@@ -32,16 +32,27 @@
 // --------------------------------------------------------------------------------
 
 export interface ReadtimeOptions {
-  /** Defaults to spaces, newlines, carriage returns, and tabs. */
-  wordBound?: (char: string) => boolean;
-  /** Reading speed in words per minute. Defaults to 200. */
+  /**
+   * Defaults to spaces, tabs, carriage returns, and line feeds.
+   */
+  isWordBound?: (char: string) => boolean;
+
+  /**
+   * Reading speed in words per minute.
+   * @default 200
+   */
   wordsPerMinute?: number;
 }
 
 export interface ReadtimeStats {
-  /** Estimated reading time in milliseconds. */
+  /**
+   * Estimated reading time in milliseconds.
+   */
   time: number;
-  /** Display minutes, rounded to two decimal places and then rounded up. */
+
+  /**
+   * Display minutes, rounded to two decimal places and then rounded up.
+   */
   minutes: number;
 }
 
@@ -57,12 +68,25 @@ export type ReadtimeResult = ReadtimeStats & {
 // Helper
 // --------------------------------------------------------------------------------
 
+/**
+ * Checks whether a numeric character code falls within any inclusive range.
+ * @param number The character code to check.
+ * @param arrayOfRanges Pairs of inclusive lower and upper bounds.
+ * @returns Whether at least one range contains the character code.
+ */
 function codeIsInRanges(number: number, arrayOfRanges: number[][]): boolean {
   return arrayOfRanges.some(
     ([lowerBound, upperBound]) => lowerBound <= number && number <= upperBound,
   );
 }
 
+/**
+ * Checks whether a character is counted as an individual CJK word.
+ * Uses the first UTF-16 code unit, preserving the original algorithm's behavior.
+ * Katakana is excluded, and supplementary CJK code points are not recognized.
+ * @param char The character to check.
+ * @returns Whether the first code unit falls within the configured CJK ranges.
+ */
 function isCJK(char: string): boolean {
   return codeIsInRanges(char.charCodeAt(0), [
     // Hiragana. Katakana is intentionally counted as a word, as in the original.
@@ -77,10 +101,21 @@ function isCJK(char: string): boolean {
   ]);
 }
 
+/**
+ * Checks whether a character is a default word boundary: space, tab, carriage return, or line feed.
+ * @param char The character to check.
+ * @returns Whether the character matches a default word boundary.
+ */
 function isAnsiWordBound(char: string): boolean {
-  return ' \n\r\t'.includes(char);
+  return ' \t\r\n'.includes(char);
 }
 
+/**
+ * Checks whether a character belongs to a punctuation range consumed after CJK words.
+ * Includes ASCII punctuation, CJK symbols and punctuation, and the full-width forms range.
+ * @param char The character to check.
+ * @returns Whether the first UTF-16 code unit falls within a configured punctuation range.
+ */
 function isPunctuation(char: string): boolean {
   return codeIsInRanges(char.charCodeAt(0), [
     [0x21, 0x2f],
@@ -102,11 +137,13 @@ function isPunctuation(char: string): boolean {
  * Counts words using the original reading-time algorithm, including CJK characters.
  * Markdown and HTML are counted as supplied, without parsing their markup.
  */
-export function countWords(text: string, options: ReadtimeOptions = {}): WordCountStats {
+export function countWords(
+  text: string,
+  { isWordBound = isAnsiWordBound }: ReadtimeOptions = {},
+): WordCountStats {
   let words = 0;
   let start = 0;
   let end = text.length - 1;
-  const { wordBound: isWordBound = isAnsiWordBound } = options;
 
   // Fetch bounds.
   while (isWordBound(text[start])) start++;
@@ -146,9 +183,8 @@ export function countWords(text: string, options: ReadtimeOptions = {}): WordCou
  */
 export function readtimeWithCount(
   words: WordCountStats,
-  options: ReadtimeOptions = {},
+  { wordsPerMinute = 200 }: ReadtimeOptions = {},
 ): ReadtimeStats {
-  const { wordsPerMinute = 200 } = options;
   const minutes = words.total / wordsPerMinute;
   const time = Math.round(minutes * 60 * 1000);
   const displayed = Math.ceil(parseFloat(minutes.toFixed(2)));
