@@ -18,6 +18,7 @@ import 'client-only';
 // Import
 // --------------------------------------------------------------------------------
 
+import { Dialog, type DialogHandle } from '@lumir/react-kit/components';
 import { useShortcut } from '@lumir/react-kit/hooks';
 import MiniSearch, { type SearchResult } from 'minisearch';
 import { useRouter } from 'next/navigation';
@@ -301,7 +302,7 @@ export function LocalSearch({
   icon = undefined,
   maxResults = 10,
 }: LocalSearchProps) {
-  const dialogRef = useRef<HTMLDialogElement | null>(null);
+  const dialogRef = useRef<DialogHandle | null>(null);
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [query, setQuery] = useState<string>('');
   const [activeIndex, setActiveIndex] = useState<number>(0);
@@ -347,32 +348,6 @@ export function LocalSearch({
   // Callback
   // ------------------------------------------------------------------------------
 
-  function openDialog() {
-    const dialog = dialogRef.current;
-
-    if (dialog === null) {
-      return;
-    }
-
-    if (!dialog.open) {
-      dialog.showModal();
-    }
-
-    inputRef.current?.focus();
-  }
-
-  function closeDialog() {
-    const dialog = dialogRef.current;
-
-    if (dialog === null) {
-      return;
-    }
-
-    if (dialog.open) {
-      dialog.close();
-    }
-  }
-
   function updateQuery(nextQuery: string) {
     setQuery(nextQuery);
     setActiveIndex(0);
@@ -384,7 +359,7 @@ export function LocalSearch({
   }
 
   function navigateToResult(document: VMarkdownFileMeta) {
-    closeDialog();
+    dialogRef.current?.close();
     router.push(`/${document.lang}/posts/${document.slug}`);
   }
 
@@ -413,134 +388,125 @@ export function LocalSearch({
   // Hook
   // ------------------------------------------------------------------------------
 
-  useShortcut('k', openDialog, { ctrlKey: true });
-  useShortcut('k', openDialog, { metaKey: true });
+  useShortcut('k', () => dialogRef.current?.open(), { ctrlKey: true });
+  useShortcut('k', () => dialogRef.current?.open(), { metaKey: true });
 
   // ------------------------------------------------------------------------------
   // Return
   // ------------------------------------------------------------------------------
 
   return (
-    <div className={styles.localsearch}>
-      <button type="button" aria-label={buttonAriaLabel} onClick={openDialog}>
-        <span>
-          <span>{icon}</span>
-          <span>{buttonText}</span>
-        </span>
-        <span aria-hidden="true">
-          <kbd>Ctrl</kbd>
-          <kbd>K</kbd>
-        </span>
-      </button>
+    <Dialog.Root ref={dialogRef} initialFocusRef={inputRef}>
+      <div className={styles.localsearch}>
+        <Dialog.Open aria-label={buttonAriaLabel}>
+          <span>
+            <span>{icon}</span>
+            <span>{buttonText}</span>
+          </span>
+          <span aria-hidden="true">
+            <kbd>Ctrl</kbd>
+            <kbd>K</kbd>
+          </span>
+        </Dialog.Open>
 
-      <dialog
-        ref={dialogRef}
-        aria-label={dialogAriaLabel}
-        onClose={() => updateQuery('')}
-        // Specifies the types of user actions that can be used to close the `<dialog>` element.
-        // https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/dialog#closedby
-        closedby="any"
-      >
-        <div>
+        <Dialog.Content aria-label={dialogAriaLabel} onClose={() => updateQuery('')}>
           <div>
             <div>
-              <span>{icon}</span>
-              <input
-                ref={inputRef}
-                type="search"
-                value={query}
-                onChange={event => updateQuery(event.target.value)}
-                onKeyDown={onInputKeyDown}
-                placeholder={placeholder}
-                aria-label={searchInputLabel}
-              />
-              {query.length > 0 && (
-                <button
-                  type="button"
-                  onClick={resetSearch}
-                  title={resetButtonTitle}
-                  aria-label={resetButtonAriaLabel}
-                >
-                  {resetButtonText}
-                </button>
-              )}
+              <div>
+                <span>{icon}</span>
+                <input
+                  ref={inputRef}
+                  type="search"
+                  value={query}
+                  onChange={event => updateQuery(event.target.value)}
+                  onKeyDown={onInputKeyDown}
+                  placeholder={placeholder}
+                  aria-label={searchInputLabel}
+                />
+                {query.length > 0 && (
+                  <button
+                    type="button"
+                    onClick={resetSearch}
+                    title={resetButtonTitle}
+                    aria-label={resetButtonAriaLabel}
+                  >
+                    {resetButtonText}
+                  </button>
+                )}
+              </div>
+              <Dialog.Close aria-label={cancelButtonAriaLabel}>
+                {cancelButtonText}
+              </Dialog.Close>
             </div>
-            <button
-              type="button"
-              onClick={closeDialog}
-              aria-label={cancelButtonAriaLabel}
-            >
-              {cancelButtonText}
-            </button>
-          </div>
 
-          <div>
-            {query.length === 0 ? (
-              <section>
-                <h3>{titleText}</h3>
-                <p>{helpText}</p>
-              </section>
-            ) : null}
+            <div>
+              {query.length === 0 ? (
+                <section>
+                  <h3>{titleText}</h3>
+                  <p>{helpText}</p>
+                </section>
+              ) : null}
 
-            {query.length > 0 && results.length === 0 ? (
-              <section>
-                <h3>{noResultsText}</h3>
-                <p>&quot;{query}&quot;</p>
-              </section>
-            ) : null}
+              {query.length > 0 && results.length === 0 ? (
+                <section>
+                  <h3>{noResultsText}</h3>
+                  <p>&quot;{query}&quot;</p>
+                </section>
+              ) : null}
 
-            {query.length > 0 && results.length > 0 ? (
-              <section>
-                <div>{sourceText}</div>
-                <ul>
-                  {results.map((document, index) => (
-                    <li key={document.id}>
-                      <button
-                        type="button"
-                        data-active={index === activeIndex}
-                        onClick={() => navigateToResult(document)}
-                      >
-                        <span>
-                          <span>{document.data.title}</span>
+              {query.length > 0 && results.length > 0 ? (
+                <section>
+                  <div>{sourceText}</div>
+                  <ul>
+                    {results.map((document, index) => (
+                      <li key={document.id}>
+                        <button
+                          type="button"
+                          data-active={index === activeIndex}
+                          onClick={() => navigateToResult(document)}
+                        >
                           <span>
-                            {pathPrefix} / {document.slug}
-                          </span>
-                          <span>{document.data.description}</span>
-                          <span>
-                            <span>{document.data.created}</span>
+                            <span>{document.data.title}</span>
                             <span>
-                              {updatedText} {document.data.updated}
+                              {pathPrefix} / {document.slug}
                             </span>
-                            {document.data.categories.map(category => (
-                              <span key={category}>{category}</span>
-                            ))}
+                            <span>{document.data.description}</span>
+                            <span>
+                              <span>{document.data.created}</span>
+                              <span>
+                                {updatedText} {document.data.updated}
+                              </span>
+                              {document.data.categories.map(category => (
+                                <span key={category}>{category}</span>
+                              ))}
+                            </span>
                           </span>
-                        </span>
-                      </button>
-                    </li>
-                  ))}
-                </ul>
-              </section>
-            ) : null}
-          </div>
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                </section>
+              ) : null}
+            </div>
 
-          <footer>
-            <span>
-              <kbd aria-label={selectKeyAriaLabel}>Enter</kbd>
-              <span>{selectText}</span>
-            </span>
-            <span>
-              <kbd aria-label={navigateUpKeyAriaLabel}>↑</kbd>
-              <kbd aria-label={navigateDownKeyAriaLabel}>↓</kbd>
-              <span>{navigateText}</span>
-            </span>
-            <span>
-              <kbd aria-label={closeKeyAriaLabel}>Esc</kbd>
-              <span>{closeText}</span>
-            </span>
-          </footer>
-        </div>
-      </dialog>
-    </div>
+            <footer>
+              <span>
+                <kbd aria-label={selectKeyAriaLabel}>Enter</kbd>
+                <span>{selectText}</span>
+              </span>
+              <span>
+                <kbd aria-label={navigateUpKeyAriaLabel}>↑</kbd>
+                <kbd aria-label={navigateDownKeyAriaLabel}>↓</kbd>
+                <span>{navigateText}</span>
+              </span>
+              <span>
+                <kbd aria-label={closeKeyAriaLabel}>Esc</kbd>
+                <span>{closeText}</span>
+              </span>
+            </footer>
+          </div>
+        </Dialog.Content>
+      </div>
+    </Dialog.Root>
   );
 }
