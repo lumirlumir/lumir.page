@@ -21,10 +21,7 @@
   "files": [
     "build",
     "LICENSE.md",
-    "README.md",
-    "!src/**/*.test.{js,mjs,cjs,jsx,ts,mts,cts,tsx}",
-    "!src/**/*.test-d.{ts,mts,cts,tsx}",
-    "!**/fixtures/**"
+    "README.md"
   ],
   "scripts": {
     "build": "tsgo -b tsconfig.build.json",
@@ -39,6 +36,6 @@
     "rehype-parse": "^9.0.1",
     "rehype-stringify": "^10.0.1",
     "unified": "^11.0.5",
-    "vitest": "^4.1.9"
+    "vitest": "^5.0.1"
   }
 }

@@ -3,7 +3,7 @@
 
 long long memo[1001][1002];
 
-long long bc(int n, int k) {  // nCk ±¸ÇÏ±â.
+long long bc(int n, int k) {  // nCk êµ¬í•˜ê¸°.
   if (k == 0 || k == n)
     return 1;
   else if (memo[n][k] != 0)

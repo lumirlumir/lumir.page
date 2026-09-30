@@ -12,13 +12,13 @@ references:
 
 Let us look at Babel, a useful tool that helps developers code in JavaScript with the latest syntax regardless of the execution environment. The content below is based on Babel 7.
 
-## 1. The JavaScript Developer's Dilemma
+## 1. The JavaScript Developer's Dilemma {#1-javascript-developer-dilemma}
 
 The syntax of the JavaScript language is evolving quickly, but the environments that actually run JavaScript code often fail to support it. For example, in the case of browsers, there are so many types that it is difficult to individually identify which browser supports which specification, and in the case of Node.js, language syntax support also differs by version, so although not as much as browsers, similar problems occur.
 
 In this situation, JavaScript developers fall into an interesting dilemma. If they use the latest syntax from ES6 or later when coding in JavaScript, the code they wrote may not work in some execution environments; but if they code conservatively so that it runs in every environment, they must write code in the old ES5 or earlier style, whether they want to or not.
 
-## 2. Babel: JavaScript Transpiler(Compiler)
+## 2. Babel: JavaScript Transpiler(Compiler) {#2-babel-javascript-transpiler-compiler}
 
 What appeared to solve this developer dilemma is Babel, a JavaScript transpiler. Many developers also call Babel a JavaScript compiler more casually, but strictly speaking, compile means the process of changing source code written by humans into machine code that computers can understand, while transpile means the process of changing only the form of source code while keeping the same language so that it can run in another execution environment. Therefore, because JavaScript is an interpreted language and not a compiled language such as C or Java, a compilation process is not needed. However, in the actual JavaScript community, these two terms are used interchangeably, so there is probably no need to care too much about what it is called.
 
@@ -46,11 +46,11 @@ However, using Babel, the source code above is changed to use regular function s
 
 The code whose form has changed in this way now runs normally in every browser.
 
-## 3. TypeScript and JSX Support
+## 3. TypeScript and JSX Support {#3-typescript-and-jsx-support}
 
 Babel is often used not only for the latest ES6 or later syntax, but also when converting code written in TypeScript or JSX. React generally uses a special syntax called JSX when coding, so the original code written by the developer does not run properly in the browser. Therefore, React projects are usually built using the Webpack bundler and Babel loader.
 
-## 4. Practice Project Setup
+## 4. Practice Project Setup {#4-practice-project-setup}
 
 For a simple exercise, create an npm project in the terminal as follows.
 
@@ -70,7 +70,7 @@ Then create one JavaScript file and write code using ES6 arrow function syntax.
 
 From now on, let us transpile the code above using Babel.
 
-## 5. Babel Installation
+## 5. Babel Installation {#5-babel-installation}
 
 First, install the `@babel/core` and `@babel/cli` packages in the project as development dependencies(devDependencies). (The reason for installing them as development dependencies is that Babel is not needed when the application runs, but only when it builds.) `@babel/core` is a package that is always needed no matter how Babel is used, and `@babel/cli` is a package needed when using Babel by entering commands in the terminal.
 
@@ -87,7 +87,7 @@ $ npx babel before.js
 
 Huh? The form of the source code is exactly the same as it was first written. The reason is that we have not yet told Babel how to transform the code.
 
-## 6. Plugin/Preset Configuration
+## 6. Plugin/Preset Configuration {#6-plugin-preset-configuration}
 
 You can tell Babel syntax transformation rules through plugins or presets. Usually, a plugin is used when applying rules one by one in detail, and a preset is used when applying multiple rules at once.
 
@@ -112,7 +112,7 @@ $ npx babel before.js --presets=@babel/env
 
 This time, you can see that code using a regular function instead of an arrow function is output with ES5 syntax applied.
 
-## 7. Babel Configuration File
+## 7. Babel Configuration File {#7-babel-configuration-file}
 
 It would be very cumbersome if you had to attach options and configure them every time you run a Babel command. Therefore, in most cases, Babel is configured using configuration files such as `babel.config.js` or `.babelrc`.
 
@@ -137,7 +137,7 @@ $ npx babel before.js
 });
 ```
 
-## 8. Other Configuration Options
+## 8. Other Configuration Options {#8-other-configuration-options}
 
 Using the `-o` option, you can save the converted code to another file instead of printing it to the terminal.
 
@@ -160,7 +160,7 @@ Using the `-d` option, you can save multiple converted files inside a specific d
 $ npx babel src -d dist
 ```
 
-## 9. NPM Script Configuration
+## 9. NPM Script Configuration {#9-npm-script-configuration}
 
 If you frequently use Babel commands, it is convenient to register and use them as NPM scripts.
 
@@ -187,11 +187,11 @@ $ npm run build
 Successfully compiled 2 files with Babel.
 ```
 
-## 10. Closing
+## 10. Closing {#10-closing}
 
 So far, we have directly run Babel commands in the practice project and looked at how Babel transpiles source code. Babel is sometimes used independently like this, but in large projects it is usually used together with bundlers such as Webpack or Rollup, or included as part of a framework. Therefore, unless you participate in the initial setup of a project, there are not many opportunities to handle Babel directly, but because Babel is an important tool used in almost every recent JavaScript project, we briefly covered it.
 
-## 11. Summary
+## 11. Summary {#11-summary}
 
 - `@babel/core`: A package that includes the core features always needed no matter how Babel is used.
 - `@babel/cli`: A package needed when using Babel by entering commands in the terminal.

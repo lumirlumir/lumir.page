@@ -64,7 +64,7 @@ const [start, end] = getMonthRange(year, month);
 
 urlGitHubSearchIssues.searchParams.set(
   'q',
-  `${type === 'issue' ? 'created' : 'merged'}:${start}..${end} author:lumirlumir -org:lumirlumir is:${type}`,
+  `${type === 'issue' ? 'created' : 'merged'}:${start}..${end} author:lumirlumir -org:lumirlumir -org:"eslint-markdown" is:${type}`,
 );
 urlGitHubSearchIssues.searchParams.set('per_page', '100');
 
@@ -77,6 +77,12 @@ if (!res.ok) {
 }
 
 const data = await res.json();
+
+if (data.incomplete_results) {
+  throw new Error(
+    'GitHub API returned incomplete search results. Please try again before overwriting contributions.',
+  );
+}
 
 if (data.total_count >= 100) {
   throw new Error('Too many results, please narrow down your search criteria.');

@@ -1,0 +1,106 @@
+[
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/markdown",
+    "htmlUrl": "https://github.com/eslint/markdown/pull/743",
+    "id": 5500548551,
+    "nodeId": "PR_kwDOAkm7Hs8AAAABEF3URw",
+    "number": 743,
+    "title": "fix: mask footnote references in `no-reversed-media-syntax`",
+    "createdAt": "2026-09-18T14:09:25Z",
+    "closedAt": "2026-09-22T22:25:02Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/create-config",
+    "htmlUrl": "https://github.com/eslint/create-config/pull/269",
+    "id": 5471955662,
+    "nodeId": "PR_kwDOFqe-is8AAAABDu19vw",
+    "number": 269,
+    "title": "ci: fix CI failure on `main`",
+    "createdAt": "2026-09-16T08:10:06Z",
+    "closedAt": "2026-09-16T09:24:11Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/json",
+    "htmlUrl": "https://github.com/eslint/json/pull/281",
+    "id": 5358523835,
+    "nodeId": "PR_kwDOMOnJ-M8AAAABCU3jXg",
+    "number": 281,
+    "title": "fix: preserve parsing error locations in Bun",
+    "createdAt": "2026-09-05T14:15:21Z",
+    "closedAt": "2026-09-15T20:54:10Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/json",
+    "htmlUrl": "https://github.com/eslint/json/pull/280",
+    "id": 5358315929,
+    "nodeId": "PR_kwDOMOnJ-M8AAAABCUty6A",
+    "number": 280,
+    "title": "refactor: use `Set` instead of `Map` in `no-duplicate-keys`",
+    "createdAt": "2026-09-05T13:37:34Z",
+    "closedAt": "2026-09-05T15:10:25Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint-community/eslint-plugin-security",
+    "htmlUrl": "https://github.com/eslint-community/eslint-plugin-security/pull/218",
+    "id": 5356776714,
+    "nodeId": "PR_kwDOArOUPc8AAAABCTisOg",
+    "number": 218,
+    "title": "ci: fix the CI failure in `pr.yml`",
+    "createdAt": "2026-09-05T08:37:06Z",
+    "closedAt": "2026-09-14T12:06:27Z",
+    "reactions": {
+      "+1": 1
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/rewrite",
+    "htmlUrl": "https://github.com/eslint/rewrite/pull/505",
+    "id": 5302033799,
+    "nodeId": "PR_kwDOLyyFi88AAAABBn3t2w",
+    "number": 505,
+    "title": "docs: clarify parameter description in `getText`",
+    "createdAt": "2026-08-31T15:41:08Z",
+    "closedAt": "2026-09-01T21:56:13Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/css",
+    "htmlUrl": "https://github.com/eslint/css/pull/538",
+    "id": 5171937717,
+    "nodeId": "PR_kwDONF7wwM8AAAABABSotQ",
+    "number": 538,
+    "title": "fix: allow additional properties in `CSSLanguageOptions`",
+    "createdAt": "2026-08-17T12:37:08Z",
+    "closedAt": "2026-09-15T12:40:18Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/json",
+    "htmlUrl": "https://github.com/eslint/json/pull/259",
+    "id": 4892235009,
+    "nodeId": "PR_kwDOMOnJ-M7yAi5a",
+    "number": 259,
+    "title": "fix: handle empty and whitespace-only JSON inputs",
+    "createdAt": "2026-07-15T12:01:22Z",
+    "closedAt": "2026-09-24T04:42:37Z",
+    "reactions": {
+      "+1": 0
+    }
+  }
+]

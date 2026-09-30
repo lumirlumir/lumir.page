@@ -13,8 +13,11 @@ import createMarkdownCollection from './markdown-collection.js';
 // Mock
 // --------------------------------------------------------------------------------
 
-vi.mock('@/utils/markdown-modules', () => ({
-  default: {
+// Vite transforms `import.meta.glob` before runtime, so intercept `Object.entries`
+// before the collection module is imported. Replace entries matching Markdown
+// paths with mock data, then immediately restore the original function.
+vi.hoisted(() => {
+  const markdownModules = {
     'simple-post.ko': `---
 title: Korean Mock Post
 description: Korean mock post description.
@@ -41,8 +44,24 @@ references: []
 ## English Mock Post
 
 English body.`,
-  },
-}));
+  };
+  const { entries } = Object;
+
+  const entriesMock = vi.spyOn(Object, 'entries').mockImplementation(value => {
+    const result = entries(value);
+
+    if (
+      result.length > 0 &&
+      result.every(([path]) => path.startsWith('./') && path.endsWith('.md'))
+    ) {
+      entriesMock.mockRestore();
+
+      return entries(markdownModules).map(([id, markdown]) => [`./${id}.md`, markdown]);
+    }
+
+    return result;
+  });
+});
 
 // --------------------------------------------------------------------------------
 // Test
@@ -66,6 +85,7 @@ describe('markdown-collection', () => {
           id: 'simple-post.ko',
           slug: 'simple-post',
           lang: 'ko',
+          readtime: 1,
           data: {
             title: 'Korean Mock Post',
             description: 'Korean mock post description.',
@@ -87,6 +107,7 @@ describe('markdown-collection', () => {
           id: 'simple-post.en',
           slug: 'simple-post',
           lang: 'en',
+          readtime: 1,
           data: {
             title: 'English Mock Post',
             description: 'English mock post description.',
@@ -127,6 +148,7 @@ describe('markdown-collection', () => {
           id: 'simple-post.ko',
           slug: 'simple-post',
           lang: 'ko',
+          readtime: 1,
           data: {
             title: 'Korean Mock Post',
             description: 'Korean mock post description.',
@@ -149,6 +171,7 @@ describe('markdown-collection', () => {
           id: 'simple-post.en',
           slug: 'simple-post',
           lang: 'en',
+          readtime: 1,
           data: {
             title: 'English Mock Post',
             description: 'English mock post description.',
@@ -188,6 +211,7 @@ describe('markdown-collection', () => {
         id: 'simple-post.ko',
         slug: 'simple-post',
         lang: 'ko',
+        readtime: 1,
         data: {
           title: 'Korean Mock Post',
           description: 'Korean mock post description.',
@@ -201,6 +225,7 @@ describe('markdown-collection', () => {
         id: 'simple-post.en',
         slug: 'simple-post',
         lang: 'en',
+        readtime: 1,
         data: {
           title: 'English Mock Post',
           description: 'English mock post description.',
@@ -222,6 +247,7 @@ describe('markdown-collection', () => {
           id: 'simple-post.ko',
           slug: 'simple-post',
           lang: 'ko',
+          readtime: 1,
           data: {
             title: 'Korean Mock Post',
             description: 'Korean mock post description.',
@@ -237,6 +263,7 @@ describe('markdown-collection', () => {
           id: 'simple-post.ko',
           slug: 'simple-post',
           lang: 'ko',
+          readtime: 1,
           data: {
             title: 'Korean Mock Post',
             description: 'Korean mock post description.',
@@ -252,6 +279,7 @@ describe('markdown-collection', () => {
           id: 'simple-post.en',
           slug: 'simple-post',
           lang: 'en',
+          readtime: 1,
           data: {
             title: 'English Mock Post',
             description: 'English mock post description.',

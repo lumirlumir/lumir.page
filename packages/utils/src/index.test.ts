@@ -7,7 +7,14 @@
 // --------------------------------------------------------------------------------
 
 import { assert, describe, it } from 'vitest';
-import { cn, frontmatter, frontmatterData } from './index.js';
+import {
+  cn,
+  frontmatter,
+  frontmatterData,
+  countWords,
+  readtimeWithCount,
+  readtime,
+} from './index.js';
 import packageJson from '../package.json' with { type: 'json' };
 
 // --------------------------------------------------------------------------------
@@ -35,6 +42,21 @@ describe('index', () => {
     it('`frontmatterData` should be defined', () => {
       assert.isDefined(frontmatterData);
       assert.strictEqual(typeof frontmatterData, 'function');
+    });
+
+    it('`countWords` should count words through the package entry point', () => {
+      assert.isDefined(countWords);
+      assert.strictEqual(typeof countWords, 'function');
+    });
+
+    it('`readtimeWithCount` should estimate time through the package entry point', () => {
+      assert.isDefined(readtimeWithCount);
+      assert.strictEqual(typeof readtimeWithCount, 'function');
+    });
+
+    it('`readtime` should estimate reading time through the package entry point', () => {
+      assert.isDefined(readtime);
+      assert.strictEqual(typeof readtime, 'function');
     });
   });
 });

@@ -11,13 +11,13 @@ references:
   - 'https://www.codeit.kr/community/questions/UXVlc3Rpb246NWUzNDUyMjU4MGU1MTMzNzNkOTYyNzYy'
 ---
 
-<!-- markdownlint-disable MD033 -->
-
 `<b>`와 `<strong>` ***Tag***는 **진한 텍스트**를 통해, `<i>`와 `<em>` ***Tag***는 *기울임*을 통해, 특정 문자 혹은 문자열을 강조한다. 만약, 각각의 두 ***Tag***가 완전히 동일한 역할을 한다면, 둘 중 하나의 ***Tag***만 존재해도 될 것이다. 하지만, ***HTML*** 상에는 두 종류의 ***Tag***가 모두 존재한다. 그렇다면, 이 두 ***Tag***의 차이점은 무엇일까? `<b>`, `<i>` ***Tag***와 이에 대응하는 `<strong>`, `<em>` ***Tag***의 차이점에 대해 알아보자.
 
 ## 1. 공통점 {#1-common-points}
 
 두 ***Tag*** 모두 **진한 텍스트** 혹은 *기울임*을 통해, 특정 문자 혹은 문자열을 강조한다. 아래 표에서, `<b>`와 `<strong>` ***Tag*** 그리고 `<i>`와 `<em>` ***Tag***의 차이점은 없다.
+
+<!-- eslint-disable markdown/no-html -->
 
 태그 | 사용 예 | 결과
 :---: | :--- | :---:
@@ -26,6 +26,8 @@ references:
 `<strong>` | `<strong>샘플 텍스트</strong>` | <strong>샘플 텍스트</strong>
 `<i>` | `<i>샘플 텍스트</i>` | <i>샘플 텍스트</i>
 `<em>` | `<em>샘플 텍스트</em>` | <em>샘플 텍스트</em>
+
+<!-- eslint-enable markdown/no-html -->
 
 ## 2. 차이점 {#2-differences}
 

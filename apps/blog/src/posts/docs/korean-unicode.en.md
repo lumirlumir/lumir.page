@@ -9,8 +9,6 @@ categories:
 references: []
 ---
 
-<!-- markdownlint-disable MD028 -->
-
 JavaScript represents strings using [UTF-16 encoding](https://developer.mozilla.org/ko/docs/Glossary/Code_unit). The Hangul Unicode knowledge worth knowing when contributing to [`koregexp`](https://github.com/lumirlumir/koregexp) is below.
 
 1. [***Compatibility Hangul Jamo***](#1-compatibility-hangul-jamo)
@@ -29,7 +27,7 @@ JavaScript represents strings using [UTF-16 encoding](https://developer.mozilla.
 >
 > - [Hangul letter code reference table - vowels](https://cosmic.mearie.org/f/ngsdoc/appendix_coderef2.htm)
 
-## 1. ***Compatibility Hangul Jamo***
+## 1. ***Compatibility Hangul Jamo*** {#1-compatibility-hangul-jamo}
 
 > [!IMPORTANT]
 >
@@ -47,21 +45,21 @@ The Unicode values of characters that can be represented as ***Compatibility Han
 
 Among these, let's look at the initial consonants, medial vowels, and final consonants used in ***Precomposed Hangul Syllables***.
 
-### 1-1. Regular Expression
+### 1-1. Regular Expression {#1-1-compatibility-hangul-jamo-regular-expression}
 
-#### 1-1-1. Initial Consonants
+#### 1-1-1. Initial Consonants {#1-1-1-compatibility-hangul-jamo-initial-consonants}
 
 30 total. (The reason there are 30 is described in the Tip below.)
 
 `/[ㄱ-ㅎ]/` or `/[\u3131-\u314E]/` (ㄱ-ㅎ)
 
-#### 1-1-2. Medial Vowels
+#### 1-1-2. Medial Vowels {#1-1-2-compatibility-hangul-jamo-medial-vowels}
 
 21 total. (Same as the number of medial vowels in ***Precomposed Hangul Syllables***.)
 
 `/[ㅏ-ㅣ]/` or `/[\u314F-\u3163]/` (ㅏ-ㅣ)
 
-#### 1-1-3. Final Consonants
+#### 1-1-3. Final Consonants {#1-1-3-compatibility-hangul-jamo-final-consonants}
 
 30 total. (The reason there are 30 is described in the Tip below.)
 
@@ -87,9 +85,9 @@ Among these, let's look at the initial consonants, medial vowels, and final cons
 >
 > Here, the 30 (16 + 3 + 11) consonants described above match the number of Unicode code points in the `/[\u3131-\u314E]/` range. In other words, ***Compatibility Hangul Jamo*** represents initials and finals together instead of separating them.
 
-### 1-2. Unicode
+### 1-2. Unicode {#1-2-compatibility-hangul-jamo-unicode}
 
-#### 1-2-1. Initial and Final Consonants (Consonants)
+#### 1-2-1. Initial and Final Consonants (Consonants) {#1-2-1-compatibility-hangul-jamo-initial-and-final-consonants}
 
 <details>
 <summary>Details</summary>
@@ -101,7 +99,7 @@ Among these, let's look at the initial consonants, medial vowels, and final cons
 
 </details>
 
-#### 1-2-2. Medial Vowels (Vowels)
+#### 1-2-2. Medial Vowels (Vowels) {#1-2-2-compatibility-hangul-jamo-medial-vowels-unicode}
 
 <details>
 <summary>Details</summary>
@@ -114,7 +112,7 @@ Among these, let's look at the initial consonants, medial vowels, and final cons
 
 </details>
 
-## 2. ***Modern Hangul Jamo***
+## 2. ***Modern Hangul Jamo*** {#2-modern-hangul-jamo}
 
 > [!IMPORTANT]
 >
@@ -124,21 +122,21 @@ The Unicode values of characters that can be represented as ***Modern Hangul Jam
 
 Among these, let's look at the initial consonants, medial vowels, and final consonants used in ***Precomposed Hangul Syllables***.
 
-### 2-1. Regular Expression
+### 2-1. Regular Expression {#2-1-modern-hangul-jamo-regular-expression}
 
-#### 2-1-1. Initial Consonants
+#### 2-1-1. Initial Consonants {#2-1-1-modern-hangul-jamo-initial-consonants}
 
 19 total. (Same as the number of initial consonants in ***Precomposed Hangul Syllables***.)
 
 `/[\u1100-\u1112]/` (ㄱ-ㅎ)
 
-#### 2-1-2. Medial Vowels
+#### 2-1-2. Medial Vowels {#2-1-2-modern-hangul-jamo-medial-vowels}
 
 21 total. (Same as the number of medial vowels in ***Precomposed Hangul Syllables***.)
 
 `/[\u1161-\u1175]/` (ㅏ-ㅣ)
 
-#### 2-1-3. Final Consonants
+#### 2-1-3. Final Consonants {#2-1-3-modern-hangul-jamo-final-consonants}
 
 27 total. (Same as the number of final consonants in ***Precomposed Hangul Syllables***, excluding the case with no final consonant.)
 
@@ -148,9 +146,9 @@ Among these, let's look at the initial consonants, medial vowels, and final cons
 >
 > Cases with no final consonant are represented as `/\u0000/`.
 
-### 2-2. Unicode
+### 2-2. Unicode {#2-2-modern-hangul-jamo-unicode}
 
-#### 2-2-1. Initial Consonants
+#### 2-2-1. Initial Consonants {#2-2-1-modern-hangul-jamo-initial-consonants-unicode}
 
 <details>
 <summary>Details</summary>
@@ -162,7 +160,7 @@ Among these, let's look at the initial consonants, medial vowels, and final cons
 
 </details>
 
-#### 2-2-2. Medial Vowels
+#### 2-2-2. Medial Vowels {#2-2-2-modern-hangul-jamo-medial-vowels-unicode}
 
 <details>
 <summary>Details</summary>
@@ -174,7 +172,7 @@ Among these, let's look at the initial consonants, medial vowels, and final cons
 
 </details>
 
-#### 2-2-3. Final Consonants
+#### 2-2-3. Final Consonants {#2-2-3-modern-hangul-jamo-final-consonants-unicode}
 
 <details>
 <summary>Details</summary>
@@ -187,19 +185,19 @@ Among these, let's look at the initial consonants, medial vowels, and final cons
 
 </details>
 
-## 3. ***Precomposed Hangul Syllables***
+## 3. ***Precomposed Hangul Syllables*** {#3-precomposed-hangul-syllables}
 
 The Unicode values of characters that can be represented as ***Precomposed Hangul Syllables*** range from `\uAC00` to `\uD7A3`, giving a total of **11,172** codes for representing all Hangul syllables.
 
-### 3-1. Regular Expression
+### 3-1. Regular Expression {#3-1-precomposed-hangul-regular-expression}
 
 `/[가-힣]/` or `/[\uAC00-\uD7A3]/` (가-힣)
 
-### 3-2. Unicode Jamo Composition
+### 3-2. Unicode Jamo Composition {#3-2-precomposed-hangul-unicode-jamo-composition}
 
 The jamo used in ***Precomposed Hangul Syllables*** are as follows.
 
-#### 3-2-1. Initial Consonants
+#### 3-2-1. Initial Consonants {#3-2-1-precomposed-hangul-initial-consonants}
 
 19 total.
 
@@ -230,7 +228,7 @@ The jamo used in ***Precomposed Hangul Syllables*** are as follows.
 
 </details>
 
-#### 3-2-2. Medial Vowels
+#### 3-2-2. Medial Vowels {#3-2-2-precomposed-hangul-medial-vowels}
 
 21 total.
 
@@ -263,7 +261,7 @@ The jamo used in ***Precomposed Hangul Syllables*** are as follows.
 
 </details>
 
-#### 3-2-3. Final Consonants
+#### 3-2-3. Final Consonants {#3-2-3-precomposed-hangul-final-consonants}
 
 28 total. (Including the case with no final consonant.)
 
@@ -303,7 +301,7 @@ The jamo used in ***Precomposed Hangul Syllables*** are as follows.
 
 </details>
 
-### 3-3. Unicode Calculation Method
+### 3-3. Unicode Calculation Method {#3-3-precomposed-hangul-unicode-calculation}
 
 1. The total number of syllables that can be made by combining the initial consonants, medial vowels, and final consonants above is below.
 
@@ -323,7 +321,7 @@ The jamo used in ***Precomposed Hangul Syllables*** are as follows.
 >
 > 1. `44032` means `0xAC00` in hexadecimal. This is the same as the Unicode value of '가', the first character in ***Precomposed Hangul Syllables***.
 
-### 3-4. Unicode
+### 3-4. Unicode {#3-4-precomposed-hangul-unicode}
 
 <details>
 <summary>Details</summary>
