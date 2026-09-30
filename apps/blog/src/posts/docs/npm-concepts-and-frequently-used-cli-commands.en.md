@@ -31,11 +31,11 @@ There is no need to install `npm` separately; it is automatically installed toge
 
 When following various courses or development documents, you can see several flags such as `--save-dev` and `-g` attached to various commands such as `npm install`; let us find out what they are and what roles they play.
 
-## 1. `npm`
+## 1. `npm` {#1-npm}
 
-### 1-1. Flags
+### 1-1. Flags {#1-1-npm-flags}
 
-#### 1-1-1. `--version`
+#### 1-1-1. `--version` {#1-1-1-npm-version-flag}
 
 > aliases: `-v`
 
@@ -53,7 +53,7 @@ You can check the version of `npm`.
   10.8.1
   ```
 
-## 2. `npm init`
+## 2. `npm init` {#2-npm-init}
 
 > aliases: `create`, `innit`
 
@@ -78,9 +78,9 @@ It creates(initializes) an `npm` package and creates `package.json`.
   license: (ISC) # License for package use. (ISC) is the default value.
   ```
 
-### 2-1. Flags
+### 2-1. Flags {#2-1-npm-init-flags}
 
-#### 2-1-1. `--yes`
+#### 2-1-1. `--yes` {#2-1-1-npm-init-yes-flag}
 
 > aliases: `-y`
 
@@ -92,7 +92,7 @@ Mainly, because changing `package.json` is more intuitive than configuring it di
 npm init --yes
 ```
 
-## 3. `npm install`
+## 3. `npm install` {#3-npm-install}
 
 > aliases: `add`, `i`, `in`, `ins`, `inst`, `insta`, `instal`, `isnt`, `isnta`, `isntal`, `isntall`
 
@@ -106,14 +106,14 @@ For example,
 1. running `npm install react` installs the `react` module<sup>1</sup>,
 1. and running `npm install` installs all dependency packages included in `package.json` in bulk<sup>2</sup>.
 
-### 3-1. Behavior of Specifying a Package and Installing a Specific Package<sup>1</sup>
+### 3-1. Behavior of Specifying a Package and Installing a Specific Package<sup>1</sup> {#3-1-install-specific-package}
 
 Even when installing a specific package<sup>1</sup>, there are broadly two options.
 
 1. An option that installs a package to be added to the `dependencies` list needed to run the project through `npm install [<@scope>/]<name>@<version>`<sup>1-1</sup>.
 1. An option that installs a package to be added to the `devDependencies` list needed only during development through `npm install --save-dev [<@scope>/]<name>@<version>`<sup>1-2</sup>.
 
-#### 3-1-1. Flags: <code>&nbsp;</code>(omitted)<sup>1-1</sup>
+#### 3-1-1. Flags: <code>&nbsp;</code>(omitted)<sup>1-1</sup> {#3-1-1-install-save-flag-omitted}
 
 > aliases: `--save-prod`, `--save`, `-P`
 
@@ -137,7 +137,7 @@ npm install [<@scope>/]<name>@<version>
 >     $ npm install react react-dom@latest
 >     ```
 
-#### 3-1-2. Flags: `--save-dev`<sup>1-2</sup>
+#### 3-1-2. Flags: `--save-dev`<sup>1-2</sup> {#3-1-2-install-save-dev-flag}
 
 > aliases: `-D`
 
@@ -147,7 +147,7 @@ It is added to `devDependencies` in `package.json`. `devDependencies` refers to 
 npm install --save-dev [<@scope>/]<name>@<version>
 ```
 
-#### 3-1-3. Flags: `--global`
+#### 3-1-3. Flags: `--global` {#3-1-3-install-global-flag}
 
 > aliases: `-g`
 
@@ -162,11 +162,11 @@ When the `--global`(`-g`) flag is used, it is not recorded in `package.json`.
 
 The system's `node_modules` path can be found through `npm root -g`.
 
-### 3-2. Behavior of Installing ... All Without Specifying a Package<sup>2</sup>
+### 3-2. Behavior of Installing ... All Without Specifying a Package<sup>2</sup> {#3-2-install-all-packages-from-package-json}
 
 If you run only `npm install` without a package name, all `dependencies` and `devDependencies` recorded in the project's `package.json` are downloaded.
 
-#### 3-2-1. Flags: `--production`
+#### 3-2-1. Flags: `--production` {#3-2-1-install-production-flag}
 
 Because `devDependencies` files are used only for development, it may be wasteful for general users to download those packages. The flag used here is `--production`; when this flag is attached, only `dependencies` files are downloaded, excluding `devDependencies`.
 
@@ -183,7 +183,7 @@ Because `devDependencies` files are used only for development, it may be wastefu
 
 If `npm install --production` is run on `packages.json` recorded as above, only the `react` package is installed, excluding `eslint`.
 
-## 4. `npm uninstall`
+## 4. `npm uninstall` {#4-npm-uninstall}
 
 > aliases: `unlink`, `remove`, `rm`, `r`, `un`
 
@@ -194,7 +194,7 @@ If you enter the package name to delete after the command, all files related to 
 npm uninstall [<@scope>/]<pkg>...
 ```
 
-## 5. `npm update`
+## 5. `npm update` {#5-npm-update}
 
 > aliases: `up`, `upgrade`, `udpate`
 

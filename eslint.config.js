@@ -257,12 +257,6 @@ export default defineConfig([
         },
       ],
       'md/no-emoji': 'error',
-    },
-  },
-  {
-    name: 'md/apps/blog/ko',
-    files: ['apps/blog/src/posts/docs/**/*.ko.md'],
-    rules: {
       'md/require-heading-id': 'error',
     },
   },

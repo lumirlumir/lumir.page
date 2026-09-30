@@ -11,13 +11,13 @@ references:
   - 'https://velog.io/@irish/JS-console.log-and-console.dir'
 ---
 
-## 1. `console.log()`
+## 1. `console.log()` {#1-console-log}
 
-### 1-1. Definition
+### 1-1. Definition {#1-1-console-log-definition}
 
 `console.log()` is a function used for console output in ***JavaScript***.
 
-### 1-2. Purpose
+### 1-2. Purpose {#1-2-console-log-purpose}
 
 You can use `console.log()` to print information to the console that helps with debugging and logging. It is mainly used for the following purposes.
 
@@ -25,11 +25,11 @@ You can use `console.log()` to print information to the console that helps with 
 - Logging: Used to track which function was executed, what data was returned, and so on.
 - Troubleshooting: Used to find unexpected results during code execution or trace and fix errors.
 
-### 1-3. Output
+### 1-3. Output {#1-3-console-log-output}
 
 `console.log()` outputs elements in a tree structure like ***HTML*** and provides special handling for ***DOM*** elements.
 
-### 1-4. Format Specifiers
+### 1-4. Format Specifiers {#1-4-console-log-format-specifiers}
 
 In `console.log()`, you can output strings using format specifiers.
 
@@ -39,13 +39,13 @@ Format Specifier | Description | Example
 `%s` | String | `console.log('String: %s', 'hi~');`
 `%j` | JSON | `console.log('Json: %j', {name:'jay'});`
 
-## 2. `console.dir()`
+## 2. `console.dir()` {#2-console-dir}
 
-### 2-1. Definition
+### 2-1. Definition {#2-1-console-dir-definition}
 
 `console.dir()` is used to print an object's properties to the console. This is useful for listing objects or displaying an object's tree structure.
 
-### 2-2. Purpose
+### 2-2. Purpose {#2-2-console-dir-purpose}
 
 Unlike `console.log()`, it is used to check all properties of an object. It is mainly used for the following purposes.
 
@@ -53,11 +53,11 @@ Unlike `console.log()`, it is used to check all properties of an object. It is m
 - Display tree structure: You can show an object's hierarchy to understand complex objects more clearly.
 - Display details of object representation in the console: Unlike `console.log()`, it can display objects in more detail, allowing you to obtain more information.
 
-### 2-3. Output
+### 2-3. Output {#2-3-console-dir-output}
 
 `console.dir()` outputs elements in a tree structure like ***JSON*** and is useful when you want to see the full representation of a ***DOM*** ***JS*** object. In other words, use `console.dir()` when you want to see an object's data.
 
-## 3. Summary
+## 3. Summary {#3-summary}
 
 <u> | Structure | Object | Function
 --- | --- | --- | ---
@@ -66,9 +66,9 @@ Unlike `console.log()`, it is used to check all properties of an object. It is m
 
 It is convenient to use `console.dir()` for objects and properties, and `console.log()` for the rest.
 
-## 4. Examples
+## 4. Examples {#4-examples}
 
-### 4-1. `document` Output
+### 4-1. `document` Output {#4-1-document-output}
 
 - `console.log()`: Outputs a tree structure in ***HTML*** form.
 
@@ -78,7 +78,7 @@ It is convenient to use `console.dir()` for objects and properties, and `console
 
   ![console.dir()](/apps/blog/public/images/posts/difference-between-console-log-and-console-dir/2.webp?raw=true)
 
-### 4-2. `document.body` Output
+### 4-2. `document.body` Output {#4-2-document-body-output}
 
 - `console.log()`: Outputs the elements of the corresponding `<body>`.
 
@@ -88,7 +88,7 @@ It is convenient to use `console.dir()` for objects and properties, and `console
 
   ![console.dir()](/apps/blog/public/images/posts/difference-between-console-log-and-console-dir/4.webp?raw=true)
 
-### 4-3. Function `a()` Output
+### 4-3. Function `a()` Output {#4-3-function-a-output}
 
 - Functions(objects) are output in the same way.
 - If you use `console.log(a());` and `console.dir(a());`, the `()` causes the function to execute, so both output `true`.

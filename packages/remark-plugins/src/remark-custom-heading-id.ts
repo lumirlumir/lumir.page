@@ -10,18 +10,15 @@ import { visit } from 'unist-util-visit';
 import type { Root } from 'mdast';
 
 // --------------------------------------------------------------------------------
-// Helper
+// Export
 // --------------------------------------------------------------------------------
 
 /**
+ * Matches a custom ID at the end of a heading's final text node.
  * - We don't use the `[ \t]*$` pattern at the end of the regex because trailing
  *   whitespace is already removed from a `heading` node's child `text` node.
  */
-const customHeadingIdRegex = /[ \t]+{#(?<id>[^}]+)}$/;
-
-// --------------------------------------------------------------------------------
-// Export
-// --------------------------------------------------------------------------------
+export const customHeadingIdRegex = /[ \t]+{#(?<id>[^}]+)}$/;
 
 /**
  * A remark plugin to support custom heading IDs in Markdown.
