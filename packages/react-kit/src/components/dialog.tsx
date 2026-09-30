@@ -32,7 +32,7 @@ import {
 
 /**
  * Defines the shape of the context value provided by the `DialogContext`,
- * including the dialog reference and the open/close methods.
+ * including the dialog reference and the `open`/`close` methods.
  */
 interface DialogContextValue extends DialogHandle {
   readonly dialogRef: RefObject<HTMLDialogElement | null>;
