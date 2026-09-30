@@ -41,6 +41,7 @@ export default defineConfig([
     rules: {
       'import/no-cycle': 'off', // Too computationally expensive. TODO: Remove this in shared config.
       'import/prefer-default-export': 'off', // Too restrictive. TODO: Remove this in shared config.
+      'react/no-unknown-property': 'off', // TypeScript handles this. TODO: Remove this in shared config.
     },
   },
   {
@@ -93,7 +94,7 @@ export default defineConfig([
             "Use a plain `<img>` element instead of Next.js' Image component for static exports. Next.js image optimization isn't applied during static export.",
         },
       ],
-      'react/no-unknown-property': 'off', // TypeScript handles this. TODO: Remove this in shared config.
+
       '@next/next/no-img-element': 'off', // Plain `<img>` is intentional because static export doesn't use Next image optimization.
     },
   },
