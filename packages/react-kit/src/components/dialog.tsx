@@ -141,6 +141,8 @@ function useDialogContext(): DialogContextValue {
  * ```
  */
 export function DialogRoot({ children, ref, initialFocusRef }: DialogRootProps) {
+  'use no memo'; // Avoid a ref-access false positive when React Compiler processes the emitted JSX runtime call.
+
   const dialogRef = useRef<HTMLDialogElement>(null);
 
   const open = useCallback(() => {
