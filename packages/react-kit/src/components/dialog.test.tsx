@@ -6,90 +6,197 @@
 // Import
 // --------------------------------------------------------------------------------
 
-import { createRef } from 'react';
+import { createRef, type MouseEvent } from 'react';
 import { assert, describe, it, vi } from 'vitest';
 import { render } from 'vitest-browser-react';
-import { Dialog } from './dialog.js';
+import { Dialog, type DialogHandle } from './dialog.js';
 
 // --------------------------------------------------------------------------------
 // Test
 // --------------------------------------------------------------------------------
 
 describe('dialog', () => {
-  it('Trigger button should open the native modal and forward element attributes', async () => {
+  it('should render native content with forwarded attributes and default dismissal', async () => {
     const screen = await render(
-      <Dialog
-        trigger="Search"
-        triggerProps={{ 'aria-label': 'Open search', className: 'trigger' }}
-        aria-label="Search dialog"
-        className="search-dialog"
-        closedby="any"
-      >
-        <input aria-label="Search query" />
-      </Dialog>,
+      <Dialog.Root>
+        <Dialog.Content className="dialog" aria-label="Search" id="search-dialog">
+          Search content
+        </Dialog.Content>
+      </Dialog.Root>,
     );
-    const button = screen.container.querySelector('button');
     const dialog = screen.container.querySelector('dialog');
 
-    assert.isNotNull(button);
-    assert.isNotNull(dialog);
-    assert.strictEqual(button.type, 'button');
-    assert.strictEqual(button.className, 'trigger');
-    assert.strictEqual(button.getAttribute('aria-label'), 'Open search');
-    assert.strictEqual(dialog.className, 'search-dialog');
-    assert.strictEqual(dialog.getAttribute('aria-label'), 'Search dialog');
+    assert.ok(dialog);
+    assert.strictEqual(screen.container.firstElementChild, dialog);
+    assert.isFalse(dialog.open);
+    assert.strictEqual(dialog.className, 'dialog');
+    assert.strictEqual(dialog.getAttribute('aria-label'), 'Search');
+    assert.strictEqual(dialog.id, 'search-dialog');
     assert.strictEqual(dialog.getAttribute('closedby'), 'any');
-    assert.strictEqual(dialog.open, false);
-
-    button.click();
-
-    assert.strictEqual(dialog.open, true);
-    assert.strictEqual(dialog.matches(':modal'), true);
-    assert.strictEqual(document.activeElement, dialog.querySelector('input'));
+    assert.strictEqual(dialog.textContent, 'Search content');
   });
 
-  it('Native dialog ref should close and reopen the modal while forwarding close events', async () => {
-    const dialogRef = createRef<HTMLDialogElement>();
+  it('should allow overriding the native dismissal policy', async () => {
+    const screen = await render(
+      <Dialog.Root>
+        <Dialog.Content closedby="none" />
+      </Dialog.Root>,
+    );
+    const dialog = screen.container.querySelector('dialog');
+
+    assert.ok(dialog);
+    assert.strictEqual(dialog.getAttribute('closedby'), 'none');
+  });
+
+  it('should open a modal and close it through buttons while forwarding refs and events', async () => {
+    const openRef = createRef<HTMLButtonElement>();
+    const closeRef = createRef<HTMLButtonElement>();
+    const onOpenClick = vi.fn();
+    const onCloseClick = vi.fn();
     const onClose = vi.fn();
     const screen = await render(
-      <Dialog dialogRef={dialogRef} trigger="Open" aria-label="Example" onClose={onClose}>
-        <button type="button" onClick={() => dialogRef.current?.close()}>
-          Cancel
-        </button>
-      </Dialog>,
+      <Dialog.Root>
+        <Dialog.Open ref={openRef} onClick={onOpenClick} aria-label="Open search">
+          Open
+        </Dialog.Open>
+        <Dialog.Content onClose={onClose}>
+          <Dialog.Close ref={closeRef} onClick={onCloseClick} className="close">
+            Close
+          </Dialog.Close>
+        </Dialog.Content>
+      </Dialog.Root>,
     );
     const dialog = screen.container.querySelector('dialog');
-    const trigger = screen.container.querySelector('button');
-    const cancel = dialog?.querySelector('button');
 
-    assert.isNotNull(dialog);
-    assert.isNotNull(trigger);
-    assert.ok(cancel);
+    assert.ok(dialog);
+    assert.ok(openRef.current);
+    assert.ok(closeRef.current);
+    assert.strictEqual(openRef.current.type, 'button');
+    assert.strictEqual(closeRef.current.type, 'button');
+    assert.strictEqual(openRef.current.getAttribute('aria-label'), 'Open search');
+    assert.strictEqual(closeRef.current.className, 'close');
 
-    trigger.click();
-    assert.strictEqual(dialog.open, true);
+    await screen.getByRole('button', { name: 'Open search' }).click();
 
-    cancel.click();
-    assert.strictEqual(dialog.open, false);
-    await vi.waitFor(() => assert.strictEqual(onClose.mock.calls.length, 1));
+    assert.isTrue(dialog.open);
+    assert.isTrue(dialog.matches(':modal'));
+    assert.strictEqual(onOpenClick.mock.calls.length, 1);
 
-    dialogRef.current?.showModal();
-    assert.strictEqual(dialog.open, true);
+    await screen.getByRole('button', { name: 'Close' }).click();
+
+    assert.isFalse(dialog.open);
+    assert.strictEqual(onCloseClick.mock.calls.length, 1);
+    assert.strictEqual(onClose.mock.calls.length, 1);
   });
 
-  it('Disabled trigger button should not open the dialog', async () => {
+  it('should let an open click handler prevent opening', async () => {
+    const onClick = vi.fn((event: MouseEvent<HTMLButtonElement>) => {
+      event.preventDefault();
+    });
     const screen = await render(
-      <Dialog trigger="Open" triggerProps={{ disabled: true }} aria-label="Example">
-        Content
-      </Dialog>,
+      <Dialog.Root>
+        <Dialog.Open onClick={onClick}>Open</Dialog.Open>
+        <Dialog.Content />
+      </Dialog.Root>,
     );
-    const button = screen.container.querySelector('button');
     const dialog = screen.container.querySelector('dialog');
 
-    assert.isNotNull(button);
-    assert.isNotNull(dialog);
+    assert.ok(dialog);
 
-    button.click();
-    assert.strictEqual(dialog.open, false);
+    await screen.getByRole('button', { name: 'Open' }).click();
+
+    assert.strictEqual(onClick.mock.calls.length, 1);
+    assert.isFalse(dialog.open);
+  });
+
+  it('should let a close click handler prevent closing', async () => {
+    const onClick = vi.fn((event: MouseEvent<HTMLButtonElement>) => {
+      event.preventDefault();
+    });
+    const screen = await render(
+      <Dialog.Root>
+        <Dialog.Open>Open</Dialog.Open>
+        <Dialog.Content>
+          <Dialog.Close onClick={onClick}>Close</Dialog.Close>
+        </Dialog.Content>
+      </Dialog.Root>,
+    );
+    const dialog = screen.container.querySelector('dialog');
+
+    assert.ok(dialog);
+
+    await screen.getByRole('button', { name: 'Open' }).click();
+    await screen.getByRole('button', { name: 'Close' }).click();
+
+    assert.strictEqual(onClick.mock.calls.length, 1);
+    assert.isTrue(dialog.open);
+  });
+
+  it('should focus the requested element and ignore repeated open and close calls', async () => {
+    const dialogRef = createRef<DialogHandle>();
+    const inputRef = createRef<HTMLInputElement>();
+    const screen = await render(
+      <Dialog.Root ref={dialogRef} initialFocusRef={inputRef}>
+        <Dialog.Content>
+          <button type="button">First focusable element</button>
+          <input ref={inputRef} aria-label="Search" />
+        </Dialog.Content>
+      </Dialog.Root>,
+    );
+    const dialog = screen.container.querySelector('dialog');
+
+    assert.ok(dialog);
+    assert.ok(dialogRef.current);
+    assert.ok(inputRef.current);
+
+    const showModal = vi.spyOn(dialog, 'showModal');
+    const close = vi.spyOn(dialog, 'close');
+
+    dialogRef.current.close();
+    assert.strictEqual(close.mock.calls.length, 0);
+
+    dialogRef.current.open();
+    assert.isTrue(dialog.open);
+    assert.strictEqual(showModal.mock.calls.length, 1);
+    assert.strictEqual(document.activeElement, inputRef.current);
+
+    dialog.querySelector('button')?.focus();
+    dialogRef.current.open();
+    assert.isTrue(dialog.open);
+    assert.strictEqual(showModal.mock.calls.length, 1);
+    assert.strictEqual(document.activeElement, inputRef.current);
+
+    dialogRef.current.close();
+    dialogRef.current.close();
+    assert.isFalse(dialog.open);
+    assert.strictEqual(close.mock.calls.length, 1);
+  });
+
+  it('should safely handle open and close calls without mounted content', async () => {
+    const dialogRef = createRef<DialogHandle>();
+
+    await render(<Dialog.Root ref={dialogRef}>{null}</Dialog.Root>);
+
+    assert.ok(dialogRef.current);
+    assert.doesNotThrow(() => dialogRef.current?.open());
+    assert.doesNotThrow(() => dialogRef.current?.close());
+  });
+
+  it('should open when the initial focus ref has no mounted element', async () => {
+    const dialogRef = createRef<DialogHandle>();
+    const inputRef = createRef<HTMLInputElement>();
+    const screen = await render(
+      <Dialog.Root ref={dialogRef} initialFocusRef={inputRef}>
+        <Dialog.Content />
+      </Dialog.Root>,
+    );
+    const dialog = screen.container.querySelector('dialog');
+
+    assert.ok(dialog);
+    assert.ok(dialogRef.current);
+
+    dialogRef.current.open();
+
+    assert.isTrue(dialog.open);
   });
 });
