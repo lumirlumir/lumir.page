@@ -38,21 +38,59 @@ interface DialogContextValue extends DialogHandle {
   readonly dialogRef: RefObject<HTMLDialogElement | null>;
 }
 
+/**
+ * Imperative methods exposed through the `Dialog.Root` ref.
+ */
 export interface DialogHandle {
+  /**
+   * Opens the dialog as a modal and focuses `initialFocusRef` when provided.
+   * Does nothing when the dialog content is not mounted.
+   */
   readonly open: () => void;
+
+  /**
+   * Closes the dialog if it is open.
+   * Does nothing when the dialog content is not mounted.
+   */
   readonly close: () => void;
 }
 
+/**
+ * Props for the `Dialog.Root` component.
+ */
 export interface DialogRootProps {
+  /**
+   * Children that share the dialog context, including `Dialog.Content` and its controls.
+   */
   readonly children: ReactNode;
+
+  /**
+   * Ref that exposes the dialog's `open` and `close` methods.
+   * @default undefined
+   */
   readonly ref?: Ref<DialogHandle>;
+
+  /**
+   * Ref to the element to focus whenever `open` is called, even if the dialog is already open.
+   * @default undefined
+   */
   readonly initialFocusRef?: RefObject<HTMLElement | null>;
 }
 
+/**
+ * Native `<dialog>` props for `Dialog.Content`, excluding the internally managed ref.
+ * The `closedby` prop defaults to `'any'`.
+ */
 export type DialogContentProps = ComponentPropsWithoutRef<'dialog'>;
 
+/**
+ * Native button props and ref for `Dialog.Open`, excluding the fixed `type="button"`.
+ */
 export type DialogOpenProps = Omit<ComponentPropsWithRef<'button'>, 'type'>;
 
+/**
+ * Native button props and ref for `Dialog.Close`, excluding the fixed `type="button"`.
+ */
 export type DialogCloseProps = Omit<ComponentPropsWithRef<'button'>, 'type'>;
 
 // --------------------------------------------------------------------------------
@@ -75,6 +113,33 @@ function useDialogContext(): DialogContextValue {
 // Export
 // --------------------------------------------------------------------------------
 
+/**
+ * Provides shared dialog controls to `Dialog.Content`, `Dialog.Open`, and `Dialog.Close`
+ * without rendering a DOM wrapper.
+ *
+ * Pass a `ref` to call `open()` or `close()` imperatively, and `initialFocusRef` to
+ * choose which element receives focus when the dialog opens.
+ *
+ * @example
+ * ```tsx
+ * import { Dialog } from '@lumir/react-kit/components';
+ * import { useRef } from 'react';
+ *
+ * function Component() {
+ *   const inputRef = useRef<HTMLInputElement>(null);
+ *
+ *   return (
+ *     <Dialog.Root initialFocusRef={inputRef}>
+ *       <Dialog.Open>Open search</Dialog.Open>
+ *       <Dialog.Content aria-label="Search">
+ *         <input ref={inputRef} type="search" aria-label="Search query" />
+ *         <Dialog.Close>Close search</Dialog.Close>
+ *       </Dialog.Content>
+ *     </Dialog.Root>
+ *   );
+ * }
+ * ```
+ */
 export function DialogRoot({ children, ref, initialFocusRef }: DialogRootProps) {
   const dialogRef = useRef<HTMLDialogElement>(null);
 
@@ -115,12 +180,30 @@ export function DialogRoot({ children, ref, initialFocusRef }: DialogRootProps) 
   );
 }
 
-export function DialogContent({ closedby = 'any', ...props }: DialogContentProps) {
+/**
+ * Renders the native `<dialog>` element using the ref managed by `Dialog.Root`.
+ * Forwards native dialog props and defaults `closedby` to `'any'`.
+ *
+ * @throws {Error} If rendered outside `Dialog.Root`.
+ */
+export function DialogContent({
+  // Specifies the types of user actions that can be used to close the `<dialog>` element.
+  // https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/dialog#closedby
+  closedby = 'any',
+  ...props
+}: DialogContentProps) {
   const { dialogRef } = useDialogContext();
 
   return <dialog {...props} ref={dialogRef} closedby={closedby} />;
 }
 
+/**
+ * Renders a `type="button"` control that opens the dialog.
+ * Calls the supplied `onClick` first; `event.preventDefault()` prevents opening.
+ * Forwards the remaining button props and ref to the native element.
+ *
+ * @throws {Error} If rendered outside `Dialog.Root`.
+ */
 export function DialogOpen({ onClick, ...props }: DialogOpenProps) {
   const { open } = useDialogContext();
 
@@ -136,6 +219,13 @@ export function DialogOpen({ onClick, ...props }: DialogOpenProps) {
   );
 }
 
+/**
+ * Renders a `type="button"` control that closes the dialog.
+ * Calls the supplied `onClick` first; `event.preventDefault()` prevents closing.
+ * Forwards the remaining button props and ref to the native element.
+ *
+ * @throws {Error} If rendered outside `Dialog.Root`.
+ */
 export function DialogClose({ onClick, ...props }: DialogCloseProps) {
   const { close } = useDialogContext();
 
@@ -151,6 +241,10 @@ export function DialogClose({ onClick, ...props }: DialogCloseProps) {
   );
 }
 
+/**
+ * Compound dialog components: `Root`, `Content`, `Open`, and `Close`.
+ * @see {@linkcode DialogRoot} for usage examples.
+ */
 export const Dialog = {
   Root: DialogRoot,
   Content: DialogContent,
