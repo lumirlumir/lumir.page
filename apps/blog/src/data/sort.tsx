@@ -6,7 +6,7 @@
 // Import
 // --------------------------------------------------------------------------------
 
-import { FaArrowDownWideShort, FaArrowUpShortWide } from '@lumir/react-kit/svgs';
+import { FaArrowDownWideShort, FaArrowUpShortWide, GrSort } from '@lumir/react-kit/svgs';
 import { type Meta } from './meta';
 
 // --------------------------------------------------------------------------------
@@ -21,6 +21,17 @@ export type SortKey = keyof typeof sortMeta;
 // --------------------------------------------------------------------------------
 // Export
 // --------------------------------------------------------------------------------
+
+/**
+ * Metadata for the sort menu.
+ */
+export const sortMenuMeta = {
+  name: {
+    en: 'Sort',
+    ko: '정렬',
+  },
+  reactIcons: <GrSort />,
+} as const satisfies Meta;
 
 /**
  * An object containing metadata for the sort fields,

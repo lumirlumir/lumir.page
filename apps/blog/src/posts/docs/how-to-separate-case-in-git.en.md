@@ -17,7 +17,7 @@ Because Git does not distinguish case by default, even if you change a file or d
 
 The solutions to the problem above are as follows.
 
-## 1. Method 1
+## 1. Method 1 {#1-method-one}
 
 ```sh
 # Case sensitive O
@@ -27,19 +27,19 @@ git config core.ignorecase false
 git config core.ignorecase true
 ```
 
-If you command Git to distinguish uppercase and lowercase through `git config core.ignorecase false`, the changed file name is tracked correctly. However, because of the disadvantages below, it is recommended to use [Method 2](#2-method-2).
+If you command Git to distinguish uppercase and lowercase through `git config core.ignorecase false`, the changed file name is tracked correctly. However, because of the disadvantages below, it is recommended to use [Method 2](#2-method-two).
 
-### 1-1. Disadvantage 1
+### 1-1. Disadvantage 1 {#1-1-method-one-disadvantage-one}
 
 Even if you distinguish uppercase and lowercase through the method above and `push` the content, if a team member's Git cannot distinguish uppercase and lowercase, it will not be `pull`ed for them. In the end, an error that no longer occurs for me still remains for the team member.
 
 Therefore, this option should not be used carelessly during team work, and if unavoidable, the setting must be shared with team members.
 
-### 1-2. Disadvantage 2
+### 1-2. Disadvantage 2 {#1-2-method-one-disadvantage-two}
 
 Even if you rename the directory `Src` to `src` through the method above and `push` it to Git, the `Src` directory is still not deleted and remains, while the `src` directory is newly added. In other words, a situation occurs where both the `Src` and `src` directories exist.
 
-## 2. Method 2
+## 2. Method 2 {#2-method-two}
 
 ```sh
 git mv oldName newName

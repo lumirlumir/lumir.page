@@ -18,7 +18,7 @@ test.use({ javaScriptEnabled: false });
 // Test
 // --------------------------------------------------------------------------------
 
-test.describe('pages rendered without JavaScript', () => {
+test.describe('no-javascript', () => {
   test.describe('posts', () => {
     test('Korean post route should render its semantic HTML and heading', async ({
       page,

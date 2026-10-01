@@ -1,5 +1,70 @@
 [
   {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint",
+    "htmlUrl": "https://github.com/eslint/eslint/issues/21274",
+    "id": 5286578756,
+    "nodeId": "I_kwDOAKjKDc8AAAABOxrKRA",
+    "number": 21274,
+    "title": "Change Request: re-enable the `EMFILE` test on Node.js 26.8+",
+    "createdAt": "2026-08-29T12:42:45Z",
+    "closedAt": "2026-09-03T14:41:41Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/humanwhocodes/momoa",
+    "htmlUrl": "https://github.com/humanwhocodes/momoa/issues/242",
+    "id": 5221208013,
+    "nodeId": "I_kwDOC2jYRc8AAAABNzVPzQ",
+    "number": 242,
+    "title": "`3.3.12` was published without provenance",
+    "createdAt": "2026-08-22T09:15:00Z",
+    "closedAt": "2026-09-02T17:49:55Z",
+    "reactions": {
+      "+1": 4
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/bruits/satteri",
+    "htmlUrl": "https://github.com/bruits/satteri/issues/211",
+    "id": 5138837224,
+    "nodeId": "I_kwDORtxNZM8AAAABMkxu6A",
+    "number": 211,
+    "title": "Parenthesized link titles containing an opening parenthesis are not parsed as links",
+    "createdAt": "2026-08-13T07:16:13Z",
+    "closedAt": "2026-08-14T00:01:51Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/bruits/satteri",
+    "htmlUrl": "https://github.com/bruits/satteri/issues/210",
+    "id": 5138764074,
+    "nodeId": "I_kwDORtxNZM8AAAABMktRKg",
+    "number": 210,
+    "title": "Disabling GFM still applies tilde-related emphasis delimiter behavior",
+    "createdAt": "2026-08-13T07:06:37Z",
+    "closedAt": "2026-08-13T08:59:04Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/bruits/satteri",
+    "htmlUrl": "https://github.com/bruits/satteri/issues/209",
+    "id": 5138738361,
+    "nodeId": "I_kwDORtxNZM8AAAABMkrsuQ",
+    "number": 209,
+    "title": "Native binding version enforcement expects 0.8.1 for satteri 0.9.5",
+    "createdAt": "2026-08-13T07:02:58Z",
+    "closedAt": null,
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
     "repositoryUrl": "https://api.github.com/repos/bruits/satteri",
     "htmlUrl": "https://github.com/bruits/satteri/issues/194",
     "id": 5054181154,
@@ -20,7 +85,7 @@
     "number": 191,
     "title": "`markdownToMdast` and `mdxToMdast` should return `Root`",
     "createdAt": "2026-08-01T08:14:28Z",
-    "closedAt": null,
+    "closedAt": "2026-09-28T13:57:21Z",
     "reactions": {
       "+1": 0
     }

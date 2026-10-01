@@ -44,7 +44,7 @@ export const URL_GITHUB_DISCUSSION_COMMENT = (
 
 /** @type {string} */
 export const COMMENT_DO_NOT_EDIT =
-  '<!-- This file is auto-generated. Please do not edit it directly. -->\n\n<!-- eslint-disable -->\n<!-- markdownlint-disable -->';
+  '<!-- This file is auto-generated. Please do not edit it directly. -->\n\n<!-- eslint-disable -->';
 
 /** @type {string} */
 export const COLOR_FG = '#D6BBF2';

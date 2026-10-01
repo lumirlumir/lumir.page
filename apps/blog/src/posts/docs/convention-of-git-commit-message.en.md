@@ -16,7 +16,7 @@ references:
 
 For communication with team members and convenient tracking of past records, it is important to write Commit Messages that follow rules.
 
-## 1. Seven Rules for Commit Messages
+## 1. Seven Rules for Commit Messages {#1-commit-message-seven-rules}
 
 1. Separate the `Title` and `Body` with a <u>blank line</u>.
 1. Limit the `Title` to <u>50 characters</u> in English.
@@ -26,7 +26,7 @@ For communication with team members and convenient tracking of past records, it 
 1. Limit <u>each line of the `Body` to 72 English characters</u>.
 1. Explain <u>what and why</u> rather than how.
 
-## 2. Commit Message Structure
+## 2. Commit Message Structure {#2-commit-message-structure}
 
 ```sh
 # Separate Header, Body, and Footer with blank lines.
@@ -38,7 +38,7 @@ Body # Body
 Footer # Footer
 ```
 
-### 2-1. `Header`
+### 2-1. `Header` {#2-1-commit-message-header}
 
 - `Header` is required.
 - `Type` indicates the nature of the Commit and must be one of the following.
@@ -62,13 +62,13 @@ Footer # Footer
 - `Scope` can be omitted.
 - Enter the title or topic in `Title`.
 
-### 2-2. `Body`
+### 2-2. `Body` {#2-2-commit-message-body}
 
 The `Body` is the main text and contains detailed content that cannot be expressed in the `Header`.
 
 It can be omitted if the `Header` can express enough.
 
-### 2-3. `Footer`
+### 2-3. `Footer` {#2-3-commit-message-footer}
 
 ```txt
 Resolves(Closes, Fixes): #IssueNo, ... (resolved issue, optional)
@@ -80,17 +80,17 @@ The `Footer` is a footer and can be omitted.
 
 It is used to add reference information, such as which ***Issues*** it came from. For example, to reference a specific ***Issues*** item, write something like `Resolves: #1137`.
 
-## 3. Entering a Commit Message on Multiple Lines
+## 3. Entering a Commit Message on Multiple Lines {#3-enter-multiline-commit-message}
 
 Use the `-m` option. This lets you write a Commit Message directly in inline form in the command window without having to write a separate message in ***vim***.
 
-### 3-1. One Line
+### 3-1. One Line {#3-1-single-line-commit-message}
 
 ```sh
 $ git commit -m "Commit Message"
 ```
 
-### 3-2. Multiple Lines
+### 3-2. Multiple Lines {#3-2-multiline-commit-message}
 
 Do not put the closing quote on the first line of the Commit Message; use it on the last line. In other words, if you put only the opening quote on the first line and press Enter, a line break is made, and the message is not saved but can continue to be entered.
 
@@ -102,7 +102,7 @@ $ git commit -m "Commit Message 1st Line
 > Commit Message Last Line"
 ```
 
-## 4. Commit Message Examples
+## 4. Commit Message Examples {#4-commit-message-examples}
 
 ```sh
 $ git commit -m "fix: fix scroll issue when opening modal in Safari

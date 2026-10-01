@@ -34,6 +34,11 @@ export interface VMarkdownFileMeta {
   readonly lang: LangKey;
 
   /**
+   * Estimated reading time of the Markdown body in display minutes, excluding frontmatter.
+   */
+  readonly readtime: number;
+
+  /**
    * The data of the Markdown file, representing the frontmatter metadata defined in the `Frontmatter` interface.
    */
   readonly data: Frontmatter;

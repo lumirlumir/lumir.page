@@ -14,7 +14,7 @@ export default defineConfig({
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),
     },
-    include: ['src/**/*.test.{js,mjs,cjs,jsx,ts,mts,cts,tsx}'],
+    include: ['{src,tests/integration}/**/*.test.{js,mjs,cjs,jsx,ts,mts,cts,tsx}'],
 
     // Vitest's built-in type checking is still experimental, so we intentionally keep it disabled.
     // I prefer the native TypeScript type-checking flow and rely on the repo's project references

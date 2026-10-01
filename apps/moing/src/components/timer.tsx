@@ -8,7 +8,7 @@
 
 import { cn } from '@lumir/utils';
 import NeonFont from '@/components/neon-font';
-import { useScenarioContext } from '@/contexts/scenario-context';
+import { useScenarioContext } from '@/contexts/scenario';
 import styles from './timer.module.css';
 
 // --------------------------------------------------------------------------------

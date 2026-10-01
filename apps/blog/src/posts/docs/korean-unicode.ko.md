@@ -9,8 +9,6 @@ categories:
 references: []
 ---
 
-<!-- markdownlint-disable MD028 -->
-
 자바스크립트는 [UTF-16 인코딩](https://developer.mozilla.org/ko/docs/Glossary/Code_unit)을 활용하여 문자열을 표현한다. [`koregexp`](https://github.com/lumirlumir/koregexp)에 기여하기 위해 알아두면 좋은 한글 유니코드(Unicode) 관련 지식들은 아래와 같다.
 
 1. [***호환용 한글 자모***](#1-compatibility-hangul-jamo)

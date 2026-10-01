@@ -3,7 +3,7 @@
   "name": "api",
   "type": "module",
   "engines": {
-    "node": "^24.15.0"
+    "node": "^24.18.0"
   },
   "scripts": {
     "build": "tsgo -b tsconfig.build.json",
@@ -13,6 +13,6 @@
   },
   "devDependencies": {
     "@lumir/types": "*",
-    "vitest": "^4.1.9"
+    "vitest": "^5.0.2"
   }
 }

@@ -11,7 +11,7 @@ import { cn } from '@lumir/utils';
 
 import NeonDiv from '@/components/neon-div';
 import NeonFont from '@/components/neon-font';
-import { questionTypes, useConfigContext } from '@/contexts/config-context';
+import { questionTypes, useConfigContext } from '@/contexts/config';
 
 import styles from './config.module.css';
 

@@ -18,9 +18,11 @@ import 'client-only';
 // Import
 // --------------------------------------------------------------------------------
 
+import { useShortcut } from '@lumir/react-kit/hooks';
 import { cn } from '@lumir/utils';
-import { useThemeContext, type Theme } from '@/components/theme-context';
+import { useThemeContext } from '@/contexts/theme';
 import { type LangRecord, type PropsWithLang } from '@/data/lang';
+import { themeDefault, type Theme } from '@/data/theme';
 import styles from './theme-toggle.module.css';
 
 // --------------------------------------------------------------------------------
@@ -52,13 +54,15 @@ const dictionary = {
 export function ThemeToggle({ lang }: PropsWithLang) {
   const [theme, toggleTheme] = useThemeContext();
 
+  useShortcut('t', toggleTheme);
+
   return (
     <div className={styles['theme-toggle']}>
       <button
         type="button"
         onClick={toggleTheme}
         aria-label={dictionary[lang].ariaLabel[theme]}
-        aria-pressed={theme === 'dark'}
+        aria-pressed={theme === themeDefault}
       >
         <span className={styles.orb} aria-hidden="true" />
         <span className={styles.shadow} aria-hidden="true" />

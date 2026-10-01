@@ -7,13 +7,13 @@
 // --------------------------------------------------------------------------------
 
 // Website
-export const WEBSITE_NAME = 'lumir.page';
-export const WEBSITE_URL = `https://${WEBSITE_NAME}`;
+export const websiteName = 'lumir.page';
+export const websiteUrl = `https://${websiteName}`;
 
 // GitHub Repository, Ref: https://docs.github.com/en/rest/repos/repos
-export const GITHUB_REPO_OWNER = 'lumirlumir';
-export const GITHUB_REPO_NAME = WEBSITE_NAME;
-export const GITHUB_REPO_FULL_NAME = `${GITHUB_REPO_OWNER}/${GITHUB_REPO_NAME}`;
+export const githubRepoOwner = 'lumirlumir';
+export const githubRepoName = websiteName;
+export const githubRepoFullName = `${githubRepoOwner}/${githubRepoName}`;
 
 // Google
-export const GOOGLE_GA_ID = 'G-2G4YHTE048';
+export const googleGaId = 'G-2G4YHTE048';

@@ -22,9 +22,9 @@ import MainButton from '@/components/main-button';
 import Server from '@/components/server';
 import Timer from '@/components/timer';
 import Title from '@/components/title';
-import { useConfigContext } from '@/contexts/config-context';
-import { useInterviewContext } from '@/contexts/interview-context';
-import { useScenarioContext } from '@/contexts/scenario-context';
+import { useConfigContext } from '@/contexts/config';
+import { useInterviewContext } from '@/contexts/interview';
+import { useScenarioContext } from '@/contexts/scenario';
 
 import './app.css';
 

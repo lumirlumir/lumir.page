@@ -7,8 +7,8 @@
 // --------------------------------------------------------------------------------
 
 import { type MetadataRoute } from 'next';
-import { WEBSITE_URL } from '@/constants';
 import { langKeys } from '@/data/lang';
+import { websiteUrl } from '@/data/site';
 import createMarkdownCollection from '@/utils/markdown-collection';
 
 // --------------------------------------------------------------------------------
@@ -37,7 +37,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return [
     // `/` path
     ...langKeys.map(lang => ({
-      url: `${WEBSITE_URL}/${lang}`,
+      url: `${websiteUrl}/${lang}`,
       lastModified,
       changeFrequency: 'monthly' as const,
       priority: 0.5,
@@ -47,7 +47,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...langKeys.flatMap(lang =>
       Object.values(markdownCollection.byLangSlug[lang]).map(
         ({ slug, data: { updated } }) => ({
-          url: `${WEBSITE_URL}/${lang}/posts/${slug}`,
+          url: `${websiteUrl}/${lang}/posts/${slug}`,
           lastModified: updated,
           changeFrequency: 'monthly' as const,
           priority: 1.0,
@@ -58,7 +58,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     // `/categories` path
     ...langKeys.flatMap(lang =>
       markdownCollection.nonEmptyCategoryKeys[lang].map(categoryKey => ({
-        url: `${WEBSITE_URL}/${lang}/categories/${categoryKey}`,
+        url: `${websiteUrl}/${lang}/categories/${categoryKey}`,
         lastModified,
         changeFrequency: 'weekly' as const,
         priority: 0.8,

@@ -1,0 +1,41 @@
+[
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/generator-eslint",
+    "htmlUrl": "https://github.com/eslint/generator-eslint/issues/278",
+    "id": 5563739353,
+    "nodeId": "I_kwDOAPfTOM8AAAABS5_s2Q",
+    "number": 278,
+    "title": "Bug: CI fails on Node.js 26.10.0 due to `AbortError` from Yeoman `TestAdapter`",
+    "createdAt": "2026-09-24T05:48:20Z",
+    "closedAt": null,
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/bruits/satteri",
+    "htmlUrl": "https://github.com/bruits/satteri/issues/306",
+    "id": 5507980693,
+    "nodeId": "I_kwDORtxNZM8AAAABSE0dlQ",
+    "number": 306,
+    "title": "Private vulnerability reports are not being reviewed",
+    "createdAt": "2026-09-19T05:14:45Z",
+    "closedAt": null,
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/markdown",
+    "htmlUrl": "https://github.com/eslint/markdown/issues/732",
+    "id": 5371001516,
+    "nodeId": "I_kwDOAkm7Hs8AAAABQCL6rA",
+    "number": 732,
+    "title": "Change Request: Support `MarkdownSourceCode#comments` as other language plugins do",
+    "createdAt": "2026-09-07T06:40:49Z",
+    "closedAt": null,
+    "reactions": {
+      "+1": 1
+    }
+  }
+]

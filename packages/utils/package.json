@@ -21,10 +21,7 @@
   "files": [
     "build",
     "LICENSE.md",
-    "README.md",
-    "!src/**/*.test.{js,mjs,cjs,jsx,ts,mts,cts,tsx}",
-    "!src/**/*.test-d.{ts,mts,cts,tsx}",
-    "!**/fixtures/**"
+    "README.md"
   ],
   "scripts": {
     "build": "tsgo -b tsconfig.build.json",
@@ -32,9 +29,9 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "yaml": "^2.9.0"
+    "yaml": "^2.9.1"
   },
   "devDependencies": {
-    "vitest": "^4.1.9"
+    "vitest": "^5.0.2"
   }
 }

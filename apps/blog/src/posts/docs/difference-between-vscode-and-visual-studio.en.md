@@ -10,7 +10,7 @@ references: []
 
 Let us look at the differences between ***VScode***(Visual Studio Code) and ***Visual Studio***.
 
-## 1. ***VScode***
+## 1. ***VScode*** {#1-vscode}
 
 ***VScode*** is a <u>free</u> code editor. It is much faster and lighter than ***Visual Studio***. By default, if no ***Extension*** is installed, it provides only simple features similar to Notepad. Instead, you can install the features you need as extensions, which allows it to get close to the level of an ***IDE***.
 
@@ -18,32 +18,32 @@ Let us look at the differences between ***VScode***(Visual Studio Code) and ***V
 
 ***VScode*** has many features that are configured differently depending on the programming language and extensions. These include syntax highlighting, bracket matching, Intellisense for variables and methods (code syntax autocompletion), debugging, linting, multi-cursor editing, parameter hints, code navigation, refactoring, and ***Git*** support. Many of these were taken from ***Visual Studio*** and modified.
 
-### 1-1. Advantages
+### 1-1. Advantages {#1-1-vscode-advantages}
 
 - It is fast and lightweight.
 - It has good extensibility.
 
-### 1-2. Disadvantages
+### 1-2. Disadvantages {#1-2-vscode-disadvantages}
 
 - Because it is highly extensible, individual configuration can be difficult.
 - Additional development environments must be configured.
 
-## 2. ***Visual Studio***
+## 2. ***Visual Studio*** {#2-visual-studio}
 
 It is a full-featured integrated development environment (***IDE***, Integrated Development Environment). It is available on ***Windows*** and ***Mac OS***. It supports software development, analysis, debugging, testing, collaboration, deployment, and more. You can develop for ***Web***, ***Mobile***, and ***Desktop*** with ***.NET***, and support for ***Unity***, ***Azure***, and ***Docker*** is included by default.
 
 It is optimized for ***.NET*** and ***C*** family language development and has many convenient parts, but because it is an ***IDE***, the program itself is heavy. The larger the project, the much longer its loading time is compared with ***VScode***.
 
-### 2-1. Advantages
+### 2-1. Advantages {#2-1-visual-studio-advantages}
 
 - It is a finished product. (There is no need to configure an additional development environment.)
 - It is optimized for ***.NET*** and ***C*** family language development.
 
-### 2-2. Disadvantages
+### 2-2. Disadvantages {#2-2-visual-studio-disadvantages}
 
 - It is slow and heavy.
 
-## 3. ***VScode*** vs ***Visual Studio***
+## 3. ***VScode*** vs ***Visual Studio*** {#3-vscode-vs-visual-studio}
 
 Then which should you use between ***VScode*** and ***Visual Studio***?
 

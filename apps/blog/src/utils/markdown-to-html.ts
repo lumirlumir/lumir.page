@@ -40,7 +40,7 @@ import remarkParse from 'remark-parse';
 import remarkRehype from 'remark-rehype';
 import rehypeRaw from 'rehype-raw';
 import rehypeGitHubAlert from 'rehype-github-alert';
-import rehypeGitHubColor from 'rehype-github-color';
+import rehypeGitHubColor, { defaultBuild } from 'rehype-github-color';
 import rehypeGitHubEmoji from 'rehype-github-emoji';
 import rehypeSlug from 'rehype-slug';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
@@ -48,7 +48,7 @@ import rehypeKatex from 'rehype-katex';
 import rehypeStarryNight from 'rehype-starry-night';
 import rehypeStringify from 'rehype-stringify';
 import { unified } from 'unified';
-import { GITHUB_REPO_FULL_NAME } from '@/constants';
+import { githubRepoFullName } from '@/data/site';
 
 // --------------------------------------------------------------------------------
 // Typedef
@@ -78,7 +78,7 @@ interface MarkdownToHtmlOptions {
  *
  * console.log(html);
  * // Output:
- * // <h1 id="awesome-title"><a aria-hidden="true" tabindex="-1" href="#awesome-title"><span class="icon-link"></span></a>Awesome Title</h1>
+ * // <h1 id="awesome-title"><a aria-hidden="true" tabindex="-1" href="#awesome-title"></a>Awesome Title</h1>
  * // <p>Foo Bar Baz</p>
  * ```
  */
@@ -94,24 +94,29 @@ export async function markdownToHtml(
     .use(remarkCustomHeadingId)
     .use(
       remarkGitHub, // Use after `remarkCustomHeadingId` to avoid converting issue/PR references syntax (e.g., `#1`) used in custom heading IDs into links by mistake.
-      { repository: GITHUB_REPO_FULL_NAME },
+      { repository: githubRepoFullName },
     )
     .use(remarkRehype, { allowDangerousHtml: true })
     .use(rehypeRaw)
     .use(rehypeCommentRemover)
     .use(rehypeGitHubAlert)
-    .use(rehypeGitHubColor)
+    .use(rehypeGitHubColor, {
+      build: value => {
+        const node = defaultBuild(value);
+
+        if (node.type === 'element') {
+          node.properties.className = ['rehype-github-color'];
+        }
+
+        return node;
+      },
+    })
     .use(rehypeGitHubEmoji)
     .use(rehypeSlug) // Use before `rehype-katex` to ensure heading IDs are generated correctly.
     .use(
       rehypeAutolinkHeadings, // Use before `rehype-katex` and after `rehype-slug` to ensure autolink anchors are generated correctly.
       {
-        content: {
-          type: 'element',
-          tagName: 'span',
-          properties: { className: ['icon-link'] },
-          children: [],
-        },
+        content: [],
       },
     )
     .use(rehypeKatex)

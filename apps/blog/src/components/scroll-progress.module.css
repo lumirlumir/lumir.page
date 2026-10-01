@@ -9,10 +9,12 @@
 }
 
 .scroll-progress-bar {
+  --scroll-progress: 0;
+
   width: 100%;
   height: 100%;
   background-color: var(--color-fg-default);
-  transform: scaleX(0);
+  transform: scaleX(var(--scroll-progress));
   transform-origin: left center;
   will-change: transform;
 }

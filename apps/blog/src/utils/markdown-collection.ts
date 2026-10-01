@@ -12,13 +12,12 @@ import 'server-only';
 // Import
 // --------------------------------------------------------------------------------
 
-import { frontmatter, frontmatterData } from '@lumir/utils';
+import { frontmatter, readtime } from '@lumir/utils';
 import { categoryKeys, type CategoryKey } from '@/data/category';
 import { type Frontmatter } from '@/data/frontmatter';
 import { langKeys, type LangKey, type LangRecord } from '@/data/lang';
 import { type VMarkdownFileMeta, type VMarkdownFile } from '@/data/v-markdown-file';
-import { isFrontmatter } from '@/utils/is-frontmatter';
-import markdownModules from '@/utils/markdown-modules';
+import { isFrontmatter } from '@/utils/is';
 
 // --------------------------------------------------------------------------------
 // Typedef
@@ -40,6 +39,20 @@ type MarkdownCollectionByLangCategory = LangRecord<
  * Regex to validate the `id` of a Markdown file, which should follow the format `{slug}.{lang}`.
  */
 const idRegex = new RegExp(`^(?<slug>[a-z0-9-]+)\\.(?<lang>${langKeys.join('|')})$`);
+
+/**
+ * Markdown modules for the blog application.
+ */
+const markdownModules = Object.fromEntries(
+  Object.entries(
+    import.meta.glob('./*.md', {
+      base: '../posts/docs',
+      eager: true,
+      import: 'default',
+      query: '?raw',
+    }),
+  ).map(([path, markdown]) => [path.slice(path.lastIndexOf('/') + 1, -3), markdown]),
+) as Record<string, string>;
 
 /**
  * Asserts that the provided id conforms to the expected format.
@@ -121,7 +134,7 @@ class MarkdownCollection {
   // ------------------------------------------------------------------------------
 
   /**
-   * Lazily loads and processes Markdown files from the import registry, extracting their frontmatter.
+   * Lazily processes Markdown files, extracting frontmatter and estimating body reading time.
    *
    * Performance Optimization:
    * - The method uses lazy loading to defer the loading and processing of Markdown files until they are actually needed.
@@ -141,13 +154,14 @@ class MarkdownCollection {
       }
 
       // If the Markdown file has not been processed, load and process it, then cache the result.
-      const { data } = frontmatterData(markdown);
+      const { data, content } = frontmatter(markdown);
       const sanitizedData = assertFrontmatter(data, sanitizedId);
 
       this.#map.set(sanitizedId, {
         id: sanitizedId,
         slug: sanitizedSlug,
         lang: sanitizedLang,
+        readtime: readtime(content).minutes,
         data: sanitizedData,
       });
     }
@@ -214,7 +228,7 @@ class MarkdownCollection {
   // ------------------------------------------------------------------------------
 
   /**
-   * Asynchronously loads the metadata of a Markdown file by its id, without loading its content.
+   * Asynchronously loads metadata by id, including body reading time, without returning content.
    */
   async loadVMarkdownFileMeta(id: VMarkdownFileMeta['id']): Promise<VMarkdownFileMeta> {
     const cached = this.#map.get(id);
@@ -224,19 +238,20 @@ class MarkdownCollection {
     }
 
     const { id: sanitizedId, slug: sanitizedSlug, lang: sanitizedLang } = assertId(id);
-    const key = sanitizedId as keyof typeof markdownModules;
+    const key = sanitizedId;
 
     if (!(key in markdownModules)) {
       throw new Error(`Markdown file not found: \`${sanitizedId}\``);
     }
 
-    const { data } = frontmatterData(markdownModules[key]);
+    const { data, content } = frontmatter(markdownModules[key]);
     const sanitizedData = assertFrontmatter(data, sanitizedId);
 
     const vMarkdownFileMeta: VMarkdownFileMeta = {
       id: sanitizedId,
       slug: sanitizedSlug,
       lang: sanitizedLang,
+      readtime: readtime(content).minutes,
       data: sanitizedData,
     };
 
@@ -251,7 +266,7 @@ class MarkdownCollection {
    */
   async loadVMarkdownFile(id: VMarkdownFile['id']): Promise<VMarkdownFile> {
     const { id: sanitizedId, slug: sanitizedSlug, lang: sanitizedLang } = assertId(id);
-    const key = sanitizedId as keyof typeof markdownModules;
+    const key = sanitizedId;
 
     if (!(key in markdownModules)) {
       throw new Error(`Markdown file not found: \`${sanitizedId}\``);
@@ -259,6 +274,7 @@ class MarkdownCollection {
 
     const { data, content } = frontmatter(markdownModules[key]);
     const sanitizedData = assertFrontmatter(data, sanitizedId);
+    const { minutes } = readtime(content);
 
     // Get a chance to cache the metadata in `#map` if it hasn't been cached already.
     if (!this.#map.has(sanitizedId)) {
@@ -266,6 +282,7 @@ class MarkdownCollection {
         id: sanitizedId,
         slug: sanitizedSlug,
         lang: sanitizedLang,
+        readtime: minutes,
         data: sanitizedData,
       });
     }
@@ -274,6 +291,7 @@ class MarkdownCollection {
       id: sanitizedId,
       slug: sanitizedSlug,
       lang: sanitizedLang,
+      readtime: minutes,
       data: sanitizedData,
       content,
     };
@@ -294,6 +312,7 @@ class MarkdownCollection {
    *       id: 'example-post.ko',
    *       slug: 'example-post',
    *       lang: 'ko',
+   *       readtime: 1,
    *       data: {
    *         title: 'Example Post',
    *         description: 'This is an example post.',
@@ -326,6 +345,7 @@ class MarkdownCollection {
    *         id: 'example-post.ko',
    *         slug: 'example-post',
    *         lang: 'ko',
+   *         readtime: 1,
    *         data: {
    *           title: 'Example Post',
    *           description: 'This is an example post.',

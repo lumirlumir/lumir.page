@@ -14,7 +14,7 @@ references:
 
 It provides features for working with file and folder paths.
 
-## 1. Loading
+## 1. Loading {#1-loading-path-module}
 
 You can load the `path` module through code like the following.
 
@@ -22,9 +22,9 @@ You can load the `path` module through code like the following.
 const path = require("path");
 ```
 
-## 2. Methods
+## 2. Methods {#2-methods}
 
-### 2-1. `path.normalize()`
+### 2-1. `path.normalize()` {#2-1-path-normalize}
 
 It optimizes and stores a path in the shortest form.
 
@@ -44,7 +44,7 @@ console.log(myPath);
 /this/is/a/path/normalize
 ```
 
-### 2-2. `path.join()`
+### 2-2. `path.join()` {#2-2-path-join}
 
 It specifies a path according to the current operating system from String-type arguments.
 
@@ -64,7 +64,7 @@ console.log(myPath);
 /this/is/a/path/join
 ```
 
-### 2-3. `path.resolve()`
+### 2-3. `path.resolve()` {#2-3-path-resolve}
 
 It combines String-type arguments, specifies a path according to the operating system, and optimizes it at the same time.
 
@@ -100,7 +100,7 @@ console.log(myPath);
 current-location/wwwroot/static_files/gif/image.gif
 ```
 
-### 2-4. `path.dirname()`
+### 2-4. `path.dirname()` {#2-4-path-dirname}
 
 Print the current working folder path.
 
@@ -120,7 +120,7 @@ console.log(myPath);
 /foo/bar/baz/asdf
 ```
 
-### 2-5. `path.basename()`
+### 2-5. `path.basename()` {#2-5-path-basename}
 
 Print the current working file name.
 
@@ -140,7 +140,7 @@ console.log(myPath);
 image.png
 ```
 
-### 2-6. `path.extname()`
+### 2-6. `path.extname()` {#2-6-path-extname}
 
 Get the file type. It returns the extension.
 
@@ -160,7 +160,7 @@ console.log(myPath);
 .txt
 ```
 
-### 2-7. `path.parse()`
+### 2-7. `path.parse()` {#2-7-path-parse}
 
 It analyzes the path, then divides and classifies it according to format.
 

@@ -13,7 +13,7 @@ import type {
   ChatCompletionMessageParam,
 } from '@lumir/types/openai';
 
-import { type Config, type QuestionType } from '@/contexts/config-context';
+import { type Config, type QuestionType } from '@/contexts/config';
 import useInterviewContent from '@/hooks/use-interview-content';
 import useInterviewHistory from '@/hooks/use-interview-history';
 import useInterviewObj from '@/hooks/use-interview-obj';

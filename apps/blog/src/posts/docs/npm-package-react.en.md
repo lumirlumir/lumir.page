@@ -12,7 +12,7 @@ references:
 
 Let us look at `react` and `react-dom`, which are essential parts of React development.
 
-## 1. Installing `react`, `react-dom`
+## 1. Installing `react`, `react-dom` {#1-install-react-and-react-dom}
 
 Install `react` and `react-dom` as `dependencies`.
 
@@ -20,13 +20,13 @@ Install `react` and `react-dom` as `dependencies`.
 $ npm install react react-dom
 ```
 
-## 2. `react`
+## 2. `react` {#2-react}
 
 This is React's core library for creating user interfaces. It provides the APIs needed to create Components and define React elements, and it handles state management, lifecycle management, props, state, context management, basic Hook management, and more.
 
 It is not a library for the web or browsers; it only identifies changes and passes a snapshot of those changes to `react-dom`.
 
-## 3. `react-dom`
+## 3. `react-dom` {#3-react-dom}
 
 This is the library for using `react` with the DOM. As a web interface, it is directly related to the web and is responsible for loading actual HTML elements onto the screen. It handles DOM-related features and renders components to the browser's DOM.
 
@@ -34,6 +34,6 @@ This is the library for using `react` with the DOM. As a web interface, it is di
 
 Because `react-dom` is the tool that binds the ideas of `react` to the web browser, `react` itself is actually unrelated to the web or the browser. This is also why `react-native`, `react-three`, and similar tools can be developed and used by taking the core ideas of `react`.
 
-## 4. Summary
+## 4. Summary {#4-summary}
 
 ![react react-dom](/apps/blog/public/images/posts/npm-package-react/1.webp?raw=true)

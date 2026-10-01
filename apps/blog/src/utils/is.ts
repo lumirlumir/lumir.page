@@ -1,18 +1,13 @@
 /**
- * @fileoverview Defines a type guard for Markdown frontmatter data.
+ * @fileoverview Defines type guards for application data.
  */
-
-// --------------------------------------------------------------------------------
-// Environment
-// --------------------------------------------------------------------------------
-
-import 'server-only';
 
 // --------------------------------------------------------------------------------
 // Import
 // --------------------------------------------------------------------------------
 
 import { categoryKeys } from '@/data/category';
+import type { Config } from '@/data/config';
 import type { Frontmatter } from '@/data/frontmatter';
 
 // --------------------------------------------------------------------------------
@@ -20,11 +15,25 @@ import type { Frontmatter } from '@/data/frontmatter';
 // --------------------------------------------------------------------------------
 
 /**
+ * Type guard to check if the given data conforms to the `Config` interface.
+ * @param data The data to check for conformity to the `Config` interface.
+ * @returns Whether the data conforms to the `Config` interface.
+ */
+export function isConfig(data: unknown): data is Config {
+  return (
+    typeof data === 'object' &&
+    data !== null &&
+    'cursorSplash' in data &&
+    typeof data.cursorSplash === 'boolean'
+  );
+}
+
+/**
  * Type guard to check if the given data conforms to the `Frontmatter` interface.
  * @param data The data to check for conformity to the `Frontmatter` interface.
  * @example
  * ```ts
- * import { isFrontmatter } from '@/utils/is-frontmatter';
+ * import { isFrontmatter } from '@/utils/is';
  *
  * const data: unknown = {
  *   title: 'My Blog Post',

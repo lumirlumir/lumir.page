@@ -18,7 +18,7 @@ During development, there are cases where different values must be applied for e
 
 Many Node.js projects use a library called `dotenv` to manage environment variables more effectively. This time, let us look at the `dotenv` library, which helps store environment variables in a file and access them.
 
-## 1. Installing the `dotenv` Package
+## 1. Installing the `dotenv` Package {#1-install-dotenv-package}
 
 Using the npm package manager, install the `dotenv` library in the Node.js project as `dependencies`.
 
@@ -26,7 +26,7 @@ Using the npm package manager, install the `dotenv` library in the Node.js proje
 $ npm i dotenv
 ```
 
-## 2. Writing a `.env` File
+## 2. Writing a `.env` File {#2-write-env-file}
 
 If no configuration is made, the `dotenv` library reads environment variables from the `.env` file located in the current directory. Let us create a `.env` file and list the required environment variables inside it in the `Key=Value` format.
 
@@ -44,7 +44,7 @@ The environment variables stored in the `.env` file in this way can be set in `p
 
 Because the library usage differs slightly depending on whether your project is based on CommonJS or ES modules, I will explain them separately.
 
-## 3. Loading Environment Variables in CommonJS (`require`)
+## 3. Loading Environment Variables in CommonJS (`require`) {#3-load-environment-variables-in-commonjs-require}
 
 First, let us look at how to use the `dotenv` library in CommonJS, the module system traditionally provided by Node.js.
 
@@ -88,7 +88,7 @@ DB_USER: undefined
 DB_PASS: undefined
 ```
 
-## 4. Loading Environment Variables in ES Modules (`import`)
+## 4. Loading Environment Variables in ES Modules (`import`) {#4-load-environment-variables-in-es-modules-import}
 
 In a Node.js environment that uses ES modules, you can load the `dotenv` package using the `import` keyword instead of `require`.
 
@@ -111,11 +111,11 @@ DB_USER: root
 DB_PASS: 1234
 ```
 
-## 5. Loading Environment Variables in a React Project
+## 5. Loading Environment Variables in a React Project {#5-load-environment-variables-in-react-project}
 
 A React project built with CRA(create-react-app) already includes the `dotenv` package, so no separate installation is needed. However, a React project built directly through Webpack and similar tools does not include the `dotenv` package, so installation is required.
 
-### 5-1. React Project Built with CRA
+### 5-1. React Project Built with CRA {#5-1-react-project-built-with-cra}
 
 Because the `dotenv` package is already included, environment variables can be used simply by creating a `.env` file at the project Root and declaring variables, without adding a separate package or configuring Webpack.
 
@@ -133,9 +133,9 @@ REACT_APP_API_KEY=1234asdf
 
 - If you add or modify variables in `.env`, the server must be restarted for the settings to be applied.
 
-### 5-2. React Project Built with Webpack
+### 5-2. React Project Built with Webpack {#5-2-react-project-built-with-webpack}
 
-#### 5-2-1. Possible Errors
+#### 5-2-1. Possible Errors {#5-2-1-possible-errors}
 
 If you use the methods in Common JS and ES modules explained above in React in the same way, you are likely to encounter an `Error` like the following.
 
@@ -154,7 +154,7 @@ The core of the problem is that Node.js built-in modules such as `fs`, `path`, a
 
 The `dotenv` package is a zero-dependency module that loads environment variables declared in a `.env` file into `process.env`. It finds the absolute path of `.env` with the `os` and `path` modules, reads the `.env` file with the `fs` module, and stores it in `process.env` in the `Key=Value` format. In this process, it uses the `fs`, `path`, and `os` modules. Ultimately, `dotenv` is a server-side package that runs only in a Node.js environment. Therefore, on the client side, another method must be found.
 
-#### 5-2-2. Three Ways to Use `dotenv` as Environment Variables in React
+#### 5-2-2. Three Ways to Use `dotenv` as Environment Variables in React {#5-2-2-three-ways-to-use-dotenv-in-react}
 
 > For more details about the `webpack.DefinePlugin()`, `webpack.EnvironmentPlugin()`, and `JSON.stringify()` methods themselves, see another Markdown document.
 
@@ -178,7 +178,7 @@ console.log(process.env)
 $ node webpack.config.js
 ```
 
-##### 5-2-2-1. `webpack.DefinePlugin()`
+##### 5-2-2-1. `webpack.DefinePlugin()` {#5-2-2-1-webpack-define-plugin}
 
 Use `webpack.DefinePlugin()` to define a global variable called `process.env` so it can be accessed from anywhere in the file.
 
@@ -198,7 +198,7 @@ module.exports = {
 }
 ```
 
-##### 5-2-2-2. `webpack.EnvironmentPlugin()`
+##### 5-2-2-2. `webpack.EnvironmentPlugin()` {#5-2-2-2-webpack-environment-plugin}
 
 `webpack.EnvironmentPlugin()` is the same as defining the `process.env` variable in `webpack.DefinePlugin()`, but it supports shortened syntax. The `Key` values configured in the array can be accessed through `process.env` in the same way.
 
@@ -236,7 +236,7 @@ module.exports = {
 }
 ```
 
-##### 5-2-2-3. `dotenv-webpack` Package
+##### 5-2-2-3. `dotenv-webpack` Package {#5-2-2-3-dotenv-webpack-package}
 
 There is also a simple method of using the `dotenv-webpack` package instead of `dotenv`.
 
@@ -262,7 +262,7 @@ module.exports = {
 }
 ```
 
-### 5-3. Summary
+### 5-3. Summary {#5-3-summary}
 
 React project built with CRA.
 
@@ -275,7 +275,7 @@ React project built with Webpack.
 - `dotenv` package: Manually define global variables by adding `new webpack.DefinePlugin()` to Webpack's `plugins`.
 - `dotenv-webpack` package: Add `new Dotenv()` to Webpack's `plugins`.
 
-## 6. Storing Environment Variables in Another File
+## 6. Storing Environment Variables in Another File {#6-store-environment-variables-in-another-file}
 
 What if you need to store environment variables in a file located at a path other than `.env`?
 
@@ -310,7 +310,7 @@ DB_USER: test
 DB_PASS: 5678
 ```
 
-## 7. Loading Environment Variables While Running a Program
+## 7. Loading Environment Variables While Running a Program {#7-load-environment-variables-while-running-program}
 
 If it is difficult to `import` `dotenv` and call the `dotenv.config()` function in code, there is also a method of passing `dotenv/config` with the `-r` or `--require` option of the `node` command when running the program. Using this method, environment variables stored in the `.env` file are set in `process.env` without directly `import`ing the `dotenv` library in code.
 
@@ -344,7 +344,7 @@ DB_PASS: 5678
 
 This method is very useful when you cannot know in advance whether a project is based on CommonJS or ES modules. This is because it works regardless of which module system the corresponding Node.js runtime uses.
 
-## 8. Common Mistakes in ES Modules
+## 8. Common Mistakes in ES Modules {#8-common-mistakes-in-es-modules}
 
 When using ES modules, you need to be a bit more careful than when using CommonJS. Let us reproduce a common problem.
 
@@ -418,7 +418,7 @@ DB_PASS: 1234
 
 As such, it is safe to call the `dotenv.config()` function as early as possible after the program starts.
 
-## 9. Already Configured Environment Variables
+## 9. Already Configured Environment Variables {#9-already-configured-environment-variables}
 
 Be careful because environment variables already configured at the operating system level are not overwritten by environment variable values read from a file through `dotenv`. For example, if you set the `DB_PASS` environment variable in advance before running the program on a Linux-based operating system as follows,
 
@@ -478,7 +478,7 @@ DB_USER: root
 DB_PASS: 0000
 ```
 
-## 10. Security Precautions
+## 10. Security Precautions {#10-security-precautions}
 
 Because `.env` files usually contain sensitive credentials such as database passwords or API keys for third-party services, uploading them to a code repository such as Github can be quite dangerous. Especially in collaborative projects, it is desirable to configure the `.gitignore` file so that developers cannot accidentally upload them to the code repository.
 

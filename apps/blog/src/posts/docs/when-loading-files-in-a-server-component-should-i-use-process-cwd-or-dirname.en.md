@@ -24,25 +24,25 @@ export default async function Page() {
 
 Let us look at the code above mentioned in the official guide link. It uses `process.cwd()` when specifying the path of the file to load. In this case, can we not use Node.js's global variable `__dirname` instead?
 
-## 1. `process.cwd()` and `__dirname`
+## 1. `process.cwd()` and `__dirname` {#1-process-cwd-and-dirname}
 
 `process.cwd()` and `__dirname` both indicate the current directory in Node.js, but the situations and meanings in which they are used are different.
 
-### 1-1. [`process.cwd()`](https://nodejs.org/api/process.html#processcwd)
+### 1-1. [`process.cwd()`](https://nodejs.org/api/process.html#processcwd) {#1-1-process-cwd}
 
 It returns the directory where the current process was started, and this can change depending on where the process was executed. In other words, it works regardless of where the code is located and returns the working directory where the current process is running.
 
 - How it works: Returns based on the directory where the Node.js process started.
 - Characteristic: The working directory can be changed through `process.chdir()`.
 
-### 1-2. [`__dirname`](https://nodejs.org/docs/latest/api/globals.html#__dirname)
+### 1-2. [`__dirname`](https://nodejs.org/docs/latest/api/globals.html#__dirname) {#1-2-dirname}
 
 It returns the path of the folder where the running JavaScript file is located, and provides a fixed path. In other words, regardless of where the process was executed, it is based on the file location and only indicates the path according to the directory where the current JavaScript file is stored.
 
 - How it works: Returns based on the storage location of the running JavaScript file.
 - Characteristic: `__dirname` is fixed and always returns only the directory path where the file is stored.
 
-### 1-3 Example
+### 1-3 Example {#1-3-process-cwd-and-dirname-example}
 
 Assume the current working directory is `/`(root). Create the following JavaScript file in the `/my-folder` path. (At this time, the working directory must still be `/`.)
 
@@ -66,17 +66,17 @@ The output result is as follows.
 /my-folder # __dirname
 ```
 
-## 2. Usage in **Next.js** Server Components
+## 2. Usage in **Next.js** Server Components {#2-nextjs-server-component-usage}
 
 In Next.js, using `__dirname` can behave differently from a normal Node.js environment. The reason is that Next.js bundles code at build time and distinguishes between server and client environments. In Next.js, when `__dirname` is executed on the server, it points to the path of the bundled file, so it may return a path different from what you expect, and caution is needed.
 
-### 2-1. Differences
+### 2-1. Differences {#2-1-differences}
 
 1. `process.cwd()`: Returns the directory where the current process is executed, that is, the **project root directory**. In the case of Next.js, this mainly points to the root directory of the project and is suitable for use when finding files.
 
 1. `__dirname`: Returns the directory where the current file is located, but in Next.js this value can become the path of the bundled file. In other words, after Next.js builds and deploys, the path may behave differently, making relative paths difficult to configure.
 
-### 2-2. Example
+### 2-2. Example {#2-2-nextjs-server-component-example}
 
 ```js
 /* /src/app/page.js */
@@ -100,6 +100,6 @@ process.cwd(): /
 __dirname: /.next/server/app
 ```
 
-### 2-3. Conclusion
+### 2-3. Conclusion {#2-3-conclusion}
 
 When finding file paths in a Next.js project, using `process.cwd()` is much more stable. Because `process.cwd()` always points to the root directory of the project, it can be used more consistently when specifying file paths. **Therefore, in a Next.js environment, using `process.cwd()` is recommended over `__dirname`.**

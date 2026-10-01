@@ -15,7 +15,6 @@ import { SpeedInsights } from '@vercel/speed-insights/next';
 
 import { CursorSplash } from '@/components/cursor-splash';
 import { GoogleAnalytics } from '@/components/google-analytics';
-import { ThemeProvider } from '@/components/theme-context';
 import { ThemeScript } from '@/components/theme-script';
 
 import { AsideToggle } from '@/components/aside-toggle';
@@ -32,9 +31,12 @@ import { SiteFooter } from '@/components/site-footer';
 import { ThemeToggle } from '@/components/theme-toggle';
 import { Title } from '@/components/title';
 
-import { GOOGLE_GA_ID } from '@/constants';
+import { ConfigProvider } from '@/contexts/config';
+import { ThemeProvider } from '@/contexts/theme';
+
 import { author } from '@/data/author';
 import { langKeys, type LangKey } from '@/data/lang';
+import { googleGaId } from '@/data/site';
 
 import '@/styles/index.css';
 import styles from './layout.module.css';
@@ -95,36 +97,38 @@ export default async function RootLayout({
     >
       <body className={styles.body} id="top">
         <ThemeScript />
-        <CursorSplash />
-        <ThemeProvider>
-          <ScrollProgress className={styles['scroll-progress']} />
-          <header className={styles.header}>
-            <Title lang={lang} />
-            <SiteNavigation lang={lang} />
-            <div className={styles.tools}>
-              <DocSearch />
-              <LangToggle lang={lang} />
-              <ThemeToggle lang={lang} />
-            </div>
-          </header>
-          <aside
-            className={`${styles.sidebar} ${styles['profile-sidebar']} custom-scrollbar-y-regular`}
-          >
-            <Profile lang={lang} />
-            <Links lang={lang} />
-            <Categories lang={lang} />
-          </aside>
-          <AsideToggle className={styles['aside-toggle']} lang={lang} />
-          <aside className={`${styles.sidebar} ${styles['nav-sidebar']}`}>{nav}</aside>
-          <main className={styles.main}>
-            <article className={styles.article}>{children}</article>
-          </main>
-          <SiteFooter lang={lang} />
+        <ConfigProvider>
+          <ThemeProvider>
+            <CursorSplash />
+            <ScrollProgress className={styles['scroll-progress']} />
+            <header className={styles.header}>
+              <Title lang={lang} />
+              <SiteNavigation lang={lang} />
+              <div className={styles.tools}>
+                <DocSearch />
+                <LangToggle lang={lang} />
+                <ThemeToggle lang={lang} />
+              </div>
+            </header>
+            <aside
+              className={`${styles.sidebar} ${styles['profile-sidebar']} custom-scrollbar-y-regular`}
+            >
+              <Profile lang={lang} />
+              <Links lang={lang} />
+              <Categories lang={lang} />
+            </aside>
+            <AsideToggle className={styles['aside-toggle']} lang={lang} />
+            <aside className={`${styles.sidebar} ${styles['nav-sidebar']}`}>{nav}</aside>
+            <main className={styles.main}>
+              <article className={styles.article}>{children}</article>
+            </main>
+            <SiteFooter lang={lang} />
 
-          <Analytics />
-          <SpeedInsights />
-          <GoogleAnalytics gaId={GOOGLE_GA_ID} />
-        </ThemeProvider>
+            <Analytics />
+            <SpeedInsights />
+            <GoogleAnalytics gaId={googleGaId} />
+          </ThemeProvider>
+        </ConfigProvider>
       </body>
     </html>
   );

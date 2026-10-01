@@ -11,9 +11,12 @@ import {
   useBooleanState,
   useCountdown,
   useIsomorphicLayoutEffect,
+  useOs,
   usePrevious,
   usePreviousDistinct,
   useScroll,
+  useScrollProgress,
+  useShortcut,
   useSpeechRecognition,
   useToggle,
   useTypewriter,
@@ -40,6 +43,11 @@ describe('index', () => {
       assert.strictEqual(typeof useIsomorphicLayoutEffect, 'function');
     });
 
+    it('`useOs` should be defined', () => {
+      assert.isDefined(useOs);
+      assert.strictEqual(typeof useOs, 'function');
+    });
+
     it('`usePrevious` should be defined', () => {
       assert.isDefined(usePrevious);
       assert.strictEqual(typeof usePrevious, 'function');
@@ -53,6 +61,16 @@ describe('index', () => {
     it('`useScroll` should be defined', () => {
       assert.isDefined(useScroll);
       assert.strictEqual(typeof useScroll, 'function');
+    });
+
+    it('`useScrollProgress` should be defined', () => {
+      assert.isDefined(useScrollProgress);
+      assert.strictEqual(typeof useScrollProgress, 'function');
+    });
+
+    it('`useShortcut` should be defined', () => {
+      assert.isDefined(useShortcut);
+      assert.strictEqual(typeof useShortcut, 'function');
     });
 
     it('`useSpeechRecognition` should be defined', () => {

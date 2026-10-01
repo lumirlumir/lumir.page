@@ -30,8 +30,8 @@ export default defineConfig({
         ['html', { open: 'on-failure', outputFolder: './coverage/playwright/report' }],
       ],
   retries: isCI ? 1 : 0,
-  testDir: './tests',
-  workers: '75%',
+  testDir: './tests/e2e',
+  workers: isCI ? '75%' : 1,
 
   projects: [
     {

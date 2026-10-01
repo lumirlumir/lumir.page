@@ -9,9 +9,9 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 
-import { ConfigProvider } from '@/contexts/config-context';
-import { InterviewProvider } from '@/contexts/interview-context';
-import { ScenarioProvider } from '@/contexts/scenario-context';
+import { ConfigProvider } from '@/contexts/config';
+import { InterviewProvider } from '@/contexts/interview';
+import { ScenarioProvider } from '@/contexts/scenario';
 
 import App from './app';
 

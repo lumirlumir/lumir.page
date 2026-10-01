@@ -27,7 +27,7 @@ However, the biggest drawback of using the GitHub Markdown API is that it lacks 
 
 For this, it is important to understand the series of flows by which the current blog converts Markdown documents to HTML and then converts them to JSX components. (When I made this blog, I paid a lot of attention to the code structure, so the actual logic is much larger. Therefore, I will cover only the essential parts here.)
 
-## 1. Until Markdown Is Converted to JSX
+## 1. Until Markdown Is Converted to JSX {#1-convert-markdown-to-jsx}
 
 If we list the series of steps for converting a Markdown document to JSX, they are as follows.
 
@@ -47,9 +47,9 @@ The current blog development does not use all of the methods above, but they are
 
 In this article, we will cover the 'substitution' structure among these.
 
-## 2. Let Us Use Substitutions
+## 2. Let Us Use Substitutions {#2-use-replacements}
 
-### 2-1. What Is a Substitution?
+### 2-1. What Is a Substitution? {#2-1-what-is-replacement}
 
 Then what is a substitution? It is simple. If you have experience writing formulas with the `$ ... $` form in packages that support LaTex syntax, such as [MathJax](https://www.mathjax.org) and [KaTex](https://katex.org), then you have already used substitutions. Here, the substitution passes the content between `$` symbols to a specific function<sup>Function</sup> or module<sup>Module</sup>, converts it into a mathematical formula, and then uses it.
 
@@ -57,7 +57,7 @@ You can think of string interpolation<sup>String Interpolation</sup>, such as `$
 
 Then if someone asks, "Is the structure that uses substitutions used often?", I can say, "It is used often." The various substitution structures I looked at to use the substitution structure of the current blog are as follows.
 
-#### 2-1-1. MathJax and Katex
+#### 2-1-1. MathJax and Katex {#2-1-1-mathjax-and-katex}
 
 ```md
 **The Cauchy-Schwarz Inequality**
@@ -74,7 +74,7 @@ $ ... $
 $$ ... $$
 ```
 
-#### 2-1-2. Official [react.dev](https://github.com/reactjs/react.dev) Documentation
+#### 2-1-2. Official [react.dev](https://github.com/reactjs/react.dev) Documentation {#2-1-2-react-dev-official-docs}
 
 ```md
 ## Using React for a part of your existing page {/*using-react-for-a-part-of-your-existing-page*/}
@@ -95,7 +95,7 @@ The following substitution sets the URI Fragment. (A URI Fragment means the `#fr
 {/* ... */}
 ```
 
-#### 2-1-3. Tistory Blog
+#### 2-1-3. Tistory Blog {#2-1-3-tistory-blog}
 
 ```html
 <li><a href="[##_tag_link_##]" class="[##_tag_class_##]">[##_tag_name_##]</a></li>
@@ -107,7 +107,7 @@ The following substitution sets HTML attributes<sup>Attribute</sup>.
 [## ... ##]
 ```
 
-#### 2-1-4. GitHub Actions<sup>GitHub Actions</sup>
+#### 2-1-4. GitHub Actions<sup>GitHub Actions</sup> {#2-1-4-github-actions}
 
 ```yml
 - name: Set up cache
@@ -123,7 +123,7 @@ The following substitution passes the value<sup>Value</sup> of a variable.
 ${{ ... }}
 ```
 
-### 2-2. Then What Substitution Should We Use?
+### 2-2. Then What Substitution Should We Use? {#2-2-which-replacement-to-use}
 
 In fact, deciding which substitution to use depends on the decision of an individual or organization. However, if you use common Markdown syntax, for example the `**` symbol used for emphasis or the `##` symbol used for a heading<sup>Heading</sup>, conflicts can occur between the substitution and Markdown syntax, so it is better to avoid those parts.
 
@@ -131,7 +131,7 @@ The substitution forms presented as examples above do not have concerns about co
 
 Also, there is no need to use only one substitution form. As long as you can manage consistent substitution forms, it does not matter much whether you mix several substitution symbols or create extensible substitutions by using a specific prefix<sup>Prefix</sup> or suffix<sup>Suffix</sup>.
 
-### 2-3. How Should Substitutions Be Transformed?
+### 2-3. How Should Substitutions Be Transformed? {#2-3-how-to-transform-replacements}
 
 Now that we have decided on a substitution structure, it is time to change the substitutions into the actual values I want. What would be good? The simplest method is to use JavaScript's<sup>JavaScript</sup> `replace` function and capture groups<sup>Capture Group</sup> in regular expressions.
 
@@ -150,6 +150,6 @@ Through the method above, you should be able to extract and process the string i
 
 However, if the entire Markdown document is put into the logic above, conversion time may take longer than expected, so it is important to optimize by applying conversion logic only to the necessary parts.
 
-### 3. Closing
+### 3. Closing {#3-closing}
 
 We looked at how to create and use Markdown substitutions with a simple example. The content above can also be considered a kind of Markdown preprocessing<sup>Preprocessing</sup> process. This is not about how to use a library or framework or about a specific setting; it explains a part where developers must design and build the flow themselves, so I hope it can be used as a reference like, "This kind of method exists too!"
