@@ -127,10 +127,8 @@
   }
 
   hr {
-    height: 0.25em;
     margin: var(--size-24) 0;
-    background-color: var(--color-border-default);
-    border: 0;
+    border: 1px solid var(--color-border-muted);
   }
 
   img {
@@ -226,11 +224,6 @@
     &::after {
       content: ']';
     }
-  }
-
-  [type='checkbox'] {
-    box-sizing: border-box;
-    padding: 0;
   }
 
   > :first-child,
