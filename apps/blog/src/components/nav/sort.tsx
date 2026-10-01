@@ -36,15 +36,17 @@ function SortContainer({ children }: PropsWithChildren) {
 
   return (
     <div>
-      <div
+      <button
         className={cn(styles['sort-item'], 'custom-hover-effect')}
+        type="button"
+        aria-expanded={isOpen}
         onClick={toggleIsOpen}
       >
         <div className={styles['react-icons']}>{sortMenuMeta.reactIcons}</div>
         <div className={styles['name-en']}>{sortMenuMeta.name.en}</div>
         <div className={styles['name-ko']}>{sortMenuMeta.name.ko}</div>
         <div className={styles.sort}>{isOpen ? <FaAngleUp /> : <FaAngleDown />}</div>
-      </div>
+      </button>
       {isOpen ? <ul className={styles.list}>{children}</ul> : null}
     </div>
   );
@@ -64,15 +66,21 @@ function SortItem({ field, sort }: { field: SortableFrontmatterKey; sort: SortKe
   }
 
   return (
-    <li className={cn(styles['sort-item'], 'custom-hover-effect')} onClick={onClick}>
-      <div className={styles['react-icons']}>{frontmatterMeta[field].reactIcons}</div>
-      <div
-        className={styles['name-en']}
-      >{`${frontmatterMeta[field].name.en} / ${sortMeta[sort].name.en}`}</div>
-      <div
-        className={styles['name-ko']}
-      >{`${frontmatterMeta[field].name.ko} / ${sortMeta[sort].name.ko}`}</div>
-      <div className={styles.sort}>{sortMeta[sort].reactIcons}</div>
+    <li>
+      <button
+        className={cn(styles['sort-item'], 'custom-hover-effect')}
+        type="button"
+        onClick={onClick}
+      >
+        <div className={styles['react-icons']}>{frontmatterMeta[field].reactIcons}</div>
+        <div
+          className={styles['name-en']}
+        >{`${frontmatterMeta[field].name.en} / ${sortMeta[sort].name.en}`}</div>
+        <div
+          className={styles['name-ko']}
+        >{`${frontmatterMeta[field].name.ko} / ${sortMeta[sort].name.ko}`}</div>
+        <div className={styles.sort}>{sortMeta[sort].reactIcons}</div>
+      </button>
     </li>
   );
 }
@@ -93,4 +101,3 @@ export function Sort() {
     </SortContainer>
   );
 }
-// TODO: add `title` prop for a11y

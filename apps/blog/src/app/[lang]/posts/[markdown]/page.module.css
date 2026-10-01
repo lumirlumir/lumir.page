@@ -1,0 +1,117 @@
+.post {
+  font-family: var(--font-stack-serif);
+}
+
+.masthead {
+  display: grid;
+  gap: 18px;
+  padding-bottom: 30px;
+  border-bottom: 3px double var(--color-hairline-strong);
+
+  & > a {
+    width: fit-content;
+    font-family: var(--font-stack-monospace);
+    font-size: 0.62rem;
+    color: var(--color-vermillion);
+    letter-spacing: 0.1em;
+    text-decoration: none;
+  }
+
+  & h1 {
+    max-width: 17ch;
+    margin: 0;
+    font-size: clamp(2.5rem, 6vw, 5.8rem);
+    font-weight: 600;
+    line-height: 1.03;
+    letter-spacing: -0.055em;
+    text-wrap: balance;
+  }
+
+  & > p {
+    max-width: 50rem;
+    margin: 0;
+    font-size: clamp(0.95rem, 1.5vw, 1.15rem);
+    line-height: 1.8;
+    color: var(--color-ink-soft);
+  }
+
+  & dl {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+    padding-top: 18px;
+    margin: 4px 0 0;
+    border-top: 1px solid var(--color-hairline);
+
+    & div {
+      min-width: 0;
+    }
+
+    & :is(dt, dd) {
+      margin: 0;
+      font-family: var(--font-stack-monospace);
+      font-size: 0.55rem;
+      letter-spacing: 0.06em;
+      overflow-wrap: anywhere;
+    }
+
+    & dt {
+      margin-bottom: 4px;
+      color: var(--color-ink-soft);
+    }
+  }
+}
+
+.rail {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 10px;
+  font-family: var(--font-stack-monospace);
+  font-size: 0.55rem;
+  color: var(--color-ink-soft);
+  letter-spacing: 0.08em;
+  border-bottom: 1px solid var(--color-hairline);
+}
+
+.lead {
+  padding: 10px;
+  margin: 34px 0 52px;
+  background-color: var(--color-paper-soft);
+  border: 1px solid var(--color-hairline-strong);
+  box-shadow: 0 18px 42px var(--color-editorial-shadow);
+
+  & img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    border: 1px solid var(--color-hairline);
+  }
+
+  & figcaption {
+    display: flex;
+    justify-content: space-between;
+    padding: 9px 2px 0;
+    font-family: var(--font-stack-monospace);
+    font-size: 0.54rem;
+    color: var(--color-ink-soft);
+    letter-spacing: 0.08em;
+  }
+}
+
+.prose {
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+@media (width >= 768px) {
+  .masthead {
+    padding-bottom: 40px;
+  }
+
+  .lead {
+    padding: 16px;
+    margin-top: 48px;
+    margin-bottom: 72px;
+  }
+}

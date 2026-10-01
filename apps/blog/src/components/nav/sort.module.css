@@ -1,9 +1,4 @@
-.react-icons {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
+.react-icons,
 .sort {
   display: flex;
   align-items: center;
@@ -11,62 +6,68 @@
 }
 
 .list {
-  padding: 0;
+  padding: 4px 0 0;
   margin: 0;
   list-style: none;
+
+  & > li:not(:last-child) {
+    border-bottom: 1px solid var(--color-hairline);
+  }
 }
 
 .sort-item {
-  --grid-template-rows-1: var(--size-24);
-  --grid-template-rows-2: var(--size-16);
-  --grid-template-columns: calc(
-    var(--grid-template-rows-1) + var(--grid-template-rows-2) + var(--size-2)
-  );
-
   display: grid;
-  grid-template-rows: var(--grid-template-rows-1) var(--grid-template-rows-2);
-  grid-template-columns: var(--grid-template-columns) 1fr var(--grid-template-columns);
-  padding: var(--spacing-static-sm) 0;
-  margin: var(--spacing-static-xs) 0;
+  grid-template-rows: auto auto;
+  grid-template-columns: 25px minmax(0, 1fr) 25px;
+  gap: 1px 7px;
+  width: 100%;
+  padding: 10px 6px;
+  font: inherit;
+  color: inherit;
+  text-align: left;
   cursor: pointer;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
 
-  & > div.react-icons {
-    grid-area: 1 / 1 / 3 / 2;
+  & > .react-icons {
+    grid-row: 1 / 3;
+    grid-column: 1;
 
     & > svg {
-      width: var(--size-24);
-      height: var(--size-24);
+      width: 15px;
+      height: 15px;
       transform-origin: center;
       transform-box: fill-box;
     }
   }
 
-  & > div.name-en {
-    grid-area: 1 / 2 / 2 / 3;
-    font-size: var(--font-size-md);
-    font-weight: var(--font-weight-medium);
-    letter-spacing: var(--letter-spacing-tightest);
+  & > .name-en {
+    grid-row: 1;
+    grid-column: 2;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
   }
 
-  & > div.name-ko {
-    grid-area: 2 / 2 / 3 / 3;
-    font-size: var(--font-size-xs);
-    color: var(--color-fg-muted);
-    letter-spacing: var(--letter-spacing-tighter);
+  & > .name-ko {
+    grid-row: 2;
+    grid-column: 2;
+    font-size: 0.56rem;
+    color: var(--color-ink-soft);
   }
 
-  & > div.sort {
-    grid-area: 1 / 3 / 3 / 4;
+  & > .sort {
+    grid-row: 1 / 3;
+    grid-column: 3;
 
     & > svg {
-      width: var(--size-24);
-      height: var(--size-24);
+      width: 15px;
+      height: 15px;
     }
   }
 
-  &:hover {
-    & > div.react-icons > svg {
-      animation: var(--animation-shake);
-    }
+  &:hover > .react-icons > svg {
+    animation: var(--animation-shake);
   }
 }

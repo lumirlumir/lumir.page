@@ -13,34 +13,23 @@ import 'server-only';
 // --------------------------------------------------------------------------------
 
 import Link from 'next/link';
-import { type JSX, type PropsWithChildren } from 'react';
-import { cn } from '@lumir/utils';
 import { categoryMeta } from '@/data/category';
-import { frontmatterMeta } from '@/data/frontmatter';
 import { type PropsWithLang } from '@/data/lang';
 import { type VMarkdownFileMeta } from '@/data/v-markdown-file';
-import { markdownToHtmlLite } from '@/utils/markdown-to-html';
+import { markdownToText } from '@/utils/markdown-to-text';
 import styles from './post-card.module.css';
 
 // --------------------------------------------------------------------------------
-// Helper
+// Typedef
 // --------------------------------------------------------------------------------
 
-function PostCardContainer({ children }: PropsWithChildren) {
-  return (
-    <div className={cn(styles['post-card-container'], 'custom-scrollbar-x')}>
-      {children}
-    </div>
-  );
-}
+type PostCardVariant = 'series' | 'popular' | 'latest' | 'archive';
 
-function PostCardItem({ icon, text }: { icon: JSX.Element; text: string }) {
-  return (
-    <span className={styles['post-card-item']}>
-      <span className={styles['react-icons']}>{icon}</span>
-      <span>{text}</span>
-    </span>
-  );
+interface PostCardProps {
+  readonly marker?: string;
+  readonly position?: number;
+  readonly variant?: PostCardVariant;
+  readonly vMarkdownFileMeta: VMarkdownFileMeta;
 }
 
 // --------------------------------------------------------------------------------
@@ -49,43 +38,55 @@ function PostCardItem({ icon, text }: { icon: JSX.Element; text: string }) {
 
 export async function PostCard({
   lang,
+  marker,
+  position,
+  variant = 'archive',
   vMarkdownFileMeta: {
     slug,
-    data: { title, description, created, updated, categories },
+    data: { title, description, updated, categories },
   },
-}: PropsWithLang<{
-  readonly vMarkdownFileMeta: VMarkdownFileMeta;
-}>) {
+}: PropsWithLang<PostCardProps>) {
+  const [plainTitle, plainDescription] = await Promise.all([
+    markdownToText(title),
+    markdownToText(description),
+  ]);
+  const primaryCategory = categories[0];
+  const kicker = primaryCategory ? categoryMeta[primaryCategory].name[lang] : 'Journal';
+
   return (
-    <Link href={`/${lang}/posts/${slug}`}>
-      <div className={cn(styles['post-card'], 'custom-hover-effect')}>
-        <div
-          className={cn(styles.title, 'markdown')}
-          // eslint-disable-next-line react/no-danger -- Safe because the title comes from the local file and is controlled.
-          dangerouslySetInnerHTML={{ __html: await markdownToHtmlLite(title) }}
-        />
-
-        <div
-          className={cn(styles.description, 'markdown')}
-          // eslint-disable-next-line react/no-danger -- Safe because the description comes from the local file and is controlled.
-          dangerouslySetInnerHTML={{ __html: await markdownToHtmlLite(description) }}
-        />
-
-        <PostCardContainer>
-          <PostCardItem icon={frontmatterMeta.created.reactIcons} text={created} />
-          <PostCardItem icon={frontmatterMeta.updated.reactIcons} text={updated} />
-        </PostCardContainer>
-
-        <PostCardContainer>
-          {categories.map(category => (
-            <PostCardItem
-              key={category}
-              icon={frontmatterMeta.categories.reactIcons}
-              text={categoryMeta[category].name.en}
+    <Link className={styles.link} href={`/${lang}/posts/${slug}`}>
+      <article
+        className={styles['post-card']}
+        data-position={position}
+        data-variant={variant}
+      >
+        <div className={styles['art-frame']}>
+          <div className={styles.mat}>
+            <img
+              className={styles.image}
+              src="/images/editorial/placeholder.webp"
+              width={1536}
+              height={1024}
+              alt=""
             />
-          ))}
-        </PostCardContainer>
-      </div>
+          </div>
+          {marker ? (
+            <span className={styles.marker} aria-hidden="true">
+              {marker}
+            </span>
+          ) : null}
+        </div>
+
+        <div className={styles.content}>
+          <div className={styles.kicker}>{kicker}</div>
+          <h3 className={styles.title}>{plainTitle}</h3>
+          <p className={styles.description}>{plainDescription}</p>
+          <footer className={styles.byline}>
+            <span>lumir</span>
+            <time dateTime={updated}>{updated}</time>
+          </footer>
+        </div>
+      </article>
     </Link>
   );
 }

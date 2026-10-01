@@ -7,25 +7,29 @@
 // --------------------------------------------------------------------------------
 
 import { type Metadata } from 'next';
+import { Noto_Serif_KR as NotoSerifKr } from 'next/font/google';
 import { type PropsWithChildren } from 'react';
 
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
+
+import { CursorSplash } from '@/components/cursor-splash';
+import { GoogleAnalytics } from '@/components/google-analytics';
+import { ThemeScript } from '@/components/theme-script';
+
+import { AsideToggle } from '@/components/aside-toggle';
 
 import { Categories } from '@/components/aside/categories';
 import { Links } from '@/components/aside/links';
 import { Profile } from '@/components/aside/profile';
 
 import { DocSearch } from '@/components/header/doc-search';
-
-import { AsideToggle } from '@/components/aside-toggle';
-import { CursorSplash } from '@/components/cursor-splash';
-import { GoogleAnalytics } from '@/components/google-analytics';
+import { SiteNavigation } from '@/components/site-navigation';
 import { LangToggle } from '@/components/lang-toggle';
 import { ScrollProgress } from '@/components/scroll-progress';
-import { ThemeScript } from '@/components/theme-script';
-import { Title } from '@/components/title';
+import { SiteFooter } from '@/components/site-footer';
 import { ThemeToggle } from '@/components/theme-toggle';
+import { Title } from '@/components/title';
 
 import { ConfigProvider } from '@/contexts/config';
 import { ThemeProvider } from '@/contexts/theme';
@@ -36,6 +40,13 @@ import { googleGaId } from '@/data/site';
 
 import '@/styles/index.css';
 import styles from './layout.module.css';
+
+const notoSerifKr = NotoSerifKr({
+  weight: 'variable',
+  display: 'swap',
+  preload: false,
+  variable: '--font-noto-serif-kr',
+});
 
 // --------------------------------------------------------------------------------
 // Named Export
@@ -79,31 +90,39 @@ export default async function RootLayout({
   return (
     // Use `suppressHydrationWarning` because `ThemeScript` may change the initial `data-theme`.
     // https://react.dev/reference/react-dom/client/hydrateRoot#suppressing-unavoidable-hydration-mismatch-errors
-    <html className="custom-scrollbar-y-bold" lang={lang} suppressHydrationWarning>
-      <body className={styles.body}>
+    <html
+      className={`${notoSerifKr.variable} custom-scrollbar-y-bold`}
+      lang={lang}
+      suppressHydrationWarning
+    >
+      <body className={styles.body} id="top">
         <ThemeScript />
         <ConfigProvider>
           <ThemeProvider>
             <CursorSplash />
             <ScrollProgress className={styles['scroll-progress']} />
-            <header>
+            <header className={styles.header}>
               <Title lang={lang} />
-              <div>
+              <SiteNavigation lang={lang} />
+              <div className={styles.tools}>
                 <DocSearch />
                 <LangToggle lang={lang} />
                 <ThemeToggle lang={lang} />
               </div>
             </header>
-            <aside className="custom-scrollbar-y-regular">
+            <aside
+              className={`${styles.sidebar} ${styles['profile-sidebar']} custom-scrollbar-y-regular`}
+            >
               <Profile lang={lang} />
               <Links lang={lang} />
               <Categories lang={lang} />
             </aside>
             <AsideToggle className={styles['aside-toggle']} lang={lang} />
-            <aside>{nav}</aside>
-            <main>
-              <article>{children}</article>
+            <aside className={`${styles.sidebar} ${styles['nav-sidebar']}`}>{nav}</aside>
+            <main className={styles.main}>
+              <article className={styles.article}>{children}</article>
             </main>
+            <SiteFooter lang={lang} />
 
             <Analytics />
             <SpeedInsights />

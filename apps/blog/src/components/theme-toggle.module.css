@@ -6,9 +6,8 @@
   & > button {
     --light-color: var(--color-fg-default);
     --dark-color: var(--color-bg-inset);
-    --sun-color: #f9d71c;
+    --sun-color: #f9cb12;
     --circle-size: 2rem;
-    --duration: 0.5s;
     --timing: cubic-bezier(0.68, -0.55, 0.265, 1.55);
 
     position: relative;
@@ -24,7 +23,7 @@
     border: 0;
     border-radius: var(--border-radius-circle);
     transform: rotate(0deg);
-    transition: all var(--duration) var(--timing);
+    transition: all var(--animation-duration) var(--timing);
 
     &:hover {
       animation: var(--animation-shake);
@@ -36,7 +35,7 @@
       height: 80%;
       background-color: var(--light-color);
       border-radius: var(--border-radius-circle);
-      transition: all var(--duration) var(--timing);
+      transition: all var(--animation-duration) var(--timing);
     }
 
     & .shadow {
@@ -51,7 +50,7 @@
       transform: rotate(20deg);
       transform-origin: 100% 100%;
       transition:
-        all var(--duration) var(--timing),
+        all var(--animation-duration) var(--timing),
         background-color 0s;
     }
 
@@ -63,7 +62,7 @@
       width: calc(var(--circle-size) * 0.12);
       height: 20%;
       opacity: 0;
-      transition: all var(--duration) var(--timing);
+      transition: all var(--animation-duration) var(--timing);
 
       &::before,
       &::after {

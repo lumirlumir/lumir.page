@@ -1,16 +1,24 @@
 .lang-toggle {
-  display: flex;
+  display: inline-flex;
+  gap: var(--spacing-static-sm);
   align-items: center;
-  justify-content: center;
+  height: var(--size-header-button-height);
+  padding: 0 var(--spacing-fluid-sm);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-ink-soft);
+  letter-spacing: var(--letter-spacing-wider);
+  border: 1px solid var(--color-hairline);
+  border-radius: var(--border-radius-pill);
 
-  > a {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: var(--size-32);
-    height: var(--size-32);
-    font-size: var(--font-size-md);
+  & > .active {
     font-weight: var(--font-weight-semibold);
-    text-decoration: none;
+    color: var(--color-ink);
+    text-decoration: underline;
+    text-underline-offset: var(--spacing-static-xs);
+  }
+
+  & > a:hover {
+    color: var(--color-ink);
   }
 }
