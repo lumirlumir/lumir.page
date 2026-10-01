@@ -40,7 +40,7 @@ import remarkParse from 'remark-parse';
 import remarkRehype from 'remark-rehype';
 import rehypeRaw from 'rehype-raw';
 import rehypeGitHubAlert from 'rehype-github-alert';
-import rehypeGitHubColor from 'rehype-github-color';
+import rehypeGitHubColor, { defaultBuild } from 'rehype-github-color';
 import rehypeGitHubEmoji from 'rehype-github-emoji';
 import rehypeSlug from 'rehype-slug';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
@@ -100,7 +100,17 @@ export async function markdownToHtml(
     .use(rehypeRaw)
     .use(rehypeCommentRemover)
     .use(rehypeGitHubAlert)
-    .use(rehypeGitHubColor)
+    .use(rehypeGitHubColor, {
+      build: value => {
+        const node = defaultBuild(value);
+
+        if (node.type === 'element') {
+          node.properties.className = ['rehype-github-color'];
+        }
+
+        return node;
+      },
+    })
     .use(rehypeGitHubEmoji)
     .use(rehypeSlug) // Use before `rehype-katex` to ensure heading IDs are generated correctly.
     .use(

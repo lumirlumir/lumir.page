@@ -469,33 +469,18 @@
     text-decoration: underline;
   }
 
+  & .rehype-github-color {
+    display: inline-block;
+    margin-left: var(--spacing-static-xs);
+    border: 1px solid var(--color-border-default);
+    border-radius: var(--border-radius-circle);
+  }
+
   & .task-list-item {
     list-style-type: none;
 
     & + .task-list-item {
       margin-top: var(--spacing-static-xs);
     }
-  }
-
-  /* custom properties: used by `rehype-github-color` */
-
-  & .d-inline-block {
-    display: inline-block;
-  }
-
-  & .ml-1 {
-    margin-left: var(--spacing-static-xs);
-  }
-
-  & .color-border-subtle {
-    border-color: var(--color-border-subtle);
-  }
-
-  & .circle {
-    border-radius: var(--border-radius-circle);
-  }
-
-  & .border {
-    border: 1px solid var(--color-border-default);
   }
 }

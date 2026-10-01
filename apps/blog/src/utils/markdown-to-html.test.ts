@@ -167,10 +167,41 @@ describe('markdown-to-html', () => {
       assert.strictEqual(await markdownToHtml(markdown), html);
     });
 
-    it('should convert GitHub Color syntax to GitHub Color HTML', async () => {
+    it('should append a single-class color preview to hexadecimal inline code', async () => {
       const markdown = '`#ff0000`';
       const html =
-        '<p><code>#ff0000<span class="ml-1 d-inline-block border circle color-border-subtle" style="background-color: #ff0000; height: 8px; width: 8px;"></span></code></p>';
+        '<p><code>#ff0000<span class="rehype-github-color" style="background-color: #ff0000; height: 8px; width: 8px;"></span></code></p>';
+
+      assert.strictEqual(await markdownToHtml(markdown), html);
+    });
+
+    it('should preserve the RGB value in a single-class color preview', async () => {
+      const markdown = '`rgb(0, 255, 0)`';
+      const html =
+        '<p><code>rgb(0, 255, 0)<span class="rehype-github-color" style="background-color: rgb(0, 255, 0); height: 8px; width: 8px;"></span></code></p>';
+
+      assert.strictEqual(await markdownToHtml(markdown), html);
+    });
+
+    it('should preserve the alpha channel in a single-class RGBA color preview', async () => {
+      const markdown = '`rgba(0, 0, 255, 0.5)`';
+      const html =
+        '<p><code>rgba(0, 0, 255, 0.5)<span class="rehype-github-color" style="background-color: rgba(0, 0, 255, 0.5); height: 8px; width: 8px;"></span></code></p>';
+
+      assert.strictEqual(await markdownToHtml(markdown), html);
+    });
+
+    it('should preserve the HSL value in a single-class color preview', async () => {
+      const markdown = '`hsl(240, 100%, 50%)`';
+      const html =
+        '<p><code>hsl(240, 100%, 50%)<span class="rehype-github-color" style="background-color: hsl(240, 100%, 50%); height: 8px; width: 8px;"></span></code></p>';
+
+      assert.strictEqual(await markdownToHtml(markdown), html);
+    });
+
+    it('should leave non-color inline code without a color preview', async () => {
+      const markdown = '`const color = "#ff0000";`';
+      const html = '<p><code>const color = "#ff0000";</code></p>';
 
       assert.strictEqual(await markdownToHtml(markdown), html);
     });
