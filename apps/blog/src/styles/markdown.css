@@ -336,6 +336,21 @@
     fill: currentcolor;
   }
 
+  .rehype-github-color {
+    display: inline-block;
+    margin-left: var(--spacing-static-xs);
+    border: var(--border-default);
+    border-radius: var(--border-radius-circle);
+  }
+
+  .task-list-item {
+    list-style-type: none;
+
+    + .task-list-item {
+      margin-top: var(--spacing-static-xs);
+    }
+  }
+
   .pl-c {
     color: var(--color-syntax-comment);
   }
@@ -450,20 +465,5 @@
   .pl-corl {
     color: var(--color-syntax-constant-other-reference-link);
     text-decoration: underline;
-  }
-
-  .rehype-github-color {
-    display: inline-block;
-    margin-left: var(--spacing-static-xs);
-    border: var(--border-default);
-    border-radius: var(--border-radius-circle);
-  }
-
-  .task-list-item {
-    list-style-type: none;
-
-    + .task-list-item {
-      margin-top: var(--spacing-static-xs);
-    }
   }
 }
