@@ -78,7 +78,7 @@ interface MarkdownToHtmlOptions {
  *
  * console.log(html);
  * // Output:
- * // <h1 id="awesome-title"><a aria-hidden="true" tabindex="-1" href="#awesome-title"><span class="icon-link"></span></a>Awesome Title</h1>
+ * // <h1 id="awesome-title"><a aria-hidden="true" tabindex="-1" href="#awesome-title"></a>Awesome Title</h1>
  * // <p>Foo Bar Baz</p>
  * ```
  */
@@ -116,12 +116,7 @@ export async function markdownToHtml(
     .use(
       rehypeAutolinkHeadings, // Use before `rehype-katex` and after `rehype-slug` to ensure autolink anchors are generated correctly.
       {
-        content: {
-          type: 'element',
-          tagName: 'span',
-          properties: { className: ['icon-link'] },
-          children: [],
-        },
+        content: [],
       },
     )
     .use(rehypeKatex)

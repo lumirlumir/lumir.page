@@ -70,14 +70,11 @@
       font-size: inherit;
     }
 
-    .icon-link {
-      color: var(--color-fg-default);
-    }
-
     > a[aria-hidden='true'][href^='#'] {
       float: left;
       padding-right: var(--spacing-static-xs);
       margin-left: calc(var(--size-24) * -1);
+      color: var(--color-fg-default);
       text-decoration: none;
 
       &:focus {
@@ -85,7 +82,7 @@
       }
     }
 
-    &:is(:hover, :focus-within) > a[aria-hidden='true'][href^='#'] .icon-link::before {
+    &:is(:hover, :focus-within) > a[aria-hidden='true'][href^='#']::before {
       display: inline-block;
       width: 20px;
       height: 20px;
