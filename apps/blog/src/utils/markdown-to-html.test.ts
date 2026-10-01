@@ -125,7 +125,7 @@ describe('markdown-to-html', () => {
     it('should add an H1 heading when `title` option is provided', async () => {
       const markdown = 'Foo Bar Baz';
       const html =
-        '<h1 id="awesome-title"><a aria-hidden="true" tabindex="-1" href="#awesome-title"><span class="icon-link"></span></a>Awesome Title</h1>\n<p>Foo Bar Baz</p>';
+        '<h1 id="awesome-title"><a aria-hidden="true" tabindex="-1" href="#awesome-title"></a>Awesome Title</h1>\n<p>Foo Bar Baz</p>';
 
       assert.strictEqual(
         await markdownToHtml(markdown, { title: 'Awesome Title' }),
@@ -136,7 +136,7 @@ describe('markdown-to-html', () => {
     it('should use custom Markdown heading IDs when adding self-link anchors', async () => {
       const markdown = '# Awesome Title {#1-custom-title}';
       const html =
-        '<h1 id="1-custom-title"><a aria-hidden="true" tabindex="-1" href="#1-custom-title"><span class="icon-link"></span></a>Awesome Title</h1>';
+        '<h1 id="1-custom-title"><a aria-hidden="true" tabindex="-1" href="#1-custom-title"></a>Awesome Title</h1>';
 
       assert.strictEqual(await markdownToHtml(markdown), html);
     });
@@ -167,10 +167,41 @@ describe('markdown-to-html', () => {
       assert.strictEqual(await markdownToHtml(markdown), html);
     });
 
-    it('should convert GitHub Color syntax to GitHub Color HTML', async () => {
+    it('should append a single-class color preview to hexadecimal inline code', async () => {
       const markdown = '`#ff0000`';
       const html =
-        '<p><code>#ff0000<span class="ml-1 d-inline-block border circle color-border-subtle" style="background-color: #ff0000; height: 8px; width: 8px;"></span></code></p>';
+        '<p><code>#ff0000<span class="rehype-github-color" style="background-color: #ff0000; height: 8px; width: 8px;"></span></code></p>';
+
+      assert.strictEqual(await markdownToHtml(markdown), html);
+    });
+
+    it('should preserve the RGB value in a single-class color preview', async () => {
+      const markdown = '`rgb(0, 255, 0)`';
+      const html =
+        '<p><code>rgb(0, 255, 0)<span class="rehype-github-color" style="background-color: rgb(0, 255, 0); height: 8px; width: 8px;"></span></code></p>';
+
+      assert.strictEqual(await markdownToHtml(markdown), html);
+    });
+
+    it('should preserve the alpha channel in a single-class RGBA color preview', async () => {
+      const markdown = '`rgba(0, 0, 255, 0.5)`';
+      const html =
+        '<p><code>rgba(0, 0, 255, 0.5)<span class="rehype-github-color" style="background-color: rgba(0, 0, 255, 0.5); height: 8px; width: 8px;"></span></code></p>';
+
+      assert.strictEqual(await markdownToHtml(markdown), html);
+    });
+
+    it('should preserve the HSL value in a single-class color preview', async () => {
+      const markdown = '`hsl(240, 100%, 50%)`';
+      const html =
+        '<p><code>hsl(240, 100%, 50%)<span class="rehype-github-color" style="background-color: hsl(240, 100%, 50%); height: 8px; width: 8px;"></span></code></p>';
+
+      assert.strictEqual(await markdownToHtml(markdown), html);
+    });
+
+    it('should leave non-color inline code without a color preview', async () => {
+      const markdown = '`const color = "#ff0000";`';
+      const html = '<p><code>const color = "#ff0000";</code></p>';
 
       assert.strictEqual(await markdownToHtml(markdown), html);
     });
@@ -185,46 +216,54 @@ describe('markdown-to-html', () => {
     it('should add GitHub-style IDs and self-link anchors to Markdown headings', async () => {
       const markdown = '# Awesome Title\n\n## Usage Guide';
       const html =
-        '<h1 id="awesome-title"><a aria-hidden="true" tabindex="-1" href="#awesome-title"><span class="icon-link"></span></a>Awesome Title</h1>\n<h2 id="usage-guide"><a aria-hidden="true" tabindex="-1" href="#usage-guide"><span class="icon-link"></span></a>Usage Guide</h2>';
+        '<h1 id="awesome-title"><a aria-hidden="true" tabindex="-1" href="#awesome-title"></a>Awesome Title</h1>\n<h2 id="usage-guide"><a aria-hidden="true" tabindex="-1" href="#usage-guide"></a>Usage Guide</h2>';
 
       assert.strictEqual(await markdownToHtml(markdown), html);
     });
 
-    it('should add self-link anchors to every Markdown heading level', async () => {
+    it('should add empty self-link anchors to every Markdown heading level', async () => {
       const markdown =
         '# Heading 1\n\n## Heading 2\n\n### Heading 3\n\n#### Heading 4\n\n##### Heading 5\n\n###### Heading 6';
       const html = await markdownToHtml(markdown);
 
       assert.include(
         html,
-        '<h1 id="heading-1"><a aria-hidden="true" tabindex="-1" href="#heading-1"><span class="icon-link"></span></a>Heading 1</h1>',
+        '<h1 id="heading-1"><a aria-hidden="true" tabindex="-1" href="#heading-1"></a>Heading 1</h1>',
       );
       assert.include(
         html,
-        '<h2 id="heading-2"><a aria-hidden="true" tabindex="-1" href="#heading-2"><span class="icon-link"></span></a>Heading 2</h2>',
+        '<h2 id="heading-2"><a aria-hidden="true" tabindex="-1" href="#heading-2"></a>Heading 2</h2>',
       );
       assert.include(
         html,
-        '<h3 id="heading-3"><a aria-hidden="true" tabindex="-1" href="#heading-3"><span class="icon-link"></span></a>Heading 3</h3>',
+        '<h3 id="heading-3"><a aria-hidden="true" tabindex="-1" href="#heading-3"></a>Heading 3</h3>',
       );
       assert.include(
         html,
-        '<h4 id="heading-4"><a aria-hidden="true" tabindex="-1" href="#heading-4"><span class="icon-link"></span></a>Heading 4</h4>',
+        '<h4 id="heading-4"><a aria-hidden="true" tabindex="-1" href="#heading-4"></a>Heading 4</h4>',
       );
       assert.include(
         html,
-        '<h5 id="heading-5"><a aria-hidden="true" tabindex="-1" href="#heading-5"><span class="icon-link"></span></a>Heading 5</h5>',
+        '<h5 id="heading-5"><a aria-hidden="true" tabindex="-1" href="#heading-5"></a>Heading 5</h5>',
       );
       assert.include(
         html,
-        '<h6 id="heading-6"><a aria-hidden="true" tabindex="-1" href="#heading-6"><span class="icon-link"></span></a>Heading 6</h6>',
+        '<h6 id="heading-6"><a aria-hidden="true" tabindex="-1" href="#heading-6"></a>Heading 6</h6>',
       );
+    });
+
+    it('should preserve authored links and inline code when adding an empty heading self-link', async () => {
+      const markdown = '## [Documentation](https://example.com) and `code`';
+      const html =
+        '<h2 id="documentation-and-code"><a aria-hidden="true" tabindex="-1" href="#documentation-and-code"></a><a href="https://example.com">Documentation</a> and <code>code</code></h2>';
+
+      assert.strictEqual(await markdownToHtml(markdown), html);
     });
 
     it('should add unique GitHub-style IDs and self-link anchors to duplicate Markdown headings', async () => {
       const markdown = '# Repeat\n\n# Repeat';
       const html =
-        '<h1 id="repeat"><a aria-hidden="true" tabindex="-1" href="#repeat"><span class="icon-link"></span></a>Repeat</h1>\n<h1 id="repeat-1"><a aria-hidden="true" tabindex="-1" href="#repeat-1"><span class="icon-link"></span></a>Repeat</h1>';
+        '<h1 id="repeat"><a aria-hidden="true" tabindex="-1" href="#repeat"></a>Repeat</h1>\n<h1 id="repeat-1"><a aria-hidden="true" tabindex="-1" href="#repeat-1"></a>Repeat</h1>';
 
       assert.strictEqual(await markdownToHtml(markdown), html);
     });
@@ -232,7 +271,7 @@ describe('markdown-to-html', () => {
     it('should add GitHub-style IDs and self-link anchors to raw HTML headings', async () => {
       const markdown = '<h2>Raw HTML Heading</h2>';
       const html =
-        '<h2 id="raw-html-heading"><a aria-hidden="true" tabindex="-1" href="#raw-html-heading"><span class="icon-link"></span></a>Raw HTML Heading</h2>';
+        '<h2 id="raw-html-heading"><a aria-hidden="true" tabindex="-1" href="#raw-html-heading"></a>Raw HTML Heading</h2>';
 
       assert.strictEqual(await markdownToHtml(markdown), html);
     });
@@ -240,7 +279,7 @@ describe('markdown-to-html', () => {
     it('should preserve explicit raw HTML heading IDs when adding self-link anchors', async () => {
       const markdown = '<h2 id="custom-heading">Raw HTML Heading</h2>';
       const html =
-        '<h2 id="custom-heading"><a aria-hidden="true" tabindex="-1" href="#custom-heading"><span class="icon-link"></span></a>Raw HTML Heading</h2>';
+        '<h2 id="custom-heading"><a aria-hidden="true" tabindex="-1" href="#custom-heading"></a>Raw HTML Heading</h2>';
 
       assert.strictEqual(await markdownToHtml(markdown), html);
     });
@@ -251,7 +290,7 @@ describe('markdown-to-html', () => {
 
       assert.include(
         html,
-        '<h1 id="area-a"><a aria-hidden="true" tabindex="-1" href="#area-a"><span class="icon-link"></span></a>Area <span class="katex">',
+        '<h1 id="area-a"><a aria-hidden="true" tabindex="-1" href="#area-a"></a>Area <span class="katex">',
       );
       assert.notInclude(html, 'id="area-aaa"');
     });
