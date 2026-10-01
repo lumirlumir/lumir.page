@@ -189,7 +189,6 @@
 
     tr {
       background-color: var(--color-bg-default);
-      border-top: 1px solid var(--color-border-muted);
 
       &:nth-child(2n) {
         background-color: var(--color-bg-muted);
