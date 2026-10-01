@@ -25,11 +25,6 @@
     }
   }
 
-  :is(blockquote, details, p, pre, table, ul, ol) {
-    margin-top: 0;
-    margin-bottom: var(--spacing-static-md);
-  }
-
   blockquote {
     padding: 0 1em;
     margin: 0;
@@ -53,6 +48,11 @@
     text-decoration: inherit;
   }
 
+  :is(details, p, pre, table, ul, ol) {
+    margin-top: 0;
+    margin-bottom: var(--spacing-static-md);
+  }
+
   details summary {
     cursor: pointer;
   }
@@ -60,7 +60,6 @@
   :is(h1, h2, h3, h4, h5, h6) {
     margin-top: var(--size-24);
     margin-bottom: var(--spacing-static-md);
-    font-weight: var(--font-weight-semibold);
     line-height: var(--line-height-tight);
     scroll-margin-top: calc(
       var(--size-header-height) + var(--size-16)
@@ -191,10 +190,6 @@
     :is(th, td) {
       padding: 6px 13px;
       border: var(--border-default);
-    }
-
-    th {
-      font-weight: var(--font-weight-semibold);
     }
 
     tr {
