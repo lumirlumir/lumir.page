@@ -388,6 +388,7 @@ export function LocalSearch({
   // Hook
   // ------------------------------------------------------------------------------
 
+  useShortcut('/', () => dialogRef.current?.open());
   useShortcut('k', () => dialogRef.current?.open(), { ctrlKey: true });
   useShortcut('k', () => dialogRef.current?.open(), { metaKey: true });
 
