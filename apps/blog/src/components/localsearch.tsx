@@ -21,6 +21,7 @@ import 'client-only';
 import { Dialog, type DialogHandle } from '@lumir/react-kit/components';
 import { useOs, useShortcut } from '@lumir/react-kit/hooks';
 import MiniSearch, { type SearchResult } from 'minisearch';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import {
   useDeferredValue,
@@ -394,18 +395,18 @@ export function LocalSearch({
     setActiveIndex(index);
 
     const panel = resultsPanelRef.current;
-    const button = panel?.querySelectorAll<HTMLButtonElement>('li > button')[index];
+    const link = panel?.querySelectorAll<HTMLAnchorElement>('li > a')[index];
 
-    if (panel === null || button === undefined) {
+    if (panel === null || link === undefined) {
       return;
     }
 
     // Compare the result with the panel's visible area, keeping the input focused.
     const panelTop = panel.getBoundingClientRect().top + panel.clientTop;
-    const buttonRect = button.getBoundingClientRect();
+    const linkRect = link.getBoundingClientRect();
 
-    if (buttonRect.top < panelTop || buttonRect.bottom > panelTop + panel.clientHeight) {
-      button.scrollIntoView({ behavior: 'instant', block: 'nearest', inline: 'nearest' });
+    if (linkRect.top < panelTop || linkRect.bottom > panelTop + panel.clientHeight) {
+      link.scrollIntoView({ behavior: 'instant', block: 'nearest', inline: 'nearest' });
     }
   }
 
@@ -537,10 +538,11 @@ export function LocalSearch({
                 <ul>
                   {results.map((document, index) => (
                     <li key={document.id}>
-                      <button
-                        type="button"
+                      <Link
+                        href={`/${document.lang}/posts/${document.slug}`}
                         data-active={index === activeIndex}
-                        onClick={() => navigateToResult(document)}
+                        // Close on same-tab navigation; modifier clicks keep the search open.
+                        onNavigate={() => dialogRef.current?.close()}
                       >
                         <span>
                           <span>{highlightMatches(document, 'title')}</span>
@@ -558,7 +560,7 @@ export function LocalSearch({
                             ))}
                           </span>
                         </span>
-                      </button>
+                      </Link>
                     </li>
                   ))}
                 </ul>

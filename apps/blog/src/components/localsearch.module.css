@@ -249,13 +249,15 @@
         & > li {
           margin-bottom: var(--size-8);
 
-          & > button {
+          & > a {
+            box-sizing: border-box;
             display: flex;
             width: 100%;
             padding: var(--size-12);
             font: inherit;
             color: var(--color-fg-default);
             text-align: left;
+            text-decoration: none;
             appearance: none;
             cursor: pointer;
             background-color: var(--color-bg-default);

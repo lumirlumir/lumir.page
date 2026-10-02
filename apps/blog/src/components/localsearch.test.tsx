@@ -9,6 +9,7 @@
 import { afterEach, assert, describe, it, vi } from 'vitest';
 import { userEvent } from 'vitest/browser';
 import { render } from 'vitest-browser-react';
+import { type ReactNode } from 'react';
 import { LocalSearch, type LocalSearchProps } from './localsearch.jsx';
 
 // --------------------------------------------------------------------------------
@@ -18,6 +19,27 @@ import { LocalSearch, type LocalSearchProps } from './localsearch.jsx';
 vi.mock('next/navigation', () => ({
   useRouter: () => ({ push: vi.fn() }),
 }));
+
+// Next.js navigation runs in E2E tests; unit tests only need the rendered anchor.
+vi.mock(
+  'next/link',
+  () =>
+    function Link({
+      href,
+      children,
+      'data-active': active,
+    }: {
+      href: string;
+      children: ReactNode;
+      'data-active'?: boolean;
+    }) {
+      return (
+        <a href={href} data-active={active}>
+          {children}
+        </a>
+      );
+    },
+);
 
 // --------------------------------------------------------------------------------
 // Constant
@@ -110,9 +132,9 @@ describe('localsearch', () => {
     button.focus();
     await userEvent.keyboard('react');
     await vi.waitFor(() => {
-      assert.strictEqual(screen.container.querySelectorAll('li > button').length, 1);
+      assert.strictEqual(screen.container.querySelectorAll('li > a').length, 1);
     });
-    const result = screen.container.querySelector('li > button > span');
+    const result = screen.container.querySelector('li > a > span');
     const title = result?.children[0];
     const description = result?.children[2];
 
@@ -203,14 +225,14 @@ describe('localsearch', () => {
     button.focus();
     await userEvent.keyboard('React');
     await vi.waitFor(() => {
-      assert.strictEqual(screen.container.querySelectorAll('li > button').length, 2);
+      assert.strictEqual(screen.container.querySelectorAll('li > a').length, 2);
     });
     const input = screen.container.querySelector('input');
     const list = screen.container.querySelector('ul');
     const panel = list?.parentElement?.parentElement;
     const source = list?.previousElementSibling;
-    const first = list?.querySelectorAll('button')[0];
-    const second = list?.querySelectorAll('button')[1];
+    const first = list?.querySelectorAll('a')[0];
+    const second = list?.querySelectorAll('a')[1];
 
     assert.ok(input);
     assert.ok(list);
