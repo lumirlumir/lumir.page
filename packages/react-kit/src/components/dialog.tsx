@@ -32,7 +32,7 @@ import {
 
 /**
  * Defines the shape of the context value provided by the `DialogContext`,
- * including the dialog reference and the `open`/`close` methods.
+ * including the dialog reference and the `open`/`close`/`toggle` methods.
  */
 interface DialogContextValue extends DialogHandle {
   readonly dialogRef: RefObject<HTMLDialogElement | null>;
@@ -53,6 +53,12 @@ export interface DialogHandle {
    * Does nothing when the dialog content is not mounted.
    */
   readonly close: () => void;
+
+  /**
+   * Closes the dialog when open, or opens it as a modal and focuses `initialFocusRef`.
+   * Does nothing when the dialog content is not mounted.
+   */
+  readonly toggle: () => void;
 }
 
 /**
@@ -65,7 +71,7 @@ export interface DialogRootProps {
   readonly children: ReactNode;
 
   /**
-   * Ref that exposes the dialog's `open` and `close` methods.
+   * Ref that exposes the dialog's `open`, `close`, and `toggle` methods.
    * @default undefined
    */
   readonly ref?: Ref<DialogHandle>;
@@ -117,7 +123,7 @@ function useDialogContext(): DialogContextValue {
  * Provides shared dialog controls to `Dialog.Content`, `Dialog.Open`, and `Dialog.Close`
  * without rendering a DOM wrapper.
  *
- * Pass a `ref` to call `open()` or `close()` imperatively, and `initialFocusRef` to
+ * Pass a `ref` to call `open()`, `close()`, or `toggle()` imperatively, and `initialFocusRef` to
  * choose which element receives focus when the dialog opens.
  *
  * @example
@@ -171,11 +177,28 @@ export function DialogRoot({ children, ref, initialFocusRef }: DialogRootProps) 
     }
   }, []);
 
-  useImperativeHandle(ref, () => ({ open, close }));
+  const toggle = useCallback(() => {
+    const dialog = dialogRef.current;
+
+    if (dialog === null) {
+      return;
+    }
+
+    if (dialog.open) {
+      close();
+    } else {
+      open();
+    }
+  }, [open, close]);
+
+  useImperativeHandle(ref, () => ({ open, close, toggle }));
 
   return (
     <DialogContext
-      value={useMemo(() => ({ dialogRef, open, close }), [dialogRef, open, close])}
+      value={useMemo(
+        () => ({ dialogRef, open, close, toggle }),
+        [dialogRef, open, close, toggle],
+      )}
     >
       {children}
     </DialogContext>

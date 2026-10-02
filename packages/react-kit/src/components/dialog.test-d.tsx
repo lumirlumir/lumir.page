@@ -27,19 +27,26 @@ import {
 // --------------------------------------------------------------------------------
 // #region DialogHandle
 
-const handle: DialogHandle = { open: () => {}, close: () => {} };
+const handle: DialogHandle = { open: () => {}, close: () => {}, toggle: () => {} };
 
 handle.open() satisfies void;
 handle.close() satisfies void;
+handle.toggle() satisfies void;
 
 // @ts-expect-error - `close` is required.
-({ open: () => {} }) satisfies DialogHandle;
+({ open: () => {}, toggle: () => {} }) satisfies DialogHandle;
+// @ts-expect-error - `toggle` is required.
+({ open: () => {}, close: () => {} }) satisfies DialogHandle;
 // @ts-expect-error - `open` should be a function.
-({ open: true, close: () => {} }) satisfies DialogHandle;
+({ open: true, close: () => {}, toggle: () => {} }) satisfies DialogHandle;
+// @ts-expect-error - `toggle` should be a function.
+({ open: () => {}, close: () => {}, toggle: true }) satisfies DialogHandle;
 // @ts-expect-error - `open` does not accept arguments.
 handle.open('search');
-// @ts-expect-error - `close` does not accept a return value.
+// @ts-expect-error - `close` does not accept arguments.
 handle.close('search');
+// @ts-expect-error - `toggle` does not accept arguments.
+handle.toggle('search');
 // @ts-expect-error - The handle does not expose the native dialog element.
 handle.showModal();
 
@@ -63,6 +70,7 @@ rootProps = {
   ref: value => {
     value?.open();
     value?.close();
+    value?.toggle();
   },
 };
 

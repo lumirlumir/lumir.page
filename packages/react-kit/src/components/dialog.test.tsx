@@ -172,7 +172,71 @@ describe('dialog', () => {
     assert.strictEqual(close.mock.calls.length, 1);
   });
 
-  it('should safely handle open and close calls without mounted content', async () => {
+  it('should toggle a modal open and closed while preserving initial focus and close events', async () => {
+    const dialogRef = createRef<DialogHandle>();
+    const inputRef = createRef<HTMLInputElement>();
+    const onClose = vi.fn();
+    const screen = await render(
+      <Dialog.Root ref={dialogRef} initialFocusRef={inputRef}>
+        <Dialog.Content onClose={onClose}>
+          <button type="button">First focusable element</button>
+          <input ref={inputRef} aria-label="Search" />
+        </Dialog.Content>
+      </Dialog.Root>,
+    );
+    const dialog = screen.container.querySelector('dialog');
+
+    assert.ok(dialog);
+    assert.ok(dialogRef.current);
+    assert.ok(inputRef.current);
+
+    dialogRef.current.toggle();
+
+    assert.isTrue(dialog.open);
+    assert.isTrue(dialog.matches(':modal'));
+    assert.strictEqual(document.activeElement, inputRef.current);
+
+    dialogRef.current.toggle();
+
+    assert.isFalse(dialog.open);
+    await vi.waitFor(() => assert.strictEqual(onClose.mock.calls.length, 1));
+
+    dialogRef.current.toggle();
+
+    assert.isTrue(dialog.open);
+    assert.isTrue(dialog.matches(':modal'));
+    assert.strictEqual(document.activeElement, inputRef.current);
+  });
+
+  it('should toggle using the current native state after button opening and native closing', async () => {
+    const dialogRef = createRef<DialogHandle>();
+    const screen = await render(
+      <Dialog.Root ref={dialogRef}>
+        <Dialog.Open>Open</Dialog.Open>
+        <Dialog.Content />
+      </Dialog.Root>,
+    );
+    const dialog = screen.container.querySelector('dialog');
+
+    assert.ok(dialog);
+    assert.ok(dialogRef.current);
+
+    await screen.getByRole('button', { name: 'Open' }).click();
+    assert.isTrue(dialog.open);
+
+    dialogRef.current.toggle();
+    assert.isFalse(dialog.open);
+
+    dialogRef.current.open();
+    dialog.close();
+    assert.isFalse(dialog.open);
+
+    dialogRef.current.toggle();
+    assert.isTrue(dialog.open);
+    assert.isTrue(dialog.matches(':modal'));
+  });
+
+  it('should safely handle open, close, and toggle calls without mounted content', async () => {
     const dialogRef = createRef<DialogHandle>();
 
     await render(<Dialog.Root ref={dialogRef}>{null}</Dialog.Root>);
@@ -180,6 +244,7 @@ describe('dialog', () => {
     assert.ok(dialogRef.current);
     assert.doesNotThrow(() => dialogRef.current?.open());
     assert.doesNotThrow(() => dialogRef.current?.close());
+    assert.doesNotThrow(() => dialogRef.current?.toggle());
   });
 
   it('should open when the initial focus ref has no mounted element', async () => {
