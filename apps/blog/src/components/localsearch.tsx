@@ -19,7 +19,7 @@ import 'client-only';
 // --------------------------------------------------------------------------------
 
 import { Dialog, type DialogHandle } from '@lumir/react-kit/components';
-import { useShortcut } from '@lumir/react-kit/hooks';
+import { useOs, useShortcut } from '@lumir/react-kit/hooks';
 import MiniSearch, { type SearchResult } from 'minisearch';
 import { useRouter } from 'next/navigation';
 import {
@@ -308,6 +308,7 @@ export function LocalSearch({
   const [activeIndex, setActiveIndex] = useState<number>(0);
   const deferredQuery = useDeferredValue(query.trim());
   const router = useRouter();
+  const os = useOs();
 
   const miniSearch = useMemo(() => {
     const search = new MiniSearch<VMarkdownFileMeta>({
@@ -411,7 +412,7 @@ export function LocalSearch({
             <span>{buttonText}</span>
           </span>
           <span aria-hidden="true">
-            <kbd>Ctrl</kbd>
+            <kbd>{os === 'macos' || os === 'ios' ? 'Cmd' : 'Ctrl'}</kbd>
             <kbd>K</kbd>
           </span>
         </Dialog.Open>
