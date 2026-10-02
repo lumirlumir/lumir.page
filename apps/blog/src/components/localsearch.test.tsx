@@ -82,6 +82,112 @@ describe('localsearch', () => {
     vi.restoreAllMocks();
   });
 
+  it('should scroll hidden keyboard selections into view without scrolling visible results', async () => {
+    const screen = await render(
+      <LocalSearch
+        vMarkdownFileMetas={[
+          {
+            id: 'react-first.en',
+            slug: 'react-first',
+            lang: 'en',
+            readtime: 1,
+            data: {
+              title: 'React first',
+              description: 'React guide',
+              created: '2026-10-02',
+              updated: '2026-10-02',
+              categories: [],
+              references: [],
+            },
+          },
+          {
+            id: 'react-second.en',
+            slug: 'react-second',
+            lang: 'en',
+            readtime: 1,
+            data: {
+              title: 'React second',
+              description: 'React guide',
+              created: '2026-10-02',
+              updated: '2026-10-02',
+              categories: [],
+              references: [],
+            },
+          },
+        ]}
+        translations={translations}
+      />,
+    );
+    const button = screen.container.querySelector('button');
+
+    assert.ok(button);
+    button.focus();
+    await userEvent.keyboard('React');
+    await vi.waitFor(() => {
+      assert.strictEqual(screen.container.querySelectorAll('li > button').length, 2);
+    });
+    const input = screen.container.querySelector('input');
+    const list = screen.container.querySelector('ul');
+    const panel = list?.parentElement?.parentElement;
+    const source = list?.previousElementSibling;
+    const first = list?.querySelectorAll('button')[0];
+    const second = list?.querySelectorAll('button')[1];
+
+    assert.ok(input);
+    assert.ok(list);
+    assert.ok(panel);
+    assert.ok(source instanceof HTMLElement);
+    assert.ok(first);
+    assert.ok(second);
+
+    // Give the panel deterministic dimensions while exercising real browser scrolling.
+    Object.assign(panel.style, { height: '120px', padding: '0', overflowY: 'auto' });
+    Object.assign(list.style, { margin: '0', padding: '0' });
+    source.style.display = 'none';
+    first.style.height = '40px';
+    second.style.height = '40px';
+    const firstScroll = vi.spyOn(first, 'scrollIntoView');
+    const secondScroll = vi.spyOn(second, 'scrollIntoView');
+
+    await userEvent.keyboard('{ArrowDown}{ArrowUp}');
+
+    assert.strictEqual(first.getAttribute('data-active'), 'true');
+    assert.strictEqual(firstScroll.mock.calls.length, 0);
+    assert.strictEqual(secondScroll.mock.calls.length, 0);
+
+    panel.style.height = '60px';
+    await userEvent.keyboard('{ArrowDown}');
+
+    assert.strictEqual(second.getAttribute('data-active'), 'true');
+    assert.strictEqual(secondScroll.mock.calls.length, 1);
+    assert.isAbove(panel.scrollTop, 0);
+    assert.isAtMost(
+      second.getBoundingClientRect().bottom,
+      panel.getBoundingClientRect().bottom,
+    );
+    assert.strictEqual(document.activeElement, input);
+
+    await userEvent.keyboard('{ArrowUp}');
+
+    assert.strictEqual(first.getAttribute('data-active'), 'true');
+    assert.strictEqual(firstScroll.mock.calls.length, 1);
+    assert.strictEqual(panel.scrollTop, 0);
+
+    await userEvent.keyboard('{ArrowUp}');
+
+    assert.strictEqual(second.getAttribute('data-active'), 'true');
+    assert.strictEqual(secondScroll.mock.calls.length, 2);
+    assert.isAbove(panel.scrollTop, 0);
+
+    await userEvent.keyboard('{ArrowDown}');
+
+    assert.strictEqual(first.getAttribute('data-active'), 'true');
+    assert.strictEqual(firstScroll.mock.calls.length, 2);
+    assert.strictEqual(panel.scrollTop, 0);
+    assert.strictEqual(input.value, 'React');
+    assert.strictEqual(document.activeElement, input);
+  });
+
   describe('spell checking', () => {
     it('should disable spell checking on the search input', async () => {
       const screen = await render(

@@ -304,6 +304,7 @@ export function LocalSearch({
 }: LocalSearchProps) {
   const dialogRef = useRef<DialogHandle | null>(null);
   const inputRef = useRef<HTMLInputElement | null>(null);
+  const resultsPanelRef = useRef<HTMLDivElement | null>(null);
   const [query, setQuery] = useState<string>('');
   const [activeIndex, setActiveIndex] = useState<number>(0);
   const deferredQuery = useDeferredValue(query.trim());
@@ -364,6 +365,25 @@ export function LocalSearch({
     router.push(`/${document.lang}/posts/${document.slug}`);
   }
 
+  function activateResult(index: number) {
+    setActiveIndex(index);
+
+    const panel = resultsPanelRef.current;
+    const button = panel?.querySelectorAll<HTMLButtonElement>('li > button')[index];
+
+    if (panel === null || button === undefined) {
+      return;
+    }
+
+    // Compare the result with the panel's visible area, keeping the input focused.
+    const panelTop = panel.getBoundingClientRect().top + panel.clientTop;
+    const buttonRect = button.getBoundingClientRect();
+
+    if (buttonRect.top < panelTop || buttonRect.bottom > panelTop + panel.clientHeight) {
+      button.scrollIntoView({ behavior: 'instant', block: 'nearest', inline: 'nearest' });
+    }
+  }
+
   const onButtonKeyDown = (event: KeyboardEvent<HTMLButtonElement>) => {
     // Accept a single alphanumeric character, leaving shortcuts and IME composition alone.
     // Shift is allowed so uppercase letters can also start a search.
@@ -389,14 +409,10 @@ export function LocalSearch({
       return;
     }
 
-    if (event.key === 'ArrowDown') {
+    if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
       event.preventDefault();
-      setActiveIndex(index => (index + 1) % results.length);
-    }
-
-    if (event.key === 'ArrowUp') {
-      event.preventDefault();
-      setActiveIndex(index => (index - 1 + results.length) % results.length);
+      const direction = event.key === 'ArrowDown' ? 1 : -1;
+      activateResult((activeIndex + direction + results.length) % results.length);
     }
 
     if (event.key === 'Enter' && activeResult !== undefined) {
@@ -475,7 +491,7 @@ export function LocalSearch({
             </Dialog.Close>
           </div>
 
-          <div>
+          <div ref={resultsPanelRef}>
             {query.length === 0 ? (
               <section>
                 <h3>{titleText}</h3>
