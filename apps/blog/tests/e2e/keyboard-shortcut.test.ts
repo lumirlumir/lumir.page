@@ -52,7 +52,9 @@ test.describe('keyboard-shortcut', () => {
     await expect(page.getByRole('dialog', { name: '검색' })).toBeVisible();
   });
 
-  test('Pressing `Ctrl+K` should open the search dialog', async ({ page }) => {
+  test('Pressing `Ctrl+K` should open, close, and reopen the search dialog', async ({
+    page,
+  }) => {
     await page.goto('/ko/posts/everything-about-markdown', {
       waitUntil: 'networkidle',
     });
@@ -60,9 +62,21 @@ test.describe('keyboard-shortcut', () => {
     await page.keyboard.press('Control+k');
 
     await expect(page.getByRole('dialog', { name: '검색' })).toBeVisible();
+    await expect(page.getByRole('searchbox', { name: '검색' })).toBeFocused();
+
+    await page.keyboard.press('Control+k');
+
+    await expect(page.getByRole('dialog', { name: '검색' })).toBeHidden();
+
+    await page.keyboard.press('Control+k');
+
+    await expect(page.getByRole('dialog', { name: '검색' })).toBeVisible();
+    await expect(page.getByRole('searchbox', { name: '검색' })).toBeFocused();
   });
 
-  test('Pressing `Cmd+K` should open the search dialog', async ({ page }) => {
+  test('Pressing `Cmd+K` should open, close, and reopen the search dialog', async ({
+    page,
+  }) => {
     await page.goto('/ko/posts/everything-about-markdown', {
       waitUntil: 'networkidle',
     });
@@ -70,5 +84,15 @@ test.describe('keyboard-shortcut', () => {
     await page.keyboard.press('Meta+k');
 
     await expect(page.getByRole('dialog', { name: '검색' })).toBeVisible();
+    await expect(page.getByRole('searchbox', { name: '검색' })).toBeFocused();
+
+    await page.keyboard.press('Meta+k');
+
+    await expect(page.getByRole('dialog', { name: '검색' })).toBeHidden();
+
+    await page.keyboard.press('Meta+k');
+
+    await expect(page.getByRole('dialog', { name: '검색' })).toBeVisible();
+    await expect(page.getByRole('searchbox', { name: '검색' })).toBeFocused();
   });
 });

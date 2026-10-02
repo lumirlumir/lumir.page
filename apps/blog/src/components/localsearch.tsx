@@ -389,8 +389,14 @@ export function LocalSearch({
   // ------------------------------------------------------------------------------
 
   useShortcut('/', () => dialogRef.current?.open());
-  useShortcut('k', () => dialogRef.current?.open(), { ctrlKey: true });
-  useShortcut('k', () => dialogRef.current?.open(), { metaKey: true });
+  useShortcut('k', () => dialogRef.current?.toggle(), {
+    ctrlKey: true,
+    ignoreEditable: false,
+  });
+  useShortcut('k', () => dialogRef.current?.toggle(), {
+    metaKey: true,
+    ignoreEditable: false,
+  });
 
   // ------------------------------------------------------------------------------
   // Return
