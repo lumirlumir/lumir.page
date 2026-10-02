@@ -425,116 +425,122 @@ export function LocalSearch({
 
   return (
     <Dialog.Root ref={dialogRef} initialFocusRef={inputRef}>
-      <div className={styles.localsearch}>
-        <Dialog.Open aria-label={buttonAriaLabel} onKeyDown={onButtonKeyDown}>
-          <span>
-            <span>{icon}</span>
-            <span>{buttonText}</span>
-          </span>
-          <span aria-hidden="true">
-            <kbd>{os === 'macos' || os === 'ios' ? 'Cmd' : 'Ctrl'}</kbd>
-            <kbd>K</kbd>
-          </span>
-        </Dialog.Open>
+      <Dialog.Open
+        className={styles.button}
+        aria-label={buttonAriaLabel}
+        onKeyDown={onButtonKeyDown}
+      >
+        <span>
+          <span>{icon}</span>
+          <span>{buttonText}</span>
+        </span>
+        <span aria-hidden="true">
+          <kbd>{os === 'macos' || os === 'ios' ? 'Cmd' : 'Ctrl'}</kbd>
+          <kbd>K</kbd>
+        </span>
+      </Dialog.Open>
 
-        <Dialog.Content aria-label={dialogAriaLabel} onClose={() => updateQuery('')}>
+      <Dialog.Content
+        className={styles.dialog}
+        aria-label={dialogAriaLabel}
+        onClose={() => updateQuery('')}
+      >
+        <div>
           <div>
             <div>
-              <div>
-                <span>{icon}</span>
-                <input
-                  ref={inputRef}
-                  type="search"
-                  value={query}
-                  onChange={event => updateQuery(event.target.value)}
-                  onKeyDown={onInputKeyDown}
-                  placeholder={placeholder}
-                  aria-label={searchInputLabel}
-                />
-                {query.length > 0 && (
-                  <button
-                    type="button"
-                    onClick={resetSearch}
-                    title={resetButtonTitle}
-                    aria-label={resetButtonAriaLabel}
-                  >
-                    {resetButtonText}
-                  </button>
-                )}
-              </div>
-              <Dialog.Close aria-label={cancelButtonAriaLabel}>
-                {cancelButtonText}
-              </Dialog.Close>
+              <span>{icon}</span>
+              <input
+                ref={inputRef}
+                type="search"
+                value={query}
+                onChange={event => updateQuery(event.target.value)}
+                onKeyDown={onInputKeyDown}
+                placeholder={placeholder}
+                aria-label={searchInputLabel}
+              />
+              {query.length > 0 && (
+                <button
+                  type="button"
+                  onClick={resetSearch}
+                  title={resetButtonTitle}
+                  aria-label={resetButtonAriaLabel}
+                >
+                  {resetButtonText}
+                </button>
+              )}
             </div>
-
-            <div>
-              {query.length === 0 ? (
-                <section>
-                  <h3>{titleText}</h3>
-                  <p>{helpText}</p>
-                </section>
-              ) : null}
-
-              {query.length > 0 && results.length === 0 ? (
-                <section>
-                  <h3>{noResultsText}</h3>
-                  <p>&quot;{query}&quot;</p>
-                </section>
-              ) : null}
-
-              {query.length > 0 && results.length > 0 ? (
-                <section>
-                  <div>{sourceText}</div>
-                  <ul>
-                    {results.map((document, index) => (
-                      <li key={document.id}>
-                        <button
-                          type="button"
-                          data-active={index === activeIndex}
-                          onClick={() => navigateToResult(document)}
-                        >
-                          <span>
-                            <span>{document.data.title}</span>
-                            <span>
-                              {pathPrefix} / {document.slug}
-                            </span>
-                            <span>{document.data.description}</span>
-                            <span>
-                              <span>{document.data.created}</span>
-                              <span>
-                                {updatedText} {document.data.updated}
-                              </span>
-                              {document.data.categories.map(category => (
-                                <span key={category}>{category}</span>
-                              ))}
-                            </span>
-                          </span>
-                        </button>
-                      </li>
-                    ))}
-                  </ul>
-                </section>
-              ) : null}
-            </div>
-
-            <footer>
-              <span>
-                <kbd aria-label={selectKeyAriaLabel}>Enter</kbd>
-                <span>{selectText}</span>
-              </span>
-              <span>
-                <kbd aria-label={navigateUpKeyAriaLabel}>↑</kbd>
-                <kbd aria-label={navigateDownKeyAriaLabel}>↓</kbd>
-                <span>{navigateText}</span>
-              </span>
-              <span>
-                <kbd aria-label={closeKeyAriaLabel}>Esc</kbd>
-                <span>{closeText}</span>
-              </span>
-            </footer>
+            <Dialog.Close aria-label={cancelButtonAriaLabel}>
+              {cancelButtonText}
+            </Dialog.Close>
           </div>
-        </Dialog.Content>
-      </div>
+
+          <div>
+            {query.length === 0 ? (
+              <section>
+                <h3>{titleText}</h3>
+                <p>{helpText}</p>
+              </section>
+            ) : null}
+
+            {query.length > 0 && results.length === 0 ? (
+              <section>
+                <h3>{noResultsText}</h3>
+                <p>&quot;{query}&quot;</p>
+              </section>
+            ) : null}
+
+            {query.length > 0 && results.length > 0 ? (
+              <section>
+                <div>{sourceText}</div>
+                <ul>
+                  {results.map((document, index) => (
+                    <li key={document.id}>
+                      <button
+                        type="button"
+                        data-active={index === activeIndex}
+                        onClick={() => navigateToResult(document)}
+                      >
+                        <span>
+                          <span>{document.data.title}</span>
+                          <span>
+                            {pathPrefix} / {document.slug}
+                          </span>
+                          <span>{document.data.description}</span>
+                          <span>
+                            <span>{document.data.created}</span>
+                            <span>
+                              {updatedText} {document.data.updated}
+                            </span>
+                            {document.data.categories.map(category => (
+                              <span key={category}>{category}</span>
+                            ))}
+                          </span>
+                        </span>
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              </section>
+            ) : null}
+          </div>
+
+          <footer>
+            <span>
+              <kbd aria-label={selectKeyAriaLabel}>Enter</kbd>
+              <span>{selectText}</span>
+            </span>
+            <span>
+              <kbd aria-label={navigateUpKeyAriaLabel}>↑</kbd>
+              <kbd aria-label={navigateDownKeyAriaLabel}>↓</kbd>
+              <span>{navigateText}</span>
+            </span>
+            <span>
+              <kbd aria-label={closeKeyAriaLabel}>Esc</kbd>
+              <span>{closeText}</span>
+            </span>
+          </footer>
+        </div>
+      </Dialog.Content>
     </Dialog.Root>
   );
 }
