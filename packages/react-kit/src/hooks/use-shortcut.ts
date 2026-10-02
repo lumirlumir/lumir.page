@@ -19,7 +19,7 @@ import { useEffect } from 'react';
 // --------------------------------------------------------------------------------
 
 /**
- * Modifier key states required by `useShortcut`.
+ * Modifier key requirements and editable-control behavior for `useShortcut`.
  */
 export interface UseShortcutOptions {
   /**
@@ -33,6 +33,12 @@ export interface UseShortcutOptions {
    * @default false
    */
   metaKey?: boolean;
+
+  /**
+   * Whether to ignore keyboard events from editable controls.
+   * @default true
+   */
+  ignoreEditable?: boolean;
 }
 
 // --------------------------------------------------------------------------------
@@ -44,11 +50,11 @@ export interface UseShortcutOptions {
  *
  * Key matching is case-insensitive. When the shortcut matches, the browser's
  * default action is prevented before the callback runs. Keyboard events from
- * editable controls are ignored.
+ * editable controls are ignored by default.
  *
  * @param key The shortcut key.
  * @param callback The function to run when the shortcut is pressed.
- * @param options Required Ctrl and Command key states. Both default to `false`.
+ * @param options Required modifier key states and whether to ignore editable controls.
  *
  * @example
  * ```tsx
@@ -66,15 +72,16 @@ export interface UseShortcutOptions {
 export function useShortcut(
   key: string,
   callback: () => void,
-  { ctrlKey = false, metaKey = false }: UseShortcutOptions = {},
+  { ctrlKey = false, metaKey = false, ignoreEditable = true }: UseShortcutOptions = {},
 ): void {
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (
-        event.target instanceof HTMLInputElement ||
-        event.target instanceof HTMLTextAreaElement ||
-        event.target instanceof HTMLSelectElement ||
-        (event.target instanceof HTMLElement && event.target.isContentEditable)
+        ignoreEditable &&
+        (event.target instanceof HTMLInputElement ||
+          event.target instanceof HTMLTextAreaElement ||
+          event.target instanceof HTMLSelectElement ||
+          (event.target instanceof HTMLElement && event.target.isContentEditable))
       ) {
         return;
       }
@@ -94,5 +101,5 @@ export function useShortcut(
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, [ctrlKey, metaKey, key, callback]);
+  }, [ctrlKey, metaKey, ignoreEditable, key, callback]);
 }

@@ -128,6 +128,61 @@ describe('use-shortcut', () => {
     assert.strictEqual(callback.mock.calls.length, 0);
   });
 
+  it('Shortcut typed in focused input should run the callback when `ignoreEditable` is `false`', async () => {
+    const callback = vi.fn();
+    await renderHook(() => useShortcut('k', callback, { ignoreEditable: false }));
+    const input = document.createElement('input');
+
+    document.body.append(input);
+    input.focus();
+    input.dispatchEvent(new KeyboardEvent('keydown', { bubbles: true, key: 'k' }));
+    input.remove();
+
+    assert.strictEqual(callback.mock.calls.length, 1);
+  });
+
+  it('Shortcut typed in focused textarea should run the callback when `ignoreEditable` is `false`', async () => {
+    const callback = vi.fn();
+    await renderHook(() => useShortcut('k', callback, { ignoreEditable: false }));
+    const textarea = document.createElement('textarea');
+
+    document.body.append(textarea);
+    textarea.focus();
+    textarea.dispatchEvent(new KeyboardEvent('keydown', { bubbles: true, key: 'k' }));
+    textarea.remove();
+
+    assert.strictEqual(callback.mock.calls.length, 1);
+  });
+
+  it('Shortcut typed in focused select should run the callback when `ignoreEditable` is `false`', async () => {
+    const callback = vi.fn();
+    await renderHook(() => useShortcut('k', callback, { ignoreEditable: false }));
+    const select = document.createElement('select');
+
+    document.body.append(select);
+    select.focus();
+    select.dispatchEvent(new KeyboardEvent('keydown', { bubbles: true, key: 'k' }));
+    select.remove();
+
+    assert.strictEqual(callback.mock.calls.length, 1);
+  });
+
+  it('Shortcut typed in focused contenteditable content should run the callback when `ignoreEditable` is `false`', async () => {
+    const callback = vi.fn();
+    await renderHook(() => useShortcut('k', callback, { ignoreEditable: false }));
+    const contenteditable = document.createElement('div');
+
+    contenteditable.contentEditable = 'true';
+    document.body.append(contenteditable);
+    contenteditable.focus();
+    contenteditable.dispatchEvent(
+      new KeyboardEvent('keydown', { bubbles: true, key: 'k' }),
+    );
+    contenteditable.remove();
+
+    assert.strictEqual(callback.mock.calls.length, 1);
+  });
+
   it('Different key should not run the callback', async () => {
     const callback = vi.fn();
     await renderHook(() => useShortcut('k', callback));
