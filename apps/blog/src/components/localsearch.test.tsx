@@ -82,6 +82,19 @@ describe('localsearch', () => {
     vi.restoreAllMocks();
   });
 
+  describe('spell checking', () => {
+    it('should disable spell checking on the search input', async () => {
+      const screen = await render(
+        <LocalSearch vMarkdownFileMetas={[]} translations={translations} />,
+      );
+      const input = screen.container.querySelector('input');
+
+      assert.ok(input);
+      assert.strictEqual(input.getAttribute('spellcheck'), 'false');
+      assert.isFalse(input.spellcheck);
+    });
+  });
+
   describe('typing on the search button', () => {
     it('should search with the first uppercase letter and continue typing in the input', async () => {
       const screen = await render(

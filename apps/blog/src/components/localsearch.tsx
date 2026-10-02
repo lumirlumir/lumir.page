@@ -452,6 +452,7 @@ export function LocalSearch({
               <input
                 ref={inputRef}
                 type="search"
+                spellCheck={false}
                 value={query}
                 onChange={event => updateQuery(event.target.value)}
                 onKeyDown={onInputKeyDown}
