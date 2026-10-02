@@ -364,6 +364,26 @@ export function LocalSearch({
     router.push(`/${document.lang}/posts/${document.slug}`);
   }
 
+  const onButtonKeyDown = (event: KeyboardEvent<HTMLButtonElement>) => {
+    // Accept a single alphanumeric character, leaving shortcuts and IME composition alone.
+    // Shift is allowed so uppercase letters can also start a search.
+    if (
+      event.ctrlKey ||
+      event.metaKey ||
+      event.altKey ||
+      event.nativeEvent.isComposing ||
+      !/^[a-z0-9]$/i.test(event.key)
+    ) {
+      return;
+    }
+
+    // Prevent the same character from being inserted again after focus moves to the input.
+    event.preventDefault();
+    // Seed the query to trigger the existing search flow, then open and focus the input.
+    updateQuery(event.key);
+    dialogRef.current?.open();
+  };
+
   function onInputKeyDown(event: KeyboardEvent<HTMLInputElement>) {
     if (results.length === 0) {
       return;
@@ -406,7 +426,7 @@ export function LocalSearch({
   return (
     <Dialog.Root ref={dialogRef} initialFocusRef={inputRef}>
       <div className={styles.localsearch}>
-        <Dialog.Open aria-label={buttonAriaLabel}>
+        <Dialog.Open aria-label={buttonAriaLabel} onKeyDown={onButtonKeyDown}>
           <span>
             <span>{icon}</span>
             <span>{buttonText}</span>
