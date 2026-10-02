@@ -267,6 +267,31 @@ export interface LocalSearchProps {
 }
 
 // --------------------------------------------------------------------------------
+// Helper
+// --------------------------------------------------------------------------------
+
+function highlightMatches(
+  document: StoredSearchDocument,
+  field: 'title' | 'description',
+) {
+  // Use the actual matched document terms, including prefix and fuzzy matches, for this field.
+  const terms = new Set(
+    document.terms.filter(term => document.match[term]?.includes(field)),
+  );
+
+  // Preserve the original text using MiniSearch's default word boundaries and React nodes.
+  return Array.from(
+    document.data[field].matchAll(/[^\n\r\p{Z}\p{P}]+|[\n\r\p{Z}\p{P}]+/gu),
+    part =>
+      terms.has(part[0].toLowerCase()) ? (
+        <mark key={part.index}>{part[0]}</mark>
+      ) : (
+        part[0]
+      ),
+  );
+}
+
+// --------------------------------------------------------------------------------
 // Export
 // --------------------------------------------------------------------------------
 
@@ -518,11 +543,11 @@ export function LocalSearch({
                         onClick={() => navigateToResult(document)}
                       >
                         <span>
-                          <span>{document.data.title}</span>
+                          <span>{highlightMatches(document, 'title')}</span>
                           <span>
                             {pathPrefix} / {document.slug}
                           </span>
-                          <span>{document.data.description}</span>
+                          <span>{highlightMatches(document, 'description')}</span>
                           <span>
                             <span>{document.data.created}</span>
                             <span>

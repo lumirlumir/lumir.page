@@ -82,6 +82,85 @@ describe('localsearch', () => {
     vi.restoreAllMocks();
   });
 
+  it('should highlight exact, prefix, and fuzzy matches in titles and descriptions while preserving text', async () => {
+    const screen = await render(
+      <LocalSearch
+        vMarkdownFileMetas={[
+          {
+            id: 'react.en',
+            slug: 'react',
+            lang: 'en',
+            readtime: 1,
+            data: {
+              title: 'React & Reactivity <img src=x>',
+              description: 'Try REACT; a reaction guide.',
+              created: '2026-10-02',
+              updated: '2026-10-02',
+              categories: [],
+              references: [],
+            },
+          },
+        ]}
+        translations={translations}
+      />,
+    );
+    const button = screen.container.querySelector('button');
+
+    assert.ok(button);
+    button.focus();
+    await userEvent.keyboard('react');
+    await vi.waitFor(() => {
+      assert.strictEqual(screen.container.querySelectorAll('li > button').length, 1);
+    });
+    const result = screen.container.querySelector('li > button > span');
+    const title = result?.children[0];
+    const description = result?.children[2];
+
+    assert.ok(result);
+    assert.ok(title);
+    assert.ok(description);
+    await vi.waitFor(() => {
+      assert.deepStrictEqual(
+        Array.from(title.querySelectorAll('mark'), mark => mark.textContent),
+        ['React', 'Reactivity'],
+      );
+      assert.deepStrictEqual(
+        Array.from(description.querySelectorAll('mark'), mark => mark.textContent),
+        ['REACT', 'reaction'],
+      );
+    });
+    assert.strictEqual(title.textContent, 'React & Reactivity <img src=x>');
+    assert.strictEqual(description.textContent, 'Try REACT; a reaction guide.');
+    assert.isNull(result.querySelector('img'));
+
+    await screen.getByRole('searchbox', { name: 'Search' }).fill('reactiv');
+    await vi.waitFor(() => {
+      assert.deepStrictEqual(
+        Array.from(title.querySelectorAll('mark'), mark => mark.textContent),
+        ['Reactivity'],
+      );
+      assert.deepStrictEqual(
+        Array.from(description.querySelectorAll('mark'), mark => mark.textContent),
+        [],
+      );
+    });
+
+    await screen.getByRole('searchbox', { name: 'Search' }).fill('reacr');
+    await vi.waitFor(() => {
+      assert.deepStrictEqual(
+        Array.from(title.querySelectorAll('mark'), mark => mark.textContent),
+        ['React'],
+      );
+      assert.deepStrictEqual(
+        Array.from(description.querySelectorAll('mark'), mark => mark.textContent),
+        ['REACT'],
+      );
+    });
+    assert.strictEqual(title.textContent, 'React & Reactivity <img src=x>');
+    assert.strictEqual(description.textContent, 'Try REACT; a reaction guide.');
+    assert.isNull(result.querySelector('img'));
+  });
+
   it('should scroll hidden keyboard selections into view without scrolling visible results', async () => {
     const screen = await render(
       <LocalSearch
