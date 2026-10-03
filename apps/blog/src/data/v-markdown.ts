@@ -64,9 +64,10 @@ export interface VMarkdownFileMeta {
 export interface VMarkdownFile extends VMarkdownContent, VMarkdownFileMeta {}
 
 /**
- * Represents a heading's metadata, including its rendered anchor ID, visible text, level, and parent heading.
+ * Represents a heading section with its metadata and extracted plain-text content for search.
+ * The content extends from the heading to the next heading in document order, excluding heading text.
  */
-export interface VMarkdownHeadingMeta {
+export interface VMarkdownHeading extends VMarkdownContent {
   /**
    * The rendered HTML heading ID used as a deep-link anchor, excluding the leading `#`.
    * URL encoding is applied when constructing the link, rather than stored in this value.
@@ -76,22 +77,16 @@ export interface VMarkdownHeadingMeta {
   /**
    * The visible heading text, with Markdown formatting and HTML tags removed.
    */
-  readonly heading: string;
+  readonly text: string;
 
   /**
-   * The heading level corresponding to an HTML `h1` through `h6` element.
+   * The heading depth corresponding to an HTML `h1` through `h6` element.
    */
-  readonly level: 1 | 2 | 3 | 4 | 5 | 6;
+  readonly depth: 1 | 2 | 3 | 4 | 5 | 6;
 
   /**
    * The nearest preceding heading with a lower level, or `null` for a top-level heading.
    * Following `parent` recursively yields the ancestor headings from the direct parent outward.
    */
-  readonly parent: VMarkdownHeadingMeta | null;
+  readonly parent: VMarkdownHeading | null;
 }
-
-/**
- * Represents a heading section with its metadata and extracted plain-text body for search.
- * The body extends from the heading to the next heading in document order, excluding heading text.
- */
-export interface VMarkdownHeading extends VMarkdownContent, VMarkdownHeadingMeta {}

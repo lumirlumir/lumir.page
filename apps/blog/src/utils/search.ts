@@ -9,9 +9,10 @@ import { type VMarkdownFileMeta, type VMarkdownHeading } from '@/data/v-markdown
  * A post introduction or heading section with its destination and searchable text.
  */
 export interface SearchDocument
-  extends Omit<VMarkdownFileMeta, 'id'>, Pick<VMarkdownHeading, 'heading' | 'content'> {
+  extends Omit<VMarkdownFileMeta, 'id'>, Pick<VMarkdownHeading, 'content'> {
   readonly id: string;
   readonly url: `/${VMarkdownFileMeta['lang']}/posts/${string}`;
+  readonly heading: VMarkdownHeading['text'];
   /** Ancestor heading names in document order, excluding the article title. */
   readonly headingPath: readonly string[];
 }
@@ -27,7 +28,7 @@ export function createSearchDocuments(
   const url: SearchDocument['url'] = `/${metadata.lang}/posts/${metadata.slug}`;
 
   const titleHeading = headings[0];
-  const hasTitle = titleHeading?.level === 1 && titleHeading.id === metadata.slug;
+  const hasTitle = titleHeading?.depth === 1 && titleHeading.id === metadata.slug;
   const bodyHeadings = hasTitle ? headings.slice(1) : headings;
 
   return [
@@ -44,8 +45,8 @@ export function createSearchDocuments(
       let { parent } = section;
 
       while (parent) {
-        if (!(hasTitle && parent.id === titleHeading.id && parent.level === 1)) {
-          headingPath.unshift(parent.heading);
+        if (!(hasTitle && parent.id === titleHeading.id && parent.depth === 1)) {
+          headingPath.unshift(parent.text);
         }
 
         parent = parent.parent;
@@ -55,7 +56,7 @@ export function createSearchDocuments(
         ...metadata,
         id: `${metadata.id}:${index + 1}`,
         url: section.id ? `${url}#${encodeURIComponent(section.id)}` : url,
-        heading: section.heading,
+        heading: section.text,
         headingPath,
         content: section.content,
       };

@@ -1,5 +1,5 @@
 /**
- * @fileoverview Tests post and section search against rendered Markdown.
+ * @fileoverview Tests post and section search against Markdown source.
  */
 
 import MiniSearch from 'minisearch';
@@ -61,7 +61,7 @@ describe('search', () => {
 
   it('preserves a post introduction and distinct H1 through H6 section records', async () => {
     const sections = await markdownToHeading(
-      'Introduction.\n\n# One\n\nFirst.\n\n## Two\n\nSecond.\n\n### Three\n\nThird.\n\n#### Four\n\nFourth.\n\n##### Five\n\nFifth.\n\n###### Six\n\nSixth.',
+      'Introduction.\n\n# One {#one}\n\nFirst.\n\n## Two {#two}\n\nSecond.\n\n### Three {#three}\n\nThird.\n\n#### Four {#four}\n\nFourth.\n\n##### Five {#five}\n\nFifth.\n\n###### Six {#six}\n\nSixth.',
       { title: 'Example article {#example}' },
     );
     const documents = createSearchDocuments(post, sections);
@@ -79,9 +79,9 @@ describe('search', () => {
     assert.strictEqual(createLocalSearch(documents).search('Sixth')[0].heading, 'Six');
   });
 
-  it('matches rendered IDs for custom, duplicate, Setext, and raw HTML headings', async () => {
+  it('matches explicit Markdown heading IDs and omits raw HTML headings', async () => {
     const content =
-      '## Custom {#chosen}\n\nBody.\n\n## **Repeated**\n\nFirst.\n\n## Repeated\n\nSecond.\n\nSetext\n------\n\nThird.\n\n<section><h3 id="raw-heading">Raw</h3><p>Fourth.</p></section>';
+      '## Custom {#chosen}\n\nBody.\n\n## **Repeated** {#repeated}\n\nFirst.\n\n## Repeated {#repeated-1}\n\nSecond.\n\nSetext {#setext}\n------\n\nThird.\n\n<section><h3 id="raw-heading">Raw</h3><p>Fourth.</p></section>';
     const sections = await markdownToHeading(content, {
       title: 'Example article {#example}',
     });
@@ -97,8 +97,8 @@ describe('search', () => {
     assert.include(html, 'id="repeated-1"');
     assert.strictEqual(documents[4].url, '/ko/posts/example#setext');
     assert.include(html, 'id="setext"');
-    assert.strictEqual(documents[5].url, '/ko/posts/example#raw-heading');
-    assert.strictEqual(documents[5].content, 'Fourth.');
+    assert.lengthOf(documents, 5);
+    assert.strictEqual(documents[4].content, 'Third.');
     assert.include(html, 'id="raw-heading"');
   });
 
@@ -113,7 +113,7 @@ describe('search', () => {
 
   it('does not join adjacent blocks or split words across inline formatting', async () => {
     const sections = await markdownToHeading(
-      '<div><p>First</p><p>Second</p></div>\n\ntool**tip** and <kbd>keyboard</kbd>.',
+      'First\n\nSecond\n\ntool**tip** and <kbd>keyboard</kbd>.',
       { title: 'Example article {#example}' },
     );
     const documents = createSearchDocuments(post, sections);
@@ -122,19 +122,19 @@ describe('search', () => {
     assert.lengthOf(createLocalSearch(documents).search('tooltip'), 1);
   });
 
-  it('excludes comments, scripts, styles, templates, and hidden HTML from search', async () => {
+  it('omits HTML blocks and indexes inline Markdown text without interpreting visibility', async () => {
     const sections = await markdownToHeading(
       'Visible.\n\n<!-- commentsecret -->\n\n<script>scriptsecret</script>\n\n<style>stylesecret</style>\n\n<template>templatesecret</template>\n\n<div hidden>hiddensecret</div>\n\n<div aria-hidden="true">ariasecret</div>',
       { title: 'Example article {#example}' },
     );
     const documents = createSearchDocuments(post, sections);
 
-    assert.strictEqual(documents[0].content, 'Visible.');
+    assert.strictEqual(documents[0].content, 'Visible. templatesecret');
   });
 
   it('keeps metadata matches on the post record and heading matches on their section', async () => {
     const sections = await markdownToHeading(
-      'Intro.\n\n## Installation\n\nSetup.\n\n## Troubleshooting\n\nDiagnostics.',
+      'Intro.\n\n## Installation {#installation}\n\nSetup.\n\n## Troubleshooting {#troubleshooting}\n\nDiagnostics.',
       { title: 'Example article {#example}' },
     );
     const documents = createSearchDocuments(post, sections);
@@ -151,9 +151,12 @@ describe('search', () => {
   });
 
   it('preserves prefix and fuzzy matching in section body text', async () => {
-    const sections = await markdownToHeading('## Setup\n\nJavaScript configuration.', {
-      title: 'Example article {#example}',
-    });
+    const sections = await markdownToHeading(
+      '## Setup {#setup}\n\nJavaScript configuration.',
+      {
+        title: 'Example article {#example}',
+      },
+    );
     const documents = createSearchDocuments(post, sections);
     const search = createLocalSearch(documents);
 
@@ -164,7 +167,7 @@ describe('search', () => {
 
   it('preserves ancestor paths when search results are reordered by score', async () => {
     const headings = await markdownToHeading(
-      'Intro.\n\n## Installation\n\n### Windows\n\nTooltip configuration.\n\n### macOS\n\nOther setup.',
+      'Intro.\n\n## Installation {#installation}\n\n### Windows {#windows}\n\nTooltip configuration.\n\n### macOS {#macos}\n\nOther setup.',
       { title: 'Example article {#example}' },
     );
     const documents = createSearchDocuments(post, headings);
@@ -179,7 +182,9 @@ describe('search', () => {
   });
 
   it('keeps the first real body heading as a section when no article H1 is supplied', async () => {
-    const headings = await markdownToHeading('## Installation\n\nTooltip setup.');
+    const headings = await markdownToHeading(
+      '## Installation {#installation}\n\nTooltip setup.',
+    );
     const documents = createSearchDocuments(post, headings);
     const search = createLocalSearch(documents);
 

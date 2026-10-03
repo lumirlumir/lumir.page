@@ -1,5 +1,5 @@
 /**
- * @fileoverview Extracts Markdown headings, section text, and parent relationships.
+ * @fileoverview Defines the helper functions for converting markdown content into structured heading data.
  */
 
 // --------------------------------------------------------------------------------
@@ -12,21 +12,14 @@ import 'server-only';
 // Import
 // --------------------------------------------------------------------------------
 
-import { rehypeCommentRemover } from '@lumir/rehype-plugins';
-import { remarkCustomHeadingId, remarkHeadingFromTitle } from '@lumir/remark-plugins';
+import { customHeadingIdRegex, remarkHeadingFromTitle } from '@lumir/remark-plugins';
+import type { Nodes, Root } from 'mdast';
+import { toString } from 'mdast-util-to-string';
 import remarkGfm from 'remark-gfm';
-import remarkGitHub from 'remark-github';
 import remarkMath from 'remark-math';
 import remarkParse from 'remark-parse';
-import remarkRehype from 'remark-rehype';
-import rehypeRaw from 'rehype-raw';
-import rehypeGitHubAlert from 'rehype-github-alert';
-import rehypeGitHubColor, { defaultBuild } from 'rehype-github-color';
-import rehypeGitHubEmoji from 'rehype-github-emoji';
-import rehypeSlug from 'rehype-slug';
 import { unified } from 'unified';
-import { githubRepoFullName } from '@/data/site';
-import { type VMarkdownHeading, type VMarkdownHeadingMeta } from '@/data/v-markdown';
+import { type VMarkdownHeading } from '@/data/v-markdown';
 
 // --------------------------------------------------------------------------------
 // Typedef
@@ -35,7 +28,6 @@ import { type VMarkdownHeading, type VMarkdownHeadingMeta } from '@/data/v-markd
 interface MarkdownToHeadingOptions {
   /**
    * Prepend an H1 heading generated from the provided title.
-   * Introductory body text becomes the content of this heading.
    */
   title?: string;
 }
@@ -45,125 +37,141 @@ interface MarkdownToHeadingOptions {
 // --------------------------------------------------------------------------------
 
 /**
- * Extracts each H1-H6 heading with its rendered ID, level, direct parent, and section text.
- * Keeps the H1 generated from `options.title`, including its introductory body text.
- * Without a title, text before the first heading is omitted; documents without headings return an empty array.
- * Includes image alt text and inline text, and excludes comments and hidden content.
- * @param markdown The Markdown body to process.
- * @param options Optional title used to generate an H1 heading.
+ * Converts markdown content into structured heading data.
+ * @param markdown The markdown content to convert.
+ * @param options Optional settings for the conversion process.
+ * @throws {Error} If a Markdown heading or supplied title has no custom ID.
+ * @example
+ * ```ts
+ * import { markdownToHeading } from '@/utils/markdown-to-heading';
+ *
+ * const markdown = 'Introduction\n\n## Heading {#heading}\n\nSome content';
+ * const headings = await markdownToHeading(markdown, { title: 'Awesome Title {#awesome-title}' });
+ *
+ * console.log(headings);
+ * // Output:
+ * // [
+ * //   {
+ * //     id: 'awesome-title',
+ * //     text: 'Awesome Title',
+ * //     depth: 1,
+ * //     parent: null,
+ * //     content: 'Introduction'
+ * //   },
+ * //   {
+ * //     id: 'heading',
+ * //     text: 'Heading',
+ * //     depth: 2,
+ * //     parent: {
+ * //       id: 'awesome-title',
+ * //       text: 'Awesome Title',
+ * //       depth: 1,
+ * //       parent: null
+ * //     },
+ * //     content: 'Some content'
+ * //   }
+ * // ]
+ * ```
  */
 export async function markdownToHeading(
   markdown: string,
   options?: MarkdownToHeadingOptions,
 ): Promise<VMarkdownHeading[]> {
-  // Keep text transformations and heading IDs aligned with `markdownToHtml`.
+  // NOTE: Keep text transformations and heading IDs aligned with `markdownToHtml`.
   const processor = unified()
     .use(remarkParse)
     .use(remarkGfm)
     .use(remarkMath)
-    .use(remarkHeadingFromTitle, { title: options?.title })
-    .use(remarkCustomHeadingId)
-    .use(
-      remarkGitHub, // Keep custom heading IDs from becoming issue links.
-      { repository: githubRepoFullName },
-    )
-    .use(remarkRehype, { allowDangerousHtml: true })
-    .use(rehypeRaw)
-    .use(rehypeCommentRemover)
-    .use(rehypeGitHubAlert)
-    .use(rehypeGitHubColor, {
-      build: value => {
-        const node = defaultBuild(value);
-
-        if (node.type === 'element') {
-          node.properties.className = ['rehype-github-color'];
-        }
-
-        return node;
-      },
-    })
-    .use(rehypeGitHubEmoji)
-    .use(rehypeSlug);
-  const tree = await processor.run(processor.parse(markdown));
+    .use(remarkHeadingFromTitle, { title: options?.title });
+  const tree = (await processor.run(processor.parse(markdown))) as Root;
   const headings: VMarkdownHeading[] = [];
-  const stack: VMarkdownHeadingMeta[] = [];
-  let heading: VMarkdownHeadingMeta | undefined;
-  let content = '';
 
-  function finishHeading() {
-    if (heading) {
-      headings.push({ ...heading, content: content.replace(/\s+/g, ' ').trim() });
-    }
+  let vMarkdownHeading: (VMarkdownHeading & { content: string }) | null = null;
 
-    content = '';
+  function text(node: Nodes): string {
+    if (node.type === 'break') return ' ';
+    if ('children' in node) return node.children.map(text).join('');
+    return toString(node, { includeImageAlt: true, includeHtml: false });
   }
 
-  function text(node: (typeof tree.children)[number]): string {
-    if (node.type === 'text') return node.value;
-    if (node.type !== 'element') return '';
-    if (
-      ['script', 'style', 'template'].includes(node.tagName) ||
-      node.properties.hidden ||
-      node.properties.ariaHidden === 'true'
-    )
-      return '';
-    if (node.tagName === 'img') return String(node.properties.alt ?? '');
-    if (node.tagName === 'br') return ' ';
+  function walk(node: Nodes): void {
+    if (node.type === 'heading') {
+      const lastChildNode = node.children.at(-1);
 
-    return node.children.map(text).join('');
-  }
-
-  function visit(node: (typeof tree.children)[number]) {
-    if (node.type === 'text') {
-      if (heading) content += node.value;
-      return;
-    }
-    if (node.type !== 'element') return;
-    if (
-      ['script', 'style', 'template'].includes(node.tagName) ||
-      node.properties.hidden ||
-      node.properties.ariaHidden === 'true'
-    )
-      return;
-    if (/^h[1-6]$/.test(node.tagName)) {
-      finishHeading();
-      const level = Number(node.tagName[1]) as VMarkdownHeadingMeta['level'];
-
-      while (stack.length && stack[stack.length - 1].level >= level) {
-        stack.pop();
+      if (!lastChildNode || lastChildNode.type !== 'text') {
+        throw new Error(
+          `Heading "${text(node)}" at line ${node.position?.start.line} needs an explicit custom ID`,
+        );
       }
 
-      heading = {
-        heading: text(node).trim(),
-        id: String(node.properties.id ?? ''),
-        level,
-        parent: stack.at(-1) ?? null,
-      };
-      stack.push(heading);
+      const match = customHeadingIdRegex.exec(lastChildNode.value);
+
+      if (!match || !match.groups) {
+        throw new Error(
+          `Heading "${text(node)}" at line ${node.position?.start.line} needs an explicit custom ID`,
+        );
+      }
+
+      lastChildNode.value = lastChildNode.value.slice(0, match.index);
+
+      /*
+       * Find the parent heading for the current heading.
+       * A heading at the same or deeper depth cannot be its parent,
+       * so keep walking up through `parent` until reaching a shallower heading.
+       *
+       * Example:
+       *   # A        (depth 1)
+       *   ## B       (depth 2, parent: A)
+       *   ### C      (depth 3, parent: B)
+       *   ## D       (depth 2)
+       *
+       * When processing D, `vMarkdownHeading` initially points to C.
+       *   C(depth 3) >= D(depth 2) → move to B
+       *   B(depth 2) >= D(depth 2) → move to A
+       *   A(depth 1) <  D(depth 2) → stop
+       *
+       * Therefore, A becomes the parent of D.
+       */
+      while (vMarkdownHeading && vMarkdownHeading.depth >= node.depth) {
+        vMarkdownHeading = vMarkdownHeading.parent ?? null;
+      }
+
+      headings.push(
+        (vMarkdownHeading = {
+          id: match.groups.id,
+          text: text(node),
+          depth: node.depth,
+          parent: vMarkdownHeading ?? null,
+          content: '',
+        }),
+      );
+
       return;
     }
-    if (node.tagName === 'img') {
-      if (heading) content += ` ${text(node)} `;
+
+    if (
+      node.type === 'paragraph' ||
+      node.type === 'tableCell' ||
+      node.type === 'code' ||
+      node.type === 'math'
+    ) {
+      if (vMarkdownHeading) {
+        const value = text(node).replace(/\s+/g, ' ').trim();
+
+        if (value) {
+          vMarkdownHeading.content += `${vMarkdownHeading.content ? ' ' : ''}${value}`;
+        }
+      }
+
       return;
     }
-    const block = ![
-      'a',
-      'em',
-      'strong',
-      'span',
-      'code',
-      'sup',
-      'sub',
-      'kbd',
-      'del',
-    ].includes(node.tagName);
-    if (block && heading) content += ' ';
-    node.children.forEach(visit);
-    if (block && heading) content += ' ';
+
+    if ('children' in node) {
+      node.children.forEach(walk);
+    }
   }
 
-  tree.children.forEach(visit);
-  finishHeading();
+  walk(tree);
 
   return headings;
 }
