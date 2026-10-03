@@ -68,9 +68,14 @@ test.describe('localsearch', () => {
     const input = dialog.getByRole('searchbox', { name: '검색' });
     await input.fill('마크다운');
 
-    const result = dialog.locator('a[href="/ko/posts/everything-about-markdown"]');
+    const result = dialog.locator(
+      'a[href="/ko/posts/everything-about-markdown#everything-about-markdown"]',
+    );
     await expect(result).toBeVisible();
-    await expect(result).toHaveAttribute('href', '/ko/posts/everything-about-markdown');
+    await expect(result).toHaveAttribute(
+      'href',
+      '/ko/posts/everything-about-markdown#everything-about-markdown',
+    );
 
     await result.click({ modifiers: ['ControlOrMeta'] });
     await expect(page).toHaveURL(/\/ko\/posts\/2558$/);
@@ -78,7 +83,9 @@ test.describe('localsearch', () => {
     await expect(input).toHaveValue('마크다운');
 
     await result.click();
-    await expect(page).toHaveURL(/\/ko\/posts\/everything-about-markdown$/);
+    await expect(page).toHaveURL(
+      /\/ko\/posts\/everything-about-markdown#everything-about-markdown$/,
+    );
     await expect(dialog).toBeHidden();
   });
 });

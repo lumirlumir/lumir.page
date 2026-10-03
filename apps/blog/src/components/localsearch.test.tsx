@@ -112,7 +112,19 @@ describe('localsearch', () => {
             id: 'example.en:1',
             url: '/en/posts/example#references',
             heading: 'References',
-            headingPath: ['Usage'],
+            parent: {
+              id: 'usage',
+              text: 'Usage',
+              depth: 2,
+              content: '',
+              parent: {
+                id: 'example',
+                text: 'Example article',
+                depth: 1,
+                content: '',
+                parent: null,
+              },
+            },
             content: `${'Background text. '.repeat(70)}Use tooltips <img src=x> for context.`,
             slug: 'example',
             lang: 'en',
@@ -145,7 +157,10 @@ describe('localsearch', () => {
     assert.ok(link);
     assert.ok(excerpt);
     assert.strictEqual(link.getAttribute('href'), '/en/posts/example#references');
-    assert.include(link.textContent, 'Example article / Usage / References');
+    assert.strictEqual(
+      link.querySelector('span')?.children[0].textContent,
+      'Example article / Usage / References',
+    );
     assert.include(excerpt.textContent, '<img src=x>');
     assert.strictEqual(excerpt.querySelector('mark')?.textContent, 'tooltips');
     assert.isAtMost(excerpt.textContent.length, 222);
@@ -157,6 +172,53 @@ describe('localsearch', () => {
     });
   });
 
+  it('should include a body H1 in the path of a matching child section', async () => {
+    const screen = await render(
+      <LocalSearch
+        documents={[
+          {
+            id: 'example.en:2',
+            url: '/en/posts/example#windows',
+            heading: 'Windows',
+            parent: {
+              id: 'installation',
+              text: 'Installation',
+              depth: 1,
+              content: '',
+              parent: null,
+            },
+            content: 'Tooltip setup.',
+            slug: 'example',
+            lang: 'en',
+            readtime: 1,
+            data: {
+              title: 'Example article',
+              description: 'Metadata summary',
+              created: '2026-10-03',
+              updated: '2026-10-03',
+              categories: [],
+              references: [],
+            },
+          },
+        ]}
+        translations={translations}
+      />,
+    );
+
+    const button = screen.container.querySelector('button');
+
+    assert.ok(button);
+    button.focus();
+    await userEvent.keyboard('tooltip');
+
+    await vi.waitFor(() => {
+      assert.strictEqual(
+        screen.container.querySelector('li > a > span')?.children[0].textContent,
+        'Example article / Installation / Windows',
+      );
+    });
+  });
+
   it('should highlight exact, prefix, and fuzzy matches in titles and descriptions while preserving text', async () => {
     const screen = await render(
       <LocalSearch
@@ -165,7 +227,7 @@ describe('localsearch', () => {
             id: 'react.en',
             url: '/en/posts/react',
             heading: '',
-            headingPath: [],
+            parent: null,
             content: '',
             slug: 'react',
             lang: 'en',
@@ -248,7 +310,7 @@ describe('localsearch', () => {
             id: 'react-first.en',
             url: '/en/posts/react-first',
             heading: '',
-            headingPath: [],
+            parent: null,
             content: '',
             slug: 'react-first',
             lang: 'en',
@@ -266,7 +328,7 @@ describe('localsearch', () => {
             id: 'react-second.en',
             url: '/en/posts/react-second',
             heading: '',
-            headingPath: [],
+            parent: null,
             content: '',
             slug: 'react-second',
             lang: 'en',
@@ -376,7 +438,7 @@ describe('localsearch', () => {
               id: 'react.en',
               url: '/en/posts/react',
               heading: '',
-              headingPath: [],
+              parent: null,
               content: '',
               slug: 'react',
               lang: 'en',

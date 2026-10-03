@@ -5,9 +5,10 @@
 import MiniSearch from 'minisearch';
 import { assert, describe, it } from 'vitest';
 import { type VMarkdownFileMeta } from '@/data/v-markdown';
-import { markdownToHtml } from './markdown-to-html';
-import { markdownToHeading } from './markdown-to-heading';
-import { createLocalSearch, createSearchDocuments } from './search';
+import { markdownToHtml } from '@/utils/markdown-to-html';
+import { markdownToHeading } from '@/utils/markdown-to-heading';
+import { createLocalSearch } from './localsearch';
+import { createSearchDocuments } from './search';
 
 const post: VMarkdownFileMeta = {
   id: 'example.ko',
@@ -37,7 +38,7 @@ describe('search', () => {
 
     assert.instanceOf(search, MiniSearch);
     assert.lengthOf(search.search('툴팁'), 1);
-    assert.strictEqual(search.search('툴팁')[0].url, '/ko/posts/example');
+    assert.strictEqual(search.search('툴팁')[0].url, '/ko/posts/example#example');
     assert.deepEqual(search.search('툴팁')[0].match['툴팁'], ['content']);
     assert.strictEqual(search.search('툴팁')[0].readtime, 1);
   });
@@ -68,7 +69,7 @@ describe('search', () => {
 
     assert.lengthOf(documents, 7);
     assert.strictEqual(documents[0].content, 'Introduction.');
-    assert.strictEqual(documents[0].url, '/ko/posts/example');
+    assert.strictEqual(documents[0].url, '/ko/posts/example#example');
     assert.strictEqual(documents[1].url, '/ko/posts/example#one');
     assert.strictEqual(documents[2].url, '/ko/posts/example#two');
     assert.strictEqual(documents[3].url, '/ko/posts/example#three');
@@ -141,7 +142,7 @@ describe('search', () => {
     const search = createLocalSearch(documents);
 
     assert.lengthOf(search.search('article'), 1);
-    assert.strictEqual(search.search('article')[0].url, '/ko/posts/example');
+    assert.strictEqual(search.search('article')[0].url, '/ko/posts/example#example');
     assert.lengthOf(search.search('summary'), 1);
     assert.strictEqual(
       search.search('Installation')[0].url,
@@ -165,7 +166,7 @@ describe('search', () => {
     assert.deepEqual(search.search('javascropt')[0].match.javascript, ['content']);
   });
 
-  it('preserves ancestor paths when search results are reordered by score', async () => {
+  it('preserves parent headings when search results are reordered by score', async () => {
     const headings = await markdownToHeading(
       'Intro.\n\n## Installation {#installation}\n\n### Windows {#windows}\n\nTooltip configuration.\n\n### macOS {#macos}\n\nOther setup.',
       { title: 'Example article {#example}' },
@@ -176,31 +177,38 @@ describe('search', () => {
     assert.lengthOf(results, 1);
     assert.strictEqual(results[0].url, '/ko/posts/example#windows');
     assert.strictEqual(results[0].heading, 'Windows');
-    assert.deepEqual(results[0].headingPath, ['Installation']);
-    assert.deepEqual(documents[3].headingPath, ['Installation']);
-    assert.deepEqual(documents[0].headingPath, []);
+    assert.strictEqual(results[0].parent, headings[1]);
+    assert.strictEqual(results[0].parent.parent, headings[0]);
+    assert.strictEqual(documents[3].parent, headings[1]);
+    assert.isNull(documents[0].parent);
   });
 
-  it('keeps the first real body heading as a section when no article H1 is supplied', async () => {
+  it('preserves a body H1 as the parent of its child section', async () => {
     const headings = await markdownToHeading(
-      '## Installation {#installation}\n\nTooltip setup.',
+      '# Installation {#installation}\n\n## Windows {#windows}\n\nTooltip setup.',
+      { title: 'Example article {#example}' },
     );
     const documents = createSearchDocuments(post, headings);
     const search = createLocalSearch(documents);
 
-    assert.lengthOf(documents, 2);
-    assert.strictEqual(documents[0].url, '/ko/posts/example');
+    assert.lengthOf(documents, 3);
+    assert.strictEqual(documents[0].url, '/ko/posts/example#example');
     assert.strictEqual(documents[1].url, '/ko/posts/example#installation');
-    assert.strictEqual(search.search('article')[0].url, '/ko/posts/example');
-    assert.strictEqual(search.search('tooltip')[0].url, '/ko/posts/example#installation');
+    assert.isNull(documents[1].parent);
+    assert.strictEqual(documents[2].parent, headings[1]);
+    assert.strictEqual(search.search('article')[0].url, '/ko/posts/example#example');
+    assert.strictEqual(search.search('tooltip')[0].url, '/ko/posts/example#windows');
   });
 
-  it('keeps metadata searchable when no headings are returned', () => {
-    const documents = createSearchDocuments(post, []);
+  it('keeps metadata searchable for an empty article with its generated title H1', async () => {
+    const headings = await markdownToHeading('', {
+      title: 'Example article {#example}',
+    });
+    const documents = createSearchDocuments(post, headings);
     const search = createLocalSearch(documents);
 
     assert.lengthOf(documents, 1);
     assert.strictEqual(documents[0].content, '');
-    assert.strictEqual(search.search('summary')[0].url, '/ko/posts/example');
+    assert.strictEqual(search.search('summary')[0].url, '/ko/posts/example#example');
   });
 });

@@ -20,7 +20,7 @@ import 'client-only';
 
 import { Dialog, type DialogHandle } from '@lumir/react-kit/components';
 import { useOs, useShortcut } from '@lumir/react-kit/hooks';
-import { type SearchResult } from 'minisearch';
+import MiniSearch, { type SearchResult } from 'minisearch';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import {
@@ -31,7 +31,7 @@ import {
   type KeyboardEvent,
   type ReactNode,
 } from 'react';
-import { createLocalSearch, type SearchDocument } from '@/utils/search';
+import type { SearchDocument } from './search';
 import styles from './localsearch.module.css';
 
 // --------------------------------------------------------------------------------
@@ -270,6 +270,58 @@ export interface LocalSearchProps {
 // --------------------------------------------------------------------------------
 // Helper
 // --------------------------------------------------------------------------------
+
+/**
+ * Creates and populates a MiniSearch instance, preserving its native search API.
+ */
+export function createLocalSearch(
+  documents: SearchDocument[],
+): MiniSearch<SearchDocument> {
+  const search = new MiniSearch<SearchDocument>({
+    fields: ['title', 'description', 'heading', 'content'],
+    extractField: (document, fieldName) => {
+      if (fieldName === 'title' || fieldName === 'description') {
+        // Keep post metadata searches on the post record instead of every section.
+        return document.heading ? '' : document.data[fieldName];
+      }
+
+      return MiniSearch.getDefault('extractField')(document, fieldName);
+    },
+    searchOptions: {
+      boost: { title: 2, description: 1, heading: 2, content: 1 },
+      fuzzy: 0.2,
+      prefix: true,
+    },
+    storeFields: [
+      'id',
+      'slug',
+      'lang',
+      'readtime',
+      'data',
+      'url',
+      'heading',
+      'parent',
+      'content',
+    ] satisfies (keyof SearchDocument)[],
+  });
+
+  search.addAll(documents);
+
+  return search;
+}
+
+function getHeadingPath(document: SearchDocument): string {
+  let path = '';
+  let { parent } = document;
+
+  // The generated article title is already displayed from the post metadata.
+  while (parent && !(parent.depth === 1 && parent.id === document.slug)) {
+    path = ` / ${parent.text}${path}`;
+    parent = parent.parent;
+  }
+
+  return path;
+}
 
 function highlightMatches(
   document: StoredSearchDocument,
@@ -536,9 +588,7 @@ export function LocalSearch({
                         <span>
                           <span>
                             {highlightMatches(document, 'title')}
-                            {document.headingPath.length
-                              ? ` / ${document.headingPath.join(' / ')}`
-                              : null}
+                            {getHeadingPath(document)}
                             {document.heading ? (
                               <> / {highlightMatches(document, 'heading')}</>
                             ) : null}
