@@ -4,7 +4,7 @@
 
 import MiniSearch from 'minisearch';
 import { assert, describe, it } from 'vitest';
-import { type VMarkdownFileMeta } from '@/data/v-markdown-file';
+import { type VMarkdownFileMeta } from '@/data/v-markdown';
 import { markdownToHtml } from './markdown-to-html';
 import { markdownToSearchData } from './markdown-to-search-data';
 import { createLocalSearch, createSearchDocuments } from './search';

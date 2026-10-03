@@ -3,7 +3,7 @@
  */
 
 import MiniSearch from 'minisearch';
-import { type VMarkdownFileMeta } from '@/data/v-markdown-file';
+import { type VMarkdownFileMeta } from '@/data/v-markdown';
 
 /**
  * A post introduction or heading section with its destination and searchable text.
