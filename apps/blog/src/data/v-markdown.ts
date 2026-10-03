@@ -10,21 +10,25 @@ import { type Frontmatter } from '@/data/frontmatter';
 import { type LangKey } from '@/data/lang';
 
 // --------------------------------------------------------------------------------
-// Export
+// Helper
 // --------------------------------------------------------------------------------
 
 /**
  * Represents the raw Markdown content.
  */
-export interface VMarkdownContent {
+interface VMarkdownContent {
   /**
    * The content of the Markdown file, representing the raw Markdown text.
    */
   readonly content: string;
 }
 
+// --------------------------------------------------------------------------------
+// Export
+// --------------------------------------------------------------------------------
+
 /**
- * Represents a virtual Markdown file's identity, language, reading time, and frontmatter metadata.
+ * Represents a virtual Markdown file's metadata.
  */
 export interface VMarkdownFileMeta {
   /**
@@ -60,7 +64,7 @@ export interface VMarkdownFileMeta {
 export interface VMarkdownFile extends VMarkdownContent, VMarkdownFileMeta {}
 
 /**
- * Represents a heading's rendered anchor, visible text, level, and direct parent heading.
+ * Represents a heading's metadata, including its rendered anchor ID, visible text, level, and parent heading.
  */
 export interface VMarkdownHeadingMeta {
   /**
@@ -76,7 +80,6 @@ export interface VMarkdownHeadingMeta {
 
   /**
    * The heading level corresponding to an HTML `h1` through `h6` element.
-   * This preserves the source heading level even when intermediate levels are skipped.
    */
   readonly level: 1 | 2 | 3 | 4 | 5 | 6;
 
@@ -90,7 +93,5 @@ export interface VMarkdownHeadingMeta {
 /**
  * Represents a heading section with its metadata and extracted plain-text body for search.
  * The body extends from the heading to the next heading in document order, excluding heading text.
- * Introductory body text before the first heading is handled separately from these heading records
- * and from the frontmatter `description`.
  */
 export interface VMarkdownHeading extends VMarkdownContent, VMarkdownHeadingMeta {}
