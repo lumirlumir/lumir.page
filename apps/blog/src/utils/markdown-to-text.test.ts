@@ -80,4 +80,44 @@ describe('markdown-to-text', () => {
     assert.strictEqual(await markdownToText(markdown), text);
     assert.strictEqual(markdownToTextSync(markdown), text);
   });
+
+  it('should preserve text inside GFM strikethrough syntax', async () => {
+    const markdown = 'Replace ~~old text~~ with new text';
+    const text = 'Replace old text with new text';
+
+    assert.strictEqual(await markdownToText(markdown), text);
+    assert.strictEqual(markdownToTextSync(markdown), text);
+  });
+
+  it('should remove GFM task list markers', async () => {
+    const markdown = '- [x] Completed task\n- [ ] Pending task';
+    const text = 'Completed taskPending task';
+
+    assert.strictEqual(await markdownToText(markdown), text);
+    assert.strictEqual(markdownToTextSync(markdown), text);
+  });
+
+  it('should remove GFM tables and preserve surrounding text', async () => {
+    const markdown = 'Before\n\n| Name |\n| --- |\n| Value |\n\nAfter';
+    const text = 'BeforeAfter';
+
+    assert.strictEqual(await markdownToText(markdown), text);
+    assert.strictEqual(markdownToTextSync(markdown), text);
+  });
+
+  it('should preserve inline math content without dollar delimiters', async () => {
+    const markdown = 'The formula is $a^2 - b^2 = (a - b)(a + b)$.';
+    const text = 'The formula is a^2 - b^2 = (a - b)(a + b).';
+
+    assert.strictEqual(await markdownToText(markdown), text);
+    assert.strictEqual(markdownToTextSync(markdown), text);
+  });
+
+  it('should preserve block math content without dollar delimiters', async () => {
+    const markdown = '$$\n\\frac{a}{b}\n$$';
+    const text = '\\frac{a}{b}';
+
+    assert.strictEqual(await markdownToText(markdown), text);
+    assert.strictEqual(markdownToTextSync(markdown), text);
+  });
 });
