@@ -13,8 +13,10 @@ import 'server-only';
 // --------------------------------------------------------------------------------
 
 import { LmSearch } from '@lumir/react-kit/svgs';
-import { type LangRecord, type PropsWithLang } from '@/data/lang';
+import { type LangKey, type LangRecord, type PropsWithLang } from '@/data/lang';
 import createMarkdownCollection from '@/utils/markdown-collection';
+import { markdownToSearchData } from '@/utils/markdown-to-search-data';
+import { createSearchDocuments, type SearchDocument } from '@/utils/search';
 import { LocalSearch, type LocalSearchProps } from './localsearch';
 
 // --------------------------------------------------------------------------------
@@ -22,6 +24,7 @@ import { LocalSearch, type LocalSearchProps } from './localsearch';
 // --------------------------------------------------------------------------------
 
 const markdownCollection = createMarkdownCollection();
+const searchDocumentsByLang: Partial<Record<LangKey, Promise<SearchDocument[]>>> = {};
 
 const dictionary = {
   ko: {
@@ -42,9 +45,8 @@ const dictionary = {
           searchInputLabel: '검색',
         },
         startScreen: {
-          titleText: '문서 메타데이터 검색',
-          helpText:
-            '제목, 설명, 날짜, 슬러그를 먼저 검색합니다. 본문 검색은 나중에 추가할 수 있습니다.',
+          titleText: '문서 검색',
+          helpText: '제목, 설명, 섹션 제목과 본문을 검색합니다.',
           recentSearchesTitle: '최근 검색',
           noRecentSearchesText: '최근 검색 결과가 없습니다.',
           saveRecentSearchButtonTitle: '검색 결과 저장하기',
@@ -94,9 +96,8 @@ const dictionary = {
           searchInputLabel: 'Search',
         },
         startScreen: {
-          titleText: 'Search docs metadata',
-          helpText:
-            'Titles, descriptions, dates, and slugs are indexed first. Body search can be added later.',
+          titleText: 'Search docs',
+          helpText: 'Search titles, descriptions, section headings, and body text.',
           recentSearchesTitle: 'Recent Searches',
           noRecentSearchesText: 'No recent searches.',
           saveRecentSearchButtonTitle: 'Save this search',
@@ -136,10 +137,21 @@ const dictionary = {
 // Export
 // --------------------------------------------------------------------------------
 
-export function Search({ lang }: PropsWithLang) {
+export async function Search({ lang }: PropsWithLang) {
+  const documents = await (searchDocumentsByLang[lang] ??= Promise.all(
+    Object.values(markdownCollection.byLangSlug[lang]).map(async metadata => {
+      const file = await markdownCollection.loadVMarkdownFile(metadata.id);
+      const sections = await markdownToSearchData(file.content, {
+        title: `${metadata.data.title} {#${metadata.slug}}`,
+      });
+
+      return createSearchDocuments(metadata, sections);
+    }),
+  ).then(posts => posts.flat()));
+
   return (
     <LocalSearch
-      vMarkdownFileMetas={Object.values(markdownCollection.byLangSlug[lang])}
+      documents={documents}
       translations={dictionary[lang].translations}
       icon={<LmSearch aria-hidden="true" color="white" size={28} strokeWidth="1.5" />}
       maxResults={10}

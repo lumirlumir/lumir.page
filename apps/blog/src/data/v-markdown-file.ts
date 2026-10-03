@@ -14,7 +14,17 @@ import { type LangKey } from '@/data/lang';
 // --------------------------------------------------------------------------------
 
 /**
- * Represents the metadata of a Virtual Markdown file, containing the `slug` (excluding extension) and `data` (frontmatter) of the Markdown document.
+ * Represents the raw Markdown content.
+ */
+export interface VMarkdownContent {
+  /**
+   * The content of the Markdown file, representing the raw Markdown text.
+   */
+  readonly content: string;
+}
+
+/**
+ * Represents a virtual Markdown file's identity, language, reading time, and frontmatter metadata.
  */
 export interface VMarkdownFileMeta {
   /**
@@ -45,11 +55,42 @@ export interface VMarkdownFileMeta {
 }
 
 /**
- * Represents a Virtual Markdown file, containing the `slug` (excluding extension), `data` (frontmatter), and `content` of the Markdown document.
+ * Represents a virtual Markdown file with its metadata and raw Markdown body, excluding frontmatter.
  */
-export interface VMarkdownFile extends VMarkdownFileMeta {
+export interface VMarkdownFile extends VMarkdownContent, VMarkdownFileMeta {}
+
+/**
+ * Represents a heading's rendered anchor, visible text, level, and direct parent heading.
+ */
+export interface VMarkdownHeadingMeta {
   /**
-   * The content of the Markdown file, representing the raw Markdown text.
+   * The rendered HTML heading ID used as a deep-link anchor, excluding the leading `#`.
+   * URL encoding is applied when constructing the link, rather than stored in this value.
    */
-  readonly content: string;
+  readonly id: string;
+
+  /**
+   * The visible heading text, with Markdown formatting and HTML tags removed.
+   */
+  readonly heading: string;
+
+  /**
+   * The heading level corresponding to an HTML `h1` through `h6` element.
+   * This preserves the source heading level even when intermediate levels are skipped.
+   */
+  readonly level: 1 | 2 | 3 | 4 | 5 | 6;
+
+  /**
+   * The nearest preceding heading with a lower level, or `null` for a top-level heading.
+   * Following `parent` recursively yields the ancestor headings from the direct parent outward.
+   */
+  readonly parent: VMarkdownHeadingMeta | null;
 }
+
+/**
+ * Represents a heading section with its metadata and extracted plain-text body for search.
+ * The body extends from the heading to the next heading in document order, excluding heading text.
+ * Introductory body text before the first heading is handled separately from these heading records
+ * and from the frontmatter `description`.
+ */
+export interface VMarkdownHeading extends VMarkdownContent, VMarkdownHeadingMeta {}

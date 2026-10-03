@@ -104,12 +104,67 @@ describe('localsearch', () => {
     vi.restoreAllMocks();
   });
 
+  it('should show and safely highlight an excerpt around a body match with its section link', async () => {
+    const screen = await render(
+      <LocalSearch
+        documents={[
+          {
+            id: 'example.en:1',
+            url: '/en/posts/example#references',
+            heading: 'References',
+            content: `${'Background text. '.repeat(70)}Use tooltips <img src=x> for context.`,
+            slug: 'example',
+            lang: 'en',
+            readtime: 1,
+            data: {
+              title: 'Example article',
+              description: 'Metadata summary',
+              created: '2026-10-03',
+              updated: '2026-10-03',
+              categories: [],
+              references: [],
+            },
+          },
+        ]}
+        translations={translations}
+      />,
+    );
+    const button = screen.container.querySelector('button');
+
+    assert.ok(button);
+    button.focus();
+    await userEvent.keyboard('tooltip');
+    await vi.waitFor(() => {
+      assert.strictEqual(screen.container.querySelectorAll('li > a').length, 1);
+    });
+
+    const link = screen.container.querySelector('li > a');
+    const excerpt = link?.querySelector('span')?.children[2];
+
+    assert.ok(link);
+    assert.ok(excerpt);
+    assert.strictEqual(link.getAttribute('href'), '/en/posts/example#references');
+    assert.include(link.textContent, 'Example article / References');
+    assert.include(excerpt.textContent, '<img src=x>');
+    assert.strictEqual(excerpt.querySelector('mark')?.textContent, 'tooltips');
+    assert.isAtMost(excerpt.textContent.length, 222);
+    assert.isNull(link.querySelector('img'));
+
+    await screen.getByRole('searchbox', { name: 'Search' }).fill('tooltaps');
+    await vi.waitFor(() => {
+      assert.strictEqual(excerpt.querySelector('mark')?.textContent, 'tooltips');
+    });
+  });
+
   it('should highlight exact, prefix, and fuzzy matches in titles and descriptions while preserving text', async () => {
     const screen = await render(
       <LocalSearch
-        vMarkdownFileMetas={[
+        documents={[
           {
             id: 'react.en',
+            url: '/en/posts/react',
+            heading: '',
+            content: '',
             slug: 'react',
             lang: 'en',
             readtime: 1,
@@ -186,9 +241,12 @@ describe('localsearch', () => {
   it('should scroll hidden keyboard selections into view without scrolling visible results', async () => {
     const screen = await render(
       <LocalSearch
-        vMarkdownFileMetas={[
+        documents={[
           {
             id: 'react-first.en',
+            url: '/en/posts/react-first',
+            heading: '',
+            content: '',
             slug: 'react-first',
             lang: 'en',
             readtime: 1,
@@ -203,6 +261,9 @@ describe('localsearch', () => {
           },
           {
             id: 'react-second.en',
+            url: '/en/posts/react-second',
+            heading: '',
+            content: '',
             slug: 'react-second',
             lang: 'en',
             readtime: 1,
@@ -292,7 +353,7 @@ describe('localsearch', () => {
   describe('spell checking', () => {
     it('should disable spell checking on the search input', async () => {
       const screen = await render(
-        <LocalSearch vMarkdownFileMetas={[]} translations={translations} />,
+        <LocalSearch documents={[]} translations={translations} />,
       );
       const input = screen.container.querySelector('input');
 
@@ -306,9 +367,12 @@ describe('localsearch', () => {
     it('should search with the first uppercase letter and continue typing in the input', async () => {
       const screen = await render(
         <LocalSearch
-          vMarkdownFileMetas={[
+          documents={[
             {
               id: 'react.en',
+              url: '/en/posts/react',
+              heading: '',
+              content: '',
               slug: 'react',
               lang: 'en',
               readtime: 1,
@@ -350,7 +414,7 @@ describe('localsearch', () => {
 
     it('should open the dialog with the first lowercase letter as the query', async () => {
       const screen = await render(
-        <LocalSearch vMarkdownFileMetas={[]} translations={translations} />,
+        <LocalSearch documents={[]} translations={translations} />,
       );
       const button = screen.container.querySelector('button');
       const dialog = screen.container.querySelector('dialog');
@@ -370,7 +434,7 @@ describe('localsearch', () => {
 
     it('should open the dialog with the first digit as the query', async () => {
       const screen = await render(
-        <LocalSearch vMarkdownFileMetas={[]} translations={translations} />,
+        <LocalSearch documents={[]} translations={translations} />,
       );
       const button = screen.container.querySelector('button');
       const dialog = screen.container.querySelector('dialog');
@@ -390,7 +454,7 @@ describe('localsearch', () => {
 
     it('should ignore modified letters, punctuation, and IME composition on the button', async () => {
       const screen = await render(
-        <LocalSearch vMarkdownFileMetas={[]} translations={translations} />,
+        <LocalSearch documents={[]} translations={translations} />,
       );
       const button = screen.container.querySelector('button');
       const dialog = screen.container.querySelector('dialog');
@@ -423,7 +487,7 @@ describe('localsearch', () => {
       );
 
       const screen = await render(
-        <LocalSearch vMarkdownFileMetas={[]} translations={translations} />,
+        <LocalSearch documents={[]} translations={translations} />,
       );
       const keycaps = screen.container.querySelectorAll('button kbd');
 
@@ -438,7 +502,7 @@ describe('localsearch', () => {
       );
 
       const screen = await render(
-        <LocalSearch vMarkdownFileMetas={[]} translations={translations} />,
+        <LocalSearch documents={[]} translations={translations} />,
       );
       const keycaps = screen.container.querySelectorAll('button kbd');
 
@@ -453,7 +517,7 @@ describe('localsearch', () => {
       );
 
       const screen = await render(
-        <LocalSearch vMarkdownFileMetas={[]} translations={translations} />,
+        <LocalSearch documents={[]} translations={translations} />,
       );
       const keycaps = screen.container.querySelectorAll('button kbd');
 
@@ -468,7 +532,7 @@ describe('localsearch', () => {
       );
 
       const screen = await render(
-        <LocalSearch vMarkdownFileMetas={[]} translations={translations} />,
+        <LocalSearch documents={[]} translations={translations} />,
       );
       const keycaps = screen.container.querySelectorAll('button kbd');
 

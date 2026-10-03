@@ -20,7 +20,7 @@ import 'client-only';
 
 import { Dialog, type DialogHandle } from '@lumir/react-kit/components';
 import { useOs, useShortcut } from '@lumir/react-kit/hooks';
-import MiniSearch, { type SearchResult } from 'minisearch';
+import { type SearchResult } from 'minisearch';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import {
@@ -31,14 +31,14 @@ import {
   type KeyboardEvent,
   type ReactNode,
 } from 'react';
-import { type VMarkdownFileMeta } from '@/data/v-markdown-file';
+import { createLocalSearch, type SearchDocument } from '@/utils/search';
 import styles from './localsearch.module.css';
 
 // --------------------------------------------------------------------------------
 // Typedef
 // --------------------------------------------------------------------------------
 
-type StoredSearchDocument = SearchResult & VMarkdownFileMeta;
+type StoredSearchDocument = SearchResult & SearchDocument;
 
 /**
  * Props for the `SearchClient` component.
@@ -47,7 +47,7 @@ export interface LocalSearchProps {
   /**
    * Search documents to index on the client.
    */
-  readonly vMarkdownFileMetas: VMarkdownFileMeta[];
+  readonly documents: SearchDocument[];
 
   /**
    * Translations for the search UI.
@@ -273,22 +273,32 @@ export interface LocalSearchProps {
 
 function highlightMatches(
   document: StoredSearchDocument,
-  field: 'title' | 'description',
+  field: 'title' | 'description' | 'heading' | 'content',
 ) {
   // Use the actual matched document terms, including prefix and fuzzy matches, for this field.
   const terms = new Set(
     document.terms.filter(term => document.match[term]?.includes(field)),
   );
+  let text =
+    field === 'title' || field === 'description' ? document.data[field] : document[field];
+
+  if (field === 'content') {
+    let start = 0;
+
+    for (const part of text.matchAll(/[^\n\r\p{Z}\p{P}]+/gu)) {
+      if (terms.has(part[0].toLowerCase())) {
+        start = Math.max(0, part.index - 60);
+        break;
+      }
+    }
+
+    const end = Math.min(text.length, start + 220);
+    text = `${start > 0 ? '…' : ''}${text.slice(start, end)}${end < text.length ? '…' : ''}`;
+  }
 
   // Preserve the original text using MiniSearch's default word boundaries and React nodes.
-  return Array.from(
-    document.data[field].matchAll(/[^\n\r\p{Z}\p{P}]+|[\n\r\p{Z}\p{P}]+/gu),
-    part =>
-      terms.has(part[0].toLowerCase()) ? (
-        <mark key={part.index}>{part[0]}</mark>
-      ) : (
-        part[0]
-      ),
+  return Array.from(text.matchAll(/[^\n\r\p{Z}\p{P}]+|[\n\r\p{Z}\p{P}]+/gu), part =>
+    terms.has(part[0].toLowerCase()) ? <mark key={part.index}>{part[0]}</mark> : part[0],
   );
 }
 
@@ -297,7 +307,7 @@ function highlightMatches(
 // --------------------------------------------------------------------------------
 
 export function LocalSearch({
-  vMarkdownFileMetas,
+  documents,
   translations: {
     placeholder,
     button: { buttonAriaLabel, buttonText },
@@ -337,28 +347,7 @@ export function LocalSearch({
   const router = useRouter();
   const os = useOs();
 
-  const miniSearch = useMemo(() => {
-    const search = new MiniSearch<VMarkdownFileMeta>({
-      fields: ['title', 'description'],
-      extractField: (document, fieldName) =>
-        fieldName === 'title' || fieldName === 'description'
-          ? document.data[fieldName]
-          : document[fieldName as keyof VMarkdownFileMeta],
-      searchOptions: {
-        boost: {
-          title: 2,
-          description: 1,
-        },
-        fuzzy: 0.2,
-        prefix: true,
-      },
-      storeFields: ['id', 'slug', 'lang', 'data'] satisfies (keyof VMarkdownFileMeta)[],
-    });
-
-    search.addAll(vMarkdownFileMetas);
-
-    return search;
-  }, [vMarkdownFileMetas]);
+  const miniSearch = useMemo(() => createLocalSearch(documents), [documents]);
 
   const results = useMemo(() => {
     if (deferredQuery.length === 0) {
@@ -386,9 +375,9 @@ export function LocalSearch({
     inputRef.current?.focus();
   }
 
-  function navigateToResult(document: VMarkdownFileMeta) {
+  function navigateToResult(document: SearchDocument) {
     dialogRef.current?.close();
-    router.push(`/${document.lang}/posts/${document.slug}`);
+    router.push(document.url);
   }
 
   function activateResult(index: number) {
@@ -539,17 +528,32 @@ export function LocalSearch({
                   {results.map((document, index) => (
                     <li key={document.id}>
                       <Link
-                        href={`/${document.lang}/posts/${document.slug}`}
+                        href={document.url}
                         data-active={index === activeIndex}
                         // Close on same-tab navigation; modifier clicks keep the search open.
                         onNavigate={() => dialogRef.current?.close()}
                       >
                         <span>
-                          <span>{highlightMatches(document, 'title')}</span>
+                          <span>
+                            {highlightMatches(document, 'title')}
+                            {document.heading ? (
+                              <> / {highlightMatches(document, 'heading')}</>
+                            ) : null}
+                          </span>
                           <span>
                             {pathPrefix} / {document.slug}
                           </span>
-                          <span>{highlightMatches(document, 'description')}</span>
+                          <span>
+                            {highlightMatches(
+                              document,
+                              document.heading ||
+                                document.terms.some(term =>
+                                  document.match[term]?.includes('content'),
+                                )
+                                ? 'content'
+                                : 'description',
+                            )}
+                          </span>
                           <span>
                             <span>{document.data.created}</span>
                             <span>
