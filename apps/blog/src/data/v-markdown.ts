@@ -1,5 +1,5 @@
 /**
- * @fileoverview Defines the structure of a virtual Markdown file.
+ * @fileoverview Defines the structure of a virtual Markdown document.
  */
 
 // --------------------------------------------------------------------------------

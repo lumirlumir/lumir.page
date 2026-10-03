@@ -16,7 +16,7 @@ import { frontmatter, readtime } from '@lumir/utils';
 import { categoryKeys, type CategoryKey } from '@/data/category';
 import { type Frontmatter } from '@/data/frontmatter';
 import { langKeys, type LangKey, type LangRecord } from '@/data/lang';
-import { type VMarkdownFileMeta, type VMarkdownFile } from '@/data/v-markdown-file';
+import { type VMarkdownFileMeta, type VMarkdownFile } from '@/data/v-markdown';
 import { isFrontmatter } from '@/utils/is';
 
 // --------------------------------------------------------------------------------

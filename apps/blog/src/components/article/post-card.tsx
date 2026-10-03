@@ -18,7 +18,7 @@ import { cn } from '@lumir/utils';
 import { categoryMeta } from '@/data/category';
 import { frontmatterMeta } from '@/data/frontmatter';
 import { type PropsWithLang } from '@/data/lang';
-import { type VMarkdownFileMeta } from '@/data/v-markdown-file';
+import { type VMarkdownFileMeta } from '@/data/v-markdown';
 import { markdownToHtmlLite } from '@/utils/markdown-to-html';
 import styles from './post-card.module.css';
 
