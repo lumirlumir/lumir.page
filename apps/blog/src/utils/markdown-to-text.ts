@@ -1,6 +1,8 @@
 /**
  * @fileoverview Defines the helper functions for converting markdown content to plain text.
  * @see https://github.com/syntax-tree/mdast-util-to-string#readme (`mdast-util-to-string`)
+ * @see https://github.com/remarkjs/remark-gfm#readme (`remark-gfm`)
+ * @see https://github.com/remarkjs/remark-math#readme (`remark-math`)
  * @see https://github.com/remarkjs/remark/tree/main/packages/remark-parse#remark-parse (`remark-parse`)
  * @see https://github.com/remarkjs/strip-markdown (`strip-markdown`)
  * @see https://github.com/unifiedjs/unified#readme (`unified`)
@@ -16,6 +18,8 @@ import 'server-only';
 // Import
 // --------------------------------------------------------------------------------
 
+import remarkGfm from 'remark-gfm';
+import remarkMath from 'remark-math';
 import remarkParse from 'remark-parse';
 import { unified } from 'unified';
 import { mdastToText, mdastToTextSync } from '@/utils/mdast-to-text';
@@ -24,14 +28,14 @@ import { mdastToText, mdastToTextSync } from '@/utils/mdast-to-text';
 // Helper
 // --------------------------------------------------------------------------------
 
-const processor = unified().use(remarkParse);
+const processor = unified().use(remarkParse).use(remarkGfm).use(remarkMath);
 
 // --------------------------------------------------------------------------------
 // Export
 // --------------------------------------------------------------------------------
 
 /**
- * Converts markdown content to plain text asynchronously using `unified` with `remark`.
+ * Converts markdown content, including GFM and math, to plain text asynchronously using `unified` with `remark`.
  * @param markdown The markdown content to convert.
  * @example
  * ```ts
@@ -47,7 +51,7 @@ export async function markdownToText(markdown: string): Promise<string> {
 }
 
 /**
- * Converts markdown content to plain text synchronously using `unified` with `remark`.
+ * Converts markdown content, including GFM and math, to plain text synchronously using `unified` with `remark`.
  * @param markdown The markdown content to convert.
  * @example
  * ```ts
