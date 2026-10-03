@@ -4,7 +4,6 @@
  * @see https://github.com/remarkjs/remark-gfm#readme (`remark-gfm`)
  * @see https://github.com/remarkjs/remark-math#readme (`remark-math`)
  * @see https://github.com/remarkjs/remark/tree/main/packages/remark-parse#remark-parse (`remark-parse`)
- * @see https://github.com/remarkjs/strip-markdown (`strip-markdown`)
  * @see https://github.com/unifiedjs/unified#readme (`unified`)
  */
 

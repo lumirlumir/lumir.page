@@ -1,5 +1,6 @@
 /**
  * @fileoverview Defines the helper functions for converting mdast nodes to plain text.
+ * @see https://github.com/remarkjs/strip-markdown (`strip-markdown`)
  */
 
 // --------------------------------------------------------------------------------
