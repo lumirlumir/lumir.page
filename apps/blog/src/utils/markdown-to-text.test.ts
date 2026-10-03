@@ -81,6 +81,14 @@ describe('markdown-to-text', () => {
     assert.strictEqual(markdownToTextSync(markdown), text);
   });
 
+  it('should convert hard breaks written with spaces and backslashes to newlines', async () => {
+    const markdown = 'First  \n**Second**\\\nThird';
+    const text = 'First\nSecond\nThird';
+
+    assert.strictEqual(await markdownToText(markdown), text);
+    assert.strictEqual(markdownToTextSync(markdown), text);
+  });
+
   it('should preserve text inside GFM strikethrough syntax', async () => {
     const markdown = 'Replace ~~old text~~ with new text';
     const text = 'Replace old text with new text';
