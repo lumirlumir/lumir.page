@@ -78,7 +78,8 @@ function toText(node: Nodes): string {
  * //       id: 'awesome-title',
  * //       text: 'Awesome Title',
  * //       depth: 1,
- * //       parent: null
+ * //       parent: null,
+ * //       content: 'Introduction'
  * //     },
  * //     content: 'Some content'
  * //   }
@@ -161,15 +162,19 @@ export async function markdownToHeading(
       node.type === 'code' ||
       node.type === 'math'
     ) {
-      if (vMarkdownHeading) {
-        const value = toText(node)
-          .replace(/[^\S\n]+/g, ' ')
-          .trim();
-
-        if (value) {
-          vMarkdownHeading.content += `${vMarkdownHeading.content ? ' ' : ''}${value}`;
-        }
+      if (!vMarkdownHeading) {
+        return;
       }
+
+      const value = toText(node)
+        .replace(/[^\S\n]+/g, ' ')
+        .trim();
+
+      if (!value) {
+        return;
+      }
+
+      vMarkdownHeading.content += `${vMarkdownHeading.content ? ' ' : ''}${value}`;
 
       return;
     }
