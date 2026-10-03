@@ -228,13 +228,16 @@ describe('markdown-to-heading', () => {
     ]);
   });
 
-  it('separates blocks and line breaks while preserving words across inline formatting', async () => {
+  it('preserves hard breaks as newlines while separating blocks and joining inline text', async () => {
     const headings = await markdownToHeading(
-      'First\n\nSecond\n\ntool**tip** and <kbd>keyboard</kbd>.  \nNext.',
+      'First\n\nSecond\n\ntool**tip** and <kbd>keyboard</kbd>.  \nNext.\\\nLast.',
       { title: 'Article {#article}' },
     );
 
-    assert.strictEqual(headings[0].content, 'First Second tooltip and keyboard. Next.');
+    assert.strictEqual(
+      headings[0].content,
+      'First Second tooltip and keyboard.\nNext.\nLast.',
+    );
   });
 
   it('separates nested Markdown blocks and keeps code, math, and table text', async () => {

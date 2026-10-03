@@ -14,12 +14,12 @@ import 'server-only';
 
 import { customHeadingIdRegex, remarkHeadingFromTitle } from '@lumir/remark-plugins';
 import type { Nodes, Root } from 'mdast';
-import { toString } from 'mdast-util-to-string';
 import remarkGfm from 'remark-gfm';
 import remarkMath from 'remark-math';
 import remarkParse from 'remark-parse';
 import { unified } from 'unified';
 import { type VMarkdownHeading } from '@/data/v-markdown';
+import { mdastToTextSync } from '@/utils/mdast-to-text';
 
 // --------------------------------------------------------------------------------
 // Typedef
@@ -30,6 +30,18 @@ interface MarkdownToHeadingOptions {
    * Prepend an H1 heading generated from the provided title.
    */
   title?: string;
+}
+
+// --------------------------------------------------------------------------------
+// Helper
+// --------------------------------------------------------------------------------
+
+function toText(node: Nodes): string {
+  return mdastToTextSync(node, {
+    keep: ['code', 'tableCell'],
+    includeImageAlt: true,
+    includeHtml: false,
+  });
 }
 
 // --------------------------------------------------------------------------------
@@ -88,19 +100,13 @@ export async function markdownToHeading(
 
   let vMarkdownHeading: (VMarkdownHeading & { content: string }) | null = null;
 
-  function text(node: Nodes): string {
-    if (node.type === 'break') return ' ';
-    if ('children' in node) return node.children.map(text).join('');
-    return toString(node, { includeImageAlt: true, includeHtml: false });
-  }
-
   function walk(node: Nodes): void {
     if (node.type === 'heading') {
       const lastChildNode = node.children.at(-1);
 
       if (!lastChildNode || lastChildNode.type !== 'text') {
         throw new Error(
-          `Heading "${text(node)}" at line ${node.position?.start.line} needs an explicit custom ID`,
+          `Heading "${toText(node)}" at line ${node.position?.start.line} needs an explicit custom ID`,
         );
       }
 
@@ -108,7 +114,7 @@ export async function markdownToHeading(
 
       if (!match || !match.groups) {
         throw new Error(
-          `Heading "${text(node)}" at line ${node.position?.start.line} needs an explicit custom ID`,
+          `Heading "${toText(node)}" at line ${node.position?.start.line} needs an explicit custom ID`,
         );
       }
 
@@ -139,7 +145,7 @@ export async function markdownToHeading(
       headings.push(
         (vMarkdownHeading = {
           id: match.groups.id,
-          text: text(node),
+          text: toText(node),
           depth: node.depth,
           parent: vMarkdownHeading ?? null,
           content: '',
@@ -156,7 +162,9 @@ export async function markdownToHeading(
       node.type === 'math'
     ) {
       if (vMarkdownHeading) {
-        const value = text(node).replace(/\s+/g, ' ').trim();
+        const value = toText(node)
+          .replace(/[^\S\n]+/g, ' ')
+          .trim();
 
         if (value) {
           vMarkdownHeading.content += `${vMarkdownHeading.content ? ' ' : ''}${value}`;

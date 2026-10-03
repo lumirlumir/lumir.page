@@ -16,16 +16,15 @@ import 'server-only';
 // Import
 // --------------------------------------------------------------------------------
 
-import { toString } from 'mdast-util-to-string';
 import remarkParse from 'remark-parse';
-import stripMarkdown from 'strip-markdown';
 import { unified } from 'unified';
+import { mdastToText, mdastToTextSync } from '@/utils/mdast-to-text';
 
 // --------------------------------------------------------------------------------
 // Helper
 // --------------------------------------------------------------------------------
 
-const processor = unified().use(remarkParse).use(stripMarkdown);
+const processor = unified().use(remarkParse);
 
 // --------------------------------------------------------------------------------
 // Export
@@ -44,9 +43,7 @@ const processor = unified().use(remarkParse).use(stripMarkdown);
  * ```
  */
 export async function markdownToText(markdown: string): Promise<string> {
-  const tree = await processor.run(processor.parse(markdown));
-
-  return toString(tree);
+  return mdastToText(processor.parse(markdown));
 }
 
 /**
@@ -62,7 +59,5 @@ export async function markdownToText(markdown: string): Promise<string> {
  * ```
  */
 export function markdownToTextSync(markdown: string): string {
-  const tree = processor.runSync(processor.parse(markdown));
-
-  return toString(tree);
+  return mdastToTextSync(processor.parse(markdown));
 }
