@@ -6,7 +6,7 @@ import MiniSearch from 'minisearch';
 import { assert, describe, it } from 'vitest';
 import { type VMarkdownFileMeta } from '@/data/v-markdown';
 import { markdownToHtml } from './markdown-to-html';
-import { markdownToSearchData } from './markdown-to-search-data';
+import { markdownToHeading } from './markdown-to-heading';
 import { createLocalSearch, createSearchDocuments } from './search';
 
 const post: VMarkdownFileMeta = {
@@ -26,7 +26,7 @@ const post: VMarkdownFileMeta = {
 
 describe('search', () => {
   it('returns a native MiniSearch instance that finds body-only terms', async () => {
-    const sections = await markdownToSearchData(
+    const sections = await markdownToHeading(
       '제목과 설명에 없는 툴팁 내용을 검색합니다.',
       {
         title: 'Example article {#example}',
@@ -43,7 +43,7 @@ describe('search', () => {
   });
 
   it('indexes paragraphs, lists, image alt text, links, references, and inline HTML', async () => {
-    const sections = await markdownToSearchData(
+    const sections = await markdownToHeading(
       '소개문단\n\n- 목록항목\n\n![이미지설명](image.png)\n\n[링크문구][reference] 주변텍스트\n\n<span>인라인텍스트</span>\n\n각주[^note]\n\n[^note]: 각주본문\n\n[reference]: https://example.com',
       { title: 'Example article {#example}' },
     );
@@ -60,7 +60,7 @@ describe('search', () => {
   });
 
   it('preserves a post introduction and distinct H1 through H6 section records', async () => {
-    const sections = await markdownToSearchData(
+    const sections = await markdownToHeading(
       'Introduction.\n\n# One\n\nFirst.\n\n## Two\n\nSecond.\n\n### Three\n\nThird.\n\n#### Four\n\nFourth.\n\n##### Five\n\nFifth.\n\n###### Six\n\nSixth.',
       { title: 'Example article {#example}' },
     );
@@ -82,7 +82,7 @@ describe('search', () => {
   it('matches rendered IDs for custom, duplicate, Setext, and raw HTML headings', async () => {
     const content =
       '## Custom {#chosen}\n\nBody.\n\n## **Repeated**\n\nFirst.\n\n## Repeated\n\nSecond.\n\nSetext\n------\n\nThird.\n\n<section><h3 id="raw-heading">Raw</h3><p>Fourth.</p></section>';
-    const sections = await markdownToSearchData(content, {
+    const sections = await markdownToHeading(content, {
       title: 'Example article {#example}',
     });
     const documents = createSearchDocuments(post, sections);
@@ -103,7 +103,7 @@ describe('search', () => {
   });
 
   it('encodes Unicode and spaces in custom section anchors', async () => {
-    const sections = await markdownToSearchData('## 제목 {#한글 anchor}\n\n본문.', {
+    const sections = await markdownToHeading('## 제목 {#한글 anchor}\n\n본문.', {
       title: 'Example article {#example}',
     });
     const documents = createSearchDocuments(post, sections);
@@ -112,7 +112,7 @@ describe('search', () => {
   });
 
   it('does not join adjacent blocks or split words across inline formatting', async () => {
-    const sections = await markdownToSearchData(
+    const sections = await markdownToHeading(
       '<div><p>First</p><p>Second</p></div>\n\ntool**tip** and <kbd>keyboard</kbd>.',
       { title: 'Example article {#example}' },
     );
@@ -123,7 +123,7 @@ describe('search', () => {
   });
 
   it('excludes comments, scripts, styles, templates, and hidden HTML from search', async () => {
-    const sections = await markdownToSearchData(
+    const sections = await markdownToHeading(
       'Visible.\n\n<!-- commentsecret -->\n\n<script>scriptsecret</script>\n\n<style>stylesecret</style>\n\n<template>templatesecret</template>\n\n<div hidden>hiddensecret</div>\n\n<div aria-hidden="true">ariasecret</div>',
       { title: 'Example article {#example}' },
     );
@@ -133,7 +133,7 @@ describe('search', () => {
   });
 
   it('keeps metadata matches on the post record and heading matches on their section', async () => {
-    const sections = await markdownToSearchData(
+    const sections = await markdownToHeading(
       'Intro.\n\n## Installation\n\nSetup.\n\n## Troubleshooting\n\nDiagnostics.',
       { title: 'Example article {#example}' },
     );
@@ -151,7 +151,7 @@ describe('search', () => {
   });
 
   it('preserves prefix and fuzzy matching in section body text', async () => {
-    const sections = await markdownToSearchData('## Setup\n\nJavaScript configuration.', {
+    const sections = await markdownToHeading('## Setup\n\nJavaScript configuration.', {
       title: 'Example article {#example}',
     });
     const documents = createSearchDocuments(post, sections);
@@ -160,5 +160,42 @@ describe('search', () => {
     assert.strictEqual(search.search('JavaScr')[0].url, '/ko/posts/example#setup');
     assert.strictEqual(search.search('javascropt')[0].url, '/ko/posts/example#setup');
     assert.deepEqual(search.search('javascropt')[0].match.javascript, ['content']);
+  });
+
+  it('preserves ancestor paths when search results are reordered by score', async () => {
+    const headings = await markdownToHeading(
+      'Intro.\n\n## Installation\n\n### Windows\n\nTooltip configuration.\n\n### macOS\n\nOther setup.',
+      { title: 'Example article {#example}' },
+    );
+    const documents = createSearchDocuments(post, headings);
+    const results = createLocalSearch(documents).search('tooltip');
+
+    assert.lengthOf(results, 1);
+    assert.strictEqual(results[0].url, '/ko/posts/example#windows');
+    assert.strictEqual(results[0].heading, 'Windows');
+    assert.deepEqual(results[0].headingPath, ['Installation']);
+    assert.deepEqual(documents[3].headingPath, ['Installation']);
+    assert.deepEqual(documents[0].headingPath, []);
+  });
+
+  it('keeps the first real body heading as a section when no article H1 is supplied', async () => {
+    const headings = await markdownToHeading('## Installation\n\nTooltip setup.');
+    const documents = createSearchDocuments(post, headings);
+    const search = createLocalSearch(documents);
+
+    assert.lengthOf(documents, 2);
+    assert.strictEqual(documents[0].url, '/ko/posts/example');
+    assert.strictEqual(documents[1].url, '/ko/posts/example#installation');
+    assert.strictEqual(search.search('article')[0].url, '/ko/posts/example');
+    assert.strictEqual(search.search('tooltip')[0].url, '/ko/posts/example#installation');
+  });
+
+  it('keeps metadata searchable when no headings are returned', () => {
+    const documents = createSearchDocuments(post, []);
+    const search = createLocalSearch(documents);
+
+    assert.lengthOf(documents, 1);
+    assert.strictEqual(documents[0].content, '');
+    assert.strictEqual(search.search('summary')[0].url, '/ko/posts/example');
   });
 });

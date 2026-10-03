@@ -104,7 +104,7 @@ describe('localsearch', () => {
     vi.restoreAllMocks();
   });
 
-  it('should show and safely highlight an excerpt around a body match with its section link', async () => {
+  it('should show the ancestor path and safely highlight a body excerpt with its section link', async () => {
     const screen = await render(
       <LocalSearch
         documents={[
@@ -112,6 +112,7 @@ describe('localsearch', () => {
             id: 'example.en:1',
             url: '/en/posts/example#references',
             heading: 'References',
+            headingPath: ['Usage'],
             content: `${'Background text. '.repeat(70)}Use tooltips <img src=x> for context.`,
             slug: 'example',
             lang: 'en',
@@ -144,7 +145,7 @@ describe('localsearch', () => {
     assert.ok(link);
     assert.ok(excerpt);
     assert.strictEqual(link.getAttribute('href'), '/en/posts/example#references');
-    assert.include(link.textContent, 'Example article / References');
+    assert.include(link.textContent, 'Example article / Usage / References');
     assert.include(excerpt.textContent, '<img src=x>');
     assert.strictEqual(excerpt.querySelector('mark')?.textContent, 'tooltips');
     assert.isAtMost(excerpt.textContent.length, 222);
@@ -164,6 +165,7 @@ describe('localsearch', () => {
             id: 'react.en',
             url: '/en/posts/react',
             heading: '',
+            headingPath: [],
             content: '',
             slug: 'react',
             lang: 'en',
@@ -246,6 +248,7 @@ describe('localsearch', () => {
             id: 'react-first.en',
             url: '/en/posts/react-first',
             heading: '',
+            headingPath: [],
             content: '',
             slug: 'react-first',
             lang: 'en',
@@ -263,6 +266,7 @@ describe('localsearch', () => {
             id: 'react-second.en',
             url: '/en/posts/react-second',
             heading: '',
+            headingPath: [],
             content: '',
             slug: 'react-second',
             lang: 'en',
@@ -372,6 +376,7 @@ describe('localsearch', () => {
               id: 'react.en',
               url: '/en/posts/react',
               heading: '',
+              headingPath: [],
               content: '',
               slug: 'react',
               lang: 'en',

@@ -15,7 +15,7 @@ import 'server-only';
 import { LmSearch } from '@lumir/react-kit/svgs';
 import { type LangKey, type LangRecord, type PropsWithLang } from '@/data/lang';
 import createMarkdownCollection from '@/utils/markdown-collection';
-import { markdownToSearchData } from '@/utils/markdown-to-search-data';
+import { markdownToHeading } from '@/utils/markdown-to-heading';
 import { createSearchDocuments, type SearchDocument } from '@/utils/search';
 import { LocalSearch, type LocalSearchProps } from './localsearch';
 
@@ -141,11 +141,11 @@ export async function Search({ lang }: PropsWithLang) {
   const documents = await (searchDocumentsByLang[lang] ??= Promise.all(
     Object.values(markdownCollection.byLangSlug[lang]).map(async metadata => {
       const file = await markdownCollection.loadVMarkdownFile(metadata.id);
-      const sections = await markdownToSearchData(file.content, {
+      const headings = await markdownToHeading(file.content, {
         title: `${metadata.data.title} {#${metadata.slug}}`,
       });
 
-      return createSearchDocuments(metadata, sections);
+      return createSearchDocuments(metadata, headings);
     }),
   ).then(posts => posts.flat()));
 

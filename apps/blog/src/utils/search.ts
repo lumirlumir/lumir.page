@@ -3,34 +3,64 @@
  */
 
 import MiniSearch from 'minisearch';
-import { type VMarkdownFileMeta } from '@/data/v-markdown';
+import { type VMarkdownFileMeta, type VMarkdownHeading } from '@/data/v-markdown';
 
 /**
  * A post introduction or heading section with its destination and searchable text.
  */
-export interface SearchDocument extends Omit<VMarkdownFileMeta, 'id'> {
+export interface SearchDocument
+  extends Omit<VMarkdownFileMeta, 'id'>, Pick<VMarkdownHeading, 'heading' | 'content'> {
   readonly id: string;
   readonly url: `/${VMarkdownFileMeta['lang']}/posts/${string}`;
-  readonly heading: string;
-  readonly content: string;
+  /** Ancestor heading names in document order, excluding the article title. */
+  readonly headingPath: readonly string[];
 }
 
 /**
- * Creates post and section records from metadata and sections extracted on the server.
+ * Creates a post record and heading records from metadata and extracted headings.
+ * The generated title H1 contributes its introduction to the post record.
  */
 export function createSearchDocuments(
   metadata: VMarkdownFileMeta,
-  sections: readonly { heading: string; anchor: string; content: string }[],
+  headings: readonly VMarkdownHeading[],
 ): SearchDocument[] {
   const url: SearchDocument['url'] = `/${metadata.lang}/posts/${metadata.slug}`;
 
-  return sections.map((section, index): SearchDocument => ({
-    ...metadata,
-    id: `${metadata.id}:${index}`,
-    url: section.anchor ? `${url}#${encodeURIComponent(section.anchor)}` : url,
-    heading: section.heading,
-    content: section.content,
-  }));
+  const titleHeading = headings[0];
+  const hasTitle = titleHeading?.level === 1 && titleHeading.id === metadata.slug;
+  const bodyHeadings = hasTitle ? headings.slice(1) : headings;
+
+  return [
+    {
+      ...metadata,
+      id: `${metadata.id}:0`,
+      url,
+      heading: '',
+      headingPath: [],
+      content: hasTitle ? titleHeading.content : '',
+    },
+    ...bodyHeadings.map((section, index): SearchDocument => {
+      const headingPath: string[] = [];
+      let { parent } = section;
+
+      while (parent) {
+        if (!(hasTitle && parent.id === titleHeading.id && parent.level === 1)) {
+          headingPath.unshift(parent.heading);
+        }
+
+        parent = parent.parent;
+      }
+
+      return {
+        ...metadata,
+        id: `${metadata.id}:${index + 1}`,
+        url: section.id ? `${url}#${encodeURIComponent(section.id)}` : url,
+        heading: section.heading,
+        headingPath,
+        content: section.content,
+      };
+    }),
+  ];
 }
 
 /**
@@ -62,6 +92,7 @@ export function createLocalSearch(
       'data',
       'url',
       'heading',
+      'headingPath',
       'content',
     ] satisfies (keyof SearchDocument)[],
   });

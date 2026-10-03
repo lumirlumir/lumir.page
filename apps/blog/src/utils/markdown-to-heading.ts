@@ -1,5 +1,5 @@
 /**
- * @fileoverview Converts Markdown to search data with rendered heading anchors.
+ * @fileoverview Extracts Markdown headings, section text, and parent relationships.
  */
 
 // --------------------------------------------------------------------------------
@@ -26,14 +26,16 @@ import rehypeGitHubEmoji from 'rehype-github-emoji';
 import rehypeSlug from 'rehype-slug';
 import { unified } from 'unified';
 import { githubRepoFullName } from '@/data/site';
+import { type VMarkdownHeading, type VMarkdownHeadingMeta } from '@/data/v-markdown';
 
 // --------------------------------------------------------------------------------
 // Typedef
 // --------------------------------------------------------------------------------
 
-interface MarkdownToSearchDataOptions {
+interface MarkdownToHeadingOptions {
   /**
-   * Skip the H1 heading generated from the provided title in the search data.
+   * Prepend an H1 heading generated from the provided title.
+   * Introductory body text becomes the content of this heading.
    */
   title?: string;
 }
@@ -43,13 +45,17 @@ interface MarkdownToSearchDataOptions {
 // --------------------------------------------------------------------------------
 
 /**
- * Extracts the introduction and each H1-H6 section using the rendered heading IDs.
+ * Extracts each H1-H6 heading with its rendered ID, level, direct parent, and section text.
+ * Keeps the H1 generated from `options.title`, including its introductory body text.
+ * Without a title, text before the first heading is omitted; documents without headings return an empty array.
  * Includes image alt text and inline text, and excludes comments and hidden content.
+ * @param markdown The Markdown body to process.
+ * @param options Optional title used to generate an H1 heading.
  */
-export async function markdownToSearchData(
+export async function markdownToHeading(
   markdown: string,
-  options?: MarkdownToSearchDataOptions,
-) {
+  options?: MarkdownToHeadingOptions,
+): Promise<VMarkdownHeading[]> {
   // Keep text transformations and heading IDs aligned with `markdownToHtml`.
   const processor = unified()
     .use(remarkParse)
@@ -79,9 +85,18 @@ export async function markdownToSearchData(
     .use(rehypeGitHubEmoji)
     .use(rehypeSlug);
   const tree = await processor.run(processor.parse(markdown));
-  const sections = [{ heading: '', anchor: '', content: '' }];
-  let section = sections[0];
-  let skipTitle = Boolean(options?.title);
+  const headings: VMarkdownHeading[] = [];
+  const stack: VMarkdownHeadingMeta[] = [];
+  let heading: VMarkdownHeadingMeta | undefined;
+  let content = '';
+
+  function finishHeading() {
+    if (heading) {
+      headings.push({ ...heading, content: content.replace(/\s+/g, ' ').trim() });
+    }
+
+    content = '';
+  }
 
   function text(node: (typeof tree.children)[number]): string {
     if (node.type === 'text') return node.value;
@@ -100,7 +115,7 @@ export async function markdownToSearchData(
 
   function visit(node: (typeof tree.children)[number]) {
     if (node.type === 'text') {
-      section.content += node.value;
+      if (heading) content += node.value;
       return;
     }
     if (node.type !== 'element') return;
@@ -111,20 +126,24 @@ export async function markdownToSearchData(
     )
       return;
     if (/^h[1-6]$/.test(node.tagName)) {
-      if (skipTitle) {
-        skipTitle = false;
-        return;
+      finishHeading();
+      const level = Number(node.tagName[1]) as VMarkdownHeadingMeta['level'];
+
+      while (stack.length && stack[stack.length - 1].level >= level) {
+        stack.pop();
       }
-      section = {
+
+      heading = {
         heading: text(node).trim(),
-        anchor: String(node.properties.id ?? ''),
-        content: '',
+        id: String(node.properties.id ?? ''),
+        level,
+        parent: stack.at(-1) ?? null,
       };
-      sections.push(section);
+      stack.push(heading);
       return;
     }
     if (node.tagName === 'img') {
-      section.content += ` ${text(node)} `;
+      if (heading) content += ` ${text(node)} `;
       return;
     }
     const block = ![
@@ -138,15 +157,13 @@ export async function markdownToSearchData(
       'kbd',
       'del',
     ].includes(node.tagName);
-    if (block) section.content += ' ';
+    if (block && heading) content += ' ';
     node.children.forEach(visit);
-    if (block) section.content += ' ';
+    if (block && heading) content += ' ';
   }
 
   tree.children.forEach(visit);
+  finishHeading();
 
-  return sections.map(value => ({
-    ...value,
-    content: value.content.replace(/\s+/g, ' ').trim(),
-  }));
+  return headings;
 }

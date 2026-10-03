@@ -536,6 +536,9 @@ export function LocalSearch({
                         <span>
                           <span>
                             {highlightMatches(document, 'title')}
+                            {document.headingPath.length
+                              ? ` / ${document.headingPath.join(' / ')}`
+                              : null}
                             {document.heading ? (
                               <> / {highlightMatches(document, 'heading')}</>
                             ) : null}
