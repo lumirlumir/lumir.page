@@ -48,6 +48,11 @@ export interface VMarkdownFileMeta {
   readonly lang: LangKey;
 
   /**
+   * The URL of the Markdown file, constructed based on its language key and slug (e.g., `/ko/posts/example` for `./example.ko.md`).
+   */
+  readonly url: `/${VMarkdownFileMeta['lang']}/posts/${VMarkdownFileMeta['slug']}`;
+
+  /**
    * Estimated reading time of the Markdown body in display minutes, excluding frontmatter.
    */
   readonly readtime: number;
