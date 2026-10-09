@@ -1,0 +1,214 @@
+/**
+ * @fileoverview Tests post and section search against Markdown source.
+ */
+
+import MiniSearch from 'minisearch';
+import { assert, describe, it } from 'vitest';
+import { type VMarkdownFileMeta } from '@/data/v-markdown';
+import { markdownToHtml } from '@/utils/markdown-to-html';
+import { markdownToHeading } from '@/utils/markdown-to-heading';
+import { createLocalSearch } from './localsearch';
+import { createSearchDocuments } from './search';
+
+const post: VMarkdownFileMeta = {
+  id: 'example.ko',
+  slug: 'example',
+  lang: 'ko',
+  readtime: 1,
+  data: {
+    title: 'Example article',
+    description: 'Metadata summary',
+    created: '2026-10-03',
+    updated: '2026-10-03',
+    categories: [],
+    references: [],
+  },
+};
+
+describe('search', () => {
+  it('returns a native MiniSearch instance that finds body-only terms', async () => {
+    const sections = await markdownToHeading(
+      '제목과 설명에 없는 툴팁 내용을 검색합니다.',
+      {
+        title: 'Example article {#example}',
+      },
+    );
+    const documents = createSearchDocuments(post, sections);
+    const search = createLocalSearch(documents);
+
+    assert.instanceOf(search, MiniSearch);
+    assert.lengthOf(search.search('툴팁'), 1);
+    assert.strictEqual(search.search('툴팁')[0].url, '/ko/posts/example#example');
+    assert.deepEqual(search.search('툴팁')[0].match['툴팁'], ['content']);
+    assert.strictEqual(search.search('툴팁')[0].readtime, 1);
+  });
+
+  it('indexes paragraphs, lists, image alt text, links, references, and inline HTML', async () => {
+    const sections = await markdownToHeading(
+      '소개문단\n\n- 목록항목\n\n![이미지설명](image.png)\n\n[링크문구][reference] 주변텍스트\n\n<span>인라인텍스트</span>\n\n각주[^note]\n\n[^note]: 각주본문\n\n[reference]: https://example.com',
+      { title: 'Example article {#example}' },
+    );
+    const documents = createSearchDocuments(post, sections);
+    const search = createLocalSearch(documents);
+
+    assert.lengthOf(search.search('소개문단'), 1);
+    assert.lengthOf(search.search('목록항목'), 1);
+    assert.lengthOf(search.search('이미지설명'), 1);
+    assert.lengthOf(search.search('링크문구'), 1);
+    assert.lengthOf(search.search('주변텍스트'), 1);
+    assert.lengthOf(search.search('인라인텍스트'), 1);
+    assert.lengthOf(search.search('각주본문'), 1);
+  });
+
+  it('preserves a post introduction and distinct H1 through H6 section records', async () => {
+    const sections = await markdownToHeading(
+      'Introduction.\n\n# One {#one}\n\nFirst.\n\n## Two {#two}\n\nSecond.\n\n### Three {#three}\n\nThird.\n\n#### Four {#four}\n\nFourth.\n\n##### Five {#five}\n\nFifth.\n\n###### Six {#six}\n\nSixth.',
+      { title: 'Example article {#example}' },
+    );
+    const documents = createSearchDocuments(post, sections);
+
+    assert.lengthOf(documents, 7);
+    assert.strictEqual(documents[0].content, 'Introduction.');
+    assert.strictEqual(documents[0].url, '/ko/posts/example#example');
+    assert.strictEqual(documents[1].url, '/ko/posts/example#one');
+    assert.strictEqual(documents[2].url, '/ko/posts/example#two');
+    assert.strictEqual(documents[3].url, '/ko/posts/example#three');
+    assert.strictEqual(documents[4].url, '/ko/posts/example#four');
+    assert.strictEqual(documents[5].url, '/ko/posts/example#five');
+    assert.strictEqual(documents[6].url, '/ko/posts/example#six');
+    assert.strictEqual(documents[6].content, 'Sixth.');
+    assert.strictEqual(createLocalSearch(documents).search('Sixth')[0].heading, 'Six');
+  });
+
+  it('matches explicit Markdown heading IDs and omits raw HTML headings', async () => {
+    const content =
+      '## Custom {#chosen}\n\nBody.\n\n## **Repeated** {#repeated}\n\nFirst.\n\n## Repeated {#repeated-1}\n\nSecond.\n\nSetext {#setext}\n------\n\nThird.\n\n<section><h3 id="raw-heading">Raw</h3><p>Fourth.</p></section>';
+    const sections = await markdownToHeading(content, {
+      title: 'Example article {#example}',
+    });
+    const documents = createSearchDocuments(post, sections);
+    const html = await markdownToHtml(content, { title: 'Example article {#example}' });
+
+    assert.strictEqual(documents[1].url, '/ko/posts/example#chosen');
+    assert.strictEqual(documents[1].heading, 'Custom');
+    assert.include(html, 'id="chosen"');
+    assert.strictEqual(documents[2].url, '/ko/posts/example#repeated');
+    assert.include(html, 'id="repeated"');
+    assert.strictEqual(documents[3].url, '/ko/posts/example#repeated-1');
+    assert.include(html, 'id="repeated-1"');
+    assert.strictEqual(documents[4].url, '/ko/posts/example#setext');
+    assert.include(html, 'id="setext"');
+    assert.lengthOf(documents, 5);
+    assert.strictEqual(documents[4].content, 'Third.');
+    assert.include(html, 'id="raw-heading"');
+  });
+
+  it('encodes Unicode and spaces in custom section anchors', async () => {
+    const sections = await markdownToHeading('## 제목 {#한글 anchor}\n\n본문.', {
+      title: 'Example article {#example}',
+    });
+    const documents = createSearchDocuments(post, sections);
+
+    assert.strictEqual(documents[1].url, '/ko/posts/example#%ED%95%9C%EA%B8%80%20anchor');
+  });
+
+  it('does not join adjacent blocks or split words across inline formatting', async () => {
+    const sections = await markdownToHeading(
+      'First\n\nSecond\n\ntool**tip** and <kbd>keyboard</kbd>.',
+      { title: 'Example article {#example}' },
+    );
+    const documents = createSearchDocuments(post, sections);
+
+    assert.strictEqual(documents[0].content, 'First Second tooltip and keyboard.');
+    assert.lengthOf(createLocalSearch(documents).search('tooltip'), 1);
+  });
+
+  it('omits HTML blocks and indexes inline Markdown text without interpreting visibility', async () => {
+    const sections = await markdownToHeading(
+      'Visible.\n\n<!-- commentsecret -->\n\n<script>scriptsecret</script>\n\n<style>stylesecret</style>\n\n<template>templatesecret</template>\n\n<div hidden>hiddensecret</div>\n\n<div aria-hidden="true">ariasecret</div>',
+      { title: 'Example article {#example}' },
+    );
+    const documents = createSearchDocuments(post, sections);
+
+    assert.strictEqual(documents[0].content, 'Visible. templatesecret');
+  });
+
+  it('keeps metadata matches on the post record and heading matches on their section', async () => {
+    const sections = await markdownToHeading(
+      'Intro.\n\n## Installation {#installation}\n\nSetup.\n\n## Troubleshooting {#troubleshooting}\n\nDiagnostics.',
+      { title: 'Example article {#example}' },
+    );
+    const documents = createSearchDocuments(post, sections);
+    const search = createLocalSearch(documents);
+
+    assert.lengthOf(search.search('article'), 1);
+    assert.strictEqual(search.search('article')[0].url, '/ko/posts/example#example');
+    assert.lengthOf(search.search('summary'), 1);
+    assert.strictEqual(
+      search.search('Installation')[0].url,
+      '/ko/posts/example#installation',
+    );
+    assert.deepEqual(search.search('Installation')[0].match.installation, ['heading']);
+  });
+
+  it('preserves prefix and fuzzy matching in section body text', async () => {
+    const sections = await markdownToHeading(
+      '## Setup {#setup}\n\nJavaScript configuration.',
+      {
+        title: 'Example article {#example}',
+      },
+    );
+    const documents = createSearchDocuments(post, sections);
+    const search = createLocalSearch(documents);
+
+    assert.strictEqual(search.search('JavaScr')[0].url, '/ko/posts/example#setup');
+    assert.strictEqual(search.search('javascropt')[0].url, '/ko/posts/example#setup');
+    assert.deepEqual(search.search('javascropt')[0].match.javascript, ['content']);
+  });
+
+  it('preserves parent headings when search results are reordered by score', async () => {
+    const headings = await markdownToHeading(
+      'Intro.\n\n## Installation {#installation}\n\n### Windows {#windows}\n\nTooltip configuration.\n\n### macOS {#macos}\n\nOther setup.',
+      { title: 'Example article {#example}' },
+    );
+    const documents = createSearchDocuments(post, headings);
+    const results = createLocalSearch(documents).search('tooltip');
+
+    assert.lengthOf(results, 1);
+    assert.strictEqual(results[0].url, '/ko/posts/example#windows');
+    assert.strictEqual(results[0].heading, 'Windows');
+    assert.strictEqual(results[0].parent, headings[1]);
+    assert.strictEqual(results[0].parent.parent, headings[0]);
+    assert.strictEqual(documents[3].parent, headings[1]);
+    assert.isNull(documents[0].parent);
+  });
+
+  it('preserves a body H1 as the parent of its child section', async () => {
+    const headings = await markdownToHeading(
+      '# Installation {#installation}\n\n## Windows {#windows}\n\nTooltip setup.',
+      { title: 'Example article {#example}' },
+    );
+    const documents = createSearchDocuments(post, headings);
+    const search = createLocalSearch(documents);
+
+    assert.lengthOf(documents, 3);
+    assert.strictEqual(documents[0].url, '/ko/posts/example#example');
+    assert.strictEqual(documents[1].url, '/ko/posts/example#installation');
+    assert.isNull(documents[1].parent);
+    assert.strictEqual(documents[2].parent, headings[1]);
+    assert.strictEqual(search.search('article')[0].url, '/ko/posts/example#example');
+    assert.strictEqual(search.search('tooltip')[0].url, '/ko/posts/example#windows');
+  });
+
+  it('keeps metadata searchable for an empty article with its generated title H1', async () => {
+    const headings = await markdownToHeading('', {
+      title: 'Example article {#example}',
+    });
+    const documents = createSearchDocuments(post, headings);
+    const search = createLocalSearch(documents);
+
+    assert.lengthOf(documents, 1);
+    assert.strictEqual(documents[0].content, '');
+    assert.strictEqual(search.search('summary')[0].url, '/ko/posts/example#example');
+  });
+});

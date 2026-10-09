@@ -13,7 +13,6 @@
  * providing type safety and autocompletion for class names.
  */
 declare module '*.css';
-declare module '*/css';
 
 /**
  * Global type declarations for CSS modules.
