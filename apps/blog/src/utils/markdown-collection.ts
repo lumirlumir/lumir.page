@@ -45,13 +45,15 @@ const idRegex = new RegExp(`^(?<slug>[a-z0-9-]+)\\.(?<lang>${langKeys.join('|')}
  */
 const markdownModules = Object.fromEntries(
   Object.entries(
-    import.meta.glob('./*.md', {
+    import.meta.glob<{ default: string }>('./*.md', {
       base: '../posts/docs',
       eager: true,
-      import: 'default',
       query: '?raw',
     }),
-  ).map(([path, markdown]) => [path.slice(path.lastIndexOf('/') + 1, -3), markdown]),
+  ).map(([path, markdown]) => [
+    path.slice(path.lastIndexOf('/') + 1, -3),
+    markdown.default,
+  ]),
 ) as Record<string, string>;
 
 /**

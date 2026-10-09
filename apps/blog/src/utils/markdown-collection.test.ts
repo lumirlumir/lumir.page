@@ -56,7 +56,10 @@ English body.`,
     ) {
       entriesMock.mockRestore();
 
-      return entries(markdownModules).map(([id, markdown]) => [`./${id}.md`, markdown]);
+      return entries(markdownModules).map(([id, markdown]) => [
+        `./${id}.md`,
+        { default: markdown },
+      ]);
     }
 
     return result;
