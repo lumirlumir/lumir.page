@@ -12,7 +12,11 @@ import 'server-only';
 // Import
 // --------------------------------------------------------------------------------
 
-import { customHeadingIdRegex, remarkHeadingFromTitle } from '@lumir/remark-plugins';
+import {
+  customHeadingIdRegex,
+  remarkHeadingFromTitle,
+  type RemarkHeadingFromTitleOptions,
+} from '@lumir/remark-plugins';
 import type { Nodes, Root } from 'mdast';
 import remarkGfm from 'remark-gfm';
 import remarkMath from 'remark-math';
@@ -25,12 +29,7 @@ import { mdastToTextSync } from '@/utils/mdast-to-text';
 // Typedef
 // --------------------------------------------------------------------------------
 
-interface MarkdownToHeadingOptions {
-  /**
-   * Prepend an H1 heading generated from the provided title.
-   */
-  title?: string;
-}
+type MarkdownToHeadingOptions = RemarkHeadingFromTitleOptions;
 
 // --------------------------------------------------------------------------------
 // Helper
