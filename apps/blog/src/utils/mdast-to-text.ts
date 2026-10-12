@@ -10,7 +10,15 @@
 // --------------------------------------------------------------------------------
 
 import { toText } from 'hast-util-to-text';
-import type { Image, ImageReference, LinkReference, ListItem, Nodes, Root } from 'mdast';
+import type {
+  Image,
+  ImageReference,
+  LinkReference,
+  ListItem,
+  Nodes,
+  Root,
+  TableRow,
+} from 'mdast';
 import { defaultHandlers } from 'mdast-util-to-hast';
 import remarkRehype from 'remark-rehype';
 import { unified } from 'unified';
@@ -33,6 +41,18 @@ const processor = unified().use(remarkRehype, {
     // Omit task checkboxes using a shallow copy without modifying the original node.
     listItem: (state, node: ListItem, parent) =>
       defaultHandlers.listItem(state, { ...node, checked: null }, parent),
+    // Separate table cells with spaces instead of tabs.
+    tableRow: (state, node: TableRow, parent) => {
+      const row = defaultHandlers.tableRow(state, node, parent);
+
+      row.children.forEach(child => {
+        if (child.type === 'element') {
+          child.tagName = 'span';
+        }
+      });
+
+      return row;
+    },
   },
 });
 
