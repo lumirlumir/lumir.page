@@ -14,35 +14,19 @@ import 'server-only';
 
 import { LmSearch } from '@lumir/react-kit/svgs';
 import { type LangKey, type LangRecord, type PropsWithLang } from '@/data/lang';
-import {
-  type VMarkdownFile,
-  type VMarkdownFileMeta,
-  type VMarkdownHeading,
-} from '@/data/v-markdown';
+import { type VMarkdownFileMetaWithHeadings } from '@/data/v-markdown';
 import createMarkdownCollection from '@/utils/markdown-collection';
 import { markdownToHeading } from '@/utils/markdown-to-heading';
 import { LocalSearch, type LocalSearchProps } from './localsearch';
-
-// --------------------------------------------------------------------------------
-// Typedef
-// --------------------------------------------------------------------------------
-
-/**
- * A post introduction or heading section with its destination and searchable text.
- */
-export interface SearchDocument
-  extends Omit<VMarkdownFile, 'id'>, Pick<VMarkdownHeading, 'parent'> {
-  readonly id: string;
-  readonly url: `/${VMarkdownFile['lang']}/posts/${VMarkdownFile['slug']}`;
-  readonly heading: VMarkdownHeading['text'];
-}
 
 // --------------------------------------------------------------------------------
 // Helper
 // --------------------------------------------------------------------------------
 
 const markdownCollection = createMarkdownCollection();
-const searchDocumentsByLang: Partial<Record<LangKey, Promise<SearchDocument[]>>> = {};
+const searchDocumentsByLang: Partial<
+  Record<LangKey, Promise<VMarkdownFileMetaWithHeadings[]>>
+> = {};
 
 const dictionary = {
   ko: {
@@ -151,23 +135,6 @@ const dictionary = {
   translations: LocalSearchProps['translations'];
 }>;
 
-/**
- * Creates search documents from headings whose first entry is the generated article title H1.
- */
-export function createSearchDocuments(
-  metadata: VMarkdownFileMeta,
-  headings: readonly VMarkdownHeading[],
-): SearchDocument[] {
-  return headings.map((section, index): SearchDocument => ({
-    ...metadata,
-    id: `${metadata.id}:${index}`,
-    url: `/${metadata.lang}/posts/${metadata.slug}#${encodeURIComponent(section.id)}`,
-    heading: index === 0 ? '' : section.text,
-    parent: section.parent,
-    content: section.content,
-  }));
-}
-
 // --------------------------------------------------------------------------------
 // Export
 // --------------------------------------------------------------------------------
@@ -180,9 +147,9 @@ export async function Search({ lang }: PropsWithLang) {
         title: `${metadata.data.title} {#${metadata.slug}}`,
       });
 
-      return createSearchDocuments(metadata, headings);
+      return { ...metadata, headings };
     }),
-  ).then(posts => posts.flat()));
+  ));
 
   return (
     <LocalSearch

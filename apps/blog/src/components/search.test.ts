@@ -8,7 +8,6 @@ import { type VMarkdownFileMeta } from '@/data/v-markdown';
 import { markdownToHtml } from '@/utils/markdown-to-html';
 import { markdownToHeading } from '@/utils/markdown-to-heading';
 import { createLocalSearch } from './localsearch';
-import { createSearchDocuments } from './search';
 
 const post: VMarkdownFileMeta = {
   id: 'example.ko',
@@ -34,7 +33,7 @@ describe('search', () => {
         title: 'Example article {#example}',
       },
     );
-    const documents = createSearchDocuments(post, sections);
+    const documents = [{ ...post, headings: sections }];
     const search = createLocalSearch(documents);
 
     assert.instanceOf(search, MiniSearch);
@@ -49,7 +48,7 @@ describe('search', () => {
       '소개문단\n\n- 목록항목\n\n![이미지설명](image.png)\n\n[링크문구][reference] 주변텍스트\n\n<span>인라인텍스트</span>\n\n각주[^note]\n\n[^note]: 각주본문\n\n[reference]: https://example.com',
       { title: 'Example article {#example}' },
     );
-    const documents = createSearchDocuments(post, sections);
+    const documents = [{ ...post, headings: sections }];
     const search = createLocalSearch(documents);
 
     assert.lengthOf(search.search('소개문단'), 1);
@@ -66,19 +65,40 @@ describe('search', () => {
       'Introduction.\n\n# One {#one}\n\nFirst.\n\n## Two {#two}\n\nSecond.\n\n### Three {#three}\n\nThird.\n\n#### Four {#four}\n\nFourth.\n\n##### Five {#five}\n\nFifth.\n\n###### Six {#six}\n\nSixth.',
       { title: 'Example article {#example}' },
     );
-    const documents = createSearchDocuments(post, sections);
+    const documents = [{ ...post, headings: sections }];
 
-    assert.lengthOf(documents, 7);
-    assert.strictEqual(documents[0].content, 'Introduction.');
-    assert.strictEqual(documents[0].url, '/ko/posts/example#example');
-    assert.strictEqual(documents[1].url, '/ko/posts/example#one');
-    assert.strictEqual(documents[2].url, '/ko/posts/example#two');
-    assert.strictEqual(documents[3].url, '/ko/posts/example#three');
-    assert.strictEqual(documents[4].url, '/ko/posts/example#four');
-    assert.strictEqual(documents[5].url, '/ko/posts/example#five');
-    assert.strictEqual(documents[6].url, '/ko/posts/example#six');
-    assert.strictEqual(documents[6].content, 'Sixth.');
-    assert.strictEqual(createLocalSearch(documents).search('Sixth')[0].heading, 'Six');
+    assert.lengthOf(documents[0].headings, 7);
+    assert.strictEqual(documents[0].headings[0].content, 'Introduction.');
+    assert.strictEqual(
+      createLocalSearch(documents).getStoredFields('example.ko:0')?.url,
+      '/ko/posts/example#example',
+    );
+    assert.strictEqual(
+      createLocalSearch(documents).getStoredFields('example.ko:1')?.url,
+      '/ko/posts/example#one',
+    );
+    assert.strictEqual(
+      createLocalSearch(documents).getStoredFields('example.ko:2')?.url,
+      '/ko/posts/example#two',
+    );
+    assert.strictEqual(
+      createLocalSearch(documents).getStoredFields('example.ko:3')?.url,
+      '/ko/posts/example#three',
+    );
+    assert.strictEqual(
+      createLocalSearch(documents).getStoredFields('example.ko:4')?.url,
+      '/ko/posts/example#four',
+    );
+    assert.strictEqual(
+      createLocalSearch(documents).getStoredFields('example.ko:5')?.url,
+      '/ko/posts/example#five',
+    );
+    assert.strictEqual(
+      createLocalSearch(documents).getStoredFields('example.ko:6')?.url,
+      '/ko/posts/example#six',
+    );
+    assert.strictEqual(documents[0].headings[6].content, 'Sixth.');
+    assert.strictEqual(createLocalSearch(documents).search('Sixth')[0].text, 'Six');
   });
 
   it('matches explicit Markdown heading IDs and omits raw HTML headings', async () => {
@@ -87,20 +107,35 @@ describe('search', () => {
     const sections = await markdownToHeading(content, {
       title: 'Example article {#example}',
     });
-    const documents = createSearchDocuments(post, sections);
+    const documents = [{ ...post, headings: sections }];
     const html = await markdownToHtml(content, { title: 'Example article {#example}' });
 
-    assert.strictEqual(documents[1].url, '/ko/posts/example#chosen');
-    assert.strictEqual(documents[1].heading, 'Custom');
+    assert.strictEqual(
+      createLocalSearch(documents).getStoredFields('example.ko:1')?.url,
+      '/ko/posts/example#chosen',
+    );
+    assert.strictEqual(
+      createLocalSearch(documents).getStoredFields('example.ko:1')?.text,
+      'Custom',
+    );
     assert.include(html, 'id="chosen"');
-    assert.strictEqual(documents[2].url, '/ko/posts/example#repeated');
+    assert.strictEqual(
+      createLocalSearch(documents).getStoredFields('example.ko:2')?.url,
+      '/ko/posts/example#repeated',
+    );
     assert.include(html, 'id="repeated"');
-    assert.strictEqual(documents[3].url, '/ko/posts/example#repeated-1');
+    assert.strictEqual(
+      createLocalSearch(documents).getStoredFields('example.ko:3')?.url,
+      '/ko/posts/example#repeated-1',
+    );
     assert.include(html, 'id="repeated-1"');
-    assert.strictEqual(documents[4].url, '/ko/posts/example#setext');
+    assert.strictEqual(
+      createLocalSearch(documents).getStoredFields('example.ko:4')?.url,
+      '/ko/posts/example#setext',
+    );
     assert.include(html, 'id="setext"');
-    assert.lengthOf(documents, 5);
-    assert.strictEqual(documents[4].content, 'Third.');
+    assert.lengthOf(documents[0].headings, 5);
+    assert.strictEqual(documents[0].headings[4].content, 'Third.');
     assert.include(html, 'id="raw-heading"');
   });
 
@@ -108,9 +143,12 @@ describe('search', () => {
     const sections = await markdownToHeading('## 제목 {#한글 anchor}\n\n본문.', {
       title: 'Example article {#example}',
     });
-    const documents = createSearchDocuments(post, sections);
+    const documents = [{ ...post, headings: sections }];
 
-    assert.strictEqual(documents[1].url, '/ko/posts/example#%ED%95%9C%EA%B8%80%20anchor');
+    assert.strictEqual(
+      createLocalSearch(documents).getStoredFields('example.ko:1')?.url,
+      '/ko/posts/example#%ED%95%9C%EA%B8%80%20anchor',
+    );
   });
 
   it('does not join adjacent blocks or split words across inline formatting', async () => {
@@ -118,9 +156,12 @@ describe('search', () => {
       'First\n\nSecond\n\ntool**tip** and <kbd>keyboard</kbd>.',
       { title: 'Example article {#example}' },
     );
-    const documents = createSearchDocuments(post, sections);
+    const documents = [{ ...post, headings: sections }];
 
-    assert.strictEqual(documents[0].content, 'First Second tooltip and keyboard.');
+    assert.strictEqual(
+      documents[0].headings[0].content,
+      'First Second tooltip and keyboard.',
+    );
     assert.lengthOf(createLocalSearch(documents).search('tooltip'), 1);
   });
 
@@ -129,9 +170,9 @@ describe('search', () => {
       'Visible.\n\n<!-- commentsecret -->\n\n<script>scriptsecret</script>\n\n<style>stylesecret</style>\n\n<template>templatesecret</template>\n\n<div hidden>hiddensecret</div>\n\n<div aria-hidden="true">ariasecret</div>',
       { title: 'Example article {#example}' },
     );
-    const documents = createSearchDocuments(post, sections);
+    const documents = [{ ...post, headings: sections }];
 
-    assert.strictEqual(documents[0].content, 'Visible. templatesecret');
+    assert.strictEqual(documents[0].headings[0].content, 'Visible. templatesecret');
   });
 
   it('keeps metadata matches on the post record and heading matches on their section', async () => {
@@ -139,7 +180,7 @@ describe('search', () => {
       'Intro.\n\n## Installation {#installation}\n\nSetup.\n\n## Troubleshooting {#troubleshooting}\n\nDiagnostics.',
       { title: 'Example article {#example}' },
     );
-    const documents = createSearchDocuments(post, sections);
+    const documents = [{ ...post, headings: sections }];
     const search = createLocalSearch(documents);
 
     assert.lengthOf(search.search('article'), 1);
@@ -159,7 +200,7 @@ describe('search', () => {
         title: 'Example article {#example}',
       },
     );
-    const documents = createSearchDocuments(post, sections);
+    const documents = [{ ...post, headings: sections }];
     const search = createLocalSearch(documents);
 
     assert.strictEqual(search.search('JavaScr')[0].url, '/ko/posts/example#setup');
@@ -172,16 +213,16 @@ describe('search', () => {
       'Intro.\n\n## Installation {#installation}\n\n### Windows {#windows}\n\nTooltip configuration.\n\n### macOS {#macos}\n\nOther setup.',
       { title: 'Example article {#example}' },
     );
-    const documents = createSearchDocuments(post, headings);
+    const documents = [{ ...post, headings }];
     const results = createLocalSearch(documents).search('tooltip');
 
     assert.lengthOf(results, 1);
     assert.strictEqual(results[0].url, '/ko/posts/example#windows');
-    assert.strictEqual(results[0].heading, 'Windows');
+    assert.strictEqual(results[0].text, 'Windows');
     assert.strictEqual(results[0].parent, headings[1]);
     assert.strictEqual(results[0].parent.parent, headings[0]);
-    assert.strictEqual(documents[3].parent, headings[1]);
-    assert.isNull(documents[0].parent);
+    assert.strictEqual(documents[0].headings[3].parent, headings[1]);
+    assert.isNull(documents[0].headings[0].parent);
   });
 
   it('preserves a body H1 as the parent of its child section', async () => {
@@ -189,14 +230,20 @@ describe('search', () => {
       '# Installation {#installation}\n\n## Windows {#windows}\n\nTooltip setup.',
       { title: 'Example article {#example}' },
     );
-    const documents = createSearchDocuments(post, headings);
+    const documents = [{ ...post, headings }];
     const search = createLocalSearch(documents);
 
-    assert.lengthOf(documents, 3);
-    assert.strictEqual(documents[0].url, '/ko/posts/example#example');
-    assert.strictEqual(documents[1].url, '/ko/posts/example#installation');
-    assert.isNull(documents[1].parent);
-    assert.strictEqual(documents[2].parent, headings[1]);
+    assert.lengthOf(documents[0].headings, 3);
+    assert.strictEqual(
+      createLocalSearch(documents).getStoredFields('example.ko:0')?.url,
+      '/ko/posts/example#example',
+    );
+    assert.strictEqual(
+      createLocalSearch(documents).getStoredFields('example.ko:1')?.url,
+      '/ko/posts/example#installation',
+    );
+    assert.isNull(documents[0].headings[1].parent);
+    assert.strictEqual(documents[0].headings[2].parent, headings[1]);
     assert.strictEqual(search.search('article')[0].url, '/ko/posts/example#example');
     assert.strictEqual(search.search('tooltip')[0].url, '/ko/posts/example#windows');
   });
@@ -205,11 +252,11 @@ describe('search', () => {
     const headings = await markdownToHeading('', {
       title: 'Example article {#example}',
     });
-    const documents = createSearchDocuments(post, headings);
+    const documents = [{ ...post, headings }];
     const search = createLocalSearch(documents);
 
-    assert.lengthOf(documents, 1);
-    assert.strictEqual(documents[0].content, '');
+    assert.lengthOf(documents[0].headings, 1);
+    assert.strictEqual(documents[0].headings[0].content, '');
     assert.strictEqual(search.search('summary')[0].url, '/ko/posts/example#example');
   });
 });

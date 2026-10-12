@@ -109,23 +109,8 @@ describe('localsearch', () => {
       <LocalSearch
         documents={[
           {
-            id: 'example.en:1',
-            url: '/en/posts/example#references',
-            heading: 'References',
-            parent: {
-              id: 'usage',
-              text: 'Usage',
-              depth: 2,
-              content: '',
-              parent: {
-                id: 'example',
-                text: 'Example article',
-                depth: 1,
-                content: '',
-                parent: null,
-              },
-            },
-            content: `${'Background text. '.repeat(70)}Use tooltips <img src=x> for context.`,
+            id: 'example.en',
+            url: '/en/posts/example',
             slug: 'example',
             lang: 'en',
             readtime: 1,
@@ -137,6 +122,34 @@ describe('localsearch', () => {
               categories: [],
               references: [],
             },
+            headings: [
+              {
+                id: 'example',
+                text: 'Example article',
+                depth: 1,
+                parent: null,
+                content: '',
+              },
+              {
+                id: 'references',
+                text: 'References',
+                depth: 2,
+                parent: {
+                  id: 'usage',
+                  text: 'Usage',
+                  depth: 2,
+                  content: '',
+                  parent: {
+                    id: 'example',
+                    text: 'Example article',
+                    depth: 1,
+                    content: '',
+                    parent: null,
+                  },
+                },
+                content: `${'Background text. '.repeat(70)}Use tooltips <img src=x> for context.`,
+              },
+            ],
           },
         ]}
         translations={translations}
@@ -177,17 +190,8 @@ describe('localsearch', () => {
       <LocalSearch
         documents={[
           {
-            id: 'example.en:2',
-            url: '/en/posts/example#windows',
-            heading: 'Windows',
-            parent: {
-              id: 'installation',
-              text: 'Installation',
-              depth: 1,
-              content: '',
-              parent: null,
-            },
-            content: 'Tooltip setup.',
+            id: 'example.en',
+            url: '/en/posts/example',
             slug: 'example',
             lang: 'en',
             readtime: 1,
@@ -199,6 +203,28 @@ describe('localsearch', () => {
               categories: [],
               references: [],
             },
+            headings: [
+              {
+                id: 'example',
+                text: 'Example article',
+                depth: 1,
+                parent: null,
+                content: '',
+              },
+              {
+                id: 'windows',
+                text: 'Windows',
+                depth: 2,
+                parent: {
+                  id: 'installation',
+                  text: 'Installation',
+                  depth: 1,
+                  content: '',
+                  parent: null,
+                },
+                content: 'Tooltip setup.',
+              },
+            ],
           },
         ]}
         translations={translations}
@@ -226,9 +252,6 @@ describe('localsearch', () => {
           {
             id: 'react.en',
             url: '/en/posts/react',
-            heading: '',
-            parent: null,
-            content: '',
             slug: 'react',
             lang: 'en',
             readtime: 1,
@@ -240,6 +263,15 @@ describe('localsearch', () => {
               categories: [],
               references: [],
             },
+            headings: [
+              {
+                id: 'react',
+                text: 'React & Reactivity <img src=x>',
+                depth: 1,
+                parent: null,
+                content: '',
+              },
+            ],
           },
         ]}
         translations={translations}
@@ -309,9 +341,6 @@ describe('localsearch', () => {
           {
             id: 'react-first.en',
             url: '/en/posts/react-first',
-            heading: '',
-            parent: null,
-            content: '',
             slug: 'react-first',
             lang: 'en',
             readtime: 1,
@@ -323,13 +352,19 @@ describe('localsearch', () => {
               categories: [],
               references: [],
             },
+            headings: [
+              {
+                id: 'react-first',
+                text: 'React first',
+                depth: 1,
+                parent: null,
+                content: '',
+              },
+            ],
           },
           {
             id: 'react-second.en',
             url: '/en/posts/react-second',
-            heading: '',
-            parent: null,
-            content: '',
             slug: 'react-second',
             lang: 'en',
             readtime: 1,
@@ -341,6 +376,15 @@ describe('localsearch', () => {
               categories: [],
               references: [],
             },
+            headings: [
+              {
+                id: 'react-second',
+                text: 'React second',
+                depth: 1,
+                parent: null,
+                content: '',
+              },
+            ],
           },
         ]}
         translations={translations}
@@ -437,9 +481,6 @@ describe('localsearch', () => {
             {
               id: 'react.en',
               url: '/en/posts/react',
-              heading: '',
-              parent: null,
-              content: '',
               slug: 'react',
               lang: 'en',
               readtime: 1,
@@ -451,6 +492,9 @@ describe('localsearch', () => {
                 categories: [],
                 references: [],
               },
+              headings: [
+                { id: 'react', text: 'React guide', depth: 1, parent: null, content: '' },
+              ],
             },
           ]}
           translations={translations}
