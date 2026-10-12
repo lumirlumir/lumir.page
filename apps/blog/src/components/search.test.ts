@@ -14,6 +14,7 @@ const post: VMarkdownFileMeta = {
   id: 'example.ko',
   slug: 'example',
   lang: 'ko',
+  url: '/ko/posts/example',
   readtime: 1,
   data: {
     title: 'Example article',

@@ -69,7 +69,7 @@ export default async function Page({
             title: markdownToTextSync(vMarkdownFileMeta.data.title),
           },
         },
-        postCard: <PostCard lang={lang} vMarkdownFileMeta={vMarkdownFileMeta} />,
+        postCard: <PostCard vMarkdownFileMeta={vMarkdownFileMeta} />,
       }))}
       lang={lang}
     />

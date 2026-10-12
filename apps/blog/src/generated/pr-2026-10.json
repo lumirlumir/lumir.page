@@ -1,0 +1,15 @@
+[
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint-community/eslint-plugin-security",
+    "htmlUrl": "https://github.com/eslint-community/eslint-plugin-security/pull/228",
+    "id": 5641442515,
+    "nodeId": "PR_kwDOArOUPc8AAAABF1I5vg",
+    "number": 228,
+    "title": "chore: remove unused `eslint-config-nodesecurity` dev dependency",
+    "createdAt": "2026-09-30T05:26:44Z",
+    "closedAt": "2026-10-01T08:15:17Z",
+    "reactions": {
+      "+1": 0
+    }
+  }
+]

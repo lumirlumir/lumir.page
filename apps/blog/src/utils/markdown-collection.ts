@@ -45,19 +45,21 @@ const idRegex = new RegExp(`^(?<slug>[a-z0-9-]+)\\.(?<lang>${langKeys.join('|')}
  */
 const markdownModules = Object.fromEntries(
   Object.entries(
-    import.meta.glob('./*.md', {
+    import.meta.glob<{ default: string }>('./*.md', {
       base: '../posts/docs',
       eager: true,
-      import: 'default',
       query: '?raw',
     }),
-  ).map(([path, markdown]) => [path.slice(path.lastIndexOf('/') + 1, -3), markdown]),
+  ).map(([path, markdown]) => [
+    path.slice(path.lastIndexOf('/') + 1, -3),
+    markdown.default,
+  ]),
 ) as Record<string, string>;
 
 /**
  * Asserts that the provided id conforms to the expected format.
  */
-function assertId(id: unknown): Pick<VMarkdownFileMeta, 'id' | 'slug' | 'lang'> {
+function assertId(id: unknown): Pick<VMarkdownFileMeta, 'id' | 'slug' | 'lang' | 'url'> {
   const match = idRegex.exec(String(id));
 
   if (!match || !match.groups) {
@@ -81,6 +83,7 @@ Received id: \`${String(id)}\`
     id: `${slug}.${lang}`,
     slug,
     lang,
+    url: `/${lang}/posts/${slug}`,
   };
 }
 
@@ -144,7 +147,12 @@ class MarkdownCollection {
    */
   #ensureMap(): MarkdownCollectionMap {
     for (const [key, markdown] of Object.entries(markdownModules)) {
-      const { id: sanitizedId, slug: sanitizedSlug, lang: sanitizedLang } = assertId(key);
+      const {
+        id: sanitizedId,
+        slug: sanitizedSlug,
+        lang: sanitizedLang,
+        url: sanitizedUrl,
+      } = assertId(key);
 
       // If the Markdown file has already been processed and cached, skip the loading and processing steps.
       const cached = this.#map.get(sanitizedId);
@@ -161,6 +169,7 @@ class MarkdownCollection {
         id: sanitizedId,
         slug: sanitizedSlug,
         lang: sanitizedLang,
+        url: sanitizedUrl,
         readtime: readtime(content).minutes,
         data: sanitizedData,
       });
@@ -237,7 +246,12 @@ class MarkdownCollection {
       return cached;
     }
 
-    const { id: sanitizedId, slug: sanitizedSlug, lang: sanitizedLang } = assertId(id);
+    const {
+      id: sanitizedId,
+      slug: sanitizedSlug,
+      lang: sanitizedLang,
+      url: sanitizedUrl,
+    } = assertId(id);
     const key = sanitizedId;
 
     if (!(key in markdownModules)) {
@@ -251,6 +265,7 @@ class MarkdownCollection {
       id: sanitizedId,
       slug: sanitizedSlug,
       lang: sanitizedLang,
+      url: sanitizedUrl,
       readtime: readtime(content).minutes,
       data: sanitizedData,
     };
@@ -265,7 +280,12 @@ class MarkdownCollection {
    * Asynchronously loads a Markdown file by its id, extracting its content and frontmatter metadata.
    */
   async loadVMarkdownFile(id: VMarkdownFile['id']): Promise<VMarkdownFile> {
-    const { id: sanitizedId, slug: sanitizedSlug, lang: sanitizedLang } = assertId(id);
+    const {
+      id: sanitizedId,
+      slug: sanitizedSlug,
+      lang: sanitizedLang,
+      url: sanitizedUrl,
+    } = assertId(id);
     const key = sanitizedId;
 
     if (!(key in markdownModules)) {
@@ -282,6 +302,7 @@ class MarkdownCollection {
         id: sanitizedId,
         slug: sanitizedSlug,
         lang: sanitizedLang,
+        url: sanitizedUrl,
         readtime: minutes,
         data: sanitizedData,
       });
@@ -291,6 +312,7 @@ class MarkdownCollection {
       id: sanitizedId,
       slug: sanitizedSlug,
       lang: sanitizedLang,
+      url: sanitizedUrl,
       readtime: minutes,
       data: sanitizedData,
       content,
@@ -312,6 +334,7 @@ class MarkdownCollection {
    *       id: 'example-post.ko',
    *       slug: 'example-post',
    *       lang: 'ko',
+   *       url: '/ko/posts/example-post',
    *       readtime: 1,
    *       data: {
    *         title: 'Example Post',
@@ -345,6 +368,7 @@ class MarkdownCollection {
    *         id: 'example-post.ko',
    *         slug: 'example-post',
    *         lang: 'ko',
+   *         url: '/ko/posts/example-post',
    *         readtime: 1,
    *         data: {
    *           title: 'Example Post',
