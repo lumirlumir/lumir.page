@@ -89,6 +89,21 @@ describe('markdown-to-text', () => {
     assert.strictEqual(markdownToTextSync(markdown), text);
   });
 
+  it('should include inline and reference image alt text without URLs or titles', async () => {
+    const markdown =
+      '![Inline icon](inline.png "Inline title") ![Reference icon][image]\n\n[image]: reference.png "Reference title"';
+
+    assert.strictEqual(await markdownToText(markdown), 'Inline icon Reference icon');
+    assert.strictEqual(markdownToTextSync(markdown), 'Inline icon Reference icon');
+  });
+
+  it('should omit images with empty alt text without falling back to their titles', async () => {
+    const markdown = '![](icon.png "Image title")';
+
+    assert.strictEqual(await markdownToText(markdown), '');
+    assert.strictEqual(markdownToTextSync(markdown), '');
+  });
+
   it('should preserve text inside GFM strikethrough syntax', async () => {
     const markdown = 'Replace ~~old text~~ with new text';
     const text = 'Replace old text with new text';
