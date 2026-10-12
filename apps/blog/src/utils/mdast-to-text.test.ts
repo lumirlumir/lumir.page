@@ -8,6 +8,10 @@
 
 import type { Heading, Table } from 'mdast';
 import { fromMarkdown } from 'mdast-util-from-markdown';
+import remarkGfm from 'remark-gfm';
+import remarkMath from 'remark-math';
+import remarkParse from 'remark-parse';
+import { unified } from 'unified';
 import { assert, describe, it } from 'vitest';
 import { mdastToText, mdastToTextSync } from './mdast-to-text.js';
 
@@ -26,30 +30,17 @@ describe('mdast-to-text', () => {
         { type: 'strong', children: [{ type: 'text', value: 'world' }] },
       ],
     };
+    const clonedHeading = structuredClone(heading);
+
+    assert.notStrictEqual(heading, clonedHeading);
 
     await mdastToText(heading);
 
-    assert.deepEqual(heading, {
-      type: 'heading',
-      depth: 2,
-      children: [
-        { type: 'text', value: 'Hello' },
-        { type: 'break' },
-        { type: 'strong', children: [{ type: 'text', value: 'world' }] },
-      ],
-    });
+    assert.deepStrictEqual(heading, clonedHeading);
 
     mdastToTextSync(heading);
 
-    assert.deepEqual(heading, {
-      type: 'heading',
-      depth: 2,
-      children: [
-        { type: 'text', value: 'Hello' },
-        { type: 'break' },
-        { type: 'strong', children: [{ type: 'text', value: 'world' }] },
-      ],
-    });
+    assert.deepStrictEqual(heading, clonedHeading);
   });
 
   it('should extract plain text from a formatted heading', async () => {
@@ -72,59 +63,71 @@ describe('mdast-to-text', () => {
   });
 
   it('should convert a nested hard break to a newline', async () => {
-    assert.strictEqual(
-      await mdastToText(fromMarkdown('First  \n**Second**')),
-      'First\nSecond',
-    );
-    assert.strictEqual(
-      mdastToTextSync(fromMarkdown('First  \n**Second**')),
-      'First\nSecond',
-    );
+    const tree = fromMarkdown('First  \n**Second**');
+
+    assert.strictEqual(await mdastToText(tree), 'First\nSecond');
+    assert.strictEqual(mdastToTextSync(tree), 'First\nSecond');
   });
 
-  // Options - When Omitted
-  it('should strip inline formatting when options are omitted', async () => {
-    const tree = fromMarkdown('**Hello** *world*');
+  it('should preserve paragraph boundaries while stripping inline formatting', async () => {
+    const tree = fromMarkdown('**Hello** *world*\n\nNext paragraph');
 
-    assert.strictEqual(await mdastToText(tree), 'Hello world');
-    assert.strictEqual(mdastToTextSync(tree), 'Hello world');
+    assert.strictEqual(await mdastToText(tree), 'Hello world\n\nNext paragraph');
+    assert.strictEqual(mdastToTextSync(tree), 'Hello world\n\nNext paragraph');
   });
 
-  it('should include image alt text when options are omitted', async () => {
-    const tree = fromMarkdown('![icon](icon.png)');
+  it('should include nested image alt text without the image URL or title', async () => {
+    const tree = fromMarkdown('**![icon](icon.png "Image title")**');
 
     assert.strictEqual(await mdastToText(tree), 'icon');
     assert.strictEqual(mdastToTextSync(tree), 'icon');
   });
 
-  it('should strip inline HTML when options are omitted', async () => {
+  it('should omit images with empty alt text without falling back to their titles', async () => {
+    const tree = fromMarkdown('![](icon.png "Image title")');
+
+    assert.strictEqual(await mdastToText(tree), '');
+    assert.strictEqual(mdastToTextSync(tree), '');
+  });
+
+  it('should extract reference image alt text without surrounding definitions', async () => {
+    const tree = fromMarkdown('![icon][image]\n\n[image]: icon.png');
+
+    assert.strictEqual(await mdastToText(tree), 'icon');
+    assert.strictEqual(mdastToTextSync(tree), 'icon');
+  });
+
+  it('should extract formatted reference link text without surrounding definitions', async () => {
+    const tree = fromMarkdown(
+      '[**Reference** text][source]\n\n[source]: https://example.com',
+    );
+
+    assert.strictEqual(await mdastToText(tree), 'Reference text');
+    assert.strictEqual(mdastToTextSync(tree), 'Reference text');
+  });
+
+  it('should omit inline HTML tags while preserving Markdown text', async () => {
     const tree = fromMarkdown('<span>label</span>');
 
     assert.strictEqual(await mdastToText(tree), 'label');
     assert.strictEqual(mdastToTextSync(tree), 'label');
   });
 
-  it('should remove code text when options are omitted', async () => {
-    assert.strictEqual(
-      await mdastToText({ type: 'code', value: 'const value = 1;' }),
-      '',
-    );
-    assert.strictEqual(mdastToTextSync({ type: 'code', value: 'const value = 1;' }), '');
+  it('should omit raw HTML blocks and their contents', async () => {
+    const tree = fromMarkdown('Before\n\n<div>Hidden</div>\n\nAfter');
+
+    assert.strictEqual(await mdastToText(tree), 'Before\n\nAfter');
+    assert.strictEqual(mdastToTextSync(tree), 'Before\n\nAfter');
   });
 
-  // Options - When provided
-  it('should preserve code text when requested with `keep`', async () => {
-    assert.strictEqual(
-      await mdastToText({ type: 'code', value: 'const value = 1;' }, { keep: ['code'] }),
-      'const value = 1;',
-    );
-    assert.strictEqual(
-      mdastToTextSync({ type: 'code', value: 'const value = 1;' }, { keep: ['code'] }),
-      'const value = 1;',
-    );
+  it('should preserve code text and its whitespace', async () => {
+    const tree = fromMarkdown('```ts\nconst value = 1;\n  next();\n```');
+
+    assert.strictEqual(await mdastToText(tree), 'const value = 1;\n  next();\n');
+    assert.strictEqual(mdastToTextSync(tree), 'const value = 1;\n  next();\n');
   });
 
-  it('should preserve table cell text when requested with `keep`', async () => {
+  it('should preserve table text and extract standalone table cells', async () => {
     const table: Table = {
       type: 'table',
       children: [
@@ -135,132 +138,30 @@ describe('mdast-to-text', () => {
       ],
     };
 
-    assert.strictEqual(
-      await mdastToText(table, { keep: ['table', 'tableCell'] }),
-      'Cell',
-    );
-    assert.strictEqual(mdastToTextSync(table, { keep: ['table', 'tableCell'] }), 'Cell');
+    assert.strictEqual(await mdastToText(table), 'Cell');
+    assert.strictEqual(mdastToTextSync(table), 'Cell');
   });
 
-  it('should omit nested image alt text when explicitly disabled', async () => {
-    const tree = fromMarkdown('**![icon](icon.png)**');
+  it('should preserve inline and block math without dollar delimiters', async () => {
+    const tree = unified()
+      .use(remarkParse)
+      .use(remarkMath)
+      .parse('The formula is $x + y$.\n\n$$\n\\frac{a}{b}\n$$');
 
-    assert.strictEqual(
-      await mdastToText(tree, { keep: ['image'], includeImageAlt: false }),
-      '',
-    );
-    assert.strictEqual(
-      mdastToTextSync(tree, { keep: ['image'], includeImageAlt: false }),
-      '',
-    );
+    assert.strictEqual(await mdastToText(tree), 'The formula is x + y.\n\n\\frac{a}{b}');
+    assert.strictEqual(mdastToTextSync(tree), 'The formula is x + y.\n\n\\frac{a}{b}');
   });
 
-  it('should include preserved HTML when explicitly enabled', async () => {
-    const tree = fromMarkdown('<span>label</span>');
+  it('should omit nested task checkboxes without modifying the original tree', async () => {
+    const tree = unified()
+      .use(remarkParse)
+      .use(remarkGfm)
+      .parse('- [x] Parent task\n  - [ ] Child task');
+    const clonedTree = structuredClone(tree);
 
-    assert.strictEqual(
-      await mdastToText(tree, { keep: ['html'], includeHtml: true }),
-      '<span>label</span>',
-    );
-    assert.strictEqual(
-      mdastToTextSync(tree, { keep: ['html'], includeHtml: true }),
-      '<span>label</span>',
-    );
-  });
-
-  it('should keep HTML options independent between conversions', async () => {
-    const tree = fromMarkdown('<span>label</span>');
-
-    await mdastToText(tree, { keep: ['html'], includeHtml: true });
-    assert.strictEqual(await mdastToText(tree), 'label');
-    mdastToTextSync(tree, { keep: ['html'], includeHtml: true });
-    assert.strictEqual(mdastToTextSync(tree), 'label');
-  });
-
-  it('should include preserved image alt text when `includeImageAlt` is omitted', async () => {
-    const tree = fromMarkdown('![icon](icon.png)');
-
-    assert.strictEqual(await mdastToText(tree, { keep: ['image'] }), 'icon');
-    assert.strictEqual(mdastToTextSync(tree, { keep: ['image'] }), 'icon');
-  });
-
-  it('should include preserved image alt text when `includeImageAlt` is undefined', async () => {
-    const tree = fromMarkdown('![icon](icon.png)');
-
-    assert.strictEqual(
-      await mdastToText(tree, { keep: ['image'], includeImageAlt: undefined }),
-      'icon',
-    );
-    assert.strictEqual(
-      mdastToTextSync(tree, { keep: ['image'], includeImageAlt: undefined }),
-      'icon',
-    );
-  });
-
-  it('should include preserved HTML when `includeHtml` is omitted', async () => {
-    const tree = fromMarkdown('<span>label</span>');
-
-    assert.strictEqual(await mdastToText(tree, { keep: ['html'] }), '<span>label</span>');
-    assert.strictEqual(mdastToTextSync(tree, { keep: ['html'] }), '<span>label</span>');
-  });
-
-  it('should include preserved HTML when `includeHtml` is undefined', async () => {
-    const tree = fromMarkdown('<span>label</span>');
-
-    assert.strictEqual(
-      await mdastToText(tree, { keep: ['html'], includeHtml: undefined }),
-      '<span>label</span>',
-    );
-    assert.strictEqual(
-      mdastToTextSync(tree, { keep: ['html'], includeHtml: undefined }),
-      '<span>label</span>',
-    );
-  });
-
-  it('should remove code text when keep is undefined', async () => {
-    assert.strictEqual(
-      await mdastToText({ type: 'code', value: 'const value = 1;' }, { keep: undefined }),
-      '',
-    );
-    assert.strictEqual(
-      mdastToTextSync({ type: 'code', value: 'const value = 1;' }, { keep: undefined }),
-      '',
-    );
-  });
-
-  it('should preserve strong text when remove is undefined', async () => {
-    const tree = fromMarkdown('**Visible**');
-
-    assert.strictEqual(await mdastToText(tree, { remove: undefined }), 'Visible');
-    assert.strictEqual(mdastToTextSync(tree, { remove: undefined }), 'Visible');
-  });
-
-  it('should omit preserved HTML when `includeHtml` is explicitly false', async () => {
-    const tree = fromMarkdown('<span>label</span>');
-
-    assert.strictEqual(
-      await mdastToText(tree, { keep: ['html'], includeHtml: false }),
-      'label',
-    );
-    assert.strictEqual(
-      mdastToTextSync(tree, { keep: ['html'], includeHtml: false }),
-      'label',
-    );
-  });
-
-  it('should remove nodes requested with remove', async () => {
-    const tree = fromMarkdown('**Visible** hidden');
-
-    assert.strictEqual(await mdastToText(tree, { remove: ['strong'] }), ' hidden');
-    assert.strictEqual(mdastToTextSync(tree, { remove: ['strong'] }), ' hidden');
-  });
-
-  it('should keep removal options independent between conversions', async () => {
-    const tree = fromMarkdown('**Visible** hidden');
-
-    await mdastToText(tree, { remove: ['strong'] });
-    assert.strictEqual(await mdastToText(tree), 'Visible hidden');
-    mdastToTextSync(tree, { remove: ['strong'] });
-    assert.strictEqual(mdastToTextSync(tree), 'Visible hidden');
+    assert.strictEqual(await mdastToText(tree), 'Parent task\nChild task');
+    assert.deepStrictEqual(tree, clonedTree);
+    assert.strictEqual(mdastToTextSync(tree), 'Parent task\nChild task');
+    assert.deepStrictEqual(tree, clonedTree);
   });
 });
