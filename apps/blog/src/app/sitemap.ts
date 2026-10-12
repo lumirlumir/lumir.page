@@ -46,8 +46,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     // `/posts` path
     ...langKeys.flatMap(lang =>
       Object.values(markdownCollection.byLangSlug[lang]).map(
-        ({ slug, data: { updated } }) => ({
-          url: `${websiteUrl}/${lang}/posts/${slug}`,
+        ({ url, data: { updated } }) => ({
+          url: `${websiteUrl}${url}`,
           lastModified: updated,
           changeFrequency: 'monthly' as const,
           priority: 1.0,

@@ -14,7 +14,7 @@ import { type LangKey } from '@/data/lang';
 // --------------------------------------------------------------------------------
 
 /**
- * Represents the metadata of a Virtual Markdown file, containing the `slug` (excluding extension) and `data` (frontmatter) of the Markdown document.
+ * Represents a virtual Markdown file's metadata.
  */
 export interface VMarkdownFileMeta {
   /**
@@ -32,6 +32,11 @@ export interface VMarkdownFileMeta {
    * The language key of the Markdown file, representing the language of the content (e.g., `ko` for Korean, `en` for English).
    */
   readonly lang: LangKey;
+
+  /**
+   * The URL of the Markdown file, constructed based on its language key and slug (e.g., `/ko/posts/example` for `./example.ko.md`).
+   */
+  readonly url: `/${VMarkdownFileMeta['lang']}/posts/${VMarkdownFileMeta['slug']}`;
 
   /**
    * Estimated reading time of the Markdown body in display minutes, excluding frontmatter.
