@@ -1,5 +1,5 @@
 /**
- * @fileoverview Tests plain-text extraction from mdast nodes.
+ * @fileoverview Test for `mdast-to-text.ts`
  */
 
 // --------------------------------------------------------------------------------
