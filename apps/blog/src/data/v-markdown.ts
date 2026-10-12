@@ -10,20 +10,6 @@ import { type Frontmatter } from '@/data/frontmatter';
 import { type LangKey } from '@/data/lang';
 
 // --------------------------------------------------------------------------------
-// Helper
-// --------------------------------------------------------------------------------
-
-/**
- * Represents the raw Markdown content.
- */
-interface VMarkdownContent {
-  /**
-   * The content of the Markdown file, representing the raw Markdown text.
-   */
-  readonly content: string;
-}
-
-// --------------------------------------------------------------------------------
 // Export
 // --------------------------------------------------------------------------------
 
@@ -31,7 +17,7 @@ interface VMarkdownContent {
  * Represents a heading section with its metadata and extracted plain-text content for search.
  * The content extends from the heading to the next heading in document order, excluding heading text.
  */
-export interface VMarkdownHeading extends VMarkdownContent {
+export interface VMarkdownHeading {
   /**
    * The rendered HTML heading ID used as a deep-link anchor, excluding the leading `#`.
    * URL encoding is applied when constructing the link, rather than stored in this value.
@@ -53,6 +39,11 @@ export interface VMarkdownHeading extends VMarkdownContent {
    * Following `parent` recursively yields the ancestor headings from the direct parent outward.
    */
   readonly parent: VMarkdownHeading | null;
+
+  /**
+   * The plain-text content of the heading section, excluding the heading text itself.
+   */
+  readonly content: string;
 }
 
 /**
@@ -104,4 +95,9 @@ export interface VMarkdownFileMetaWithHeadings extends VMarkdownFileMeta {
 /**
  * Represents a virtual Markdown file with its metadata and raw Markdown body, excluding frontmatter.
  */
-export interface VMarkdownFile extends VMarkdownContent, VMarkdownFileMeta {}
+export interface VMarkdownFile extends VMarkdownFileMeta {
+  /**
+   * The content of the Markdown file, representing the raw Markdown text.
+   */
+  readonly content: string;
+}
