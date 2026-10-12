@@ -99,15 +99,23 @@ describe('markdown-to-text', () => {
 
   it('should remove GFM task list markers', async () => {
     const markdown = '- [x] Completed task\n- [ ] Pending task';
-    const text = 'Completed taskPending task';
+    const text = 'Completed task\nPending task';
 
     assert.strictEqual(await markdownToText(markdown), text);
     assert.strictEqual(markdownToTextSync(markdown), text);
   });
 
-  it('should remove GFM tables and preserve surrounding text', async () => {
+  it('should remove nested GFM task list markers without leaving leading spaces', async () => {
+    const markdown = '- [x] Parent task\n  - [ ] Child task';
+    const text = 'Parent task\nChild task';
+
+    assert.strictEqual(await markdownToText(markdown), text);
+    assert.strictEqual(markdownToTextSync(markdown), text);
+  });
+
+  it('should preserve GFM tables and surrounding text', async () => {
     const markdown = 'Before\n\n| Name |\n| --- |\n| Value |\n\nAfter';
-    const text = 'BeforeAfter';
+    const text = 'Before\n\nName Value\n\nAfter';
 
     assert.strictEqual(await markdownToText(markdown), text);
     assert.strictEqual(markdownToTextSync(markdown), text);
