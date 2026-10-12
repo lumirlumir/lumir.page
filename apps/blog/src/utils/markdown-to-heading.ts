@@ -145,23 +145,15 @@ export async function markdownToHeading(
 
     if (
       node.type === 'paragraph' ||
-      node.type === 'tableCell' ||
+      node.type === 'table' ||
       node.type === 'code' ||
       node.type === 'math'
     ) {
-      if (!vMarkdownHeading) {
-        return;
+      const value = mdastToTextSync(node).trim();
+
+      if (value && vMarkdownHeading) {
+        vMarkdownHeading.content += `${vMarkdownHeading.content ? ' ' : ''}${value}`;
       }
-
-      const value = mdastToTextSync(node)
-        .replace(/[^\S\n]+/g, ' ')
-        .trim();
-
-      if (!value) {
-        return;
-      }
-
-      vMarkdownHeading.content += `${vMarkdownHeading.content ? ' ' : ''}${value}`;
 
       return;
     }
