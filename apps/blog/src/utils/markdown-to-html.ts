@@ -32,7 +32,11 @@ import {
   rehypeImageLazyLoading,
   rehypeImageUrlReplace,
 } from '@lumir/rehype-plugins';
-import { remarkCustomHeadingId, remarkHeadingFromTitle } from '@lumir/remark-plugins';
+import {
+  remarkCustomHeadingId,
+  remarkHeadingFromTitle,
+  type RemarkHeadingFromTitleOptions,
+} from '@lumir/remark-plugins';
 import remarkGfm from 'remark-gfm';
 import remarkGitHub from 'remark-github';
 import remarkMath from 'remark-math';
@@ -54,12 +58,7 @@ import { githubRepoFullName } from '@/data/site';
 // Typedef
 // --------------------------------------------------------------------------------
 
-interface MarkdownToHtmlOptions {
-  /**
-   * Prepend an H1 heading generated from the provided title.
-   */
-  title?: string;
-}
+type MarkdownToHtmlOptions = RemarkHeadingFromTitleOptions;
 
 // --------------------------------------------------------------------------------
 // Export
