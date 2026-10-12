@@ -274,6 +274,32 @@ describe('markdown-to-heading', () => {
     assert.strictEqual(headings[1].content, 'Body.');
   });
 
+  it('preserves reference image alt text in headings and section bodies', async () => {
+    const headings = await markdownToHeading(
+      '## ![Heading icon][image] Help {#help}\n\n![Body description][image]\n\n[image]: icon.png "Image title"',
+    );
+
+    assert.deepEqual(headings, [
+      {
+        id: 'help',
+        text: 'Heading icon Help',
+        depth: 2,
+        parent: null,
+        content: 'Body description',
+      },
+    ]);
+  });
+
+  it('omits image titles when heading and body images have empty alt text', async () => {
+    const headings = await markdownToHeading(
+      '## ![](icon.png "Hidden heading title") Help {#help}\n\n![][image]\n\n[image]: icon.png "Hidden body title"',
+    );
+
+    assert.deepEqual(headings, [
+      { id: 'help', text: 'Help', depth: 2, parent: null, content: '' },
+    ]);
+  });
+
   it('keeps Markdown text inside inline HTML without interpreting visibility', async () => {
     const headings = await markdownToHeading(
       '## Heading <span hidden>label</span> {#heading}\n\nText <span hidden>hidden</span> and <template>template</template>.',

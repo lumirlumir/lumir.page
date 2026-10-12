@@ -32,18 +32,6 @@ import { mdastToTextSync } from '@/utils/mdast-to-text';
 type MarkdownToHeadingOptions = RemarkHeadingFromTitleOptions;
 
 // --------------------------------------------------------------------------------
-// Helper
-// --------------------------------------------------------------------------------
-
-function toText(node: Nodes): string {
-  return mdastToTextSync(node, {
-    keep: ['code', 'tableCell'],
-    includeImageAlt: true,
-    includeHtml: false,
-  });
-}
-
-// --------------------------------------------------------------------------------
 // Export
 // --------------------------------------------------------------------------------
 
@@ -106,7 +94,7 @@ export async function markdownToHeading(
 
       if (!lastChildNode || lastChildNode.type !== 'text') {
         throw new Error(
-          `Heading "${toText(node)}" at line ${node.position?.start.line} needs an explicit custom ID`,
+          `Heading "${mdastToTextSync(node)}" at line ${node.position?.start.line} needs an explicit custom ID`,
         );
       }
 
@@ -114,7 +102,7 @@ export async function markdownToHeading(
 
       if (!match || !match.groups) {
         throw new Error(
-          `Heading "${toText(node)}" at line ${node.position?.start.line} needs an explicit custom ID`,
+          `Heading "${mdastToTextSync(node)}" at line ${node.position?.start.line} needs an explicit custom ID`,
         );
       }
 
@@ -145,7 +133,7 @@ export async function markdownToHeading(
       headings.push(
         (vMarkdownHeading = {
           id: match.groups.id,
-          text: toText(node),
+          text: mdastToTextSync(node),
           depth: node.depth,
           parent: vMarkdownHeading ?? null,
           content: '',
@@ -165,7 +153,7 @@ export async function markdownToHeading(
         return;
       }
 
-      const value = toText(node)
+      const value = mdastToTextSync(node)
         .replace(/[^\S\n]+/g, ' ')
         .trim();
 
