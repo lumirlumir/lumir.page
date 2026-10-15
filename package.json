@@ -91,10 +91,10 @@
     "sharp@0.35.3": true
   },
   "devDependencies": {
-    "@types/node": "^24.19.1",
+    "@types/node": "^24.19.2",
     "@typescript/native-preview": "^7.0.0-dev.20260707.2",
     "@vitest/coverage-v8": "^5.0.2",
-    "clang-format-node": "^4.0.1",
+    "clang-format-node": "^4.0.2",
     "editorconfig-checker": "^7.0.0",
     "eslint": "^9.39.5",
     "eslint-config-bananass": "^0.8.0",
@@ -102,11 +102,11 @@
     "husky": "^9.1.7",
     "lint-staged": "^17.6.0",
     "npm-run-all2": "^9.0.3",
-    "prettier": "^3.9.9",
+    "prettier": "^3.9.10",
     "stylelint": "^17.15.0",
     "stylelint-config-recess-order": "^7.8.0",
     "stylelint-config-standard": "^40.0.0",
-    "stylelint-order": "^8.1.1",
+    "stylelint-order": "^8.1.2",
     "typescript": "^6.0.3",
     "vitest": "^5.0.1"
   }
