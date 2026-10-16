@@ -29,7 +29,7 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "mdast-util-from-markdown": "^2.0.3",
+    "mdast-util-from-markdown": "^2.1.0",
     "unist-util-visit": "^5.1.0"
   },
   "devDependencies": {
