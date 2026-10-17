@@ -16,13 +16,12 @@ import { Categories } from '@/components/aside/categories';
 import { Links } from '@/components/aside/links';
 import { Profile } from '@/components/aside/profile';
 
-import { DocSearch } from '@/components/header/doc-search';
-
 import { AsideToggle } from '@/components/aside-toggle';
 import { CursorSplash } from '@/components/cursor-splash';
 import { GoogleAnalytics } from '@/components/google-analytics';
 import { LangToggle } from '@/components/lang-toggle';
 import { ScrollProgress } from '@/components/scroll-progress';
+import { Search } from '@/components/search';
 import { ThemeScript } from '@/components/theme-script';
 import { Title } from '@/components/title';
 import { ThemeToggle } from '@/components/theme-toggle';
@@ -89,7 +88,7 @@ export default async function RootLayout({
             <header>
               <Title lang={lang} />
               <div>
-                <DocSearch />
+                <Search lang={lang} />
                 <LangToggle lang={lang} />
                 <ThemeToggle lang={lang} />
               </div>

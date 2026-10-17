@@ -14,6 +14,39 @@ import { type LangKey } from '@/data/lang';
 // --------------------------------------------------------------------------------
 
 /**
+ * Represents a heading section with its metadata and extracted plain-text content for search.
+ * The content extends from the heading to the next heading in document order, excluding heading text.
+ */
+export interface VMarkdownHeading {
+  /**
+   * The rendered HTML heading ID used as a deep-link anchor, excluding the leading `#`.
+   * URL encoding is applied when constructing the link, rather than stored in this value.
+   */
+  readonly id: string;
+
+  /**
+   * The visible heading text, with Markdown formatting and HTML tags removed.
+   */
+  readonly text: string;
+
+  /**
+   * The heading depth corresponding to an HTML `h1` through `h6` element.
+   */
+  readonly depth: 1 | 2 | 3 | 4 | 5 | 6;
+
+  /**
+   * The nearest preceding heading with a lower level, or `null` for a top-level heading.
+   * Following `parent` recursively yields the ancestor headings from the direct parent outward.
+   */
+  readonly parent: VMarkdownHeading | null;
+
+  /**
+   * The plain-text content of the heading section, excluding the heading text itself.
+   */
+  readonly content: string;
+}
+
+/**
  * Represents a virtual Markdown file's metadata.
  */
 export interface VMarkdownFileMeta {
@@ -50,7 +83,17 @@ export interface VMarkdownFileMeta {
 }
 
 /**
- * Represents a Virtual Markdown file, containing the `slug` (excluding extension), `data` (frontmatter), and `content` of the Markdown document.
+ * Represents a virtual Markdown file's metadata along with its extracted heading sections.
+ */
+export interface VMarkdownFileMetaWithHeadings extends VMarkdownFileMeta {
+  /**
+   * The extracted heading sections of the Markdown file, in document order.
+   */
+  readonly headings: readonly VMarkdownHeading[];
+}
+
+/**
+ * Represents a virtual Markdown file with its metadata and raw Markdown body, excluding frontmatter.
  */
 export interface VMarkdownFile extends VMarkdownFileMeta {
   /**
