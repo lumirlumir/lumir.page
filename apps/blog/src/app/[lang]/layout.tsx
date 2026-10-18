@@ -20,8 +20,8 @@ import { AsideToggle } from '@/components/aside-toggle';
 import { CursorSplash } from '@/components/cursor-splash';
 import { GoogleAnalytics } from '@/components/google-analytics';
 import { LangToggle } from '@/components/lang-toggle';
+import { LocalSearch } from '@/components/localsearch';
 import { ScrollProgress } from '@/components/scroll-progress';
-import { Search } from '@/components/search';
 import { ThemeScript } from '@/components/theme-script';
 import { Title } from '@/components/title';
 import { ThemeToggle } from '@/components/theme-toggle';
@@ -79,6 +79,9 @@ export default async function RootLayout({
     // Use `suppressHydrationWarning` because `ThemeScript` may change the initial `data-theme`.
     // https://react.dev/reference/react-dom/client/hydrateRoot#suppressing-unavoidable-hydration-mismatch-errors
     <html className="custom-scrollbar-y-bold" lang={lang} suppressHydrationWarning>
+      <head>
+        <link rel="prefetch" href={`/${lang}/search.json`} as="fetch" />
+      </head>
       <body className={styles.body}>
         <ThemeScript />
         <ConfigProvider>
@@ -88,7 +91,7 @@ export default async function RootLayout({
             <header>
               <Title lang={lang} />
               <div>
-                <Search lang={lang} />
+                <LocalSearch lang={lang} />
                 <LangToggle lang={lang} />
                 <ThemeToggle lang={lang} />
               </div>

@@ -6,11 +6,13 @@
 // Import
 // --------------------------------------------------------------------------------
 
-import { afterEach, assert, describe, it, vi } from 'vitest';
+import { afterEach, assert, beforeEach, describe, it, vi } from 'vitest';
 import { userEvent } from 'vitest/browser';
 import { render } from 'vitest-browser-react';
 import { type ReactNode } from 'react';
-import { LocalSearch, type LocalSearchProps } from './localsearch.jsx';
+import { type LocalSearchProps } from './localsearch.jsx';
+
+let LocalSearch: (typeof import('./localsearch.jsx'))['LocalSearch'];
 
 // --------------------------------------------------------------------------------
 // Mock
@@ -53,6 +55,9 @@ const translations = {
   },
   dialog: {
     dialogAriaLabel: 'Search',
+    loadingText: 'Loading search data.',
+    errorText: 'Failed to load search data.',
+    retryButtonText: 'Retry',
     searchBox: {
       resetButtonText: 'Clear',
       resetButtonTitle: 'Clear the query',
@@ -100,61 +105,254 @@ const translations = {
 // --------------------------------------------------------------------------------
 
 describe('localsearch', () => {
+  beforeEach(async () => {
+    // Native browser modules retain their cache even after vi.resetModules().
+    ({ LocalSearch } = await import(
+      /* @vite-ignore */ `./localsearch.tsx?test=${crypto.randomUUID()}`
+    ));
+    vi.spyOn(globalThis, 'fetch').mockResolvedValue(Response.json([]));
+  });
+
   afterEach(() => {
     vi.restoreAllMocks();
   });
 
-  it('should show the ancestor path and safely highlight a body excerpt with its section link', async () => {
-    const screen = await render(
-      <LocalSearch
-        documents={[
-          {
-            id: 'example.en',
-            url: '/en/posts/example',
-            slug: 'example',
-            lang: 'en',
-            readtime: 1,
-            data: {
-              title: 'Example article',
-              description: 'Metadata summary',
-              created: '2026-10-03',
-              updated: '2026-10-03',
-              categories: [],
-              references: [],
-            },
-            headings: [
-              {
-                id: 'example',
-                text: 'Example article',
-                depth: 1,
-                parent: null,
-                content: '',
-              },
-              {
-                id: 'references',
-                text: 'References',
-                depth: 2,
-                parent: {
-                  id: 'usage',
-                  text: 'Usage',
-                  depth: 2,
-                  content: '',
-                  parent: {
-                    id: 'example',
-                    text: 'Example article',
-                    depth: 1,
-                    content: '',
-                    parent: null,
-                  },
-                },
-                content: `${'Background text. '.repeat(70)}Use tooltips <img src=x> for context.`,
-              },
-            ],
-          },
-        ]}
-        translations={translations}
-      />,
+  it('should render the Korean translations and search icon with only the language prop', async () => {
+    const screen = await render(<LocalSearch lang="ko" />);
+    const button = screen.container.querySelector('button');
+    const input = screen.container.querySelector('input');
+
+    assert.strictEqual(button?.getAttribute('aria-label'), '검색');
+    assert.strictEqual(input?.placeholder, '검색');
+    assert.isNotNull(button?.querySelector('svg'));
+    assert.strictEqual(
+      screen.container.querySelector('dialog')?.getAttribute('aria-label'),
+      '검색',
     );
+  });
+
+  it('should render the English translations and search icon with only the language prop', async () => {
+    const screen = await render(<LocalSearch lang="en" />);
+    const button = screen.container.querySelector('button');
+    const input = screen.container.querySelector('input');
+
+    assert.strictEqual(button?.getAttribute('aria-label'), 'Search');
+    assert.strictEqual(input?.placeholder, 'Search');
+    assert.isNotNull(button?.querySelector('svg'));
+    assert.strictEqual(
+      screen.container.querySelector('dialog')?.getAttribute('aria-label'),
+      'Search',
+    );
+  });
+
+  it('should defer fetching until opening and reuse a pending request and completed index after remounting', async () => {
+    const response = Promise.withResolvers<Response>();
+    const fetchSearch = vi.spyOn(globalThis, 'fetch').mockReturnValue(response.promise);
+    const screen = await render(
+      <LocalSearch lang="en" translations={translations} icon="⌕" />,
+    );
+
+    assert.strictEqual(fetchSearch.mock.calls.length, 0);
+    await screen.getByRole('button', { name: 'Search', exact: true }).click();
+    assert.deepEqual(fetchSearch.mock.calls, [['/en/search.json']]);
+    assert.include(
+      screen.container.querySelector('[role="status"]')?.textContent,
+      'Loading search data.',
+    );
+    await userEvent.keyboard('{Escape}');
+    await userEvent.keyboard('/');
+    assert.strictEqual(fetchSearch.mock.calls.length, 1);
+
+    response.resolve(Response.json([]));
+    await vi.waitFor(() => {
+      assert.isNull(screen.container.querySelector('[role="status"]'));
+    });
+    await screen.unmount();
+
+    const remounted = await render(
+      <LocalSearch lang="en" translations={translations} icon="⌕" />,
+    );
+    await remounted.getByRole('button', { name: 'Search', exact: true }).click();
+    await vi.waitFor(() => {
+      assert.isNull(remounted.container.querySelector('[role="status"]'));
+    });
+    assert.strictEqual(fetchSearch.mock.calls.length, 1);
+  });
+
+  it('should search the query entered while loading as soon as the index is ready', async () => {
+    const response = Promise.withResolvers<Response>();
+    vi.spyOn(globalThis, 'fetch').mockReturnValue(response.promise);
+    const screen = await render(
+      <LocalSearch lang="en" translations={translations} icon="⌕" />,
+    );
+
+    await screen.getByRole('button', { name: 'Search', exact: true }).click();
+    await screen.getByRole('searchbox', { name: 'Search' }).fill('React');
+    assert.strictEqual(screen.container.querySelectorAll('li > a').length, 0);
+    assert.notInclude(screen.container.textContent, 'No results for');
+
+    response.resolve(
+      Response.json([
+        {
+          id: 'react.en',
+          url: '/en/posts/react',
+          slug: 'react',
+          lang: 'en',
+          readtime: 1,
+          data: {
+            title: 'React guide',
+            description: 'Learn React',
+            created: '2026-10-02',
+            updated: '2026-10-02',
+            categories: [],
+            references: [],
+          },
+          headings: [
+            { id: 'react', text: 'React guide', depth: 1, parent: null, content: '' },
+          ],
+        },
+      ]),
+    );
+
+    await vi.waitFor(() => {
+      assert.include(
+        screen.container.querySelector('li > a')?.textContent,
+        'React guide',
+      );
+    });
+    assert.strictEqual(screen.container.querySelector('input')?.value, 'React');
+  });
+
+  it('should retry an unsuccessful response without losing the query', async () => {
+    const fetchSearch = vi
+      .spyOn(globalThis, 'fetch')
+      .mockResolvedValueOnce(new Response(null, { status: 503 }))
+      .mockResolvedValueOnce(Response.json([]));
+    const screen = await render(
+      <LocalSearch lang="en" translations={translations} icon="⌕" />,
+    );
+
+    await screen.getByRole('button', { name: 'Search', exact: true }).click();
+    await screen.getByRole('searchbox', { name: 'Search' }).fill('React');
+    await vi.waitFor(() => {
+      assert.include(
+        screen.container.querySelector('[role="status"]')?.textContent,
+        'Failed to load search data.',
+      );
+    });
+    await screen.getByRole('button', { name: 'Retry' }).click();
+    await vi.waitFor(() => {
+      assert.isNull(screen.container.querySelector('[role="status"]'));
+    });
+
+    assert.deepEqual(fetchSearch.mock.calls, [['/en/search.json'], ['/en/search.json']]);
+    assert.strictEqual(screen.container.querySelector('input')?.value, 'React');
+  });
+
+  it('should retry a network failure when reopening the dialog', async () => {
+    const fetchSearch = vi
+      .spyOn(globalThis, 'fetch')
+      .mockRejectedValueOnce(new TypeError('Network failure'))
+      .mockResolvedValueOnce(Response.json([]));
+    const screen = await render(
+      <LocalSearch lang="en" translations={translations} icon="⌕" />,
+    );
+
+    await screen.getByRole('button', { name: 'Search', exact: true }).click();
+    await vi.waitFor(() => {
+      assert.include(
+        screen.container.querySelector('[role="status"]')?.textContent,
+        'Failed to load search data.',
+      );
+    });
+    await userEvent.keyboard('{Escape}');
+    await userEvent.keyboard('{Control>}k{/Control}');
+    await vi.waitFor(() => {
+      assert.isNull(screen.container.querySelector('[role="status"]'));
+    });
+    assert.strictEqual(fetchSearch.mock.calls.length, 2);
+  });
+
+  it('should cache each language separately and reuse it when switching back', async () => {
+    const fetchSearch = vi
+      .spyOn(globalThis, 'fetch')
+      .mockResolvedValueOnce(Response.json([]))
+      .mockResolvedValueOnce(Response.json([]));
+    const screen = await render(
+      <LocalSearch lang="en" translations={translations} icon="⌕" />,
+    );
+
+    await userEvent.keyboard('{Meta>}k{/Meta}');
+    await vi.waitFor(() => {
+      assert.isNull(screen.container.querySelector('[role="status"]'));
+    });
+    await userEvent.keyboard('{Escape}');
+    await screen.rerender(<LocalSearch lang="ko" translations={translations} icon="⌕" />);
+    await userEvent.keyboard('/');
+    await vi.waitFor(() => {
+      assert.isNull(screen.container.querySelector('[role="status"]'));
+    });
+    assert.deepEqual(fetchSearch.mock.calls, [['/en/search.json'], ['/ko/search.json']]);
+
+    await userEvent.keyboard('{Escape}');
+    await screen.rerender(<LocalSearch lang="en" translations={translations} icon="⌕" />);
+    await screen.getByRole('button', { name: 'Search', exact: true }).click();
+    await vi.waitFor(() => {
+      assert.isNull(screen.container.querySelector('[role="status"]'));
+    });
+    assert.strictEqual(fetchSearch.mock.calls.length, 2);
+  });
+
+  it('should show the ancestor path and safely highlight a body excerpt with its section link', async () => {
+    vi.spyOn(globalThis, 'fetch').mockResolvedValue(
+      Response.json([
+        {
+          id: 'example.en',
+          url: '/en/posts/example',
+          slug: 'example',
+          lang: 'en',
+          readtime: 1,
+          data: {
+            title: 'Example article',
+            description: 'Metadata summary',
+            created: '2026-10-03',
+            updated: '2026-10-03',
+            categories: [],
+            references: [],
+          },
+          headings: [
+            {
+              id: 'example',
+              text: 'Example article',
+              depth: 1,
+              parent: null,
+              content: '',
+            },
+            {
+              id: 'references',
+              text: 'References',
+              depth: 2,
+              parent: {
+                id: 'usage',
+                text: 'Usage',
+                depth: 2,
+                content: '',
+                parent: {
+                  id: 'example',
+                  text: 'Example article',
+                  depth: 1,
+                  content: '',
+                  parent: null,
+                },
+              },
+              content: `${'Background text. '.repeat(70)}Use tooltips <img src=x> for context.`,
+            },
+          ],
+        },
+      ]),
+    );
+
+    const screen = await render(<LocalSearch lang="en" translations={translations} />);
     const button = screen.container.querySelector('button');
 
     assert.ok(button);
@@ -186,50 +384,49 @@ describe('localsearch', () => {
   });
 
   it('should include a body H1 in the path of a matching child section', async () => {
-    const screen = await render(
-      <LocalSearch
-        documents={[
-          {
-            id: 'example.en',
-            url: '/en/posts/example',
-            slug: 'example',
-            lang: 'en',
-            readtime: 1,
-            data: {
-              title: 'Example article',
-              description: 'Metadata summary',
-              created: '2026-10-03',
-              updated: '2026-10-03',
-              categories: [],
-              references: [],
-            },
-            headings: [
-              {
-                id: 'example',
-                text: 'Example article',
-                depth: 1,
-                parent: null,
-                content: '',
-              },
-              {
-                id: 'windows',
-                text: 'Windows',
-                depth: 2,
-                parent: {
-                  id: 'installation',
-                  text: 'Installation',
-                  depth: 1,
-                  content: '',
-                  parent: null,
-                },
-                content: 'Tooltip setup.',
-              },
-            ],
+    vi.spyOn(globalThis, 'fetch').mockResolvedValue(
+      Response.json([
+        {
+          id: 'example.en',
+          url: '/en/posts/example',
+          slug: 'example',
+          lang: 'en',
+          readtime: 1,
+          data: {
+            title: 'Example article',
+            description: 'Metadata summary',
+            created: '2026-10-03',
+            updated: '2026-10-03',
+            categories: [],
+            references: [],
           },
-        ]}
-        translations={translations}
-      />,
+          headings: [
+            {
+              id: 'example',
+              text: 'Example article',
+              depth: 1,
+              parent: null,
+              content: '',
+            },
+            {
+              id: 'windows',
+              text: 'Windows',
+              depth: 2,
+              parent: {
+                id: 'installation',
+                text: 'Installation',
+                depth: 1,
+                content: '',
+                parent: null,
+              },
+              content: 'Tooltip setup.',
+            },
+          ],
+        },
+      ]),
     );
+
+    const screen = await render(<LocalSearch lang="en" translations={translations} />);
 
     const button = screen.container.querySelector('button');
 
@@ -246,37 +443,36 @@ describe('localsearch', () => {
   });
 
   it('should highlight exact, prefix, and fuzzy matches in titles and descriptions while preserving text', async () => {
-    const screen = await render(
-      <LocalSearch
-        documents={[
-          {
-            id: 'react.en',
-            url: '/en/posts/react',
-            slug: 'react',
-            lang: 'en',
-            readtime: 1,
-            data: {
-              title: 'React & Reactivity <img src=x>',
-              description: 'Try REACT; a reaction guide.',
-              created: '2026-10-02',
-              updated: '2026-10-02',
-              categories: [],
-              references: [],
-            },
-            headings: [
-              {
-                id: 'react',
-                text: 'React & Reactivity <img src=x>',
-                depth: 1,
-                parent: null,
-                content: '',
-              },
-            ],
+    vi.spyOn(globalThis, 'fetch').mockResolvedValue(
+      Response.json([
+        {
+          id: 'react.en',
+          url: '/en/posts/react',
+          slug: 'react',
+          lang: 'en',
+          readtime: 1,
+          data: {
+            title: 'React & Reactivity <img src=x>',
+            description: 'Try REACT; a reaction guide.',
+            created: '2026-10-02',
+            updated: '2026-10-02',
+            categories: [],
+            references: [],
           },
-        ]}
-        translations={translations}
-      />,
+          headings: [
+            {
+              id: 'react',
+              text: 'React & Reactivity <img src=x>',
+              depth: 1,
+              parent: null,
+              content: '',
+            },
+          ],
+        },
+      ]),
     );
+
+    const screen = await render(<LocalSearch lang="en" translations={translations} />);
     const button = screen.container.querySelector('button');
 
     assert.ok(button);
@@ -335,61 +531,60 @@ describe('localsearch', () => {
   });
 
   it('should scroll hidden keyboard selections into view without scrolling visible results', async () => {
-    const screen = await render(
-      <LocalSearch
-        documents={[
-          {
-            id: 'react-first.en',
-            url: '/en/posts/react-first',
-            slug: 'react-first',
-            lang: 'en',
-            readtime: 1,
-            data: {
-              title: 'React first',
-              description: 'React guide',
-              created: '2026-10-02',
-              updated: '2026-10-02',
-              categories: [],
-              references: [],
-            },
-            headings: [
-              {
-                id: 'react-first',
-                text: 'React first',
-                depth: 1,
-                parent: null,
-                content: '',
-              },
-            ],
+    vi.spyOn(globalThis, 'fetch').mockResolvedValue(
+      Response.json([
+        {
+          id: 'react-first.en',
+          url: '/en/posts/react-first',
+          slug: 'react-first',
+          lang: 'en',
+          readtime: 1,
+          data: {
+            title: 'React first',
+            description: 'React guide',
+            created: '2026-10-02',
+            updated: '2026-10-02',
+            categories: [],
+            references: [],
           },
-          {
-            id: 'react-second.en',
-            url: '/en/posts/react-second',
-            slug: 'react-second',
-            lang: 'en',
-            readtime: 1,
-            data: {
-              title: 'React second',
-              description: 'React guide',
-              created: '2026-10-02',
-              updated: '2026-10-02',
-              categories: [],
-              references: [],
+          headings: [
+            {
+              id: 'react-first',
+              text: 'React first',
+              depth: 1,
+              parent: null,
+              content: '',
             },
-            headings: [
-              {
-                id: 'react-second',
-                text: 'React second',
-                depth: 1,
-                parent: null,
-                content: '',
-              },
-            ],
+          ],
+        },
+        {
+          id: 'react-second.en',
+          url: '/en/posts/react-second',
+          slug: 'react-second',
+          lang: 'en',
+          readtime: 1,
+          data: {
+            title: 'React second',
+            description: 'React guide',
+            created: '2026-10-02',
+            updated: '2026-10-02',
+            categories: [],
+            references: [],
           },
-        ]}
-        translations={translations}
-      />,
+          headings: [
+            {
+              id: 'react-second',
+              text: 'React second',
+              depth: 1,
+              parent: null,
+              content: '',
+            },
+          ],
+        },
+      ]),
     );
+
+    const screen = await render(<LocalSearch lang="en" translations={translations} />);
     const button = screen.container.querySelector('button');
 
     assert.ok(button);
@@ -462,9 +657,7 @@ describe('localsearch', () => {
 
   describe('spell checking', () => {
     it('should disable spell checking on the search input', async () => {
-      const screen = await render(
-        <LocalSearch documents={[]} translations={translations} />,
-      );
+      const screen = await render(<LocalSearch lang="en" translations={translations} />);
       const input = screen.container.querySelector('input');
 
       assert.ok(input);
@@ -475,31 +668,30 @@ describe('localsearch', () => {
 
   describe('typing on the search button', () => {
     it('should search with the first uppercase letter and continue typing in the input', async () => {
-      const screen = await render(
-        <LocalSearch
-          documents={[
-            {
-              id: 'react.en',
-              url: '/en/posts/react',
-              slug: 'react',
-              lang: 'en',
-              readtime: 1,
-              data: {
-                title: 'React guide',
-                description: 'Learn React',
-                created: '2026-10-02',
-                updated: '2026-10-02',
-                categories: [],
-                references: [],
-              },
-              headings: [
-                { id: 'react', text: 'React guide', depth: 1, parent: null, content: '' },
-              ],
+      vi.spyOn(globalThis, 'fetch').mockResolvedValue(
+        Response.json([
+          {
+            id: 'react.en',
+            url: '/en/posts/react',
+            slug: 'react',
+            lang: 'en',
+            readtime: 1,
+            data: {
+              title: 'React guide',
+              description: 'Learn React',
+              created: '2026-10-02',
+              updated: '2026-10-02',
+              categories: [],
+              references: [],
             },
-          ]}
-          translations={translations}
-        />,
+            headings: [
+              { id: 'react', text: 'React guide', depth: 1, parent: null, content: '' },
+            ],
+          },
+        ]),
       );
+
+      const screen = await render(<LocalSearch lang="en" translations={translations} />);
       const button = screen.container.querySelector('button');
       const dialog = screen.container.querySelector('dialog');
       const input = screen.container.querySelector('input');
@@ -524,9 +716,7 @@ describe('localsearch', () => {
     });
 
     it('should open the dialog with the first lowercase letter as the query', async () => {
-      const screen = await render(
-        <LocalSearch documents={[]} translations={translations} />,
-      );
+      const screen = await render(<LocalSearch lang="en" translations={translations} />);
       const button = screen.container.querySelector('button');
       const dialog = screen.container.querySelector('dialog');
       const input = screen.container.querySelector('input');
@@ -544,9 +734,7 @@ describe('localsearch', () => {
     });
 
     it('should open the dialog with the first digit as the query', async () => {
-      const screen = await render(
-        <LocalSearch documents={[]} translations={translations} />,
-      );
+      const screen = await render(<LocalSearch lang="en" translations={translations} />);
       const button = screen.container.querySelector('button');
       const dialog = screen.container.querySelector('dialog');
       const input = screen.container.querySelector('input');
@@ -564,9 +752,7 @@ describe('localsearch', () => {
     });
 
     it('should ignore modified letters, punctuation, and IME composition on the button', async () => {
-      const screen = await render(
-        <LocalSearch documents={[]} translations={translations} />,
-      );
+      const screen = await render(<LocalSearch lang="en" translations={translations} />);
       const button = screen.container.querySelector('button');
       const dialog = screen.container.querySelector('dialog');
       const input = screen.container.querySelector('input');
@@ -597,9 +783,7 @@ describe('localsearch', () => {
         'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15',
       );
 
-      const screen = await render(
-        <LocalSearch documents={[]} translations={translations} />,
-      );
+      const screen = await render(<LocalSearch lang="en" translations={translations} />);
       const keycaps = screen.container.querySelectorAll('button kbd');
 
       assert.strictEqual(keycaps.length, 2);
@@ -612,9 +796,7 @@ describe('localsearch', () => {
         'Mozilla/5.0 (iPad; CPU OS 18_0 like Mac OS X) AppleWebKit/605.1.15',
       );
 
-      const screen = await render(
-        <LocalSearch documents={[]} translations={translations} />,
-      );
+      const screen = await render(<LocalSearch lang="en" translations={translations} />);
       const keycaps = screen.container.querySelectorAll('button kbd');
 
       assert.strictEqual(keycaps.length, 2);
@@ -627,9 +809,7 @@ describe('localsearch', () => {
         'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
       );
 
-      const screen = await render(
-        <LocalSearch documents={[]} translations={translations} />,
-      );
+      const screen = await render(<LocalSearch lang="en" translations={translations} />);
       const keycaps = screen.container.querySelectorAll('button kbd');
 
       assert.strictEqual(keycaps.length, 2);
@@ -642,9 +822,7 @@ describe('localsearch', () => {
         'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36',
       );
 
-      const screen = await render(
-        <LocalSearch documents={[]} translations={translations} />,
-      );
+      const screen = await render(<LocalSearch lang="en" translations={translations} />);
       const keycaps = screen.container.querySelectorAll('button kbd');
 
       assert.strictEqual(keycaps.length, 2);

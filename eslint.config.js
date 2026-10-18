@@ -82,6 +82,7 @@ export default defineConfig([
       globals: {
         LayoutProps: false, // Next.js
         PageProps: false, // Next.js
+        RouteContext: false, // Next.js
       },
     },
     rules: {

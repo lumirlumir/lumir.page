@@ -13,6 +13,9 @@ import { expect, test } from '@playwright/test';
 // --------------------------------------------------------------------------------
 
 test.describe('localsearch', () => {
+  // Next.js dev generates the static search JSON on demand before returning it.
+  test.setTimeout(60000);
+
   test('Body-only Korean searches should show the matching section and navigate to its anchor', async ({
     page,
   }) => {
@@ -22,6 +25,7 @@ test.describe('localsearch', () => {
     const dialog = page.getByRole('dialog', { name: '검색' });
     const input = dialog.getByRole('searchbox', { name: '검색' });
     await input.fill('툴팁');
+    await expect(dialog.getByRole('status')).toBeHidden({ timeout: 30000 });
 
     const result = dialog.locator(
       'a[href="/ko/posts/when-using-file-based-metadata-the-favicon-is-not-displayed-correctly#references"]',
@@ -47,6 +51,7 @@ test.describe('localsearch', () => {
     const dialog = page.getByRole('dialog', { name: '검색' });
     const input = dialog.getByRole('searchbox', { name: '검색' });
     await input.fill('툴팁');
+    await expect(dialog.getByRole('status')).toBeHidden({ timeout: 30000 });
     await expect(dialog.locator('a[data-active="true"]')).toHaveAttribute(
       'href',
       '/ko/posts/when-using-file-based-metadata-the-favicon-is-not-displayed-correctly#references',
@@ -67,6 +72,7 @@ test.describe('localsearch', () => {
     const dialog = page.getByRole('dialog', { name: '검색' });
     const input = dialog.getByRole('searchbox', { name: '검색' });
     await input.fill('마크다운');
+    await expect(dialog.getByRole('status')).toBeHidden({ timeout: 30000 });
 
     const result = dialog.locator(
       'a[href="/ko/posts/everything-about-markdown#everything-about-markdown"]',
