@@ -1,5 +1,18 @@
 [
   {
+    "repositoryUrl": "https://api.github.com/repos/eslint/rewrite",
+    "htmlUrl": "https://github.com/eslint/rewrite/pull/523",
+    "id": 5761711886,
+    "nodeId": "PR_kwDOLyyFi88AAAABHU-1Zg",
+    "number": 523,
+    "title": "test: ensure migrate-config internal modules are not exported",
+    "createdAt": "2026-10-08T12:23:53Z",
+    "closedAt": "2026-10-10T13:20:05Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
     "repositoryUrl": "https://api.github.com/repos/eslint-community/eslint-plugin-security",
     "htmlUrl": "https://github.com/eslint-community/eslint-plugin-security/pull/228",
     "id": 5641442515,
@@ -8,6 +21,19 @@
     "title": "chore: remove unused `eslint-config-nodesecurity` dev dependency",
     "createdAt": "2026-09-30T05:26:44Z",
     "closedAt": "2026-10-01T08:15:17Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint",
+    "htmlUrl": "https://github.com/eslint/eslint/pull/21287",
+    "id": 5309092280,
+    "nodeId": "PR_kwDOAKjKDc8AAAABBtgyFQ",
+    "number": 21287,
+    "title": "docs: clarify parameter description in `getText`",
+    "createdAt": "2026-09-01T07:32:59Z",
+    "closedAt": "2026-10-10T13:04:02Z",
     "reactions": {
       "+1": 0
     }

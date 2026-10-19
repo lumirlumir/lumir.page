@@ -2,7 +2,7 @@
  * @fileoverview Define common types.
  */
 
-/* eslint-disable @typescript-eslint/no-empty-object-type -- Required for type definitions. */
+/* eslint-disable typescript/no-empty-object-type -- Required for type definitions. */
 
 // --------------------------------------------------------------------------------
 // Typedefs

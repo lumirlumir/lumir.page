@@ -59,13 +59,13 @@ export async function PostCard({
       <div className={cn(styles['post-card'], 'custom-hover-effect')}>
         <div
           className={cn(styles.title, 'markdown')}
-          // eslint-disable-next-line react/no-danger -- Safe because the title comes from the local file and is controlled.
+          // eslint-disable-next-line react-x/dom-no-dangerously-set-innerhtml -- Safe because the title comes from the local file and is controlled.
           dangerouslySetInnerHTML={{ __html: await markdownToHtmlLite(title) }}
         />
 
         <div
           className={cn(styles.description, 'markdown')}
-          // eslint-disable-next-line react/no-danger -- Safe because the description comes from the local file and is controlled.
+          // eslint-disable-next-line react-x/dom-no-dangerously-set-innerhtml -- Safe because the description comes from the local file and is controlled.
           dangerouslySetInnerHTML={{ __html: await markdownToHtmlLite(description) }}
         />
 

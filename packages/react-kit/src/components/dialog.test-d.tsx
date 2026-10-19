@@ -59,6 +59,7 @@ handle.showModal();
 const dialogRef = createRef<DialogHandle>();
 const inputRef = createRef<HTMLInputElement>();
 const buttonRef = createRef<HTMLButtonElement>();
+const contentRef = createRef<HTMLDialogElement>();
 let rootProps: DialogRootProps;
 
 rootProps = { children: null };
@@ -203,7 +204,7 @@ function DialogTypeTest() {
     // @ts-expect-error - `children` is required.
     <Dialog.Root key="missing-children" />,
     // @ts-expect-error - The content ref is managed by `Dialog.Root`.
-    <Dialog.Content key="content-ref" ref={createRef<HTMLDialogElement>()} />,
+    <Dialog.Content key="content-ref" ref={contentRef} />,
     // @ts-expect-error - The open button type cannot be overridden.
     <Dialog.Open key="open-type" type="submit" />,
     // @ts-expect-error - The close button type cannot be overridden.

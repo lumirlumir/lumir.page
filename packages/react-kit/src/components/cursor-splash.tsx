@@ -4,7 +4,7 @@
  * @see https://github.com/bepyan/bepyan.me.v2/blob/main/src/components/cursor-splash.tsx
  */
 
-/* eslint-disable @typescript-eslint/no-shadow, max-classes-per-file, react/no-this-in-sfc */
+/* eslint-disable typescript/no-shadow, max-classes-per-file */
 
 // --------------------------------------------------------------------------------
 // Directive
@@ -69,6 +69,12 @@ export interface CursorSplashProps extends Omit<
 }
 
 // --------------------------------------------------------------------------------
+// Helper
+// --------------------------------------------------------------------------------
+
+const DEFAULT_BACK_COLOR: ColorRGB = { r: 0.5, g: 0, b: 0 };
+
+// --------------------------------------------------------------------------------
 // Export
 // --------------------------------------------------------------------------------
 
@@ -121,7 +127,7 @@ export function CursorSplash({
   SPLAT_FORCE = 6000,
   SHADING = true,
   COLOR_UPDATE_SPEED = 10,
-  BACK_COLOR = { r: 0.5, g: 0, b: 0 },
+  BACK_COLOR = DEFAULT_BACK_COLOR,
   TRANSPARENT = true,
   RAINBOW_MODE = true,
   COLOR = '#ff0000',
@@ -1430,6 +1436,7 @@ export function CursorSplash({
       return ((value - min) % range) + min;
     }
 
+    /* eslint-disable react-x/web-api-no-leaked-event-listener -- False positive for destructured signal; cleanup aborts all registered listeners. */
     window.addEventListener(
       'mousedown',
       e => {
@@ -1516,6 +1523,8 @@ export function CursorSplash({
       },
       { signal },
     );
+
+    /* eslint-enable react-x/web-api-no-leaked-event-listener */
 
     return () => {
       abortController.abort();

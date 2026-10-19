@@ -88,7 +88,7 @@ export function SVGWrapper({ attrs, children }: SVGWrapperProps) {
   return function SVG({
     size = '1em',
     color = 'currentColor',
-    style = {},
+    style = undefined,
     ...props
   }: SVGProps) {
     return (
