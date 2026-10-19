@@ -93,7 +93,7 @@ console.log(data.total_count, 'results found for', start, 'to', end);
 writeFileSync(
   new URL(`../src/generated/${type}-${year}-${month}.json`, import.meta.url),
   `${JSON.stringify(
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any -- Intentional
+    // eslint-disable-next-line typescript/no-explicit-any -- Intentional
     data.items.map((item: any) => ({
       repositoryUrl: item.repository_url,
       htmlUrl: item.html_url,

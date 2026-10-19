@@ -14,8 +14,8 @@
 
 import {
   createContext,
+  use,
   useCallback,
-  useContext,
   useImperativeHandle,
   useMemo,
   useRef,
@@ -104,9 +104,10 @@ export type DialogCloseProps = Omit<ComponentPropsWithRef<'button'>, 'type'>;
 // --------------------------------------------------------------------------------
 
 const DialogContext = createContext<DialogContextValue | undefined>(undefined);
+DialogContext.displayName = 'DialogContext';
 
 function useDialogContext(): DialogContextValue {
-  const context = useContext(DialogContext);
+  const context = use(DialogContext);
 
   if (!context) {
     throw new Error('Dialog components must be used within `Dialog.Root`');

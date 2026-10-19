@@ -494,6 +494,8 @@ Sub-lists can be written through indentation.
 
 #### 2-7-1. Ordered Lists {#2-7-1-ordered-lists}
 
+<!-- eslint-disable md/consistent-ordered-list-style -->
+
 Use numbers(`0, 1, 2, 3, ...`) and a period(`.`). At this time, it can start from `0.` or `1.`.
 
 The shape changes when indented. (Based on GitHub<sup>GitHub</sup>: numbers, Roman numerals, alphabetical order)
@@ -535,6 +537,8 @@ No matter what number is entered, the order is defined in ascending order.
       1. second of first
   3. third
   2. second
+
+<!-- eslint-enable md/consistent-ordered-list-style -->
 
 #### 2-7-2. Unordered Lists {#2-7-2-unordered-lists}
 
