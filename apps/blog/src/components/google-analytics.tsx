@@ -42,6 +42,7 @@ export function GoogleAnalytics({ gaId }: GoogleAnalyticsProps) {
     <>
       <Script
         id="_next-ga-init"
+        // eslint-disable-next-line react-x/dom-no-dangerously-set-innerhtml -- The script and measurement ID are controlled by the application.
         dangerouslySetInnerHTML={{
           __html: `
 window.dataLayer = window.dataLayer || [];

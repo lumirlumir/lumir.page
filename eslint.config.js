@@ -8,8 +8,13 @@
 
 import { fileURLToPath } from 'node:url';
 import { defineConfig, globalIgnores } from 'eslint/config';
-import bananass from 'eslint-config-bananass';
-import md from 'eslint-markdown';
+import jsx from 'eslint-lumir/jsx';
+import tsx from 'eslint-lumir/tsx';
+import next from 'eslint-lumir/next';
+import json from 'eslint-lumir/json';
+import jsonc from 'eslint-lumir/jsonc';
+import json5 from 'eslint-lumir/json5';
+import md from 'eslint-lumir/md';
 
 // --------------------------------------------------------------------------------
 // Export
@@ -28,29 +33,21 @@ export default defineConfig([
     'global/ignores',
   ),
 
-  bananass.configs.jsxNext,
-  bananass.configs.tsxNext,
-  bananass.configs.json,
-  bananass.configs.jsonc,
-  bananass.configs.json5,
-  md.configs.base,
+  jsx,
+  tsx,
+  json,
+  jsonc,
+  json5,
+  md,
 
   // js
-  {
-    name: 'js/global',
-    rules: {
-      'import/no-cycle': 'off', // Too computationally expensive. TODO: Remove this in shared config.
-      'import/prefer-default-export': 'off', // Too restrictive. TODO: Remove this in shared config.
-      'react/no-unknown-property': 'off', // TypeScript handles this. TODO: Remove this in shared config.
-    },
-  },
   {
     name: 'js/global/test-d',
     files: ['**/*.test-d.{ts,mts,cts,tsx}'],
     rules: {
       'prefer-const': 'off',
-      '@typescript-eslint/no-unsafe-function-type': 'off',
-      '@typescript-eslint/no-unused-vars': 'off',
+      'typescript/no-unsafe-function-type': 'off',
+      'typescript/no-unused-vars': 'off',
     },
   },
   {
@@ -65,6 +62,7 @@ export default defineConfig([
   {
     name: 'js/apps/blog',
     files: ['apps/blog/**/*.{js,mjs,cjs,jsx,ts,mts,cts,tsx}'],
+    extends: [next],
     settings: {
       next: {
         rootDir: fileURLToPath(new URL('./apps/blog', import.meta.url)),
@@ -95,7 +93,7 @@ export default defineConfig([
         },
       ],
 
-      '@next/next/no-img-element': 'off', // Plain `<img>` is intentional because static export doesn't use Next image optimization.
+      'next/no-img-element': 'off', // Plain `<img>` is intentional because static export doesn't use Next image optimization.
     },
   },
   {
@@ -134,118 +132,22 @@ export default defineConfig([
     },
   },
 
-  // md
+  // jsx
   {
-    name: 'md/global',
-    files: ['**/*.md'],
+    name: 'jsx/global',
+    files: ['**/*.{jsx,tsx}'],
     rules: {
-      'markdown/fenced-code-language': 'error',
-      'markdown/fenced-code-meta': 'off',
-      'markdown/heading-increment': 'error',
-      'markdown/no-bare-urls': 'error',
-      'markdown/no-duplicate-definitions': ['error', { checkFootnoteDefinitions: true }],
-      'markdown/no-duplicate-headings': ['error', { checkSiblingsOnly: true }],
-      'markdown/no-empty-definitions': ['error', { checkFootnoteDefinitions: true }],
-      'markdown/no-empty-images': 'error',
-      'markdown/no-empty-links': 'error',
-      'markdown/no-html': [
-        'error',
+      'no-restricted-syntax': [
+        ...tsx.rules['no-restricted-syntax'],
         {
-          allowed: [
-            'strong',
-            'em',
-            'small',
-            'sub',
-            'sup',
-            'u',
-            'br',
-            'details',
-            'summary',
-            'image',
-            'code',
-            'kbd',
-            'mark',
-          ],
+          selector: 'Program[body.length>0]:not(:has(JSXElement)):not(:has(JSXFragment))',
+          message: 'Files without JSX must use `.js` or `.ts`.',
         },
       ],
-      'markdown/no-invalid-label-refs': 'error',
-      'markdown/no-missing-atx-heading-space': ['error', { checkClosedHeadings: true }],
-      'markdown/no-missing-label-refs': [
-        'error',
-        { allowLabels: ['!NOTE', '!TIP', '!IMPORTANT', '!WARNING', '!CAUTION'] },
-      ],
-      'markdown/no-missing-link-fragments': ['error', { ignoreCase: false }],
-      'markdown/no-multiple-h1': 'error',
-      'markdown/no-reference-like-urls': 'error',
-      'markdown/no-reversed-media-syntax': 'error',
-      'markdown/no-space-in-emphasis': ['error', { checkStrikethrough: true }],
-      'markdown/no-unused-definitions': ['error', { checkFootnoteDefinitions: true }],
-      'markdown/require-alt-text': 'error',
-      'markdown/table-column-count': ['error', { checkMissingCells: true }],
-      'md/allow-heading': 'off',
-      'md/allow-image-url': ['error', { disallowUrls: [/^\.\//, /^http:\/\//i] }],
-      'md/allow-link-url': ['error', { disallowUrls: [/^\.\//, /^http:\/\//i] }],
-      'md/code-lang-shorthand': 'error',
-      'md/consistent-code-style': [
-        'error',
-        { style: 'fence-backtick', blankLineAbove: 1, blankLineBelow: 1 },
-      ],
-      'md/consistent-delete-style': ['error', { style: '~' }],
-      'md/consistent-emphasis-style': ['error', { style: '*' }],
-      'md/consistent-heading-style': ['error', { style: 'atx' }],
-      'md/consistent-inline-code-style': 'error',
-      'md/consistent-strong-style': ['error', { style: '*' }],
-      'md/consistent-thematic-break-style': ['error', { style: '---' }],
-      'md/consistent-unordered-list-style': ['error', { style: '-' }],
-      'md/no-consecutive-blank-line': [
-        'error',
-        { max: 1, skipCode: false, skipMath: false },
-      ],
-      'md/no-control-character': ['error', { skipCode: false, skipInlineCode: false }],
-      'md/no-curly-quote': 'error',
-      'md/no-double-punctuation': 'error',
-      'md/no-double-space': 'error',
-      'md/no-emoji': ['off', { style: 'emoji' }],
-      'md/no-git-conflict-marker': ['error', { skipCode: false, skipMath: false }],
-      'md/no-irregular-dash': [
-        'error',
-        {
-          skipCode: false,
-          skipInlineCode: false,
-          skipMath: false,
-          skipInlineMath: false,
-        },
-      ],
-      'md/no-irregular-whitespace': [
-        'error',
-        {
-          skipCode: false,
-          skipInlineCode: false,
-          skipMath: false,
-          skipInlineMath: false,
-        },
-      ],
-      'md/no-multiple-atx-heading-space': ['error', { checkClosedHeading: true }],
-      'md/no-shell-dollar': 'off',
-      'md/no-tab': [
-        'error',
-        {
-          skipCode: false,
-          skipInlineCode: false,
-          skipMath: false,
-          skipInlineMath: false,
-        },
-      ],
-      'md/no-trailing-heading-punctuation': 'error',
-      'md/no-url-trailing-slash': 'error',
-      'md/require-heading-id': 'off',
-      'md/require-image-title': 'off', // Too tight.
-      'md/require-link-title': 'off', // Too tight.
-    },
-    languageOptions: {
-      math: true,
     },
   },
+
+  // md
   {
     name: 'md/apps/blog',
     files: ['apps/blog/src/posts/docs/**/*.md'],

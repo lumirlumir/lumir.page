@@ -6,7 +6,7 @@
 // Import
 // --------------------------------------------------------------------------------
 
-import { createContext, useContext, type PropsWithChildren } from 'react';
+import { createContext, use, type PropsWithChildren } from 'react';
 
 import useInterview from '@/hooks/use-interview';
 
@@ -24,6 +24,7 @@ export type InterviewContextValue = ReturnType<typeof useInterview<HTMLDivElemen
 // --------------------------------------------------------------------------------
 
 const InterviewContext = createContext<InterviewContextValue | undefined>(undefined);
+InterviewContext.displayName = 'InterviewContext';
 
 // --------------------------------------------------------------------------------
 // Export
@@ -36,7 +37,7 @@ const InterviewContext = createContext<InterviewContextValue | undefined>(undefi
  * @throws {Error} Throws when called outside of `InterviewProvider`.
  */
 export function useInterviewContext(): InterviewContextValue {
-  const context = useContext(InterviewContext);
+  const context = use(InterviewContext);
 
   if (!context) {
     throw new Error('`useInterviewContext` must be used within an `InterviewProvider`.');

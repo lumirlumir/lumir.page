@@ -15,7 +15,7 @@ import { useSpeechRecognition } from '@lumir/react-kit/hooks';
 
 export default function useInterviewContent<T extends HTMLElement>() {
   const contentRef = useRef<T | null>(null);
-  const prevContent = useRef<string>('');
+  const prevContentRef = useRef<string>('');
   const {
     listening,
     transcript,
@@ -25,12 +25,12 @@ export default function useInterviewContent<T extends HTMLElement>() {
 
   useEffect(() => {
     if (contentRef.current)
-      contentRef.current.innerText = prevContent.current + transcript;
+      contentRef.current.innerText = prevContentRef.current + transcript;
   }, [transcript]);
 
   const toggleListening = () => {
     if (!listening && contentRef.current)
-      prevContent.current = contentRef.current.innerText;
+      prevContentRef.current = contentRef.current.innerText;
     toggle();
     if (!listening) resetTranscript();
   };

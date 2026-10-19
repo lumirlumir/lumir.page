@@ -37,14 +37,16 @@ function SortContainer({ children, lang }: PropsWithLang<PropsWithChildren>) {
 
   return (
     <div>
-      <div
+      <button
+        type="button"
         className={cn(styles['sort-item'], 'custom-hover-effect')}
         onClick={toggleIsOpen}
+        aria-expanded={isOpen}
       >
-        <div className={styles['react-icons']}>{sortMenuMeta.reactIcons}</div>
-        <div className={styles.name}>{sortMenuMeta.name[lang].toUpperCase()}</div>
-        <div className={styles.sort}>{isOpen ? <FaAngleUp /> : <FaAngleDown />}</div>
-      </div>
+        <span className={styles['react-icons']}>{sortMenuMeta.reactIcons}</span>
+        <span className={styles.name}>{sortMenuMeta.name[lang].toUpperCase()}</span>
+        <span className={styles.sort}>{isOpen ? <FaAngleUp /> : <FaAngleDown />}</span>
+      </button>
       {isOpen ? <ul className={styles.list}>{children}</ul> : null}
     </div>
   );
@@ -68,12 +70,18 @@ function SortItem({
   }
 
   return (
-    <li className={cn(styles['sort-item'], 'custom-hover-effect')} onClick={onClick}>
-      <div className={styles['react-icons']}>{frontmatterMeta[field].reactIcons}</div>
-      <div className={styles.name}>
-        {`${frontmatterMeta[field].name[lang]} / ${sortMeta[sort].name[lang]}`.toUpperCase()}
-      </div>
-      <div className={styles.sort}>{sortMeta[sort].reactIcons}</div>
+    <li>
+      <button
+        type="button"
+        className={cn(styles['sort-item'], 'custom-hover-effect')}
+        onClick={onClick}
+      >
+        <span className={styles['react-icons']}>{frontmatterMeta[field].reactIcons}</span>
+        <span className={styles.name}>
+          {`${frontmatterMeta[field].name[lang]} / ${sortMeta[sort].name[lang]}`.toUpperCase()}
+        </span>
+        <span className={styles.sort}>{sortMeta[sort].reactIcons}</span>
+      </button>
     </li>
   );
 }

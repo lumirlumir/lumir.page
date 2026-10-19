@@ -14,7 +14,7 @@
 // Import
 // --------------------------------------------------------------------------------
 
-import { createContext, useContext, useState, type PropsWithChildren } from 'react';
+import { createContext, use, useState, type PropsWithChildren } from 'react';
 
 // --------------------------------------------------------------------------------
 // Typedef
@@ -795,6 +795,7 @@ const scenario: Section[][] = [
   ],
 ] as const;
 const ScenarioContext = createContext<ScenarioContextValue | undefined>(undefined);
+ScenarioContext.displayName = 'ScenarioContext';
 
 // --------------------------------------------------------------------------------
 // Export
@@ -807,7 +808,7 @@ const ScenarioContext = createContext<ScenarioContextValue | undefined>(undefine
  * @throws {Error} Throws when called outside of `ScenarioProvider`.
  */
 export function useScenarioContext(): ScenarioContextValue {
-  const context = useContext(ScenarioContext);
+  const context = use(ScenarioContext);
 
   if (!context) {
     throw new Error('`useScenarioContext` must be used within a `ScenarioProvider`.');
@@ -866,6 +867,7 @@ export function ScenarioProvider({ children }: PropsWithChildren) {
   const isLastSection = () => state.section === scenario[state.chapter].length - 1;
 
   return (
+    // eslint-disable-next-line react-x/no-unstable-context-value -- React Compiler automatically optimizes context values.
     <ScenarioContext value={{ section, toNextSection, toLastSection, isLastSection }}>
       {children}
     </ScenarioContext>
