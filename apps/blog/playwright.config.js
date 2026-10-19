@@ -45,7 +45,7 @@ export default defineConfig({
   },
 
   webServer: {
-    command: 'node --run dev',
+    command: 'node --run dev', // TODO: production build
     url,
     reuseExistingServer: !isCI,
   },
