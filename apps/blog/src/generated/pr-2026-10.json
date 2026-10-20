@@ -1,5 +1,18 @@
 [
   {
+    "repositoryUrl": "https://api.github.com/repos/eslint/create-config",
+    "htmlUrl": "https://github.com/eslint/create-config/pull/274",
+    "id": 5879112560,
+    "nodeId": "PR_kwDOFqe-is8AAAABIx3yaw",
+    "number": 274,
+    "title": "fix: scope Vue config to JavaScript, TypeScript, and Vue files",
+    "createdAt": "2026-10-16T05:52:19Z",
+    "closedAt": "2026-10-19T21:24:11Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
     "repositoryUrl": "https://api.github.com/repos/eslint/rewrite",
     "htmlUrl": "https://github.com/eslint/rewrite/pull/523",
     "id": 5761711886,
