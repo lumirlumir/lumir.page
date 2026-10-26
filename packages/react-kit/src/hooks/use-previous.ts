@@ -45,6 +45,6 @@ export function usePrevious<T>(value: T): T {
     ref.current = value;
   }, [value]);
 
-  // eslint-disable-next-line react-hooks/refs -- Intentionally reads the value captured before this render's effect.
+  // eslint-disable-next-line react-x/refs -- Intentionally reads the value captured before this render's effect.
   return ref.current;
 }
