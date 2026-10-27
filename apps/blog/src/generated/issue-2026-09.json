@@ -7,7 +7,7 @@
     "number": 278,
     "title": "Bug: CI fails on Node.js 26.10.0 due to `AbortError` from Yeoman `TestAdapter`",
     "createdAt": "2026-09-24T05:48:20Z",
-    "closedAt": null,
+    "closedAt": "2026-10-26T13:40:13Z",
     "reactions": {
       "+1": 0
     }

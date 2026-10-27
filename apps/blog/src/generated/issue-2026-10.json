@@ -1,5 +1,18 @@
 [
   {
+    "repositoryUrl": "https://api.github.com/repos/eslint/rewrite",
+    "htmlUrl": "https://github.com/eslint/rewrite/issues/527",
+    "id": 5994046886,
+    "nodeId": "I_kwDOLyyFi88AAAABZUXlpg",
+    "number": 527,
+    "title": "Bug: `ConfigCommentParser` returns regex literals with modern flags such as `u`, `s`, `d`, `v` as strings",
+    "createdAt": "2026-10-23T07:50:49Z",
+    "closedAt": null,
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
     "repositoryUrl": "https://api.github.com/repos/eslint-community/eslint-plugin-jsx-a11y-x",
     "htmlUrl": "https://github.com/eslint-community/eslint-plugin-jsx-a11y-x/issues/113",
     "id": 5908529289,
