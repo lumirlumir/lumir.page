@@ -1,5 +1,18 @@
 [
   {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint",
+    "htmlUrl": "https://github.com/eslint/eslint/pull/21419",
+    "id": 5908115071,
+    "nodeId": "PR_kwDOAKjKDc8AAAABJIlRJA",
+    "number": 21419,
+    "title": "fix: handle LS, PS and empty hashbang comments",
+    "createdAt": "2026-10-18T09:25:46Z",
+    "closedAt": "2026-10-26T08:33:10Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
     "repositoryUrl": "https://api.github.com/repos/eslint/create-config",
     "htmlUrl": "https://github.com/eslint/create-config/pull/274",
     "id": 5879112560,
@@ -21,6 +34,19 @@
     "title": "test: ensure migrate-config internal modules are not exported",
     "createdAt": "2026-10-08T12:23:53Z",
     "closedAt": "2026-10-10T13:20:05Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/markdown",
+    "htmlUrl": "https://github.com/eslint/markdown/pull/752",
+    "id": 5761305520,
+    "nodeId": "PR_kwDOAkm7Hs8AAAABHUpw_Q",
+    "number": 752,
+    "title": "fix: escaped parentheses in nested labels in `no-reversed-media-syntax`",
+    "createdAt": "2026-10-08T11:55:20Z",
+    "closedAt": "2026-10-23T20:44:54Z",
     "reactions": {
       "+1": 0
     }
