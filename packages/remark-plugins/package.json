@@ -30,7 +30,7 @@
   },
   "dependencies": {
     "mdast-util-from-markdown": "^2.0.3",
-    "unist-util-visit": "^5.1.0"
+    "unist-util-visit": "^5.2.0"
   },
   "devDependencies": {
     "@types/mdast": "^4.0.4",
