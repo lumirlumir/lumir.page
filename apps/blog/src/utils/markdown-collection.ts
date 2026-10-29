@@ -24,9 +24,6 @@ import { isFrontmatter } from '@/utils/is';
 // --------------------------------------------------------------------------------
 
 type MarkdownCollectionMap = Map<VMarkdownFileMeta['id'], VMarkdownFileMeta>;
-type MarkdownCollectionByLangSlug = LangRecord<
-  Record<VMarkdownFileMeta['slug'], VMarkdownFileMeta>
->;
 type MarkdownCollectionByLangCategory = LangRecord<
   Record<CategoryKey, VMarkdownFileMeta[]>
 >;
@@ -128,8 +125,6 @@ class MarkdownCollection {
   /** Source of truth: used as a cache */
   #map: MarkdownCollectionMap = new Map();
   /** View: using `#map` as source of truth */
-  #byLangSlug: MarkdownCollectionByLangSlug | null = null;
-  /** View: using `#map` as source of truth */
   #byLangCategory: MarkdownCollectionByLangCategory | null = null;
 
   // ------------------------------------------------------------------------------
@@ -176,29 +171,6 @@ class MarkdownCollection {
     }
 
     return this.#map;
-  }
-
-  /**
-   * Lazily creates a mapping of language keys to slugs and their corresponding Markdown file metadata.
-   */
-  #ensureByLangSlug(): MarkdownCollectionByLangSlug {
-    // If the slug mapping has already been created, skip the creation process.
-    if (this.#byLangSlug) {
-      return this.#byLangSlug;
-    }
-
-    const markdownCollectionByLangSlug = Object.fromEntries(
-      langKeys.map(lang => [lang, {} as MarkdownCollectionByLangSlug[LangKey]]),
-    ) as MarkdownCollectionByLangSlug;
-
-    this.#ensureMap().forEach(vMarkdownFileMeta => {
-      markdownCollectionByLangSlug[vMarkdownFileMeta.lang][vMarkdownFileMeta.slug] =
-        vMarkdownFileMeta;
-    });
-
-    this.#byLangSlug = markdownCollectionByLangSlug;
-
-    return markdownCollectionByLangSlug;
   }
 
   /**
@@ -324,36 +296,15 @@ class MarkdownCollection {
   // ------------------------------------------------------------------------------
 
   /**
-   * A record mapping each language key to slugs and their corresponding metadata.
+   * All validated Markdown file ids, without loading metadata or populating the cache.
    *
    * @example
    * ```ts
-   * {
-   *   ko: {
-   *     'example-post': {
-   *       id: 'example-post.ko',
-   *       slug: 'example-post',
-   *       lang: 'ko',
-   *       url: '/ko/posts/example-post',
-   *       readtime: 1,
-   *       data: {
-   *         title: 'Example Post',
-   *         description: 'This is an example post.',
-   *         created: '2024-01-01',
-   *         updated: '2024-01-02',
-   *         categories: ['javascript', 'markdown'],
-   *         references: ['https://example.com'],
-   *       },
-   *     },
-   *   },
-   *   en: {
-   *     // ...English Markdown file metadata by slug
-   *   },
-   * }
+   * ['example-post.ko', 'example-post.en']
    * ```
-   */
-  get byLangSlug(): MarkdownCollectionByLangSlug {
-    return this.#ensureByLangSlug();
+   */ // eslint-disable-next-line typescript/class-methods-use-this -- Enumerate the registry independently of the instance's metadata cache.
+  get ids(): VMarkdownFileMeta['id'][] {
+    return Object.keys(markdownModules).map(id => assertId(id).id);
   }
 
   /**

@@ -141,6 +141,21 @@ describe('markdown-collection', () => {
         'Markdown file not found: `missing-post.ko`',
       );
     });
+
+    it('should reuse cached metadata when loading the enumerated ids repeatedly', async () => {
+      const markdownCollection = createMarkdownCollection();
+      const metadata = await Promise.all(
+        markdownCollection.ids.map(id => markdownCollection.loadVMarkdownFileMeta(id)),
+      );
+      const cachedMetadata = await Promise.all(
+        markdownCollection.ids.map(id => markdownCollection.loadVMarkdownFileMeta(id)),
+      );
+
+      assert.strictEqual(metadata[0].id, 'simple-post.ko');
+      assert.strictEqual(metadata[1].id, 'simple-post.en');
+      assert.strictEqual(cachedMetadata[0], metadata[0]);
+      assert.strictEqual(cachedMetadata[1], metadata[1]);
+    });
   });
 
   describe('loadVMarkdownFile', () => {
@@ -210,40 +225,27 @@ describe('markdown-collection', () => {
     });
   });
 
-  describe('byLangSlug', () => {
-    it('should index Markdown metadata by language and slug', () => {
+  describe('ids', () => {
+    it('should list every Markdown id before any documents are loaded', () => {
       const markdownCollection = createMarkdownCollection();
 
-      assert.deepStrictEqual(markdownCollection.byLangSlug.ko['simple-post'], {
-        id: 'simple-post.ko',
-        slug: 'simple-post',
-        lang: 'ko',
-        url: '/ko/posts/simple-post',
-        readtime: 1,
-        data: {
-          title: 'Korean Mock Post',
-          description: 'Korean mock post description.',
-          created: '2024-01-01',
-          updated: '2024-01-02',
-          categories: ['javascript', 'markdown'],
-          references: ['https://example.com/ko'],
-        },
-      });
-      assert.deepStrictEqual(markdownCollection.byLangSlug.en['simple-post'], {
-        id: 'simple-post.en',
-        slug: 'simple-post',
-        lang: 'en',
-        url: '/en/posts/simple-post',
-        readtime: 1,
-        data: {
-          title: 'English Mock Post',
-          description: 'English mock post description.',
-          created: '2024-02-01',
-          updated: '2024-02-02',
-          categories: ['nextjs'],
-          references: [],
-        },
-      });
+      assert.deepStrictEqual(markdownCollection.ids, [
+        'simple-post.ko',
+        'simple-post.en',
+      ]);
+    });
+
+    it('should include uncached ids after loading only one document', async () => {
+      const markdownCollection = createMarkdownCollection();
+      const document = await markdownCollection.loadVMarkdownFile('simple-post.ko');
+      const metadata = await markdownCollection.loadVMarkdownFileMeta('simple-post.ko');
+
+      assert.deepStrictEqual(markdownCollection.ids, [
+        'simple-post.ko',
+        'simple-post.en',
+      ]);
+      assert.strictEqual(document.data, metadata.data);
+      assert.notProperty(metadata, 'content');
     });
   });
 

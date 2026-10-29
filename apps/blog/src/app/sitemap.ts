@@ -31,8 +31,11 @@ export const dynamic = 'force-static';
 // Default Export
 // --------------------------------------------------------------------------------
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const lastModified = new Date();
+  const vMarkdownFileMetas = await Promise.all(
+    markdownCollection.ids.map(id => markdownCollection.loadVMarkdownFileMeta(id)),
+  );
 
   return [
     // `/` path
@@ -44,16 +47,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     })),
 
     // `/posts` path
-    ...langKeys.flatMap(lang =>
-      Object.values(markdownCollection.byLangSlug[lang]).map(
-        ({ url, data: { updated } }) => ({
-          url: `${websiteUrl}${url}`,
-          lastModified: updated,
-          changeFrequency: 'monthly' as const,
-          priority: 1.0,
-        }),
-      ),
-    ),
+    ...vMarkdownFileMetas.map(({ url, data: { updated } }) => ({
+      url: `${websiteUrl}${url}`,
+      lastModified: updated,
+      changeFrequency: 'monthly' as const,
+      priority: 1.0,
+    })),
 
     // `/categories` path
     ...langKeys.flatMap(lang =>

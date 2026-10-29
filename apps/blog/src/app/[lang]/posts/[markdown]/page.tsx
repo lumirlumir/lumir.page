@@ -34,12 +34,14 @@ export const dynamicParams = false;
 export async function generateStaticParams(): Promise<
   Awaited<PageProps<'/[lang]/posts/[markdown]'>['params']>[]
 > {
-  return Object.entries(markdownCollection.byLangSlug).flatMap(([lang, bySlug]) =>
-    Object.keys(bySlug).map(slug => ({
-      lang,
-      markdown: slug,
-    })),
+  const vMarkdownFileMetas = await Promise.all(
+    markdownCollection.ids.map(id => markdownCollection.loadVMarkdownFileMeta(id)),
   );
+
+  return vMarkdownFileMetas.map(({ slug, lang }) => ({
+    lang,
+    markdown: slug,
+  }));
 }
 
 /**
