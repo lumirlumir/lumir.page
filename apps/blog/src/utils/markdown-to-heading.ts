@@ -13,7 +13,7 @@ import 'server-only';
 // --------------------------------------------------------------------------------
 
 import {
-  customHeadingIdRegex,
+  remarkCustomHeadingId,
   remarkHeadingFromTitle,
   type RemarkHeadingFromTitleOptions,
 } from '@lumir/remark-plugins';
@@ -74,7 +74,8 @@ export async function markdownToHeading(
     .use(remarkParse)
     .use(remarkGfm)
     .use(remarkMath)
-    .use(remarkHeadingFromTitle, { title: options?.title });
+    .use(remarkHeadingFromTitle, options)
+    .use(remarkCustomHeadingId);
   const tree = (await processor.run(processor.parse(markdown))) as Root;
   const headings: VMarkdownHeading[] = [];
 
@@ -82,27 +83,17 @@ export async function markdownToHeading(
 
   function walk(node: Nodes): void {
     if (node.type === 'heading') {
-      const lastChildNode = node.children.at(-1);
+      const id = node.data?.hProperties?.id;
 
-      if (!lastChildNode || lastChildNode.type !== 'text') {
+      if (typeof id !== 'string') {
         throw new Error(
           `Heading "${mdastToTextSync(node)}" at line ${node.position?.start.line} needs an explicit custom ID`,
         );
       }
-
-      const match = customHeadingIdRegex.exec(lastChildNode.value);
-
-      if (!match || !match.groups) {
-        throw new Error(
-          `Heading "${mdastToTextSync(node)}" at line ${node.position?.start.line} needs an explicit custom ID`,
-        );
-      }
-
-      lastChildNode.value = lastChildNode.value.slice(0, match.index);
 
       headings.push(
         (vMarkdownHeading = {
-          id: match.groups.id,
+          id,
           text: mdastToTextSync(node),
           depth: node.depth,
           content: '',
