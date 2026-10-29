@@ -54,20 +54,12 @@ type MarkdownToHeadingOptions = RemarkHeadingFromTitleOptions;
  * //     id: 'awesome-title',
  * //     text: 'Awesome Title',
  * //     depth: 1,
- * //     parent: null,
  * //     content: 'Introduction'
  * //   },
  * //   {
  * //     id: 'heading',
  * //     text: 'Heading',
  * //     depth: 2,
- * //     parent: {
- * //       id: 'awesome-title',
- * //       text: 'Awesome Title',
- * //       depth: 1,
- * //       parent: null,
- * //       content: 'Introduction'
- * //     },
  * //     content: 'Some content'
  * //   }
  * // ]
@@ -108,34 +100,11 @@ export async function markdownToHeading(
 
       lastChildNode.value = lastChildNode.value.slice(0, match.index);
 
-      /*
-       * Find the parent heading for the current heading.
-       * A heading at the same or deeper depth cannot be its parent,
-       * so keep walking up through `parent` until reaching a shallower heading.
-       *
-       * Example:
-       *   # A        (depth 1)
-       *   ## B       (depth 2, parent: A)
-       *   ### C      (depth 3, parent: B)
-       *   ## D       (depth 2)
-       *
-       * When processing D, `vMarkdownHeading` initially points to C.
-       *   C(depth 3) >= D(depth 2) → move to B
-       *   B(depth 2) >= D(depth 2) → move to A
-       *   A(depth 1) <  D(depth 2) → stop
-       *
-       * Therefore, A becomes the parent of D.
-       */
-      while (vMarkdownHeading && vMarkdownHeading.depth >= node.depth) {
-        vMarkdownHeading = vMarkdownHeading.parent ?? null;
-      }
-
       headings.push(
         (vMarkdownHeading = {
           id: match.groups.id,
           text: mdastToTextSync(node),
           depth: node.depth,
-          parent: vMarkdownHeading ?? null,
           content: '',
         }),
       );

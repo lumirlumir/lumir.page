@@ -33,7 +33,6 @@ describe('markdown-to-heading', () => {
         id: 'article',
         text: 'Article title',
         depth: 1,
-        parent: null,
         content: '제목과 설명에 없는 툴팁 본문입니다.',
       },
     ]);
@@ -41,7 +40,7 @@ describe('markdown-to-heading', () => {
 
   it('keeps the generated title as an empty H1 when the body is empty', async () => {
     assert.deepEqual(await markdownToHeading('', { title: 'Article {#article}' }), [
-      { id: 'article', text: 'Article', depth: 1, parent: null, content: '' },
+      { id: 'article', text: 'Article', depth: 1, content: '' },
     ]);
   });
 
@@ -58,20 +57,12 @@ describe('markdown-to-heading', () => {
         id: 'article',
         text: 'Article title',
         depth: 1,
-        parent: null,
         content: 'Intro.',
       },
       {
         id: 'first-section',
         text: 'First section',
         depth: 2,
-        parent: {
-          id: 'article',
-          text: 'Article title',
-          depth: 1,
-          parent: null,
-          content: 'Intro.',
-        },
         content: 'Body.',
       },
     ]);
@@ -80,44 +71,39 @@ describe('markdown-to-heading', () => {
   it('omits text before the first body heading when no title is provided', async () => {
     assert.deepEqual(
       await markdownToHeading('Intro.\n\n## Section {#section}\n\nBody.'),
-      [{ id: 'section', text: 'Section', depth: 2, parent: null, content: 'Body.' }],
+      [{ id: 'section', text: 'Section', depth: 2, content: 'Body.' }],
     );
   });
 
-  it('extracts all six depths with recursive parent metadata and separate bodies', async () => {
+  it('extracts all six depths as flat sections with separate bodies', async () => {
     const one = {
       id: 'one',
       text: 'One',
       depth: 1,
-      parent: null,
       content: 'First.',
     } as const;
     const two = {
       id: 'two',
       text: 'Two',
       depth: 2,
-      parent: one,
       content: 'Second.',
     } as const;
     const three = {
       id: 'three',
       text: 'Three',
       depth: 3,
-      parent: two,
       content: 'Third.',
     } as const;
     const four = {
       id: 'four',
       text: 'Four',
       depth: 4,
-      parent: three,
       content: 'Fourth.',
     } as const;
     const five = {
       id: 'five',
       text: 'Five',
       depth: 5,
-      parent: four,
       content: 'Fifth.',
     } as const;
     const headings = await markdownToHeading(
@@ -130,49 +116,49 @@ describe('markdown-to-heading', () => {
       { ...three, content: 'Third.' },
       { ...four, content: 'Fourth.' },
       { ...five, content: 'Fifth.' },
-      { id: 'six', text: 'Six', depth: 6, parent: five, content: 'Sixth.' },
+      { id: 'six', text: 'Six', depth: 6, content: 'Sixth.' },
     ]);
   });
 
-  it('connects siblings to their direct parent and resets ancestry for a new H1', async () => {
+  it('preserves document order across nested headings, siblings, and a new H1', async () => {
     const headings = await markdownToHeading(
       '# Article {#article}\n\n## Installation {#installation}\n\n### Windows {#windows}\n\n#### Advanced {#advanced}\n\n### macOS {#macos}\n\n## FAQ {#faq}\n\n# Another article {#another-article}\n\n### Skipped depth {#skipped-depth}',
     );
 
-    assert.isNull(headings[0].parent);
-    assert.strictEqual(headings[1].parent?.id, 'article');
-    assert.strictEqual(headings[2].parent?.id, 'installation');
-    assert.strictEqual(headings[3].parent?.id, 'windows');
-    assert.strictEqual(headings[4].parent, headings[2].parent);
-    assert.strictEqual(headings[5].parent, headings[1].parent);
-    assert.isNull(headings[6].parent);
-    assert.strictEqual(headings[7].depth, 3);
-    assert.strictEqual(headings[7].parent?.id, 'another-article');
+    assert.deepEqual(headings, [
+      { id: 'article', text: 'Article', depth: 1, content: '' },
+      { id: 'installation', text: 'Installation', depth: 2, content: '' },
+      { id: 'windows', text: 'Windows', depth: 3, content: '' },
+      { id: 'advanced', text: 'Advanced', depth: 4, content: '' },
+      { id: 'macos', text: 'macOS', depth: 3, content: '' },
+      { id: 'faq', text: 'FAQ', depth: 2, content: '' },
+      { id: 'another-article', text: 'Another article', depth: 1, content: '' },
+      { id: 'skipped-depth', text: 'Skipped depth', depth: 3, content: '' },
+    ]);
   });
 
-  it('uses the nearest lower-depth heading when depths are skipped', async () => {
+  it('keeps section bodies separate when heading depths are skipped or decrease', async () => {
     const headings = await markdownToHeading(
-      '## Root {#root}\n\n##### Deep {#deep}\n\n### Shallow {#shallow}\n\n## Sibling {#sibling}',
+      '## Root {#root}\n\nRoot body.\n\n##### Deep {#deep}\n\nDeep body.\n\n### Shallow {#shallow}\n\nShallow body.\n\n## Sibling {#sibling}\n\nSibling body.',
     );
 
-    assert.isNull(headings[0].parent);
-    assert.strictEqual(headings[1].depth, 5);
-    assert.strictEqual(headings[1].parent?.id, 'root');
-    assert.strictEqual(headings[2].depth, 3);
-    assert.strictEqual(headings[2].parent, headings[1].parent);
-    assert.isNull(headings[3].parent);
+    assert.deepEqual(headings, [
+      { id: 'root', text: 'Root', depth: 2, content: 'Root body.' },
+      { id: 'deep', text: 'Deep', depth: 5, content: 'Deep body.' },
+      { id: 'shallow', text: 'Shallow', depth: 3, content: 'Shallow body.' },
+      { id: 'sibling', text: 'Sibling', depth: 2, content: 'Sibling body.' },
+    ]);
   });
 
   it('keeps consecutive headings as separate sections with empty bodies', async () => {
     assert.deepEqual(
       await markdownToHeading('## First {#first}\n\n### Second {#second}'),
       [
-        { id: 'first', text: 'First', depth: 2, parent: null, content: '' },
+        { id: 'first', text: 'First', depth: 2, content: '' },
         {
           id: 'second',
           text: 'Second',
           depth: 3,
-          parent: { id: 'first', text: 'First', depth: 2, parent: null, content: '' },
           content: '',
         },
       ],
@@ -186,13 +172,12 @@ describe('markdown-to-heading', () => {
     const html = await markdownToHtml(markdown);
 
     assert.deepEqual(headings, [
-      { id: '한글 anchor', text: 'Custom', depth: 2, parent: null, content: 'First.' },
-      { id: 'repeated', text: 'Repeated', depth: 2, parent: null, content: 'Second.' },
+      { id: '한글 anchor', text: 'Custom', depth: 2, content: 'First.' },
+      { id: 'repeated', text: 'Repeated', depth: 2, content: 'Second.' },
       {
         id: 'repeated-1',
         text: 'Repeated',
         depth: 2,
-        parent: null,
         content: 'Third.',
       },
     ]);
@@ -206,7 +191,7 @@ describe('markdown-to-heading', () => {
       await markdownToHeading(
         'Setext {#setext}\n------\n\nFirst.\n\n<section><h3 id="raw-heading">Raw <em>heading</em></h3><p>Second.</p></section>',
       ),
-      [{ id: 'setext', text: 'Setext', depth: 2, parent: null, content: 'First.' }],
+      [{ id: 'setext', text: 'Setext', depth: 2, content: 'First.' }],
     );
   });
 
@@ -221,7 +206,6 @@ describe('markdown-to-heading', () => {
         id: 'article',
         text: 'Article',
         depth: 1,
-        parent: null,
         content:
           'Paragraph. First item Second item Image description Reference text nearby text.',
       },
@@ -262,7 +246,7 @@ describe('markdown-to-heading', () => {
     assert.strictEqual(headings[0].content, 'Body.');
   });
 
-  it('omits HTML blocks without changing Markdown heading ancestry', async () => {
+  it('omits HTML blocks without changing Markdown heading order or depth', async () => {
     const headings = await markdownToHeading(
       'Visible.\n\n<!-- commentsecret -->\n\n<script>scriptsecret</script>\n\n<style>stylesecret</style>\n\n<div hidden><h2>Hidden heading</h2>hiddensecret</div>\n\n<div aria-hidden="true">ariasecret</div>\n\n<div aria-hidden="false">Also visible.</div>\n\n### Visible heading {#visible-heading}\n\nBody.',
       { title: 'Article {#article}' },
@@ -270,7 +254,8 @@ describe('markdown-to-heading', () => {
 
     assert.lengthOf(headings, 2);
     assert.strictEqual(headings[0].content, 'Visible.');
-    assert.strictEqual(headings[1].parent?.id, 'article');
+    assert.strictEqual(headings[1].id, 'visible-heading');
+    assert.strictEqual(headings[1].depth, 3);
     assert.strictEqual(headings[1].content, 'Body.');
   });
 
@@ -284,7 +269,6 @@ describe('markdown-to-heading', () => {
         id: 'help',
         text: 'Heading icon Help',
         depth: 2,
-        parent: null,
         content: 'Body description',
       },
     ]);
@@ -295,9 +279,7 @@ describe('markdown-to-heading', () => {
       '## ![](icon.png "Hidden heading title") Help {#help}\n\n![][image]\n\n[image]: icon.png "Hidden body title"',
     );
 
-    assert.deepEqual(headings, [
-      { id: 'help', text: 'Help', depth: 2, parent: null, content: '' },
-    ]);
+    assert.deepEqual(headings, [{ id: 'help', text: 'Help', depth: 2, content: '' }]);
   });
 
   it('keeps Markdown text inside inline HTML without interpreting visibility', async () => {
@@ -348,18 +330,19 @@ describe('markdown-to-heading', () => {
       headings.map(section => section.id),
       ['article', 'quoted', 'next'],
     );
-    assert.strictEqual(headings[1].parent?.id, 'article');
+    assert.strictEqual(headings[1].depth, 2);
     assert.strictEqual(headings[1].content, 'Body. ## Code {#code}');
     assert.strictEqual(headings[2].content, '');
   });
 
-  it('keeps parent metadata independent between conversions', async () => {
+  it('keeps heading objects independent between conversions', async () => {
     const first = await markdownToHeading('# Repeated {#repeated}\n\n## Child {#child}');
     const second = await markdownToHeading('# Repeated {#repeated}\n\n## Child {#child}');
 
     assert.strictEqual(first[0].id, 'repeated');
     assert.strictEqual(second[0].id, 'repeated');
     assert.deepEqual(second, first);
-    assert.notStrictEqual(second[1].parent, first[1].parent);
+    assert.notStrictEqual(second[0], first[0]);
+    assert.notStrictEqual(second[1], first[1]);
   });
 });

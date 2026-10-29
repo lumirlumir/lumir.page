@@ -207,9 +207,7 @@ describe('localsearch', () => {
             categories: [],
             references: [],
           },
-          headings: [
-            { id: 'react', text: 'React guide', depth: 1, parent: null, content: '' },
-          ],
+          headings: [{ id: 'react', text: 'React guide', depth: 1, content: '' }],
         },
       ]),
     );
@@ -303,7 +301,7 @@ describe('localsearch', () => {
     assert.strictEqual(fetchSearch.mock.calls.length, 2);
   });
 
-  it('should show the ancestor path and safely highlight a body excerpt with its section link', async () => {
+  it('should show only the article and section titles and safely highlight a body excerpt with its section link', async () => {
     vi.spyOn(globalThis, 'fetch').mockResolvedValue(
       Response.json([
         {
@@ -325,26 +323,18 @@ describe('localsearch', () => {
               id: 'example',
               text: 'Example article',
               depth: 1,
-              parent: null,
+              content: '',
+            },
+            {
+              id: 'usage',
+              text: 'Usage',
+              depth: 2,
               content: '',
             },
             {
               id: 'references',
               text: 'References',
-              depth: 2,
-              parent: {
-                id: 'usage',
-                text: 'Usage',
-                depth: 2,
-                content: '',
-                parent: {
-                  id: 'example',
-                  text: 'Example article',
-                  depth: 1,
-                  content: '',
-                  parent: null,
-                },
-              },
+              depth: 3,
               content: `${'Background text. '.repeat(70)}Use tooltips <img src=x> for context.`,
             },
           ],
@@ -370,7 +360,7 @@ describe('localsearch', () => {
     assert.strictEqual(link.getAttribute('href'), '/en/posts/example#references');
     assert.strictEqual(
       link.querySelector('span')?.children[0].textContent,
-      'Example article / Usage / References',
+      'Example article / References',
     );
     assert.include(excerpt.textContent, '<img src=x>');
     assert.strictEqual(excerpt.querySelector('mark')?.textContent, 'tooltips');
@@ -383,7 +373,7 @@ describe('localsearch', () => {
     });
   });
 
-  it('should include a body H1 in the path of a matching child section', async () => {
+  it('should omit a body H1 ancestor from the title of a matching child section', async () => {
     vi.spyOn(globalThis, 'fetch').mockResolvedValue(
       Response.json([
         {
@@ -405,20 +395,18 @@ describe('localsearch', () => {
               id: 'example',
               text: 'Example article',
               depth: 1,
-              parent: null,
+              content: '',
+            },
+            {
+              id: 'installation',
+              text: 'Installation',
+              depth: 1,
               content: '',
             },
             {
               id: 'windows',
               text: 'Windows',
               depth: 2,
-              parent: {
-                id: 'installation',
-                text: 'Installation',
-                depth: 1,
-                content: '',
-                parent: null,
-              },
               content: 'Tooltip setup.',
             },
           ],
@@ -437,7 +425,7 @@ describe('localsearch', () => {
     await vi.waitFor(() => {
       assert.strictEqual(
         screen.container.querySelector('li > a > span')?.children[0].textContent,
-        'Example article / Installation / Windows',
+        'Example article / Windows',
       );
     });
   });
@@ -464,7 +452,6 @@ describe('localsearch', () => {
               id: 'react',
               text: 'React & Reactivity <img src=x>',
               depth: 1,
-              parent: null,
               content: '',
             },
           ],
@@ -552,7 +539,6 @@ describe('localsearch', () => {
               id: 'react-first',
               text: 'React first',
               depth: 1,
-              parent: null,
               content: '',
             },
           ],
@@ -576,7 +562,6 @@ describe('localsearch', () => {
               id: 'react-second',
               text: 'React second',
               depth: 1,
-              parent: null,
               content: '',
             },
           ],
@@ -684,9 +669,7 @@ describe('localsearch', () => {
               categories: [],
               references: [],
             },
-            headings: [
-              { id: 'react', text: 'React guide', depth: 1, parent: null, content: '' },
-            ],
+            headings: [{ id: 'react', text: 'React guide', depth: 1, content: '' }],
           },
         ]),
       );

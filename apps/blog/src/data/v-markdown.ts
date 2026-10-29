@@ -35,12 +35,6 @@ export interface VMarkdownHeading {
   readonly depth: 1 | 2 | 3 | 4 | 5 | 6;
 
   /**
-   * The nearest preceding heading with a lower level, or `null` for a top-level heading.
-   * Following `parent` recursively yields the ancestor headings from the direct parent outward.
-   */
-  readonly parent: VMarkdownHeading | null;
-
-  /**
    * The plain-text content of the heading section, excluding the heading text itself.
    */
   readonly content: string;

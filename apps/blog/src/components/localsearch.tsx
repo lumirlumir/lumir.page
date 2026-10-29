@@ -289,6 +289,10 @@ export interface LocalSearchProps {
 // Helper
 // --------------------------------------------------------------------------------
 
+const defaultIcon = (
+  <LmSearch aria-hidden="true" color="white" size={28} strokeWidth="1.5" />
+);
+
 const dictionary = {
   ko: {
     translations: {
@@ -452,17 +456,7 @@ export function createLocalSearch(documents: readonly VMarkdownFileMetaWithHeadi
       fuzzy: 0.2,
       prefix: true,
     },
-    storeFields: [
-      'slug',
-      'lang',
-      'readtime',
-      'data',
-      'url',
-      'text',
-      'depth',
-      'parent',
-      'content',
-    ],
+    storeFields: ['slug', 'lang', 'readtime', 'data', 'url', 'text', 'depth', 'content'],
   });
 
   documents.forEach(({ headings, ...metadata }) => {
@@ -478,22 +472,6 @@ export function createLocalSearch(documents: readonly VMarkdownFileMetaWithHeadi
   });
 
   return search;
-}
-
-function getHeadingPath(
-  document: VMarkdownHeading,
-  slug: VMarkdownFileMetaWithHeadings['slug'],
-): string {
-  let path = '';
-  let { parent } = document;
-
-  // The generated article title is already displayed from the post metadata.
-  while (parent && !(parent.depth === 1 && parent.id === slug)) {
-    path = ` / ${parent.text}${path}`;
-    parent = parent.parent;
-  }
-
-  return path;
 }
 
 function highlightMatches(
@@ -567,7 +545,7 @@ export function LocalSearch({
       },
     },
   } = dictionary[lang].translations,
-  icon = <LmSearch aria-hidden="true" color="white" size={28} strokeWidth="1.5" />,
+  icon = defaultIcon,
   maxResults = 10,
 }: LocalSearchProps) {
   const dialogRef = useRef<DialogHandle | null>(null);
@@ -816,7 +794,6 @@ export function LocalSearch({
                         <span>
                           <span>
                             {highlightMatches(document, 'title')}
-                            {getHeadingPath(document, document.slug)}
                             {document.text ? (
                               <> / {highlightMatches(document, 'heading')}</>
                             ) : null}
