@@ -1,5 +1,5 @@
 /**
- * @fileoverview React search component using `minisearch`.
+ * @fileoverview Local search.
  */
 
 // --------------------------------------------------------------------------------
@@ -703,7 +703,7 @@ export function LocalSearch({
   return (
     <Dialog.Root ref={dialogRef} initialFocusRef={inputRef}>
       <Dialog.Open
-        className={styles.button}
+        className={styles.open}
         aria-label={buttonAriaLabel}
         onClick={loadSearch}
         onKeyDown={onButtonKeyDown}
@@ -712,14 +712,14 @@ export function LocalSearch({
           <span>{icon}</span>
           <span>{buttonText}</span>
         </span>
-        <span aria-hidden="true">
+        <span className="markdown" aria-hidden="true">
           <kbd>{os === 'macos' || os === 'ios' ? 'Cmd' : 'Ctrl'}</kbd>
           <kbd>K</kbd>
         </span>
       </Dialog.Open>
 
       <Dialog.Content
-        className={styles.dialog}
+        className={styles.content}
         aria-label={dialogAriaLabel}
         onClose={() => updateQuery('')}
       >
@@ -830,7 +830,7 @@ export function LocalSearch({
             ) : null}
           </div>
 
-          <footer>
+          <footer className="markdown">
             <span>
               <kbd aria-label={selectKeyAriaLabel}>Enter</kbd>
               <span>{selectText}</span>
