@@ -9,6 +9,7 @@
 const isProd = process.env.NODE_ENV === 'production';
 const isTypegen = process.argv.includes('typegen');
 const isAnalyze = process.argv.includes('experimental-analyze');
+const allowedDevOrigins = (process.env.allowedDevOrigins ?? '').split(',');
 
 // --------------------------------------------------------------------------------
 // Export
@@ -51,4 +52,5 @@ export default {
       '*.md': { type: 'text' },
     },
   },
+  allowedDevOrigins,
 };
