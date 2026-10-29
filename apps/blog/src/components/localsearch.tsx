@@ -702,6 +702,8 @@ export function LocalSearch({
 
   return (
     <Dialog.Root ref={dialogRef} initialFocusRef={inputRef}>
+      <link rel="prefetch" href={`/${lang}/search.json`} as="fetch" />
+
       <Dialog.Open
         className={styles.open}
         aria-label={buttonAriaLabel}

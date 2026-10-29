@@ -79,9 +79,6 @@ export default async function RootLayout({
     // Use `suppressHydrationWarning` because `ThemeScript` may change the initial `data-theme`.
     // https://react.dev/reference/react-dom/client/hydrateRoot#suppressing-unavoidable-hydration-mismatch-errors
     <html className="custom-scrollbar-y-bold" lang={lang} suppressHydrationWarning>
-      <head>
-        <link rel="prefetch" href={`/${lang}/search.json`} as="fetch" />
-      </head>
       <body className={styles.body}>
         <ThemeScript />
         <ConfigProvider>
