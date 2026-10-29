@@ -151,9 +151,6 @@ const dictionary = {
 // Export
 // --------------------------------------------------------------------------------
 
-/**
- * Renders the search dialog shell without loading search data or displaying results.
- */
 export function LocalSearch({
   lang,
   translations: {
@@ -202,18 +199,18 @@ export function LocalSearch({
 
   return (
     <Dialog.Root ref={dialogRef} initialFocusRef={inputRef}>
-      <Dialog.Open className={styles.button} aria-label={buttonAriaLabel}>
+      <Dialog.Open className={styles.open} aria-label={buttonAriaLabel}>
         <span>
           <span>{icon}</span>
           <span>{buttonText}</span>
         </span>
-        <span aria-hidden="true">
+        <span className="markdown" aria-hidden="true">
           <kbd>{os === 'macos' || os === 'ios' ? 'Cmd' : 'Ctrl'}</kbd>
           <kbd>K</kbd>
         </span>
       </Dialog.Open>
 
-      <Dialog.Content className={styles.dialog} aria-label={dialogAriaLabel}>
+      <Dialog.Content className={styles.content} aria-label={dialogAriaLabel}>
         <div>
           <div>
             <div>
