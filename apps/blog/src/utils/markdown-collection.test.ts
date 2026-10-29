@@ -6,17 +6,20 @@
 // Import
 // --------------------------------------------------------------------------------
 
-import { assert, describe, it, vi } from 'vitest';
-import createMarkdownCollection from './markdown-collection.js';
+import { assert, beforeEach, describe, it, vi } from 'vitest';
 
 // --------------------------------------------------------------------------------
 // Mock
 // --------------------------------------------------------------------------------
 
-// Vite transforms `import.meta.glob` before runtime, so intercept `Object.entries`
-// before the collection module is imported. Replace entries matching Markdown
-// paths with mock data, then immediately restore the original function.
-vi.hoisted(() => {
+let createMarkdownCollection: typeof import('./markdown-collection.js').default;
+
+// Reset the singleton before each test. Vite transforms `import.meta.glob` before
+// runtime, so intercept `Object.entries` before reimporting the collection module.
+// Replace Markdown paths with mock data, then immediately restore the function.
+beforeEach(async () => {
+  vi.resetModules();
+
   const markdownModules = {
     'simple-post.ko': `---
 title: Korean Mock Post
@@ -64,6 +67,8 @@ English body.`,
 
     return result;
   });
+
+  ({ default: createMarkdownCollection } = await import('./markdown-collection.js'));
 });
 
 // --------------------------------------------------------------------------------
