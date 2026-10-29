@@ -104,9 +104,7 @@ export interface LocalSearchProps {
 // Helper
 // --------------------------------------------------------------------------------
 
-const defaultIcon = (
-  <LmSearch aria-hidden="true" color="white" size={28} strokeWidth="1.5" />
-);
+const defaultIcon = <LmSearch aria-hidden="true" size={28} strokeWidth="1.5" />;
 
 const dictionary = {
   ko: {
