@@ -247,6 +247,9 @@ export interface LocalSearchProps {
   readonly maxResults?: number;
 }
 
+type LocalSearchResult = SearchResult &
+  Pick<VMarkdownFileMetaWithHeadings, 'slug' | 'data' | 'url' | 'headings'>;
+
 // --------------------------------------------------------------------------------
 // Helper
 // --------------------------------------------------------------------------------
@@ -354,20 +357,15 @@ const dictionary = {
   translations: NonNullable<LocalSearchProps['translations']>;
 }>;
 
-// Keep both pending requests and completed indexes across component mounts.
-const localSearchByLang = new Map<
-  LangKey,
-  Promise<ReturnType<typeof createLocalSearch>>
->();
+let localSearchPromiseCache:
+  Promise<MiniSearch<VMarkdownFileMetaWithHeadings>> | undefined;
 
 function loadLocalSearch(lang: LangKey) {
-  const cached = localSearchByLang.get(lang);
-
-  if (cached) {
-    return cached;
+  if (localSearchPromiseCache) {
+    return localSearchPromiseCache;
   }
 
-  const pending = (async () => {
+  localSearchPromiseCache = (async () => {
     try {
       const response = await fetch(`/${lang}/search.json`);
 
@@ -375,19 +373,21 @@ function loadLocalSearch(lang: LangKey) {
         throw new Error('Failed to load search data.');
       }
 
-      const documents = (await response.json()) as VMarkdownFileMetaWithHeadings[];
+      const documents =
+        (await response.json()) as readonly VMarkdownFileMetaWithHeadings[];
 
       return createLocalSearch(documents);
     } catch (error) {
-      localSearchByLang.delete(lang);
+      localSearchPromiseCache = undefined;
+
       throw error;
     }
   })();
 
-  localSearchByLang.set(lang, pending);
-
-  return pending;
+  return localSearchPromiseCache;
 }
+
+// TODO: from here.
 
 /**
  * Creates and populates a MiniSearch instance, preserving its native search API.
@@ -413,11 +413,11 @@ function createLocalSearch(documents: readonly VMarkdownFileMetaWithHeadings[]) 
       return MiniSearch.getDefault('extractField')(document, fieldName);
     },
     searchOptions: {
-      boost: { title: 2, description: 1, heading: 2, content: 1 },
+      boost: { title: 2, heading: 2 },
       fuzzy: 0.2,
       prefix: true,
     },
-    storeFields: ['id', 'slug', 'lang', 'readtime', 'data', 'url', 'headings'],
+    storeFields: ['slug', 'data', 'url', 'headings'],
   });
 
   documents.forEach(({ headings, ...metadata }) => {
@@ -434,7 +434,7 @@ function createLocalSearch(documents: readonly VMarkdownFileMetaWithHeadings[]) 
 }
 
 function highlightMatches(
-  document: SearchResult & VMarkdownFileMetaWithHeadings,
+  document: LocalSearchResult,
   field: 'title' | 'description' | 'heading' | 'content',
 ) {
   // Use the actual matched document terms, including prefix and fuzzy matches, for this field.
@@ -516,21 +516,16 @@ export function LocalSearch({
   const router = useRouter();
   const os = useOs();
 
-  const [searchState, setSearchState] = useState<{
-    lang: LangKey;
-    miniSearch: ReturnType<typeof createLocalSearch> | null;
-    failed: boolean;
-  } | null>(null);
-  const miniSearch = searchState?.lang === lang ? searchState.miniSearch : null;
-  const failed = searchState?.lang === lang && searchState.failed;
+  const [miniSearch, setMiniSearch] =
+    useState<MiniSearch<VMarkdownFileMetaWithHeadings> | null>(null);
+  const [failed, setFailed] = useState(false);
 
   const results = useMemo(() => {
     if (miniSearch === null || deferredQuery.length === 0) {
       return [];
     }
 
-    return miniSearch.search(deferredQuery).slice(0, maxResults) as (SearchResult &
-      VMarkdownFileMetaWithHeadings)[];
+    return miniSearch.search(deferredQuery).slice(0, maxResults) as LocalSearchResult[];
   }, [maxResults, miniSearch, deferredQuery]);
 
   const activeResult = results[activeIndex];
@@ -544,18 +539,12 @@ export function LocalSearch({
       return;
     }
 
-    setSearchState({ lang, miniSearch: null, failed: false });
+    setFailed(false);
 
     try {
-      const search = await loadLocalSearch(lang);
-      // Ignore completion of an older language request after another load starts.
-      setSearchState(current =>
-        current?.lang === lang ? { lang, miniSearch: search, failed: false } : current,
-      );
+      setMiniSearch(await loadLocalSearch(lang));
     } catch {
-      setSearchState(current =>
-        current?.lang === lang ? { lang, miniSearch: null, failed: true } : current,
-      );
+      setFailed(true);
     }
   };
 
@@ -577,11 +566,6 @@ export function LocalSearch({
   function resetSearch() {
     updateQuery('');
     inputRef.current?.focus();
-  }
-
-  function navigateToResult(document: Pick<VMarkdownFileMetaWithHeadings, 'url'>) {
-    dialogRef.current?.close();
-    router.push(document.url);
   }
 
   function activateResult(index: number) {
@@ -618,7 +602,6 @@ export function LocalSearch({
 
     // Prevent the same character from being inserted again after focus moves to the input.
     event.preventDefault();
-    // Seed the query to trigger the existing search flow, then open and focus the input.
     updateQuery(event.key);
     openSearch();
   };
@@ -636,7 +619,8 @@ export function LocalSearch({
 
     if (event.key === 'Enter' && activeResult !== undefined) {
       event.preventDefault();
-      navigateToResult(activeResult);
+      dialogRef.current?.close();
+      router.push(activeResult.url);
     }
   }
 
@@ -723,23 +707,17 @@ export function LocalSearch({
                   </button>
                 ) : null}
               </section>
-            ) : null}
-
-            {miniSearch !== null && query.length === 0 ? (
+            ) : query.length === 0 ? (
               <section>
                 <h3>{titleText}</h3>
                 <p>{helpText}</p>
               </section>
-            ) : null}
-
-            {miniSearch !== null && query.length > 0 && results.length === 0 ? (
+            ) : results.length === 0 ? (
               <section>
                 <h3>{noResultsText}</h3>
                 <p>&quot;{query}&quot;</p>
               </section>
-            ) : null}
-
-            {query.length > 0 && results.length > 0 ? (
+            ) : (
               <section>
                 <div>{sourceText}</div>
                 <ul>
@@ -787,7 +765,7 @@ export function LocalSearch({
                   ))}
                 </ul>
               </section>
-            ) : null}
+            )}
           </div>
 
           <footer className="markdown">

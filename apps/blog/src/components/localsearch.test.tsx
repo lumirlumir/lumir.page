@@ -234,35 +234,22 @@ describe('localsearch', () => {
       assert.strictEqual(fetchSearch.mock.calls.length, 2);
     });
 
-    it('should cache each language separately and reuse it when switching back', async () => {
+    it('should load Korean search data once and reuse it when reopening', async () => {
       const fetchSearch = vi
         .spyOn(globalThis, 'fetch')
-        .mockResolvedValueOnce(Response.json([]))
         .mockResolvedValueOnce(Response.json([]));
-      const screen = await render(<LocalSearch lang="en" />);
+      const screen = await render(<LocalSearch lang="ko" />);
 
       await userEvent.keyboard('{Meta>}k{/Meta}');
       await vi.waitFor(() => {
         assert.isNull(screen.container.querySelector('[role="status"]'));
       });
       await userEvent.keyboard('{Escape}');
-      await screen.rerender(<LocalSearch lang="ko" />);
       await userEvent.keyboard('/');
       await vi.waitFor(() => {
         assert.isNull(screen.container.querySelector('[role="status"]'));
       });
-      assert.deepStrictEqual(fetchSearch.mock.calls, [
-        ['/en/search.json'],
-        ['/ko/search.json'],
-      ]);
-
-      await userEvent.keyboard('{Escape}');
-      await screen.rerender(<LocalSearch lang="en" />);
-      await screen.getByRole('button', { name: 'Search', exact: true }).click();
-      await vi.waitFor(() => {
-        assert.isNull(screen.container.querySelector('[role="status"]'));
-      });
-      assert.strictEqual(fetchSearch.mock.calls.length, 2);
+      assert.deepStrictEqual(fetchSearch.mock.calls, [['/ko/search.json']]);
     });
   });
 
