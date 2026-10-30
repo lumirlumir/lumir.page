@@ -8,6 +8,7 @@
 
 import { createRef, type MouseEvent } from 'react';
 import { assert, describe, it, vi } from 'vitest';
+import { userEvent } from 'vitest/browser';
 import { render } from 'vitest-browser-react';
 import { Dialog, type DialogHandle } from './dialog.js';
 
@@ -54,8 +55,9 @@ describe('dialog', () => {
     const onOpenClick = vi.fn();
     const onCloseClick = vi.fn();
     const onClose = vi.fn();
+    const onOpenChange = vi.fn();
     const screen = await render(
-      <Dialog.Root>
+      <Dialog.Root onOpenChange={onOpenChange}>
         <Dialog.Open ref={openRef} onClick={onOpenClick} aria-label="Open search">
           Open
         </Dialog.Open>
@@ -81,12 +83,14 @@ describe('dialog', () => {
     assert.isTrue(dialog.open);
     assert.isTrue(dialog.matches(':modal'));
     assert.strictEqual(onOpenClick.mock.calls.length, 1);
+    assert.deepStrictEqual(onOpenChange.mock.calls, [[true]]);
 
     await screen.getByRole('button', { name: 'Close' }).click();
 
     assert.isFalse(dialog.open);
     assert.strictEqual(onCloseClick.mock.calls.length, 1);
     assert.strictEqual(onClose.mock.calls.length, 1);
+    assert.deepStrictEqual(onOpenChange.mock.calls, [[true], [false]]);
   });
 
   it('should let an open click handler prevent opening', async () => {
@@ -263,5 +267,46 @@ describe('dialog', () => {
     dialogRef.current.open();
 
     assert.isTrue(dialog.open);
+  });
+
+  it('should notify when Escape dismisses the dialog', async () => {
+    const onOpenChange = vi.fn();
+    const screen = await render(
+      <Dialog.Root onOpenChange={onOpenChange}>
+        <Dialog.Open>Open</Dialog.Open>
+        <Dialog.Content />
+      </Dialog.Root>,
+    );
+
+    await screen.getByRole('button', { name: 'Open' }).click();
+    await userEvent.keyboard('{Escape}');
+
+    await vi.waitFor(() => {
+      assert.deepStrictEqual(onOpenChange.mock.calls, [[true], [false]]);
+    });
+    assert.isFalse(screen.container.querySelector('dialog')?.open);
+  });
+
+  it('should ignore a stale close notification after reopening', async () => {
+    const dialogRef = createRef<DialogHandle>();
+    const onOpenChange = vi.fn();
+    const onClose = vi.fn();
+    await render(
+      <Dialog.Root ref={dialogRef} onOpenChange={onOpenChange}>
+        <Dialog.Content onClose={onClose} />
+      </Dialog.Root>,
+    );
+    assert.ok(dialogRef.current);
+
+    dialogRef.current.open();
+    dialogRef.current.close();
+    dialogRef.current.open();
+
+    await vi.waitFor(() => assert.strictEqual(onClose.mock.calls.length, 1));
+    assert.deepStrictEqual(onOpenChange.mock.calls, [[true], [true]]);
+
+    dialogRef.current.close();
+    await vi.waitFor(() => assert.strictEqual(onClose.mock.calls.length, 2));
+    assert.deepStrictEqual(onOpenChange.mock.calls, [[true], [true], [false]]);
   });
 });

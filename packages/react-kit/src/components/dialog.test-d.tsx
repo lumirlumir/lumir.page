@@ -68,6 +68,12 @@ rootProps = { children: <span />, initialFocusRef: inputRef };
 rootProps = { children: <span />, initialFocusRef: buttonRef };
 rootProps = {
   children: null,
+  onOpenChange: open => {
+    open satisfies boolean;
+  },
+};
+rootProps = {
+  children: null,
   ref: value => {
     value?.open();
     value?.close();
@@ -83,6 +89,10 @@ rootProps = { children: null, ref: inputRef };
 rootProps = { children: null, initialFocusRef: dialogRef };
 // @ts-expect-error - The root does not render a DOM wrapper.
 rootProps = { children: null, className: 'dialog' };
+// @ts-expect-error - `onOpenChange` receives a boolean, not a DOM event.
+rootProps = { children: null, onOpenChange: (event: Event) => {} };
+// @ts-expect-error - `onOpenChange` should be a function.
+rootProps = { children: null, onOpenChange: true };
 
 // #endregion DialogRootProps
 // --------------------------------------------------------------------------------
