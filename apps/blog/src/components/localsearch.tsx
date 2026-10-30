@@ -21,8 +21,19 @@ import 'client-only';
 import { Dialog, type DialogHandle } from '@lumir/react-kit/components';
 import { useOs, useShortcut } from '@lumir/react-kit/hooks';
 import { LmSearch } from '@lumir/react-kit/svgs';
-import { useRef, type ReactNode } from 'react';
-import { type LangKey, type LangRecord } from '@/data/lang';
+import MiniSearch, { type SearchResult } from 'minisearch';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import {
+  useDeferredValue,
+  useMemo,
+  useRef,
+  useState,
+  type KeyboardEvent,
+  type ReactNode,
+} from 'react';
+import { type LangKey, type LangRecord, type PropsWithLang } from '@/data/lang';
+import { type VMarkdownFileMetaWithHeadings } from '@/data/v-markdown';
 import styles from './localsearch.module.css';
 
 // --------------------------------------------------------------------------------
@@ -33,11 +44,6 @@ import styles from './localsearch.module.css';
  * Props for the `LocalSearch` component.
  */
 export interface LocalSearchProps {
-  /**
-   * Language of the search UI.
-   */
-  readonly lang: LangKey;
-
   /**
    * Translations for the search UI. Defaults to the selected language.
    */
@@ -72,9 +78,39 @@ export interface LocalSearchProps {
       readonly dialogAriaLabel: string;
 
       /**
+       * The status displayed while search data is loading.
+       */
+      readonly loadingText: string;
+
+      /**
+       * The status displayed when search data fails to load.
+       */
+      readonly errorText: string;
+
+      /**
+       * The text for the button that retries loading search data.
+       */
+      readonly retryButtonText: string;
+
+      /**
        * Translations for the search box controls.
        */
       readonly searchBox: {
+        /**
+         * The text to display on the reset button.
+         */
+        readonly resetButtonText: string;
+
+        /**
+         * The title for the reset button.
+         */
+        readonly resetButtonTitle: string;
+
+        /**
+         * The aria-label for the reset button.
+         */
+        readonly resetButtonAriaLabel: string;
+
         /**
          * The text to display on the cancel button.
          */
@@ -90,6 +126,111 @@ export interface LocalSearchProps {
          */
         readonly searchInputLabel: string;
       };
+
+      /**
+       * Translations for the initial empty search screen.
+       */
+      readonly startScreen: {
+        /**
+         * The title to display before the user enters a query.
+         */
+        readonly titleText: string;
+
+        /**
+         * The help text to display before the user enters a query.
+         */
+        readonly helpText: string;
+
+        /**
+         * The title for recent searches.
+         */
+        readonly recentSearchesTitle: string;
+
+        /**
+         * The text displayed when there are no recent searches.
+         */
+        readonly noRecentSearchesText: string;
+
+        /**
+         * The title for the button that removes a recent search.
+         */
+        readonly removeRecentSearchButtonTitle: string;
+      };
+
+      /**
+       * Translations for the no-results screen.
+       */
+      readonly noResultsScreen: {
+        /**
+         * The text to display when no results match the query.
+         */
+        readonly noResultsText: string;
+
+        /**
+         * The text displayed before a suggested query.
+         */
+        readonly suggestedQueryText: string;
+      };
+
+      /**
+       * Translations for the results screen.
+       */
+      readonly resultsScreen: {
+        /**
+         * The source label to display above search results.
+         */
+        readonly sourceText: string;
+
+        /**
+         * The path prefix to display before each result slug.
+         */
+        readonly pathPrefix: string;
+
+        /**
+         * The label to display before each result update date.
+         */
+        readonly updatedText: string;
+      };
+
+      /**
+       * Translations for the search dialog footer.
+       */
+      readonly footer: {
+        /**
+         * The text that explains the select command.
+         */
+        readonly selectText: string;
+
+        /**
+         * The aria-label for the select keycap.
+         */
+        readonly selectKeyAriaLabel: string;
+
+        /**
+         * The text that explains the navigate command.
+         */
+        readonly navigateText: string;
+
+        /**
+         * The aria-label for the navigate-up keycap.
+         */
+        readonly navigateUpKeyAriaLabel: string;
+
+        /**
+         * The aria-label for the navigate-down keycap.
+         */
+        readonly navigateDownKeyAriaLabel: string;
+
+        /**
+         * The text that explains the close command.
+         */
+        readonly closeText: string;
+
+        /**
+         * The aria-label for the close keycap.
+         */
+        readonly closeKeyAriaLabel: string;
+      };
     };
   };
 
@@ -98,7 +239,16 @@ export interface LocalSearchProps {
    * @default Search Icon
    */
   readonly icon?: ReactNode;
+
+  /**
+   * The maximum number of search results to display.
+   * @default 10
+   */
+  readonly maxResults?: number;
 }
+
+type LocalSearchResult = SearchResult &
+  Pick<VMarkdownFileMetaWithHeadings, 'slug' | 'data' | 'url' | 'headings'>;
 
 // --------------------------------------------------------------------------------
 // Helper
@@ -116,10 +266,41 @@ const dictionary = {
       },
       dialog: {
         dialogAriaLabel: '검색',
+        loadingText: '검색 데이터를 불러오는 중입니다.',
+        errorText: '검색 데이터를 불러오지 못했습니다.',
+        retryButtonText: '다시 시도',
         searchBox: {
+          resetButtonText: '지우기',
+          resetButtonTitle: '검색 창 지우기',
+          resetButtonAriaLabel: '검색 창 지우기',
           cancelButtonText: '취소',
           cancelButtonAriaLabel: '취소',
           searchInputLabel: '검색',
+        },
+        startScreen: {
+          titleText: '문서 검색',
+          helpText: '제목, 설명, 섹션 제목과 본문을 검색합니다.',
+          recentSearchesTitle: '최근 검색',
+          noRecentSearchesText: '최근 검색 결과가 없습니다.',
+          removeRecentSearchButtonTitle: '히스토리에서 검색 결과 삭제하기',
+        },
+        noResultsScreen: {
+          noResultsText: '검색 결과가 없습니다',
+          suggestedQueryText: '아래 검색어를 시도해보세요',
+        },
+        resultsScreen: {
+          sourceText: '문서',
+          pathPrefix: 'blog / posts',
+          updatedText: '수정',
+        },
+        footer: {
+          selectText: '선택',
+          selectKeyAriaLabel: '엔터',
+          navigateText: '이동',
+          navigateUpKeyAriaLabel: '위쪽 화살표',
+          navigateDownKeyAriaLabel: '아래쪽 화살표',
+          closeText: '닫기',
+          closeKeyAriaLabel: '닫기',
         },
       },
     },
@@ -133,10 +314,41 @@ const dictionary = {
       },
       dialog: {
         dialogAriaLabel: 'Search',
+        loadingText: 'Loading search data.',
+        errorText: 'Failed to load search data.',
+        retryButtonText: 'Retry',
         searchBox: {
+          resetButtonText: 'Clear',
+          resetButtonTitle: 'Clear the query',
+          resetButtonAriaLabel: 'Clear the query',
           cancelButtonText: 'Cancel',
           cancelButtonAriaLabel: 'Cancel',
           searchInputLabel: 'Search',
+        },
+        startScreen: {
+          titleText: 'Search docs',
+          helpText: 'Search titles, descriptions, section headings, and body text.',
+          recentSearchesTitle: 'Recent Searches',
+          noRecentSearchesText: 'No recent searches.',
+          removeRecentSearchButtonTitle: 'Remove this search from history',
+        },
+        noResultsScreen: {
+          noResultsText: 'No results for',
+          suggestedQueryText: 'Try searching for',
+        },
+        resultsScreen: {
+          sourceText: 'Posts',
+          pathPrefix: 'blog / posts',
+          updatedText: 'Updated',
+        },
+        footer: {
+          selectText: 'Select',
+          selectKeyAriaLabel: 'Enter',
+          navigateText: 'Navigate',
+          navigateUpKeyAriaLabel: 'Arrow up',
+          navigateDownKeyAriaLabel: 'Arrow down',
+          closeText: 'Close',
+          closeKeyAriaLabel: 'Escape',
         },
       },
     },
@@ -144,6 +356,117 @@ const dictionary = {
 } as const satisfies LangRecord<{
   translations: NonNullable<LocalSearchProps['translations']>;
 }>;
+
+let localSearchPromiseCache:
+  Promise<MiniSearch<VMarkdownFileMetaWithHeadings>> | undefined;
+
+function loadLocalSearch(lang: LangKey) {
+  if (localSearchPromiseCache) {
+    return localSearchPromiseCache;
+  }
+
+  localSearchPromiseCache = (async () => {
+    try {
+      const response = await fetch(`/${lang}/search.json`);
+
+      if (!response.ok) {
+        throw new Error('Failed to load search data.');
+      }
+
+      const documents =
+        (await response.json()) as readonly VMarkdownFileMetaWithHeadings[];
+
+      return createLocalSearch(documents);
+    } catch (error) {
+      localSearchPromiseCache = undefined;
+
+      throw error;
+    }
+  })();
+
+  return localSearchPromiseCache;
+}
+
+// TODO: from here.
+
+/**
+ * Creates and populates a MiniSearch instance, preserving its native search API.
+ */
+function createLocalSearch(documents: readonly VMarkdownFileMetaWithHeadings[]) {
+  const search = new MiniSearch<VMarkdownFileMetaWithHeadings>({
+    idField: 'url',
+    fields: ['title', 'description', 'heading', 'content'],
+    extractField: (document, fieldName) => {
+      if (fieldName === 'title' || fieldName === 'description') {
+        // Keep post metadata searches on the post record instead of every section.
+        return document.headings[0].text ? '' : document.data[fieldName];
+      }
+
+      if (fieldName === 'heading') {
+        return document.headings[0].text;
+      }
+
+      if (fieldName === 'content') {
+        return document.headings[0].content;
+      }
+
+      return MiniSearch.getDefault('extractField')(document, fieldName);
+    },
+    searchOptions: {
+      boost: { title: 2, heading: 2 },
+      fuzzy: 0.2,
+      prefix: true,
+    },
+    storeFields: ['slug', 'data', 'url', 'headings'],
+  });
+
+  documents.forEach(({ headings, ...metadata }) => {
+    headings.forEach((section, index) => {
+      search.add({
+        ...metadata,
+        headings: [index === 0 ? { ...section, text: '' } : section],
+        url: `${metadata.url}#${encodeURIComponent(section.id)}`,
+      });
+    });
+  });
+
+  return search;
+}
+
+function highlightMatches(
+  document: LocalSearchResult,
+  field: 'title' | 'description' | 'heading' | 'content',
+) {
+  // Use the actual matched document terms, including prefix and fuzzy matches, for this field.
+  const terms = new Set(
+    document.terms.filter(term => document.match[term]?.includes(field)),
+  );
+  let text =
+    field === 'title' || field === 'description'
+      ? document.data[field]
+      : field === 'heading'
+        ? document.headings[0].text
+        : document.headings[0].content;
+
+  if (field === 'content') {
+    let start = 0;
+
+    for (const part of text.matchAll(/[^\n\r\p{Z}\p{P}]+/gu)) {
+      if (terms.has(part[0].toLowerCase())) {
+        start = Math.max(0, part.index - 60);
+        break;
+      }
+    }
+
+    const end = Math.min(text.length, start + 220);
+    text = `${start > 0 ? '…' : ''}${text.slice(start, end)}${end < text.length ? '…' : ''}`;
+  }
+
+  // Preserve the original text using MiniSearch's default word boundaries and React nodes.
+  return Array.from(text.matchAll(/[^\n\r\p{Z}\p{P}]+|[\n\r\p{Z}\p{P}]+/gu), part =>
+    terms.has(part[0].toLowerCase()) ? <mark key={part.index}>{part[0]}</mark> : part[0],
+  );
+}
 
 // --------------------------------------------------------------------------------
 // Export
@@ -156,37 +479,151 @@ export function LocalSearch({
     button: { buttonAriaLabel, buttonText },
     dialog: {
       dialogAriaLabel,
-      searchBox: { cancelButtonText, cancelButtonAriaLabel, searchInputLabel },
+      loadingText,
+      errorText,
+      retryButtonText,
+      searchBox: {
+        resetButtonText,
+        resetButtonTitle,
+        resetButtonAriaLabel,
+        cancelButtonText,
+        cancelButtonAriaLabel,
+        searchInputLabel,
+      },
+      startScreen: { titleText, helpText },
+      noResultsScreen: { noResultsText },
+      resultsScreen: { sourceText, pathPrefix, updatedText },
+      footer: {
+        selectText,
+        selectKeyAriaLabel,
+        navigateText,
+        navigateUpKeyAriaLabel,
+        navigateDownKeyAriaLabel,
+        closeText,
+        closeKeyAriaLabel,
+      },
     },
   } = dictionary[lang].translations,
   icon = defaultIcon,
-}: LocalSearchProps) {
+  maxResults = 10,
+}: PropsWithLang<LocalSearchProps>) {
   const dialogRef = useRef<DialogHandle | null>(null);
   const inputRef = useRef<HTMLInputElement | null>(null);
+  const resultsPanelRef = useRef<HTMLDivElement | null>(null);
+  const [query, setQuery] = useState<string>('');
+  const [activeIndex, setActiveIndex] = useState<number>(0);
+  const deferredQuery = useDeferredValue(query.trim());
+  const router = useRouter();
   const os = useOs();
+
+  const [miniSearch, setMiniSearch] =
+    useState<MiniSearch<VMarkdownFileMetaWithHeadings> | null>(null);
+  const [failed, setFailed] = useState(false);
+
+  const results = useMemo(() => {
+    if (miniSearch === null || deferredQuery.length === 0) {
+      return [];
+    }
+
+    return miniSearch.search(deferredQuery).slice(0, maxResults) as LocalSearchResult[];
+  }, [maxResults, miniSearch, deferredQuery]);
+
+  const activeResult = results[activeIndex];
 
   // ------------------------------------------------------------------------------
   // Callback
   // ------------------------------------------------------------------------------
 
-  function openSearch() {
-    dialogRef.current?.open();
+  const loadSearch = async () => {
+    if (miniSearch !== null) {
+      return;
+    }
+
+    setFailed(false);
+
+    try {
+      setMiniSearch(await loadLocalSearch(lang));
+    } catch {
+      setFailed(true);
+    }
+  };
+
+  function updateQuery(nextQuery: string) {
+    setQuery(nextQuery);
+    setActiveIndex(0);
   }
 
-  function toggleSearch() {
-    dialogRef.current?.toggle();
+  function resetSearch() {
+    updateQuery('');
+    inputRef.current?.focus();
+  }
+
+  function activateResult(index: number) {
+    setActiveIndex(index);
+
+    const panel = resultsPanelRef.current;
+    const link = panel?.querySelectorAll<HTMLAnchorElement>('li > a')[index];
+
+    if (panel === null || link === undefined) {
+      return;
+    }
+
+    // Compare the result with the panel's visible area, keeping the input focused.
+    const panelTop = panel.getBoundingClientRect().top + panel.clientTop;
+    const linkRect = link.getBoundingClientRect();
+
+    if (linkRect.top < panelTop || linkRect.bottom > panelTop + panel.clientHeight) {
+      link.scrollIntoView({ behavior: 'instant', block: 'nearest', inline: 'nearest' });
+    }
+  }
+
+  const onButtonKeyDown = (event: KeyboardEvent<HTMLButtonElement>) => {
+    // Accept a single alphanumeric character, leaving shortcuts and IME composition alone.
+    // Shift is allowed so uppercase letters can also start a search.
+    if (
+      event.ctrlKey ||
+      event.metaKey ||
+      event.altKey ||
+      event.nativeEvent.isComposing ||
+      !/^[a-z0-9]$/i.test(event.key)
+    ) {
+      return;
+    }
+
+    // Prevent the same character from being inserted again after focus moves to the input.
+    event.preventDefault();
+    updateQuery(event.key);
+    dialogRef.current?.open();
+  };
+
+  function onInputKeyDown(event: KeyboardEvent<HTMLInputElement>) {
+    if (results.length === 0) {
+      return;
+    }
+
+    if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+      event.preventDefault();
+      const direction = event.key === 'ArrowDown' ? 1 : -1;
+      activateResult((activeIndex + direction + results.length) % results.length);
+    }
+
+    if (event.key === 'Enter' && activeResult !== undefined) {
+      event.preventDefault();
+      dialogRef.current?.close();
+      router.push(activeResult.url);
+    }
   }
 
   // ------------------------------------------------------------------------------
   // Hook
   // ------------------------------------------------------------------------------
 
-  useShortcut('/', openSearch);
-  useShortcut('k', toggleSearch, {
+  useShortcut('/', () => dialogRef.current?.open());
+  useShortcut('k', () => dialogRef.current?.toggle(), {
     ctrlKey: true,
     ignoreEditable: false,
   });
-  useShortcut('k', toggleSearch, {
+  useShortcut('k', () => dialogRef.current?.toggle(), {
     metaKey: true,
     ignoreEditable: false,
   });
@@ -196,8 +633,24 @@ export function LocalSearch({
   // ------------------------------------------------------------------------------
 
   return (
-    <Dialog.Root ref={dialogRef} initialFocusRef={inputRef}>
-      <Dialog.Open className={styles.open} aria-label={buttonAriaLabel}>
+    <Dialog.Root
+      ref={dialogRef}
+      initialFocusRef={inputRef}
+      onOpenChange={open => {
+        if (open) {
+          loadSearch();
+        } else {
+          updateQuery('');
+        }
+      }}
+    >
+      <link rel="prefetch" href={`/${lang}/search.json`} as="fetch" />
+
+      <Dialog.Open
+        className={styles.open}
+        aria-label={buttonAriaLabel}
+        onKeyDown={onButtonKeyDown}
+      >
         <span>
           <span>{icon}</span>
           <span>{buttonText}</span>
@@ -217,14 +670,114 @@ export function LocalSearch({
                 ref={inputRef}
                 type="search"
                 spellCheck={false}
+                value={query}
+                onChange={event => updateQuery(event.target.value)}
+                onKeyDown={onInputKeyDown}
                 placeholder={placeholder}
                 aria-label={searchInputLabel}
               />
+              {query.length > 0 && (
+                <button
+                  type="button"
+                  onClick={resetSearch}
+                  title={resetButtonTitle}
+                  aria-label={resetButtonAriaLabel}
+                >
+                  {resetButtonText}
+                </button>
+              )}
             </div>
             <Dialog.Close aria-label={cancelButtonAriaLabel}>
               {cancelButtonText}
             </Dialog.Close>
           </div>
+
+          <div ref={resultsPanelRef}>
+            {miniSearch === null ? (
+              <section role="status">
+                <h3>{failed ? errorText : loadingText}</h3>
+                {failed ? (
+                  <button type="button" onClick={loadSearch}>
+                    {retryButtonText}
+                  </button>
+                ) : null}
+              </section>
+            ) : query.length === 0 ? (
+              <section>
+                <h3>{titleText}</h3>
+                <p>{helpText}</p>
+              </section>
+            ) : results.length === 0 ? (
+              <section>
+                <h3>{noResultsText}</h3>
+                <p>&quot;{query}&quot;</p>
+              </section>
+            ) : (
+              <section>
+                <div>{sourceText}</div>
+                <ul>
+                  {results.map((document, index) => (
+                    <li key={document.url}>
+                      <Link
+                        href={document.url}
+                        data-active={index === activeIndex}
+                        // Close on same-tab navigation; modifier clicks keep the search open.
+                        onNavigate={() => dialogRef.current?.close()}
+                      >
+                        <span>
+                          <span>
+                            {highlightMatches(document, 'title')}
+                            {document.headings[0].text ? (
+                              <> / {highlightMatches(document, 'heading')}</>
+                            ) : null}
+                          </span>
+                          <span>
+                            {pathPrefix} / {document.slug}
+                          </span>
+                          <span>
+                            {highlightMatches(
+                              document,
+                              document.headings[0].text ||
+                                document.terms.some(term =>
+                                  document.match[term]?.includes('content'),
+                                )
+                                ? 'content'
+                                : 'description',
+                            )}
+                          </span>
+                          <span>
+                            <span>{document.data.created}</span>
+                            <span>
+                              {updatedText} {document.data.updated}
+                            </span>
+                            {document.data.categories.map(category => (
+                              <span key={category}>{category}</span>
+                            ))}
+                          </span>
+                        </span>
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </section>
+            )}
+          </div>
+
+          <footer className="markdown">
+            <span>
+              <kbd aria-label={selectKeyAriaLabel}>Enter</kbd>
+              <span>{selectText}</span>
+            </span>
+            <span>
+              <kbd aria-label={navigateUpKeyAriaLabel}>↑</kbd>
+              <kbd aria-label={navigateDownKeyAriaLabel}>↓</kbd>
+              <span>{navigateText}</span>
+            </span>
+            <span>
+              <kbd aria-label={closeKeyAriaLabel}>Esc</kbd>
+              <span>{closeText}</span>
+            </span>
+          </footer>
         </div>
       </Dialog.Content>
     </Dialog.Root>
