@@ -10,7 +10,7 @@ import { afterEach, assert, beforeEach, describe, it, vi } from 'vitest';
 import { page, userEvent } from 'vitest/browser';
 import { render } from 'vitest-browser-react';
 import { type ReactNode } from 'react';
-import { type LocalSearchProps } from './localsearch.jsx';
+import { localSearchDictionary } from './localsearch.jsx';
 
 let LocalSearch: (typeof import('./localsearch.jsx'))['LocalSearch'];
 
@@ -42,60 +42,6 @@ vi.mock(
       );
     },
 );
-
-// --------------------------------------------------------------------------------
-// Constant
-// --------------------------------------------------------------------------------
-
-const translations = {
-  placeholder: 'Search',
-  button: {
-    buttonAriaLabel: 'Search',
-    buttonText: 'Search',
-  },
-  dialog: {
-    dialogAriaLabel: 'Search',
-    loadingText: 'Loading search data.',
-    errorText: 'Failed to load search data.',
-    retryButtonText: 'Retry',
-    searchBox: {
-      resetButtonText: 'Clear',
-      resetButtonTitle: 'Clear the query',
-      resetButtonAriaLabel: 'Clear the query',
-      cancelButtonText: 'Cancel',
-      cancelButtonAriaLabel: 'Cancel',
-      searchInputLabel: 'Search',
-    },
-    startScreen: {
-      titleText: 'Search docs metadata',
-      helpText: 'Search titles and descriptions.',
-      recentSearchesTitle: 'Recent Searches',
-      noRecentSearchesText: 'No recent searches.',
-      saveRecentSearchButtonTitle: 'Save this search',
-      removeRecentSearchButtonTitle: 'Remove this search from history',
-      favoriteSearchesTitle: 'Favorite',
-      removeFavoriteSearchButtonTitle: 'Remove this search from favorites',
-    },
-    noResultsScreen: {
-      noResultsText: 'No results for',
-      suggestedQueryText: 'Try searching for',
-    },
-    resultsScreen: {
-      sourceText: 'Posts',
-      pathPrefix: 'blog / posts',
-      updatedText: 'Updated',
-    },
-    footer: {
-      selectText: 'Select',
-      selectKeyAriaLabel: 'Enter',
-      navigateText: 'Navigate',
-      navigateUpKeyAriaLabel: 'Arrow up',
-      navigateDownKeyAriaLabel: 'Arrow down',
-      closeText: 'Close',
-      closeKeyAriaLabel: 'Escape',
-    },
-  },
-} satisfies LocalSearchProps['translations'];
 
 // --------------------------------------------------------------------------------
 // Test
@@ -161,7 +107,11 @@ describe('localsearch', () => {
     const response = Promise.withResolvers<Response>();
     const fetchSearch = vi.spyOn(globalThis, 'fetch').mockReturnValue(response.promise);
     const screen = await render(
-      <LocalSearch lang="en" translations={translations} icon="⌕" />,
+      <LocalSearch
+        lang="en"
+        translations={localSearchDictionary.en.translations}
+        icon="⌕"
+      />,
     );
 
     assert.strictEqual(fetchSearch.mock.calls.length, 0);
@@ -182,7 +132,11 @@ describe('localsearch', () => {
     await screen.unmount();
 
     const remounted = await render(
-      <LocalSearch lang="en" translations={translations} icon="⌕" />,
+      <LocalSearch
+        lang="en"
+        translations={localSearchDictionary.en.translations}
+        icon="⌕"
+      />,
     );
     await remounted.getByRole('button', { name: 'Search', exact: true }).click();
     await vi.waitFor(() => {
@@ -195,7 +149,11 @@ describe('localsearch', () => {
     const response = Promise.withResolvers<Response>();
     vi.spyOn(globalThis, 'fetch').mockReturnValue(response.promise);
     const screen = await render(
-      <LocalSearch lang="en" translations={translations} icon="⌕" />,
+      <LocalSearch
+        lang="en"
+        translations={localSearchDictionary.en.translations}
+        icon="⌕"
+      />,
     );
 
     await screen.getByRole('button', { name: 'Search', exact: true }).click();
@@ -239,7 +197,11 @@ describe('localsearch', () => {
       .mockResolvedValueOnce(new Response(null, { status: 503 }))
       .mockResolvedValueOnce(Response.json([]));
     const screen = await render(
-      <LocalSearch lang="en" translations={translations} icon="⌕" />,
+      <LocalSearch
+        lang="en"
+        translations={localSearchDictionary.en.translations}
+        icon="⌕"
+      />,
     );
 
     await screen.getByRole('button', { name: 'Search', exact: true }).click();
@@ -265,7 +227,11 @@ describe('localsearch', () => {
       .mockRejectedValueOnce(new TypeError('Network failure'))
       .mockResolvedValueOnce(Response.json([]));
     const screen = await render(
-      <LocalSearch lang="en" translations={translations} icon="⌕" />,
+      <LocalSearch
+        lang="en"
+        translations={localSearchDictionary.en.translations}
+        icon="⌕"
+      />,
     );
 
     await screen.getByRole('button', { name: 'Search', exact: true }).click();
@@ -289,7 +255,11 @@ describe('localsearch', () => {
       .mockResolvedValueOnce(Response.json([]))
       .mockResolvedValueOnce(Response.json([]));
     const screen = await render(
-      <LocalSearch lang="en" translations={translations} icon="⌕" />,
+      <LocalSearch
+        lang="en"
+        translations={localSearchDictionary.en.translations}
+        icon="⌕"
+      />,
     );
 
     await userEvent.keyboard('{Meta>}k{/Meta}');
@@ -297,7 +267,13 @@ describe('localsearch', () => {
       assert.isNull(screen.container.querySelector('[role="status"]'));
     });
     await userEvent.keyboard('{Escape}');
-    await screen.rerender(<LocalSearch lang="ko" translations={translations} icon="⌕" />);
+    await screen.rerender(
+      <LocalSearch
+        lang="ko"
+        translations={localSearchDictionary.ko.translations}
+        icon="⌕"
+      />,
+    );
     await userEvent.keyboard('/');
     await vi.waitFor(() => {
       assert.isNull(screen.container.querySelector('[role="status"]'));
@@ -305,7 +281,13 @@ describe('localsearch', () => {
     assert.deepEqual(fetchSearch.mock.calls, [['/en/search.json'], ['/ko/search.json']]);
 
     await userEvent.keyboard('{Escape}');
-    await screen.rerender(<LocalSearch lang="en" translations={translations} icon="⌕" />);
+    await screen.rerender(
+      <LocalSearch
+        lang="en"
+        translations={localSearchDictionary.en.translations}
+        icon="⌕"
+      />,
+    );
     await screen.getByRole('button', { name: 'Search', exact: true }).click();
     await vi.waitFor(() => {
       assert.isNull(screen.container.querySelector('[role="status"]'));
@@ -354,7 +336,9 @@ describe('localsearch', () => {
       ]),
     );
 
-    const screen = await render(<LocalSearch lang="en" translations={translations} />);
+    const screen = await render(
+      <LocalSearch lang="en" translations={localSearchDictionary.en.translations} />,
+    );
     const button = screen.container.querySelector('button');
 
     assert.ok(button);
@@ -426,7 +410,9 @@ describe('localsearch', () => {
       ]),
     );
 
-    const screen = await render(<LocalSearch lang="en" translations={translations} />);
+    const screen = await render(
+      <LocalSearch lang="en" translations={localSearchDictionary.en.translations} />,
+    );
 
     const button = screen.container.querySelector('button');
 
@@ -471,7 +457,9 @@ describe('localsearch', () => {
       ]),
     );
 
-    const screen = await render(<LocalSearch lang="en" translations={translations} />);
+    const screen = await render(
+      <LocalSearch lang="en" translations={localSearchDictionary.en.translations} />,
+    );
     const button = screen.container.querySelector('button');
 
     assert.ok(button);
@@ -581,7 +569,9 @@ describe('localsearch', () => {
       ]),
     );
 
-    const screen = await render(<LocalSearch lang="en" translations={translations} />);
+    const screen = await render(
+      <LocalSearch lang="en" translations={localSearchDictionary.en.translations} />,
+    );
     const button = screen.container.querySelector('button');
 
     assert.ok(button);
@@ -675,7 +665,9 @@ describe('localsearch', () => {
         ]),
       );
 
-      const screen = await render(<LocalSearch lang="en" translations={translations} />);
+      const screen = await render(
+        <LocalSearch lang="en" translations={localSearchDictionary.en.translations} />,
+      );
       const button = screen.container.querySelector('button');
       const dialog = screen.container.querySelector('dialog');
       const input = screen.container.querySelector('input');
@@ -700,7 +692,9 @@ describe('localsearch', () => {
     });
 
     it('should open the dialog with the first lowercase letter as the query', async () => {
-      const screen = await render(<LocalSearch lang="en" translations={translations} />);
+      const screen = await render(
+        <LocalSearch lang="en" translations={localSearchDictionary.en.translations} />,
+      );
       const button = screen.container.querySelector('button');
       const dialog = screen.container.querySelector('dialog');
       const input = screen.container.querySelector('input');
@@ -718,7 +712,9 @@ describe('localsearch', () => {
     });
 
     it('should open the dialog with the first digit as the query', async () => {
-      const screen = await render(<LocalSearch lang="en" translations={translations} />);
+      const screen = await render(
+        <LocalSearch lang="en" translations={localSearchDictionary.en.translations} />,
+      );
       const button = screen.container.querySelector('button');
       const dialog = screen.container.querySelector('dialog');
       const input = screen.container.querySelector('input');
@@ -736,7 +732,9 @@ describe('localsearch', () => {
     });
 
     it('should ignore modified letters, punctuation, and IME composition on the button', async () => {
-      const screen = await render(<LocalSearch lang="en" translations={translations} />);
+      const screen = await render(
+        <LocalSearch lang="en" translations={localSearchDictionary.en.translations} />,
+      );
       const button = screen.container.querySelector('button');
       const dialog = screen.container.querySelector('dialog');
       const input = screen.container.querySelector('input');
