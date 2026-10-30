@@ -155,24 +155,9 @@ export interface LocalSearchProps {
         readonly noRecentSearchesText: string;
 
         /**
-         * The title for the button that saves a recent search.
-         */
-        readonly saveRecentSearchButtonTitle: string;
-
-        /**
          * The title for the button that removes a recent search.
          */
         readonly removeRecentSearchButtonTitle: string;
-
-        /**
-         * The title for favorite searches.
-         */
-        readonly favoriteSearchesTitle: string;
-
-        /**
-         * The title for the button that removes a favorite search.
-         */
-        readonly removeFavoriteSearchButtonTitle: string;
       };
 
       /**
@@ -254,7 +239,7 @@ export interface LocalSearchProps {
 
   /**
    * The icon to display.
-   * @default A search icon.
+   * @default Search Icon
    */
   readonly icon?: ReactNode;
 
@@ -269,9 +254,108 @@ export interface LocalSearchProps {
 // Helper
 // --------------------------------------------------------------------------------
 
-const defaultIcon = (
-  <LmSearch aria-hidden="true" color="white" size={28} strokeWidth="1.5" />
-);
+const defaultIcon = <LmSearch aria-hidden="true" size={28} strokeWidth="1.5" />;
+
+const dictionary = {
+  ko: {
+    translations: {
+      placeholder: '검색',
+      button: {
+        buttonAriaLabel: '검색',
+        buttonText: '검색',
+      },
+      dialog: {
+        dialogAriaLabel: '검색',
+        loadingText: '검색 데이터를 불러오는 중입니다.',
+        errorText: '검색 데이터를 불러오지 못했습니다.',
+        retryButtonText: '다시 시도',
+        searchBox: {
+          resetButtonText: '지우기',
+          resetButtonTitle: '검색 창 지우기',
+          resetButtonAriaLabel: '검색 창 지우기',
+          cancelButtonText: '취소',
+          cancelButtonAriaLabel: '취소',
+          searchInputLabel: '검색',
+        },
+        startScreen: {
+          titleText: '문서 검색',
+          helpText: '제목, 설명, 섹션 제목과 본문을 검색합니다.',
+          recentSearchesTitle: '최근 검색',
+          noRecentSearchesText: '최근 검색 결과가 없습니다.',
+          removeRecentSearchButtonTitle: '히스토리에서 검색 결과 삭제하기',
+        },
+        noResultsScreen: {
+          noResultsText: '검색 결과가 없습니다',
+          suggestedQueryText: '아래 검색어를 시도해보세요',
+        },
+        resultsScreen: {
+          sourceText: '문서',
+          pathPrefix: 'blog / posts',
+          updatedText: '수정',
+        },
+        footer: {
+          selectText: '선택',
+          selectKeyAriaLabel: '엔터',
+          navigateText: '이동',
+          navigateUpKeyAriaLabel: '위쪽 화살표',
+          navigateDownKeyAriaLabel: '아래쪽 화살표',
+          closeText: '닫기',
+          closeKeyAriaLabel: '닫기',
+        },
+      },
+    },
+  },
+  en: {
+    translations: {
+      placeholder: 'Search',
+      button: {
+        buttonAriaLabel: 'Search',
+        buttonText: 'Search',
+      },
+      dialog: {
+        dialogAriaLabel: 'Search',
+        loadingText: 'Loading search data.',
+        errorText: 'Failed to load search data.',
+        retryButtonText: 'Retry',
+        searchBox: {
+          resetButtonText: 'Clear',
+          resetButtonTitle: 'Clear the query',
+          resetButtonAriaLabel: 'Clear the query',
+          cancelButtonText: 'Cancel',
+          cancelButtonAriaLabel: 'Cancel',
+          searchInputLabel: 'Search',
+        },
+        startScreen: {
+          titleText: 'Search docs',
+          helpText: 'Search titles, descriptions, section headings, and body text.',
+          recentSearchesTitle: 'Recent Searches',
+          noRecentSearchesText: 'No recent searches.',
+          removeRecentSearchButtonTitle: 'Remove this search from history',
+        },
+        noResultsScreen: {
+          noResultsText: 'No results for',
+          suggestedQueryText: 'Try searching for',
+        },
+        resultsScreen: {
+          sourceText: 'Posts',
+          pathPrefix: 'blog / posts',
+          updatedText: 'Updated',
+        },
+        footer: {
+          selectText: 'Select',
+          selectKeyAriaLabel: 'Enter',
+          navigateText: 'Navigate',
+          navigateUpKeyAriaLabel: 'Arrow up',
+          navigateDownKeyAriaLabel: 'Arrow down',
+          closeText: 'Close',
+          closeKeyAriaLabel: 'Escape',
+        },
+      },
+    },
+  },
+} as const satisfies LangRecord<{
+  translations: NonNullable<LocalSearchProps['translations']>;
+}>;
 
 // Keep both pending requests and completed indexes across component mounts.
 const localSearchByLang: Partial<
@@ -380,113 +464,6 @@ function highlightMatches(
 // Export
 // --------------------------------------------------------------------------------
 
-export const localSearchDictionary = {
-  ko: {
-    translations: {
-      placeholder: '검색',
-      button: {
-        buttonAriaLabel: '검색',
-        buttonText: '검색',
-      },
-      dialog: {
-        dialogAriaLabel: '검색',
-        loadingText: '검색 데이터를 불러오는 중입니다.',
-        errorText: '검색 데이터를 불러오지 못했습니다.',
-        retryButtonText: '다시 시도',
-        searchBox: {
-          resetButtonText: '지우기',
-          resetButtonTitle: '검색 창 지우기',
-          resetButtonAriaLabel: '검색 창 지우기',
-          cancelButtonText: '취소',
-          cancelButtonAriaLabel: '취소',
-          searchInputLabel: '검색',
-        },
-        startScreen: {
-          titleText: '문서 검색',
-          helpText: '제목, 설명, 섹션 제목과 본문을 검색합니다.',
-          recentSearchesTitle: '최근 검색',
-          noRecentSearchesText: '최근 검색 결과가 없습니다.',
-          saveRecentSearchButtonTitle: '검색 결과 저장하기',
-          removeRecentSearchButtonTitle: '히스토리에서 검색 결과 삭제하기',
-          favoriteSearchesTitle: '즐겨찾기',
-          removeFavoriteSearchButtonTitle: '즐겨찾기에서 검색 결과 삭제하기',
-        },
-        noResultsScreen: {
-          noResultsText: '검색 결과가 없습니다',
-          suggestedQueryText: '아래 검색어를 시도해보세요',
-        },
-        resultsScreen: {
-          sourceText: '문서',
-          pathPrefix: 'blog / posts',
-          updatedText: '수정',
-        },
-        footer: {
-          selectText: '선택',
-          selectKeyAriaLabel: '엔터',
-          navigateText: '이동',
-          navigateUpKeyAriaLabel: '위쪽 화살표',
-          navigateDownKeyAriaLabel: '아래쪽 화살표',
-          closeText: '닫기',
-          closeKeyAriaLabel: '닫기',
-        },
-      },
-    },
-  },
-  en: {
-    translations: {
-      placeholder: 'Search',
-      button: {
-        buttonAriaLabel: 'Search',
-        buttonText: 'Search',
-      },
-      dialog: {
-        dialogAriaLabel: 'Search',
-        loadingText: 'Loading search data.',
-        errorText: 'Failed to load search data.',
-        retryButtonText: 'Retry',
-        searchBox: {
-          resetButtonText: 'Clear',
-          resetButtonTitle: 'Clear the query',
-          resetButtonAriaLabel: 'Clear the query',
-          cancelButtonText: 'Cancel',
-          cancelButtonAriaLabel: 'Cancel',
-          searchInputLabel: 'Search',
-        },
-        startScreen: {
-          titleText: 'Search docs',
-          helpText: 'Search titles, descriptions, section headings, and body text.',
-          recentSearchesTitle: 'Recent Searches',
-          noRecentSearchesText: 'No recent searches.',
-          saveRecentSearchButtonTitle: 'Save this search',
-          removeRecentSearchButtonTitle: 'Remove this search from history',
-          favoriteSearchesTitle: 'Favorite',
-          removeFavoriteSearchButtonTitle: 'Remove this search from favorites',
-        },
-        noResultsScreen: {
-          noResultsText: 'No results for',
-          suggestedQueryText: 'Try searching for',
-        },
-        resultsScreen: {
-          sourceText: 'Posts',
-          pathPrefix: 'blog / posts',
-          updatedText: 'Updated',
-        },
-        footer: {
-          selectText: 'Select',
-          selectKeyAriaLabel: 'Enter',
-          navigateText: 'Navigate',
-          navigateUpKeyAriaLabel: 'Arrow up',
-          navigateDownKeyAriaLabel: 'Arrow down',
-          closeText: 'Close',
-          closeKeyAriaLabel: 'Escape',
-        },
-      },
-    },
-  },
-} as const satisfies LangRecord<{
-  translations: NonNullable<LocalSearchProps['translations']>;
-}>;
-
 export function LocalSearch({
   lang,
   translations: {
@@ -518,7 +495,7 @@ export function LocalSearch({
         closeKeyAriaLabel,
       },
     },
-  } = localSearchDictionary[lang].translations,
+  } = dictionary[lang].translations,
   icon = defaultIcon,
   maxResults = 10,
 }: PropsWithLang<LocalSearchProps>) {
