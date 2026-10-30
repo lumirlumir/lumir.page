@@ -193,16 +193,6 @@ export interface LocalSearchProps {
          * The text displayed before a suggested query.
          */
         readonly suggestedQueryText: string;
-
-        /**
-         * The text prompting users to report missing results.
-         */
-        readonly reportMissingResultsText: string;
-
-        /**
-         * The text for the link that reports missing results.
-         */
-        readonly reportMissingResultsLinkText: string;
       };
 
       /**
@@ -263,11 +253,6 @@ export interface LocalSearchProps {
          * The aria-label for the close keycap.
          */
         readonly closeKeyAriaLabel: string;
-
-        /**
-         * The text displayed before the search provider name.
-         */
-        readonly searchByText: string;
       };
     };
   };
@@ -327,8 +312,6 @@ const dictionary = {
         noResultsScreen: {
           noResultsText: '검색 결과가 없습니다',
           suggestedQueryText: '아래 검색어를 시도해보세요',
-          reportMissingResultsText: '해당 쿼리가 결과를 반환해야 하나요?',
-          reportMissingResultsLinkText: '알려주세요.',
         },
         resultsScreen: {
           sourceText: '문서',
@@ -343,7 +326,6 @@ const dictionary = {
           navigateDownKeyAriaLabel: '아래쪽 화살표',
           closeText: '닫기',
           closeKeyAriaLabel: '닫기',
-          searchByText: '',
         },
       },
     },
@@ -381,8 +363,6 @@ const dictionary = {
         noResultsScreen: {
           noResultsText: 'No results for',
           suggestedQueryText: 'Try searching for',
-          reportMissingResultsText: 'Believe this query should return results?',
-          reportMissingResultsLinkText: 'Let us know.',
         },
         resultsScreen: {
           sourceText: 'Posts',
@@ -397,7 +377,6 @@ const dictionary = {
           navigateDownKeyAriaLabel: 'Arrow down',
           closeText: 'Close',
           closeKeyAriaLabel: 'Escape',
-          searchByText: '',
         },
       },
     },

@@ -79,8 +79,6 @@ const translations = {
     noResultsScreen: {
       noResultsText: 'No results for',
       suggestedQueryText: 'Try searching for',
-      reportMissingResultsText: 'Believe this query should return results?',
-      reportMissingResultsLinkText: 'Let us know.',
     },
     resultsScreen: {
       sourceText: 'Posts',
@@ -95,7 +93,6 @@ const translations = {
       navigateDownKeyAriaLabel: 'Arrow down',
       closeText: 'Close',
       closeKeyAriaLabel: 'Escape',
-      searchByText: '',
     },
   },
 } satisfies LocalSearchProps['translations'];
