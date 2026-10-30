@@ -32,7 +32,7 @@ categories:
 references:
   - https://example.com/ko
 ---
-## Korean Mock Post
+## Korean Mock Post {#korean-section}
 
 Korean body.`,
     'simple-post.en': `---
@@ -44,7 +44,7 @@ categories:
   - nextjs
 references: []
 ---
-## English Mock Post
+## English Mock Post {#english-section}
 
 English body.`,
   };
@@ -183,7 +183,7 @@ describe('markdown-collection', () => {
             categories: ['javascript', 'markdown'],
             references: ['https://example.com/ko'],
           },
-          content: '## Korean Mock Post\n\nKorean body.',
+          content: '## Korean Mock Post {#korean-section}\n\nKorean body.',
         },
       );
     });
@@ -207,7 +207,7 @@ describe('markdown-collection', () => {
             categories: ['nextjs'],
             references: [],
           },
-          content: '## English Mock Post\n\nEnglish body.',
+          content: '## English Mock Post {#english-section}\n\nEnglish body.',
         },
       );
     });
@@ -218,6 +218,89 @@ describe('markdown-collection', () => {
 
       try {
         await markdownCollection.loadVMarkdownFile('missing-post.ko');
+      } catch (error) {
+        caughtError = error;
+      }
+
+      assert.ok(caughtError instanceof Error);
+      assert.strictEqual(
+        caughtError.message,
+        'Markdown file not found: `missing-post.ko`',
+      );
+    });
+  });
+
+  describe('loadVMarkdownFileMetaWithHeadings', () => {
+    it('should load Korean metadata and headings without the raw Markdown body', async () => {
+      const markdownCollection = createMarkdownCollection();
+
+      assert.deepStrictEqual(
+        await markdownCollection.loadVMarkdownFileMetaWithHeadings('simple-post.ko'),
+        {
+          id: 'simple-post.ko',
+          slug: 'simple-post',
+          lang: 'ko',
+          url: '/ko/posts/simple-post',
+          readtime: 1,
+          data: {
+            title: 'Korean Mock Post',
+            description: 'Korean mock post description.',
+            created: '2024-01-01',
+            updated: '2024-01-02',
+            categories: ['javascript', 'markdown'],
+            references: ['https://example.com/ko'],
+          },
+          headings: [
+            { id: 'simple-post', text: 'Korean Mock Post', depth: 1, content: '' },
+            {
+              id: 'korean-section',
+              text: 'Korean Mock Post',
+              depth: 2,
+              content: 'Korean body.',
+            },
+          ],
+        },
+      );
+    });
+
+    it('should load English metadata and headings without the raw Markdown body', async () => {
+      const markdownCollection = createMarkdownCollection();
+
+      assert.deepStrictEqual(
+        await markdownCollection.loadVMarkdownFileMetaWithHeadings('simple-post.en'),
+        {
+          id: 'simple-post.en',
+          slug: 'simple-post',
+          lang: 'en',
+          url: '/en/posts/simple-post',
+          readtime: 1,
+          data: {
+            title: 'English Mock Post',
+            description: 'English mock post description.',
+            created: '2024-02-01',
+            updated: '2024-02-02',
+            categories: ['nextjs'],
+            references: [],
+          },
+          headings: [
+            { id: 'simple-post', text: 'English Mock Post', depth: 1, content: '' },
+            {
+              id: 'english-section',
+              text: 'English Mock Post',
+              depth: 2,
+              content: 'English body.',
+            },
+          ],
+        },
+      );
+    });
+
+    it('should reject when the requested Markdown file does not exist', async () => {
+      const markdownCollection = createMarkdownCollection();
+      let caughtError: unknown;
+
+      try {
+        await markdownCollection.loadVMarkdownFileMetaWithHeadings('missing-post.ko');
       } catch (error) {
         caughtError = error;
       }
