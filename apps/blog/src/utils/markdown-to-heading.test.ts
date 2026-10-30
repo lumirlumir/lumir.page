@@ -7,7 +7,7 @@
 // --------------------------------------------------------------------------------
 
 import { assert, describe, expect, it } from 'vitest';
-import { markdownToHeading } from './markdown-to-heading';
+import { markdownToHeading } from './markdown-to-heading.js';
 
 // --------------------------------------------------------------------------------
 // Test

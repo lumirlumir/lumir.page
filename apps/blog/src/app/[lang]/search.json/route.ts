@@ -8,7 +8,6 @@
 
 import { langKeys, type LangKey } from '@/data/lang';
 import createMarkdownCollection from '@/utils/markdown-collection';
-import { markdownToHeading } from '@/utils/markdown-to-heading';
 
 // --------------------------------------------------------------------------------
 // Helper
@@ -53,14 +52,9 @@ export async function GET(
 
   return Response.json(
     await Promise.all(
-      Object.values(markdownCollection.byLangSlug[lang]).map(async metadata => {
-        const file = await markdownCollection.loadVMarkdownFile(metadata.id);
-        const headings = await markdownToHeading(file.content, {
-          title: `${metadata.data.title} {#${metadata.slug}}`,
-        });
-
-        return { ...metadata, headings };
-      }),
+      markdownCollection.ids
+        .filter(id => id.endsWith(lang))
+        .map(id => markdownCollection.loadVMarkdownFileMetaWithHeadings(id)),
     ),
   );
 }

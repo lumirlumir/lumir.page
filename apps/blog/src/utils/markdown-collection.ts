@@ -16,8 +16,13 @@ import { frontmatter, readtime } from '@lumir/utils';
 import { categoryKeys, type CategoryKey } from '@/data/category';
 import { type Frontmatter } from '@/data/frontmatter';
 import { langKeys, type LangKey, type LangRecord } from '@/data/lang';
-import { type VMarkdownFileMeta, type VMarkdownFile } from '@/data/v-markdown';
+import {
+  type VMarkdownFileMeta,
+  type VMarkdownFile,
+  type VMarkdownFileMetaWithHeadings,
+} from '@/data/v-markdown';
 import { isFrontmatter } from '@/utils/is';
+import { markdownToHeading } from '@/utils/markdown-to-heading';
 
 // --------------------------------------------------------------------------------
 // Typedef
@@ -288,6 +293,23 @@ class MarkdownCollection {
       readtime: minutes,
       data: sanitizedData,
       content,
+    };
+  }
+
+  /**
+   * Asynchronously loads metadata and heading sections by file id, without returning the raw Markdown body.
+   * Includes the title as a heading with its slug-based anchor.
+   */
+  async loadVMarkdownFileMetaWithHeadings(
+    id: VMarkdownFileMeta['id'],
+  ): Promise<VMarkdownFileMetaWithHeadings> {
+    const { content, ...vMarkdownFileMeta } = await this.loadVMarkdownFile(id);
+
+    return {
+      ...vMarkdownFileMeta,
+      headings: await markdownToHeading(content, {
+        title: `${vMarkdownFileMeta.data.title} {#${vMarkdownFileMeta.slug}}`,
+      }),
     };
   }
 
