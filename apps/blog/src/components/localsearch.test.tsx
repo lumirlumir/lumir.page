@@ -211,7 +211,7 @@ describe('localsearch', () => {
       assert.strictEqual(screen.container.querySelector('input')?.value, 'React');
     });
 
-    it('should retry a network failure when reopening the dialog', async () => {
+    it('should retry a network failure when reopening but not when closing the dialog', async () => {
       const fetchSearch = vi
         .spyOn(globalThis, 'fetch')
         .mockRejectedValueOnce(new TypeError('Network failure'))
@@ -225,7 +225,8 @@ describe('localsearch', () => {
           'Failed to load search data.',
         );
       });
-      await userEvent.keyboard('{Escape}');
+      await userEvent.keyboard('{Control>}k{/Control}');
+      assert.strictEqual(fetchSearch.mock.calls.length, 1);
       await userEvent.keyboard('{Control>}k{/Control}');
       await vi.waitFor(() => {
         assert.isNull(screen.container.querySelector('[role="status"]'));

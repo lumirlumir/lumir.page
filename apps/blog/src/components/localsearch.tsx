@@ -33,10 +33,7 @@ import {
   type ReactNode,
 } from 'react';
 import { type LangKey, type LangRecord, type PropsWithLang } from '@/data/lang';
-import {
-  type VMarkdownFileMetaWithHeadings,
-  type VMarkdownHeading,
-} from '@/data/v-markdown';
+import { type VMarkdownFileMetaWithHeadings } from '@/data/v-markdown';
 import styles from './localsearch.module.css';
 
 // --------------------------------------------------------------------------------
@@ -358,12 +355,19 @@ const dictionary = {
 }>;
 
 // Keep both pending requests and completed indexes across component mounts.
-const localSearchByLang: Partial<
-  Record<LangKey, Promise<ReturnType<typeof createLocalSearch>>>
-> = {};
+const localSearchByLang = new Map<
+  LangKey,
+  Promise<ReturnType<typeof createLocalSearch>>
+>();
 
-async function loadLocalSearch(lang: LangKey) {
-  localSearchByLang[lang] ??= (async () => {
+function loadLocalSearch(lang: LangKey) {
+  const cached = localSearchByLang.get(lang);
+
+  if (cached) {
+    return cached;
+  }
+
+  const pending = (async () => {
     try {
       const response = await fetch(`/${lang}/search.json`);
 
@@ -372,32 +376,38 @@ async function loadLocalSearch(lang: LangKey) {
       }
 
       const documents = (await response.json()) as VMarkdownFileMetaWithHeadings[];
+
       return createLocalSearch(documents);
     } catch (error) {
-      delete localSearchByLang[lang];
+      localSearchByLang.delete(lang);
       throw error;
     }
   })();
 
-  return localSearchByLang[lang];
+  localSearchByLang.set(lang, pending);
+
+  return pending;
 }
 
 /**
  * Creates and populates a MiniSearch instance, preserving its native search API.
  */
-export function createLocalSearch(documents: readonly VMarkdownFileMetaWithHeadings[]) {
-  const search = new MiniSearch<
-    Omit<VMarkdownFileMetaWithHeadings, 'id' | 'headings'> & VMarkdownHeading
-  >({
+function createLocalSearch(documents: readonly VMarkdownFileMetaWithHeadings[]) {
+  const search = new MiniSearch<VMarkdownFileMetaWithHeadings>({
+    idField: 'url',
     fields: ['title', 'description', 'heading', 'content'],
     extractField: (document, fieldName) => {
       if (fieldName === 'title' || fieldName === 'description') {
         // Keep post metadata searches on the post record instead of every section.
-        return document.text ? '' : document.data[fieldName];
+        return document.headings[0].text ? '' : document.data[fieldName];
       }
 
       if (fieldName === 'heading') {
-        return document.text;
+        return document.headings[0].text;
+      }
+
+      if (fieldName === 'content') {
+        return document.headings[0].content;
       }
 
       return MiniSearch.getDefault('extractField')(document, fieldName);
@@ -407,16 +417,14 @@ export function createLocalSearch(documents: readonly VMarkdownFileMetaWithHeadi
       fuzzy: 0.2,
       prefix: true,
     },
-    storeFields: ['slug', 'lang', 'readtime', 'data', 'url', 'text', 'depth', 'content'],
+    storeFields: ['id', 'slug', 'lang', 'readtime', 'data', 'url', 'headings'],
   });
 
   documents.forEach(({ headings, ...metadata }) => {
     headings.forEach((section, index) => {
       search.add({
         ...metadata,
-        ...section,
-        id: `${metadata.id}:${index}`,
-        text: index === 0 ? '' : section.text,
+        headings: [index === 0 ? { ...section, text: '' } : section],
         url: `${metadata.url}#${encodeURIComponent(section.id)}`,
       });
     });
@@ -426,7 +434,7 @@ export function createLocalSearch(documents: readonly VMarkdownFileMetaWithHeadi
 }
 
 function highlightMatches(
-  document: SearchResult & VMarkdownHeading & Pick<VMarkdownFileMetaWithHeadings, 'data'>,
+  document: SearchResult & VMarkdownFileMetaWithHeadings,
   field: 'title' | 'description' | 'heading' | 'content',
 ) {
   // Use the actual matched document terms, including prefix and fuzzy matches, for this field.
@@ -437,8 +445,8 @@ function highlightMatches(
     field === 'title' || field === 'description'
       ? document.data[field]
       : field === 'heading'
-        ? document.text
-        : document.content;
+        ? document.headings[0].text
+        : document.headings[0].content;
 
   if (field === 'content') {
     let start = 0;
@@ -522,8 +530,7 @@ export function LocalSearch({
     }
 
     return miniSearch.search(deferredQuery).slice(0, maxResults) as (SearchResult &
-      Omit<VMarkdownFileMetaWithHeadings, 'id' | 'headings'> &
-      VMarkdownHeading)[];
+      VMarkdownFileMetaWithHeadings)[];
   }, [maxResults, miniSearch, deferredQuery]);
 
   const activeResult = results[activeIndex];
@@ -737,7 +744,7 @@ export function LocalSearch({
                 <div>{sourceText}</div>
                 <ul>
                   {results.map((document, index) => (
-                    <li key={document.id}>
+                    <li key={document.url}>
                       <Link
                         href={document.url}
                         data-active={index === activeIndex}
@@ -747,7 +754,7 @@ export function LocalSearch({
                         <span>
                           <span>
                             {highlightMatches(document, 'title')}
-                            {document.text ? (
+                            {document.headings[0].text ? (
                               <> / {highlightMatches(document, 'heading')}</>
                             ) : null}
                           </span>
@@ -757,7 +764,7 @@ export function LocalSearch({
                           <span>
                             {highlightMatches(
                               document,
-                              document.text ||
+                              document.headings[0].text ||
                                 document.terms.some(term =>
                                   document.match[term]?.includes('content'),
                                 )
