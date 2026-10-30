@@ -548,16 +548,6 @@ export function LocalSearch({
     }
   };
 
-  function openSearch() {
-    dialogRef.current?.open();
-    loadSearch();
-  }
-
-  function toggleSearch() {
-    dialogRef.current?.toggle();
-    loadSearch();
-  }
-
   function updateQuery(nextQuery: string) {
     setQuery(nextQuery);
     setActiveIndex(0);
@@ -603,7 +593,7 @@ export function LocalSearch({
     // Prevent the same character from being inserted again after focus moves to the input.
     event.preventDefault();
     updateQuery(event.key);
-    openSearch();
+    dialogRef.current?.open();
   };
 
   function onInputKeyDown(event: KeyboardEvent<HTMLInputElement>) {
@@ -628,12 +618,12 @@ export function LocalSearch({
   // Hook
   // ------------------------------------------------------------------------------
 
-  useShortcut('/', openSearch);
-  useShortcut('k', toggleSearch, {
+  useShortcut('/', () => dialogRef.current?.open());
+  useShortcut('k', () => dialogRef.current?.toggle(), {
     ctrlKey: true,
     ignoreEditable: false,
   });
-  useShortcut('k', toggleSearch, {
+  useShortcut('k', () => dialogRef.current?.toggle(), {
     metaKey: true,
     ignoreEditable: false,
   });
@@ -643,13 +633,22 @@ export function LocalSearch({
   // ------------------------------------------------------------------------------
 
   return (
-    <Dialog.Root ref={dialogRef} initialFocusRef={inputRef}>
+    <Dialog.Root
+      ref={dialogRef}
+      initialFocusRef={inputRef}
+      onOpenChange={open => {
+        if (open) {
+          loadSearch();
+        } else {
+          updateQuery('');
+        }
+      }}
+    >
       <link rel="prefetch" href={`/${lang}/search.json`} as="fetch" />
 
       <Dialog.Open
         className={styles.open}
         aria-label={buttonAriaLabel}
-        onClick={loadSearch}
         onKeyDown={onButtonKeyDown}
       >
         <span>
@@ -662,11 +661,7 @@ export function LocalSearch({
         </span>
       </Dialog.Open>
 
-      <Dialog.Content
-        className={styles.content}
-        aria-label={dialogAriaLabel}
-        onClose={() => updateQuery('')}
-      >
+      <Dialog.Content className={styles.content} aria-label={dialogAriaLabel}>
         <div>
           <div>
             <div>

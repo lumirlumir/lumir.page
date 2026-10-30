@@ -36,6 +36,7 @@ import {
  */
 interface DialogContextValue extends DialogHandle {
   readonly dialogRef: RefObject<HTMLDialogElement | null>;
+  readonly onOpenChange: DialogRootProps['onOpenChange'];
 }
 
 /**
@@ -81,6 +82,12 @@ export interface DialogRootProps {
    * @default undefined
    */
   readonly initialFocusRef?: RefObject<HTMLElement | null>;
+
+  /**
+   * Called when the dialog opens or closes.
+   * @default undefined
+   */
+  readonly onOpenChange?: (open: boolean) => void;
 }
 
 /**
@@ -147,7 +154,12 @@ function useDialogContext(): DialogContextValue {
  * }
  * ```
  */
-export function DialogRoot({ children, ref, initialFocusRef }: DialogRootProps) {
+export function DialogRoot({
+  children,
+  ref,
+  initialFocusRef,
+  onOpenChange,
+}: DialogRootProps) {
   'use no memo'; // Avoid a ref-access false positive when React Compiler processes the emitted JSX runtime call.
 
   const dialogRef = useRef<HTMLDialogElement>(null);
@@ -161,10 +173,11 @@ export function DialogRoot({ children, ref, initialFocusRef }: DialogRootProps) 
 
     if (!dialog.open) {
       dialog.showModal();
+      onOpenChange?.(true);
     }
 
     initialFocusRef?.current?.focus();
-  }, [initialFocusRef]);
+  }, [initialFocusRef, onOpenChange]);
 
   const close = useCallback(() => {
     const dialog = dialogRef.current;
@@ -197,8 +210,8 @@ export function DialogRoot({ children, ref, initialFocusRef }: DialogRootProps) 
   return (
     <DialogContext
       value={useMemo(
-        () => ({ dialogRef, open, close, toggle }),
-        [dialogRef, open, close, toggle],
+        () => ({ dialogRef, open, close, toggle, onOpenChange }),
+        [dialogRef, open, close, toggle, onOpenChange],
       )}
     >
       {children}
@@ -216,11 +229,25 @@ export function DialogContent({
   // Specifies the types of user actions that can be used to close the `<dialog>` element.
   // https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/dialog#closedby
   closedby = 'any',
+  onClose,
   ...props
 }: DialogContentProps) {
-  const { dialogRef } = useDialogContext();
+  const { dialogRef, onOpenChange } = useDialogContext();
 
-  return <dialog {...props} ref={dialogRef} closedby={closedby} />;
+  return (
+    <dialog
+      {...props}
+      ref={dialogRef}
+      closedby={closedby}
+      onClose={event => {
+        // Ignore a queued close event if the dialog has already reopened.
+        if (!event.currentTarget.open) {
+          onOpenChange?.(false);
+        }
+        onClose?.(event);
+      }}
+    />
+  );
 }
 
 /**

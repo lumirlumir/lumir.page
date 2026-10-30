@@ -219,6 +219,7 @@ describe('localsearch', () => {
       const screen = await render(<LocalSearch lang="en" />);
 
       await screen.getByRole('button', { name: 'Search', exact: true }).click();
+      await screen.getByRole('searchbox', { name: 'Search' }).fill('React');
       await vi.waitFor(() => {
         assert.include(
           screen.container.querySelector('[role="status"]')?.textContent,
@@ -227,11 +228,35 @@ describe('localsearch', () => {
       });
       await userEvent.keyboard('{Control>}k{/Control}');
       assert.strictEqual(fetchSearch.mock.calls.length, 1);
+      assert.strictEqual(screen.container.querySelector('input')?.value, '');
       await userEvent.keyboard('{Control>}k{/Control}');
       await vi.waitFor(() => {
         assert.isNull(screen.container.querySelector('[role="status"]'));
       });
       assert.strictEqual(fetchSearch.mock.calls.length, 2);
+    });
+
+    it('should clear the query on Escape and reuse the index when reopened', async () => {
+      const fetchSearch = vi
+        .spyOn(globalThis, 'fetch')
+        .mockResolvedValue(Response.json([]));
+      const screen = await render(<LocalSearch lang="en" />);
+
+      await screen.getByRole('button', { name: 'Search', exact: true }).click();
+      await screen.getByRole('searchbox', { name: 'Search' }).fill('React');
+      // Leave the search input so Escape closes the dialog instead of clearing the input itself.
+      await userEvent.keyboard('{Tab}{Escape}');
+
+      await vi.waitFor(() => {
+        assert.isFalse(screen.container.querySelector('dialog')?.open);
+        assert.strictEqual(screen.container.querySelector('input')?.value, '');
+      });
+
+      await userEvent.keyboard('/');
+
+      assert.isTrue(screen.container.querySelector('dialog')?.open);
+      assert.strictEqual(screen.container.querySelector('input')?.value, '');
+      assert.strictEqual(fetchSearch.mock.calls.length, 1);
     });
 
     it('should load Korean search data once and reuse it when reopening', async () => {
