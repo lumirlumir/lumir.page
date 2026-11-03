@@ -1,5 +1,174 @@
 [
   {
+    "repositoryUrl": "https://api.github.com/repos/eslint/shell",
+    "htmlUrl": "https://github.com/eslint/shell/pull/22",
+    "id": 6118899203,
+    "nodeId": "PR_kwDOUgPO6s8AAAABLwrVnw",
+    "number": 22,
+    "title": "chore: add GitHub issue templates",
+    "createdAt": "2026-10-30T12:18:11Z",
+    "closedAt": "2026-10-30T18:32:18Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/shell",
+    "htmlUrl": "https://github.com/eslint/shell/pull/21",
+    "id": 6118423691,
+    "nodeId": "PR_kwDOUgPO6s8AAAABLwSytw",
+    "number": 21,
+    "title": "ci: add renovate configuration for dependency management",
+    "createdAt": "2026-10-30T11:45:13Z",
+    "closedAt": "2026-10-30T18:32:22Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/shell",
+    "htmlUrl": "https://github.com/eslint/shell/pull/20",
+    "id": 6118287968,
+    "nodeId": "PR_kwDOUgPO6s8AAAABLwLzBw",
+    "number": 20,
+    "title": "ci: add shared workflows and README sponsors section",
+    "createdAt": "2026-10-30T11:35:22Z",
+    "closedAt": "2026-10-30T18:32:26Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/shell",
+    "htmlUrl": "https://github.com/eslint/shell/pull/19",
+    "id": 6118103117,
+    "nodeId": "PR_kwDOUgPO6s8AAAABLwCS-Q",
+    "number": 19,
+    "title": "chore: add section comments to rule implementation files",
+    "createdAt": "2026-10-30T11:21:35Z",
+    "closedAt": "2026-10-30T18:32:31Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/shell",
+    "htmlUrl": "https://github.com/eslint/shell/pull/18",
+    "id": 6117904796,
+    "nodeId": "PR_kwDOUgPO6s8AAAABLv4GCg",
+    "number": 18,
+    "title": "chore: add `CODEOWNERS`",
+    "createdAt": "2026-10-30T11:07:22Z",
+    "closedAt": "2026-10-30T18:32:36Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/code-explorer",
+    "htmlUrl": "https://github.com/eslint/code-explorer/pull/611",
+    "id": 6117463761,
+    "nodeId": "PR_kwDOLo6z_M8AAAABLvhS4A",
+    "number": 611,
+    "title": "fix: update `@eslint/css` to version 2.0.1",
+    "createdAt": "2026-10-30T10:35:11Z",
+    "closedAt": "2026-10-30T23:01:24Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint",
+    "htmlUrl": "https://github.com/eslint/eslint/pull/21460",
+    "id": 6117132213,
+    "nodeId": "PR_kwDOAKjKDc8AAAABLvQRow",
+    "number": 21460,
+    "title": "fix: require minimatch `10.2.6` to avoid vulnerable brace-expansion",
+    "createdAt": "2026-10-30T10:10:36Z",
+    "closedAt": "2026-10-30T12:53:59Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint",
+    "htmlUrl": "https://github.com/eslint/eslint/pull/21459",
+    "id": 6116763572,
+    "nodeId": "PR_kwDOAKjKDc8AAAABLu9YrA",
+    "number": 21459,
+    "title": "docs: remove `zh-hans` from docs language switcher (v8.x)",
+    "createdAt": "2026-10-30T09:43:29Z",
+    "closedAt": "2026-10-30T10:21:29Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint",
+    "htmlUrl": "https://github.com/eslint/eslint/pull/21458",
+    "id": 6116746798,
+    "nodeId": "PR_kwDOAKjKDc8AAAABLu8g6w",
+    "number": 21458,
+    "title": "docs: remove `zh-hans` from docs language switcher (v9.x)",
+    "createdAt": "2026-10-30T09:42:14Z",
+    "closedAt": "2026-10-30T09:55:55Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint-community/eslint-plugin-n",
+    "htmlUrl": "https://github.com/eslint-community/eslint-plugin-n/pull/591",
+    "id": 6115943924,
+    "nodeId": "PR_kwDOBY0RFM8AAAABLuTUvQ",
+    "number": 591,
+    "title": "ci: enforce Prettier formatting and format existing files",
+    "createdAt": "2026-10-30T08:40:53Z",
+    "closedAt": "2026-10-30T13:53:00Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint",
+    "htmlUrl": "https://github.com/eslint/eslint/pull/21437",
+    "id": 5995528385,
+    "nodeId": "PR_kwDOAKjKDc8AAAABKOHNuw",
+    "number": 21437,
+    "title": "docs: remove `zh-hans` from docs language switcher",
+    "createdAt": "2026-10-23T09:43:15Z",
+    "closedAt": "2026-10-30T09:32:55Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint.org",
+    "htmlUrl": "https://github.com/eslint/eslint.org/pull/1188",
+    "id": 5995476093,
+    "nodeId": "PR_kwDOGSAlOM8AAAABKOEiRA",
+    "number": 1188,
+    "title": "docs: remove `zh-hans` docs site",
+    "createdAt": "2026-10-23T09:39:21Z",
+    "closedAt": "2026-10-30T14:56:03Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/markdown",
+    "htmlUrl": "https://github.com/eslint/markdown/pull/757",
+    "id": 5993511187,
+    "nodeId": "PR_kwDOAkm7Hs8AAAABKMgMVQ",
+    "number": 757,
+    "title": "fix: false positives after definitions in `no-missing-label-refs`",
+    "createdAt": "2026-10-23T07:06:25Z",
+    "closedAt": "2026-10-30T22:46:20Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
     "repositoryUrl": "https://api.github.com/repos/eslint/eslint",
     "htmlUrl": "https://github.com/eslint/eslint/pull/21419",
     "id": 5908115071,
@@ -8,6 +177,19 @@
     "title": "fix: handle LS, PS and empty hashbang comments",
     "createdAt": "2026-10-18T09:25:46Z",
     "closedAt": "2026-10-26T08:33:10Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/.github",
+    "htmlUrl": "https://github.com/eslint/.github/pull/22",
+    "id": 5899466923,
+    "nodeId": "PR_kwDOEAIzj88AAAABJB708g",
+    "number": 22,
+    "title": "docs: Revise AI acknowledgment options in templates",
+    "createdAt": "2026-10-17T14:39:51Z",
+    "closedAt": "2026-10-31T20:00:03Z",
     "reactions": {
       "+1": 0
     }

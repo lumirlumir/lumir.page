@@ -7,7 +7,7 @@
     "number": 527,
     "title": "Bug: `ConfigCommentParser` returns regex literals with modern flags such as `u`, `s`, `d`, `v` as strings",
     "createdAt": "2026-10-23T07:50:49Z",
-    "closedAt": null,
+    "closedAt": "2026-10-29T21:31:55Z",
     "reactions": {
       "+1": 0
     }
