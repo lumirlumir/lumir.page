@@ -8,8 +8,8 @@
 
 import { PostCard } from '@/components/article/post-card';
 import { PostList } from '@/components/article/post-list';
-import { type CategoryKey } from '@/data/category';
-import { type LangKey } from '@/data/lang';
+import type { CategoryKey } from '@/data/category';
+import type { LangKey } from '@/data/lang';
 import createMarkdownCollection from '@/utils/markdown-collection';
 import { markdownToTextSync } from '@/utils/markdown-to-text';
 

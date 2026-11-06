@@ -13,8 +13,8 @@ import {
   FaTag,
   LuHeading1,
 } from '@lumir/react-kit/svgs';
-import { type CategoryKey } from './category';
-import { type Meta } from './meta';
+import type { CategoryKey } from './category';
+import type { Meta } from './meta';
 
 // --------------------------------------------------------------------------------
 // Typedef

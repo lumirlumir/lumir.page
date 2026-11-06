@@ -13,11 +13,11 @@ import 'server-only';
 // --------------------------------------------------------------------------------
 
 import Link from 'next/link';
-import { type JSX, type PropsWithChildren } from 'react';
+import type { JSX, PropsWithChildren } from 'react';
 import { cn } from '@lumir/utils';
 import { categoryMeta } from '@/data/category';
 import { frontmatterMeta } from '@/data/frontmatter';
-import { type VMarkdownFileMeta } from '@/data/v-markdown';
+import type { VMarkdownFileMeta } from '@/data/v-markdown';
 import { markdownToHtmlLite } from '@/utils/markdown-to-html';
 import styles from './post-card.module.css';
 

@@ -7,7 +7,7 @@
 // --------------------------------------------------------------------------------
 
 import { author } from '@/data/author';
-import { type LangKey, type LangRecord } from '@/data/lang';
+import type { LangKey, LangRecord } from '@/data/lang';
 
 // --------------------------------------------------------------------------------
 // Helper

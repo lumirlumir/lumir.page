@@ -12,7 +12,7 @@
 // Import
 // --------------------------------------------------------------------------------
 
-import { type HTMLAttributes } from 'react';
+import type { HTMLAttributes } from 'react';
 import { useTypewriter, type UseTypewriterOptions } from '../hooks/use-typewriter.js';
 
 // --------------------------------------------------------------------------------

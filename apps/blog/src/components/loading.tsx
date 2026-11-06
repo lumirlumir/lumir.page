@@ -6,7 +6,7 @@
 // Import
 // --------------------------------------------------------------------------------
 
-import { type PropsWithLang, type LangRecord } from '@/data/lang';
+import type { PropsWithLang, LangRecord } from '@/data/lang';
 import styles from './loading.module.css';
 
 // --------------------------------------------------------------------------------

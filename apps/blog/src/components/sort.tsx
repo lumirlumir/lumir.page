@@ -19,12 +19,12 @@ import 'client-only';
 // --------------------------------------------------------------------------------
 
 import { usePathname, useSearchParams } from 'next/navigation';
-import { type PropsWithChildren } from 'react';
+import type { PropsWithChildren } from 'react';
 import { useToggle } from '@lumir/react-kit/hooks';
 import { FaAngleDown, FaAngleUp } from '@lumir/react-kit/svgs';
 import { cn } from '@lumir/utils';
 import { frontmatterMeta, type SortableFrontmatterKey } from '@/data/frontmatter';
-import { type PropsWithLang } from '@/data/lang';
+import type { PropsWithLang } from '@/data/lang';
 import { sortMenuMeta, sortMeta, type SortKey } from '@/data/sort';
 import styles from './sort.module.css';
 
