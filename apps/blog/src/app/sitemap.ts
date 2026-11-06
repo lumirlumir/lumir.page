@@ -6,7 +6,7 @@
 // Import
 // --------------------------------------------------------------------------------
 
-import { type MetadataRoute } from 'next';
+import type { MetadataRoute } from 'next';
 import { langKeys } from '@/data/lang';
 import { websiteUrl } from '@/data/site';
 import createMarkdownCollection from '@/utils/markdown-collection';

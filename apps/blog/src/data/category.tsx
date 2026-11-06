@@ -31,7 +31,7 @@ import {
   SiThealgorithms,
   TbBrandNextjs,
 } from '@lumir/react-kit/svgs';
-import { type Meta } from './meta';
+import type { Meta } from './meta';
 
 // --------------------------------------------------------------------------------
 // Typedef

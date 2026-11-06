@@ -6,8 +6,8 @@
 // Import
 // --------------------------------------------------------------------------------
 
-import { type Metadata } from 'next';
-import { type LangKey } from '@/data/lang';
+import type { Metadata } from 'next';
+import type { LangKey } from '@/data/lang';
 import createMarkdownCollection from '@/utils/markdown-collection';
 import { markdownToHtml } from '@/utils/markdown-to-html';
 import { markdownToText } from '@/utils/markdown-to-text';

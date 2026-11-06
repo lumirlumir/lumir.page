@@ -6,10 +6,10 @@
 // Import
 // --------------------------------------------------------------------------------
 
-import { type SortableFrontmatterKey } from '@/data/frontmatter';
-import { type LangKey } from '@/data/lang';
-import { type SortKey } from '@/data/sort';
-import { type VMarkdownFileMeta } from '@/data/v-markdown';
+import type { SortableFrontmatterKey } from '@/data/frontmatter';
+import type { LangKey } from '@/data/lang';
+import type { SortKey } from '@/data/sort';
+import type { VMarkdownFileMeta } from '@/data/v-markdown';
 
 // --------------------------------------------------------------------------------
 // Export

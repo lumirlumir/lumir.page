@@ -14,12 +14,12 @@ import 'server-only';
 
 import { frontmatter, readtime } from '@lumir/utils';
 import { categoryKeys, type CategoryKey } from '@/data/category';
-import { type Frontmatter } from '@/data/frontmatter';
+import type { Frontmatter } from '@/data/frontmatter';
 import { langKeys, type LangKey, type LangRecord } from '@/data/lang';
-import {
-  type VMarkdownFileMeta,
-  type VMarkdownFile,
-  type VMarkdownFileMetaWithHeadings,
+import type {
+  VMarkdownFileMeta,
+  VMarkdownFile,
+  VMarkdownFileMetaWithHeadings,
 } from '@/data/v-markdown';
 import { isFrontmatter } from '@/utils/is';
 import { markdownToHeading } from '@/utils/markdown-to-heading';

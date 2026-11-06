@@ -22,7 +22,7 @@ import remarkGfm from 'remark-gfm';
 import remarkMath from 'remark-math';
 import remarkParse from 'remark-parse';
 import { unified } from 'unified';
-import { type VMarkdownHeading } from '@/data/v-markdown';
+import type { VMarkdownHeading } from '@/data/v-markdown';
 import { mdastToTextSync } from '@/utils/mdast-to-text';
 
 // --------------------------------------------------------------------------------
