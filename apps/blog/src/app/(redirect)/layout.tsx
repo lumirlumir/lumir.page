@@ -6,7 +6,7 @@
 // Import
 // --------------------------------------------------------------------------------
 
-import { type PropsWithChildren } from 'react';
+import type { PropsWithChildren } from 'react';
 import { langDefault } from '@/data/lang';
 
 // --------------------------------------------------------------------------------

@@ -9,7 +9,7 @@
 import { afterEach, assert, beforeEach, describe, it, vi } from 'vitest';
 import { page, userEvent } from 'vitest/browser';
 import { render } from 'vitest-browser-react';
-import { type ReactNode } from 'react';
+import type { ReactNode } from 'react';
 // Let Vite discover dependencies before importing fresh instances in each test.
 import './localsearch.jsx';
 

@@ -6,8 +6,8 @@
 // Import
 // --------------------------------------------------------------------------------
 
-import { type Frontmatter } from '@/data/frontmatter';
-import { type LangKey } from '@/data/lang';
+import type { Frontmatter } from '@/data/frontmatter';
+import type { LangKey } from '@/data/lang';
 
 // --------------------------------------------------------------------------------
 // Export

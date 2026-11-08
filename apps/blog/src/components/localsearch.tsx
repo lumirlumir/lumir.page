@@ -32,8 +32,8 @@ import {
   type KeyboardEvent,
   type ReactNode,
 } from 'react';
-import { type LangKey, type LangRecord, type PropsWithLang } from '@/data/lang';
-import { type VMarkdownFileMetaWithHeadings } from '@/data/v-markdown';
+import type { LangKey, LangRecord, PropsWithLang } from '@/data/lang';
+import type { VMarkdownFileMetaWithHeadings } from '@/data/v-markdown';
 import styles from './localsearch.module.css';
 
 // --------------------------------------------------------------------------------

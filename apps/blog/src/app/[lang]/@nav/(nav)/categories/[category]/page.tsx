@@ -7,7 +7,7 @@
 // --------------------------------------------------------------------------------
 
 import { Sort } from '@/components/sort';
-import { type LangKey } from '@/data/lang';
+import type { LangKey } from '@/data/lang';
 
 // --------------------------------------------------------------------------------
 // Default Export

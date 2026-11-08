@@ -6,8 +6,8 @@
 // Import
 // --------------------------------------------------------------------------------
 
-import { type JSX } from 'react';
-import { type LangRecord } from '@/data/lang';
+import type { JSX } from 'react';
+import type { LangRecord } from '@/data/lang';
 
 // --------------------------------------------------------------------------------
 // Export

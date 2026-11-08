@@ -24,10 +24,10 @@ import 'client-only';
 
 import { useSearchParams } from 'next/navigation';
 import { Fragment, Suspense, type ReactNode } from 'react';
-import { type SortableFrontmatterKey } from '@/data/frontmatter';
-import { type PropsWithLang } from '@/data/lang';
-import { type SortKey } from '@/data/sort';
-import { type VMarkdownFileMeta } from '@/data/v-markdown';
+import type { SortableFrontmatterKey } from '@/data/frontmatter';
+import type { PropsWithLang } from '@/data/lang';
+import type { SortKey } from '@/data/sort';
+import type { VMarkdownFileMeta } from '@/data/v-markdown';
 import { compareMarkdownDocument } from '@/utils/compare';
 import styles from './post-list.module.css';
 
