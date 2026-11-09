@@ -47,3 +47,6 @@ export default {
     },
   ],
 };
+
+// TODO: Remove the package.json peer override once recess-order supports Stylelint 18.
+// It only supplies property groups to the compatible stylelint-order plugin.
