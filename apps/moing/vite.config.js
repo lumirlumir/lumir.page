@@ -1,9 +1,8 @@
 import { existsSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { loadEnvFile } from 'node:process';
-import { defineConfig } from 'vite';
+import { defineConfig, normalizePath } from 'vite';
 import react from '@vitejs/plugin-react';
-import babel from '@rolldown/plugin-babel';
 
 if (existsSync(resolve(import.meta.dirname, '.env'))) {
   loadEnvFile(resolve(import.meta.dirname, '.env'));
@@ -17,16 +16,12 @@ export default defineConfig({
     'process.env.BACKEND_URL': JSON.stringify(process.env.BACKEND_URL),
   },
   plugins: [
-    react(),
-    babel({
-      plugins: [
-        [
-          'babel-plugin-react-compiler',
-          {
-            panicThreshold: 'critical_errors',
-          },
-        ],
-      ],
+    react({
+      compiler: {
+        panicThreshold: 'critical_errors',
+        // Limit compilation to Moing sources to avoid reprocessing workspace build output.
+        sources: [normalizePath(resolve(import.meta.dirname, 'src'))], // Use `'no use memo'` instead?
+      },
     }),
   ],
   preview: {
