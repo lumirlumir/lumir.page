@@ -152,7 +152,7 @@ describe('mdast-to-text', () => {
     assert.strictEqual(mdastToTextSync(tree), 'The formula is x + y.\n\n\\frac{a}{b}');
   });
 
-  it('should separate table cells with spaces while preserving tabs in code', async () => {
+  it('should preserve table row breaks, cell spaces, and code tabs', async () => {
     const tree = unified()
       .use(remarkParse)
       .use(remarkGfm)
@@ -162,9 +162,12 @@ describe('mdast-to-text', () => {
 
     assert.strictEqual(
       await mdastToText(tree),
-      'First Second Left Right\n\tindented();\n',
+      'First Second \n Left Right\n\tindented();\n',
     );
-    assert.strictEqual(mdastToTextSync(tree), 'First Second Left Right\n\tindented();\n');
+    assert.strictEqual(
+      mdastToTextSync(tree),
+      'First Second \n Left Right\n\tindented();\n',
+    );
   });
 
   it('should omit nested task checkboxes without modifying the original tree', async () => {
