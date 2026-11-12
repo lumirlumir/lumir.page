@@ -128,9 +128,9 @@ describe('markdown-to-text', () => {
     assert.strictEqual(markdownToTextSync(markdown), text);
   });
 
-  it('should preserve GFM tables and surrounding text', async () => {
+  it('should preserve GFM table row breaks and surrounding text', async () => {
     const markdown = 'Before\n\n| Name |\n| --- |\n| Value |\n\nAfter';
-    const text = 'Before\n\nName Value\n\nAfter';
+    const text = 'Before\n\nName \n Value\n\nAfter';
 
     assert.strictEqual(await markdownToText(markdown), text);
     assert.strictEqual(markdownToTextSync(markdown), text);

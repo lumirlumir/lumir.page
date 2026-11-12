@@ -1,1 +1,223 @@
-[]
+[
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint",
+    "htmlUrl": "https://github.com/eslint/eslint/pull/21505",
+    "id": 6257033711,
+    "nodeId": "PR_kwDOAKjKDc8AAAABNfDUmg",
+    "number": 21505,
+    "title": "chore: replace `got` with Node.js native `fetch`",
+    "createdAt": "2026-11-07T08:38:53Z",
+    "closedAt": "2026-11-07T18:06:01Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/code-explorer",
+    "htmlUrl": "https://github.com/eslint/code-explorer/pull/618",
+    "id": 6242837584,
+    "nodeId": "PR_kwDOLo6z_M8AAAABNTpOKw",
+    "number": 618,
+    "title": "docs: revise AI acknowledgment options in templates",
+    "createdAt": "2026-11-06T12:41:48Z",
+    "closedAt": "2026-11-06T14:31:52Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/js",
+    "htmlUrl": "https://github.com/eslint/js/pull/780",
+    "id": 6242787241,
+    "nodeId": "PR_kwDOAaVztc8AAAABNTmoUg",
+    "number": 780,
+    "title": "docs: revise AI acknowledgment options in templates",
+    "createdAt": "2026-11-06T12:38:11Z",
+    "closedAt": "2026-11-06T14:28:56Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint.org",
+    "htmlUrl": "https://github.com/eslint/eslint.org/pull/1210",
+    "id": 6242716046,
+    "nodeId": "PR_kwDOGSAlOM8AAAABNTjA2w",
+    "number": 1210,
+    "title": "docs: revise AI acknowledgment options in templates",
+    "createdAt": "2026-11-06T12:33:05Z",
+    "closedAt": "2026-11-06T14:53:48Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/css",
+    "htmlUrl": "https://github.com/eslint/css/pull/617",
+    "id": 6242635006,
+    "nodeId": "PR_kwDONF7wwM8AAAABNTe3zg",
+    "number": 617,
+    "title": "docs: revise AI acknowledgment options in templates",
+    "createdAt": "2026-11-06T12:27:08Z",
+    "closedAt": "2026-11-06T14:22:06Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/json",
+    "htmlUrl": "https://github.com/eslint/json/pull/294",
+    "id": 6242411583,
+    "nodeId": "PR_kwDOMOnJ-M8AAAABNTTY1w",
+    "number": 294,
+    "title": "docs: revise AI acknowledgment options in templates",
+    "createdAt": "2026-11-06T12:11:13Z",
+    "closedAt": "2026-11-06T14:16:24Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/shell",
+    "htmlUrl": "https://github.com/eslint/shell/pull/25",
+    "id": 6238601718,
+    "nodeId": "PR_kwDOUgPO6s8AAAABNQRHRQ",
+    "number": 25,
+    "title": "chore: turn on `eslint-plugin-eslint-plugin`",
+    "createdAt": "2026-11-06T07:24:38Z",
+    "closedAt": "2026-11-06T19:39:11Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint",
+    "htmlUrl": "https://github.com/eslint/eslint/pull/21496",
+    "id": 6238413425,
+    "nodeId": "PR_kwDOAKjKDc8AAAABNQHssg",
+    "number": 21496,
+    "title": "chore: enforce `require-meta-docs-recommended`",
+    "createdAt": "2026-11-06T07:08:59Z",
+    "closedAt": "2026-11-06T15:13:13Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/json",
+    "htmlUrl": "https://github.com/eslint/json/pull/293",
+    "id": 6238296328,
+    "nodeId": "PR_kwDOMOnJ-M8AAAABNQB34A",
+    "number": 293,
+    "title": "chore: enforce `require-meta-docs-recommended`",
+    "createdAt": "2026-11-06T06:59:03Z",
+    "closedAt": "2026-11-06T11:11:21Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/css",
+    "htmlUrl": "https://github.com/eslint/css/pull/615",
+    "id": 6238201273,
+    "nodeId": "PR_kwDONF7wwM8AAAABNP9BQQ",
+    "number": 615,
+    "title": "refactor: require `recommended: false` to `meta`",
+    "createdAt": "2026-11-06T06:50:14Z",
+    "closedAt": "2026-11-06T11:17:09Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/rewrite",
+    "htmlUrl": "https://github.com/eslint/rewrite/pull/537",
+    "id": 6238004650,
+    "nodeId": "PR_kwDOLyyFi88AAAABNPzKqQ",
+    "number": 537,
+    "title": "docs: revise AI acknowledgment options in templates",
+    "createdAt": "2026-11-06T06:32:05Z",
+    "closedAt": "2026-11-06T14:58:10Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/shell",
+    "htmlUrl": "https://github.com/eslint/shell/pull/24",
+    "id": 6237862794,
+    "nodeId": "PR_kwDOUgPO6s8AAAABNPsqUQ",
+    "number": 24,
+    "title": "docs: revise AI acknowledgment options in templates",
+    "createdAt": "2026-11-06T06:19:55Z",
+    "closedAt": "2026-11-06T19:38:05Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/markdown",
+    "htmlUrl": "https://github.com/eslint/markdown/pull/761",
+    "id": 6207107058,
+    "nodeId": "PR_kwDOAkm7Hs8AAAABM3CAhg",
+    "number": 761,
+    "title": "docs: revise AI acknowledgment options in templates",
+    "createdAt": "2026-11-04T16:40:47Z",
+    "closedAt": "2026-11-04T21:24:16Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint",
+    "htmlUrl": "https://github.com/eslint/eslint/pull/21489",
+    "id": 6203041370,
+    "nodeId": "PR_kwDOAKjKDc8AAAABMzvE0Q",
+    "number": 21489,
+    "title": "docs: revise AI acknowledgment options in templates",
+    "createdAt": "2026-11-04T12:50:07Z",
+    "closedAt": "2026-11-04T16:06:17Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint",
+    "htmlUrl": "https://github.com/eslint/eslint/pull/21488",
+    "id": 6202328175,
+    "nodeId": "PR_kwDOAKjKDc8AAAABMzJ7uQ",
+    "number": 21488,
+    "title": "chore: replace `fs-teardown` with Node.js native APIs",
+    "createdAt": "2026-11-04T12:05:57Z",
+    "closedAt": "2026-11-06T17:45:42Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/rewrite",
+    "htmlUrl": "https://github.com/eslint/rewrite/pull/529",
+    "id": 6117191144,
+    "nodeId": "PR_kwDOLyyFi88AAAABLvTUbQ",
+    "number": 529,
+    "title": "fix: require minimatch `10.2.6` to avoid vulnerable brace-expansion",
+    "createdAt": "2026-10-30T10:14:50Z",
+    "closedAt": "2026-11-05T05:58:05Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/llvm/llvm-project",
+    "htmlUrl": "https://github.com/llvm/llvm-project/pull/236122",
+    "id": 6060641826,
+    "nodeId": "PR_kwDOBITxeM8AAAABLB4J2A",
+    "number": 236122,
+    "title": "[clang-format] fix: recognize `.mts` and `.cts` as TypeScript files",
+    "createdAt": "2026-10-27T13:57:46Z",
+    "closedAt": "2026-11-09T20:13:40Z",
+    "reactions": {
+      "+1": 0
+    }
+  }
+]
