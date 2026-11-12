@@ -177,8 +177,7 @@ export function CursorSplash({
     const { gl, ext } = getWebGLContext(canvas);
     if (!gl || !ext) return undefined;
 
-    const abortController = new AbortController();
-    const { signal } = abortController;
+    const { signal, abort } = new AbortController();
 
     if (!ext.supportLinearFiltering) {
       config.DYE_RESOLUTION = 256;
@@ -1436,7 +1435,6 @@ export function CursorSplash({
       return ((value - min) % range) + min;
     }
 
-    /* eslint-disable react-x/web-api-no-leaked-event-listener -- False positive for destructured signal; cleanup aborts all registered listeners. */
     window.addEventListener(
       'mousedown',
       e => {
@@ -1524,10 +1522,8 @@ export function CursorSplash({
       { signal },
     );
 
-    /* eslint-enable react-x/web-api-no-leaked-event-listener */
-
     return () => {
-      abortController.abort();
+      abort();
       isAnimating = false;
 
       if (animationFrameId !== null) {
