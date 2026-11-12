@@ -7,7 +7,7 @@
 // Import
 // --------------------------------------------------------------------------------
 
-import { type ReactElement, type SVGAttributes } from 'react';
+import type { ReactElement, SVGAttributes } from 'react';
 
 // --------------------------------------------------------------------------------
 // Typedef

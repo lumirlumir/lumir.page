@@ -15,7 +15,7 @@ import 'server-only';
 import Link from 'next/link';
 import { FaPen } from '@lumir/react-kit/svgs';
 import { categoryMeta } from '@/data/category';
-import { type PropsWithLang } from '@/data/lang';
+import type { PropsWithLang } from '@/data/lang';
 import createMarkdownCollection from '@/utils/markdown-collection';
 import styles from './categories.module.css';
 

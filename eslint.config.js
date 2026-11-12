@@ -148,6 +148,14 @@ export default defineConfig([
     },
   },
 
+  // ts
+  {
+    files: ['**/*.{ts,mts,cts,tsx}'],
+    rules: {
+      'typescript/no-import-type-side-effects': 'error', // TODO: enable this in a shared config.
+    },
+  },
+
   // md
   {
     name: 'md/apps/blog',

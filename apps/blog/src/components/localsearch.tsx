@@ -22,7 +22,7 @@ import { Dialog, type DialogHandle } from '@lumir/react-kit/components';
 import { useOs, useShortcut } from '@lumir/react-kit/hooks';
 import { LmSearch } from '@lumir/react-kit/svgs';
 import { useRef, type ReactNode } from 'react';
-import { type LangKey, type LangRecord } from '@/data/lang';
+import type { LangKey, LangRecord } from '@/data/lang';
 import styles from './localsearch.module.css';
 
 // --------------------------------------------------------------------------------
