@@ -1,1 +1,28 @@
-[]
+[
+  {
+    "repositoryUrl": "https://api.github.com/repos/bruits/satteri",
+    "htmlUrl": "https://github.com/bruits/satteri/issues/377",
+    "id": 6244833991,
+    "nodeId": "I_kwDORtxNZM8AAAABdDiaxw",
+    "number": 377,
+    "title": "`U+0000` is preserved in Markdown AST and HTML output instead of being normalized to `U+FFFD`",
+    "createdAt": "2026-11-06T14:49:50Z",
+    "closedAt": null,
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/bruits/satteri",
+    "htmlUrl": "https://github.com/bruits/satteri/issues/376",
+    "id": 6244681645,
+    "nodeId": "I_kwDORtxNZM8AAAABdDZHrQ",
+    "number": 376,
+    "title": "CRLF end positions are off by one for unclosed fenced code blocks in containers",
+    "createdAt": "2026-11-06T14:40:47Z",
+    "closedAt": null,
+    "reactions": {
+      "+1": 0
+    }
+  }
+]
