@@ -23,7 +23,6 @@ import { useOs, useShortcut } from '@lumir/react-kit/hooks';
 import { LmSearch } from '@lumir/react-kit/svgs';
 import MiniSearch, { type SearchResult } from 'minisearch';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 import {
   useDeferredValue,
   useMemo,
@@ -513,7 +512,6 @@ export function LocalSearch({
   const [query, setQuery] = useState<string>('');
   const [activeIndex, setActiveIndex] = useState<number>(0);
   const deferredQuery = useDeferredValue(query.trim());
-  const router = useRouter();
   const os = useOs();
 
   const [miniSearch, setMiniSearch] =
@@ -609,8 +607,11 @@ export function LocalSearch({
 
     if (event.key === 'Enter' && activeResult !== undefined) {
       event.preventDefault();
-      dialogRef.current?.close();
-      router.push(activeResult.url);
+      const link =
+        resultsPanelRef.current?.querySelectorAll<HTMLAnchorElement>('li > a')[
+          activeIndex
+        ];
+      link?.click();
     }
   }
 

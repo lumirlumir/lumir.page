@@ -19,10 +19,6 @@ let LocalSearch: (typeof import('./localsearch.jsx'))['LocalSearch'];
 // Mock
 // --------------------------------------------------------------------------------
 
-vi.mock('next/navigation', () => ({
-  useRouter: () => ({ push: vi.fn() }),
-}));
-
 vi.mock(
   'next/link',
   () =>
