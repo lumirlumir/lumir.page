@@ -576,20 +576,21 @@ describe('localsearch', () => {
       source.style.display = 'none';
       first.style.height = '40px';
       second.style.height = '40px';
-      const firstScroll = vi.spyOn(first, 'scrollIntoView');
-      const secondScroll = vi.spyOn(second, 'scrollIntoView');
 
-      await userEvent.keyboard('{ArrowDown}{ArrowUp}');
+      await userEvent.keyboard('{ArrowDown}');
+
+      assert.strictEqual(second.getAttribute('data-active'), 'true');
+      assert.strictEqual(panel.scrollTop, 0);
+
+      await userEvent.keyboard('{ArrowUp}');
 
       assert.strictEqual(first.getAttribute('data-active'), 'true');
-      assert.strictEqual(firstScroll.mock.calls.length, 0);
-      assert.strictEqual(secondScroll.mock.calls.length, 0);
+      assert.strictEqual(panel.scrollTop, 0);
 
       panel.style.height = '60px';
       await userEvent.keyboard('{ArrowDown}');
 
       assert.strictEqual(second.getAttribute('data-active'), 'true');
-      assert.strictEqual(secondScroll.mock.calls.length, 1);
       assert.isAbove(panel.scrollTop, 0);
       assert.isAtMost(
         second.getBoundingClientRect().bottom,
@@ -600,19 +601,16 @@ describe('localsearch', () => {
       await userEvent.keyboard('{ArrowUp}');
 
       assert.strictEqual(first.getAttribute('data-active'), 'true');
-      assert.strictEqual(firstScroll.mock.calls.length, 1);
       assert.strictEqual(panel.scrollTop, 0);
 
       await userEvent.keyboard('{ArrowUp}');
 
       assert.strictEqual(second.getAttribute('data-active'), 'true');
-      assert.strictEqual(secondScroll.mock.calls.length, 2);
       assert.isAbove(panel.scrollTop, 0);
 
       await userEvent.keyboard('{ArrowDown}');
 
       assert.strictEqual(first.getAttribute('data-active'), 'true');
-      assert.strictEqual(firstScroll.mock.calls.length, 2);
       assert.strictEqual(panel.scrollTop, 0);
       assert.strictEqual(input.value, 'React');
       assert.strictEqual(document.activeElement, input);

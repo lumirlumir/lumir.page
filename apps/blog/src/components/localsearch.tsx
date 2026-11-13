@@ -28,17 +28,11 @@ import type { VMarkdownFileMetaWithHeadings } from '@/data/v-markdown';
 import styles from './localsearch.module.css';
 
 // --------------------------------------------------------------------------------
-// Typedef
-// --------------------------------------------------------------------------------
-
-type LocalSearchData = ReturnType<typeof createLocalSearch>;
-
-// --------------------------------------------------------------------------------
 // Helper
 // --------------------------------------------------------------------------------
 
+const ellipsis = '...';
 const icon = <LmSearch aria-hidden="true" size={28} strokeWidth="1.5" />;
-
 const dictionary = {
   ko: {
     search: '검색',
@@ -107,7 +101,8 @@ const dictionary = {
   >
 >;
 
-let localSearchPromiseCache: Promise<LocalSearchData> | undefined;
+let localSearchPromiseCache:
+  Promise<readonly VMarkdownFileMetaWithHeadings[]> | undefined;
 
 function loadLocalSearch(lang: LangKey) {
   if (localSearchPromiseCache) {
@@ -122,10 +117,7 @@ function loadLocalSearch(lang: LangKey) {
         throw new Error('Failed to load search data.');
       }
 
-      const documents =
-        (await response.json()) as readonly VMarkdownFileMetaWithHeadings[];
-
-      return createLocalSearch(documents);
+      return (await response.json()) as readonly VMarkdownFileMetaWithHeadings[];
     } catch (error) {
       localSearchPromiseCache = undefined;
 
@@ -136,28 +128,6 @@ function loadLocalSearch(lang: LangKey) {
   return localSearchPromiseCache;
 }
 
-// TODO: from here.
-
-/**
- * Flattens posts into section links; metadata is searched only on the first section.
- */
-function createLocalSearch(documents: readonly VMarkdownFileMetaWithHeadings[]) {
-  return documents.flatMap(({ data, slug, url, headings }) =>
-    headings.map((section, index) => ({
-      data,
-      slug,
-      url: `${url}#${encodeURIComponent(section.id)}` as const,
-      heading: index !== 0,
-      title: index === 0 ? data.title : section.text,
-      content:
-        index === 0
-          ? [data.description, section.content].filter(Boolean).join(' ')
-          : section.content,
-    })),
-  );
-}
-
-/** Highlights the first literal match and optionally excerpts the surrounding text. */
 function highlightMatch(text: string, query: string, excerpt = false) {
   const match = text.toLowerCase().indexOf(query);
   const start = excerpt ? Math.max(0, match - 60) : 0;
@@ -165,7 +135,7 @@ function highlightMatch(text: string, query: string, excerpt = false) {
 
   return (
     <>
-      {start > 0 && '…'}
+      {start > 0 && ellipsis}
       {match === -1 ? (
         text.slice(start, end)
       ) : (
@@ -175,7 +145,7 @@ function highlightMatch(text: string, query: string, excerpt = false) {
           {text.slice(match + query.length, end)}
         </>
       )}
-      {end < text.length && '…'}
+      {end < text.length && ellipsis}
     </>
   );
 }
@@ -190,28 +160,36 @@ export function LocalSearch({ lang }: PropsWithLang) {
   const resultsPanelRef = useRef<HTMLDivElement | null>(null);
   const [query, setQuery] = useState<string>('');
   const [activeIndex, setActiveIndex] = useState<number>(0);
+  const [searchData, setSearchData] = useState<
+    readonly VMarkdownFileMetaWithHeadings[] | null
+  >(null);
+  const [failed, setFailed] = useState<boolean>(false);
   const deferredQuery = useDeferredValue(query.trim().toLowerCase());
   const os = useOs();
-
-  const [searchData, setSearchData] = useState<LocalSearchData | null>(null);
-  const [failed, setFailed] = useState(false);
-
   const results = useMemo(() => {
     if (searchData === null || deferredQuery.length === 0) {
       return [];
     }
 
-    // Match the whole query literally and preserve document order.
+    // Keep references to matching sections; search metadata only on the first section.
     return searchData
-      .filter(
-        ({ title, content }) =>
-          title.toLowerCase().includes(deferredQuery) ||
-          content.toLowerCase().includes(deferredQuery),
+      .flatMap(document =>
+        document.headings.flatMap((section, index) => {
+          const title = index === 0 ? document.data.title : section.text;
+          const content =
+            index === 0
+              ? [document.data.description, section.content].filter(Boolean).join(' ')
+              : section.content;
+
+          return title.toLowerCase().includes(deferredQuery) ||
+            content.toLowerCase().includes(deferredQuery)
+            ? [{ document, section, title, content }]
+            : [];
+        }),
       )
       .slice(0, 10);
   }, [searchData, deferredQuery]);
 
-  const activeResult = results[activeIndex];
   const labels = dictionary[lang];
 
   // ------------------------------------------------------------------------------
@@ -242,25 +220,6 @@ export function LocalSearch({ lang }: PropsWithLang) {
     inputRef.current?.focus();
   }
 
-  function activateResult(index: number) {
-    setActiveIndex(index);
-
-    const panel = resultsPanelRef.current;
-    const link = panel?.querySelectorAll<HTMLAnchorElement>('li > a')[index];
-
-    if (panel === null || link === undefined) {
-      return;
-    }
-
-    // Compare the result with the panel's visible area, keeping the input focused.
-    const panelTop = panel.getBoundingClientRect().top + panel.clientTop;
-    const linkRect = link.getBoundingClientRect();
-
-    if (linkRect.top < panelTop || linkRect.bottom > panelTop + panel.clientHeight) {
-      link.scrollIntoView({ behavior: 'instant', block: 'nearest', inline: 'nearest' });
-    }
-  }
-
   const onButtonKeyDown = (event: KeyboardEvent<HTMLButtonElement>) => {
     // Accept a single alphanumeric character, leaving shortcuts and IME composition alone.
     // Shift is allowed so uppercase letters can also start a search.
@@ -281,23 +240,26 @@ export function LocalSearch({ lang }: PropsWithLang) {
   };
 
   function onInputKeyDown(event: KeyboardEvent<HTMLInputElement>) {
-    if (results.length === 0) {
+    const links = resultsPanelRef.current?.querySelectorAll<HTMLAnchorElement>('li > a');
+
+    if (!links?.length) {
       return;
     }
 
-    if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      links[activeIndex]?.click();
+    } else if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
       event.preventDefault();
       const direction = event.key === 'ArrowDown' ? 1 : -1;
-      activateResult((activeIndex + direction + results.length) % results.length);
-    }
+      const index = (activeIndex + direction + links.length) % links.length;
 
-    if (event.key === 'Enter' && activeResult !== undefined) {
-      event.preventDefault();
-      const link =
-        resultsPanelRef.current?.querySelectorAll<HTMLAnchorElement>('li > a')[
-          activeIndex
-        ];
-      link?.click();
+      setActiveIndex(index);
+      links[index].scrollIntoView({
+        behavior: 'instant',
+        block: 'nearest',
+        inline: 'nearest',
+      });
     }
   }
 
@@ -401,36 +363,41 @@ export function LocalSearch({ lang }: PropsWithLang) {
               <section>
                 <div>{labels.source}</div>
                 <ul>
-                  {results.map((document, index) => (
-                    <li key={document.url}>
-                      <Link
-                        href={document.url}
-                        data-active={index === activeIndex}
-                        // Close on same-tab navigation; modifier clicks keep the search open.
-                        onNavigate={() => dialogRef.current?.close()}
-                      >
-                        <span>
+                  {results.map(({ document, section, title, content }, index) => {
+                    const href =
+                      `${document.url}#${encodeURIComponent(section.id)}` as const;
+
+                    return (
+                      <li key={href}>
+                        <Link
+                          href={href}
+                          data-active={index === activeIndex}
+                          // Close on same-tab navigation; modifier clicks keep the search open.
+                          onNavigate={() => dialogRef.current?.close()}
+                        >
                           <span>
-                            {document.heading && <>{document.data.title} / </>}
-                            {highlightMatch(document.title, deferredQuery)}
-                          </span>
-                          <span>blog / posts / {document.slug}</span>
-                          <span>
-                            {highlightMatch(document.content, deferredQuery, true)}
-                          </span>
-                          <span>
-                            <span>{document.data.created}</span>
                             <span>
-                              {labels.updated} {document.data.updated}
+                              {section !== document.headings[0] && (
+                                <>{document.data.title} / </>
+                              )}
+                              {highlightMatch(title, deferredQuery)}
                             </span>
-                            {document.data.categories.map(category => (
-                              <span key={category}>{category}</span>
-                            ))}
+                            <span>blog / posts / {document.slug}</span>
+                            <span>{highlightMatch(content, deferredQuery, true)}</span>
+                            <span>
+                              <span>{document.data.created}</span>
+                              <span>
+                                {labels.updated} {document.data.updated}
+                              </span>
+                              {document.data.categories.map(category => (
+                                <span key={category}>{category}</span>
+                              ))}
+                            </span>
                           </span>
-                        </span>
-                      </Link>
-                    </li>
-                  ))}
+                        </Link>
+                      </li>
+                    );
+                  })}
                 </ul>
               </section>
             )}
