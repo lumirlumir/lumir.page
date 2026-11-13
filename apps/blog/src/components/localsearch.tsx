@@ -134,6 +134,7 @@ export function LocalSearch({ lang }: PropsWithLang) {
       return [];
     }
 
+    // Rank title matches first; keep the original order for ties.
     return searchData
       .flatMap(vMarkdownFileMetaWithHeadings =>
         vMarkdownFileMetaWithHeadings.headings.map((vMarkdownHeading, index) => ({
@@ -151,6 +152,11 @@ export function LocalSearch({ lang }: PropsWithLang) {
         [vMarkdownHeading.text, content].some(text =>
           text.toLowerCase().includes(deferredQuery),
         ),
+      )
+      .toSorted(
+        (a, b) =>
+          Number(b.vMarkdownHeading.text.toLowerCase().includes(deferredQuery)) -
+          Number(a.vMarkdownHeading.text.toLowerCase().includes(deferredQuery)),
       )
       .slice(0, 10);
   }, [searchData, deferredQuery]);

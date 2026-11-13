@@ -293,6 +293,53 @@ describe('localsearch', () => {
   });
 
   describe('search result rendering', () => {
+    it('should rank title matches before description and body matches while preserving ties', async () => {
+      vi.spyOn(globalThis, 'fetch').mockResolvedValue(
+        Response.json([
+          {
+            id: 'example.en',
+            url: '/en/posts/example',
+            slug: 'example',
+            lang: 'en',
+            readtime: 1,
+            data: {
+              title: 'Example article',
+              description: 'React overview',
+              created: '2026-10-03',
+              updated: '2026-10-03',
+              categories: [],
+              references: [],
+            },
+            headings: [
+              { id: 'example', text: 'Example article', depth: 1, content: '' },
+              { id: 'usage', text: 'Usage', depth: 2, content: 'Use React here.' },
+              { id: 'hooks', text: 'React hooks', depth: 2, content: '' },
+              { id: 'state', text: 'REACT state', depth: 2, content: 'React state.' },
+              { id: 'other', text: 'Other tools', depth: 2, content: 'Unrelated.' },
+            ],
+          },
+        ]),
+      );
+
+      const screen = await render(<LocalSearch lang="en" />);
+      await screen.getByRole('button', { name: 'Search', exact: true }).click();
+      await screen.getByRole('searchbox', { name: 'Search' }).fill(' rEaCt ');
+
+      await vi.waitFor(() => {
+        assert.deepStrictEqual(
+          Array.from(screen.container.querySelectorAll('li > a'), link =>
+            link.getAttribute('href'),
+          ),
+          [
+            '/en/posts/example#hooks',
+            '/en/posts/example#state',
+            '/en/posts/example#example',
+            '/en/posts/example#usage',
+          ],
+        );
+      });
+    });
+
     it('should show only the article and section titles and safely highlight a body excerpt with its section link', async () => {
       vi.spyOn(globalThis, 'fetch').mockResolvedValue(
         Response.json([
