@@ -41,9 +41,7 @@ const dictionary = {
     retry: '다시 시도',
     cancel: '취소',
     title: '문서 검색',
-    help: '제목, 설명, 섹션 제목과 본문을 검색합니다.',
     noResults: '검색 결과가 없습니다',
-    source: '문서',
     updated: '수정',
     select: '선택',
     enter: '엔터',
@@ -60,9 +58,7 @@ const dictionary = {
     retry: 'Retry',
     cancel: 'Cancel',
     title: 'Search docs',
-    help: 'Search titles, descriptions, section headings, and body text.',
     noResults: 'No results for',
-    source: 'Posts',
     updated: 'Updated',
     select: 'Select',
     enter: 'Enter',
@@ -80,9 +76,7 @@ const dictionary = {
     | 'retry'
     | 'cancel'
     | 'title'
-    | 'help'
     | 'noResults'
-    | 'source'
     | 'updated'
     | 'select'
     | 'enter'
@@ -140,21 +134,22 @@ export function LocalSearch({ lang }: PropsWithLang) {
       return [];
     }
 
-    // Keep references to matching sections; search metadata only on the first section.
     return searchData
-      .flatMap(document =>
-        document.headings.flatMap((section, index) => {
-          const title = index === 0 ? document.data.title : section.text;
-          const content =
+      .flatMap(vMarkdownFileMetaWithHeadings =>
+        vMarkdownFileMetaWithHeadings.headings.map((section, index) => ({
+          document: vMarkdownFileMetaWithHeadings,
+          section,
+          title: index === 0 ? vMarkdownFileMetaWithHeadings.data.title : section.text,
+          content:
             index === 0
-              ? [document.data.description, section.content].filter(Boolean).join(' ')
-              : section.content;
-
-          return title.toLowerCase().includes(deferredQuery) ||
-            content.toLowerCase().includes(deferredQuery)
-            ? [{ document, section, title, content }]
-            : [];
-        }),
+              ? [vMarkdownFileMetaWithHeadings.data.description, section.content]
+                  .filter(Boolean)
+                  .join(' ')
+              : section.content,
+        })),
+      )
+      .filter(({ title, content }) =>
+        [title, content].some(text => text.toLowerCase().includes(deferredQuery)),
       )
       .slice(0, 10);
   }, [searchData, deferredQuery]);
@@ -284,28 +279,21 @@ export function LocalSearch({ lang }: PropsWithLang) {
             </div>
 
             <div ref={resultsPanelRef}>
-              {searchData === null ? (
-                <section role="status">
-                  <h3>{failed ? labels.error : labels.loading}</h3>
-                  {failed ? (
-                    <button type="button" onClick={loadSearch}>
-                      {labels.retry}
-                    </button>
-                  ) : null}
-                </section>
-              ) : query.length === 0 ? (
-                <section>
+              <section>
+                {searchData === null ? (
+                  <>
+                    <h3>{failed ? labels.error : labels.loading}</h3>
+                    {failed ? (
+                      <button type="button" onClick={loadSearch}>
+                        {labels.retry}
+                      </button>
+                    ) : null}
+                  </>
+                ) : query.length === 0 ? (
                   <h3>{labels.title}</h3>
-                  <p>{labels.help}</p>
-                </section>
-              ) : results.length === 0 ? (
-                <section>
+                ) : results.length === 0 ? (
                   <h3>{labels.noResults}</h3>
-                  <p>&quot;{query}&quot;</p>
-                </section>
-              ) : (
-                <section>
-                  <div>{labels.source}</div>
+                ) : (
                   <ul>
                     {results.map(({ document, section, title, content }, index) => {
                       const href =
@@ -326,7 +314,7 @@ export function LocalSearch({ lang }: PropsWithLang) {
                                 )}
                                 {highlightMatch(title, deferredQuery)}
                               </span>
-                              <span>blog / posts / {document.slug}</span>
+                              <span>{document.slug}</span>
                               <span>{highlightMatch(content, deferredQuery, true)}</span>
                               <span>
                                 <span>{document.data.created}</span>
@@ -343,8 +331,8 @@ export function LocalSearch({ lang }: PropsWithLang) {
                       );
                     })}
                   </ul>
-                </section>
-              )}
+                )}
+              </section>
             </div>
 
             <footer className="markdown">

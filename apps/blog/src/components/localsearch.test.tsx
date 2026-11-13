@@ -119,7 +119,7 @@ describe('localsearch', () => {
       await screen.getByRole('button', { name: 'Search', exact: true }).click();
       assert.deepStrictEqual(fetchSearch.mock.calls, [['/en/search.json']]);
       assert.include(
-        screen.container.querySelector('[role="status"]')?.textContent,
+        screen.container.querySelector('section > h3')?.textContent,
         'Loading search data.',
       );
       await userEvent.keyboard('{Escape}');
@@ -128,14 +128,20 @@ describe('localsearch', () => {
 
       response.resolve(Response.json([]));
       await vi.waitFor(() => {
-        assert.isNull(screen.container.querySelector('[role="status"]'));
+        assert.strictEqual(
+          screen.container.querySelector('section > h3')?.textContent,
+          'Search docs',
+        );
       });
       await screen.unmount();
 
       const remounted = await render(<LocalSearch lang="en" />);
       await remounted.getByRole('button', { name: 'Search', exact: true }).click();
       await vi.waitFor(() => {
-        assert.isNull(remounted.container.querySelector('[role="status"]'));
+        assert.strictEqual(
+          remounted.container.querySelector('section > h3')?.textContent,
+          'Search docs',
+        );
       });
       assert.strictEqual(fetchSearch.mock.calls.length, 1);
     });
@@ -191,13 +197,16 @@ describe('localsearch', () => {
       await screen.getByRole('searchbox', { name: 'Search' }).fill('React');
       await vi.waitFor(() => {
         assert.include(
-          screen.container.querySelector('[role="status"]')?.textContent,
+          screen.container.querySelector('section > h3')?.textContent,
           'Failed to load search data.',
         );
       });
       await screen.getByRole('button', { name: 'Retry' }).click();
       await vi.waitFor(() => {
-        assert.isNull(screen.container.querySelector('[role="status"]'));
+        assert.strictEqual(
+          screen.container.querySelector('section > h3')?.textContent,
+          'No results for',
+        );
       });
 
       assert.deepStrictEqual(fetchSearch.mock.calls, [
@@ -218,7 +227,7 @@ describe('localsearch', () => {
       await screen.getByRole('searchbox', { name: 'Search' }).fill('React');
       await vi.waitFor(() => {
         assert.include(
-          screen.container.querySelector('[role="status"]')?.textContent,
+          screen.container.querySelector('section > h3')?.textContent,
           'Failed to load search data.',
         );
       });
@@ -227,7 +236,10 @@ describe('localsearch', () => {
       assert.strictEqual(screen.container.querySelector('input')?.value, '');
       await userEvent.keyboard('{Control>}k{/Control}');
       await vi.waitFor(() => {
-        assert.isNull(screen.container.querySelector('[role="status"]'));
+        assert.strictEqual(
+          screen.container.querySelector('section > h3')?.textContent,
+          'Search docs',
+        );
       });
       assert.strictEqual(fetchSearch.mock.calls.length, 2);
     });
@@ -263,12 +275,18 @@ describe('localsearch', () => {
 
       await userEvent.keyboard('{Meta>}k{/Meta}');
       await vi.waitFor(() => {
-        assert.isNull(screen.container.querySelector('[role="status"]'));
+        assert.strictEqual(
+          screen.container.querySelector('section > h3')?.textContent,
+          '문서 검색',
+        );
       });
       await userEvent.keyboard('{Escape}');
       await userEvent.keyboard('/');
       await vi.waitFor(() => {
-        assert.isNull(screen.container.querySelector('[role="status"]'));
+        assert.strictEqual(
+          screen.container.querySelector('section > h3')?.textContent,
+          '문서 검색',
+        );
       });
       assert.deepStrictEqual(fetchSearch.mock.calls, [['/ko/search.json']]);
     });
@@ -547,21 +565,18 @@ describe('localsearch', () => {
       const input = screen.container.querySelector('input');
       const list = screen.container.querySelector('ul');
       const panel = list?.parentElement?.parentElement;
-      const source = list?.previousElementSibling;
       const first = list?.querySelectorAll('a')[0];
       const second = list?.querySelectorAll('a')[1];
 
       assert.ok(input);
       assert.ok(list);
       assert.ok(panel);
-      assert.ok(source instanceof HTMLElement);
       assert.ok(first);
       assert.ok(second);
 
       // Give the panel deterministic dimensions while exercising real browser scrolling.
       Object.assign(panel.style, { height: '120px', padding: '0', overflowY: 'auto' });
       Object.assign(list.style, { margin: '0', padding: '0' });
-      source.style.display = 'none';
       first.style.height = '40px';
       second.style.height = '40px';
 
@@ -579,27 +594,29 @@ describe('localsearch', () => {
       await userEvent.keyboard('{ArrowDown}');
 
       assert.strictEqual(second.getAttribute('data-active'), 'true');
-      assert.isAbove(panel.scrollTop, 0);
-      assert.isAtMost(
-        second.getBoundingClientRect().bottom,
-        panel.getBoundingClientRect().bottom,
-      );
+      await vi.waitFor(() => {
+        assert.isAbove(panel.scrollTop, 0);
+        assert.isAtMost(
+          second.getBoundingClientRect().bottom,
+          panel.getBoundingClientRect().bottom,
+        );
+      });
       assert.strictEqual(document.activeElement, input);
 
       await userEvent.keyboard('{ArrowUp}');
 
       assert.strictEqual(first.getAttribute('data-active'), 'true');
-      assert.strictEqual(panel.scrollTop, 0);
+      await vi.waitFor(() => assert.strictEqual(panel.scrollTop, 0));
 
       await userEvent.keyboard('{ArrowUp}');
 
       assert.strictEqual(second.getAttribute('data-active'), 'true');
-      assert.isAbove(panel.scrollTop, 0);
+      await vi.waitFor(() => assert.isAbove(panel.scrollTop, 0));
 
       await userEvent.keyboard('{ArrowDown}');
 
       assert.strictEqual(first.getAttribute('data-active'), 'true');
-      assert.strictEqual(panel.scrollTop, 0);
+      await vi.waitFor(() => assert.strictEqual(panel.scrollTop, 0));
       assert.strictEqual(input.value, 'React');
       assert.strictEqual(document.activeElement, input);
     });
