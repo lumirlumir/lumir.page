@@ -136,20 +136,21 @@ export function LocalSearch({ lang }: PropsWithLang) {
 
     return searchData
       .flatMap(vMarkdownFileMetaWithHeadings =>
-        vMarkdownFileMetaWithHeadings.headings.map((section, index) => ({
-          document: vMarkdownFileMetaWithHeadings,
-          section,
-          title: index === 0 ? vMarkdownFileMetaWithHeadings.data.title : section.text,
+        vMarkdownFileMetaWithHeadings.headings.map((vMarkdownHeading, index) => ({
+          vMarkdownFileMetaWithHeadings,
+          vMarkdownHeading,
           content:
             index === 0
-              ? [vMarkdownFileMetaWithHeadings.data.description, section.content]
+              ? [vMarkdownFileMetaWithHeadings.data.description, vMarkdownHeading.content]
                   .filter(Boolean)
                   .join(' ')
-              : section.content,
+              : vMarkdownHeading.content,
         })),
       )
-      .filter(({ title, content }) =>
-        [title, content].some(text => text.toLowerCase().includes(deferredQuery)),
+      .filter(({ vMarkdownHeading, content }) =>
+        [vMarkdownHeading.text, content].some(text =>
+          text.toLowerCase().includes(deferredQuery),
+        ),
       )
       .slice(0, 10);
   }, [searchData, deferredQuery]);
@@ -295,41 +296,54 @@ export function LocalSearch({ lang }: PropsWithLang) {
                   <h3>{labels.noResults}</h3>
                 ) : (
                   <ul>
-                    {results.map(({ document, section, title, content }, index) => {
-                      const href =
-                        `${document.url}#${encodeURIComponent(section.id)}` as const;
+                    {results.map(
+                      (
+                        { vMarkdownFileMetaWithHeadings, vMarkdownHeading, content },
+                        index,
+                      ) => {
+                        const href =
+                          `${vMarkdownFileMetaWithHeadings.url}#${encodeURIComponent(vMarkdownHeading.id)}` as const;
 
-                      return (
-                        <li key={href}>
-                          <Link
-                            href={href}
-                            data-active={index === activeIndex}
-                            // Close on same-tab navigation; modifier clicks keep the search open.
-                            onNavigate={() => dialogRef.current?.close()}
-                          >
-                            <span>
+                        return (
+                          <li key={href}>
+                            <Link
+                              href={href}
+                              data-active={index === activeIndex}
+                              // Close on same-tab navigation; modifier clicks keep the search open.
+                              onNavigate={() => dialogRef.current?.close()}
+                            >
                               <span>
-                                {section !== document.headings[0] && (
-                                  <>{document.data.title} / </>
-                                )}
-                                {highlightMatch(title, deferredQuery)}
-                              </span>
-                              <span>{document.slug}</span>
-                              <span>{highlightMatch(content, deferredQuery, true)}</span>
-                              <span>
-                                <span>{document.data.created}</span>
                                 <span>
-                                  {labels.updated} {document.data.updated}
+                                  {vMarkdownHeading !==
+                                    vMarkdownFileMetaWithHeadings.headings[0] && (
+                                    <>{vMarkdownFileMetaWithHeadings.data.title} / </>
+                                  )}
+                                  {highlightMatch(vMarkdownHeading.text, deferredQuery)}
                                 </span>
-                                {document.data.categories.map(category => (
-                                  <span key={category}>{category}</span>
-                                ))}
+                                <span>{vMarkdownFileMetaWithHeadings.slug}</span>
+                                <span>
+                                  {highlightMatch(content, deferredQuery, true)}
+                                </span>
+                                <span>
+                                  <span>
+                                    {vMarkdownFileMetaWithHeadings.data.created}
+                                  </span>
+                                  <span>
+                                    {labels.updated}{' '}
+                                    {vMarkdownFileMetaWithHeadings.data.updated}
+                                  </span>
+                                  {vMarkdownFileMetaWithHeadings.data.categories.map(
+                                    category => (
+                                      <span key={category}>{category}</span>
+                                    ),
+                                  )}
+                                </span>
                               </span>
-                            </span>
-                          </Link>
-                        </li>
-                      );
-                    })}
+                            </Link>
+                          </li>
+                        );
+                      },
+                    )}
                   </ul>
                 )}
               </section>
