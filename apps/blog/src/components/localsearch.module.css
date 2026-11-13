@@ -133,24 +133,6 @@
         margin: 0 var(--size-2);
       }
 
-      & > button {
-        padding: var(--size-8);
-        margin-right: var(--size-4);
-        font-size: var(--font-size-sm);
-        font-weight: var(--font-weight-semibold);
-        color: var(--color-fg-muted);
-        letter-spacing: var(--letter-spacing-tight);
-        cursor: pointer;
-        background-color: transparent;
-        border: 0;
-        border-radius: var(--border-radius-md);
-
-        &:hover {
-          color: var(--color-fg-default);
-          background-color: var(--color-bg-neutral-muted);
-        }
-      }
-
       & > input {
         flex: 1;
         min-width: 0;

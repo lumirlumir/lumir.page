@@ -39,8 +39,6 @@ const dictionary = {
     loading: '검색 데이터를 불러오는 중입니다.',
     error: '검색 데이터를 불러오지 못했습니다.',
     retry: '다시 시도',
-    clear: '지우기',
-    clearLabel: '검색 창 지우기',
     cancel: '취소',
     title: '문서 검색',
     help: '제목, 설명, 섹션 제목과 본문을 검색합니다.',
@@ -60,8 +58,6 @@ const dictionary = {
     loading: 'Loading search data.',
     error: 'Failed to load search data.',
     retry: 'Retry',
-    clear: 'Clear',
-    clearLabel: 'Clear the query',
     cancel: 'Cancel',
     title: 'Search docs',
     help: 'Search titles, descriptions, section headings, and body text.',
@@ -82,8 +78,6 @@ const dictionary = {
     | 'loading'
     | 'error'
     | 'retry'
-    | 'clear'
-    | 'clearLabel'
     | 'cancel'
     | 'title'
     | 'help'
@@ -196,7 +190,7 @@ export function LocalSearch({ lang }: PropsWithLang) {
   // Callback
   // ------------------------------------------------------------------------------
 
-  const loadSearch = async () => {
+  async function loadSearch() {
     if (searchData !== null) {
       return;
     }
@@ -208,19 +202,14 @@ export function LocalSearch({ lang }: PropsWithLang) {
     } catch {
       setFailed(true);
     }
-  };
+  }
 
   function updateQuery(nextQuery: string) {
     setQuery(nextQuery);
     setActiveIndex(0);
   }
 
-  function resetSearch() {
-    updateQuery('');
-    inputRef.current?.focus();
-  }
-
-  const onButtonKeyDown = (event: KeyboardEvent<HTMLButtonElement>) => {
+  function onButtonKeyDown(event: KeyboardEvent<HTMLButtonElement>) {
     // Accept a single alphanumeric character, leaving shortcuts and IME composition alone.
     // Shift is allowed so uppercase letters can also start a search.
     if (
@@ -237,7 +226,7 @@ export function LocalSearch({ lang }: PropsWithLang) {
     event.preventDefault();
     updateQuery(event.key);
     dialogRef.current?.open();
-  };
+  }
 
   function onInputKeyDown(event: KeyboardEvent<HTMLInputElement>) {
     const links = resultsPanelRef.current?.querySelectorAll<HTMLAnchorElement>('li > a');
@@ -282,144 +271,135 @@ export function LocalSearch({ lang }: PropsWithLang) {
   // ------------------------------------------------------------------------------
 
   return (
-    <Dialog.Root
-      ref={dialogRef}
-      initialFocusRef={inputRef}
-      onOpenChange={open => {
-        if (open) {
-          loadSearch();
-        } else {
-          updateQuery('');
-        }
-      }}
-    >
+    <>
       <link rel="prefetch" href={`/${lang}/search.json`} as="fetch" />
-
-      <Dialog.Open
-        className={styles.open}
-        aria-label={labels.search}
-        onKeyDown={onButtonKeyDown}
+      <Dialog.Root
+        ref={dialogRef}
+        initialFocusRef={inputRef}
+        onOpenChange={open => {
+          if (open) {
+            loadSearch();
+          } else {
+            updateQuery('');
+          }
+        }}
       >
-        <span>
-          <span>{icon}</span>
-          <span>{labels.search}</span>
-        </span>
-        <span className="markdown" aria-hidden="true">
-          <kbd>{os === 'macos' || os === 'ios' ? 'Cmd' : 'Ctrl'}</kbd>
-          <kbd>K</kbd>
-        </span>
-      </Dialog.Open>
+        <Dialog.Open
+          className={styles.open}
+          aria-label={labels.search}
+          onKeyDown={onButtonKeyDown}
+        >
+          <span>
+            <span>{icon}</span>
+            <span>{labels.search}</span>
+          </span>
+          <span className="markdown" aria-hidden="true">
+            <kbd>{os === 'macos' || os === 'ios' ? 'Cmd' : 'Ctrl'}</kbd>
+            <kbd>K</kbd>
+          </span>
+        </Dialog.Open>
 
-      <Dialog.Content className={styles.content} aria-label={labels.search}>
-        <div>
+        <Dialog.Content className={styles.content} aria-label={labels.search}>
           <div>
             <div>
-              <span>{icon}</span>
-              <input
-                ref={inputRef}
-                type="search"
-                spellCheck={false}
-                value={query}
-                onChange={event => updateQuery(event.target.value)}
-                onKeyDown={onInputKeyDown}
-                placeholder={labels.search}
-                aria-label={labels.search}
-              />
-              {query.length > 0 && (
-                <button
-                  type="button"
-                  onClick={resetSearch}
-                  title={labels.clearLabel}
-                  aria-label={labels.clearLabel}
-                >
-                  {labels.clear}
-                </button>
+              <div>
+                <span>{icon}</span>
+                <input
+                  ref={inputRef}
+                  type="search"
+                  spellCheck={false}
+                  value={query}
+                  onChange={event => updateQuery(event.target.value)}
+                  onKeyDown={onInputKeyDown}
+                  placeholder={labels.search}
+                  aria-label={labels.search}
+                />
+              </div>
+              <Dialog.Close aria-label={labels.cancel}>{labels.cancel}</Dialog.Close>
+            </div>
+
+            <div ref={resultsPanelRef}>
+              {searchData === null ? (
+                <section role="status">
+                  <h3>{failed ? labels.error : labels.loading}</h3>
+                  {failed ? (
+                    <button type="button" onClick={loadSearch}>
+                      {labels.retry}
+                    </button>
+                  ) : null}
+                </section>
+              ) : query.length === 0 ? (
+                <section>
+                  <h3>{labels.title}</h3>
+                  <p>{labels.help}</p>
+                </section>
+              ) : results.length === 0 ? (
+                <section>
+                  <h3>{labels.noResults}</h3>
+                  <p>&quot;{query}&quot;</p>
+                </section>
+              ) : (
+                <section>
+                  <div>{labels.source}</div>
+                  <ul>
+                    {results.map(({ document, section, title, content }, index) => {
+                      const href =
+                        `${document.url}#${encodeURIComponent(section.id)}` as const;
+
+                      return (
+                        <li key={href}>
+                          <Link
+                            href={href}
+                            data-active={index === activeIndex}
+                            // Close on same-tab navigation; modifier clicks keep the search open.
+                            onNavigate={() => dialogRef.current?.close()}
+                          >
+                            <span>
+                              <span>
+                                {section !== document.headings[0] && (
+                                  <>{document.data.title} / </>
+                                )}
+                                {highlightMatch(title, deferredQuery)}
+                              </span>
+                              <span>blog / posts / {document.slug}</span>
+                              <span>{highlightMatch(content, deferredQuery, true)}</span>
+                              <span>
+                                <span>{document.data.created}</span>
+                                <span>
+                                  {labels.updated} {document.data.updated}
+                                </span>
+                                {document.data.categories.map(category => (
+                                  <span key={category}>{category}</span>
+                                ))}
+                              </span>
+                            </span>
+                          </Link>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </section>
               )}
             </div>
-            <Dialog.Close aria-label={labels.cancel}>{labels.cancel}</Dialog.Close>
+
+            <footer className="markdown">
+              <span>
+                <kbd aria-label={labels.enter}>Enter</kbd>
+                <span>{labels.select}</span>
+              </span>
+              <span>
+                <kbd aria-label={labels.arrowUp}>↑</kbd>
+                <kbd aria-label={labels.arrowDown}>↓</kbd>
+                <span>{labels.navigate}</span>
+              </span>
+              <span>
+                <kbd aria-label={labels.escape}>Esc</kbd>
+                <span>{labels.close}</span>
+              </span>
+            </footer>
           </div>
-
-          <div ref={resultsPanelRef}>
-            {searchData === null ? (
-              <section role="status">
-                <h3>{failed ? labels.error : labels.loading}</h3>
-                {failed ? (
-                  <button type="button" onClick={loadSearch}>
-                    {labels.retry}
-                  </button>
-                ) : null}
-              </section>
-            ) : query.length === 0 ? (
-              <section>
-                <h3>{labels.title}</h3>
-                <p>{labels.help}</p>
-              </section>
-            ) : results.length === 0 ? (
-              <section>
-                <h3>{labels.noResults}</h3>
-                <p>&quot;{query}&quot;</p>
-              </section>
-            ) : (
-              <section>
-                <div>{labels.source}</div>
-                <ul>
-                  {results.map(({ document, section, title, content }, index) => {
-                    const href =
-                      `${document.url}#${encodeURIComponent(section.id)}` as const;
-
-                    return (
-                      <li key={href}>
-                        <Link
-                          href={href}
-                          data-active={index === activeIndex}
-                          // Close on same-tab navigation; modifier clicks keep the search open.
-                          onNavigate={() => dialogRef.current?.close()}
-                        >
-                          <span>
-                            <span>
-                              {section !== document.headings[0] && (
-                                <>{document.data.title} / </>
-                              )}
-                              {highlightMatch(title, deferredQuery)}
-                            </span>
-                            <span>blog / posts / {document.slug}</span>
-                            <span>{highlightMatch(content, deferredQuery, true)}</span>
-                            <span>
-                              <span>{document.data.created}</span>
-                              <span>
-                                {labels.updated} {document.data.updated}
-                              </span>
-                              {document.data.categories.map(category => (
-                                <span key={category}>{category}</span>
-                              ))}
-                            </span>
-                          </span>
-                        </Link>
-                      </li>
-                    );
-                  })}
-                </ul>
-              </section>
-            )}
-          </div>
-
-          <footer className="markdown">
-            <span>
-              <kbd aria-label={labels.enter}>Enter</kbd>
-              <span>{labels.select}</span>
-            </span>
-            <span>
-              <kbd aria-label={labels.arrowUp}>↑</kbd>
-              <kbd aria-label={labels.arrowDown}>↓</kbd>
-              <span>{labels.navigate}</span>
-            </span>
-            <span>
-              <kbd aria-label={labels.escape}>Esc</kbd>
-              <span>{labels.close}</span>
-            </span>
-          </footer>
-        </div>
-      </Dialog.Content>
-    </Dialog.Root>
+        </Dialog.Content>
+      </Dialog.Root>
+    </>
   );
 }
