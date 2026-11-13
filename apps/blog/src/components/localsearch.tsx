@@ -21,7 +21,6 @@ import 'client-only';
 import { Dialog, type DialogHandle } from '@lumir/react-kit/components';
 import { useOs, useShortcut } from '@lumir/react-kit/hooks';
 import { LmSearch } from '@lumir/react-kit/svgs';
-import MiniSearch, { type SearchResult } from 'minisearch';
 import Link from 'next/link';
 import { useDeferredValue, useMemo, useRef, useState, type KeyboardEvent } from 'react';
 import type { LangKey, LangRecord, PropsWithLang } from '@/data/lang';
@@ -32,8 +31,7 @@ import styles from './localsearch.module.css';
 // Typedef
 // --------------------------------------------------------------------------------
 
-type LocalSearchResult = SearchResult &
-  Pick<VMarkdownFileMetaWithHeadings, 'slug' | 'data' | 'url' | 'headings'>;
+type LocalSearchData = ReturnType<typeof createLocalSearch>;
 
 // --------------------------------------------------------------------------------
 // Helper
@@ -109,8 +107,7 @@ const dictionary = {
   >
 >;
 
-let localSearchPromiseCache:
-  Promise<MiniSearch<VMarkdownFileMetaWithHeadings>> | undefined;
+let localSearchPromiseCache: Promise<LocalSearchData> | undefined;
 
 function loadLocalSearch(lang: LangKey) {
   if (localSearchPromiseCache) {
@@ -142,81 +139,44 @@ function loadLocalSearch(lang: LangKey) {
 // TODO: from here.
 
 /**
- * Creates and populates a MiniSearch instance, preserving its native search API.
+ * Flattens posts into section links; metadata is searched only on the first section.
  */
 function createLocalSearch(documents: readonly VMarkdownFileMetaWithHeadings[]) {
-  const search = new MiniSearch<VMarkdownFileMetaWithHeadings>({
-    idField: 'url',
-    fields: ['title', 'description', 'heading', 'content'],
-    extractField: (document, fieldName) => {
-      if (fieldName === 'title' || fieldName === 'description') {
-        // Keep post metadata searches on the post record instead of every section.
-        return document.headings[0].text ? '' : document.data[fieldName];
-      }
-
-      if (fieldName === 'heading') {
-        return document.headings[0].text;
-      }
-
-      if (fieldName === 'content') {
-        return document.headings[0].content;
-      }
-
-      return MiniSearch.getDefault('extractField')(document, fieldName);
-    },
-    searchOptions: {
-      boost: { title: 2, heading: 2 },
-      fuzzy: 0.2,
-      prefix: true,
-    },
-    storeFields: ['slug', 'data', 'url', 'headings'],
-  });
-
-  documents.forEach(({ headings, ...metadata }) => {
-    headings.forEach((section, index) => {
-      search.add({
-        ...metadata,
-        headings: [index === 0 ? { ...section, text: '' } : section],
-        url: `${metadata.url}#${encodeURIComponent(section.id)}`,
-      });
-    });
-  });
-
-  return search;
+  return documents.flatMap(({ data, slug, url, headings }) =>
+    headings.map((section, index) => ({
+      data,
+      slug,
+      url: `${url}#${encodeURIComponent(section.id)}` as const,
+      heading: index !== 0,
+      title: index === 0 ? data.title : section.text,
+      content:
+        index === 0
+          ? [data.description, section.content].filter(Boolean).join(' ')
+          : section.content,
+    })),
+  );
 }
 
-function highlightMatches(
-  document: LocalSearchResult,
-  field: 'title' | 'description' | 'heading' | 'content',
-) {
-  // Use the actual matched document terms, including prefix and fuzzy matches, for this field.
-  const terms = new Set(
-    document.terms.filter(term => document.match[term]?.includes(field)),
-  );
-  let text =
-    field === 'title' || field === 'description'
-      ? document.data[field]
-      : field === 'heading'
-        ? document.headings[0].text
-        : document.headings[0].content;
+/** Highlights the first literal match and optionally excerpts the surrounding text. */
+function highlightMatch(text: string, query: string, excerpt = false) {
+  const match = text.toLowerCase().indexOf(query);
+  const start = excerpt ? Math.max(0, match - 60) : 0;
+  const end = excerpt ? Math.min(text.length, start + 220) : text.length;
 
-  if (field === 'content') {
-    let start = 0;
-
-    for (const part of text.matchAll(/[^\n\r\p{Z}\p{P}]+/gu)) {
-      if (terms.has(part[0].toLowerCase())) {
-        start = Math.max(0, part.index - 60);
-        break;
-      }
-    }
-
-    const end = Math.min(text.length, start + 220);
-    text = `${start > 0 ? '…' : ''}${text.slice(start, end)}${end < text.length ? '…' : ''}`;
-  }
-
-  // Preserve the original text using MiniSearch's default word boundaries and React nodes.
-  return Array.from(text.matchAll(/[^\n\r\p{Z}\p{P}]+|[\n\r\p{Z}\p{P}]+/gu), part =>
-    terms.has(part[0].toLowerCase()) ? <mark key={part.index}>{part[0]}</mark> : part[0],
+  return (
+    <>
+      {start > 0 && '…'}
+      {match === -1 ? (
+        text.slice(start, end)
+      ) : (
+        <>
+          {text.slice(start, match)}
+          <mark>{text.slice(match, Math.min(end, match + query.length))}</mark>
+          {text.slice(match + query.length, end)}
+        </>
+      )}
+      {end < text.length && '…'}
+    </>
   );
 }
 
@@ -230,20 +190,26 @@ export function LocalSearch({ lang }: PropsWithLang) {
   const resultsPanelRef = useRef<HTMLDivElement | null>(null);
   const [query, setQuery] = useState<string>('');
   const [activeIndex, setActiveIndex] = useState<number>(0);
-  const deferredQuery = useDeferredValue(query.trim());
+  const deferredQuery = useDeferredValue(query.trim().toLowerCase());
   const os = useOs();
 
-  const [miniSearch, setMiniSearch] =
-    useState<MiniSearch<VMarkdownFileMetaWithHeadings> | null>(null);
+  const [searchData, setSearchData] = useState<LocalSearchData | null>(null);
   const [failed, setFailed] = useState(false);
 
   const results = useMemo(() => {
-    if (miniSearch === null || deferredQuery.length === 0) {
+    if (searchData === null || deferredQuery.length === 0) {
       return [];
     }
 
-    return miniSearch.search(deferredQuery).slice(0, 10) as LocalSearchResult[];
-  }, [miniSearch, deferredQuery]);
+    // Match the whole query literally and preserve document order.
+    return searchData
+      .filter(
+        ({ title, content }) =>
+          title.toLowerCase().includes(deferredQuery) ||
+          content.toLowerCase().includes(deferredQuery),
+      )
+      .slice(0, 10);
+  }, [searchData, deferredQuery]);
 
   const activeResult = results[activeIndex];
   const labels = dictionary[lang];
@@ -253,14 +219,14 @@ export function LocalSearch({ lang }: PropsWithLang) {
   // ------------------------------------------------------------------------------
 
   const loadSearch = async () => {
-    if (miniSearch !== null) {
+    if (searchData !== null) {
       return;
     }
 
     setFailed(false);
 
     try {
-      setMiniSearch(await loadLocalSearch(lang));
+      setSearchData(await loadLocalSearch(lang));
     } catch {
       setFailed(true);
     }
@@ -412,7 +378,7 @@ export function LocalSearch({ lang }: PropsWithLang) {
           </div>
 
           <div ref={resultsPanelRef}>
-            {miniSearch === null ? (
+            {searchData === null ? (
               <section role="status">
                 <h3>{failed ? labels.error : labels.loading}</h3>
                 {failed ? (
@@ -445,22 +411,12 @@ export function LocalSearch({ lang }: PropsWithLang) {
                       >
                         <span>
                           <span>
-                            {highlightMatches(document, 'title')}
-                            {document.headings[0].text ? (
-                              <> / {highlightMatches(document, 'heading')}</>
-                            ) : null}
+                            {document.heading && <>{document.data.title} / </>}
+                            {highlightMatch(document.title, deferredQuery)}
                           </span>
                           <span>blog / posts / {document.slug}</span>
                           <span>
-                            {highlightMatches(
-                              document,
-                              document.headings[0].text ||
-                                document.terms.some(term =>
-                                  document.match[term]?.includes('content'),
-                                )
-                                ? 'content'
-                                : 'description',
-                            )}
+                            {highlightMatch(document.content, deferredQuery, true)}
                           </span>
                           <span>
                             <span>{document.data.created}</span>

@@ -110,7 +110,7 @@ describe('localsearch', () => {
   });
 
   describe('search data loading', () => {
-    it('should defer fetching until opening and reuse a pending request and completed index after remounting', async () => {
+    it('should defer fetching until opening and reuse pending and loaded search data after remounting', async () => {
       const response = Promise.withResolvers<Response>();
       const fetchSearch = vi.spyOn(globalThis, 'fetch').mockReturnValue(response.promise);
       const screen = await render(<LocalSearch lang="en" />);
@@ -140,7 +140,7 @@ describe('localsearch', () => {
       assert.strictEqual(fetchSearch.mock.calls.length, 1);
     });
 
-    it('should search the query entered while loading as soon as the index is ready', async () => {
+    it('should search the query entered while loading as soon as the data is ready', async () => {
       const response = Promise.withResolvers<Response>();
       vi.spyOn(globalThis, 'fetch').mockReturnValue(response.promise);
       const screen = await render(<LocalSearch lang="en" />);
@@ -232,7 +232,7 @@ describe('localsearch', () => {
       assert.strictEqual(fetchSearch.mock.calls.length, 2);
     });
 
-    it('should clear the query on Escape and reuse the index when reopened', async () => {
+    it('should clear the query on Escape and reuse the search data when reopened', async () => {
       const fetchSearch = vi
         .spyOn(globalThis, 'fetch')
         .mockResolvedValue(Response.json([]));
@@ -337,13 +337,13 @@ describe('localsearch', () => {
         'Example article / References',
       );
       await vi.waitFor(() => {
-        assert.strictEqual(excerpt.querySelector('mark')?.textContent, 'tooltips');
+        assert.strictEqual(excerpt.querySelector('mark')?.textContent, 'tooltip');
       });
       assert.include(excerpt.textContent, '<img src=x>');
       assert.isAtMost(excerpt.textContent.length, 222);
       assert.isNull(link.querySelector('img'));
 
-      await screen.getByRole('searchbox', { name: 'Search' }).fill('tooltaps');
+      await screen.getByRole('searchbox', { name: 'Search' }).fill('tooltips');
       await vi.waitFor(() => {
         assert.strictEqual(excerpt.querySelector('mark')?.textContent, 'tooltips');
       });
@@ -406,7 +406,7 @@ describe('localsearch', () => {
       });
     });
 
-    it('should highlight exact, prefix, and fuzzy matches in titles and descriptions while preserving text', async () => {
+    it('should highlight literal case-insensitive matches and reject typos while preserving text', async () => {
       vi.spyOn(globalThis, 'fetch').mockResolvedValue(
         Response.json([
           {
@@ -454,11 +454,11 @@ describe('localsearch', () => {
       await vi.waitFor(() => {
         assert.deepStrictEqual(
           Array.from(title.querySelectorAll('mark'), mark => mark.textContent),
-          ['React', 'Reactivity'],
+          ['React'],
         );
         assert.deepStrictEqual(
           Array.from(description.querySelectorAll('mark'), mark => mark.textContent),
-          ['REACT', 'reaction'],
+          ['REACT'],
         );
       });
       assert.strictEqual(title.textContent, 'React & Reactivity <img src=x>');
@@ -469,7 +469,7 @@ describe('localsearch', () => {
       await vi.waitFor(() => {
         assert.deepStrictEqual(
           Array.from(title.querySelectorAll('mark'), mark => mark.textContent),
-          ['Reactivity'],
+          ['Reactiv'],
         );
         assert.deepStrictEqual(
           Array.from(description.querySelectorAll('mark'), mark => mark.textContent),
@@ -477,15 +477,15 @@ describe('localsearch', () => {
         );
       });
 
-      await screen.getByRole('searchbox', { name: 'Search' }).fill('reacr');
+      await screen.getByRole('searchbox', { name: 'Search' }).fill('<img src=x>');
       await vi.waitFor(() => {
         assert.deepStrictEqual(
           Array.from(title.querySelectorAll('mark'), mark => mark.textContent),
-          ['React'],
+          ['<img src=x>'],
         );
         assert.deepStrictEqual(
           Array.from(description.querySelectorAll('mark'), mark => mark.textContent),
-          ['REACT'],
+          [],
         );
       });
       assert.strictEqual(title.textContent, 'React & Reactivity <img src=x>');
