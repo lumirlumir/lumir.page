@@ -317,11 +317,8 @@ describe('localsearch', () => {
       );
 
       const screen = await render(<LocalSearch lang="en" />);
-      const button = screen.container.querySelector('button');
-
-      assert.ok(button);
-      button.focus();
-      await userEvent.keyboard('tooltip');
+      await screen.getByRole('button', { name: 'Search', exact: true }).click();
+      await screen.getByRole('searchbox', { name: 'Search' }).fill('tooltip');
       await vi.waitFor(() => {
         assert.strictEqual(screen.container.querySelectorAll('li > a').length, 1);
       });
@@ -392,11 +389,8 @@ describe('localsearch', () => {
 
       const screen = await render(<LocalSearch lang="en" />);
 
-      const button = screen.container.querySelector('button');
-
-      assert.ok(button);
-      button.focus();
-      await userEvent.keyboard('tooltip');
+      await screen.getByRole('button', { name: 'Search', exact: true }).click();
+      await screen.getByRole('searchbox', { name: 'Search' }).fill('tooltip');
 
       await vi.waitFor(() => {
         assert.strictEqual(
@@ -436,11 +430,8 @@ describe('localsearch', () => {
       );
 
       const screen = await render(<LocalSearch lang="en" />);
-      const button = screen.container.querySelector('button');
-
-      assert.ok(button);
-      button.focus();
-      await userEvent.keyboard('react');
+      await screen.getByRole('button', { name: 'Search', exact: true }).click();
+      await screen.getByRole('searchbox', { name: 'Search' }).fill('react');
       await vi.waitFor(() => {
         assert.strictEqual(screen.container.querySelectorAll('li > a').length, 1);
       });
@@ -548,11 +539,8 @@ describe('localsearch', () => {
       );
 
       const screen = await render(<LocalSearch lang="en" />);
-      const button = screen.container.querySelector('button');
-
-      assert.ok(button);
-      button.focus();
-      await userEvent.keyboard('React');
+      await screen.getByRole('button', { name: 'Search', exact: true }).click();
+      await screen.getByRole('searchbox', { name: 'Search' }).fill('React');
       await vi.waitFor(() => {
         assert.strictEqual(screen.container.querySelectorAll('li > a').length, 2);
       });
@@ -614,115 +602,6 @@ describe('localsearch', () => {
       assert.strictEqual(panel.scrollTop, 0);
       assert.strictEqual(input.value, 'React');
       assert.strictEqual(document.activeElement, input);
-    });
-  });
-
-  describe('typing on the search button', () => {
-    it('should search with the first uppercase letter and continue typing in the input', async () => {
-      vi.spyOn(globalThis, 'fetch').mockResolvedValue(
-        Response.json([
-          {
-            id: 'react.en',
-            url: '/en/posts/react',
-            slug: 'react',
-            lang: 'en',
-            readtime: 1,
-            data: {
-              title: 'React guide',
-              description: 'Learn React',
-              created: '2026-10-02',
-              updated: '2026-10-02',
-              categories: [],
-              references: [],
-            },
-            headings: [{ id: 'react', text: 'React guide', depth: 1, content: '' }],
-          },
-        ]),
-      );
-
-      const screen = await render(<LocalSearch lang="en" />);
-      const button = screen.container.querySelector('button');
-      const dialog = screen.container.querySelector('dialog');
-      const input = screen.container.querySelector('input');
-
-      assert.ok(button);
-      assert.ok(dialog);
-      assert.ok(input);
-
-      button.focus();
-      await userEvent.keyboard('{Shift>}R{/Shift}');
-
-      assert.isTrue(dialog.open);
-      assert.strictEqual(input.value, 'R');
-      assert.strictEqual(document.activeElement, input);
-      await vi.waitFor(() => {
-        assert.include(dialog.querySelector('ul')?.textContent, 'React guide');
-      });
-
-      await userEvent.keyboard('eact');
-
-      assert.strictEqual(input.value, 'React');
-    });
-
-    it('should open the dialog with the first lowercase letter as the query', async () => {
-      const screen = await render(<LocalSearch lang="en" />);
-      const button = screen.container.querySelector('button');
-      const dialog = screen.container.querySelector('dialog');
-      const input = screen.container.querySelector('input');
-
-      assert.ok(button);
-      assert.ok(dialog);
-      assert.ok(input);
-
-      button.focus();
-      await userEvent.keyboard('a');
-
-      assert.isTrue(dialog.open);
-      assert.strictEqual(input.value, 'a');
-      assert.strictEqual(document.activeElement, input);
-    });
-
-    it('should open the dialog with the first digit as the query', async () => {
-      const screen = await render(<LocalSearch lang="en" />);
-      const button = screen.container.querySelector('button');
-      const dialog = screen.container.querySelector('dialog');
-      const input = screen.container.querySelector('input');
-
-      assert.ok(button);
-      assert.ok(dialog);
-      assert.ok(input);
-
-      button.focus();
-      await userEvent.keyboard('1');
-
-      assert.isTrue(dialog.open);
-      assert.strictEqual(input.value, '1');
-      assert.strictEqual(document.activeElement, input);
-    });
-
-    it('should ignore modified letters, punctuation, and IME composition on the button', async () => {
-      const screen = await render(<LocalSearch lang="en" />);
-      const button = screen.container.querySelector('button');
-      const dialog = screen.container.querySelector('dialog');
-      const input = screen.container.querySelector('input');
-
-      assert.ok(button);
-      assert.ok(dialog);
-      assert.ok(input);
-
-      button.focus();
-      await userEvent.keyboard('{Control>}a{/Control}{Meta>}a{/Meta}{Alt>}a{/Alt}.');
-      button.dispatchEvent(
-        new KeyboardEvent('keydown', {
-          bubbles: true,
-          isComposing: true,
-          key: 'a',
-        }),
-      );
-
-      assert.isFalse(dialog.open);
-      assert.strictEqual(input.value, '');
-      assert.strictEqual(document.activeElement, button);
     });
   });
 

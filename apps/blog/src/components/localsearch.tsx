@@ -23,7 +23,7 @@ import { useOs, useShortcut } from '@lumir/react-kit/hooks';
 import { LmSearch } from '@lumir/react-kit/svgs';
 import Link from 'next/link';
 import { useDeferredValue, useMemo, useRef, useState, type KeyboardEvent } from 'react';
-import type { LangKey, LangRecord, PropsWithLang } from '@/data/lang';
+import type { LangRecord, PropsWithLang } from '@/data/lang';
 import type { VMarkdownFileMetaWithHeadings } from '@/data/v-markdown';
 import styles from './localsearch.module.css';
 
@@ -95,32 +95,7 @@ const dictionary = {
   >
 >;
 
-let localSearchPromiseCache:
-  Promise<readonly VMarkdownFileMetaWithHeadings[]> | undefined;
-
-function loadLocalSearch(lang: LangKey) {
-  if (localSearchPromiseCache) {
-    return localSearchPromiseCache;
-  }
-
-  localSearchPromiseCache = (async () => {
-    try {
-      const response = await fetch(`/${lang}/search.json`);
-
-      if (!response.ok) {
-        throw new Error('Failed to load search data.');
-      }
-
-      return (await response.json()) as readonly VMarkdownFileMetaWithHeadings[];
-    } catch (error) {
-      localSearchPromiseCache = undefined;
-
-      throw error;
-    }
-  })();
-
-  return localSearchPromiseCache;
-}
+let searchPromiseCache: Promise<readonly VMarkdownFileMetaWithHeadings[]> | undefined;
 
 function highlightMatch(text: string, query: string, excerpt = false) {
   const match = text.toLowerCase().indexOf(query);
@@ -183,7 +158,6 @@ export function LocalSearch({ lang }: PropsWithLang) {
       )
       .slice(0, 10);
   }, [searchData, deferredQuery]);
-
   const labels = dictionary[lang];
 
   // ------------------------------------------------------------------------------
@@ -198,8 +172,19 @@ export function LocalSearch({ lang }: PropsWithLang) {
     setFailed(false);
 
     try {
-      setSearchData(await loadLocalSearch(lang));
+      searchPromiseCache ??= (async () => {
+        const response = await fetch(`/${lang}/search.json`);
+
+        if (!response.ok) {
+          throw new Error('Failed to load search data.');
+        }
+
+        return (await response.json()) as readonly VMarkdownFileMetaWithHeadings[];
+      })();
+
+      setSearchData(await searchPromiseCache);
     } catch {
+      searchPromiseCache = undefined;
       setFailed(true);
     }
   }
@@ -207,25 +192,6 @@ export function LocalSearch({ lang }: PropsWithLang) {
   function updateQuery(nextQuery: string) {
     setQuery(nextQuery);
     setActiveIndex(0);
-  }
-
-  function onButtonKeyDown(event: KeyboardEvent<HTMLButtonElement>) {
-    // Accept a single alphanumeric character, leaving shortcuts and IME composition alone.
-    // Shift is allowed so uppercase letters can also start a search.
-    if (
-      event.ctrlKey ||
-      event.metaKey ||
-      event.altKey ||
-      event.nativeEvent.isComposing ||
-      !/^[a-z0-9]$/i.test(event.key)
-    ) {
-      return;
-    }
-
-    // Prevent the same character from being inserted again after focus moves to the input.
-    event.preventDefault();
-    updateQuery(event.key);
-    dialogRef.current?.open();
   }
 
   function onInputKeyDown(event: KeyboardEvent<HTMLInputElement>) {
@@ -237,15 +203,18 @@ export function LocalSearch({ lang }: PropsWithLang) {
 
     if (event.key === 'Enter') {
       event.preventDefault();
+
       links[activeIndex]?.click();
     } else if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
       event.preventDefault();
+
       const direction = event.key === 'ArrowDown' ? 1 : -1;
       const index = (activeIndex + direction + links.length) % links.length;
 
       setActiveIndex(index);
+
       links[index].scrollIntoView({
-        behavior: 'instant',
+        behavior: 'smooth',
         block: 'nearest',
         inline: 'nearest',
       });
@@ -284,11 +253,7 @@ export function LocalSearch({ lang }: PropsWithLang) {
           }
         }}
       >
-        <Dialog.Open
-          className={styles.open}
-          aria-label={labels.search}
-          onKeyDown={onButtonKeyDown}
-        >
+        <Dialog.Open className={styles.open} aria-label={labels.search}>
           <span>
             <span>{icon}</span>
             <span>{labels.search}</span>
