@@ -23,14 +23,7 @@ import { useOs, useShortcut } from '@lumir/react-kit/hooks';
 import { LmSearch } from '@lumir/react-kit/svgs';
 import MiniSearch, { type SearchResult } from 'minisearch';
 import Link from 'next/link';
-import {
-  useDeferredValue,
-  useMemo,
-  useRef,
-  useState,
-  type KeyboardEvent,
-  type ReactNode,
-} from 'react';
+import { useDeferredValue, useMemo, useRef, useState, type KeyboardEvent } from 'react';
 import type { LangKey, LangRecord, PropsWithLang } from '@/data/lang';
 import type { VMarkdownFileMetaWithHeadings } from '@/data/v-markdown';
 import styles from './localsearch.module.css';
@@ -39,213 +32,6 @@ import styles from './localsearch.module.css';
 // Typedef
 // --------------------------------------------------------------------------------
 
-/**
- * Props for the `LocalSearch` component.
- */
-export interface LocalSearchProps {
-  /**
-   * Translations for the search UI. Defaults to the selected language.
-   */
-  readonly translations?: {
-    /**
-     * The placeholder for the search input.
-     */
-    readonly placeholder: string;
-
-    /**
-     * Translations for the search button.
-     */
-    readonly button: {
-      /**
-       * The aria-label for the search button.
-       */
-      readonly buttonAriaLabel: string;
-
-      /**
-       * The text to display on the search button.
-       */
-      readonly buttonText: string;
-    };
-
-    /**
-     * Translations for the search dialog.
-     */
-    readonly dialog: {
-      /**
-       * The aria-label for the search dialog.
-       */
-      readonly dialogAriaLabel: string;
-
-      /**
-       * The status displayed while search data is loading.
-       */
-      readonly loadingText: string;
-
-      /**
-       * The status displayed when search data fails to load.
-       */
-      readonly errorText: string;
-
-      /**
-       * The text for the button that retries loading search data.
-       */
-      readonly retryButtonText: string;
-
-      /**
-       * Translations for the search box controls.
-       */
-      readonly searchBox: {
-        /**
-         * The text to display on the reset button.
-         */
-        readonly resetButtonText: string;
-
-        /**
-         * The title for the reset button.
-         */
-        readonly resetButtonTitle: string;
-
-        /**
-         * The aria-label for the reset button.
-         */
-        readonly resetButtonAriaLabel: string;
-
-        /**
-         * The text to display on the cancel button.
-         */
-        readonly cancelButtonText: string;
-
-        /**
-         * The aria-label for the cancel button.
-         */
-        readonly cancelButtonAriaLabel: string;
-
-        /**
-         * The aria-label for the search input.
-         */
-        readonly searchInputLabel: string;
-      };
-
-      /**
-       * Translations for the initial empty search screen.
-       */
-      readonly startScreen: {
-        /**
-         * The title to display before the user enters a query.
-         */
-        readonly titleText: string;
-
-        /**
-         * The help text to display before the user enters a query.
-         */
-        readonly helpText: string;
-
-        /**
-         * The title for recent searches.
-         */
-        readonly recentSearchesTitle: string;
-
-        /**
-         * The text displayed when there are no recent searches.
-         */
-        readonly noRecentSearchesText: string;
-
-        /**
-         * The title for the button that removes a recent search.
-         */
-        readonly removeRecentSearchButtonTitle: string;
-      };
-
-      /**
-       * Translations for the no-results screen.
-       */
-      readonly noResultsScreen: {
-        /**
-         * The text to display when no results match the query.
-         */
-        readonly noResultsText: string;
-
-        /**
-         * The text displayed before a suggested query.
-         */
-        readonly suggestedQueryText: string;
-      };
-
-      /**
-       * Translations for the results screen.
-       */
-      readonly resultsScreen: {
-        /**
-         * The source label to display above search results.
-         */
-        readonly sourceText: string;
-
-        /**
-         * The path prefix to display before each result slug.
-         */
-        readonly pathPrefix: string;
-
-        /**
-         * The label to display before each result update date.
-         */
-        readonly updatedText: string;
-      };
-
-      /**
-       * Translations for the search dialog footer.
-       */
-      readonly footer: {
-        /**
-         * The text that explains the select command.
-         */
-        readonly selectText: string;
-
-        /**
-         * The aria-label for the select keycap.
-         */
-        readonly selectKeyAriaLabel: string;
-
-        /**
-         * The text that explains the navigate command.
-         */
-        readonly navigateText: string;
-
-        /**
-         * The aria-label for the navigate-up keycap.
-         */
-        readonly navigateUpKeyAriaLabel: string;
-
-        /**
-         * The aria-label for the navigate-down keycap.
-         */
-        readonly navigateDownKeyAriaLabel: string;
-
-        /**
-         * The text that explains the close command.
-         */
-        readonly closeText: string;
-
-        /**
-         * The aria-label for the close keycap.
-         */
-        readonly closeKeyAriaLabel: string;
-      };
-    };
-  };
-
-  /**
-   * The icon to display.
-   * @default Search Icon
-   */
-  readonly icon?: ReactNode;
-
-  /**
-   * The maximum number of search results to display.
-   * @default 10
-   */
-  readonly maxResults?: number;
-}
-
 type LocalSearchResult = SearchResult &
   Pick<VMarkdownFileMetaWithHeadings, 'slug' | 'data' | 'url' | 'headings'>;
 
@@ -253,108 +39,75 @@ type LocalSearchResult = SearchResult &
 // Helper
 // --------------------------------------------------------------------------------
 
-const defaultIcon = <LmSearch aria-hidden="true" size={28} strokeWidth="1.5" />;
+const icon = <LmSearch aria-hidden="true" size={28} strokeWidth="1.5" />;
 
 const dictionary = {
   ko: {
-    translations: {
-      placeholder: '검색',
-      button: {
-        buttonAriaLabel: '검색',
-        buttonText: '검색',
-      },
-      dialog: {
-        dialogAriaLabel: '검색',
-        loadingText: '검색 데이터를 불러오는 중입니다.',
-        errorText: '검색 데이터를 불러오지 못했습니다.',
-        retryButtonText: '다시 시도',
-        searchBox: {
-          resetButtonText: '지우기',
-          resetButtonTitle: '검색 창 지우기',
-          resetButtonAriaLabel: '검색 창 지우기',
-          cancelButtonText: '취소',
-          cancelButtonAriaLabel: '취소',
-          searchInputLabel: '검색',
-        },
-        startScreen: {
-          titleText: '문서 검색',
-          helpText: '제목, 설명, 섹션 제목과 본문을 검색합니다.',
-          recentSearchesTitle: '최근 검색',
-          noRecentSearchesText: '최근 검색 결과가 없습니다.',
-          removeRecentSearchButtonTitle: '히스토리에서 검색 결과 삭제하기',
-        },
-        noResultsScreen: {
-          noResultsText: '검색 결과가 없습니다',
-          suggestedQueryText: '아래 검색어를 시도해보세요',
-        },
-        resultsScreen: {
-          sourceText: '문서',
-          pathPrefix: 'blog / posts',
-          updatedText: '수정',
-        },
-        footer: {
-          selectText: '선택',
-          selectKeyAriaLabel: '엔터',
-          navigateText: '이동',
-          navigateUpKeyAriaLabel: '위쪽 화살표',
-          navigateDownKeyAriaLabel: '아래쪽 화살표',
-          closeText: '닫기',
-          closeKeyAriaLabel: '닫기',
-        },
-      },
-    },
+    search: '검색',
+    loading: '검색 데이터를 불러오는 중입니다.',
+    error: '검색 데이터를 불러오지 못했습니다.',
+    retry: '다시 시도',
+    clear: '지우기',
+    clearLabel: '검색 창 지우기',
+    cancel: '취소',
+    title: '문서 검색',
+    help: '제목, 설명, 섹션 제목과 본문을 검색합니다.',
+    noResults: '검색 결과가 없습니다',
+    source: '문서',
+    updated: '수정',
+    select: '선택',
+    enter: '엔터',
+    navigate: '이동',
+    arrowUp: '위쪽 화살표',
+    arrowDown: '아래쪽 화살표',
+    close: '닫기',
+    escape: '닫기',
   },
   en: {
-    translations: {
-      placeholder: 'Search',
-      button: {
-        buttonAriaLabel: 'Search',
-        buttonText: 'Search',
-      },
-      dialog: {
-        dialogAriaLabel: 'Search',
-        loadingText: 'Loading search data.',
-        errorText: 'Failed to load search data.',
-        retryButtonText: 'Retry',
-        searchBox: {
-          resetButtonText: 'Clear',
-          resetButtonTitle: 'Clear the query',
-          resetButtonAriaLabel: 'Clear the query',
-          cancelButtonText: 'Cancel',
-          cancelButtonAriaLabel: 'Cancel',
-          searchInputLabel: 'Search',
-        },
-        startScreen: {
-          titleText: 'Search docs',
-          helpText: 'Search titles, descriptions, section headings, and body text.',
-          recentSearchesTitle: 'Recent Searches',
-          noRecentSearchesText: 'No recent searches.',
-          removeRecentSearchButtonTitle: 'Remove this search from history',
-        },
-        noResultsScreen: {
-          noResultsText: 'No results for',
-          suggestedQueryText: 'Try searching for',
-        },
-        resultsScreen: {
-          sourceText: 'Posts',
-          pathPrefix: 'blog / posts',
-          updatedText: 'Updated',
-        },
-        footer: {
-          selectText: 'Select',
-          selectKeyAriaLabel: 'Enter',
-          navigateText: 'Navigate',
-          navigateUpKeyAriaLabel: 'Arrow up',
-          navigateDownKeyAriaLabel: 'Arrow down',
-          closeText: 'Close',
-          closeKeyAriaLabel: 'Escape',
-        },
-      },
-    },
+    search: 'Search',
+    loading: 'Loading search data.',
+    error: 'Failed to load search data.',
+    retry: 'Retry',
+    clear: 'Clear',
+    clearLabel: 'Clear the query',
+    cancel: 'Cancel',
+    title: 'Search docs',
+    help: 'Search titles, descriptions, section headings, and body text.',
+    noResults: 'No results for',
+    source: 'Posts',
+    updated: 'Updated',
+    select: 'Select',
+    enter: 'Enter',
+    navigate: 'Navigate',
+    arrowUp: 'Arrow up',
+    arrowDown: 'Arrow down',
+    close: 'Close',
+    escape: 'Escape',
   },
-} as const satisfies LangRecord<{
-  translations: NonNullable<LocalSearchProps['translations']>;
-}>;
+} as const satisfies LangRecord<
+  Record<
+    | 'search'
+    | 'loading'
+    | 'error'
+    | 'retry'
+    | 'clear'
+    | 'clearLabel'
+    | 'cancel'
+    | 'title'
+    | 'help'
+    | 'noResults'
+    | 'source'
+    | 'updated'
+    | 'select'
+    | 'enter'
+    | 'navigate'
+    | 'arrowUp'
+    | 'arrowDown'
+    | 'close'
+    | 'escape',
+    string
+  >
+>;
 
 let localSearchPromiseCache:
   Promise<MiniSearch<VMarkdownFileMetaWithHeadings>> | undefined;
@@ -471,41 +224,7 @@ function highlightMatches(
 // Export
 // --------------------------------------------------------------------------------
 
-export function LocalSearch({
-  lang,
-  translations: {
-    placeholder,
-    button: { buttonAriaLabel, buttonText },
-    dialog: {
-      dialogAriaLabel,
-      loadingText,
-      errorText,
-      retryButtonText,
-      searchBox: {
-        resetButtonText,
-        resetButtonTitle,
-        resetButtonAriaLabel,
-        cancelButtonText,
-        cancelButtonAriaLabel,
-        searchInputLabel,
-      },
-      startScreen: { titleText, helpText },
-      noResultsScreen: { noResultsText },
-      resultsScreen: { sourceText, pathPrefix, updatedText },
-      footer: {
-        selectText,
-        selectKeyAriaLabel,
-        navigateText,
-        navigateUpKeyAriaLabel,
-        navigateDownKeyAriaLabel,
-        closeText,
-        closeKeyAriaLabel,
-      },
-    },
-  } = dictionary[lang].translations,
-  icon = defaultIcon,
-  maxResults = 10,
-}: PropsWithLang<LocalSearchProps>) {
+export function LocalSearch({ lang }: PropsWithLang) {
   const dialogRef = useRef<DialogHandle | null>(null);
   const inputRef = useRef<HTMLInputElement | null>(null);
   const resultsPanelRef = useRef<HTMLDivElement | null>(null);
@@ -523,10 +242,11 @@ export function LocalSearch({
       return [];
     }
 
-    return miniSearch.search(deferredQuery).slice(0, maxResults) as LocalSearchResult[];
-  }, [maxResults, miniSearch, deferredQuery]);
+    return miniSearch.search(deferredQuery).slice(0, 10) as LocalSearchResult[];
+  }, [miniSearch, deferredQuery]);
 
   const activeResult = results[activeIndex];
+  const labels = dictionary[lang];
 
   // ------------------------------------------------------------------------------
   // Callback
@@ -649,12 +369,12 @@ export function LocalSearch({
 
       <Dialog.Open
         className={styles.open}
-        aria-label={buttonAriaLabel}
+        aria-label={labels.search}
         onKeyDown={onButtonKeyDown}
       >
         <span>
           <span>{icon}</span>
-          <span>{buttonText}</span>
+          <span>{labels.search}</span>
         </span>
         <span className="markdown" aria-hidden="true">
           <kbd>{os === 'macos' || os === 'ios' ? 'Cmd' : 'Ctrl'}</kbd>
@@ -662,7 +382,7 @@ export function LocalSearch({
         </span>
       </Dialog.Open>
 
-      <Dialog.Content className={styles.content} aria-label={dialogAriaLabel}>
+      <Dialog.Content className={styles.content} aria-label={labels.search}>
         <div>
           <div>
             <div>
@@ -674,48 +394,46 @@ export function LocalSearch({
                 value={query}
                 onChange={event => updateQuery(event.target.value)}
                 onKeyDown={onInputKeyDown}
-                placeholder={placeholder}
-                aria-label={searchInputLabel}
+                placeholder={labels.search}
+                aria-label={labels.search}
               />
               {query.length > 0 && (
                 <button
                   type="button"
                   onClick={resetSearch}
-                  title={resetButtonTitle}
-                  aria-label={resetButtonAriaLabel}
+                  title={labels.clearLabel}
+                  aria-label={labels.clearLabel}
                 >
-                  {resetButtonText}
+                  {labels.clear}
                 </button>
               )}
             </div>
-            <Dialog.Close aria-label={cancelButtonAriaLabel}>
-              {cancelButtonText}
-            </Dialog.Close>
+            <Dialog.Close aria-label={labels.cancel}>{labels.cancel}</Dialog.Close>
           </div>
 
           <div ref={resultsPanelRef}>
             {miniSearch === null ? (
               <section role="status">
-                <h3>{failed ? errorText : loadingText}</h3>
+                <h3>{failed ? labels.error : labels.loading}</h3>
                 {failed ? (
                   <button type="button" onClick={loadSearch}>
-                    {retryButtonText}
+                    {labels.retry}
                   </button>
                 ) : null}
               </section>
             ) : query.length === 0 ? (
               <section>
-                <h3>{titleText}</h3>
-                <p>{helpText}</p>
+                <h3>{labels.title}</h3>
+                <p>{labels.help}</p>
               </section>
             ) : results.length === 0 ? (
               <section>
-                <h3>{noResultsText}</h3>
+                <h3>{labels.noResults}</h3>
                 <p>&quot;{query}&quot;</p>
               </section>
             ) : (
               <section>
-                <div>{sourceText}</div>
+                <div>{labels.source}</div>
                 <ul>
                   {results.map((document, index) => (
                     <li key={document.url}>
@@ -732,9 +450,7 @@ export function LocalSearch({
                               <> / {highlightMatches(document, 'heading')}</>
                             ) : null}
                           </span>
-                          <span>
-                            {pathPrefix} / {document.slug}
-                          </span>
+                          <span>blog / posts / {document.slug}</span>
                           <span>
                             {highlightMatches(
                               document,
@@ -749,7 +465,7 @@ export function LocalSearch({
                           <span>
                             <span>{document.data.created}</span>
                             <span>
-                              {updatedText} {document.data.updated}
+                              {labels.updated} {document.data.updated}
                             </span>
                             {document.data.categories.map(category => (
                               <span key={category}>{category}</span>
@@ -766,17 +482,17 @@ export function LocalSearch({
 
           <footer className="markdown">
             <span>
-              <kbd aria-label={selectKeyAriaLabel}>Enter</kbd>
-              <span>{selectText}</span>
+              <kbd aria-label={labels.enter}>Enter</kbd>
+              <span>{labels.select}</span>
             </span>
             <span>
-              <kbd aria-label={navigateUpKeyAriaLabel}>↑</kbd>
-              <kbd aria-label={navigateDownKeyAriaLabel}>↓</kbd>
-              <span>{navigateText}</span>
+              <kbd aria-label={labels.arrowUp}>↑</kbd>
+              <kbd aria-label={labels.arrowDown}>↓</kbd>
+              <span>{labels.navigate}</span>
             </span>
             <span>
-              <kbd aria-label={closeKeyAriaLabel}>Esc</kbd>
-              <span>{closeText}</span>
+              <kbd aria-label={labels.escape}>Esc</kbd>
+              <span>{labels.close}</span>
             </span>
           </footer>
         </div>
