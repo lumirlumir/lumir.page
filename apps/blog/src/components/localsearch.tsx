@@ -21,172 +21,194 @@ import 'client-only';
 import { Dialog, type DialogHandle } from '@lumir/react-kit/components';
 import { useOs, useShortcut } from '@lumir/react-kit/hooks';
 import { LmSearch } from '@lumir/react-kit/svgs';
-import { useRef, type ReactNode } from 'react';
-import type { LangKey, LangRecord } from '@/data/lang';
+import { Search, type Match } from '@lumir/utils';
+import Link from 'next/link';
+import { useDeferredValue, useMemo, useRef, useState, type KeyboardEvent } from 'react';
+import type { LangRecord, PropsWithLang } from '@/data/lang';
+import type { VMarkdownFileMetaWithHeadings } from '@/data/v-markdown';
 import styles from './localsearch.module.css';
-
-// --------------------------------------------------------------------------------
-// Typedef
-// --------------------------------------------------------------------------------
-
-/**
- * Props for the `LocalSearch` component.
- */
-export interface LocalSearchProps {
-  /**
-   * Language of the search UI.
-   */
-  readonly lang: LangKey;
-
-  /**
-   * Translations for the search UI. Defaults to the selected language.
-   */
-  readonly translations?: {
-    /**
-     * The placeholder for the search input.
-     */
-    readonly placeholder: string;
-
-    /**
-     * Translations for the search button.
-     */
-    readonly button: {
-      /**
-       * The aria-label for the search button.
-       */
-      readonly buttonAriaLabel: string;
-
-      /**
-       * The text to display on the search button.
-       */
-      readonly buttonText: string;
-    };
-
-    /**
-     * Translations for the search dialog.
-     */
-    readonly dialog: {
-      /**
-       * The aria-label for the search dialog.
-       */
-      readonly dialogAriaLabel: string;
-
-      /**
-       * Translations for the search box controls.
-       */
-      readonly searchBox: {
-        /**
-         * The text to display on the cancel button.
-         */
-        readonly cancelButtonText: string;
-
-        /**
-         * The aria-label for the cancel button.
-         */
-        readonly cancelButtonAriaLabel: string;
-
-        /**
-         * The aria-label for the search input.
-         */
-        readonly searchInputLabel: string;
-      };
-    };
-  };
-
-  /**
-   * The icon to display.
-   * @default Search Icon
-   */
-  readonly icon?: ReactNode;
-}
 
 // --------------------------------------------------------------------------------
 // Helper
 // --------------------------------------------------------------------------------
 
-const defaultIcon = <LmSearch aria-hidden="true" size={28} strokeWidth="1.5" />;
-
+const ellipsis = '...';
+const icon = <LmSearch aria-hidden="true" size={28} strokeWidth="1.5" />;
 const dictionary = {
   ko: {
-    translations: {
-      placeholder: '검색',
-      button: {
-        buttonAriaLabel: '검색',
-        buttonText: '검색',
-      },
-      dialog: {
-        dialogAriaLabel: '검색',
-        searchBox: {
-          cancelButtonText: '취소',
-          cancelButtonAriaLabel: '취소',
-          searchInputLabel: '검색',
-        },
-      },
-    },
+    search: '검색',
+    loading: '검색 데이터를 불러오는 중입니다...',
+    error: '검색 데이터를 불러오지 못했습니다.',
+    retry: '다시 시도',
+    title: '문서 검색',
+    noResults: '검색 결과가 없습니다.',
+    select: '선택',
+    enter: '엔터',
+    navigate: '이동',
+    arrowUp: '위쪽 화살표',
+    arrowDown: '아래쪽 화살표',
+    close: '닫기',
+    escape: '이스케이프',
   },
   en: {
-    translations: {
-      placeholder: 'Search',
-      button: {
-        buttonAriaLabel: 'Search',
-        buttonText: 'Search',
-      },
-      dialog: {
-        dialogAriaLabel: 'Search',
-        searchBox: {
-          cancelButtonText: 'Cancel',
-          cancelButtonAriaLabel: 'Cancel',
-          searchInputLabel: 'Search',
-        },
-      },
-    },
+    search: 'Search',
+    loading: 'Loading search data...',
+    error: 'Failed to load search data.',
+    retry: 'Retry',
+    title: 'Search docs',
+    noResults: 'No search results.',
+    select: 'Select',
+    enter: 'Enter',
+    navigate: 'Navigate',
+    arrowUp: 'Arrow up',
+    arrowDown: 'Arrow down',
+    close: 'Close',
+    escape: 'Escape',
   },
-} as const satisfies LangRecord<{
-  translations: NonNullable<LocalSearchProps['translations']>;
-}>;
+} as const satisfies LangRecord<
+  Record<
+    | 'search'
+    | 'loading'
+    | 'error'
+    | 'retry'
+    | 'title'
+    | 'noResults'
+    | 'select'
+    | 'enter'
+    | 'navigate'
+    | 'arrowUp'
+    | 'arrowDown'
+    | 'close'
+    | 'escape',
+    string
+  >
+>;
+
+let searchPromiseCache: Promise<readonly VMarkdownFileMetaWithHeadings[]> | undefined;
+
+function renderHighlight(text: string, range?: Match, excerpt = false) {
+  // Keep up to 60 preceding characters and 220 total, excluding ellipses.
+  const start = excerpt ? Math.max(0, (range?.[0] ?? 0) - 60) : 0;
+  const end = excerpt ? start + 220 : text.length;
+  const { before, match, after } = Search.highlight(
+    text.slice(start, end),
+    range && [range[0] - start, range[1] - start],
+  );
+
+  return (
+    <>
+      {start > 0 && ellipsis}
+      {before}
+      {match && <mark>{match}</mark>}
+      {after}
+      {end < text.length && ellipsis}
+    </>
+  );
+}
 
 // --------------------------------------------------------------------------------
 // Export
 // --------------------------------------------------------------------------------
 
-export function LocalSearch({
-  lang,
-  translations: {
-    placeholder,
-    button: { buttonAriaLabel, buttonText },
-    dialog: {
-      dialogAriaLabel,
-      searchBox: { cancelButtonText, cancelButtonAriaLabel, searchInputLabel },
-    },
-  } = dictionary[lang].translations,
-  icon = defaultIcon,
-}: LocalSearchProps) {
+export function LocalSearch({ lang }: PropsWithLang) {
   const dialogRef = useRef<DialogHandle | null>(null);
   const inputRef = useRef<HTMLInputElement | null>(null);
+  const resultsPanelRef = useRef<HTMLDivElement | null>(null);
+  const [query, setQuery] = useState<string>('');
+  const [activeIndex, setActiveIndex] = useState<number>(0);
+  const [searchData, setSearchData] = useState<
+    readonly VMarkdownFileMetaWithHeadings[] | null
+  >(null);
+  const [failed, setFailed] = useState<boolean>(false);
+  const deferredQuery = useDeferredValue(query);
   const os = useOs();
+  const search = useMemo(
+    () =>
+      new Search(
+        (searchData ?? []).flatMap(({ headings, ...meta }) =>
+          headings.map(heading => ({ meta, heading })),
+        ),
+        {
+          fields: { text: 1.5, content: 1 },
+          extractField: (item, field) => item.heading[field],
+        },
+      ),
+    [searchData],
+  );
+  const results = useMemo(() => search.search(deferredQuery), [search, deferredQuery]);
+  const labels = dictionary[lang];
 
   // ------------------------------------------------------------------------------
   // Callback
   // ------------------------------------------------------------------------------
 
-  function openSearch() {
-    dialogRef.current?.open();
+  async function loadSearch() {
+    if (searchData !== null) {
+      return;
+    }
+
+    setFailed(false);
+
+    try {
+      searchPromiseCache ??= (async () => {
+        const response = await fetch(`/${lang}/search.json`);
+
+        if (!response.ok) {
+          throw new Error('Failed to load search data.');
+        }
+
+        return (await response.json()) as readonly VMarkdownFileMetaWithHeadings[];
+      })();
+
+      setSearchData(await searchPromiseCache);
+    } catch {
+      searchPromiseCache = undefined;
+      setFailed(true);
+    }
   }
 
-  function toggleSearch() {
-    dialogRef.current?.toggle();
+  function updateQuery(nextQuery: string) {
+    setQuery(nextQuery);
+    setActiveIndex(0);
+  }
+
+  function onInputKeyDown(event: KeyboardEvent<HTMLInputElement>) {
+    const links = resultsPanelRef.current?.querySelectorAll<HTMLAnchorElement>('li > a');
+
+    if (!links?.length) {
+      return;
+    }
+
+    if (event.key === 'Enter') {
+      event.preventDefault();
+
+      links[activeIndex]?.click();
+    } else if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+      event.preventDefault();
+
+      const direction = event.key === 'ArrowDown' ? 1 : -1;
+      const index = (activeIndex + direction + links.length) % links.length;
+
+      setActiveIndex(index);
+
+      links[index].scrollIntoView({
+        behavior: 'smooth',
+        block: 'nearest',
+        inline: 'nearest',
+      });
+    }
   }
 
   // ------------------------------------------------------------------------------
   // Hook
   // ------------------------------------------------------------------------------
 
-  useShortcut('/', openSearch);
-  useShortcut('k', toggleSearch, {
+  useShortcut('/', () => dialogRef.current?.open());
+  useShortcut('k', () => dialogRef.current?.toggle(), {
     ctrlKey: true,
     ignoreEditable: false,
   });
-  useShortcut('k', toggleSearch, {
+  useShortcut('k', () => dialogRef.current?.toggle(), {
     metaKey: true,
     ignoreEditable: false,
   });
@@ -196,37 +218,116 @@ export function LocalSearch({
   // ------------------------------------------------------------------------------
 
   return (
-    <Dialog.Root ref={dialogRef} initialFocusRef={inputRef}>
-      <Dialog.Open className={styles.open} aria-label={buttonAriaLabel}>
-        <span>
-          <span>{icon}</span>
-          <span>{buttonText}</span>
-        </span>
-        <span className="markdown" aria-hidden="true">
-          <kbd>{os === 'macos' || os === 'ios' ? 'Cmd' : 'Ctrl'}</kbd>
-          <kbd>K</kbd>
-        </span>
-      </Dialog.Open>
+    <>
+      <link rel="prefetch" href={`/${lang}/search.json`} as="fetch" />
+      <Dialog.Root
+        ref={dialogRef}
+        initialFocusRef={inputRef}
+        onOpenChange={open => {
+          if (open) {
+            loadSearch();
+          } else {
+            updateQuery('');
+          }
+        }}
+      >
+        <Dialog.Open className={styles.open} aria-label={labels.search}>
+          <span>
+            <span>{icon}</span>
+            <span>{labels.search}</span>
+          </span>
+          <span className="markdown" aria-hidden="true">
+            <kbd>{os === 'macos' || os === 'ios' ? 'Cmd' : 'Ctrl'}</kbd>
+            <kbd>K</kbd>
+          </span>
+        </Dialog.Open>
 
-      <Dialog.Content className={styles.content} aria-label={dialogAriaLabel}>
-        <div>
+        <Dialog.Content className={styles.content} aria-label={labels.search}>
           <div>
             <div>
-              <span>{icon}</span>
-              <input
-                ref={inputRef}
-                type="search"
-                spellCheck={false}
-                placeholder={placeholder}
-                aria-label={searchInputLabel}
-              />
+              <div>
+                <span>{icon}</span>
+                <input
+                  ref={inputRef}
+                  type="search"
+                  spellCheck={false}
+                  value={query}
+                  onChange={event => updateQuery(event.target.value)}
+                  onKeyDown={onInputKeyDown}
+                  placeholder={labels.search}
+                  aria-label={labels.search}
+                />
+              </div>
+              <Dialog.Close aria-label={labels.close}>{labels.close}</Dialog.Close>
             </div>
-            <Dialog.Close aria-label={cancelButtonAriaLabel}>
-              {cancelButtonText}
-            </Dialog.Close>
+
+            <div className="custom-scrollbar-y-bold" ref={resultsPanelRef}>
+              <section>
+                {searchData === null ? (
+                  <>
+                    <h3>{failed ? labels.error : labels.loading}</h3>
+                    {failed ? (
+                      <button type="button" onClick={loadSearch}>
+                        {labels.retry}
+                      </button>
+                    ) : null}
+                  </>
+                ) : query.length === 0 ? (
+                  <h3>{labels.title}</h3>
+                ) : results.length === 0 ? (
+                  <h3>{labels.noResults}</h3>
+                ) : (
+                  <ul>
+                    {results.map(({ item: { meta, heading }, matches }, index) => (
+                      <li key={meta.id + heading.id}>
+                        <Link
+                          href={`${meta.url}#${encodeURIComponent(heading.id)}` as const}
+                          data-active={index === activeIndex}
+                          onMouseMove={() => setActiveIndex(index)}
+                          onNavigate={() => dialogRef.current?.close()}
+                        >
+                          <span>
+                            <span>
+                              {heading.id !== meta.slug && <>{meta.data.title} / </>}
+                              {renderHighlight(heading.text, matches.text)}
+                            </span>
+                            <span>
+                              {renderHighlight(heading.content, matches.content, true)}
+                            </span>
+                            <span>
+                              <span>{meta.data.created}</span>
+                              <span>{meta.data.updated}</span>
+                              {meta.data.categories.map(category => (
+                                <span key={category}>{category}</span>
+                              ))}
+                            </span>
+                          </span>
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </section>
+            </div>
+
+            <footer className="markdown">
+              <span>
+                <kbd aria-label={labels.enter}>Enter</kbd>
+                <span>{labels.select}</span>
+              </span>
+              <span>
+                <kbd aria-label={labels.arrowUp}>↑</kbd>
+                <kbd aria-label={labels.arrowDown}>↓</kbd>
+                <span>{labels.navigate}</span>
+              </span>
+              <span>
+                <kbd aria-label={labels.escape}>Esc</kbd>
+                <span>{labels.close}</span>
+              </span>
+            </footer>
           </div>
-        </div>
-      </Dialog.Content>
-    </Dialog.Root>
+        </Dialog.Content>
+      </Dialog.Root>
+    </>
   );
 }
