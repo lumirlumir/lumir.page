@@ -85,7 +85,7 @@ describe('Search', () => {
       ],
     );
     assert.deepStrictEqual(results[0].matches.text, [0, 5]);
-    assert.isNull(results[0].matches.content);
+    assert.isUndefined(results[0].matches.content);
     assert.deepStrictEqual(results[1].matches.content, [0, 5]);
   });
 
@@ -161,7 +161,7 @@ describe('Search', () => {
         ['title-only', 1],
       ],
     );
-    assert.deepStrictEqual(results[0].matches, { text: null, content: [4, 9] });
+    assert.deepStrictEqual(results[0].matches, { text: undefined, content: [4, 9] });
     assert.deepStrictEqual(results[1].matches, { text: [0, 5], content: [0, 5] });
   });
 
@@ -239,8 +239,8 @@ describe('Search', () => {
       ],
     );
     assert.deepStrictEqual(results[0].matches.text, [0, 5]);
-    assert.isNull(results[0].matches.content);
-    assert.isNull(results[1].matches.text);
+    assert.isUndefined(results[0].matches.content);
+    assert.isUndefined(results[1].matches.text);
     assert.deepStrictEqual(results[1].matches.content, [6, 11]);
     assert.deepStrictEqual(engine.search('react', { ignoreCase: false }), []);
     assert.deepStrictEqual(engine.search(' \n\t ', { ignoreCase: false }), []);
@@ -423,134 +423,41 @@ describe('Search.highlight', () => {
     const engine = new Search([
       {
         ...vMarkdownFileMeta,
-        headings: [{ id: 'react', text: 'Use React', depth: 1, content: '' }],
+        headings: [
+          { id: 'react', text: 'Use React', depth: 1, content: 'Hooks and state' },
+        ],
       },
     ]);
     const [result] = engine.search(' ReAcT ');
 
     assert.deepStrictEqual(
-      Search.highlight(result.vMarkdownHeading.text, result.matches.text ?? null),
+      Search.highlight(result.vMarkdownHeading.text, result.matches.text),
       { before: 'Use ', match: 'React', after: '' },
     );
   });
 
-  it('should leave unmatched fields unhighlighted and excerpt long content from its start', () => {
-    assert.deepStrictEqual(Search.highlight('x'.repeat(250), null, { excerpt: true }), {
-      before: 'x'.repeat(220),
+  it('should preserve all unmatched text without highlighting or excerpting it', () => {
+    assert.deepStrictEqual(Search.highlight('x'.repeat(250), undefined), {
+      before: 'x'.repeat(250),
       match: '',
-      after: '...',
+      after: '',
     });
-    assert.deepStrictEqual(Search.highlight('Usage', null), {
+    assert.deepStrictEqual(Search.highlight('Usage'), {
       before: 'Usage',
       match: '',
       after: '',
     });
-    assert.deepStrictEqual(Search.highlight('', null), {
+    assert.deepStrictEqual(Search.highlight(''), {
       before: '',
       match: '',
       after: '',
     });
   });
 
-  it('should keep 60 characters before a distant match and cap the excerpt at 220 characters', () => {
+  it('should preserve a long match and all surrounding text without adding ellipses', () => {
     assert.deepStrictEqual(
-      Search.highlight(`${'x'.repeat(100)}React${'y'.repeat(300)}`, [100, 105], {
-        excerpt: true,
-      }),
-      {
-        before: `...${'x'.repeat(60)}`,
-        match: 'React',
-        after: `${'y'.repeat(155)}...`,
-      },
-    );
-  });
-
-  it('should omit the leading ellipsis for a match at the start of the content', () => {
-    assert.deepStrictEqual(
-      Search.highlight(`React${'x'.repeat(300)}`, [0, 5], { excerpt: true }),
-      {
-        before: '',
-        match: 'React',
-        after: `${'x'.repeat(215)}...`,
-      },
-    );
-  });
-
-  it('should omit the trailing ellipsis when the excerpt reaches the end of the content', () => {
-    assert.deepStrictEqual(
-      Search.highlight(`${'x'.repeat(100)}React`, [100, 105], { excerpt: true }),
-      {
-        before: `...${'x'.repeat(60)}`,
-        match: 'React',
-        after: '',
-      },
-    );
-  });
-
-  it('should clip a match longer than the excerpt without repeating text after it', () => {
-    assert.deepStrictEqual(
-      Search.highlight(`${'x'.repeat(100)}${'R'.repeat(300)}End`, [100, 400], {
-        excerpt: true,
-      }),
-      {
-        before: `...${'x'.repeat(60)}`,
-        match: 'R'.repeat(160),
-        after: '...',
-      },
-    );
-  });
-
-  it('should use a custom ellipsis at both truncated ends of an excerpt', () => {
-    assert.deepStrictEqual(
-      Search.highlight(`${'x'.repeat(100)}React${'y'.repeat(300)}`, [100, 105], {
-        excerpt: true,
-        ellipsis: '…',
-      }),
-      {
-        before: `…${'x'.repeat(60)}`,
-        match: 'React',
-        after: `${'y'.repeat(155)}…`,
-      },
-    );
-  });
-
-  it('should allow an empty ellipsis while still excerpting the content', () => {
-    assert.deepStrictEqual(
-      Search.highlight(`${'x'.repeat(100)}React${'y'.repeat(300)}`, [100, 105], {
-        excerpt: true,
-        ellipsis: '',
-      }),
-      {
-        before: 'x'.repeat(60),
-        match: 'React',
-        after: 'y'.repeat(155),
-      },
-    );
-  });
-
-  it('should use the custom ellipsis when excerpting content without a match', () => {
-    assert.deepStrictEqual(
-      Search.highlight('x'.repeat(250), null, { excerpt: true, ellipsis: ' [more]' }),
-      { before: 'x'.repeat(220), match: '', after: ' [more]' },
-    );
-  });
-
-  it('should preserve the full text when excerpt is omitted or false', () => {
-    assert.deepStrictEqual(Search.highlight(`React${'x'.repeat(300)}`, [0, 5], {}), {
-      before: '',
-      match: 'React',
-      after: 'x'.repeat(300),
-    });
-    assert.deepStrictEqual(
-      Search.highlight(`React${'x'.repeat(300)}`, [0, 5], { ellipsis: '…' }),
-      { before: '', match: 'React', after: 'x'.repeat(300) },
-    );
-    assert.deepStrictEqual(
-      Search.highlight(`React${'x'.repeat(300)}`, [0, 5], {
-        excerpt: false,
-        ellipsis: '…',
-      }),
-      { before: '', match: 'React', after: 'x'.repeat(300) },
+      Search.highlight(`${'x'.repeat(100)}${'R'.repeat(300)}End`, [100, 400]),
+      { before: 'x'.repeat(100), match: 'R'.repeat(300), after: 'End' },
     );
   });
 });

@@ -25,13 +25,14 @@ import Link from 'next/link';
 import { useDeferredValue, useMemo, useRef, useState, type KeyboardEvent } from 'react';
 import type { LangRecord, PropsWithLang } from '@/data/lang';
 import type { VMarkdownFileMetaWithHeadings } from '@/data/v-markdown';
-import { Search, type HighlightOptions, type Match } from '@/utils/search';
+import { Search, type Match } from '@/utils/search';
 import styles from './localsearch.module.css';
 
 // --------------------------------------------------------------------------------
 // Helper
 // --------------------------------------------------------------------------------
 
+const ellipsis = '...';
 const icon = <LmSearch aria-hidden="true" size={28} strokeWidth="1.5" />;
 const dictionary = {
   ko: {
@@ -91,14 +92,23 @@ const dictionary = {
 
 let searchPromiseCache: Promise<readonly VMarkdownFileMetaWithHeadings[]> | undefined;
 
-function renderHighlight(text: string, range: Match | null, options?: HighlightOptions) {
-  const { before, match, after } = Search.highlight(text, range, options);
+function renderHighlight(text: string, range?: Match, excerpt = false) {
+  // Keep up to 60 preceding characters and 220 total, excluding ellipses.
+  const start = excerpt ? Math.max(0, (range?.[0] ?? 0) - 60) : 0;
+  const end = excerpt ? Math.min(text.length, start + 220) : text.length;
+  const visibleRange: Match | undefined = range && [
+    range[0] - start,
+    Math.min(range[1], end) - start,
+  ];
+  const { before, match, after } = Search.highlight(text.slice(start, end), visibleRange);
 
   return (
     <>
+      {start > 0 && ellipsis}
       {before}
       {match && <mark>{match}</mark>}
       {after}
+      {end < text.length && ellipsis}
     </>
   );
 }
@@ -282,17 +292,14 @@ export function LocalSearch({ lang }: PropsWithLang) {
                                   {vMarkdownHeading.id !== vMarkdownFileMeta.slug && (
                                     <>{vMarkdownFileMeta.data.title} / </>
                                   )}
-                                  {renderHighlight(
-                                    vMarkdownHeading.text,
-                                    matches.text ?? null,
-                                  )}
+                                  {renderHighlight(vMarkdownHeading.text, matches.text)}
                                 </span>
                                 <span>{vMarkdownFileMeta.slug}</span>
                                 <span>
                                   {renderHighlight(
                                     vMarkdownHeading.content,
-                                    matches.content ?? null,
-                                    { excerpt: true },
+                                    matches.content,
+                                    true,
                                   )}
                                 </span>
                                 <span>

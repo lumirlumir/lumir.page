@@ -20,29 +20,12 @@ type SearchField = {
   [Key in keyof VMarkdownHeading]: VMarkdownHeading[Key] extends string ? Key : never;
 }[keyof VMarkdownHeading];
 
-type Matches = Partial<Record<SearchField, Match | null>>;
+type Matches = Partial<Record<SearchField, Match | undefined>>;
 
 /**
  * Match offsets compatible with `slice(start, end)`: start inclusive, end exclusive.
  */
 export type Match = readonly [start: number, end: number];
-
-/**
- * Options for the static `highlight` method.
- */
-export interface HighlightOptions {
-  /**
-   * The string to use as an ellipsis when excerpting long content.
-   * @default '...'
-   */
-  readonly ellipsis?: string;
-
-  /**
-   * Whether to excerpt long content.
-   * @default false
-   */
-  readonly excerpt?: boolean;
-}
 
 /**
  * Result of highlighting a match within text.
@@ -69,16 +52,16 @@ export interface HighlightResult {
  */
 export interface SearchOptions {
   /**
-   * Whether to ignore letter case.
-   * @default true
-   */
-  readonly ignoreCase?: boolean;
-
-  /**
    * Fields to search and their ranking scores. Replaces the defaults; an empty object returns no results.
    * @default { text: 2, content: 1 }
    */
   readonly fields?: Readonly<Partial<Record<SearchField, number>>>;
+
+  /**
+   * Whether to ignore letter case.
+   * @default true
+   */
+  readonly ignoreCase?: boolean;
 }
 
 /**
@@ -101,7 +84,7 @@ export interface SearchResult {
   readonly score: number;
 
   /**
-   * First match range for each searched field, or null when it does not match.
+   * First match range for each searched field, or undefined when it does not match.
    */
   readonly matches: Readonly<Matches>;
 }
@@ -109,12 +92,6 @@ export interface SearchResult {
 // --------------------------------------------------------------------------------
 // Helper
 // --------------------------------------------------------------------------------
-
-/** Heading fields to search and their ranking scores. */
-const defaultSearchFields = {
-  text: 2,
-  content: 1,
-} as const;
 
 /** Returns the highest configured score among the matched fields. */
 function calculateScore(
@@ -136,13 +113,13 @@ function calculateScore(
  * Returns the first match range in normalized text.
  * @param text The text to search in.
  * @param query The query string to search for.
- * @returns The first match range, or `null` if not found.
+ * @returns The first match range, or `undefined` if not found.
  */
-function findMatch(text: string, query: string): Match | null {
+function findMatch(text: string, query: string): Match | undefined {
   const start = text.indexOf(query);
 
   if (start === -1) {
-    return null;
+    return undefined;
   }
 
   return [start, start + query.length];
@@ -163,16 +140,12 @@ function normalize(text: string, ignoreCase: boolean): string {
 // --------------------------------------------------------------------------------
 
 /**
- * Searches selected heading fields using substring matching.
- * Ranks matches by their highest field score and returns match ranges with document metadata and original heading references.
- * Recreate the instance when the source data changes.
+ * Searches Markdown sections and ranks the results.
  *
  * @example
  * ```ts
- * const engine = new Search(vMarkdownFiles);
- * const results = engine.search(' react ', { ignoreCase: true });
- * console.log(results[0].vMarkdownHeading.id); // The matching section's anchor.
- * console.log(results[0].vMarkdownFileMeta.url); // The document URL.
+ * const search = new Search(vMarkdownFileMetaWithHeadings);
+ * const results = search.search('react');
  * ```
  */
 export class Search {
@@ -195,23 +168,18 @@ export class Search {
   // ------------------------------------------------------------------------------
 
   /**
-   * Splits text around the supplied match range; null leaves it unhighlighted.
-   * Excerpts include up to 60 preceding characters and 220 total.
+   * Splits text around the supplied match range. `undefined` leaves it unhighlighted.\
+   * @param text The text to highlight.
+   * @param match The match range to highlight.
+   * @returns The highlighted result with `before`, `match`, and `after` segments.
    */
-  static highlight(
-    text: string,
-    match: Match | null,
-    { ellipsis = '...', excerpt = false }: HighlightOptions = {},
-  ): HighlightResult {
-    const start = excerpt ? Math.max(0, (match?.[0] ?? 0) - 60) : 0;
-    const end = excerpt ? Math.min(text.length, start + 220) : text.length;
-    const matchStart = match?.[0] ?? end;
-    const matchEnd = match === null ? end : Math.min(end, match[1]);
+  static highlight(text: string, match?: Match): HighlightResult {
+    const [start, end] = match ?? [text.length, text.length];
 
     return {
-      before: `${start > 0 ? ellipsis : ''}${text.slice(start, matchStart)}`,
-      match: text.slice(matchStart, matchEnd),
-      after: `${text.slice(matchEnd, end)}${end < text.length ? ellipsis : ''}`,
+      before: text.slice(0, start),
+      match: text.slice(start, end),
+      after: text.slice(end),
     };
   }
 
@@ -219,10 +187,21 @@ export class Search {
   // Public Method
   // ------------------------------------------------------------------------------
 
-  /** Returns all matching sections in ranked order. */
+  /**
+   * Searches all matching sections in ranked order.
+   * @param query The search query string.
+   * @param options The search options including `fields` and `ignoreCase`.
+   * @returns An array of search results sorted by relevance.
+   */
   search(
     query: string,
-    { ignoreCase = true, fields = defaultSearchFields }: SearchOptions = {},
+    {
+      fields = {
+        text: 2,
+        content: 1,
+      },
+      ignoreCase = true,
+    }: SearchOptions = {},
   ): SearchResult[] {
     const normalizedQuery = normalize(query.trim(), ignoreCase);
     const fieldEntries = Object.entries(fields) as [SearchField, number][];
