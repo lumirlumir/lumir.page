@@ -21,11 +21,11 @@ import 'client-only';
 import { Dialog, type DialogHandle } from '@lumir/react-kit/components';
 import { useOs, useShortcut } from '@lumir/react-kit/hooks';
 import { LmSearch } from '@lumir/react-kit/svgs';
+import { Search, type Match } from '@lumir/utils';
 import Link from 'next/link';
 import { useDeferredValue, useMemo, useRef, useState, type KeyboardEvent } from 'react';
 import type { LangRecord, PropsWithLang } from '@/data/lang';
 import type { VMarkdownFileMetaWithHeadings } from '@/data/v-markdown';
-import { Search, type Match } from '@/utils/search';
 import styles from './localsearch.module.css';
 
 // --------------------------------------------------------------------------------
