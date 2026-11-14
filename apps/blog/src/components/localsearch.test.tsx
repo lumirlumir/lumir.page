@@ -19,25 +19,23 @@ let LocalSearch: (typeof import('./localsearch.jsx'))['LocalSearch'];
 // Mock
 // --------------------------------------------------------------------------------
 
-vi.mock(
-  'next/link',
-  () =>
-    function Link({
-      href,
-      children,
-      'data-active': active,
-    }: {
-      href: string;
-      children: ReactNode;
-      'data-active'?: boolean;
-    }) {
-      return (
-        <a href={href} data-active={active}>
-          {children}
-        </a>
-      );
-    },
-);
+vi.mock('next/link', () => ({
+  default: function Link({
+    href,
+    children,
+    'data-active': active,
+  }: {
+    href: string;
+    children: ReactNode;
+    'data-active'?: boolean;
+  }) {
+    return (
+      <a href={href} data-active={active}>
+        {children}
+      </a>
+    );
+  },
+}));
 
 // --------------------------------------------------------------------------------
 // Test
@@ -172,7 +170,9 @@ describe('localsearch', () => {
               categories: [],
               references: [],
             },
-            headings: [{ id: 'react', text: 'React guide', depth: 1, content: '' }],
+            headings: [
+              { id: 'react', text: 'React guide', depth: 1, content: 'Learn React' },
+            ],
           },
         ]),
       );
@@ -311,7 +311,12 @@ describe('localsearch', () => {
               references: [],
             },
             headings: [
-              { id: 'example', text: 'Example article', depth: 1, content: '' },
+              {
+                id: 'example',
+                text: 'Example article',
+                depth: 1,
+                content: 'React overview',
+              },
               { id: 'usage', text: 'Usage', depth: 2, content: 'Use React here.' },
               { id: 'hooks', text: 'React hooks', depth: 2, content: '' },
               { id: 'state', text: 'REACT state', depth: 2, content: 'React state.' },
@@ -362,7 +367,7 @@ describe('localsearch', () => {
                 id: 'example',
                 text: 'Example article',
                 depth: 1,
-                content: '',
+                content: 'Metadata summary',
               },
               {
                 id: 'usage',
@@ -433,7 +438,7 @@ describe('localsearch', () => {
                 id: 'example',
                 text: 'Example article',
                 depth: 1,
-                content: '',
+                content: 'Metadata summary',
               },
               {
                 id: 'installation',
@@ -476,7 +481,7 @@ describe('localsearch', () => {
             readtime: 1,
             data: {
               title: 'React & Reactivity <img src=x>',
-              description: 'Try REACT; a reaction guide.',
+              description: 'Try **REACT**; a reaction guide.',
               created: '2026-10-02',
               updated: '2026-10-02',
               categories: [],
@@ -487,7 +492,7 @@ describe('localsearch', () => {
                 id: 'react',
                 text: 'React & Reactivity <img src=x>',
                 depth: 1,
-                content: '',
+                content: 'Try REACT; a reaction guide.',
               },
             ],
           },
@@ -573,7 +578,7 @@ describe('localsearch', () => {
                 id: 'react-first',
                 text: 'React first',
                 depth: 1,
-                content: '',
+                content: 'React guide',
               },
             ],
           },
@@ -596,7 +601,7 @@ describe('localsearch', () => {
                 id: 'react-second',
                 text: 'React second',
                 depth: 1,
-                content: '',
+                content: 'React guide',
               },
             ],
           },

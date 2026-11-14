@@ -137,19 +137,13 @@ export function LocalSearch({ lang }: PropsWithLang) {
     // Rank title matches first; keep the original order for ties.
     return searchData
       .flatMap(vMarkdownFileMetaWithHeadings =>
-        vMarkdownFileMetaWithHeadings.headings.map((vMarkdownHeading, index) => ({
+        vMarkdownFileMetaWithHeadings.headings.map(vMarkdownHeading => ({
           vMarkdownFileMetaWithHeadings,
           vMarkdownHeading,
-          content:
-            index === 0
-              ? [vMarkdownFileMetaWithHeadings.data.description, vMarkdownHeading.content]
-                  .filter(Boolean)
-                  .join(' ')
-              : vMarkdownHeading.content,
         })),
       )
-      .filter(({ vMarkdownHeading, content }) =>
-        [vMarkdownHeading.text, content].some(text =>
+      .filter(({ vMarkdownHeading }) =>
+        [vMarkdownHeading.text, vMarkdownHeading.content].some(text =>
           text.toLowerCase().includes(deferredQuery),
         ),
       )
@@ -303,10 +297,7 @@ export function LocalSearch({ lang }: PropsWithLang) {
                 ) : (
                   <ul>
                     {results.map(
-                      (
-                        { vMarkdownFileMetaWithHeadings, vMarkdownHeading, content },
-                        index,
-                      ) => {
+                      ({ vMarkdownFileMetaWithHeadings, vMarkdownHeading }, index) => {
                         const href =
                           `${vMarkdownFileMetaWithHeadings.url}#${encodeURIComponent(vMarkdownHeading.id)}` as const;
 
@@ -328,7 +319,11 @@ export function LocalSearch({ lang }: PropsWithLang) {
                                 </span>
                                 <span>{vMarkdownFileMetaWithHeadings.slug}</span>
                                 <span>
-                                  {highlightMatch(content, deferredQuery, true)}
+                                  {highlightMatch(
+                                    vMarkdownHeading.content,
+                                    deferredQuery,
+                                    true,
+                                  )}
                                 </span>
                                 <span>
                                   <span>
