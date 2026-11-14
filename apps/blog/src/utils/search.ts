@@ -168,7 +168,7 @@ export class Search {
   // ------------------------------------------------------------------------------
 
   /**
-   * Splits text around the supplied match range. `undefined` leaves it unhighlighted.\
+   * Splits text around the supplied match range. `undefined` leaves it unhighlighted.
    * @param text The text to highlight.
    * @param match The match range to highlight.
    * @returns The highlighted result with `before`, `match`, and `after` segments.
