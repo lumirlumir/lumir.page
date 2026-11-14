@@ -37,12 +37,11 @@ const icon = <LmSearch aria-hidden="true" size={28} strokeWidth="1.5" />;
 const dictionary = {
   ko: {
     search: '검색',
-    loading: '검색 데이터를 불러오는 중입니다.',
+    loading: '검색 데이터를 불러오는 중입니다...',
     error: '검색 데이터를 불러오지 못했습니다.',
     retry: '다시 시도',
-    cancel: '취소',
     title: '문서 검색',
-    noResults: '검색 결과가 없습니다',
+    noResults: '검색 결과가 없습니다.',
     updated: '수정',
     select: '선택',
     enter: '엔터',
@@ -54,12 +53,11 @@ const dictionary = {
   },
   en: {
     search: 'Search',
-    loading: 'Loading search data.',
+    loading: 'Loading search data...',
     error: 'Failed to load search data.',
     retry: 'Retry',
-    cancel: 'Cancel',
     title: 'Search docs',
-    noResults: 'No results for',
+    noResults: 'No search results.',
     updated: 'Updated',
     select: 'Select',
     enter: 'Enter',
@@ -75,7 +73,6 @@ const dictionary = {
     | 'loading'
     | 'error'
     | 'retry'
-    | 'cancel'
     | 'title'
     | 'noResults'
     | 'updated'
@@ -265,7 +262,7 @@ export function LocalSearch({ lang }: PropsWithLang) {
                   aria-label={labels.search}
                 />
               </div>
-              <Dialog.Close aria-label={labels.cancel}>{labels.cancel}</Dialog.Close>
+              <Dialog.Close aria-label={labels.close}>{labels.close}</Dialog.Close>
             </div>
 
             <div ref={resultsPanelRef}>
