@@ -139,7 +139,7 @@ function normalize(text: string, ignoreCase: boolean): string {
 
 /**
  * Searches extracted text fields and ranks the original items.
- * @typeParam Items The type of the items being searched.
+ * @typeParam Item The type of the items being searched.
  * @typeParam Field The type of the field names.
  * @example
  * ```ts
