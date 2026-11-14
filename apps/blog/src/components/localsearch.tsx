@@ -49,7 +49,7 @@ const dictionary = {
     arrowUp: '위쪽 화살표',
     arrowDown: '아래쪽 화살표',
     close: '닫기',
-    escape: '닫기',
+    escape: '이스케이프',
   },
   en: {
     search: 'Search',
@@ -92,12 +92,11 @@ let searchPromiseCache: Promise<readonly VMarkdownFileMetaWithHeadings[]> | unde
 function renderHighlight(text: string, range?: Match, excerpt = false) {
   // Keep up to 60 preceding characters and 220 total, excluding ellipses.
   const start = excerpt ? Math.max(0, (range?.[0] ?? 0) - 60) : 0;
-  const end = excerpt ? Math.min(text.length, start + 220) : text.length;
-  const visibleRange: Match | undefined = range && [
-    range[0] - start,
-    Math.min(range[1], end) - start,
-  ];
-  const { before, match, after } = Search.highlight(text.slice(start, end), visibleRange);
+  const end = excerpt ? start + 220 : text.length;
+  const { before, match, after } = Search.highlight(
+    text.slice(start, end),
+    range && [range[0] - start, range[1] - start],
+  );
 
   return (
     <>
