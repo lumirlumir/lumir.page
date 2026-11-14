@@ -42,15 +42,6 @@ export default defineConfig([
 
   // js
   {
-    name: 'js/global/test-d',
-    files: ['**/*.test-d.{ts,mts,cts,tsx}'],
-    rules: {
-      'prefer-const': 'off',
-      'typescript/no-unsafe-function-type': 'off',
-      'typescript/no-unused-vars': 'off',
-    },
-  },
-  {
     name: 'js/apps/api',
     files: ['apps/api/**/*.{js,mjs,cjs,ts,mts,cts}'],
     languageOptions: {
@@ -150,9 +141,20 @@ export default defineConfig([
 
   // ts
   {
+    name: 'ts/global',
     files: ['**/*.{ts,mts,cts,tsx}'],
     rules: {
       'typescript/no-import-type-side-effects': 'error', // TODO: enable this in a shared config.
+    },
+  },
+  {
+    name: 'js/global/test-d',
+    files: ['**/*.test-d.{ts,mts,cts,tsx}'],
+    rules: {
+      'no-useless-assignment': 'off',
+      'prefer-const': 'off',
+      'typescript/no-unsafe-function-type': 'off',
+      'typescript/no-unused-vars': 'off',
     },
   },
 
