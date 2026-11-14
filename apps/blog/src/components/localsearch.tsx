@@ -25,13 +25,13 @@ import Link from 'next/link';
 import { useDeferredValue, useMemo, useRef, useState, type KeyboardEvent } from 'react';
 import type { LangRecord, PropsWithLang } from '@/data/lang';
 import type { VMarkdownFileMetaWithHeadings } from '@/data/v-markdown';
+import { Search, type HighlightOptions, type SearchMatch } from '@/utils/search';
 import styles from './localsearch.module.css';
 
 // --------------------------------------------------------------------------------
 // Helper
 // --------------------------------------------------------------------------------
 
-const ellipsis = '...';
 const icon = <LmSearch aria-hidden="true" size={28} strokeWidth="1.5" />;
 const dictionary = {
   ko: {
@@ -91,24 +91,18 @@ const dictionary = {
 
 let searchPromiseCache: Promise<readonly VMarkdownFileMetaWithHeadings[]> | undefined;
 
-function highlightMatch(text: string, query: string, excerpt = false) {
-  const match = text.toLowerCase().indexOf(query);
-  const start = excerpt ? Math.max(0, match - 60) : 0;
-  const end = excerpt ? Math.min(text.length, start + 220) : text.length;
+function renderHighlight(
+  text: string,
+  range: SearchMatch | null,
+  options?: HighlightOptions,
+) {
+  const { before, match, after } = Search.highlight(text, range, options);
 
   return (
     <>
-      {start > 0 && ellipsis}
-      {match === -1 ? (
-        text.slice(start, end)
-      ) : (
-        <>
-          {text.slice(start, match)}
-          <mark>{text.slice(match, Math.min(end, match + query.length))}</mark>
-          {text.slice(match + query.length, end)}
-        </>
-      )}
-      {end < text.length && ellipsis}
+      {before}
+      {match && <mark>{match}</mark>}
+      {after}
     </>
   );
 }
@@ -127,33 +121,10 @@ export function LocalSearch({ lang }: PropsWithLang) {
     readonly VMarkdownFileMetaWithHeadings[] | null
   >(null);
   const [failed, setFailed] = useState<boolean>(false);
-  const deferredQuery = useDeferredValue(query.trim().toLowerCase());
+  const deferredQuery = useDeferredValue(query);
   const os = useOs();
-  const results = useMemo(() => {
-    if (searchData === null || deferredQuery.length === 0) {
-      return [];
-    }
-
-    // Rank title matches first; keep the original order for ties.
-    return searchData
-      .flatMap(vMarkdownFileMetaWithHeadings =>
-        vMarkdownFileMetaWithHeadings.headings.map(vMarkdownHeading => ({
-          vMarkdownFileMetaWithHeadings,
-          vMarkdownHeading,
-        })),
-      )
-      .filter(({ vMarkdownHeading }) =>
-        [vMarkdownHeading.text, vMarkdownHeading.content].some(text =>
-          text.toLowerCase().includes(deferredQuery),
-        ),
-      )
-      .toSorted(
-        (a, b) =>
-          Number(b.vMarkdownHeading.text.toLowerCase().includes(deferredQuery)) -
-          Number(a.vMarkdownHeading.text.toLowerCase().includes(deferredQuery)),
-      )
-      .slice(0, 10);
-  }, [searchData, deferredQuery]);
+  const search = useMemo(() => new Search(searchData ?? []), [searchData]);
+  const results = useMemo(() => search.search(deferredQuery), [search, deferredQuery]);
   const labels = dictionary[lang];
 
   // ------------------------------------------------------------------------------
@@ -297,9 +268,9 @@ export function LocalSearch({ lang }: PropsWithLang) {
                 ) : (
                   <ul>
                     {results.map(
-                      ({ vMarkdownFileMetaWithHeadings, vMarkdownHeading }, index) => {
+                      ({ vMarkdownFileMeta, vMarkdownHeading, matches }, index) => {
                         const href =
-                          `${vMarkdownFileMetaWithHeadings.url}#${encodeURIComponent(vMarkdownHeading.id)}` as const;
+                          `${vMarkdownFileMeta.url}#${encodeURIComponent(vMarkdownHeading.id)}` as const;
 
                         return (
                           <li key={href}>
@@ -312,33 +283,30 @@ export function LocalSearch({ lang }: PropsWithLang) {
                             >
                               <span>
                                 <span>
-                                  {vMarkdownHeading !==
-                                    vMarkdownFileMetaWithHeadings.headings[0] && (
-                                    <>{vMarkdownFileMetaWithHeadings.data.title} / </>
+                                  {vMarkdownHeading.id !== vMarkdownFileMeta.slug && (
+                                    <>{vMarkdownFileMeta.data.title} / </>
                                   )}
-                                  {highlightMatch(vMarkdownHeading.text, deferredQuery)}
+                                  {renderHighlight(
+                                    vMarkdownHeading.text,
+                                    matches.text ?? null,
+                                  )}
                                 </span>
-                                <span>{vMarkdownFileMetaWithHeadings.slug}</span>
+                                <span>{vMarkdownFileMeta.slug}</span>
                                 <span>
-                                  {highlightMatch(
+                                  {renderHighlight(
                                     vMarkdownHeading.content,
-                                    deferredQuery,
-                                    true,
+                                    matches.content ?? null,
+                                    { excerpt: true },
                                   )}
                                 </span>
                                 <span>
+                                  <span>{vMarkdownFileMeta.data.created}</span>
                                   <span>
-                                    {vMarkdownFileMetaWithHeadings.data.created}
+                                    {labels.updated} {vMarkdownFileMeta.data.updated}
                                   </span>
-                                  <span>
-                                    {labels.updated}{' '}
-                                    {vMarkdownFileMetaWithHeadings.data.updated}
-                                  </span>
-                                  {vMarkdownFileMetaWithHeadings.data.categories.map(
-                                    category => (
-                                      <span key={category}>{category}</span>
-                                    ),
-                                  )}
+                                  {vMarkdownFileMeta.data.categories.map(category => (
+                                    <span key={category}>{category}</span>
+                                  ))}
                                 </span>
                               </span>
                             </Link>
