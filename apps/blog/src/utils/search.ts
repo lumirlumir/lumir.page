@@ -20,12 +20,12 @@ type SearchField = {
   [Key in keyof VMarkdownHeading]: VMarkdownHeading[Key] extends string ? Key : never;
 }[keyof VMarkdownHeading];
 
-type Matches = Partial<Record<SearchField, SearchMatch | null>>;
+type Matches = Partial<Record<SearchField, Match | null>>;
 
 /**
  * Match offsets compatible with `slice(start, end)`: start inclusive, end exclusive.
  */
-export type SearchMatch = readonly [start: number, end: number];
+export type Match = readonly [start: number, end: number];
 
 /**
  * Options for the static `highlight` method.
@@ -138,7 +138,7 @@ function calculateScore(
  * @param query The query string to search for.
  * @returns The first match range, or `null` if not found.
  */
-function findMatch(text: string, query: string): SearchMatch | null {
+function findMatch(text: string, query: string): Match | null {
   const start = text.indexOf(query);
 
   if (start === -1) {
@@ -200,7 +200,7 @@ export class Search {
    */
   static highlight(
     text: string,
-    match: SearchMatch | null,
+    match: Match | null,
     { ellipsis = '...', excerpt = false }: HighlightOptions = {},
   ): HighlightResult {
     const start = excerpt ? Math.max(0, (match?.[0] ?? 0) - 60) : 0;

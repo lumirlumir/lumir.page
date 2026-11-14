@@ -25,7 +25,7 @@ import Link from 'next/link';
 import { useDeferredValue, useMemo, useRef, useState, type KeyboardEvent } from 'react';
 import type { LangRecord, PropsWithLang } from '@/data/lang';
 import type { VMarkdownFileMetaWithHeadings } from '@/data/v-markdown';
-import { Search, type HighlightOptions, type SearchMatch } from '@/utils/search';
+import { Search, type HighlightOptions, type Match } from '@/utils/search';
 import styles from './localsearch.module.css';
 
 // --------------------------------------------------------------------------------
@@ -91,11 +91,7 @@ const dictionary = {
 
 let searchPromiseCache: Promise<readonly VMarkdownFileMetaWithHeadings[]> | undefined;
 
-function renderHighlight(
-  text: string,
-  range: SearchMatch | null,
-  options?: HighlightOptions,
-) {
+function renderHighlight(text: string, range: Match | null, options?: HighlightOptions) {
   const { before, match, after } = Search.highlight(text, range, options);
 
   return (
