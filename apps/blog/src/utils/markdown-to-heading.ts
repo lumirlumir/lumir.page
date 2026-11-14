@@ -13,8 +13,10 @@ import 'server-only';
 // --------------------------------------------------------------------------------
 
 import {
+  remarkBlockquoteFromDescription,
   remarkCustomHeadingId,
   remarkHeadingFromTitle,
+  type RemarkBlockquoteFromDescriptionOptions,
   type RemarkHeadingFromTitleOptions,
 } from '@lumir/remark-plugins';
 import type { Nodes, Root } from 'mdast';
@@ -29,7 +31,8 @@ import { mdastToTextSync } from '@/utils/mdast-to-text';
 // Typedef
 // --------------------------------------------------------------------------------
 
-type MarkdownToHeadingOptions = RemarkHeadingFromTitleOptions;
+type MarkdownToHeadingOptions = RemarkHeadingFromTitleOptions &
+  RemarkBlockquoteFromDescriptionOptions;
 
 // --------------------------------------------------------------------------------
 // Export
@@ -45,7 +48,10 @@ type MarkdownToHeadingOptions = RemarkHeadingFromTitleOptions;
  * import { markdownToHeading } from '@/utils/markdown-to-heading';
  *
  * const markdown = 'Introduction\n\n## Heading {#heading}\n\nSome content';
- * const headings = await markdownToHeading(markdown, { title: 'Awesome Title {#awesome-title}' });
+ * const headings = await markdownToHeading(markdown, {
+ *   title: 'Awesome Title {#awesome-title}',
+ *   description: 'A brief summary.',
+ * });
  *
  * console.log(headings);
  * // Output:
@@ -54,7 +60,7 @@ type MarkdownToHeadingOptions = RemarkHeadingFromTitleOptions;
  * //     id: 'awesome-title',
  * //     text: 'Awesome Title',
  * //     depth: 1,
- * //     content: 'Introduction'
+ * //     content: 'A brief summary. Introduction'
  * //   },
  * //   {
  * //     id: 'heading',
@@ -74,7 +80,8 @@ export async function markdownToHeading(
     .use(remarkParse)
     .use(remarkGfm)
     .use(remarkMath)
-    .use(remarkHeadingFromTitle, options)
+    .use(remarkBlockquoteFromDescription, { description: options?.description })
+    .use(remarkHeadingFromTitle, { title: options?.title })
     .use(remarkCustomHeadingId);
   const tree = (await processor.run(processor.parse(markdown))) as Root;
   const headings: VMarkdownHeading[] = [];

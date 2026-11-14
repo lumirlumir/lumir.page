@@ -251,7 +251,12 @@ describe('markdown-collection', () => {
             references: ['https://example.com/ko'],
           },
           headings: [
-            { id: 'simple-post', text: 'Korean Mock Post', depth: 1, content: '' },
+            {
+              id: 'simple-post',
+              text: 'Korean Mock Post',
+              depth: 1,
+              content: 'Korean mock post description.',
+            },
             {
               id: 'korean-section',
               text: 'Korean Mock Post',
@@ -283,7 +288,12 @@ describe('markdown-collection', () => {
             references: [],
           },
           headings: [
-            { id: 'simple-post', text: 'English Mock Post', depth: 1, content: '' },
+            {
+              id: 'simple-post',
+              text: 'English Mock Post',
+              depth: 1,
+              content: 'English mock post description.',
+            },
             {
               id: 'english-section',
               text: 'English Mock Post',
