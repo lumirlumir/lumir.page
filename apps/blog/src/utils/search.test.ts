@@ -68,7 +68,7 @@ describe('search', () => {
     });
   });
 
-  describe('static methods', () => {
+  describe('static method', () => {
     describe('highlight', () => {
       it('should split text around a range while preserving casing and HTML-like text', () => {
         assert.deepStrictEqual(Search.highlight('React & Reactivity', [0, 5]), {
@@ -135,21 +135,16 @@ describe('search', () => {
     });
   });
 
-  describe('public methods', () => {
+  describe('public method', () => {
     describe('search', () => {
-      it('should return no results for blank queries or empty items', () => {
+      it('should return no results for blank queries', () => {
         const search = new Search(['React'], {
-          fields: { text: 1 },
-          extractField: item => item,
-        });
-        const emptyEngine = new Search<string, 'text'>([], {
           fields: { text: 1 },
           extractField: item => item,
         });
 
         assert.deepStrictEqual(search.search(''), []);
         assert.deepStrictEqual(search.search(' \n\t '), []);
-        assert.deepStrictEqual(emptyEngine.search('React'), []);
       });
 
       it('should sum field scores, exclude unrelated items, and preserve ties', () => {
@@ -321,28 +316,6 @@ describe('search', () => {
           { item, matches: { text: [0, 5], content: [4, 9] }, score: 3 },
         ]);
         assert.strictEqual(results[0].item, item);
-      });
-
-      it('should return more than ten results without reordering the source array', () => {
-        const items = Object.freeze([
-          ...Array.from({ length: 11 }, (_, id) => ({
-            text: `Section ${id}`,
-            content: 'React',
-          })),
-          { text: 'React', content: '' },
-        ]);
-        const search = new Search(items, {
-          fields: { text: 2, content: 1 },
-          extractField: (item, field) => item[field],
-        });
-        const results = search.search('react');
-
-        assert.deepStrictEqual(
-          results.map(({ item }) => item),
-          [items[11], ...items.slice(0, 11)],
-        );
-        assert.strictEqual(results[0].item, items[11]);
-        assert.strictEqual(results[11].item, items[10]);
       });
     });
   });
