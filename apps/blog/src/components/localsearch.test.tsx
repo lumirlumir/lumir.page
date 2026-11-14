@@ -298,7 +298,7 @@ describe('localsearch', () => {
   });
 
   describe('search result rendering', () => {
-    it('should rank title matches before description and body matches while preserving ties', async () => {
+    it('should rank title and body matches first and preserve ties for content-only matches', async () => {
       vi.spyOn(globalThis, 'fetch').mockResolvedValue(
         Response.json([
           {
@@ -341,8 +341,8 @@ describe('localsearch', () => {
             link.getAttribute('href'),
           ),
           [
-            '/en/posts/example#hooks',
             '/en/posts/example#state',
+            '/en/posts/example#hooks',
             '/en/posts/example#example',
             '/en/posts/example#usage',
           ],

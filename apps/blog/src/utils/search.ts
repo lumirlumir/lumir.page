@@ -1,31 +1,30 @@
 /**
- * @fileoverview Searches heading text and section content in virtual Markdown documents.
+ * @fileoverview Searches extracted text fields and ranks matching items.
  */
-
-// --------------------------------------------------------------------------------
-// Import
-// --------------------------------------------------------------------------------
-
-import type {
-  VMarkdownHeading,
-  VMarkdownFileMeta,
-  VMarkdownFileMetaWithHeadings,
-} from '@/data/v-markdown';
 
 // --------------------------------------------------------------------------------
 // Typedef
 // --------------------------------------------------------------------------------
 
-type SearchField = {
-  [Key in keyof VMarkdownHeading]: VMarkdownHeading[Key] extends string ? Key : never;
-}[keyof VMarkdownHeading];
+/**
+ * Mapping of field names to their respective scores.
+ */
+type FieldScores<Field extends string> = Readonly<Record<Field, number>>;
 
-type Matches = Partial<Record<SearchField, Match | undefined>>;
+/**
+ * Mapping of field names to their respective score entries.
+ */
+type FieldScoreEntries<Field extends string> = [field: Field, score: number][];
 
 /**
  * Match offsets compatible with `slice(start, end)`: start inclusive, end exclusive.
  */
 export type Match = readonly [start: number, end: number];
+
+/**
+ * Mapping of field names to their first match range, if any.
+ */
+export type Matches<Field extends string> = Partial<Record<Field, Match | undefined>>;
 
 /**
  * Result of highlighting a match within text.
@@ -50,63 +49,62 @@ export interface HighlightResult {
 /**
  * Options for the `search` method.
  */
-export interface SearchOptions {
+export interface SearchOptions<Field extends string> {
   /**
-   * Fields to search and their ranking scores. Replaces the defaults; an empty object returns no results.
-   * @default { text: 2, content: 1 }
+   * Fields to search and their ranking scores. Replaces the constructor defaults; an empty object returns no results.
    */
-  readonly fields?: Readonly<Partial<Record<SearchField, number>>>;
+  readonly fields?: Partial<FieldScores<Field>>;
 
   /**
-   * Whether to ignore letter case.
-   * @default true
+   * Whether to ignore letter case. Defaults to the constructor setting.
    */
   readonly ignoreCase?: boolean;
 }
 
 /**
- * Result of searching a virtual Markdown document.
+ * A matching item with its score and match ranges.
  */
-export interface SearchResult {
+export interface SearchResult<Item, Field extends string> {
   /**
-   * `vMarkdownFileMeta`.
+   * The original item.
    */
-  readonly vMarkdownFileMeta: VMarkdownFileMeta;
+  readonly item: Item;
 
   /**
-   * `vMarkdownHeading`.
-   */
-  readonly vMarkdownHeading: VMarkdownHeading;
-
-  /**
-   * Highest score among matched fields. Higher scores rank first.
+   * Sum of matched field scores. Higher scores rank first.
    */
   readonly score: number;
 
   /**
    * First match range for each searched field, or undefined when it does not match.
    */
-  readonly matches: Readonly<Matches>;
+  readonly matches: Readonly<Matches<Field>>;
 }
 
 // --------------------------------------------------------------------------------
 // Helper
 // --------------------------------------------------------------------------------
 
-/** Returns the highest configured score among the matched fields. */
-function calculateScore(
-  matches: Matches,
-  fields: readonly [SearchField, number][],
-): SearchResult['score'] {
-  let score = 0;
+/**
+ * Adds each matched field's configured score once.
+ * @typeParam Field The type of the field names.
+ * @param matches The match ranges for each field.
+ * @param fields The configured field scores.
+ * @returns The total score based on matched fields.
+ */
+function calculateScore<Field extends string>(
+  matches: Matches<Field>,
+  fields: Readonly<FieldScoreEntries<Field>>,
+): SearchResult<unknown, Field>['score'] {
+  let totalScore = 0;
 
-  for (const [key, fieldScore] of fields) {
-    if (matches[key]) {
-      score = Math.max(score, fieldScore);
+  for (const [field, score] of fields) {
+    if (matches[field]) {
+      totalScore += score;
     }
   }
 
-  return score;
+  return totalScore;
 }
 
 /**
@@ -140,27 +138,52 @@ function normalize(text: string, ignoreCase: boolean): string {
 // --------------------------------------------------------------------------------
 
 /**
- * Searches Markdown sections and ranks the results.
- *
+ * Searches extracted text fields and ranks the original items.
+ * @typeParam Items The type of the items being searched.
+ * @typeParam Field The type of the field names.
  * @example
  * ```ts
- * const search = new Search(vMarkdownFileMetaWithHeadings);
+ * const search = new Search([{ title: 'React' }], {
+ *   fields: { title: 2 },
+ *   extractField: (item, field) => item[field],
+ * });
  * const results = search.search('react');
  * ```
  */
-export class Search {
+export class Search<Item, Field extends string> {
   // ------------------------------------------------------------------------------
   // Private Property
   // ------------------------------------------------------------------------------
 
-  readonly #vMarkdownFileMetaWithHeadings: readonly VMarkdownFileMetaWithHeadings[];
+  readonly #items: readonly Item[];
+  readonly #fields: FieldScores<Field>;
+  readonly #ignoreCase: boolean;
+  readonly #extractField: (item: Item, field: Field) => string;
 
   // ------------------------------------------------------------------------------
   // Constructor
   // ------------------------------------------------------------------------------
 
-  constructor(vMarkdownFileMetaWithHeadings: readonly VMarkdownFileMetaWithHeadings[]) {
-    this.#vMarkdownFileMetaWithHeadings = vMarkdownFileMetaWithHeadings;
+  constructor(
+    items: readonly Item[],
+    {
+      fields,
+      ignoreCase = true,
+      extractField,
+    }: {
+      readonly fields: FieldScores<Field>;
+      readonly extractField: (item: Item, field: NoInfer<Field>) => string;
+      /**
+       * Whether searches ignore letter case by default.
+       * @default true
+       */
+      readonly ignoreCase?: boolean;
+    },
+  ) {
+    this.#items = items;
+    this.#fields = fields;
+    this.#ignoreCase = ignoreCase;
+    this.#extractField = extractField;
   }
 
   // ------------------------------------------------------------------------------
@@ -188,48 +211,39 @@ export class Search {
   // ------------------------------------------------------------------------------
 
   /**
-   * Searches all matching sections in ranked order.
+   * Searches extracted text fields and ranks matching items.
    * @param query The search query string.
    * @param options The search options including `fields` and `ignoreCase`.
    * @returns An array of search results sorted by relevance.
    */
   search(
     query: string,
-    {
-      fields = {
-        text: 2,
-        content: 1,
-      },
-      ignoreCase = true,
-    }: SearchOptions = {},
-  ): SearchResult[] {
+    { fields = this.#fields, ignoreCase = this.#ignoreCase }: SearchOptions<Field> = {},
+  ): SearchResult<Item, Field>[] {
     const normalizedQuery = normalize(query.trim(), ignoreCase);
-    const fieldEntries = Object.entries(fields) as [SearchField, number][];
+    const fieldEntries = Object.entries(fields) as FieldScoreEntries<Field>;
 
     if (normalizedQuery.length === 0 || fieldEntries.length === 0) {
       return [];
     }
 
-    return this.#vMarkdownFileMetaWithHeadings
-      .flatMap(({ headings, ...vMarkdownFileMeta }) =>
-        headings.map(vMarkdownHeading => {
-          const matches: Matches = {};
+    return this.#items
+      .map(item => {
+        const matches: Matches<Field> = {};
 
-          for (const [key] of fieldEntries) {
-            matches[key] = findMatch(
-              normalize(vMarkdownHeading[key], ignoreCase),
-              normalizedQuery,
-            );
-          }
+        for (const [field] of fieldEntries) {
+          matches[field] = findMatch(
+            normalize(this.#extractField(item, field), ignoreCase),
+            normalizedQuery,
+          );
+        }
 
-          return {
-            vMarkdownFileMeta,
-            vMarkdownHeading,
-            matches,
-            score: calculateScore(matches, fieldEntries),
-          };
-        }),
-      )
+        return {
+          item,
+          matches,
+          score: calculateScore(matches, fieldEntries),
+        };
+      })
       .filter(({ score }) => score > 0)
       .toSorted((a, b) => b.score - a.score);
   }

@@ -129,7 +129,19 @@ export function LocalSearch({ lang }: PropsWithLang) {
   const [failed, setFailed] = useState<boolean>(false);
   const deferredQuery = useDeferredValue(query);
   const os = useOs();
-  const search = useMemo(() => new Search(searchData ?? []), [searchData]);
+  const search = useMemo(
+    () =>
+      new Search(
+        (searchData ?? []).flatMap(({ headings, ...vMarkdownFileMeta }) =>
+          headings.map(vMarkdownHeading => ({ vMarkdownFileMeta, vMarkdownHeading })),
+        ),
+        {
+          fields: { text: 1.5, content: 1 },
+          extractField: (item, field) => item.vMarkdownHeading[field],
+        },
+      ),
+    [searchData],
+  );
   const results = useMemo(() => search.search(deferredQuery), [search, deferredQuery]);
   const labels = dictionary[lang];
 
@@ -274,7 +286,10 @@ export function LocalSearch({ lang }: PropsWithLang) {
                 ) : (
                   <ul>
                     {results.map(
-                      ({ vMarkdownFileMeta, vMarkdownHeading, matches }, index) => {
+                      (
+                        { item: { vMarkdownFileMeta, vMarkdownHeading }, matches },
+                        index,
+                      ) => {
                         const href =
                           `${vMarkdownFileMeta.url}#${encodeURIComponent(vMarkdownHeading.id)}` as const;
 
