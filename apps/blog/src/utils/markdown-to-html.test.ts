@@ -122,6 +122,30 @@ describe('markdown-to-html', () => {
       assert.strictEqual(await markdownToHtml(markdown), html);
     });
 
+    it('should prepend a blockquote when only the description option is provided', async () => {
+      assert.strictEqual(
+        await markdownToHtml('Body paragraph', { description: 'A brief summary.' }),
+        '<blockquote>\n<p>A brief summary.</p>\n</blockquote>\n<p>Body paragraph</p>',
+      );
+    });
+
+    it('should place the description blockquote between the title and the body', async () => {
+      assert.strictEqual(
+        await markdownToHtml('Body paragraph', {
+          title: 'Awesome Title {#post-slug}',
+          description: 'A **brief** summary with `code` and HTML<sup>tags</sup>.',
+        }),
+        '<h1 id="post-slug"><a aria-hidden="true" tabindex="-1" href="#post-slug"></a>Awesome Title</h1>\n<blockquote>\n<p>A <strong>brief</strong> summary with <code>code</code> and HTML<sup>tags</sup>.</p>\n</blockquote>\n<p>Body paragraph</p>',
+      );
+    });
+
+    it('should omit the blockquote when the description is empty', async () => {
+      assert.strictEqual(
+        await markdownToHtml('Body paragraph', { description: '' }),
+        '<p>Body paragraph</p>',
+      );
+    });
+
     it('should add an H1 heading when `title` option is provided', async () => {
       const markdown = 'Foo Bar Baz';
       const html =
