@@ -63,7 +63,7 @@ describe('remark-heading-from-title', () => {
       assert.strictEqual(file.value, 'paragraph\n');
     });
 
-    it('should keep the original markdown content unchanged when the option is `undefined` - 1', async () => {
+    it('should keep the original markdown content unchanged when options are explicitly `undefined`', async () => {
       const file = await unified()
         .use(remarkParse)
         .use(remarkHeadingFromTitle, undefined)
@@ -73,7 +73,7 @@ describe('remark-heading-from-title', () => {
       assert.strictEqual(file.value, 'paragraph\n');
     });
 
-    it('should keep the original markdown content unchanged when the option is `undefined` - 2', async () => {
+    it('should keep the original markdown content unchanged when options are omitted', async () => {
       const file = await unified()
         .use(remarkParse)
         .use(remarkHeadingFromTitle)
