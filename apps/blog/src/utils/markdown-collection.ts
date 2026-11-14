@@ -309,6 +309,7 @@ class MarkdownCollection {
       ...vMarkdownFileMeta,
       headings: await markdownToHeading(content, {
         title: `${vMarkdownFileMeta.data.title} {#${vMarkdownFileMeta.slug}}`,
+        description: vMarkdownFileMeta.data.description,
       }),
     };
   }

@@ -30,6 +30,23 @@ describe('markdown-to-heading', () => {
     ]);
   });
 
+  it('should include the description before the introduction under the generated title', async () => {
+    const headings = await markdownToHeading('Intro.\n\n## Section {#section}\n\nBody.', {
+      title: 'Article {#article}',
+      description: 'A **brief** summary with `code`.\n\nMore details.',
+    });
+
+    assert.deepStrictEqual(headings, [
+      {
+        id: 'article',
+        text: 'Article',
+        depth: 1,
+        content: 'A brief summary with code. More details. Intro.',
+      },
+      { id: 'section', text: 'Section', depth: 2, content: 'Body.' },
+    ]);
+  });
+
   it('should extract flat sections in order and omit text before the first heading', async () => {
     const headings = await markdownToHeading(
       'Intro.\n\n## **First** {#first}\n\nFirst body.\n\n### Child {#child}\n\nChild body.\n\n## Last {#last}',
