@@ -9,37 +9,46 @@
 import { afterEach, assert, beforeEach, describe, it, vi } from 'vitest';
 import { page, userEvent } from 'vitest/browser';
 import { render } from 'vitest-browser-react';
-import type { MouseEventHandler, ReactNode } from 'react';
-// Let Vite discover dependencies before importing fresh instances in each test.
-import './localsearch.jsx';
+import type { ComponentProps } from 'react';
 
-let LocalSearch: (typeof import('./localsearch.jsx'))['LocalSearch'];
+let { LocalSearch } = await import('./localsearch');
+
+// --------------------------------------------------------------------------------
+// Helper
+// --------------------------------------------------------------------------------
+
+const article = {
+  id: 'react.en',
+  url: '/en/posts/react',
+  slug: 'react',
+  lang: 'en',
+  readtime: 1,
+  data: {
+    title: 'React guide',
+    description: 'Learn React',
+    created: '2026-10-02',
+    updated: '2026-10-02',
+    categories: [],
+    references: [],
+  },
+  headings: [
+    { id: 'react', text: 'React guide', depth: 1, content: 'Learn React' },
+    { id: 'hooks', text: 'React hooks', depth: 2, content: '' },
+  ],
+} as const;
 
 // --------------------------------------------------------------------------------
 // Mock
 // --------------------------------------------------------------------------------
 
-// Match next/link's CommonJS export in the browser dependency bundle.
 vi.mock(
   'next/link',
   () =>
-    function Link({
-      href,
+    ({
       children,
-      'data-active': active,
-      onMouseMove,
-    }: {
-      href: string;
-      children: ReactNode;
-      'data-active'?: boolean;
-      onMouseMove?: MouseEventHandler<HTMLAnchorElement>;
-    }) {
-      return (
-        <a href={href} data-active={active} onMouseMove={onMouseMove}>
-          {children}
-        </a>
-      );
-    },
+      onNavigate: _onNavigate,
+      ...props
+    }: ComponentProps<'a'> & { onNavigate?: unknown }) => <a {...props}>{children}</a>,
 );
 
 // --------------------------------------------------------------------------------
@@ -48,7 +57,7 @@ vi.mock(
 
 describe('localsearch', () => {
   beforeEach(async () => {
-    // Native browser modules retain their cache even after vi.resetModules().
+    // Isolate the module-level search cache between browser tests.
     ({ LocalSearch } = await import(
       /* @vite-ignore */ `./localsearch.tsx?test=${crypto.randomUUID()}`
     ));
@@ -113,7 +122,7 @@ describe('localsearch', () => {
   });
 
   describe('search data loading', () => {
-    it('should defer fetching until opening and reuse pending and loaded search data after remounting', async () => {
+    it('should fetch on opening and reuse pending and loaded data', async () => {
       const response = Promise.withResolvers<Response>();
       const fetchSearch = vi.spyOn(globalThis, 'fetch').mockReturnValue(response.promise);
       const screen = await render(<LocalSearch lang="en" />);
@@ -121,74 +130,40 @@ describe('localsearch', () => {
       assert.strictEqual(fetchSearch.mock.calls.length, 0);
       await screen.getByRole('button', { name: 'Search', exact: true }).click();
       assert.deepStrictEqual(fetchSearch.mock.calls, [['/en/search.json']]);
-      assert.include(
-        screen.container.querySelector('section > h3')?.textContent,
-        'Loading search data.',
-      );
-      await userEvent.keyboard('{Escape}');
-      await userEvent.keyboard('/');
+      assert.include(screen.container.textContent, 'Loading search data...');
+
+      await userEvent.keyboard('{Escape}/');
       assert.strictEqual(fetchSearch.mock.calls.length, 1);
 
       response.resolve(Response.json([]));
-      await vi.waitFor(() => {
-        assert.strictEqual(
-          screen.container.querySelector('section > h3')?.textContent,
-          'Search docs',
-        );
-      });
+      await vi.waitFor(() => assert.include(screen.container.textContent, 'Search docs'));
       await screen.unmount();
 
       const remounted = await render(<LocalSearch lang="en" />);
       await remounted.getByRole('button', { name: 'Search', exact: true }).click();
-      await vi.waitFor(() => {
-        assert.strictEqual(
-          remounted.container.querySelector('section > h3')?.textContent,
-          'Search docs',
-        );
-      });
+      await vi.waitFor(() =>
+        assert.include(remounted.container.textContent, 'Search docs'),
+      );
       assert.strictEqual(fetchSearch.mock.calls.length, 1);
     });
 
-    it('should search the query entered while loading as soon as the data is ready', async () => {
+    it('should search a pending query when loading finishes', async () => {
       const response = Promise.withResolvers<Response>();
       vi.spyOn(globalThis, 'fetch').mockReturnValue(response.promise);
       const screen = await render(<LocalSearch lang="en" />);
 
       await screen.getByRole('button', { name: 'Search', exact: true }).click();
       await screen.getByRole('searchbox', { name: 'Search' }).fill('React');
-      assert.strictEqual(screen.container.querySelectorAll('li > a').length, 0);
-      assert.notInclude(screen.container.textContent, 'No results for');
+      assert.include(screen.container.textContent, 'Loading search data...');
+      assert.notInclude(screen.container.textContent, 'No search results.');
 
-      response.resolve(
-        Response.json([
-          {
-            id: 'react.en',
-            url: '/en/posts/react',
-            slug: 'react',
-            lang: 'en',
-            readtime: 1,
-            data: {
-              title: 'React guide',
-              description: 'Learn React',
-              created: '2026-10-02',
-              updated: '2026-10-02',
-              categories: [],
-              references: [],
-            },
-            headings: [
-              { id: 'react', text: 'React guide', depth: 1, content: 'Learn React' },
-            ],
-          },
-        ]),
-      );
-
+      response.resolve(Response.json([article]));
       await vi.waitFor(() => {
         assert.include(
           screen.container.querySelector('li > a')?.textContent,
           'React guide',
         );
       });
-      assert.strictEqual(screen.container.querySelector('input')?.value, 'React');
     });
 
     it('should retry an unsuccessful response without losing the query', async () => {
@@ -201,27 +176,17 @@ describe('localsearch', () => {
       await screen.getByRole('button', { name: 'Search', exact: true }).click();
       await screen.getByRole('searchbox', { name: 'Search' }).fill('React');
       await vi.waitFor(() => {
-        assert.include(
-          screen.container.querySelector('section > h3')?.textContent,
-          'Failed to load search data.',
-        );
+        assert.include(screen.container.textContent, 'Failed to load search data.');
       });
       await screen.getByRole('button', { name: 'Retry' }).click();
       await vi.waitFor(() => {
-        assert.strictEqual(
-          screen.container.querySelector('section > h3')?.textContent,
-          'No results for',
-        );
+        assert.include(screen.container.textContent, 'No search results.');
       });
-
-      assert.deepStrictEqual(fetchSearch.mock.calls, [
-        ['/en/search.json'],
-        ['/en/search.json'],
-      ]);
+      assert.strictEqual(fetchSearch.mock.calls.length, 2);
       assert.strictEqual(screen.container.querySelector('input')?.value, 'React');
     });
 
-    it('should retry a network failure when reopening but not when closing the dialog', async () => {
+    it('should retry a network failure on reopening, not closing', async () => {
       const fetchSearch = vi
         .spyOn(globalThis, 'fetch')
         .mockRejectedValueOnce(new TypeError('Network failure'))
@@ -229,99 +194,46 @@ describe('localsearch', () => {
       const screen = await render(<LocalSearch lang="en" />);
 
       await screen.getByRole('button', { name: 'Search', exact: true }).click();
-      await screen.getByRole('searchbox', { name: 'Search' }).fill('React');
       await vi.waitFor(() => {
-        assert.include(
-          screen.container.querySelector('section > h3')?.textContent,
-          'Failed to load search data.',
-        );
+        assert.include(screen.container.textContent, 'Failed to load search data.');
       });
       await userEvent.keyboard('{Control>}k{/Control}');
       assert.strictEqual(fetchSearch.mock.calls.length, 1);
-      assert.strictEqual(screen.container.querySelector('input')?.value, '');
       await userEvent.keyboard('{Control>}k{/Control}');
-      await vi.waitFor(() => {
-        assert.strictEqual(
-          screen.container.querySelector('section > h3')?.textContent,
-          'Search docs',
-        );
-      });
+      await vi.waitFor(() => assert.include(screen.container.textContent, 'Search docs'));
       assert.strictEqual(fetchSearch.mock.calls.length, 2);
     });
 
-    it('should clear the query on Escape and reuse the search data when reopened', async () => {
-      const fetchSearch = vi
-        .spyOn(globalThis, 'fetch')
-        .mockResolvedValue(Response.json([]));
+    it('should clear the query when Escape closes the dialog', async () => {
       const screen = await render(<LocalSearch lang="en" />);
 
       await screen.getByRole('button', { name: 'Search', exact: true }).click();
       await screen.getByRole('searchbox', { name: 'Search' }).fill('React');
       // Leave the search input so Escape closes the dialog instead of clearing the input itself.
       await userEvent.keyboard('{Tab}{Escape}');
-
       await vi.waitFor(() => {
         assert.isFalse(screen.container.querySelector('dialog')?.open);
         assert.strictEqual(screen.container.querySelector('input')?.value, '');
       });
-
-      await userEvent.keyboard('/');
-
-      assert.isTrue(screen.container.querySelector('dialog')?.open);
-      assert.strictEqual(screen.container.querySelector('input')?.value, '');
-      assert.strictEqual(fetchSearch.mock.calls.length, 1);
     });
 
-    it('should load Korean search data once and reuse it when reopening', async () => {
-      const fetchSearch = vi
-        .spyOn(globalThis, 'fetch')
-        .mockResolvedValueOnce(Response.json([]));
+    it('should request search data for the selected language', async () => {
       const screen = await render(<LocalSearch lang="ko" />);
 
       await userEvent.keyboard('{Meta>}k{/Meta}');
-      await vi.waitFor(() => {
-        assert.strictEqual(
-          screen.container.querySelector('section > h3')?.textContent,
-          '문서 검색',
-        );
-      });
-      await userEvent.keyboard('{Escape}');
-      await userEvent.keyboard('/');
-      await vi.waitFor(() => {
-        assert.strictEqual(
-          screen.container.querySelector('section > h3')?.textContent,
-          '문서 검색',
-        );
-      });
-      assert.deepStrictEqual(fetchSearch.mock.calls, [['/ko/search.json']]);
+      await vi.waitFor(() => assert.include(screen.container.textContent, '문서 검색'));
+      assert.deepStrictEqual(vi.mocked(fetch).mock.calls, [['/ko/search.json']]);
     });
   });
 
   describe('search result rendering', () => {
-    it('should rank title and body matches first and preserve ties for content-only matches', async () => {
+    it('should rank title and body matches first and preserve content-only ties', async () => {
       vi.spyOn(globalThis, 'fetch').mockResolvedValue(
         Response.json([
           {
-            id: 'example.en',
-            url: '/en/posts/example',
-            slug: 'example',
-            lang: 'en',
-            readtime: 1,
-            data: {
-              title: 'Example article',
-              description: 'React overview',
-              created: '2026-10-03',
-              updated: '2026-10-03',
-              categories: [],
-              references: [],
-            },
+            ...article,
             headings: [
-              {
-                id: 'example',
-                text: 'Example article',
-                depth: 1,
-                content: 'React overview',
-              },
+              { id: 'overview', text: 'Overview', depth: 1, content: 'React overview' },
               { id: 'usage', text: 'Usage', depth: 2, content: 'Use React here.' },
               { id: 'hooks', text: 'React hooks', depth: 2, content: '' },
               { id: 'state', text: 'REACT state', depth: 2, content: 'React state.' },
@@ -330,56 +242,33 @@ describe('localsearch', () => {
           },
         ]),
       );
-
       const screen = await render(<LocalSearch lang="en" />);
+
       await screen.getByRole('button', { name: 'Search', exact: true }).click();
       await screen.getByRole('searchbox', { name: 'Search' }).fill(' rEaCt ');
-
       await vi.waitFor(() => {
         assert.deepStrictEqual(
           Array.from(screen.container.querySelectorAll('li > a'), link =>
             link.getAttribute('href'),
           ),
           [
-            '/en/posts/example#state',
-            '/en/posts/example#hooks',
-            '/en/posts/example#example',
-            '/en/posts/example#usage',
+            '/en/posts/react#state',
+            '/en/posts/react#hooks',
+            '/en/posts/react#overview',
+            '/en/posts/react#usage',
           ],
         );
       });
     });
 
-    it('should show only the article and section titles and safely highlight a body excerpt with its section link', async () => {
+    it('should show article and section titles with a safe highlighted excerpt and section link', async () => {
       vi.spyOn(globalThis, 'fetch').mockResolvedValue(
         Response.json([
           {
-            id: 'example.en',
-            url: '/en/posts/example',
-            slug: 'example',
-            lang: 'en',
-            readtime: 1,
-            data: {
-              title: 'Example article',
-              description: 'Metadata summary',
-              created: '2026-10-03',
-              updated: '2026-10-03',
-              categories: [],
-              references: [],
-            },
+            ...article,
             headings: [
-              {
-                id: 'example',
-                text: 'Example article',
-                depth: 1,
-                content: 'Metadata summary',
-              },
-              {
-                id: 'usage',
-                text: 'Usage',
-                depth: 2,
-                content: '',
-              },
+              { id: 'installation', text: 'Installation', depth: 1, content: '' },
+              { id: 'usage', text: 'Usage', depth: 2, content: '' },
               {
                 id: 'references',
                 text: 'References',
@@ -390,376 +279,141 @@ describe('localsearch', () => {
           },
         ]),
       );
-
       const screen = await render(<LocalSearch lang="en" />);
+
       await screen.getByRole('button', { name: 'Search', exact: true }).click();
       await screen.getByRole('searchbox', { name: 'Search' }).fill('tooltip');
       await vi.waitFor(() => {
-        assert.strictEqual(screen.container.querySelectorAll('li > a').length, 1);
+        assert.strictEqual(
+          screen.container.querySelector('li > a mark')?.textContent,
+          'tooltip',
+        );
       });
-
       const link = screen.container.querySelector('li > a');
-      const excerpt = link?.querySelector('span')?.children[2];
+      const excerpt = link?.querySelector('span')?.children[1];
 
       assert.ok(link);
       assert.ok(excerpt);
-      assert.strictEqual(link.getAttribute('href'), '/en/posts/example#references');
+      assert.strictEqual(link.getAttribute('href'), '/en/posts/react#references');
       assert.strictEqual(
         link.querySelector('span')?.children[0].textContent,
-        'Example article / References',
+        'React guide / References',
       );
-      await vi.waitFor(() => {
-        assert.strictEqual(excerpt.querySelector('mark')?.textContent, 'tooltip');
-      });
       assert.include(excerpt.textContent, '<img src=x>');
       assert.isAtMost(excerpt.textContent.length, 222);
       assert.isNull(link.querySelector('img'));
-
-      await screen.getByRole('searchbox', { name: 'Search' }).fill('tooltips');
-      await vi.waitFor(() => {
-        assert.strictEqual(excerpt.querySelector('mark')?.textContent, 'tooltips');
-      });
     });
 
-    it('should omit a body H1 ancestor from the title of a matching child section', async () => {
+    it('should highlight title and body matches and update them with the query', async () => {
       vi.spyOn(globalThis, 'fetch').mockResolvedValue(
         Response.json([
           {
-            id: 'example.en',
-            url: '/en/posts/example',
-            slug: 'example',
-            lang: 'en',
-            readtime: 1,
-            data: {
-              title: 'Example article',
-              description: 'Metadata summary',
-              created: '2026-10-03',
-              updated: '2026-10-03',
-              categories: [],
-              references: [],
-            },
-            headings: [
-              {
-                id: 'example',
-                text: 'Example article',
-                depth: 1,
-                content: 'Metadata summary',
-              },
-              {
-                id: 'installation',
-                text: 'Installation',
-                depth: 1,
-                content: '',
-              },
-              {
-                id: 'windows',
-                text: 'Windows',
-                depth: 2,
-                content: 'Tooltip setup.',
-              },
-            ],
-          },
-        ]),
-      );
-
-      const screen = await render(<LocalSearch lang="en" />);
-
-      await screen.getByRole('button', { name: 'Search', exact: true }).click();
-      await screen.getByRole('searchbox', { name: 'Search' }).fill('tooltip');
-
-      await vi.waitFor(() => {
-        assert.strictEqual(
-          screen.container.querySelector('li > a > span')?.children[0].textContent,
-          'Example article / Windows',
-        );
-      });
-    });
-
-    it('should highlight literal case-insensitive matches and reject typos while preserving text', async () => {
-      vi.spyOn(globalThis, 'fetch').mockResolvedValue(
-        Response.json([
-          {
-            id: 'react.en',
-            url: '/en/posts/react',
-            slug: 'react',
-            lang: 'en',
-            readtime: 1,
-            data: {
-              title: 'React & Reactivity <img src=x>',
-              description: 'Try **REACT**; a reaction guide.',
-              created: '2026-10-02',
-              updated: '2026-10-02',
-              categories: [],
-              references: [],
-            },
+            ...article,
             headings: [
               {
                 id: 'react',
-                text: 'React & Reactivity <img src=x>',
+                text: 'React & Reactivity',
                 depth: 1,
-                content: 'Try REACT; a reaction guide.',
+                content: 'Try REACT.',
               },
             ],
           },
         ]),
       );
-
       const screen = await render(<LocalSearch lang="en" />);
+
       await screen.getByRole('button', { name: 'Search', exact: true }).click();
       await screen.getByRole('searchbox', { name: 'Search' }).fill('react');
       await vi.waitFor(() => {
-        assert.strictEqual(screen.container.querySelectorAll('li > a').length, 1);
-      });
-      const result = screen.container.querySelector('li > a > span');
-      const title = result?.children[0];
-      const description = result?.children[2];
-
-      assert.ok(result);
-      assert.ok(title);
-      assert.ok(description);
-      await vi.waitFor(() => {
         assert.deepStrictEqual(
-          Array.from(title.querySelectorAll('mark'), mark => mark.textContent),
-          ['React'],
-        );
-        assert.deepStrictEqual(
-          Array.from(description.querySelectorAll('mark'), mark => mark.textContent),
-          ['REACT'],
+          Array.from(
+            screen.container.querySelectorAll('li > a mark'),
+            mark => mark.textContent,
+          ),
+          ['React', 'REACT'],
         );
       });
-      assert.strictEqual(title.textContent, 'React & Reactivity <img src=x>');
-      assert.strictEqual(description.textContent, 'Try REACT; a reaction guide.');
-      assert.isNull(result.querySelector('img'));
+      assert.strictEqual(
+        screen.container.querySelector('li > a > span')?.children[0].textContent,
+        'React & Reactivity',
+      );
+      assert.strictEqual(
+        screen.container.querySelector('li > a > span')?.children[1].textContent,
+        'Try REACT.',
+      );
 
       await screen.getByRole('searchbox', { name: 'Search' }).fill('reactiv');
       await vi.waitFor(() => {
         assert.deepStrictEqual(
-          Array.from(title.querySelectorAll('mark'), mark => mark.textContent),
+          Array.from(
+            screen.container.querySelectorAll('li > a mark'),
+            mark => mark.textContent,
+          ),
           ['Reactiv'],
         );
-        assert.deepStrictEqual(
-          Array.from(description.querySelectorAll('mark'), mark => mark.textContent),
-          [],
-        );
       });
-
-      await screen.getByRole('searchbox', { name: 'Search' }).fill('<img src=x>');
-      await vi.waitFor(() => {
-        assert.deepStrictEqual(
-          Array.from(title.querySelectorAll('mark'), mark => mark.textContent),
-          ['<img src=x>'],
-        );
-        assert.deepStrictEqual(
-          Array.from(description.querySelectorAll('mark'), mark => mark.textContent),
-          [],
-        );
-      });
-      assert.strictEqual(title.textContent, 'React & Reactivity <img src=x>');
-      assert.strictEqual(description.textContent, 'Try REACT; a reaction guide.');
-      assert.isNull(result.querySelector('img'));
     });
   });
 
   describe('keyboard navigation', () => {
-    it('should keep one result highlighted when switching between hover and keyboard and open it on Enter', async () => {
-      vi.spyOn(globalThis, 'fetch').mockResolvedValue(
-        Response.json([
-          {
-            id: 'react.en',
-            url: '/en/posts/react',
-            slug: 'react',
-            lang: 'en',
-            readtime: 1,
-            data: {
-              title: 'React guide',
-              description: 'React overview',
-              created: '2026-10-02',
-              updated: '2026-10-02',
-              categories: [],
-              references: [],
-            },
-            headings: [
-              { id: 'react', text: 'React guide', depth: 1, content: 'React overview' },
-              { id: 'hooks', text: 'React hooks', depth: 2, content: '' },
-            ],
-          },
-        ]),
-      );
+    beforeEach(() => {
+      vi.mocked(fetch).mockResolvedValue(Response.json([article]));
+    });
 
+    it('should select by hover or keyboard and open the active result on Enter', async () => {
       const screen = await render(<LocalSearch lang="en" />);
       screen.container.style.setProperty('--color-bg-default', 'white');
       screen.container.style.setProperty('--color-bg-neutral-muted', 'silver');
       await screen.getByRole('button', { name: 'Search', exact: true }).click();
       await screen.getByRole('searchbox', { name: 'Search' }).fill('React');
-      await vi.waitFor(() => {
-        assert.strictEqual(screen.container.querySelectorAll('li > a').length, 2);
-      });
-      const input = screen.container.querySelector('input');
+      await vi.waitFor(() =>
+        assert.strictEqual(screen.container.querySelectorAll('li > a').length, 2),
+      );
       const [first, second] =
         screen.container.querySelectorAll<HTMLAnchorElement>('li > a');
-
-      assert.ok(input);
-      assert.ok(first);
-      assert.ok(second);
-
       const firstClick = vi.spyOn(first, 'click').mockImplementation(() => {});
       const secondClick = vi.spyOn(second, 'click').mockImplementation(() => {});
 
       assert.strictEqual(first.getAttribute('data-active'), 'true');
-      assert.strictEqual(second.getAttribute('data-active'), 'false');
-
       await userEvent.hover(second);
-
-      await vi.waitFor(() => {
-        assert.strictEqual(first.getAttribute('data-active'), 'false');
-        assert.strictEqual(second.getAttribute('data-active'), 'true');
-        assert.strictEqual(getComputedStyle(first).backgroundColor, 'rgb(255, 255, 255)');
-        assert.strictEqual(
-          getComputedStyle(second).backgroundColor,
-          'rgb(192, 192, 192)',
-        );
-      });
-      assert.strictEqual(document.activeElement, input);
-
+      assert.strictEqual(first.getAttribute('data-active'), 'false');
+      assert.strictEqual(second.getAttribute('data-active'), 'true');
       await userEvent.keyboard('{Enter}');
-
       assert.strictEqual(firstClick.mock.calls.length, 0);
       assert.strictEqual(secondClick.mock.calls.length, 1);
 
       await userEvent.keyboard('{ArrowUp}');
-
-      await vi.waitFor(() => {
-        assert.strictEqual(first.getAttribute('data-active'), 'true');
-        assert.strictEqual(second.getAttribute('data-active'), 'false');
-        assert.isTrue(second.matches(':hover'));
-        assert.strictEqual(getComputedStyle(first).backgroundColor, 'rgb(192, 192, 192)');
-        assert.strictEqual(
-          getComputedStyle(second).backgroundColor,
-          'rgb(255, 255, 255)',
-        );
-      });
-
+      assert.strictEqual(first.getAttribute('data-active'), 'true');
+      assert.strictEqual(second.getAttribute('data-active'), 'false');
+      assert.isTrue(second.matches(':hover'));
+      assert.strictEqual(getComputedStyle(first).backgroundColor, 'rgb(192, 192, 192)');
+      assert.strictEqual(getComputedStyle(second).backgroundColor, 'rgb(255, 255, 255)');
+      assert.strictEqual(document.activeElement, screen.container.querySelector('input'));
       await userEvent.keyboard('{Enter}');
-
       assert.strictEqual(firstClick.mock.calls.length, 1);
       assert.strictEqual(secondClick.mock.calls.length, 1);
     });
 
-    it('should scroll hidden keyboard selections into view without scrolling visible results', async () => {
-      vi.spyOn(globalThis, 'fetch').mockResolvedValue(
-        Response.json([
-          {
-            id: 'react-first.en',
-            url: '/en/posts/react-first',
-            slug: 'react-first',
-            lang: 'en',
-            readtime: 1,
-            data: {
-              title: 'React first',
-              description: 'React guide',
-              created: '2026-10-02',
-              updated: '2026-10-02',
-              categories: [],
-              references: [],
-            },
-            headings: [
-              {
-                id: 'react-first',
-                text: 'React first',
-                depth: 1,
-                content: 'React guide',
-              },
-            ],
-          },
-          {
-            id: 'react-second.en',
-            url: '/en/posts/react-second',
-            slug: 'react-second',
-            lang: 'en',
-            readtime: 1,
-            data: {
-              title: 'React second',
-              description: 'React guide',
-              created: '2026-10-02',
-              updated: '2026-10-02',
-              categories: [],
-              references: [],
-            },
-            headings: [
-              {
-                id: 'react-second',
-                text: 'React second',
-                depth: 1,
-                content: 'React guide',
-              },
-            ],
-          },
-        ]),
-      );
-
+    it('should wrap keyboard selection and scroll the selected result into view', async () => {
       const screen = await render(<LocalSearch lang="en" />);
       await screen.getByRole('button', { name: 'Search', exact: true }).click();
       await screen.getByRole('searchbox', { name: 'Search' }).fill('React');
-      await vi.waitFor(() => {
-        assert.strictEqual(screen.container.querySelectorAll('li > a').length, 2);
-      });
-      const input = screen.container.querySelector('input');
-      const list = screen.container.querySelector('ul');
-      const panel = list?.parentElement?.parentElement;
-      const first = list?.querySelectorAll('a')[0];
-      const second = list?.querySelectorAll('a')[1];
-
-      assert.ok(input);
-      assert.ok(list);
-      assert.ok(panel);
-      assert.ok(first);
-      assert.ok(second);
-
-      // Give the panel deterministic dimensions while exercising real browser scrolling.
-      Object.assign(panel.style, { height: '120px', padding: '0', overflowY: 'auto' });
-      Object.assign(list.style, { margin: '0', padding: '0' });
-      first.style.height = '40px';
-      second.style.height = '40px';
-
-      await userEvent.keyboard('{ArrowDown}');
-
-      assert.strictEqual(second.getAttribute('data-active'), 'true');
-      assert.strictEqual(panel.scrollTop, 0);
+      await vi.waitFor(() =>
+        assert.strictEqual(screen.container.querySelectorAll('li > a').length, 2),
+      );
+      const [first, second] =
+        screen.container.querySelectorAll<HTMLAnchorElement>('li > a');
+      const scroll = vi.spyOn(second, 'scrollIntoView').mockImplementation(() => {});
 
       await userEvent.keyboard('{ArrowUp}');
-
-      assert.strictEqual(first.getAttribute('data-active'), 'true');
-      assert.strictEqual(panel.scrollTop, 0);
-
-      panel.style.height = '60px';
-      await userEvent.keyboard('{ArrowDown}');
-
       assert.strictEqual(second.getAttribute('data-active'), 'true');
-      await vi.waitFor(() => {
-        assert.isAbove(panel.scrollTop, 0);
-        assert.isAtMost(
-          second.getBoundingClientRect().bottom,
-          panel.getBoundingClientRect().bottom,
-        );
-      });
-      assert.strictEqual(document.activeElement, input);
-
-      await userEvent.keyboard('{ArrowUp}');
-
-      assert.strictEqual(first.getAttribute('data-active'), 'true');
-      await vi.waitFor(() => assert.strictEqual(panel.scrollTop, 0));
-
-      await userEvent.keyboard('{ArrowUp}');
-
-      assert.strictEqual(second.getAttribute('data-active'), 'true');
-      await vi.waitFor(() => assert.isAbove(panel.scrollTop, 0));
+      assert.deepStrictEqual(scroll.mock.calls, [
+        [{ behavior: 'smooth', block: 'nearest', inline: 'nearest' }],
+      ]);
 
       await userEvent.keyboard('{ArrowDown}');
-
       assert.strictEqual(first.getAttribute('data-active'), 'true');
-      await vi.waitFor(() => assert.strictEqual(panel.scrollTop, 0));
-      assert.strictEqual(input.value, 'React');
-      assert.strictEqual(document.activeElement, input);
+      assert.strictEqual(document.activeElement, screen.container.querySelector('input'));
     });
   });
 

@@ -42,7 +42,6 @@ const dictionary = {
     retry: '다시 시도',
     title: '문서 검색',
     noResults: '검색 결과가 없습니다.',
-    updated: '수정',
     select: '선택',
     enter: '엔터',
     navigate: '이동',
@@ -58,7 +57,6 @@ const dictionary = {
     retry: 'Retry',
     title: 'Search docs',
     noResults: 'No search results.',
-    updated: 'Updated',
     select: 'Select',
     enter: 'Enter',
     navigate: 'Navigate',
@@ -75,7 +73,6 @@ const dictionary = {
     | 'retry'
     | 'title'
     | 'noResults'
-    | 'updated'
     | 'select'
     | 'enter'
     | 'navigate'
@@ -128,12 +125,12 @@ export function LocalSearch({ lang }: PropsWithLang) {
   const search = useMemo(
     () =>
       new Search(
-        (searchData ?? []).flatMap(({ headings, ...vMarkdownFileMeta }) =>
-          headings.map(vMarkdownHeading => ({ vMarkdownFileMeta, vMarkdownHeading })),
+        (searchData ?? []).flatMap(({ headings, ...meta }) =>
+          headings.map(heading => ({ meta, heading })),
         ),
         {
           fields: { text: 1.5, content: 1 },
-          extractField: (item, field) => item.vMarkdownHeading[field],
+          extractField: (item, field) => item.heading[field],
         },
       ),
     [searchData],
@@ -264,7 +261,7 @@ export function LocalSearch({ lang }: PropsWithLang) {
               <Dialog.Close aria-label={labels.close}>{labels.close}</Dialog.Close>
             </div>
 
-            <div ref={resultsPanelRef}>
+            <div className="custom-scrollbar-y-bold" ref={resultsPanelRef}>
               <section>
                 {searchData === null ? (
                   <>
@@ -281,53 +278,33 @@ export function LocalSearch({ lang }: PropsWithLang) {
                   <h3>{labels.noResults}</h3>
                 ) : (
                   <ul>
-                    {results.map(
-                      (
-                        { item: { vMarkdownFileMeta, vMarkdownHeading }, matches },
-                        index,
-                      ) => {
-                        const href =
-                          `${vMarkdownFileMeta.url}#${encodeURIComponent(vMarkdownHeading.id)}` as const;
-
-                        return (
-                          <li key={href}>
-                            <Link
-                              href={href}
-                              data-active={index === activeIndex}
-                              onMouseMove={() => setActiveIndex(index)}
-                              // Close on same-tab navigation; modifier clicks keep the search open.
-                              onNavigate={() => dialogRef.current?.close()}
-                            >
-                              <span>
-                                <span>
-                                  {vMarkdownHeading.id !== vMarkdownFileMeta.slug && (
-                                    <>{vMarkdownFileMeta.data.title} / </>
-                                  )}
-                                  {renderHighlight(vMarkdownHeading.text, matches.text)}
-                                </span>
-                                <span>{vMarkdownFileMeta.slug}</span>
-                                <span>
-                                  {renderHighlight(
-                                    vMarkdownHeading.content,
-                                    matches.content,
-                                    true,
-                                  )}
-                                </span>
-                                <span>
-                                  <span>{vMarkdownFileMeta.data.created}</span>
-                                  <span>
-                                    {labels.updated} {vMarkdownFileMeta.data.updated}
-                                  </span>
-                                  {vMarkdownFileMeta.data.categories.map(category => (
-                                    <span key={category}>{category}</span>
-                                  ))}
-                                </span>
-                              </span>
-                            </Link>
-                          </li>
-                        );
-                      },
-                    )}
+                    {results.map(({ item: { meta, heading }, matches }, index) => (
+                      <li key={meta.id + heading.id}>
+                        <Link
+                          href={`${meta.url}#${encodeURIComponent(heading.id)}` as const}
+                          data-active={index === activeIndex}
+                          onMouseMove={() => setActiveIndex(index)}
+                          onNavigate={() => dialogRef.current?.close()}
+                        >
+                          <span>
+                            <span>
+                              {heading.id !== meta.slug && <>{meta.data.title} / </>}
+                              {renderHighlight(heading.text, matches.text)}
+                            </span>
+                            <span>
+                              {renderHighlight(heading.content, matches.content, true)}
+                            </span>
+                            <span>
+                              <span>{meta.data.created}</span>
+                              <span>{meta.data.updated}</span>
+                              {meta.data.categories.map(category => (
+                                <span key={category}>{category}</span>
+                              ))}
+                            </span>
+                          </span>
+                        </Link>
+                      </li>
+                    ))}
                   </ul>
                 )}
               </section>

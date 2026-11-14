@@ -185,22 +185,6 @@
   & > div > div:first-child + div {
     min-height: 0;
     padding: var(--size-12);
-    overflow: hidden scroll;
-    background-color: var(--color-bg-inset);
-
-    &::-webkit-scrollbar {
-      width: var(--size-4);
-    }
-
-    &::-webkit-scrollbar-thumb {
-      background-color: var(--color-border-default);
-      border-radius: var(--border-radius-md);
-    }
-
-    @supports not selector(::-webkit-scrollbar) {
-      scrollbar-color: var(--color-border-default) transparent;
-      scrollbar-width: thin;
-    }
 
     & > section:has(> h3) {
       display: flex;
@@ -216,22 +200,6 @@
         font-size: var(--font-size-lg);
         letter-spacing: var(--letter-spacing-tight);
       }
-
-      & > p {
-        max-width: 56ch;
-        margin: 0;
-        font-size: var(--font-size-sm);
-        line-height: 1.6;
-        color: var(--color-fg-muted);
-      }
-    }
-
-    & > section > div {
-      padding: var(--size-8) var(--size-4);
-      font-size: var(--font-size-md);
-      font-weight: var(--font-weight-semibold);
-      color: var(--color-fg-default);
-      letter-spacing: var(--letter-spacing-tight);
     }
 
     & > section > ul {
@@ -243,16 +211,8 @@
         margin-bottom: var(--size-8);
 
         & > a {
-          box-sizing: border-box;
           display: flex;
-          width: 100%;
           padding: var(--size-12);
-          font: inherit;
-          color: var(--color-fg-default);
-          text-align: left;
-          text-decoration: none;
-          appearance: none;
-          cursor: pointer;
           background-color: var(--color-bg-default);
           border: var(--border-default);
           border-radius: var(--border-radius-md);
@@ -277,16 +237,6 @@
             }
 
             & > span:nth-child(2) {
-              margin-top: var(--size-4);
-              overflow: hidden;
-              text-overflow: ellipsis;
-              font-family: var(--font-stack-monospace);
-              font-size: var(--font-size-xs);
-              color: var(--color-fg-accent);
-              white-space: nowrap;
-            }
-
-            & > span:nth-child(3) {
               display: -webkit-box;
               margin-top: var(--size-8);
               overflow: hidden;
