@@ -257,7 +257,6 @@
           border: var(--border-default);
           border-radius: var(--border-radius-md);
 
-          &:hover,
           &[data-active='true'] {
             background-color: var(--color-bg-neutral-muted);
             border-color: var(--color-border-accent-emphasis);

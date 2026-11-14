@@ -9,7 +9,7 @@
 import { afterEach, assert, beforeEach, describe, it, vi } from 'vitest';
 import { page, userEvent } from 'vitest/browser';
 import { render } from 'vitest-browser-react';
-import type { ReactNode } from 'react';
+import type { MouseEventHandler, ReactNode } from 'react';
 // Let Vite discover dependencies before importing fresh instances in each test.
 import './localsearch.jsx';
 
@@ -19,23 +19,28 @@ let LocalSearch: (typeof import('./localsearch.jsx'))['LocalSearch'];
 // Mock
 // --------------------------------------------------------------------------------
 
-vi.mock('next/link', () => ({
-  default: function Link({
-    href,
-    children,
-    'data-active': active,
-  }: {
-    href: string;
-    children: ReactNode;
-    'data-active'?: boolean;
-  }) {
-    return (
-      <a href={href} data-active={active}>
-        {children}
-      </a>
-    );
-  },
-}));
+// Match next/link's CommonJS export in the browser dependency bundle.
+vi.mock(
+  'next/link',
+  () =>
+    function Link({
+      href,
+      children,
+      'data-active': active,
+      onMouseMove,
+    }: {
+      href: string;
+      children: ReactNode;
+      'data-active'?: boolean;
+      onMouseMove?: MouseEventHandler<HTMLAnchorElement>;
+    }) {
+      return (
+        <a href={href} data-active={active} onMouseMove={onMouseMove}>
+          {children}
+        </a>
+      );
+    },
+);
 
 // --------------------------------------------------------------------------------
 // Test
@@ -556,6 +561,90 @@ describe('localsearch', () => {
   });
 
   describe('keyboard navigation', () => {
+    it('should keep one result highlighted when switching between hover and keyboard and open it on Enter', async () => {
+      vi.spyOn(globalThis, 'fetch').mockResolvedValue(
+        Response.json([
+          {
+            id: 'react.en',
+            url: '/en/posts/react',
+            slug: 'react',
+            lang: 'en',
+            readtime: 1,
+            data: {
+              title: 'React guide',
+              description: 'React overview',
+              created: '2026-10-02',
+              updated: '2026-10-02',
+              categories: [],
+              references: [],
+            },
+            headings: [
+              { id: 'react', text: 'React guide', depth: 1, content: 'React overview' },
+              { id: 'hooks', text: 'React hooks', depth: 2, content: '' },
+            ],
+          },
+        ]),
+      );
+
+      const screen = await render(<LocalSearch lang="en" />);
+      screen.container.style.setProperty('--color-bg-default', 'white');
+      screen.container.style.setProperty('--color-bg-neutral-muted', 'silver');
+      await screen.getByRole('button', { name: 'Search', exact: true }).click();
+      await screen.getByRole('searchbox', { name: 'Search' }).fill('React');
+      await vi.waitFor(() => {
+        assert.strictEqual(screen.container.querySelectorAll('li > a').length, 2);
+      });
+      const input = screen.container.querySelector('input');
+      const [first, second] =
+        screen.container.querySelectorAll<HTMLAnchorElement>('li > a');
+
+      assert.ok(input);
+      assert.ok(first);
+      assert.ok(second);
+
+      const firstClick = vi.spyOn(first, 'click').mockImplementation(() => {});
+      const secondClick = vi.spyOn(second, 'click').mockImplementation(() => {});
+
+      assert.strictEqual(first.getAttribute('data-active'), 'true');
+      assert.strictEqual(second.getAttribute('data-active'), 'false');
+
+      await userEvent.hover(second);
+
+      await vi.waitFor(() => {
+        assert.strictEqual(first.getAttribute('data-active'), 'false');
+        assert.strictEqual(second.getAttribute('data-active'), 'true');
+        assert.strictEqual(getComputedStyle(first).backgroundColor, 'rgb(255, 255, 255)');
+        assert.strictEqual(
+          getComputedStyle(second).backgroundColor,
+          'rgb(192, 192, 192)',
+        );
+      });
+      assert.strictEqual(document.activeElement, input);
+
+      await userEvent.keyboard('{Enter}');
+
+      assert.strictEqual(firstClick.mock.calls.length, 0);
+      assert.strictEqual(secondClick.mock.calls.length, 1);
+
+      await userEvent.keyboard('{ArrowUp}');
+
+      await vi.waitFor(() => {
+        assert.strictEqual(first.getAttribute('data-active'), 'true');
+        assert.strictEqual(second.getAttribute('data-active'), 'false');
+        assert.isTrue(second.matches(':hover'));
+        assert.strictEqual(getComputedStyle(first).backgroundColor, 'rgb(192, 192, 192)');
+        assert.strictEqual(
+          getComputedStyle(second).backgroundColor,
+          'rgb(255, 255, 255)',
+        );
+      });
+
+      await userEvent.keyboard('{Enter}');
+
+      assert.strictEqual(firstClick.mock.calls.length, 1);
+      assert.strictEqual(secondClick.mock.calls.length, 1);
+    });
+
     it('should scroll hidden keyboard selections into view without scrolling visible results', async () => {
       vi.spyOn(globalThis, 'fetch').mockResolvedValue(
         Response.json([

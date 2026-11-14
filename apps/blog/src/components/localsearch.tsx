@@ -306,6 +306,7 @@ export function LocalSearch({ lang }: PropsWithLang) {
                             <Link
                               href={href}
                               data-active={index === activeIndex}
+                              onMouseMove={() => setActiveIndex(index)}
                               // Close on same-tab navigation; modifier clicks keep the search open.
                               onNavigate={() => dialogRef.current?.close()}
                             >
