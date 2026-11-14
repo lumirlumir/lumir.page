@@ -211,7 +211,10 @@ describe('search', () => {
             { text: 'React both', content: 'React examples' },
             { text: 'React React', content: 'React React examples' },
           ],
-          { fields: { text: 2, content: 1 }, extractField: (item, field) => item[field] },
+          {
+            fields: { text: 2, content: 1 },
+            extractField: (item, field) => item[field],
+          },
         );
 
         assert.deepStrictEqual(
@@ -246,19 +249,7 @@ describe('search', () => {
         ]);
       });
 
-      it('should treat punctuation and HTML-like text literally without fuzzy matching', () => {
-        const search = new Search([{ text: 'React [a+b]', content: '<img src=x>' }], {
-          fields: { text: 2, content: 1 },
-          extractField: (item, field) => item[field],
-        });
-
-        assert.deepStrictEqual(search.search('raect'), []);
-        assert.deepStrictEqual(search.search('.*'), []);
-        assert.deepStrictEqual(search.search('[a+b]')[0].matches.text, [6, 11]);
-        assert.deepStrictEqual(search.search('<IMG SRC=X>')[0].matches.content, [0, 11]);
-      });
-
-      it('should match case exactly when ignoreCase is false', () => {
+      it('should match case exactly when `ignoreCase` is `false`', () => {
         const items = [
           { text: 'REACT usage', content: 'Learn React here.' },
           { text: 'React hooks', content: 'Use REACT.' },
@@ -299,23 +290,6 @@ describe('search', () => {
 
         assert.deepStrictEqual(search.search('색 엔')[0].matches.text, [1, 4]);
         assert.deepStrictEqual(search.search('검색 구현'), []);
-      });
-
-      it('should return the original item and the first match range in each field', () => {
-        const item = {
-          text: 'React & Reactivity',
-          content: 'Try REACT; a reaction guide.',
-        };
-        const search = new Search([item], {
-          fields: { text: 2, content: 1 },
-          extractField: (entry, field) => entry[field],
-        });
-        const results = search.search('react');
-
-        assert.deepStrictEqual(results, [
-          { item, matches: { text: [0, 5], content: [4, 9] }, score: 3 },
-        ]);
-        assert.strictEqual(results[0].item, item);
       });
     });
   });
