@@ -29,7 +29,7 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "mdast-util-from-markdown": "^2.0.3",
+    "mdast-util-from-markdown": "^2.1.0",
     "unist-util-visit": "^5.2.0"
   },
   "devDependencies": {
@@ -39,6 +39,6 @@
     "remark-rehype": "^11.1.2",
     "remark-stringify": "^11.0.0",
     "unified": "^11.0.5",
-    "vitest": "^5.0.5"
+    "vitest": "^5.1.0"
   }
 }
