@@ -19,6 +19,8 @@
   ],
   "compilerOptions": {
     /* Modules */
+    "module": "esnext",
+    "moduleResolution": "bundler",
     "paths": {
       "@/*": ["./src/*"] // Map the '@' alias to the 'src' directory.
     },

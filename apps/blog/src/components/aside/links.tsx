@@ -15,7 +15,7 @@ import 'server-only';
 import Link from 'next/link';
 import { FaGithub, FaHouseChimney } from '@lumir/react-kit/svgs';
 import { author } from '@/data/author';
-import { type PropsWithLang } from '@/data/lang';
+import type { PropsWithLang } from '@/data/lang';
 import styles from './links.module.css';
 
 // --------------------------------------------------------------------------------

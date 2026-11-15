@@ -14,8 +14,8 @@
 
 import {
   createContext,
+  use,
   useCallback,
-  useContext,
   useImperativeHandle,
   useMemo,
   useRef,
@@ -32,10 +32,11 @@ import {
 
 /**
  * Defines the shape of the context value provided by the `DialogContext`,
- * including the dialog reference and the `open`/`close` methods.
+ * including the dialog reference and the `open`/`close`/`toggle` methods.
  */
 interface DialogContextValue extends DialogHandle {
   readonly dialogRef: RefObject<HTMLDialogElement | null>;
+  readonly onOpenChange: DialogRootProps['onOpenChange'];
 }
 
 /**
@@ -53,6 +54,12 @@ export interface DialogHandle {
    * Does nothing when the dialog content is not mounted.
    */
   readonly close: () => void;
+
+  /**
+   * Closes the dialog when open, or opens it as a modal and focuses `initialFocusRef`.
+   * Does nothing when the dialog content is not mounted.
+   */
+  readonly toggle: () => void;
 }
 
 /**
@@ -65,7 +72,7 @@ export interface DialogRootProps {
   readonly children: ReactNode;
 
   /**
-   * Ref that exposes the dialog's `open` and `close` methods.
+   * Ref that exposes the dialog's `open`, `close`, and `toggle` methods.
    * @default undefined
    */
   readonly ref?: Ref<DialogHandle>;
@@ -75,6 +82,12 @@ export interface DialogRootProps {
    * @default undefined
    */
   readonly initialFocusRef?: RefObject<HTMLElement | null>;
+
+  /**
+   * Called when the dialog opens or closes.
+   * @default undefined
+   */
+  readonly onOpenChange?: (open: boolean) => void;
 }
 
 /**
@@ -98,9 +111,10 @@ export type DialogCloseProps = Omit<ComponentPropsWithRef<'button'>, 'type'>;
 // --------------------------------------------------------------------------------
 
 const DialogContext = createContext<DialogContextValue | undefined>(undefined);
+DialogContext.displayName = 'DialogContext';
 
 function useDialogContext(): DialogContextValue {
-  const context = useContext(DialogContext);
+  const context = use(DialogContext);
 
   if (!context) {
     throw new Error('Dialog components must be used within `Dialog.Root`');
@@ -117,7 +131,7 @@ function useDialogContext(): DialogContextValue {
  * Provides shared dialog controls to `Dialog.Content`, `Dialog.Open`, and `Dialog.Close`
  * without rendering a DOM wrapper.
  *
- * Pass a `ref` to call `open()` or `close()` imperatively, and `initialFocusRef` to
+ * Pass a `ref` to call `open()`, `close()`, or `toggle()` imperatively, and `initialFocusRef` to
  * choose which element receives focus when the dialog opens.
  *
  * @example
@@ -140,7 +154,12 @@ function useDialogContext(): DialogContextValue {
  * }
  * ```
  */
-export function DialogRoot({ children, ref, initialFocusRef }: DialogRootProps) {
+export function DialogRoot({
+  children,
+  ref,
+  initialFocusRef,
+  onOpenChange,
+}: DialogRootProps) {
   'use no memo'; // Avoid a ref-access false positive when React Compiler processes the emitted JSX runtime call.
 
   const dialogRef = useRef<HTMLDialogElement>(null);
@@ -154,10 +173,11 @@ export function DialogRoot({ children, ref, initialFocusRef }: DialogRootProps) 
 
     if (!dialog.open) {
       dialog.showModal();
+      onOpenChange?.(true);
     }
 
     initialFocusRef?.current?.focus();
-  }, [initialFocusRef]);
+  }, [initialFocusRef, onOpenChange]);
 
   const close = useCallback(() => {
     const dialog = dialogRef.current;
@@ -171,11 +191,28 @@ export function DialogRoot({ children, ref, initialFocusRef }: DialogRootProps) 
     }
   }, []);
 
-  useImperativeHandle(ref, () => ({ open, close }));
+  const toggle = useCallback(() => {
+    const dialog = dialogRef.current;
+
+    if (dialog === null) {
+      return;
+    }
+
+    if (dialog.open) {
+      close();
+    } else {
+      open();
+    }
+  }, [open, close]);
+
+  useImperativeHandle(ref, () => ({ open, close, toggle }));
 
   return (
     <DialogContext
-      value={useMemo(() => ({ dialogRef, open, close }), [dialogRef, open, close])}
+      value={useMemo(
+        () => ({ dialogRef, open, close, toggle, onOpenChange }),
+        [dialogRef, open, close, toggle, onOpenChange],
+      )}
     >
       {children}
     </DialogContext>
@@ -192,11 +229,25 @@ export function DialogContent({
   // Specifies the types of user actions that can be used to close the `<dialog>` element.
   // https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/dialog#closedby
   closedby = 'any',
+  onClose,
   ...props
 }: DialogContentProps) {
-  const { dialogRef } = useDialogContext();
+  const { dialogRef, onOpenChange } = useDialogContext();
 
-  return <dialog {...props} ref={dialogRef} closedby={closedby} />;
+  return (
+    <dialog
+      {...props}
+      ref={dialogRef}
+      closedby={closedby}
+      onClose={event => {
+        // Ignore a queued close event if the dialog has already reopened.
+        if (!event.currentTarget.open) {
+          onOpenChange?.(false);
+        }
+        onClose?.(event);
+      }}
+    />
+  );
 }
 
 /**

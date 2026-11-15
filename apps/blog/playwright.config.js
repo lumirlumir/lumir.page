@@ -6,7 +6,7 @@
 // Import
 // --------------------------------------------------------------------------------
 
-import { defineConfig, devices } from '@playwright/test'; // eslint-disable-line import/no-extraneous-dependencies
+import { defineConfig, devices } from '@playwright/test';
 
 // --------------------------------------------------------------------------------
 // Helper

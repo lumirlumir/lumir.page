@@ -27,19 +27,26 @@ import {
 // --------------------------------------------------------------------------------
 // #region DialogHandle
 
-const handle: DialogHandle = { open: () => {}, close: () => {} };
+const handle: DialogHandle = { open: () => {}, close: () => {}, toggle: () => {} };
 
 handle.open() satisfies void;
 handle.close() satisfies void;
+handle.toggle() satisfies void;
 
 // @ts-expect-error - `close` is required.
-({ open: () => {} }) satisfies DialogHandle;
+({ open: () => {}, toggle: () => {} }) satisfies DialogHandle;
+// @ts-expect-error - `toggle` is required.
+({ open: () => {}, close: () => {} }) satisfies DialogHandle;
 // @ts-expect-error - `open` should be a function.
-({ open: true, close: () => {} }) satisfies DialogHandle;
+({ open: true, close: () => {}, toggle: () => {} }) satisfies DialogHandle;
+// @ts-expect-error - `toggle` should be a function.
+({ open: () => {}, close: () => {}, toggle: true }) satisfies DialogHandle;
 // @ts-expect-error - `open` does not accept arguments.
 handle.open('search');
-// @ts-expect-error - `close` does not accept a return value.
+// @ts-expect-error - `close` does not accept arguments.
 handle.close('search');
+// @ts-expect-error - `toggle` does not accept arguments.
+handle.toggle('search');
 // @ts-expect-error - The handle does not expose the native dialog element.
 handle.showModal();
 
@@ -52,6 +59,7 @@ handle.showModal();
 const dialogRef = createRef<DialogHandle>();
 const inputRef = createRef<HTMLInputElement>();
 const buttonRef = createRef<HTMLButtonElement>();
+const contentRef = createRef<HTMLDialogElement>();
 let rootProps: DialogRootProps;
 
 rootProps = { children: null };
@@ -60,9 +68,16 @@ rootProps = { children: <span />, initialFocusRef: inputRef };
 rootProps = { children: <span />, initialFocusRef: buttonRef };
 rootProps = {
   children: null,
+  onOpenChange: open => {
+    open satisfies boolean;
+  },
+};
+rootProps = {
+  children: null,
   ref: value => {
     value?.open();
     value?.close();
+    value?.toggle();
   },
 };
 
@@ -74,6 +89,10 @@ rootProps = { children: null, ref: inputRef };
 rootProps = { children: null, initialFocusRef: dialogRef };
 // @ts-expect-error - The root does not render a DOM wrapper.
 rootProps = { children: null, className: 'dialog' };
+// @ts-expect-error - `onOpenChange` receives a boolean, not a DOM event.
+rootProps = { children: null, onOpenChange: (event: Event) => {} };
+// @ts-expect-error - `onOpenChange` should be a function.
+rootProps = { children: null, onOpenChange: true };
 
 // #endregion DialogRootProps
 // --------------------------------------------------------------------------------
@@ -195,7 +214,7 @@ function DialogTypeTest() {
     // @ts-expect-error - `children` is required.
     <Dialog.Root key="missing-children" />,
     // @ts-expect-error - The content ref is managed by `Dialog.Root`.
-    <Dialog.Content key="content-ref" ref={createRef<HTMLDialogElement>()} />,
+    <Dialog.Content key="content-ref" ref={contentRef} />,
     // @ts-expect-error - The open button type cannot be overridden.
     <Dialog.Open key="open-type" type="submit" />,
     // @ts-expect-error - The close button type cannot be overridden.

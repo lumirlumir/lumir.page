@@ -1,8 +1,8 @@
 /**
  * @fileoverview Defines the helper functions for converting markdown content to plain text.
- * @see https://github.com/syntax-tree/mdast-util-to-string#readme (`mdast-util-to-string`)
+ * @see https://github.com/remarkjs/remark-gfm#readme (`remark-gfm`)
+ * @see https://github.com/remarkjs/remark-math#readme (`remark-math`)
  * @see https://github.com/remarkjs/remark/tree/main/packages/remark-parse#remark-parse (`remark-parse`)
- * @see https://github.com/remarkjs/strip-markdown (`strip-markdown`)
  * @see https://github.com/unifiedjs/unified#readme (`unified`)
  */
 
@@ -16,23 +16,25 @@ import 'server-only';
 // Import
 // --------------------------------------------------------------------------------
 
-import { toString } from 'mdast-util-to-string';
+import remarkGfm from 'remark-gfm';
+import remarkMath from 'remark-math';
 import remarkParse from 'remark-parse';
-import stripMarkdown from 'strip-markdown';
 import { unified } from 'unified';
+import { mdastToText, mdastToTextSync } from '@/utils/mdast-to-text';
 
 // --------------------------------------------------------------------------------
 // Helper
 // --------------------------------------------------------------------------------
 
-const processor = unified().use(remarkParse).use(stripMarkdown);
+const processor = unified().use(remarkParse).use(remarkGfm).use(remarkMath);
 
 // --------------------------------------------------------------------------------
 // Export
 // --------------------------------------------------------------------------------
 
 /**
- * Converts markdown content to plain text asynchronously using `unified` with `remark`.
+ * Converts markdown content, including GFM and math, to plain text asynchronously
+ * using `unified` with `remark` and `rehype`.
  * @param markdown The markdown content to convert.
  * @example
  * ```ts
@@ -44,13 +46,12 @@ const processor = unified().use(remarkParse).use(stripMarkdown);
  * ```
  */
 export async function markdownToText(markdown: string): Promise<string> {
-  const tree = await processor.run(processor.parse(markdown));
-
-  return toString(tree);
+  return mdastToText(processor.parse(markdown));
 }
 
 /**
- * Converts markdown content to plain text synchronously using `unified` with `remark`.
+ * Converts markdown content, including GFM and math, to plain text synchronously
+ * using `unified` with `remark` and `rehype`.
  * @param markdown The markdown content to convert.
  * @example
  * ```ts
@@ -62,7 +63,5 @@ export async function markdownToText(markdown: string): Promise<string> {
  * ```
  */
 export function markdownToTextSync(markdown: string): string {
-  const tree = processor.runSync(processor.parse(markdown));
-
-  return toString(tree);
+  return mdastToTextSync(processor.parse(markdown));
 }

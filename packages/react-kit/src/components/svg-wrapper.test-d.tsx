@@ -6,7 +6,7 @@
 // Import
 // --------------------------------------------------------------------------------
 
-import { type ComponentProps, type ReactElement } from 'react';
+import type { ComponentProps, ReactElement } from 'react';
 import { SVGWrapper, type SVGProps, type SVGWrapperProps } from './svg-wrapper.js';
 
 // --------------------------------------------------------------------------------

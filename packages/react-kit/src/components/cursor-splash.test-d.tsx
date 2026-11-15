@@ -6,7 +6,7 @@
 // Import
 // --------------------------------------------------------------------------------
 
-import { type ComponentProps, type ReactElement } from 'react';
+import type { ComponentProps, ReactElement } from 'react';
 import { CursorSplash, type CursorSplashProps } from './cursor-splash.js';
 
 // --------------------------------------------------------------------------------

@@ -32,7 +32,13 @@ import {
   rehypeImageLazyLoading,
   rehypeImageUrlReplace,
 } from '@lumir/rehype-plugins';
-import { remarkCustomHeadingId, remarkHeadingFromTitle } from '@lumir/remark-plugins';
+import {
+  remarkBlockquoteFromDescription,
+  remarkCustomHeadingId,
+  remarkHeadingFromTitle,
+  type RemarkBlockquoteFromDescriptionOptions,
+  type RemarkHeadingFromTitleOptions,
+} from '@lumir/remark-plugins';
 import remarkGfm from 'remark-gfm';
 import remarkGitHub from 'remark-github';
 import remarkMath from 'remark-math';
@@ -54,12 +60,8 @@ import { githubRepoFullName } from '@/data/site';
 // Typedef
 // --------------------------------------------------------------------------------
 
-interface MarkdownToHtmlOptions {
-  /**
-   * Prepend an H1 heading generated from the provided title.
-   */
-  title?: string;
-}
+type MarkdownToHtmlOptions = RemarkHeadingFromTitleOptions &
+  RemarkBlockquoteFromDescriptionOptions;
 
 // --------------------------------------------------------------------------------
 // Export
@@ -74,11 +76,17 @@ interface MarkdownToHtmlOptions {
  * import { markdownToHtml } from '@/utils/markdown-to-html';
  *
  * const markdown = 'Foo Bar Baz';
- * const html = await markdownToHtml(markdown, { title: 'Awesome Title' });
+ * const html = await markdownToHtml(markdown, {
+ *   title: 'Awesome Title',
+ *   description: 'A brief summary.',
+ * });
  *
  * console.log(html);
  * // Output:
  * // <h1 id="awesome-title"><a aria-hidden="true" tabindex="-1" href="#awesome-title"></a>Awesome Title</h1>
+ * // <blockquote>
+ * // <p>A brief summary.</p>
+ * // </blockquote>
  * // <p>Foo Bar Baz</p>
  * ```
  */
@@ -90,6 +98,7 @@ export async function markdownToHtml(
     .use(remarkParse)
     .use(remarkGfm)
     .use(remarkMath)
+    .use(remarkBlockquoteFromDescription, { description: options?.description })
     .use(remarkHeadingFromTitle, { title: options?.title })
     .use(remarkCustomHeadingId)
     .use(

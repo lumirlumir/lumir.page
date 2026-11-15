@@ -14,19 +14,21 @@ import 'server-only';
 
 import { frontmatter, readtime } from '@lumir/utils';
 import { categoryKeys, type CategoryKey } from '@/data/category';
-import { type Frontmatter } from '@/data/frontmatter';
+import type { Frontmatter } from '@/data/frontmatter';
 import { langKeys, type LangKey, type LangRecord } from '@/data/lang';
-import { type VMarkdownFileMeta, type VMarkdownFile } from '@/data/v-markdown-file';
+import type {
+  VMarkdownFileMeta,
+  VMarkdownFile,
+  VMarkdownFileMetaWithHeadings,
+} from '@/data/v-markdown';
 import { isFrontmatter } from '@/utils/is';
+import { markdownToHeading } from '@/utils/markdown-to-heading';
 
 // --------------------------------------------------------------------------------
 // Typedef
 // --------------------------------------------------------------------------------
 
 type MarkdownCollectionMap = Map<VMarkdownFileMeta['id'], VMarkdownFileMeta>;
-type MarkdownCollectionByLangSlug = LangRecord<
-  Record<VMarkdownFileMeta['slug'], VMarkdownFileMeta>
->;
 type MarkdownCollectionByLangCategory = LangRecord<
   Record<CategoryKey, VMarkdownFileMeta[]>
 >;
@@ -45,19 +47,21 @@ const idRegex = new RegExp(`^(?<slug>[a-z0-9-]+)\\.(?<lang>${langKeys.join('|')}
  */
 const markdownModules = Object.fromEntries(
   Object.entries(
-    import.meta.glob('./*.md', {
+    import.meta.glob<{ default: string }>('./*.md', {
       base: '../posts/docs',
       eager: true,
-      import: 'default',
       query: '?raw',
     }),
-  ).map(([path, markdown]) => [path.slice(path.lastIndexOf('/') + 1, -3), markdown]),
+  ).map(([path, markdown]) => [
+    path.slice(path.lastIndexOf('/') + 1, -3),
+    markdown.default,
+  ]),
 ) as Record<string, string>;
 
 /**
  * Asserts that the provided id conforms to the expected format.
  */
-function assertId(id: unknown): Pick<VMarkdownFileMeta, 'id' | 'slug' | 'lang'> {
+function assertId(id: unknown): Pick<VMarkdownFileMeta, 'id' | 'slug' | 'lang' | 'url'> {
   const match = idRegex.exec(String(id));
 
   if (!match || !match.groups) {
@@ -81,6 +85,7 @@ Received id: \`${String(id)}\`
     id: `${slug}.${lang}`,
     slug,
     lang,
+    url: `/${lang}/posts/${slug}`,
   };
 }
 
@@ -125,8 +130,6 @@ class MarkdownCollection {
   /** Source of truth: used as a cache */
   #map: MarkdownCollectionMap = new Map();
   /** View: using `#map` as source of truth */
-  #byLangSlug: MarkdownCollectionByLangSlug | null = null;
-  /** View: using `#map` as source of truth */
   #byLangCategory: MarkdownCollectionByLangCategory | null = null;
 
   // ------------------------------------------------------------------------------
@@ -144,7 +147,12 @@ class MarkdownCollection {
    */
   #ensureMap(): MarkdownCollectionMap {
     for (const [key, markdown] of Object.entries(markdownModules)) {
-      const { id: sanitizedId, slug: sanitizedSlug, lang: sanitizedLang } = assertId(key);
+      const {
+        id: sanitizedId,
+        slug: sanitizedSlug,
+        lang: sanitizedLang,
+        url: sanitizedUrl,
+      } = assertId(key);
 
       // If the Markdown file has already been processed and cached, skip the loading and processing steps.
       const cached = this.#map.get(sanitizedId);
@@ -161,35 +169,13 @@ class MarkdownCollection {
         id: sanitizedId,
         slug: sanitizedSlug,
         lang: sanitizedLang,
+        url: sanitizedUrl,
         readtime: readtime(content).minutes,
         data: sanitizedData,
       });
     }
 
     return this.#map;
-  }
-
-  /**
-   * Lazily creates a mapping of language keys to slugs and their corresponding Markdown file metadata.
-   */
-  #ensureByLangSlug(): MarkdownCollectionByLangSlug {
-    // If the slug mapping has already been created, skip the creation process.
-    if (this.#byLangSlug) {
-      return this.#byLangSlug;
-    }
-
-    const markdownCollectionByLangSlug = Object.fromEntries(
-      langKeys.map(lang => [lang, {} as MarkdownCollectionByLangSlug[LangKey]]),
-    ) as MarkdownCollectionByLangSlug;
-
-    this.#ensureMap().forEach(vMarkdownFileMeta => {
-      markdownCollectionByLangSlug[vMarkdownFileMeta.lang][vMarkdownFileMeta.slug] =
-        vMarkdownFileMeta;
-    });
-
-    this.#byLangSlug = markdownCollectionByLangSlug;
-
-    return markdownCollectionByLangSlug;
   }
 
   /**
@@ -237,7 +223,12 @@ class MarkdownCollection {
       return cached;
     }
 
-    const { id: sanitizedId, slug: sanitizedSlug, lang: sanitizedLang } = assertId(id);
+    const {
+      id: sanitizedId,
+      slug: sanitizedSlug,
+      lang: sanitizedLang,
+      url: sanitizedUrl,
+    } = assertId(id);
     const key = sanitizedId;
 
     if (!(key in markdownModules)) {
@@ -251,6 +242,7 @@ class MarkdownCollection {
       id: sanitizedId,
       slug: sanitizedSlug,
       lang: sanitizedLang,
+      url: sanitizedUrl,
       readtime: readtime(content).minutes,
       data: sanitizedData,
     };
@@ -265,7 +257,12 @@ class MarkdownCollection {
    * Asynchronously loads a Markdown file by its id, extracting its content and frontmatter metadata.
    */
   async loadVMarkdownFile(id: VMarkdownFile['id']): Promise<VMarkdownFile> {
-    const { id: sanitizedId, slug: sanitizedSlug, lang: sanitizedLang } = assertId(id);
+    const {
+      id: sanitizedId,
+      slug: sanitizedSlug,
+      lang: sanitizedLang,
+      url: sanitizedUrl,
+    } = assertId(id);
     const key = sanitizedId;
 
     if (!(key in markdownModules)) {
@@ -282,6 +279,7 @@ class MarkdownCollection {
         id: sanitizedId,
         slug: sanitizedSlug,
         lang: sanitizedLang,
+        url: sanitizedUrl,
         readtime: minutes,
         data: sanitizedData,
       });
@@ -291,9 +289,28 @@ class MarkdownCollection {
       id: sanitizedId,
       slug: sanitizedSlug,
       lang: sanitizedLang,
+      url: sanitizedUrl,
       readtime: minutes,
       data: sanitizedData,
       content,
+    };
+  }
+
+  /**
+   * Asynchronously loads metadata and heading sections by file id, without returning the raw Markdown body.
+   * Includes the title as a heading with its slug-based anchor.
+   */
+  async loadVMarkdownFileMetaWithHeadings(
+    id: VMarkdownFileMeta['id'],
+  ): Promise<VMarkdownFileMetaWithHeadings> {
+    const { content, ...vMarkdownFileMeta } = await this.loadVMarkdownFile(id);
+
+    return {
+      ...vMarkdownFileMeta,
+      headings: await markdownToHeading(content, {
+        title: `${vMarkdownFileMeta.data.title} {#${vMarkdownFileMeta.slug}}`,
+        description: vMarkdownFileMeta.data.description,
+      }),
     };
   }
 
@@ -302,35 +319,15 @@ class MarkdownCollection {
   // ------------------------------------------------------------------------------
 
   /**
-   * A record mapping each language key to slugs and their corresponding metadata.
+   * All validated Markdown file ids, without loading metadata or populating the cache.
    *
    * @example
    * ```ts
-   * {
-   *   ko: {
-   *     'example-post': {
-   *       id: 'example-post.ko',
-   *       slug: 'example-post',
-   *       lang: 'ko',
-   *       readtime: 1,
-   *       data: {
-   *         title: 'Example Post',
-   *         description: 'This is an example post.',
-   *         created: '2024-01-01',
-   *         updated: '2024-01-02',
-   *         categories: ['javascript', 'markdown'],
-   *         references: ['https://example.com'],
-   *       },
-   *     },
-   *   },
-   *   en: {
-   *     // ...English Markdown file metadata by slug
-   *   },
-   * }
+   * ['example-post.ko', 'example-post.en']
    * ```
-   */
-  get byLangSlug(): MarkdownCollectionByLangSlug {
-    return this.#ensureByLangSlug();
+   */ // eslint-disable-next-line typescript/class-methods-use-this -- Enumerate the registry independently of the instance's metadata cache.
+  get ids(): VMarkdownFileMeta['id'][] {
+    return Object.keys(markdownModules).map(id => assertId(id).id);
   }
 
   /**
@@ -345,6 +342,7 @@ class MarkdownCollection {
    *         id: 'example-post.ko',
    *         slug: 'example-post',
    *         lang: 'ko',
+   *         url: '/ko/posts/example-post',
    *         readtime: 1,
    *         data: {
    *           title: 'Example Post',

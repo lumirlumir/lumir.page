@@ -150,11 +150,11 @@ export function usePreviousDistinct<T>(
     }
   }, [value, compareFn]);
 
-  /* eslint-disable react-hooks/refs -- Intentionally reads the value captured before this render's effect. */
+  /* eslint-disable react-x/refs -- Intentionally reads the value captured before this render's effect. */
   return compareFn(currentValueRef.current, value)
     ? previousValueRef.current
     : initialHistoryRef.current
       ? [...(previousValueRef.current as readonly T[]), currentValueRef.current]
       : currentValueRef.current;
-  /* eslint-enable react-hooks/refs */
+  /* eslint-enable react-x/refs */
 }

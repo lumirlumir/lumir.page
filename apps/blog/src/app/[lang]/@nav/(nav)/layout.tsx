@@ -6,7 +6,7 @@
 // Import
 // --------------------------------------------------------------------------------
 
-import { type PropsWithChildren } from 'react';
+import type { PropsWithChildren } from 'react';
 import { cn } from '@lumir/utils';
 import styles from './layout.module.css';
 

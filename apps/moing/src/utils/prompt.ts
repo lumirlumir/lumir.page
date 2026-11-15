@@ -7,7 +7,7 @@
 // --------------------------------------------------------------------------------
 
 import type { ChatCompletionMessageParam } from '@lumir/types/openai';
-import { type QuestionType } from '@/contexts/config';
+import type { QuestionType } from '@/contexts/config';
 
 // --------------------------------------------------------------------------------
 // Export

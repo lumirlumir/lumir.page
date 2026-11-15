@@ -80,4 +80,75 @@ describe('markdown-to-text', () => {
     assert.strictEqual(await markdownToText(markdown), text);
     assert.strictEqual(markdownToTextSync(markdown), text);
   });
+
+  it('should convert hard breaks written with spaces and backslashes to newlines', async () => {
+    const markdown = 'First  \n**Second**\\\nThird';
+    const text = 'First\nSecond\nThird';
+
+    assert.strictEqual(await markdownToText(markdown), text);
+    assert.strictEqual(markdownToTextSync(markdown), text);
+  });
+
+  it('should include inline and reference image alt text without URLs or titles', async () => {
+    const markdown =
+      '![Inline icon](inline.png "Inline title") ![Reference icon][image]\n\n[image]: reference.png "Reference title"';
+
+    assert.strictEqual(await markdownToText(markdown), 'Inline icon Reference icon');
+    assert.strictEqual(markdownToTextSync(markdown), 'Inline icon Reference icon');
+  });
+
+  it('should omit images with empty alt text without falling back to their titles', async () => {
+    const markdown = '![](icon.png "Image title")';
+
+    assert.strictEqual(await markdownToText(markdown), '');
+    assert.strictEqual(markdownToTextSync(markdown), '');
+  });
+
+  it('should preserve text inside GFM strikethrough syntax', async () => {
+    const markdown = 'Replace ~~old text~~ with new text';
+    const text = 'Replace old text with new text';
+
+    assert.strictEqual(await markdownToText(markdown), text);
+    assert.strictEqual(markdownToTextSync(markdown), text);
+  });
+
+  it('should remove GFM task list markers', async () => {
+    const markdown = '- [x] Completed task\n- [ ] Pending task';
+    const text = 'Completed task\nPending task';
+
+    assert.strictEqual(await markdownToText(markdown), text);
+    assert.strictEqual(markdownToTextSync(markdown), text);
+  });
+
+  it('should remove nested GFM task list markers without leaving leading spaces', async () => {
+    const markdown = '- [x] Parent task\n  - [ ] Child task';
+    const text = 'Parent task\nChild task';
+
+    assert.strictEqual(await markdownToText(markdown), text);
+    assert.strictEqual(markdownToTextSync(markdown), text);
+  });
+
+  it('should preserve GFM table row breaks and surrounding text', async () => {
+    const markdown = 'Before\n\n| Name |\n| --- |\n| Value |\n\nAfter';
+    const text = 'Before\n\nName \n Value\n\nAfter';
+
+    assert.strictEqual(await markdownToText(markdown), text);
+    assert.strictEqual(markdownToTextSync(markdown), text);
+  });
+
+  it('should preserve inline math content without dollar delimiters', async () => {
+    const markdown = 'The formula is $a^2 - b^2 = (a - b)(a + b)$.';
+    const text = 'The formula is a^2 - b^2 = (a - b)(a + b).';
+
+    assert.strictEqual(await markdownToText(markdown), text);
+    assert.strictEqual(markdownToTextSync(markdown), text);
+  });
+
+  it('should preserve block math content without dollar delimiters', async () => {
+    const markdown = '$$\n\\frac{a}{b}\n$$';
+    const text = '\\frac{a}{b}';
+
+    assert.strictEqual(await markdownToText(markdown), text);
+    assert.strictEqual(markdownToTextSync(markdown), text);
+  });
 });

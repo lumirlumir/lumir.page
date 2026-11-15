@@ -6,7 +6,7 @@
 // Import
 // --------------------------------------------------------------------------------
 
-import { type MetadataRoute } from 'next';
+import type { MetadataRoute } from 'next';
 import { websiteUrl } from '@/data/site';
 
 // --------------------------------------------------------------------------------

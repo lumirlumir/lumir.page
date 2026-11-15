@@ -17,7 +17,6 @@ import createMarkdownCollection from '../../src/utils/markdown-collection.js';
 // --------------------------------------------------------------------------------
 
 const markdownCollection = createMarkdownCollection();
-const slugs = Object.keys(markdownCollection.byLangSlug.en);
 
 // --------------------------------------------------------------------------------
 // Test
@@ -25,6 +24,13 @@ const slugs = Object.keys(markdownCollection.byLangSlug.en);
 
 describe('markdown-heading-ids', () => {
   it('should ensure that translated post headings share stable anchors', async () => {
+    const vMarkdownFileMetas = await Promise.all(
+      markdownCollection.ids.map(id => markdownCollection.loadVMarkdownFileMeta(id)),
+    );
+    const slugs = vMarkdownFileMetas
+      .filter(({ lang }) => lang === 'en')
+      .map(({ slug }) => slug);
+
     await Promise.all(
       slugs.map(async slug => {
         const [englishHeadingIds, koreanHeadingIds] = await Promise.all(

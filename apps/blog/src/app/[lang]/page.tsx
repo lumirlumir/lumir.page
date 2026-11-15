@@ -8,8 +8,8 @@
 
 import Link from 'next/link';
 import { PostCard } from '@/components/article/post-card';
-import { type CategoryKey } from '@/data/category';
-import { type LangKey, type LangRecord } from '@/data/lang';
+import type { CategoryKey } from '@/data/category';
+import type { LangKey, LangRecord } from '@/data/lang';
 import { compareMarkdownDocument } from '@/utils/compare';
 import createMarkdownCollection from '@/utils/markdown-collection';
 import styles from './page.module.css';
@@ -257,7 +257,12 @@ export default async function Page({ params }: PageProps<'/[lang]'>) {
   const awaitedParams = await params;
   const lang = awaitedParams.lang as LangKey;
   const copy = dictionary[lang];
-  const posts = Object.values(markdownCollection.byLangSlug[lang])
+  const vMarkdownFileMetas = await Promise.all(
+    markdownCollection.ids
+      .filter(id => id.endsWith(`.${lang}`))
+      .map(id => markdownCollection.loadVMarkdownFileMeta(id)),
+  );
+  const posts = vMarkdownFileMetas
     .toSorted(compareMarkdownDocument('updated', 'desc', lang))
     .slice(0, 9);
   const seriesPosts = posts.slice(0, 3);

@@ -14,8 +14,8 @@ import 'server-only';
 
 import Link from 'next/link';
 import { categoryMeta } from '@/data/category';
-import { type PropsWithLang } from '@/data/lang';
-import { type VMarkdownFileMeta } from '@/data/v-markdown-file';
+import type { PropsWithLang } from '@/data/lang';
+import type { VMarkdownFileMeta } from '@/data/v-markdown';
 import { markdownToText } from '@/utils/markdown-to-text';
 import styles from './post-card.module.css';
 
@@ -42,7 +42,7 @@ export async function PostCard({
   position,
   variant = 'archive',
   vMarkdownFileMeta: {
-    slug,
+    url,
     data: { title, description, updated, categories },
   },
 }: PropsWithLang<PostCardProps>) {
@@ -54,7 +54,7 @@ export async function PostCard({
   const kicker = primaryCategory ? categoryMeta[primaryCategory].name[lang] : 'Journal';
 
   return (
-    <Link className={styles.link} href={`/${lang}/posts/${slug}`}>
+    <Link className={styles.link} href={url}>
       <article
         className={styles['post-card']}
         data-position={position}

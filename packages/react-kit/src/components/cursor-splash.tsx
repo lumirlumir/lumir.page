@@ -4,7 +4,7 @@
  * @see https://github.com/bepyan/bepyan.me.v2/blob/main/src/components/cursor-splash.tsx
  */
 
-/* eslint-disable @typescript-eslint/no-shadow, max-classes-per-file, react/no-this-in-sfc */
+/* eslint-disable typescript/no-shadow, max-classes-per-file */
 
 // --------------------------------------------------------------------------------
 // Directive
@@ -69,6 +69,12 @@ export interface CursorSplashProps extends Omit<
 }
 
 // --------------------------------------------------------------------------------
+// Helper
+// --------------------------------------------------------------------------------
+
+const DEFAULT_BACK_COLOR: ColorRGB = { r: 0.5, g: 0, b: 0 };
+
+// --------------------------------------------------------------------------------
 // Export
 // --------------------------------------------------------------------------------
 
@@ -121,7 +127,7 @@ export function CursorSplash({
   SPLAT_FORCE = 6000,
   SHADING = true,
   COLOR_UPDATE_SPEED = 10,
-  BACK_COLOR = { r: 0.5, g: 0, b: 0 },
+  BACK_COLOR = DEFAULT_BACK_COLOR,
   TRANSPARENT = true,
   RAINBOW_MODE = true,
   COLOR = '#ff0000',
@@ -172,7 +178,6 @@ export function CursorSplash({
     if (!gl || !ext) return undefined;
 
     const abortController = new AbortController();
-    const { signal } = abortController;
 
     if (!ext.supportLinearFiltering) {
       config.DYE_RESOLUTION = 256;
@@ -1439,7 +1444,7 @@ export function CursorSplash({
         updatePointerDownData(pointer, -1, posX, posY);
         clickSplat(pointer);
       },
-      { signal },
+      { signal: abortController.signal },
     );
 
     function handleFirstMouseMove(e: MouseEvent) {
@@ -1451,7 +1456,9 @@ export function CursorSplash({
       updatePointerMoveData(pointer, posX, posY, color);
       document.body.removeEventListener('mousemove', handleFirstMouseMove);
     }
-    document.body.addEventListener('mousemove', handleFirstMouseMove, { signal });
+    document.body.addEventListener('mousemove', handleFirstMouseMove, {
+      signal: abortController.signal,
+    });
 
     window.addEventListener(
       'mousemove',
@@ -1461,7 +1468,7 @@ export function CursorSplash({
         const posY = scaleByPixelRatio(e.clientY);
         updatePointerMoveData(pointer, posX, posY, pointer.color);
       },
-      { signal },
+      { signal: abortController.signal },
     );
 
     function handleFirstTouchStart(e: TouchEvent) {
@@ -1475,7 +1482,9 @@ export function CursorSplash({
       }
       document.body.removeEventListener('touchstart', handleFirstTouchStart);
     }
-    document.body.addEventListener('touchstart', handleFirstTouchStart, { signal });
+    document.body.addEventListener('touchstart', handleFirstTouchStart, {
+      signal: abortController.signal,
+    });
 
     window.addEventListener(
       'touchstart',
@@ -1488,7 +1497,7 @@ export function CursorSplash({
           updatePointerDownData(pointer, touches[i].identifier, posX, posY);
         }
       },
-      { signal },
+      { signal: abortController.signal },
     );
 
     window.addEventListener(
@@ -1502,7 +1511,7 @@ export function CursorSplash({
           updatePointerMoveData(pointer, posX, posY, pointer.color);
         }
       },
-      { signal },
+      { signal: abortController.signal },
     );
 
     window.addEventListener(
@@ -1514,7 +1523,7 @@ export function CursorSplash({
           updatePointerUpData(pointer);
         }
       },
-      { signal },
+      { signal: abortController.signal },
     );
 
     return () => {

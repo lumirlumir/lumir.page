@@ -14,6 +14,7 @@ import {
   countWords,
   readtimeWithCount,
   readtime,
+  Search,
 } from './index.js';
 import packageJson from '../package.json' with { type: 'json' };
 
@@ -57,6 +58,11 @@ describe('index', () => {
     it('`readtime` should estimate reading time through the package entry point', () => {
       assert.isDefined(readtime);
       assert.strictEqual(typeof readtime, 'function');
+    });
+
+    it('`Search` should be defined', () => {
+      assert.isDefined(Search);
+      assert.strictEqual(typeof Search, 'function');
     });
   });
 });

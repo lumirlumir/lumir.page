@@ -18,12 +18,7 @@ import 'client-only';
 // Import
 // --------------------------------------------------------------------------------
 
-import {
-  createContext,
-  useContext,
-  useSyncExternalStore,
-  type PropsWithChildren,
-} from 'react';
+import { createContext, use, useSyncExternalStore, type PropsWithChildren } from 'react';
 import { themeDefault, themeKey, themeKeys, type Theme } from '@/data/theme';
 
 // --------------------------------------------------------------------------------
@@ -41,6 +36,7 @@ export type ThemeContextValue = readonly [theme: Theme, toggleTheme: () => void]
 // --------------------------------------------------------------------------------
 
 const ThemeContext = createContext<ThemeContextValue | undefined>(undefined);
+ThemeContext.displayName = 'ThemeContext';
 
 function getThemeSnapshot(): Theme {
   const theme = document.documentElement.getAttribute(themeKey);
@@ -101,7 +97,7 @@ function toggleTheme() {
  * ```
  */
 export function useThemeContext(): ThemeContextValue {
-  const context = useContext(ThemeContext);
+  const context = use(ThemeContext);
 
   if (!context) {
     throw new Error('`useThemeContext` must be used within a `ThemeProvider`.');
@@ -142,6 +138,6 @@ export function ThemeProvider({ children }: PropsWithChildren) {
     getServerThemeSnapshot,
   );
 
-  // eslint-disable-next-line react/jsx-no-constructed-context-values -- React Compiler automatically optimizes context values.
+  // eslint-disable-next-line react-x/no-unstable-context-value -- React Compiler automatically optimizes context values.
   return <ThemeContext value={[theme, toggleTheme]}>{children}</ThemeContext>;
 }

@@ -9,7 +9,7 @@
 import { PostCard } from '@/components/article/post-card';
 import { PostList } from '@/components/article/post-list';
 import { categoryMeta, type CategoryKey } from '@/data/category';
-import { type LangKey, type LangRecord } from '@/data/lang';
+import type { LangKey, LangRecord } from '@/data/lang';
 import createMarkdownCollection from '@/utils/markdown-collection';
 import { markdownToTextSync } from '@/utils/markdown-to-text';
 import styles from './page.module.css';

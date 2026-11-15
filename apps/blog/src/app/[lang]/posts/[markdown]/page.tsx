@@ -6,10 +6,10 @@
 // Import
 // --------------------------------------------------------------------------------
 
-import { type Metadata } from 'next';
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import { categoryMeta } from '@/data/category';
-import { type LangKey } from '@/data/lang';
+import type { LangKey } from '@/data/lang';
 import createMarkdownCollection from '@/utils/markdown-collection';
 import { markdownToHtml } from '@/utils/markdown-to-html';
 import { markdownToText } from '@/utils/markdown-to-text';
@@ -37,12 +37,14 @@ export const dynamicParams = false;
 export async function generateStaticParams(): Promise<
   Awaited<PageProps<'/[lang]/posts/[markdown]'>['params']>[]
 > {
-  return Object.entries(markdownCollection.byLangSlug).flatMap(([lang, bySlug]) =>
-    Object.keys(bySlug).map(slug => ({
-      lang,
-      markdown: slug,
-    })),
+  const vMarkdownFileMetas = await Promise.all(
+    markdownCollection.ids.map(id => markdownCollection.loadVMarkdownFileMeta(id)),
   );
+
+  return vMarkdownFileMetas.map(({ slug, lang }) => ({
+    lang,
+    markdown: slug,
+  }));
 }
 
 /**
@@ -127,7 +129,7 @@ export default async function Page({ params }: PageProps<'/[lang]/posts/[markdow
       <div className={styles.prose}>
         <div
           className="markdown"
-          // eslint-disable-next-line react/no-danger -- Safe because the content comes from the local file and is controlled.
+          // eslint-disable-next-line react-x/dom-no-dangerously-set-innerhtml -- Safe because the content comes from the local file and is controlled.
           dangerouslySetInnerHTML={{ __html: await markdownToHtml(content) }}
         />
         {references.length > 0 && (

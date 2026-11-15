@@ -494,6 +494,8 @@ HTML에서 이용하는 `<!-- -->` 기호를 사용한다.
 
 #### 2-7-1. 순서 있는 목록(Ordered Lists) {#2-7-1-ordered-lists}
 
+<!-- eslint-disable md/consistent-ordered-list-style -->
+
 숫자(`0, 1, 2, 3, ...`)와 점(`.`)을 사용한다. 이때, `0.`부터 시작해도 되고 `1.`부터 시작해도 된다.
 
 들여쓰기를 하면 모양이 바뀐다. (깃허브<sup>GitHub</sup> 기준 숫자, 로마자, 알파벳 순서)
@@ -535,6 +537,8 @@ HTML에서 이용하는 `<!-- -->` 기호를 사용한다.
       1. 첫번째의 두번째
   3. 세번째
   2. 두번째
+
+<!-- eslint-enable md/consistent-ordered-list-style -->
 
 #### 2-7-2. 순서 없는 목록(Unordered Lists) {#2-7-2-unordered-lists}
 

@@ -1,7 +1,7 @@
 /** @type {import('stylelint').Config} */
 export default {
   extends: ['stylelint-config-standard', 'stylelint-config-recess-order'],
-  ignoreFiles: ['**/archives/**', '**/build/**', '**/coverage/**', '**/.next/**'],
+  ignoreFiles: ['**/build/**', '**/coverage/**', '**/.next/**'],
   languageOptions: {
     syntax: {
       types: {
@@ -47,3 +47,6 @@ export default {
     },
   ],
 };
+
+// TODO: Remove the package.json peer override once recess-order supports Stylelint 18.
+// It only supplies property groups to the compatible stylelint-order plugin.

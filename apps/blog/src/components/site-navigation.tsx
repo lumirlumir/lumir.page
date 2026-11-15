@@ -13,7 +13,7 @@ import 'server-only';
 // --------------------------------------------------------------------------------
 
 import Link from 'next/link';
-import { type LangRecord, type PropsWithLang } from '@/data/lang';
+import type { LangRecord, PropsWithLang } from '@/data/lang';
 import styles from './site-navigation.module.css';
 
 // --------------------------------------------------------------------------------

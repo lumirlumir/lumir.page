@@ -7,7 +7,7 @@
 // Import
 // --------------------------------------------------------------------------------
 
-import { type ReactElement, type SVGAttributes } from 'react';
+import type { ReactElement, SVGAttributes } from 'react';
 
 // --------------------------------------------------------------------------------
 // Typedef
@@ -88,7 +88,7 @@ export function SVGWrapper({ attrs, children }: SVGWrapperProps) {
   return function SVG({
     size = '1em',
     color = 'currentColor',
-    style = {},
+    style = undefined,
     ...props
   }: SVGProps) {
     return (

@@ -1,7 +1,3 @@
-<!--
-Add: https://github.com/inikulin/parse5/issues/1747
--->
-
 # Open Source
 
 ## Index
@@ -64,14 +60,6 @@ Add: https://github.com/inikulin/parse5/issues/1747
     <!-- - [`mdn/translated-content`](#mdntranslated-content) -- TODO -->
     <!-- - [`actions/runner-images`](#actionsrunner-images) -- TODO -->
 - [이외의 활동](#이외의-활동)
-
-## Contact
-
-- Email: yonghyeon0324@gmail.com (rpfos@naver.com)
-- GitHub: https://github.com/lumirlumir
-- LinkedIn: https://linkedin.com/in/lumirlumir
-
-[<kbd>Back to index ⬆️</kbd>](#index)
 
 ## Summary
 
@@ -324,30 +312,6 @@ GitHub 프로젝트 관리, CI/CD 파이프라인 구축, 크로스 플랫폼 �
 - Pre-commit Hook: `husky` 및 `lint-staged`를 활용한 Pre-commit Hook을 활용하여, 커밋 전에 자동으로 텍스트 린팅 및 포매팅을 수행하는 방식을 이해할 수 있었습니다.
 
 [<kbd>Back to index ⬆️</kbd>](#index)
-
-<!--
-
-### `moing.lumir.page` / `lumir.page`
-
-> [!IMPORTANT]
->
-> 개인 프로젝트로, 처음부터 끝까지 혼자서 기획, 설계, 개발, 배포, 운영까지 모두 담당한 프로젝트입니다.
-
-[<kbd>Back to index ⬆️</kbd>](#index)
-
-TODO -->
-
-<!--
-
-### `lumirlumir-configs`
-
-> [!IMPORTANT]
->
-> 개인 프로젝트로, 처음부터 끝까지 혼자서 기획, 설계, 개발, 배포, 운영까지 모두 담당한 프로젝트입니다.
-
-[<kbd>Back to index ⬆️</kbd>](#index)
-
-TODO -->
 
 ## Open Source Contributions
 

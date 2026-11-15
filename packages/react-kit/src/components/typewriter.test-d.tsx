@@ -6,7 +6,7 @@
 // Import
 // --------------------------------------------------------------------------------
 
-import { type ComponentProps, type ReactElement } from 'react';
+import type { ComponentProps, ReactElement } from 'react';
 import { Typewriter, type TypewriterProps } from './typewriter.js';
 
 // --------------------------------------------------------------------------------

@@ -6,9 +6,9 @@
 // Import
 // --------------------------------------------------------------------------------
 
-import { type Metadata } from 'next';
+import type { Metadata } from 'next';
 import { Noto_Serif_KR as NotoSerifKr } from 'next/font/google';
-import { type PropsWithChildren } from 'react';
+import type { PropsWithChildren } from 'react';
 
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
@@ -23,7 +23,7 @@ import { Categories } from '@/components/aside/categories';
 import { Links } from '@/components/aside/links';
 import { Profile } from '@/components/aside/profile';
 
-import { DocSearch } from '@/components/header/doc-search';
+import { LocalSearch } from '@/components/localsearch';
 import { SiteNavigation } from '@/components/site-navigation';
 import { LangToggle } from '@/components/lang-toggle';
 import { ScrollProgress } from '@/components/scroll-progress';
@@ -105,7 +105,7 @@ export default async function RootLayout({
               <Title lang={lang} />
               <SiteNavigation lang={lang} />
               <div className={styles.tools}>
-                <DocSearch />
+                <LocalSearch lang={lang} />
                 <LangToggle lang={lang} />
                 <ThemeToggle lang={lang} />
               </div>

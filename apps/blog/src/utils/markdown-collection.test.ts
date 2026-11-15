@@ -6,17 +6,20 @@
 // Import
 // --------------------------------------------------------------------------------
 
-import { assert, describe, it, vi } from 'vitest';
-import createMarkdownCollection from './markdown-collection.js';
+import { assert, beforeEach, describe, it, vi } from 'vitest';
 
 // --------------------------------------------------------------------------------
 // Mock
 // --------------------------------------------------------------------------------
 
-// Vite transforms `import.meta.glob` before runtime, so intercept `Object.entries`
-// before the collection module is imported. Replace entries matching Markdown
-// paths with mock data, then immediately restore the original function.
-vi.hoisted(() => {
+let createMarkdownCollection: typeof import('./markdown-collection.js').default;
+
+// Reset the singleton before each test. Vite transforms `import.meta.glob` before
+// runtime, so intercept `Object.entries` before reimporting the collection module.
+// Replace Markdown paths with mock data, then immediately restore the function.
+beforeEach(async () => {
+  vi.resetModules();
+
   const markdownModules = {
     'simple-post.ko': `---
 title: Korean Mock Post
@@ -29,7 +32,7 @@ categories:
 references:
   - https://example.com/ko
 ---
-## Korean Mock Post
+## Korean Mock Post {#korean-section}
 
 Korean body.`,
     'simple-post.en': `---
@@ -41,7 +44,7 @@ categories:
   - nextjs
 references: []
 ---
-## English Mock Post
+## English Mock Post {#english-section}
 
 English body.`,
   };
@@ -56,11 +59,16 @@ English body.`,
     ) {
       entriesMock.mockRestore();
 
-      return entries(markdownModules).map(([id, markdown]) => [`./${id}.md`, markdown]);
+      return entries(markdownModules).map(([id, markdown]) => [
+        `./${id}.md`,
+        { default: markdown },
+      ]);
     }
 
     return result;
   });
+
+  ({ default: createMarkdownCollection } = await import('./markdown-collection.js'));
 });
 
 // --------------------------------------------------------------------------------
@@ -85,6 +93,7 @@ describe('markdown-collection', () => {
           id: 'simple-post.ko',
           slug: 'simple-post',
           lang: 'ko',
+          url: '/ko/posts/simple-post',
           readtime: 1,
           data: {
             title: 'Korean Mock Post',
@@ -107,6 +116,7 @@ describe('markdown-collection', () => {
           id: 'simple-post.en',
           slug: 'simple-post',
           lang: 'en',
+          url: '/en/posts/simple-post',
           readtime: 1,
           data: {
             title: 'English Mock Post',
@@ -136,6 +146,21 @@ describe('markdown-collection', () => {
         'Markdown file not found: `missing-post.ko`',
       );
     });
+
+    it('should reuse cached metadata when loading the enumerated ids repeatedly', async () => {
+      const markdownCollection = createMarkdownCollection();
+      const metadata = await Promise.all(
+        markdownCollection.ids.map(id => markdownCollection.loadVMarkdownFileMeta(id)),
+      );
+      const cachedMetadata = await Promise.all(
+        markdownCollection.ids.map(id => markdownCollection.loadVMarkdownFileMeta(id)),
+      );
+
+      assert.strictEqual(metadata[0].id, 'simple-post.ko');
+      assert.strictEqual(metadata[1].id, 'simple-post.en');
+      assert.strictEqual(cachedMetadata[0], metadata[0]);
+      assert.strictEqual(cachedMetadata[1], metadata[1]);
+    });
   });
 
   describe('loadVMarkdownFile', () => {
@@ -148,6 +173,7 @@ describe('markdown-collection', () => {
           id: 'simple-post.ko',
           slug: 'simple-post',
           lang: 'ko',
+          url: '/ko/posts/simple-post',
           readtime: 1,
           data: {
             title: 'Korean Mock Post',
@@ -157,7 +183,7 @@ describe('markdown-collection', () => {
             categories: ['javascript', 'markdown'],
             references: ['https://example.com/ko'],
           },
-          content: '## Korean Mock Post\n\nKorean body.',
+          content: '## Korean Mock Post {#korean-section}\n\nKorean body.',
         },
       );
     });
@@ -171,6 +197,7 @@ describe('markdown-collection', () => {
           id: 'simple-post.en',
           slug: 'simple-post',
           lang: 'en',
+          url: '/en/posts/simple-post',
           readtime: 1,
           data: {
             title: 'English Mock Post',
@@ -180,7 +207,7 @@ describe('markdown-collection', () => {
             categories: ['nextjs'],
             references: [],
           },
-          content: '## English Mock Post\n\nEnglish body.',
+          content: '## English Mock Post {#english-section}\n\nEnglish body.',
         },
       );
     });
@@ -203,38 +230,120 @@ describe('markdown-collection', () => {
     });
   });
 
-  describe('byLangSlug', () => {
-    it('should index Markdown metadata by language and slug', () => {
+  describe('loadVMarkdownFileMetaWithHeadings', () => {
+    it('should load Korean metadata and headings without the raw Markdown body', async () => {
       const markdownCollection = createMarkdownCollection();
 
-      assert.deepStrictEqual(markdownCollection.byLangSlug.ko['simple-post'], {
-        id: 'simple-post.ko',
-        slug: 'simple-post',
-        lang: 'ko',
-        readtime: 1,
-        data: {
-          title: 'Korean Mock Post',
-          description: 'Korean mock post description.',
-          created: '2024-01-01',
-          updated: '2024-01-02',
-          categories: ['javascript', 'markdown'],
-          references: ['https://example.com/ko'],
+      assert.deepStrictEqual(
+        await markdownCollection.loadVMarkdownFileMetaWithHeadings('simple-post.ko'),
+        {
+          id: 'simple-post.ko',
+          slug: 'simple-post',
+          lang: 'ko',
+          url: '/ko/posts/simple-post',
+          readtime: 1,
+          data: {
+            title: 'Korean Mock Post',
+            description: 'Korean mock post description.',
+            created: '2024-01-01',
+            updated: '2024-01-02',
+            categories: ['javascript', 'markdown'],
+            references: ['https://example.com/ko'],
+          },
+          headings: [
+            {
+              id: 'simple-post',
+              text: 'Korean Mock Post',
+              depth: 1,
+              content: 'Korean mock post description.',
+            },
+            {
+              id: 'korean-section',
+              text: 'Korean Mock Post',
+              depth: 2,
+              content: 'Korean body.',
+            },
+          ],
         },
-      });
-      assert.deepStrictEqual(markdownCollection.byLangSlug.en['simple-post'], {
-        id: 'simple-post.en',
-        slug: 'simple-post',
-        lang: 'en',
-        readtime: 1,
-        data: {
-          title: 'English Mock Post',
-          description: 'English mock post description.',
-          created: '2024-02-01',
-          updated: '2024-02-02',
-          categories: ['nextjs'],
-          references: [],
+      );
+    });
+
+    it('should load English metadata and headings without the raw Markdown body', async () => {
+      const markdownCollection = createMarkdownCollection();
+
+      assert.deepStrictEqual(
+        await markdownCollection.loadVMarkdownFileMetaWithHeadings('simple-post.en'),
+        {
+          id: 'simple-post.en',
+          slug: 'simple-post',
+          lang: 'en',
+          url: '/en/posts/simple-post',
+          readtime: 1,
+          data: {
+            title: 'English Mock Post',
+            description: 'English mock post description.',
+            created: '2024-02-01',
+            updated: '2024-02-02',
+            categories: ['nextjs'],
+            references: [],
+          },
+          headings: [
+            {
+              id: 'simple-post',
+              text: 'English Mock Post',
+              depth: 1,
+              content: 'English mock post description.',
+            },
+            {
+              id: 'english-section',
+              text: 'English Mock Post',
+              depth: 2,
+              content: 'English body.',
+            },
+          ],
         },
-      });
+      );
+    });
+
+    it('should reject when the requested Markdown file does not exist', async () => {
+      const markdownCollection = createMarkdownCollection();
+      let caughtError: unknown;
+
+      try {
+        await markdownCollection.loadVMarkdownFileMetaWithHeadings('missing-post.ko');
+      } catch (error) {
+        caughtError = error;
+      }
+
+      assert.ok(caughtError instanceof Error);
+      assert.strictEqual(
+        caughtError.message,
+        'Markdown file not found: `missing-post.ko`',
+      );
+    });
+  });
+
+  describe('ids', () => {
+    it('should list every Markdown id before any documents are loaded', () => {
+      const markdownCollection = createMarkdownCollection();
+
+      assert.deepStrictEqual(markdownCollection.ids, [
+        'simple-post.ko',
+        'simple-post.en',
+      ]);
+    });
+
+    it('should include uncached ids after loading only one document', async () => {
+      const markdownCollection = createMarkdownCollection();
+      const document = await markdownCollection.loadVMarkdownFile('simple-post.ko');
+      const metadata = await markdownCollection.loadVMarkdownFileMeta('simple-post.ko');
+
+      assert.deepStrictEqual(markdownCollection.ids, [
+        'simple-post.ko',
+        'simple-post.en',
+      ]);
+      assert.strictEqual(document.data, metadata.data);
+      assert.notProperty(metadata, 'content');
     });
   });
 
@@ -247,6 +356,7 @@ describe('markdown-collection', () => {
           id: 'simple-post.ko',
           slug: 'simple-post',
           lang: 'ko',
+          url: '/ko/posts/simple-post',
           readtime: 1,
           data: {
             title: 'Korean Mock Post',
@@ -263,6 +373,7 @@ describe('markdown-collection', () => {
           id: 'simple-post.ko',
           slug: 'simple-post',
           lang: 'ko',
+          url: '/ko/posts/simple-post',
           readtime: 1,
           data: {
             title: 'Korean Mock Post',
@@ -279,6 +390,7 @@ describe('markdown-collection', () => {
           id: 'simple-post.en',
           slug: 'simple-post',
           lang: 'en',
+          url: '/en/posts/simple-post',
           readtime: 1,
           data: {
             title: 'English Mock Post',

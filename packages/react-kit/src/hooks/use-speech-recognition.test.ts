@@ -15,7 +15,7 @@ import { useSpeechRecognition } from './use-speech-recognition.js';
 // --------------------------------------------------------------------------------
 
 describe('use-speech-recognition', () => {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any -- Needed for mocking.
+  // eslint-disable-next-line typescript/no-explicit-any -- Needed for mocking.
   let speechRecognition: any;
 
   beforeEach(() => {

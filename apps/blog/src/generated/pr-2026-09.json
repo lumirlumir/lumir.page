@@ -1,5 +1,31 @@
 [
   {
+    "repositoryUrl": "https://api.github.com/repos/eslint-community/eslint-plugin-security",
+    "htmlUrl": "https://github.com/eslint-community/eslint-plugin-security/pull/226",
+    "id": 5626641167,
+    "nodeId": "PR_kwDOArOUPc8AAAABFpT9BA",
+    "number": 226,
+    "title": "ci: remove Twitter announcement step from `release-please` workflow",
+    "createdAt": "2026-09-29T07:09:55Z",
+    "closedAt": "2026-09-29T07:19:17Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint",
+    "htmlUrl": "https://github.com/eslint/eslint/pull/21360",
+    "id": 5599898436,
+    "nodeId": "PR_kwDOAKjKDc8AAAABFUPsRw",
+    "number": 21360,
+    "title": "fix: astral letters in `consistent-return`, `no-eval`, `no-invalid-this`",
+    "createdAt": "2026-09-27T05:05:05Z",
+    "closedAt": "2026-09-29T15:30:56Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
     "repositoryUrl": "https://api.github.com/repos/eslint/markdown",
     "htmlUrl": "https://github.com/eslint/markdown/pull/743",
     "id": 5500548551,

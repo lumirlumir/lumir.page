@@ -14,7 +14,7 @@ import 'server-only';
 
 import Link from 'next/link';
 import { author } from '@/data/author';
-import { type LangRecord, type PropsWithLang } from '@/data/lang';
+import type { LangRecord, PropsWithLang } from '@/data/lang';
 import styles from './title.module.css';
 
 // --------------------------------------------------------------------------------

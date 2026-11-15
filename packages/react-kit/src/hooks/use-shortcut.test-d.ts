@@ -21,11 +21,14 @@ options = {};
 options = { ctrlKey: true };
 options = { metaKey: true };
 options = { ctrlKey: true, metaKey: false };
+options = { ignoreEditable: false };
 
 // @ts-expect-error - `ctrlKey` should be a boolean.
 options = { ctrlKey: 'true' };
 // @ts-expect-error - `metaKey` should be a boolean.
 options = { metaKey: 'true' };
+// @ts-expect-error - `ignoreEditable` should be a boolean.
+options = { ignoreEditable: 'false' };
 // @ts-expect-error - `unknown` is not a valid property of `UseShortcutOptions`.
 options = { unknown: true };
 
@@ -53,6 +56,7 @@ function useShortcutTypeTest() {
   useShortcut('k', () => undefined, { ctrlKey: true });
   useShortcut('k', () => undefined, { metaKey: true });
   useShortcut('k', () => undefined, { ctrlKey: true, metaKey: false });
+  useShortcut('k', () => undefined, { ctrlKey: true, ignoreEditable: false });
 
   // @ts-expect-error - `key` should be a string.
   useShortcut(1, () => undefined);

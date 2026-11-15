@@ -21,7 +21,7 @@ import 'client-only';
 import { useToggle } from '@lumir/react-kit/hooks';
 import { HiOutlineMenuAlt2 } from '@lumir/react-kit/svgs';
 import { cn } from '@lumir/utils';
-import { type LangRecord, type PropsWithLang } from '@/data/lang';
+import type { LangRecord, PropsWithLang } from '@/data/lang';
 import styles from './aside-toggle.module.css';
 
 // --------------------------------------------------------------------------------

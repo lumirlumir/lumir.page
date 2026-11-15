@@ -6,7 +6,7 @@
 // Import
 // --------------------------------------------------------------------------------
 
-import { type MouseEventHandler } from 'react';
+import type { MouseEventHandler } from 'react';
 import { cn } from '@lumir/utils';
 
 import NeonButton from '@/components/neon-button';

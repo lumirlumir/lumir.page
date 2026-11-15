@@ -3,18 +3,13 @@
  */
 
 // --------------------------------------------------------------------------------
-// Import
-// --------------------------------------------------------------------------------
-
-import { fileURLToPath } from 'node:url';
-
-// --------------------------------------------------------------------------------
 // Helper
 // --------------------------------------------------------------------------------
 
 const isProd = process.env.NODE_ENV === 'production';
 const isTypegen = process.argv.includes('typegen');
 const isAnalyze = process.argv.includes('experimental-analyze');
+const allowedDevOrigins = (process.env.allowedDevOrigins ?? '').split(',');
 
 // --------------------------------------------------------------------------------
 // Export
@@ -33,6 +28,9 @@ export default {
     ],
   },
   reactCompiler: true,
+  experimental: {
+    turbopackRustReactCompiler: true,
+  },
   // Remove `console.*` output except `console.warn` and `console.error` only in production.
   ...(isProd && {
     compiler: {
@@ -51,12 +49,8 @@ export default {
   distDir: isTypegen || isAnalyze ? '.next' : 'build', // For static export, use a separate dist directory to prevent type generation conflicts.
   turbopack: {
     rules: {
-      '*.md': {
-        loaders: [
-          fileURLToPath(new URL('./plugins/markdown-loader.js', import.meta.url)),
-        ],
-        as: '*.js',
-      },
+      '*.md': { type: 'text' },
     },
   },
+  allowedDevOrigins,
 };

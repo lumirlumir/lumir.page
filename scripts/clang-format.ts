@@ -1,7 +1,7 @@
 import { spawnSync } from 'node:child_process';
 import { readdirSync } from 'node:fs';
 import { join } from 'node:path';
-import { clangFormatPath } from 'clang-format-node'; // eslint-disable-line import/no-extraneous-dependencies
+import { clangFormatPath } from 'clang-format-node';
 
 const args = process.argv[2] === '--fix' ? ['-i'] : ['-n', '-Werror'];
 

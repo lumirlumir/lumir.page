@@ -6,9 +6,9 @@
 // Import
 // --------------------------------------------------------------------------------
 
-import { type PropsWithChildren } from 'react';
+import type { PropsWithChildren } from 'react';
 import { Giscus } from '@/components/giscus';
-import { type LangKey } from '@/data/lang';
+import type { LangKey } from '@/data/lang';
 import styles from './layout.module.css';
 
 // --------------------------------------------------------------------------------

@@ -20,7 +20,7 @@ import 'client-only';
 
 import {
   createContext,
-  useContext,
+  use,
   useMemo,
   useSyncExternalStore,
   type Dispatch,
@@ -48,6 +48,7 @@ export type ConfigContextValue = readonly [
 // --------------------------------------------------------------------------------
 
 const ConfigContext = createContext<ConfigContextValue | undefined>(undefined);
+ConfigContext.displayName = 'ConfigContext';
 const configChangeEvent = `${configKey}-change`;
 const configDefaultSnapshot = JSON.stringify(configDefault);
 
@@ -109,7 +110,7 @@ function setConfig(value: SetStateAction<Config>) {
  * @throws {Error} Throws when called outside of `ConfigProvider`.
  */
 export function useConfigContext(): ConfigContextValue {
-  const context = useContext(ConfigContext);
+  const context = use(ConfigContext);
 
   if (!context) {
     throw new Error('`useConfigContext` must be used within a `ConfigProvider`.');
@@ -133,6 +134,6 @@ export function ConfigProvider({ children }: PropsWithChildren) {
   );
   const config = useMemo(() => parseConfig(snapshot), [snapshot]);
 
-  // eslint-disable-next-line react/jsx-no-constructed-context-values -- React Compiler automatically optimizes context values.
+  // eslint-disable-next-line react-x/no-unstable-context-value -- React Compiler automatically optimizes context values.
   return <ConfigContext value={[config, setConfig]}>{children}</ConfigContext>;
 }

@@ -6,7 +6,7 @@
 // Import
 // --------------------------------------------------------------------------------
 
-import { type HTMLAttributes, type PropsWithChildren } from 'react';
+import type { HTMLAttributes, PropsWithChildren } from 'react';
 import { cn } from '@lumir/utils';
 import styles from './neon-div.module.css';
 
