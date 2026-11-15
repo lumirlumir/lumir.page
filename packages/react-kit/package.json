@@ -40,7 +40,7 @@
   "scripts": {
     "build": "tsgo -b tsconfig.build.json",
     "dev": "tsgo -b tsconfig.build.json --watch",
-    "test": "vitest run"
+    "test": "cross-env PLAYWRIGHT_BROWSERS_PATH=0 vitest run"
   },
   "peerDependencies": {
     "@types/react": "^19.2.0",
