@@ -23,7 +23,7 @@ import md from 'eslint-lumir/md';
 export default defineConfig([
   globalIgnores(
     [
-      '**/archives/',
+      '**/archives/gist/',
       '**/build/',
       '**/coverage/',
       '**/.next/',
