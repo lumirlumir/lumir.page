@@ -1,7 +1,7 @@
 /** @type {import('stylelint').Config} */
 export default {
   extends: ['stylelint-config-standard', 'stylelint-config-recess-order'],
-  ignoreFiles: ['**/archives/**', '**/build/**', '**/coverage/**', '**/.next/**'],
+  ignoreFiles: ['**/build/**', '**/coverage/**', '**/.next/**'],
   languageOptions: {
     syntax: {
       types: {

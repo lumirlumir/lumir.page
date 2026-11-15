@@ -2,10 +2,8 @@
  * @fileoverview Define common types.
  */
 
-/* eslint-disable typescript/no-empty-object-type -- Required for type definitions. */
-
 // --------------------------------------------------------------------------------
-// Typedefs
+// Typedef
 // --------------------------------------------------------------------------------
 
 /**
@@ -163,12 +161,12 @@ export interface PullRequest extends Contribution {
 /**
  * Represents a GitHub Issue.
  */
-export interface Issue extends Contribution {}
+export type Issue = Contribution;
 
 /**
  * Represents a GitHub Discussion.
  */
-export interface Discussion extends Contribution {}
+export type Discussion = Contribution;
 
 /**
  * Represents a GitHub Pull Request comment.
