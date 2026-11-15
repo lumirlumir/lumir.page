@@ -30,7 +30,7 @@ Before any Next.js work, find and read the relevant doc in `node_modules/next/di
 
 - In a fresh clone, run `git pull -p` from the repo root before `npm install` to pull the latest branch state and prune stale remote-tracking branches.
 - Then run `npm install` from the repo root before attempting tests, builds, lint, or package changes.
-- Before running browser tests, check whether the Chromium shell required by the currently installed Playwright version is already installed. Only when it is not installed, run `npx playwright install chromium --with-deps --only-shell` from the repo root.
+- Run `npm run setup:browser` from the repo root once before Vitest or Playwright browser tests; Playwright reuses installed browsers. On Linux, run `npx playwright install-deps chromium` once during environment setup.
 - Do not start validation or implementation work until the install has completed successfully, because the workspace dependencies are required across the monorepo.
 
 ## Test/Build/Lint Workflow (required before finalizing)
@@ -49,6 +49,8 @@ Always run Playwright E2E tests with exactly one worker, regardless of the defau
 
 Sandbox note:
 
+- On Windows PowerShell, use `npm.cmd` if execution policy blocks `npm.ps1`.
+- For local Windows E2E runs (`CI` unset), start `npm.cmd run dev -w apps/blog` in a separate terminal/session if no server is running at `http://localhost:3000`, then run `npm.cmd run test:e2e -w apps/blog -- --workers=1`. The existing `reuseExistingServer` setting avoids Playwright's server cleanup, where sandbox restrictions can block `taskkill /T /F`. Keep the development server running for subsequent tests.
 - If `npm run lint` fails only because `editorconfig-checker` cannot download its binary due to the DNS proxy in this environment, treat that specific failure as ignorable and continue with the remaining validation results.
 
 For faster iteration, use workspace-scoped commands when appropriate:
