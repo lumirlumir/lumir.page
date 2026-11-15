@@ -1,4 +1,4 @@
-Contributions not included in `apps/blog/src/generated` are listed here.
+Contributions not included in `apps/blog/src/generated` and personal notes about contributions are listed here.
 
 | Emoji          | Description                |
 | -------------- | -------------------------- |
@@ -10,6 +10,8 @@ Contributions not included in `apps/blog/src/generated` are listed here.
 ### Pull Requests
 
 1. fix: correct path handling for file name extraction in `rss.js` [#7005](https://github.com/reactjs/react.dev/pull/7005) :green_heart:
+
+   The changes have not yet been reflected in [reactjs/react.dev](https://github.com/reactjs/react.dev/pull/7005), but they have been properly reflected in [reactjs/ko.react.dev](https://github.com/reactjs/ko.react.dev/pull/975).
 
 ## [`vercel/next.js`](https://github.com/vercel/next.js)
 
@@ -70,6 +72,10 @@ Contributions not included in `apps/blog/src/generated` are listed here.
 
 ## [`tidory/tidory.github.io`](https://github.com/tidory/tidory.github.io)
 
+NOTE: The original repository has been deleted. You can check the original commits in my forked repository. [fork-tidory.github.io](https://github.com/lumirlumir/fork-tidory.github.io)
+
 ### Pull Requests
 
 1. docs(typo): typo in framework.md [#162](https://github.com/tidory/tidory.github.io/pull/162) :purple_heart:
+
+   [forked-commit](https://github.com/lumirlumir/fork-tidory.github.io/commit/51300808a4abac516b201e87c9a9c58ba658d518)
