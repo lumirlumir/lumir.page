@@ -24,6 +24,7 @@ import { LmSearch } from '@lumir/react-kit/svgs';
 import { Search, type Match } from '@lumir/utils';
 import Link from 'next/link';
 import { useDeferredValue, useMemo, useRef, useState, type KeyboardEvent } from 'react';
+import { useConfigContext } from '@/contexts/config';
 import type { LangRecord, PropsWithLang } from '@/data/lang';
 import type { VMarkdownFileMetaWithHeadings } from '@/data/v-markdown';
 import styles from './localsearch.module.css';
@@ -111,9 +112,11 @@ function renderHighlight(text: string, range?: Match, excerpt = false) {
 // --------------------------------------------------------------------------------
 
 export function LocalSearch({ lang }: PropsWithLang) {
+  const [{ cursorSplash }, setConfig] = useConfigContext();
   const dialogRef = useRef<DialogHandle | null>(null);
   const inputRef = useRef<HTMLInputElement | null>(null);
   const resultsPanelRef = useRef<HTMLDivElement | null>(null);
+  const cursorSplashBeforeOpenRef = useRef<boolean>(cursorSplash);
   const [query, setQuery] = useState<string>('');
   const [activeIndex, setActiveIndex] = useState<number>(0);
   const [searchData, setSearchData] = useState<
@@ -225,9 +228,18 @@ export function LocalSearch({ lang }: PropsWithLang) {
         initialFocusRef={inputRef}
         onOpenChange={open => {
           if (open) {
+            cursorSplashBeforeOpenRef.current = cursorSplash;
             loadSearch();
+            setConfig(config => ({
+              ...config,
+              cursorSplash: false,
+            }));
           } else {
             updateQuery('');
+            setConfig(config => ({
+              ...config,
+              cursorSplash: cursorSplashBeforeOpenRef.current,
+            }));
           }
         }}
       >

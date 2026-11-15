@@ -10,6 +10,8 @@ import { afterEach, assert, beforeEach, describe, it, vi } from 'vitest';
 import { page, userEvent } from 'vitest/browser';
 import { render } from 'vitest-browser-react';
 import type { ComponentProps } from 'react';
+import { ConfigProvider } from '@/contexts/config';
+import { configKey } from '@/data/config';
 
 let { LocalSearch } = await import('./localsearch');
 
@@ -57,6 +59,7 @@ vi.mock(
 
 describe('localsearch', () => {
   beforeEach(async () => {
+    localStorage.removeItem(configKey);
     // Isolate the module-level search cache between browser tests.
     ({ LocalSearch } = await import(
       /* @vite-ignore */ `./localsearch.tsx?test=${crypto.randomUUID()}`
@@ -66,11 +69,12 @@ describe('localsearch', () => {
 
   afterEach(() => {
     vi.restoreAllMocks();
+    localStorage.removeItem(configKey);
   });
 
   describe('translations', () => {
     it('should render the Korean translations and search icon with only the language prop', async () => {
-      const screen = await render(<LocalSearch lang="ko" />);
+      const screen = await render(<LocalSearch lang="ko" />, { wrapper: ConfigProvider });
       const button = screen.container.querySelector('button');
       const input = screen.container.querySelector('input');
       const dialog = screen.container.querySelector('dialog');
@@ -85,7 +89,7 @@ describe('localsearch', () => {
     });
 
     it('should render the English translations and search icon with only the language prop', async () => {
-      const screen = await render(<LocalSearch lang="en" />);
+      const screen = await render(<LocalSearch lang="en" />, { wrapper: ConfigProvider });
       const button = screen.container.querySelector('button');
       const input = screen.container.querySelector('input');
       const dialog = screen.container.querySelector('dialog');
@@ -102,7 +106,7 @@ describe('localsearch', () => {
 
   describe('default icon', () => {
     it('should inherit the text color instead of forcing white', async () => {
-      const screen = await render(<LocalSearch lang="en" />);
+      const screen = await render(<LocalSearch lang="en" />, { wrapper: ConfigProvider });
       const icon = screen.container.querySelector('button svg');
 
       assert.ok(icon instanceof SVGElement);
@@ -112,7 +116,7 @@ describe('localsearch', () => {
 
   describe('spell checking', () => {
     it('should disable spell checking on the search input', async () => {
-      const screen = await render(<LocalSearch lang="en" />);
+      const screen = await render(<LocalSearch lang="en" />, { wrapper: ConfigProvider });
       const input = screen.container.querySelector('input');
 
       assert.ok(input);
@@ -121,11 +125,34 @@ describe('localsearch', () => {
     });
   });
 
+  describe('cursor splash', () => {
+    it('should keep a previously disabled cursor splash disabled after closing search', async () => {
+      localStorage.setItem(configKey, JSON.stringify({ cursorSplash: false }));
+      const screen = await render(<LocalSearch lang="en" />, { wrapper: ConfigProvider });
+      const dialog = screen.container.querySelector('dialog');
+      const onClose = vi.fn();
+
+      assert.ok(dialog);
+      dialog.addEventListener('close', onClose, { once: true });
+
+      await screen.getByRole('button', { name: 'Search', exact: true }).click();
+      assert.isTrue(dialog.open);
+      await screen.getByRole('button', { name: 'Close', exact: true }).click();
+      await vi.waitFor(() => assert.strictEqual(onClose.mock.calls.length, 1));
+
+      assert.isFalse(dialog.open);
+      assert.strictEqual(
+        localStorage.getItem(configKey),
+        JSON.stringify({ cursorSplash: false }),
+      );
+    });
+  });
+
   describe('search data loading', () => {
     it('should fetch on opening and reuse pending and loaded data', async () => {
       const response = Promise.withResolvers<Response>();
       const fetchSearch = vi.spyOn(globalThis, 'fetch').mockReturnValue(response.promise);
-      const screen = await render(<LocalSearch lang="en" />);
+      const screen = await render(<LocalSearch lang="en" />, { wrapper: ConfigProvider });
 
       assert.strictEqual(fetchSearch.mock.calls.length, 0);
       await screen.getByRole('button', { name: 'Search', exact: true }).click();
@@ -139,7 +166,9 @@ describe('localsearch', () => {
       await vi.waitFor(() => assert.include(screen.container.textContent, 'Search docs'));
       await screen.unmount();
 
-      const remounted = await render(<LocalSearch lang="en" />);
+      const remounted = await render(<LocalSearch lang="en" />, {
+        wrapper: ConfigProvider,
+      });
       await remounted.getByRole('button', { name: 'Search', exact: true }).click();
       await vi.waitFor(() =>
         assert.include(remounted.container.textContent, 'Search docs'),
@@ -150,7 +179,7 @@ describe('localsearch', () => {
     it('should search a pending query when loading finishes', async () => {
       const response = Promise.withResolvers<Response>();
       vi.spyOn(globalThis, 'fetch').mockReturnValue(response.promise);
-      const screen = await render(<LocalSearch lang="en" />);
+      const screen = await render(<LocalSearch lang="en" />, { wrapper: ConfigProvider });
 
       await screen.getByRole('button', { name: 'Search', exact: true }).click();
       await screen.getByRole('searchbox', { name: 'Search' }).fill('React');
@@ -171,7 +200,7 @@ describe('localsearch', () => {
         .spyOn(globalThis, 'fetch')
         .mockResolvedValueOnce(new Response(null, { status: 503 }))
         .mockResolvedValueOnce(Response.json([]));
-      const screen = await render(<LocalSearch lang="en" />);
+      const screen = await render(<LocalSearch lang="en" />, { wrapper: ConfigProvider });
 
       await screen.getByRole('button', { name: 'Search', exact: true }).click();
       await screen.getByRole('searchbox', { name: 'Search' }).fill('React');
@@ -191,7 +220,7 @@ describe('localsearch', () => {
         .spyOn(globalThis, 'fetch')
         .mockRejectedValueOnce(new TypeError('Network failure'))
         .mockResolvedValueOnce(Response.json([]));
-      const screen = await render(<LocalSearch lang="en" />);
+      const screen = await render(<LocalSearch lang="en" />, { wrapper: ConfigProvider });
 
       await screen.getByRole('button', { name: 'Search', exact: true }).click();
       await vi.waitFor(() => {
@@ -205,7 +234,7 @@ describe('localsearch', () => {
     });
 
     it('should clear the query when Escape closes the dialog', async () => {
-      const screen = await render(<LocalSearch lang="en" />);
+      const screen = await render(<LocalSearch lang="en" />, { wrapper: ConfigProvider });
 
       await screen.getByRole('button', { name: 'Search', exact: true }).click();
       await screen.getByRole('searchbox', { name: 'Search' }).fill('React');
@@ -218,7 +247,7 @@ describe('localsearch', () => {
     });
 
     it('should request search data for the selected language', async () => {
-      const screen = await render(<LocalSearch lang="ko" />);
+      const screen = await render(<LocalSearch lang="ko" />, { wrapper: ConfigProvider });
 
       await userEvent.keyboard('{Meta>}k{/Meta}');
       await vi.waitFor(() => assert.include(screen.container.textContent, '문서 검색'));
@@ -242,7 +271,7 @@ describe('localsearch', () => {
           },
         ]),
       );
-      const screen = await render(<LocalSearch lang="en" />);
+      const screen = await render(<LocalSearch lang="en" />, { wrapper: ConfigProvider });
 
       await screen.getByRole('button', { name: 'Search', exact: true }).click();
       await screen.getByRole('searchbox', { name: 'Search' }).fill(' rEaCt ');
@@ -279,7 +308,7 @@ describe('localsearch', () => {
           },
         ]),
       );
-      const screen = await render(<LocalSearch lang="en" />);
+      const screen = await render(<LocalSearch lang="en" />, { wrapper: ConfigProvider });
 
       await screen.getByRole('button', { name: 'Search', exact: true }).click();
       await screen.getByRole('searchbox', { name: 'Search' }).fill('tooltip');
@@ -320,7 +349,7 @@ describe('localsearch', () => {
           },
         ]),
       );
-      const screen = await render(<LocalSearch lang="en" />);
+      const screen = await render(<LocalSearch lang="en" />, { wrapper: ConfigProvider });
 
       await screen.getByRole('button', { name: 'Search', exact: true }).click();
       await screen.getByRole('searchbox', { name: 'Search' }).fill('react');
@@ -361,7 +390,7 @@ describe('localsearch', () => {
     });
 
     it('should select by hover or keyboard and open the active result on Enter', async () => {
-      const screen = await render(<LocalSearch lang="en" />);
+      const screen = await render(<LocalSearch lang="en" />, { wrapper: ConfigProvider });
       screen.container.style.setProperty('--color-bg-default', 'white');
       screen.container.style.setProperty('--color-bg-neutral-muted', 'silver');
       await screen.getByRole('button', { name: 'Search', exact: true }).click();
@@ -395,7 +424,7 @@ describe('localsearch', () => {
     });
 
     it('should wrap keyboard selection and scroll the selected result into view', async () => {
-      const screen = await render(<LocalSearch lang="en" />);
+      const screen = await render(<LocalSearch lang="en" />, { wrapper: ConfigProvider });
       await screen.getByRole('button', { name: 'Search', exact: true }).click();
       await screen.getByRole('searchbox', { name: 'Search' }).fill('React');
       await vi.waitFor(() =>
@@ -423,7 +452,7 @@ describe('localsearch', () => {
         'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15',
       );
 
-      const screen = await render(<LocalSearch lang="en" />);
+      const screen = await render(<LocalSearch lang="en" />, { wrapper: ConfigProvider });
       const keycaps = screen.container.querySelectorAll('button kbd');
 
       assert.strictEqual(keycaps.length, 2);
@@ -436,7 +465,7 @@ describe('localsearch', () => {
         'Mozilla/5.0 (iPad; CPU OS 18_0 like Mac OS X) AppleWebKit/605.1.15',
       );
 
-      const screen = await render(<LocalSearch lang="en" />);
+      const screen = await render(<LocalSearch lang="en" />, { wrapper: ConfigProvider });
       const keycaps = screen.container.querySelectorAll('button kbd');
 
       assert.strictEqual(keycaps.length, 2);
@@ -449,7 +478,7 @@ describe('localsearch', () => {
         'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
       );
 
-      const screen = await render(<LocalSearch lang="en" />);
+      const screen = await render(<LocalSearch lang="en" />, { wrapper: ConfigProvider });
       const keycaps = screen.container.querySelectorAll('button kbd');
 
       assert.strictEqual(keycaps.length, 2);
@@ -462,7 +491,7 @@ describe('localsearch', () => {
         'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36',
       );
 
-      const screen = await render(<LocalSearch lang="en" />);
+      const screen = await render(<LocalSearch lang="en" />, { wrapper: ConfigProvider });
       const keycaps = screen.container.querySelectorAll('button kbd');
 
       assert.strictEqual(keycaps.length, 2);
@@ -478,7 +507,9 @@ describe('localsearch', () => {
       await page.viewport(390, 844);
 
       try {
-        const screen = await render(<LocalSearch lang="en" />);
+        const screen = await render(<LocalSearch lang="en" />, {
+          wrapper: ConfigProvider,
+        });
         const dialog = screen.container.querySelector('dialog');
 
         assert.ok(dialog);
