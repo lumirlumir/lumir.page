@@ -9,6 +9,7 @@
 import { afterEach, assert, beforeEach, describe, it, vi } from 'vitest';
 import { page, userEvent } from 'vitest/browser';
 import { render } from 'vitest-browser-react';
+import type { LinkProps } from 'next/link';
 import type { ComponentProps } from 'react';
 import { ConfigProvider } from '@/contexts/config';
 import { configKey } from '@/data/config';
@@ -48,9 +49,22 @@ vi.mock(
   () =>
     ({
       children,
-      onNavigate: _onNavigate,
+      href,
+      onNavigate,
       ...props
-    }: ComponentProps<'a'> & { onNavigate?: unknown }) => <a {...props}>{children}</a>,
+    }: ComponentProps<'a'> & Pick<LinkProps, 'onNavigate'>) => (
+      <a
+        {...props}
+        href={href}
+        onClick={event => {
+          // Simulate client-side navigation without leaving the test page.
+          event.preventDefault();
+          onNavigate?.(event);
+        }}
+      >
+        {children}
+      </a>
+    ),
 );
 
 // --------------------------------------------------------------------------------
@@ -389,24 +403,44 @@ describe('localsearch', () => {
       vi.mocked(fetch).mockResolvedValue(Response.json([article]));
     });
 
-    it('should select by hover or keyboard and open the active result on Enter', async () => {
+    it('should select by hover or keyboard and clean up search when opening the active result on Enter', async () => {
+      localStorage.setItem(configKey, JSON.stringify({ cursorSplash: true }));
       const screen = await render(<LocalSearch lang="en" />, { wrapper: ConfigProvider });
+      const dialog = screen.container.querySelector('dialog');
+      const input = screen.container.querySelector('input');
+
+      assert.ok(dialog);
+      assert.ok(input);
       screen.container.style.setProperty('--color-bg-default', 'white');
       screen.container.style.setProperty('--color-bg-neutral-muted', 'silver');
       await screen.getByRole('button', { name: 'Search', exact: true }).click();
+      assert.isTrue(dialog.open);
+      assert.strictEqual(
+        localStorage.getItem(configKey),
+        JSON.stringify({ cursorSplash: false }),
+      );
       await screen.getByRole('searchbox', { name: 'Search' }).fill('React');
       await vi.waitFor(() =>
         assert.strictEqual(screen.container.querySelectorAll('li > a').length, 2),
       );
       const [first, second] =
         screen.container.querySelectorAll<HTMLAnchorElement>('li > a');
-      const firstClick = vi.spyOn(first, 'click').mockImplementation(() => {});
+      const firstClick = vi.spyOn(first, 'click');
       const secondClick = vi.spyOn(second, 'click').mockImplementation(() => {});
 
       assert.strictEqual(first.getAttribute('data-active'), 'true');
       await userEvent.hover(second);
       assert.strictEqual(first.getAttribute('data-active'), 'false');
       assert.strictEqual(second.getAttribute('data-active'), 'true');
+
+      const composing = vi
+        .spyOn(KeyboardEvent.prototype, 'isComposing', 'get')
+        .mockReturnValue(true);
+      await userEvent.keyboard('{Enter}{ArrowUp}');
+      assert.strictEqual(secondClick.mock.calls.length, 0);
+      assert.strictEqual(second.getAttribute('data-active'), 'true');
+      composing.mockRestore();
+
       await userEvent.keyboard('{Enter}');
       assert.strictEqual(firstClick.mock.calls.length, 0);
       assert.strictEqual(secondClick.mock.calls.length, 1);
@@ -417,10 +451,19 @@ describe('localsearch', () => {
       assert.isTrue(second.matches(':hover'));
       assert.strictEqual(getComputedStyle(first).backgroundColor, 'rgb(192, 192, 192)');
       assert.strictEqual(getComputedStyle(second).backgroundColor, 'rgb(255, 255, 255)');
-      assert.strictEqual(document.activeElement, screen.container.querySelector('input'));
+      assert.strictEqual(document.activeElement, input);
       await userEvent.keyboard('{Enter}');
       assert.strictEqual(firstClick.mock.calls.length, 1);
       assert.strictEqual(secondClick.mock.calls.length, 1);
+
+      await vi.waitFor(() => {
+        assert.isFalse(dialog.open);
+        assert.strictEqual(input.value, '');
+        assert.strictEqual(
+          localStorage.getItem(configKey),
+          JSON.stringify({ cursorSplash: true }),
+        );
+      });
     });
 
     it('should wrap keyboard selection and scroll the selected result into view', async () => {

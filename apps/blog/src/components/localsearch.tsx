@@ -176,6 +176,10 @@ export function LocalSearch({ lang }: PropsWithLang) {
   }
 
   function onInputKeyDown(event: KeyboardEvent<HTMLInputElement>) {
+    if (event.nativeEvent.isComposing) {
+      return;
+    }
+
     const links = resultsPanelRef.current?.querySelectorAll<HTMLAnchorElement>('li > a');
 
     if (!links?.length) {
