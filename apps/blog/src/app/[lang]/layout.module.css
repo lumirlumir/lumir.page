@@ -10,7 +10,6 @@
   width: min(calc(100% - 16px), 1540px);
   min-height: calc(100vh - 16px);
   margin: 8px auto;
-  margin-right: auto !important;
   font-family: var(--font-stack-serif);
   color: var(--color-ink);
   background-color: var(--color-paper);
