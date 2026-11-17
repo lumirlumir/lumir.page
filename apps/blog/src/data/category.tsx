@@ -238,7 +238,7 @@ export const categoryMeta = {
   essay: {
     name: {
       en: 'Essay',
-      ko: '에세이',
+      ko: '수필',
     },
     reactIcons: <FaBookOpen />,
   },

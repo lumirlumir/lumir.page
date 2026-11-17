@@ -12,13 +12,12 @@ import type { PropsWithChildren } from 'react';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 
-import { Categories } from '@/components/aside/categories';
-import { Links } from '@/components/aside/links';
-
 import { AsideToggle } from '@/components/aside-toggle';
+import { Categories } from '@/components/categories';
 import { CursorSplash } from '@/components/cursor-splash';
 import { GoogleAnalytics } from '@/components/google-analytics';
 import { LangToggle } from '@/components/lang-toggle';
+import { Links } from '@/components/links';
 import { LocalSearch } from '@/components/localsearch';
 import { Profile } from '@/components/profile';
 import { ScrollProgress } from '@/components/scroll-progress';
