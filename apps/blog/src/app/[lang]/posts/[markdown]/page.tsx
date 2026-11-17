@@ -7,6 +7,7 @@
 // --------------------------------------------------------------------------------
 
 import type { Metadata } from 'next';
+import { frontmatterMeta } from '@/data/frontmatter';
 import type { LangKey } from '@/data/lang';
 import createMarkdownCollection from '@/utils/markdown-collection';
 import { markdownToHtml } from '@/utils/markdown-to-html';
@@ -94,7 +95,7 @@ export default async function Page({ params }: PageProps<'/[lang]/posts/[markdow
       {references.length > 0 && ( // TODO: Make a dedicated component for this after we decide on the design.
         <div className="markdown">
           <br />
-          <h2>Reference</h2>
+          <h2>{frontmatterMeta.references.name[lang]}</h2>
           <ul>
             {references.map(reference => (
               <li key={reference}>
