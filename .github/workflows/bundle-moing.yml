@@ -3,6 +3,7 @@ name: bundle-moing
 on:
   pull_request:
     branches: [main]
+    types: [opened, synchronize, ready_for_review, reopened]
     paths:
       - '.github/workflows/bundle-moing.yml'
       - 'apps/moing/**'
@@ -23,6 +24,8 @@ env:
 
 jobs:
   bundle-moing:
+    if: github.event.pull_request.draft == false
+
     runs-on: ubuntu-latest
 
     steps:
