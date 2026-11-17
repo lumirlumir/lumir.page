@@ -7,7 +7,7 @@
 // --------------------------------------------------------------------------------
 
 import Link from 'next/link';
-import { PostCard } from '@/components/article/post-card';
+import { PostCard } from '@/components/post-card';
 import type { CategoryKey } from '@/data/category';
 import type { LangKey, LangRecord } from '@/data/lang';
 import { compareMarkdownDocument } from '@/utils/compare';

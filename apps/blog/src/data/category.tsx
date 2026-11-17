@@ -84,21 +84,21 @@ export const categoryMeta = {
   html: {
     name: {
       en: 'HTML',
-      ko: '하이퍼 텍스트 마크업 언어',
+      ko: 'HTML',
     },
     reactIcons: <FaHtml5 />,
   },
   markdown: {
     name: {
       en: 'Markdown',
-      ko: '마크다운',
+      ko: 'Markdown',
     },
     reactIcons: <FaMarkdown />,
   },
   css: {
     name: {
       en: 'CSS',
-      ko: '캐스케이딩 스타일 시트',
+      ko: 'CSS',
     },
     reactIcons: <FaCss3Alt />,
   },
@@ -112,49 +112,49 @@ export const categoryMeta = {
   javascript: {
     name: {
       en: 'JavaScript',
-      ko: '자바스크립트',
+      ko: 'JavaScript',
     },
     reactIcons: <RiJavascriptFill />,
   },
   nodejs: {
     name: {
       en: 'Node.js',
-      ko: '노드JS',
+      ko: 'Node.js',
     },
     reactIcons: <FaNodeJs />,
   },
   npm: {
     name: {
-      en: 'NPM',
-      ko: '노드JS 패키지 매니저',
+      en: 'npm',
+      ko: 'npm',
     },
     reactIcons: <FaNpm />,
   },
   react: {
     name: {
       en: 'React',
-      ko: '리액트',
+      ko: 'React',
     },
     reactIcons: <FaReact />,
   },
   nextjs: {
     name: {
       en: 'Next.js',
-      ko: '넥스트JS',
+      ko: 'Next.js',
     },
     reactIcons: <TbBrandNextjs />,
   },
   linux: {
     name: {
       en: 'Linux',
-      ko: '리눅스',
+      ko: 'Linux',
     },
     reactIcons: <FaLinux />,
   },
   data: {
     name: {
       en: 'Data Format',
-      ko: '데이터 포맷',
+      ko: '데이터 형식',
     },
     reactIcons: <MdDataObject />,
   },
@@ -174,15 +174,15 @@ export const categoryMeta = {
   },
   vscode: {
     name: {
-      en: 'VScode',
-      ko: '비주얼 스튜디오 코드',
+      en: 'VS Code',
+      ko: 'VS Code',
     },
     reactIcons: <BiLogoVisualStudio />,
   },
   openai: {
     name: {
       en: 'OpenAI',
-      ko: '오픈AI',
+      ko: 'OpenAI',
     },
     reactIcons: <SiOpenai />,
   },
@@ -230,15 +230,15 @@ export const categoryMeta = {
   },
   synology: {
     name: {
-      en: 'Synology Nas',
-      ko: '시놀로지 나스',
+      en: 'Synology NAS',
+      ko: 'Synology NAS',
     },
     reactIcons: <SiSynology />,
   },
   essay: {
     name: {
       en: 'Essay',
-      ko: '에세이',
+      ko: '수필',
     },
     reactIcons: <FaBookOpen />,
   },

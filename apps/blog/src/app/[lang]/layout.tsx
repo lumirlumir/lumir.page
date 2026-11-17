@@ -19,9 +19,9 @@ import { ThemeScript } from '@/components/theme-script';
 
 import { AsideToggle } from '@/components/aside-toggle';
 
-import { Categories } from '@/components/aside/categories';
-import { Links } from '@/components/aside/links';
-import { Profile } from '@/components/aside/profile';
+import { Categories } from '@/components/categories';
+import { Links } from '@/components/links';
+import { Profile } from '@/components/profile';
 
 import { LocalSearch } from '@/components/localsearch';
 import { SiteNavigation } from '@/components/site-navigation';

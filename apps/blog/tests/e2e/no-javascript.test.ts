@@ -38,6 +38,16 @@ test.describe('no-javascript', () => {
       await expect(
         page.getByRole('heading', { level: 3, name: /1-1\. 마크다운이란\?/ }),
       ).toBeVisible();
+      await expect(page.locator('h1#everything-about-markdown')).toHaveCount(1);
+      await expect(page.locator('.markdown h1#everything-about-markdown')).toHaveCount(0);
+      await expect(page.locator('.footnotes h2')).toHaveText('각주');
+      await expect(page.locator('[data-footnote-backref]').first()).toHaveAttribute(
+        'aria-label',
+        '각주 참조 1로 돌아가기',
+      );
+      await expect(
+        page.getByRole('heading', { level: 2, name: '참고 링크', exact: true }),
+      ).toBeVisible();
     });
 
     test('English post route should render its semantic HTML and heading', async ({
@@ -57,6 +67,16 @@ test.describe('no-javascript', () => {
       ).toBeVisible();
       await expect(
         page.getByRole('heading', { level: 3, name: /1-1\. What Is Markdown\?/ }),
+      ).toBeVisible();
+      await expect(page.locator('h1#everything-about-markdown')).toHaveCount(1);
+      await expect(page.locator('.markdown h1#everything-about-markdown')).toHaveCount(0);
+      await expect(page.locator('.footnotes h2')).toHaveText('Footnotes');
+      await expect(page.locator('[data-footnote-backref]').first()).toHaveAttribute(
+        'aria-label',
+        'Back to reference 1',
+      );
+      await expect(
+        page.getByRole('heading', { level: 2, name: 'References', exact: true }),
       ).toBeVisible();
     });
 

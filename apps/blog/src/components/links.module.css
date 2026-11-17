@@ -37,6 +37,7 @@
       font-size: 0.58rem;
       color: var(--color-ink-soft);
       letter-spacing: 0.06em;
+      white-space: nowrap;
     }
   }
 }
