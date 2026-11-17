@@ -48,6 +48,7 @@ function PostCardItem({ icon, text }: { icon: JSX.Element; text: string }) {
 
 export async function PostCard({
   vMarkdownFileMeta: {
+    lang,
     url,
     data: { title, description, created, updated, categories },
   },
@@ -79,7 +80,7 @@ export async function PostCard({
             <PostCardItem
               key={category}
               icon={frontmatterMeta.categories.reactIcons}
-              text={categoryMeta[category].name.en}
+              text={categoryMeta[category].name[lang]}
             />
           ))}
         </PostCardContainer>
