@@ -38,6 +38,16 @@ test.describe('no-javascript', () => {
       await expect(
         page.getByRole('heading', { level: 3, name: /1-1\. 마크다운이란\?/ }),
       ).toBeVisible();
+      await expect(page.locator('h1#everything-about-markdown')).toHaveCount(1);
+      await expect(page.locator('.markdown h1#everything-about-markdown')).toHaveCount(0);
+      await expect(page.locator('.footnotes h2')).toHaveText('각주');
+      await expect(page.locator('[data-footnote-backref]').first()).toHaveAttribute(
+        'aria-label',
+        '각주 참조 1로 돌아가기',
+      );
+      await expect(
+        page.getByRole('heading', { level: 2, name: '참고 링크', exact: true }),
+      ).toBeVisible();
     });
 
     test('English post route should render its semantic HTML and heading', async ({
@@ -57,6 +67,16 @@ test.describe('no-javascript', () => {
       ).toBeVisible();
       await expect(
         page.getByRole('heading', { level: 3, name: /1-1\. What Is Markdown\?/ }),
+      ).toBeVisible();
+      await expect(page.locator('h1#everything-about-markdown')).toHaveCount(1);
+      await expect(page.locator('.markdown h1#everything-about-markdown')).toHaveCount(0);
+      await expect(page.locator('.footnotes h2')).toHaveText('Footnotes');
+      await expect(page.locator('[data-footnote-backref]').first()).toHaveAttribute(
+        'aria-label',
+        'Back to reference 1',
+      );
+      await expect(
+        page.getByRole('heading', { level: 2, name: 'References', exact: true }),
       ).toBeVisible();
     });
 
@@ -90,13 +110,18 @@ test.describe('no-javascript', () => {
       expect(response?.status()).toBe(200);
       await expect(page.locator('html')).toHaveAttribute('lang', 'ko');
       await expect(page.locator('main')).toBeVisible();
-      await expect(page.locator('article')).toBeVisible();
 
-      const postLink = page
-        .locator('article')
-        .getByRole('link', { name: /마크다운.*모든 것/ });
+      const categoryPage = page.locator('[data-page="category"]');
 
+      await expect(categoryPage).toBeVisible();
+
+      const postLink = categoryPage.locator(
+        'a[href="/ko/posts/everything-about-markdown"]',
+      );
+
+      await expect(postLink).toHaveCount(1);
       await expect(postLink).toBeVisible();
+      await expect(postLink).toContainText(/마크다운.*모든 것/);
       await expect(postLink).toHaveAttribute(
         'href',
         '/ko/posts/everything-about-markdown',
@@ -111,13 +136,18 @@ test.describe('no-javascript', () => {
       expect(response?.status()).toBe(200);
       await expect(page.locator('html')).toHaveAttribute('lang', 'en');
       await expect(page.locator('main')).toBeVisible();
-      await expect(page.locator('article')).toBeVisible();
 
-      const postLink = page
-        .locator('article')
-        .getByRole('link', { name: /Everything about Markdown/ });
+      const categoryPage = page.locator('[data-page="category"]');
 
+      await expect(categoryPage).toBeVisible();
+
+      const postLink = categoryPage.locator(
+        'a[href="/en/posts/everything-about-markdown"]',
+      );
+
+      await expect(postLink).toHaveCount(1);
       await expect(postLink).toBeVisible();
+      await expect(postLink).toContainText(/Everything about Markdown/);
       await expect(postLink).toHaveAttribute(
         'href',
         '/en/posts/everything-about-markdown',

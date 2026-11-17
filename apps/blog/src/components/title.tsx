@@ -1,5 +1,5 @@
 /**
- * @fileoverview title.
+ * @fileoverview Editorial wordmark.
  */
 
 // --------------------------------------------------------------------------------
@@ -23,12 +23,12 @@ import styles from './title.module.css';
 
 const dictionary = {
   ko: {
-    alt: (name: string) => `${name}의 GitHub 프로필`,
+    label: (name: string) => `${name} 홈`,
   },
   en: {
-    alt: (name: string) => `${name}'s GitHub profile`,
+    label: (name: string) => `${name} home`,
   },
-} as const satisfies LangRecord<{ alt: (name: string) => string }>;
+} as const satisfies LangRecord<{ label: (name: string) => string }>;
 
 // --------------------------------------------------------------------------------
 // Export
@@ -37,27 +37,10 @@ const dictionary = {
 export function Title({ lang }: PropsWithLang) {
   return (
     <div className={styles.title}>
-      <Link href={`/${lang}`}>
-        <img
-          src={(() => {
-            // To avoid downloading a much larger image than needed,
-            // we can add a query parameter to the avatar URL to request a smaller size.
-            const url = new URL(author.lumirlumir.avatarUrl);
-            url.searchParams.set('s', '40');
-            return url.toString();
-          })()}
-          width={40}
-          height={40}
-          alt={dictionary[lang].alt(author.lumirlumir.name)}
-        />
+      <Link href={`/${lang}`} aria-label={dictionary[lang].label(author.lumirlumir.name)}>
+        <span className={styles.wordmark}>{author.lumirlumir.name}</span>
+        <span className={styles.subtitle}>DEV JOURNAL</span>
       </Link>
-
-      <div>
-        <div>
-          <Link href={`/${lang}`}>{author.lumirlumir.name}</Link>
-        </div>
-        <div>{author.lumirlumir.bio}</div>
-      </div>
     </div>
   );
 }

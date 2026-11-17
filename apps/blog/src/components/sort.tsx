@@ -38,14 +38,16 @@ function SortContainer({ children, lang }: PropsWithLang<PropsWithChildren>) {
   return (
     <div>
       <button
-        type="button"
         className={cn(styles['sort-item'], 'custom-hover-effect')}
-        onClick={toggleIsOpen}
+        type="button"
         aria-expanded={isOpen}
+        aria-label={sortMenuMeta.name[lang]}
+        onClick={toggleIsOpen}
       >
-        <span className={styles['react-icons']}>{sortMenuMeta.reactIcons}</span>
-        <span className={styles.name}>{sortMenuMeta.name[lang].toUpperCase()}</span>
-        <span className={styles.sort}>{isOpen ? <FaAngleUp /> : <FaAngleDown />}</span>
+        <div className={styles['react-icons']}>{sortMenuMeta.reactIcons}</div>
+        <div className={styles['name-en']}>{sortMenuMeta.name.en}</div>
+        <div className={styles['name-ko']}>{sortMenuMeta.name.ko}</div>
+        <div className={styles.sort}>{isOpen ? <FaAngleUp /> : <FaAngleDown />}</div>
       </button>
       {isOpen ? <ul className={styles.list}>{children}</ul> : null}
     </div>
@@ -72,15 +74,19 @@ function SortItem({
   return (
     <li>
       <button
-        type="button"
         className={cn(styles['sort-item'], 'custom-hover-effect')}
+        type="button"
+        aria-label={`${frontmatterMeta[field].name[lang]} / ${sortMeta[sort].name[lang]}`}
         onClick={onClick}
       >
-        <span className={styles['react-icons']}>{frontmatterMeta[field].reactIcons}</span>
-        <span className={styles.name}>
-          {`${frontmatterMeta[field].name[lang]} / ${sortMeta[sort].name[lang]}`.toUpperCase()}
-        </span>
-        <span className={styles.sort}>{sortMeta[sort].reactIcons}</span>
+        <div className={styles['react-icons']}>{frontmatterMeta[field].reactIcons}</div>
+        <div
+          className={styles['name-en']}
+        >{`${frontmatterMeta[field].name.en} / ${sortMeta[sort].name.en}`}</div>
+        <div
+          className={styles['name-ko']}
+        >{`${frontmatterMeta[field].name.ko} / ${sortMeta[sort].name.ko}`}</div>
+        <div className={styles.sort}>{sortMeta[sort].reactIcons}</div>
       </button>
     </li>
   );
@@ -91,7 +97,7 @@ function SortItem({
 // --------------------------------------------------------------------------------
 
 /**
- * Renders a localized sort menu for the post list.
+ * Renders the bilingual sort menu with localized accessible labels.
  */
 export function Sort({ lang }: PropsWithLang) {
   return (
@@ -105,4 +111,3 @@ export function Sort({ lang }: PropsWithLang) {
     </SortContainer>
   );
 }
-// TODO: add `title` prop for a11y
