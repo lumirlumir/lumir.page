@@ -168,7 +168,7 @@ export const categoryMeta = {
   git: {
     name: {
       en: 'Git/GitHub',
-      ko: 'Git/GitHub',
+      ko: '깃/깃허브',
     },
     reactIcons: <FaGithub />,
   },
