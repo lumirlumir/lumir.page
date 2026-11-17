@@ -12,6 +12,7 @@ on:
 
   pull_request:
     branches: [main]
+    types: [opened, synchronize, ready_for_review, reopened]
     paths:
       - '.github/workflows/deploy.yml'
       - 'apps/moing/**'
@@ -27,6 +28,8 @@ env:
 
 jobs:
   build:
+    if: ${{ !github.event.pull_request || github.event.pull_request.draft == false }}
+
     runs-on: ubuntu-latest
 
     steps:

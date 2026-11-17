@@ -6,6 +6,7 @@ on:
 
   pull_request:
     branches: [main]
+    types: [opened, synchronize, ready_for_review, reopened]
 
 permissions:
   contents: read
@@ -19,6 +20,8 @@ env:
 
 jobs:
   lint:
+    if: ${{ !github.event.pull_request || github.event.pull_request.draft == false }}
+
     runs-on: ubuntu-latest
 
     steps:
@@ -41,6 +44,8 @@ jobs:
         run: node --run lint
 
   test:
+    if: ${{ !github.event.pull_request || github.event.pull_request.draft == false }}
+
     runs-on: ubuntu-latest
 
     steps:
