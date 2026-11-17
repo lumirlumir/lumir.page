@@ -7,6 +7,7 @@
 // --------------------------------------------------------------------------------
 
 import type { Metadata } from 'next';
+import { frontmatterMeta } from '@/data/frontmatter';
 import type { LangKey } from '@/data/lang';
 import createMarkdownCollection from '@/utils/markdown-collection';
 import { markdownToHtml } from '@/utils/markdown-to-html';
@@ -86,6 +87,7 @@ export default async function Page({ params }: PageProps<'/[lang]/posts/[markdow
         // eslint-disable-next-line react-x/dom-no-dangerously-set-innerhtml -- Safe because the content comes from the local file and is controlled.
         dangerouslySetInnerHTML={{
           __html: await markdownToHtml(content, {
+            lang,
             title: `${title} {#${slug}}`,
             description,
           }),
@@ -94,7 +96,7 @@ export default async function Page({ params }: PageProps<'/[lang]/posts/[markdow
       {references.length > 0 && ( // TODO: Make a dedicated component for this after we decide on the design.
         <div className="markdown">
           <br />
-          <h2>Reference</h2>
+          <h2>{frontmatterMeta.references.name[lang]}</h2>
           <ul>
             {references.map(reference => (
               <li key={reference}>

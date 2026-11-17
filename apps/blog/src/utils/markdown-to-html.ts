@@ -39,6 +39,7 @@ import {
   type RemarkBlockquoteFromDescriptionOptions,
   type RemarkHeadingFromTitleOptions,
 } from '@lumir/remark-plugins';
+import type { FootnoteBackLabelTemplate } from 'mdast-util-to-hast';
 import remarkGfm from 'remark-gfm';
 import remarkGitHub from 'remark-github';
 import remarkMath from 'remark-math';
@@ -54,14 +55,36 @@ import rehypeKatex from 'rehype-katex';
 import rehypeStarryNight from 'rehype-starry-night';
 import rehypeStringify from 'rehype-stringify';
 import { unified } from 'unified';
+import type { LangRecord, PropsWithLang } from '@/data/lang';
 import { githubRepoFullName } from '@/data/site';
 
 // --------------------------------------------------------------------------------
 // Typedef
 // --------------------------------------------------------------------------------
 
-type MarkdownToHtmlOptions = RemarkHeadingFromTitleOptions &
-  RemarkBlockquoteFromDescriptionOptions;
+type MarkdownToHtmlOptions = PropsWithLang<
+  RemarkHeadingFromTitleOptions & RemarkBlockquoteFromDescriptionOptions
+>;
+
+// --------------------------------------------------------------------------------
+// Helper
+// --------------------------------------------------------------------------------
+
+const dictionary = {
+  ko: {
+    footnoteLabel: '각주',
+    footnoteBackLabel: (referenceIndex, rereferenceIndex) =>
+      `각주 참조 ${referenceIndex + 1}${rereferenceIndex > 1 ? `-${rereferenceIndex}` : ''}로 돌아가기`,
+  },
+  en: {
+    footnoteLabel: 'Footnotes',
+    footnoteBackLabel: (referenceIndex, rereferenceIndex) =>
+      `Back to reference ${referenceIndex + 1}${rereferenceIndex > 1 ? `-${rereferenceIndex}` : ''}`,
+  },
+} as const satisfies LangRecord<{
+  footnoteLabel: string;
+  footnoteBackLabel: FootnoteBackLabelTemplate;
+}>;
 
 // --------------------------------------------------------------------------------
 // Export
@@ -77,6 +100,7 @@ type MarkdownToHtmlOptions = RemarkHeadingFromTitleOptions &
  *
  * const markdown = 'Foo Bar Baz';
  * const html = await markdownToHtml(markdown, {
+ *   lang: 'en',
  *   title: 'Awesome Title',
  *   description: 'A brief summary.',
  * });
@@ -92,20 +116,23 @@ type MarkdownToHtmlOptions = RemarkHeadingFromTitleOptions &
  */
 export async function markdownToHtml(
   markdown: string,
-  options?: MarkdownToHtmlOptions,
+  { lang, title, description }: MarkdownToHtmlOptions,
 ): Promise<string> {
   const file = await unified()
     .use(remarkParse)
     .use(remarkGfm)
     .use(remarkMath)
-    .use(remarkBlockquoteFromDescription, { description: options?.description })
-    .use(remarkHeadingFromTitle, { title: options?.title })
+    .use(remarkBlockquoteFromDescription, { description })
+    .use(remarkHeadingFromTitle, { title })
     .use(remarkCustomHeadingId)
     .use(
       remarkGitHub, // Use after `remarkCustomHeadingId` to avoid converting issue/PR references syntax (e.g., `#1`) used in custom heading IDs into links by mistake.
       { repository: githubRepoFullName },
     )
-    .use(remarkRehype, { allowDangerousHtml: true })
+    .use(remarkRehype, {
+      allowDangerousHtml: true,
+      ...dictionary[lang],
+    })
     .use(rehypeRaw)
     .use(rehypeCommentRemover)
     .use(rehypeGitHubAlert)

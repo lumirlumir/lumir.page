@@ -243,7 +243,6 @@
   .footnotes {
     font-size: var(--font-size-xs);
     color: var(--color-fg-muted);
-    border-top: var(--border-default);
 
     li {
       position: relative;

@@ -14,8 +14,21 @@ import 'server-only';
 
 import Link from 'next/link';
 import { author } from '@/data/author';
-import type { PropsWithLang } from '@/data/lang';
+import type { LangRecord, PropsWithLang } from '@/data/lang';
 import styles from './profile.module.css';
+
+// --------------------------------------------------------------------------------
+// Helper
+// --------------------------------------------------------------------------------
+
+const dictionary = {
+  ko: {
+    alt: (name: string) => `${name}의 GitHub 프로필`,
+  },
+  en: {
+    alt: (name: string) => `${name}'s GitHub profile`,
+  },
+} as const satisfies LangRecord<{ alt: (name: string) => string }>;
 
 // --------------------------------------------------------------------------------
 // Export
@@ -34,7 +47,7 @@ export function Profile({ lang }: PropsWithLang) {
         })()}
         width={96}
         height={96}
-        alt={`${author.lumirlumir.name}'s GitHub profile`}
+        alt={dictionary[lang].alt(author.lumirlumir.name)}
       />
       <div className={styles['user-name']}>
         <Link href={`/${lang}`}>{author.lumirlumir.name}</Link>

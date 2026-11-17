@@ -25,6 +25,7 @@ import { Search, type Match } from '@lumir/utils';
 import Link from 'next/link';
 import { useDeferredValue, useMemo, useRef, useState, type KeyboardEvent } from 'react';
 import { useConfigContext } from '@/contexts/config';
+import { categoryMeta } from '@/data/category';
 import type { LangRecord, PropsWithLang } from '@/data/lang';
 import type { VMarkdownFileMetaWithHeadings } from '@/data/v-markdown';
 import styles from './localsearch.module.css';
@@ -314,7 +315,9 @@ export function LocalSearch({ lang }: PropsWithLang) {
                               <span>{meta.data.created}</span>
                               <span>{meta.data.updated}</span>
                               {meta.data.categories.map(category => (
-                                <span key={category}>{category}</span>
+                                <span key={category}>
+                                  {categoryMeta[category].name[lang]}
+                                </span>
                               ))}
                             </span>
                           </span>

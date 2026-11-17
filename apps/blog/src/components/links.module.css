@@ -33,9 +33,11 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      width: var(--size-40);
+      min-width: var(--size-40);
+      font-size: var(--font-size-sm);
       color: var(--color-fg-muted);
       letter-spacing: var(--letter-spacing-tighter);
+      white-space: nowrap;
     }
   }
 }
