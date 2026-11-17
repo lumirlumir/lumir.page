@@ -13,6 +13,17 @@ import { expect, test } from '@playwright/test';
 // --------------------------------------------------------------------------------
 
 test.describe('keyboard-shortcut', () => {
+  test('Pressing `H` should navigate to the home page', async ({ page }) => {
+    await page.goto('/ko/posts/everything-about-markdown', {
+      waitUntil: 'networkidle',
+    });
+
+    await page.keyboard.press('h');
+
+    await expect(page).toHaveURL(/\/ko$/);
+    await expect(page.locator('html')).toHaveAttribute('lang', 'ko');
+  });
+
   test('Pressing `L` should switch the current page to the other language', async ({
     page,
   }) => {

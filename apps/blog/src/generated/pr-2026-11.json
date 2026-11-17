@@ -1,5 +1,44 @@
 [
   {
+    "repositoryUrl": "https://api.github.com/repos/eslint/json",
+    "htmlUrl": "https://github.com/eslint/json/pull/296",
+    "id": 6310528582,
+    "nodeId": "PR_kwDOMOnJ-M8AAAABOJdAqw",
+    "number": 296,
+    "title": "fix: preserve default JSON mode when options are omitted",
+    "createdAt": "2026-11-10T15:56:02Z",
+    "closedAt": "2026-11-14T16:53:23Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/markdown",
+    "htmlUrl": "https://github.com/eslint/markdown/pull/763",
+    "id": 6309548675,
+    "nodeId": "PR_kwDOAkm7Hs8AAAABOIqbYg",
+    "number": 763,
+    "title": "fix: correct optional parameter types in `MarkdownLanguage`",
+    "createdAt": "2026-11-10T15:03:56Z",
+    "closedAt": "2026-11-12T09:05:56Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/markdown",
+    "htmlUrl": "https://github.com/eslint/markdown/pull/762",
+    "id": 6304261102,
+    "nodeId": "PR_kwDOAkm7Hs8AAAABOEaqwA",
+    "number": 762,
+    "title": "feat: preserve HTML anchor values in `no-missing-link-fragments`",
+    "createdAt": "2026-11-10T09:41:47Z",
+    "closedAt": "2026-11-16T13:13:35Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
     "repositoryUrl": "https://api.github.com/repos/eslint/eslint",
     "htmlUrl": "https://github.com/eslint/eslint/pull/21505",
     "id": 6257033711,
@@ -216,6 +255,32 @@
     "title": "[clang-format] fix: recognize `.mts` and `.cts` as TypeScript files",
     "createdAt": "2026-10-27T13:57:46Z",
     "closedAt": "2026-11-09T20:13:40Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/markdown",
+    "htmlUrl": "https://github.com/eslint/markdown/pull/758",
+    "id": 5993747415,
+    "nodeId": "PR_kwDOAkm7Hs8AAAABKMsHPg",
+    "number": 758,
+    "title": "perf: cut no-missing-label-refs time complexity from quadratic to linear",
+    "createdAt": "2026-10-23T07:26:26Z",
+    "closedAt": "2026-11-13T22:30:30Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/code-explorer",
+    "htmlUrl": "https://github.com/eslint/code-explorer/pull/535",
+    "id": 5375960345,
+    "nodeId": "PR_kwDOLo6z_M8AAAABCiXzQA",
+    "number": 535,
+    "title": "fix: display `Map` entries in the scope inspector",
+    "createdAt": "2026-09-07T14:26:47Z",
+    "closedAt": "2026-11-15T22:37:35Z",
     "reactions": {
       "+1": 0
     }
