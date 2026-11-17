@@ -14,13 +14,13 @@ import { SpeedInsights } from '@vercel/speed-insights/next';
 
 import { Categories } from '@/components/aside/categories';
 import { Links } from '@/components/aside/links';
-import { Profile } from '@/components/aside/profile';
 
 import { AsideToggle } from '@/components/aside-toggle';
 import { CursorSplash } from '@/components/cursor-splash';
 import { GoogleAnalytics } from '@/components/google-analytics';
 import { LangToggle } from '@/components/lang-toggle';
 import { LocalSearch } from '@/components/localsearch';
+import { Profile } from '@/components/profile';
 import { ScrollProgress } from '@/components/scroll-progress';
 import { ThemeScript } from '@/components/theme-script';
 import { Title } from '@/components/title';
