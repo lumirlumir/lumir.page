@@ -41,6 +41,8 @@ jobs:
         run: node --run build
 
       - name: Lint
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
         run: node --run lint
 
   test:
