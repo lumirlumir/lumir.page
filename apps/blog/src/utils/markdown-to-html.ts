@@ -31,6 +31,8 @@ import {
   rehypeCommentRemover,
   rehypeImageLazyLoading,
   rehypeImageUrlReplace,
+  rehypeLocalizeGitHubAlertTitle,
+  type RehypeLocalizeGitHubAlertTitleOptions,
 } from '@lumir/rehype-plugins';
 import {
   remarkBlockquoteFromDescription,
@@ -72,16 +74,25 @@ type MarkdownToHtmlOptions = PropsWithLang<
 
 const dictionary = {
   ko: {
+    alertTitles: {
+      note: '참고',
+      tip: '팁',
+      important: '중요',
+      warning: '경고',
+      caution: '주의',
+    },
     footnoteLabel: '각주',
     footnoteBackLabel: (referenceIndex, rereferenceIndex) =>
       `각주 참조 ${referenceIndex + 1}${rereferenceIndex > 1 ? `-${rereferenceIndex}` : ''}로 돌아가기`,
   },
   en: {
+    alertTitles: {},
     footnoteLabel: 'Footnotes',
     footnoteBackLabel: (referenceIndex, rereferenceIndex) =>
       `Back to reference ${referenceIndex + 1}${rereferenceIndex > 1 ? `-${rereferenceIndex}` : ''}`,
   },
 } as const satisfies LangRecord<{
+  alertTitles: RehypeLocalizeGitHubAlertTitleOptions;
   footnoteLabel: string;
   footnoteBackLabel: FootnoteBackLabelTemplate;
 }>;
@@ -118,6 +129,7 @@ export async function markdownToHtml(
   markdown: string,
   { lang, title, description }: MarkdownToHtmlOptions,
 ): Promise<string> {
+  const { alertTitles, ...footnotes } = dictionary[lang];
   const file = await unified()
     .use(remarkParse)
     .use(remarkGfm)
@@ -131,11 +143,12 @@ export async function markdownToHtml(
     )
     .use(remarkRehype, {
       allowDangerousHtml: true,
-      ...dictionary[lang],
+      ...footnotes,
     })
     .use(rehypeRaw)
     .use(rehypeCommentRemover)
     .use(rehypeGitHubAlert)
+    .use(rehypeLocalizeGitHubAlertTitle, alertTitles)
     .use(rehypeGitHubColor, {
       build: value => {
         const node = defaultBuild(value);
