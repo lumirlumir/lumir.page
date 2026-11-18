@@ -75,11 +75,11 @@ type MarkdownToHtmlOptions = PropsWithLang<
 const dictionary = {
   ko: {
     alertTitles: {
-      Note: '참고',
-      Tip: '팁',
-      Important: '중요',
-      Warning: '경고',
-      Caution: '주의',
+      note: '참고',
+      tip: '팁',
+      important: '중요',
+      warning: '경고',
+      caution: '주의',
     },
     footnoteLabel: '각주',
     footnoteBackLabel: (referenceIndex, rereferenceIndex) =>
@@ -87,11 +87,11 @@ const dictionary = {
   },
   en: {
     alertTitles: {
-      Note: 'Note',
-      Tip: 'Tip',
-      Important: 'Important',
-      Warning: 'Warning',
-      Caution: 'Caution',
+      note: 'Note',
+      tip: 'Tip',
+      important: 'Important',
+      warning: 'Warning',
+      caution: 'Caution',
     },
     footnoteLabel: 'Footnotes',
     footnoteBackLabel: (referenceIndex, rereferenceIndex) =>

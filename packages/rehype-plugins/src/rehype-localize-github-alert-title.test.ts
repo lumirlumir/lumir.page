@@ -21,11 +21,11 @@ const processor = unified()
   .use(rehypeParse, { fragment: true })
   .use(rehypeGitHubAlert)
   .use(rehypeLocalizeGitHubAlertTitle, {
-    Note: 'Remarque',
-    Tip: 'Conseil',
-    Important: 'Important',
-    Warning: 'Avertissement',
-    Caution: 'Attention',
+    note: 'Remarque',
+    tip: 'Conseil',
+    important: 'Important',
+    warning: 'Avertissement',
+    caution: 'Attention',
   })
   .use(rehypeStringify);
 

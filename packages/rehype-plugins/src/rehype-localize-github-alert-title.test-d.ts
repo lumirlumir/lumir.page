@@ -19,22 +19,22 @@ import {
 // #region RehypeLocalizeGitHubAlertTitleOptions
 
 const options: RehypeLocalizeGitHubAlertTitleOptions = {
-  Note: '참고',
-  Tip: '팁',
-  Important: '중요',
-  Warning: '경고',
-  Caution: '주의',
+  note: '참고',
+  tip: '팁',
+  important: '중요',
+  warning: '경고',
+  caution: '주의',
 };
 
-// @ts-expect-error - `Warning` is required.
+// @ts-expect-error - `warning` is required.
 rehypeLocalizeGitHubAlertTitle({
-  Note: '참고',
-  Tip: '팁',
-  Important: '중요',
-  Caution: '주의',
+  note: '참고',
+  tip: '팁',
+  important: '중요',
+  caution: '주의',
 });
-// @ts-expect-error - `Warning` should be a string.
-rehypeLocalizeGitHubAlertTitle({ ...options, Warning: 1 });
+// @ts-expect-error - `warning` should be a string.
+rehypeLocalizeGitHubAlertTitle({ ...options, warning: 1 });
 
 // #endregion RehypeLocalizeGitHubAlertTitleOptions
 // --------------------------------------------------------------------------------

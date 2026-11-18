@@ -19,27 +19,27 @@ export interface RehypeLocalizeGitHubAlertTitleOptions {
   /**
    * The localized title for a `[!NOTE]` alert.
    */
-  readonly Note: string;
+  readonly note: string;
 
   /**
    * The localized title for a `[!TIP]` alert.
    */
-  readonly Tip: string;
+  readonly tip: string;
 
   /**
    * The localized title for an `[!IMPORTANT]` alert.
    */
-  readonly Important: string;
+  readonly important: string;
 
   /**
    * The localized title for a `[!WARNING]` alert.
    */
-  readonly Warning: string;
+  readonly warning: string;
 
   /**
    * The localized title for a `[!CAUTION]` alert.
    */
-  readonly Caution: string;
+  readonly caution: string;
 }
 
 // --------------------------------------------------------------------------------
@@ -62,11 +62,11 @@ export interface RehypeLocalizeGitHubAlertTitleOptions {
  *   .use(rehypeParse, { fragment: true })
  *   .use(rehypeGitHubAlert)
  *   .use(rehypeLocalizeGitHubAlertTitle, {
- *     Note: '참고',
- *     Tip: '팁',
- *     Important: '중요',
- *     Warning: '경고',
- *     Caution: '주의',
+ *     note: '참고',
+ *     tip: '팁',
+ *     important: '중요',
+ *     warning: '경고',
+ *     caution: '주의',
  *   })
  *   .use(rehypeStringify)
  *   .process('<blockquote><p>[!WARNING]\nSave your work.</p></blockquote>');
@@ -98,7 +98,7 @@ export function rehypeLocalizeGitHubAlertTitle(
 
       const label = title.children.find(child => child.type === 'text');
       if (label) {
-        label.value = translations.get(label.value) ?? label.value;
+        label.value = translations.get(label.value.toLowerCase()) ?? label.value;
       }
     }
   };
