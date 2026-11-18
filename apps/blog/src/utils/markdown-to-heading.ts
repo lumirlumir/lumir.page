@@ -100,7 +100,7 @@ export async function markdownToHeading(
 
       headings.push(
         (vMarkdownHeading = {
-          id,
+          id: encodeURIComponent(id),
           text: mdastToTextSync(node),
           depth: node.depth,
           content: '',

@@ -74,6 +74,12 @@ describe('markdown-to-heading', () => {
     ]);
   });
 
+  it('should encode custom heading IDs for use in URL fragments', async () => {
+    const [heading] = await markdownToHeading('## 소개 {#소개/100%}');
+
+    assert.strictEqual(heading.id, '%EC%86%8C%EA%B0%9C%2F100%25');
+  });
+
   it('should reject a heading without a custom ID and report its source line', async () => {
     await expect(markdownToHeading('Intro.\n\n## Missing')).rejects.toThrow(
       'Heading "Missing" at line 3 needs an explicit custom ID',
