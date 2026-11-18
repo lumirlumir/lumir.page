@@ -187,7 +187,7 @@ describe('markdown-to-html', () => {
       assert.strictEqual(await markdownToHtml(markdown, { lang: 'ko' }), html);
     });
 
-    it('should render the GitHub Alert icon and markup in English', async () => {
+    it('should convert GitHub Alert syntax to GitHub Alert HTML', async () => {
       const markdown = '> [!NOTE]\n> This is a note.';
       const html =
         '<div class="markdown-alert markdown-alert-note"><p class="markdown-alert-title"><svg class="octicon octicon-info mr-2" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg>Note</p><p>This is a note.</p>\n</div>';
@@ -202,7 +202,7 @@ describe('markdown-to-html', () => {
         '> [!IMPORTANT]\n> Important',
         '> [!WARNING]\n> Warning',
         '> [!CAUTION]\n> Caution',
-      ].join('\n\n<!-- -->\n\n');
+      ].join('\n\n');
 
       const korean = await markdownToHtml(markdown, { lang: 'ko' });
       assert.include(korean, '</svg>참고</p><p>Note</p>');
