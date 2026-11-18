@@ -32,7 +32,7 @@ import {
   rehypeImageLazyLoading,
   rehypeImageUrlReplace,
   rehypeLocalizeGitHubAlertTitle,
-  type GitHubAlertTitles,
+  type RehypeLocalizeGitHubAlertTitleOptions,
 } from '@lumir/rehype-plugins';
 import {
   remarkBlockquoteFromDescription,
@@ -98,7 +98,7 @@ const dictionary = {
       `Back to reference ${referenceIndex + 1}${rereferenceIndex > 1 ? `-${rereferenceIndex}` : ''}`,
   },
 } as const satisfies LangRecord<{
-  alertTitles: GitHubAlertTitles;
+  alertTitles: RehypeLocalizeGitHubAlertTitleOptions;
   footnoteLabel: string;
   footnoteBackLabel: FootnoteBackLabelTemplate;
 }>;
