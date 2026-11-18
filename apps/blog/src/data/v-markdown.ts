@@ -20,7 +20,7 @@ import type { LangKey } from '@/data/lang';
 export interface VMarkdownHeading {
   /**
    * The rendered HTML heading ID used as a deep-link anchor, excluding the leading `#`.
-   * URL encoding is applied when constructing the link, rather than stored in this value.
+   * URL encoding is applied before this value is stored.
    */
   readonly id: string;
 

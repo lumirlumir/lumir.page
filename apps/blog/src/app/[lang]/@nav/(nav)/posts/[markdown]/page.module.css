@@ -1,0 +1,37 @@
+.toc {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  letter-spacing: var(--letter-spacing-tightest);
+  overflow-wrap: anywhere;
+
+  & > h2,
+  & a {
+    display: grid;
+    grid-auto-rows: minmax(var(--size-24), auto);
+    align-items: center;
+    padding-block: var(--spacing-static-sm);
+    margin-block: var(--spacing-static-xs);
+  }
+
+  & > h2 {
+    grid-template-columns: 1fr calc(var(--size-40) + var(--size-2));
+    font: inherit;
+    text-transform: uppercase;
+
+    & > svg {
+      justify-self: center;
+      width: var(--size-20);
+      height: var(--size-20);
+    }
+  }
+
+  & > ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+
+  & a {
+    padding-inline-end: var(--spacing-static-sm);
+  }
+}

@@ -298,7 +298,7 @@ export function LocalSearch({ lang }: PropsWithLang) {
                     {results.map(({ item: { meta, heading }, matches }, index) => (
                       <li key={meta.id + heading.id}>
                         <Link
-                          href={`${meta.url}#${encodeURIComponent(heading.id)}` as const}
+                          href={`${meta.url}#${heading.id}` as const}
                           data-active={index === activeIndex}
                           onMouseMove={() => setActiveIndex(index)}
                           onNavigate={() => dialogRef.current?.close()}

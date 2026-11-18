@@ -313,7 +313,7 @@ describe('localsearch', () => {
               { id: 'installation', text: 'Installation', depth: 1, content: '' },
               { id: 'usage', text: 'Usage', depth: 2, content: '' },
               {
-                id: 'references',
+                id: 'api%2Freferences',
                 text: 'References',
                 depth: 3,
                 content: `${'Background text. '.repeat(70)}Use tooltips <img src=x> for context.`,
@@ -337,7 +337,7 @@ describe('localsearch', () => {
 
       assert.ok(link);
       assert.ok(excerpt);
-      assert.strictEqual(link.getAttribute('href'), '/en/posts/react#references');
+      assert.strictEqual(link.getAttribute('href'), '/en/posts/react#api%2Freferences');
       assert.strictEqual(
         link.querySelector('span')?.children[0].textContent,
         'React guide / References',
