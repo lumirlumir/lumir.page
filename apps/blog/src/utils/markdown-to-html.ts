@@ -86,13 +86,7 @@ const dictionary = {
       `각주 참조 ${referenceIndex + 1}${rereferenceIndex > 1 ? `-${rereferenceIndex}` : ''}로 돌아가기`,
   },
   en: {
-    alertTitles: {
-      note: 'Note',
-      tip: 'Tip',
-      important: 'Important',
-      warning: 'Warning',
-      caution: 'Caution',
-    },
+    alertTitles: {},
     footnoteLabel: 'Footnotes',
     footnoteBackLabel: (referenceIndex, rereferenceIndex) =>
       `Back to reference ${referenceIndex + 1}${rereferenceIndex > 1 ? `-${rereferenceIndex}` : ''}`,
