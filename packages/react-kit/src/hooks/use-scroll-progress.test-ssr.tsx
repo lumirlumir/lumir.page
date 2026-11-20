@@ -1,15 +1,29 @@
-import { assert, it, vi } from 'vitest';
+/**
+ * @fileoverview SSR test for `use-scroll-progress.ts`
+ */
+
+// --------------------------------------------------------------------------------
+// Import
+// --------------------------------------------------------------------------------
+
+import { assert, describe, it, vi } from 'vitest';
 import { renderToString } from 'react-dom/server';
 import { useScrollProgress } from './use-scroll-progress.js';
 
-it('does not report scroll progress during server rendering', () => {
-  const onProgress = vi.fn();
+// --------------------------------------------------------------------------------
+// Test
+// --------------------------------------------------------------------------------
 
-  function ScrollProgress() {
-    useScrollProgress(onProgress);
-    return null;
-  }
+describe('use-scroll-progress', () => {
+  it('does not report scroll progress during server rendering', () => {
+    const onProgress = vi.fn();
 
-  renderToString(<ScrollProgress />);
-  assert.lengthOf(onProgress.mock.calls, 0);
+    function ScrollProgress() {
+      useScrollProgress(onProgress);
+      return null;
+    }
+
+    renderToString(<ScrollProgress />);
+    assert.lengthOf(onProgress.mock.calls, 0);
+  });
 });
