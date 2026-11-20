@@ -68,7 +68,7 @@ export default function Server({ onTestWriteComplete }: ServerProps) {
     } else if (mode === 'result') {
       return getInterviewHistory();
     } else {
-      return formatContent(content);
+      return formatContent(content ?? '');
     }
   }, [mode, content, question, getInterviewInfo, getInterviewHistory]);
   const previousHistory = usePreviousDistinct<string>(text, { history: true });
@@ -100,7 +100,7 @@ export default function Server({ onTestWriteComplete }: ServerProps) {
           writePreDelay={2000}
           writePostDelay={1000}
           onWriteComplete={() => {
-            if (mode === 'auto' || mode === 'result') toNextSection();
+            if (content !== null || mode === 'result') toNextSection();
             if (mode === 'test' && text !== '') onTestWriteComplete();
             scroll.intoView({ block: 'end', inline: 'nearest' });
           }}
