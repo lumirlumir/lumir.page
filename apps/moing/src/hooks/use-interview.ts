@@ -79,27 +79,19 @@ function createMessageObject(
   role: ChatCompletionMessageParam['role'],
   text: string,
 ): ChatCompletionMessageParam {
-  return {
-    role,
-    content: [
-      {
-        text,
-        type: 'text',
-      },
-    ],
-  };
+  return { role, content: text };
 }
 
-async function fetchQuestionMain(type: QuestionType, history: string[]): Promise<string> {
+function fetchQuestionMain(type: QuestionType, history: string[]): Promise<string> {
   return fetchChatCompletionText([
-    ...prompts.questionMain[type].messages,
+    ...prompts.questionMain[type],
     ...history.map(text => createMessageObject('assistant', text)),
   ]);
 }
 
-async function fetchQuestionSub(question: string, answerUser: string) {
+function fetchQuestionSub(question: string, answerUser: string) {
   return fetchChatCompletionText([
-    ...prompts.questionSub.messages,
+    ...prompts.questionSub,
     createMessageObject(
       'user',
       `Previous Question\n\n${question}\n\nUSER's Answer\n\n${answerUser}`,
@@ -107,16 +99,16 @@ async function fetchQuestionSub(question: string, answerUser: string) {
   ]);
 }
 
-async function fetchAnswer(question: string) {
+function fetchAnswer(question: string) {
   return fetchChatCompletionText([
-    ...prompts.answer.messages,
+    ...prompts.answer,
     createMessageObject('user', question),
   ]);
 }
 
-async function fetchFeedback(answerSystem: string, answerUser: string) {
+function fetchFeedback(answerSystem: string, answerUser: string) {
   return fetchChatCompletionText([
-    ...prompts.feedback.messages,
+    ...prompts.feedback,
     createMessageObject(
       'user',
       `Correct Answer\n\n${answerSystem}\n\nUSER's Answer\n\n${answerUser}`,
@@ -197,21 +189,29 @@ export default function useInterview<T extends HTMLElement>() {
   const getInterviewHistory = () => {
     let str = '';
 
-    const printAllStrings = (obj: InterviewObj | InterviewFeedback) => {
-      for (const val of Object.values(obj)) {
-        if (typeof val === 'string') {
-          str += `---\n\n${val}\n\n`;
-        } else if (typeof val === 'object') {
-          printAllStrings(val);
-        }
-      }
-    };
-
     for (let i = 0; i < historyRef.current.length; i += 1) {
       const { questionType, questionMain, questionSub } = getInterviewInfo(i);
+      const {
+        question: questionText,
+        answerSystem,
+        answerUser,
+        feedback,
+      } = historyRef.current[i];
 
       str += `> ${questionType.toUpperCase()}분야 ${questionMain}-${questionSub}번 문제, 해설, 사용자 답변, 피드백, 성적입니다.\n\n`;
-      printAllStrings(historyRef.current[i]);
+
+      for (const text of [
+        questionText,
+        answerSystem,
+        answerUser,
+        feedback.feedback,
+        feedback.score,
+      ]) {
+        if (typeof text === 'string') {
+          str += `---\n\n${text}\n\n`;
+        }
+      }
+
       str += '----------------------------------------\n\n';
     }
 

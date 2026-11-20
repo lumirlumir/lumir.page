@@ -39,8 +39,8 @@ export default function Timer({ className = '', currentCount }: TimerProps) {
   const { section } = useScenarioContext();
   const status = section.timer;
   const remainingSeconds = Math.ceil(currentCount / 1_000);
-  const minute = Math.floor((remainingSeconds / 60) % 60);
-  const second = Math.floor(remainingSeconds % 60);
+  const minute = Math.floor(remainingSeconds / 60);
+  const second = remainingSeconds % 60;
 
   return (
     <footer

@@ -36,9 +36,8 @@ export default function App() {
   const { config, updateConfig } = useConfigContext();
   const { listening, submit, toggleListening, getInterviewInfo } = useInterviewContext();
   const { section } = useScenarioContext();
-  const initialCount = config.time * 60 * 1_000;
   const timerQuestionIndexRef = useRef(0);
-  const [currentCount, setCurrentCount] = useCountdown(initialCount, {
+  const [currentCount, setCurrentCount] = useCountdown(0, {
     onComplete: () => submit(timerQuestionIndexRef.current),
   });
   const [scrollRef, scroll] = useScroll<HTMLDivElement>({ behavior: 'smooth' });
@@ -56,24 +55,18 @@ export default function App() {
       <Button
         type="config"
         icon={<GoGear size="35px" />}
-        onClick={() => {
-          updateConfig({ visibility: !config.visibility });
-        }}
+        onClick={() => updateConfig({ visibility: !config.visibility })}
       />
       <Button
         type="speech"
         icon={<CiMicrophoneOn size="40px" />}
         hoverEffect={listening}
-        onClick={() => {
-          toggleListening();
-        }}
+        onClick={toggleListening}
       />
       <Button
         type="reload"
         icon={<GrPowerReset size="32px" />}
-        onClick={() => {
-          window.location.reload();
-        }}
+        onClick={() => window.location.reload()}
       />
       <Button
         type="submit"
@@ -92,7 +85,7 @@ export default function App() {
           <Server
             onTestWriteComplete={() => {
               timerQuestionIndexRef.current = getInterviewInfo().index;
-              setCurrentCount(initialCount);
+              setCurrentCount(config.time * 60_000);
             }}
           />
           <Client />

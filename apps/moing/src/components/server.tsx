@@ -36,15 +36,11 @@ interface ServerProps {
  * @returns The formatted content.
  */
 function formatContent(content: string) {
-  if (content === '') {
-    // If content is empty, return an empty string to avoid displaying `'> '` prefix
-    return '';
-  } else if (content.startsWith('$')) {
-    // If content starts with '$', treat it as a command and display without `'> '` prefix
-    return `${content}\n\n`;
-  } else {
-    return `> ${content}\n\n`;
-  }
+  if (content === '') return '';
+
+  const prefix = content.startsWith('$') ? '' : '> ';
+
+  return `${prefix}${content}\n\n`;
 }
 
 // --------------------------------------------------------------------------------

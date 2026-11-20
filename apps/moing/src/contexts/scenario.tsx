@@ -21,27 +21,6 @@ import { createContext, use, useState, type PropsWithChildren } from 'react';
 // --------------------------------------------------------------------------------
 
 /**
- * Text content for a scenario section.
- */
-interface Content<T extends string | null> {
-  /**
-   * Text content to be rendered in the section.
-   */
-  content: T;
-}
-
-/**
- * Selects dynamic interview content for the server section.
- */
-interface Mode {
-  /**
-   * - `test`: renders interview questions during the active test flow.
-   * - `result`: renders the final interview result.
-   */
-  mode?: 'test' | 'result';
-}
-
-/**
  * Shared UI status for scenario-driven components.
  *
  * - `hidden`: the element is visually hidden and unavailable.
@@ -77,7 +56,10 @@ interface Section {
   /**
    * Main action button state and label.
    */
-  'main-button': { status: Status } & Content<'PRESS' | 'START'>;
+  'main-button': {
+    status: Status;
+    content: 'PRESS' | 'START';
+  };
 
   /**
    * Timer section state.
@@ -95,9 +77,22 @@ interface Section {
   client: Status;
 
   /**
-   * Fixed text advances the section after typing. Without a mode, `null` waits for user input.
+   * Interviewer output state.
    */
-  server: { status: Status } & Content<string | null> & Mode;
+  server: {
+    status: Status;
+
+    /**
+     * Fixed text advances the section after typing. Without a mode, `null` waits for user input.
+     */
+    content: string | null;
+
+    /**
+     * - `test`: renders interview questions during the active test flow.
+     * - `result`: renders the final interview result.
+     */
+    mode?: 'test' | 'result';
+  };
 }
 
 /**
@@ -121,9 +116,9 @@ interface ScenarioContextValue {
   readonly toLastSection: () => void;
 
   /**
-   * Returns whether the current section is the last section of its chapter.
+   * Whether the current section is the last section of its chapter.
    */
-  readonly isLastSection: () => boolean;
+  readonly isLastSection: boolean;
 }
 
 // --------------------------------------------------------------------------------
@@ -528,6 +523,7 @@ export function ScenarioProvider({ children }: PropsWithChildren) {
   });
 
   const section = scenario[state.chapter][state.section];
+  const isLastSection = state.section === scenario[state.chapter].length - 1;
 
   const toNextSection = () => {
     setState(prevState => {
@@ -560,8 +556,6 @@ export function ScenarioProvider({ children }: PropsWithChildren) {
       section: scenario[prevState.chapter].length - 1,
     }));
   };
-
-  const isLastSection = () => state.section === scenario[state.chapter].length - 1;
 
   return (
     // eslint-disable-next-line react-x/no-unstable-context-value -- React Compiler automatically optimizes context values.
