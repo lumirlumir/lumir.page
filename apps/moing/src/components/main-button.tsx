@@ -30,18 +30,20 @@ export default function ButtonMain() {
   const onClick: MouseEventHandler<HTMLButtonElement> = e => {
     if (content === 'PRESS') {
       toNextSection();
+      return;
     }
-    if (content === 'START') {
-      if (e.ctrlKey) {
-        toLastSection();
-        return;
-      }
-      if (isConfigDone()) {
-        updateConfig({ visibility: false });
-        initInterview(config);
-      }
-      toNextSection();
+
+    if (e.ctrlKey) {
+      toLastSection();
+      return;
     }
+
+    if (isConfigDone) {
+      updateConfig({ visibility: false });
+      initInterview(config);
+    }
+
+    toNextSection();
   };
 
   return (
@@ -49,7 +51,7 @@ export default function ButtonMain() {
       className={cn(
         styles['main-button'],
         'custom-main-others',
-        (isLastSection() && isConfigDone()) || status !== 'hidden'
+        (isLastSection && isConfigDone) || status !== 'hidden'
           ? ''
           : 'pointer-events-none opacity-0',
       )}

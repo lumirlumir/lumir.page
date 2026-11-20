@@ -1,7 +1,4 @@
 .client {
-  height: var(--main-section-height);
-  transition: var(--transition);
-
   & > div {
     width: 100%;
     height: 100%;

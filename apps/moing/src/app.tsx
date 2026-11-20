@@ -64,9 +64,7 @@ export default function App() {
         type="speech"
         icon={<CiMicrophoneOn size="40px" />}
         hoverEffect={listening}
-        onClick={() => {
-          toggleListening();
-        }}
+        onClick={toggleListening}
       />
       <Button
         type="reload"
