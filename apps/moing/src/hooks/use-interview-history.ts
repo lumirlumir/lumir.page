@@ -40,14 +40,11 @@ export default function useInterviewHistory() {
 
     return questionMainHistory;
   };
-  const getInterviewInfo = () => ({
+  const getInterviewInfo = (index = historyRef.current.length) => ({
     questionType:
-      questionTypeRef.current[
-        Math.floor(historyRef.current.length / (rowRef.current * colRef.current))
-      ],
-    questionMain:
-      (Math.floor(historyRef.current.length / colRef.current) % rowRef.current) + 1,
-    questionSub: (historyRef.current.length % colRef.current) + 1,
+      questionTypeRef.current[Math.floor(index / (rowRef.current * colRef.current))],
+    questionMain: (Math.floor(index / colRef.current) % rowRef.current) + 1,
+    questionSub: (index % colRef.current) + 1,
   });
   const getInterviewHistory = () => {
     let str = '';
@@ -64,10 +61,7 @@ export default function useInterviewHistory() {
     };
 
     for (let i = 0; i < historyRef.current.length; i += 1) {
-      const questionType =
-        questionTypeRef.current[Math.floor(i / (rowRef.current * colRef.current))];
-      const questionMain = (Math.floor(i / colRef.current) % rowRef.current) + 1;
-      const questionSub = (i % colRef.current) + 1;
+      const { questionType, questionMain, questionSub } = getInterviewInfo(i);
 
       str += `> ${questionType.toUpperCase()}분야 ${questionMain}-${questionSub}번 문제, 해설, 사용자 답변, 피드백, 성적입니다.\n\n`;
       printAllStrings(historyRef.current[i]);

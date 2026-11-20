@@ -60,11 +60,13 @@ export default function Server({ onTestWriteComplete }: ServerProps) {
   const [scrollRef, scroll] = useScroll<HTMLDivElement>({ behavior: 'smooth' });
   const text = useMemo(() => {
     if (mode === 'test') {
-      return question === null
-        ? ''
-        : formatContent(
-            `${getInterviewInfo().questionType.toUpperCase()}분야 ${getInterviewInfo().questionMain}-${getInterviewInfo().questionSub}번 문제입니다. ${question}`,
-          );
+      if (question === null) return '';
+
+      const { questionType, questionMain, questionSub } = getInterviewInfo();
+
+      return formatContent(
+        `${questionType.toUpperCase()}분야 ${questionMain}-${questionSub}번 문제입니다. ${question}`,
+      );
     } else if (mode === 'result') {
       return getInterviewHistory();
     } else {
