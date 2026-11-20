@@ -37,12 +37,7 @@ const INTERVIEW_OBJ: InterviewObj = Object.freeze({
 export default function useInterviewObj() {
   const [interviewObj, setInterviewObj] = useState<InterviewObj>(INTERVIEW_OBJ);
 
-  const initInterviewObj = () => {
-    setInterviewObj(prevState => ({
-      ...prevState,
-      ...INTERVIEW_OBJ,
-    }));
-  };
+  const initInterviewObj = () => setInterviewObj(INTERVIEW_OBJ);
   const addInterviewObj = (obj: Partial<InterviewObj>) => {
     setInterviewObj(prevState => ({
       ...prevState,
