@@ -15,11 +15,16 @@ import { References } from './references';
 // --------------------------------------------------------------------------------
 
 describe('references', () => {
-  it('should set the references anchor ID on the heading', async () => {
+  it('should render a permalink to the references heading', async () => {
     const screen = await render(
       <References lang="ko" references={['https://example.com']} />,
     );
+    const heading = screen.container.querySelector('h2');
 
-    assert.strictEqual(screen.container.querySelector('h2')?.id, 'references');
+    assert.strictEqual(heading?.id, 'references');
+    assert.strictEqual(
+      heading?.querySelector(':scope > a[aria-hidden="true"]')?.getAttribute('href'),
+      '#references',
+    );
   });
 });
