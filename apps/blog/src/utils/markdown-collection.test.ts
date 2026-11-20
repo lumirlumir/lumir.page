@@ -263,6 +263,12 @@ describe('markdown-collection', () => {
               depth: 2,
               content: 'Korean body.',
             },
+            {
+              id: 'references',
+              text: '참고 링크',
+              depth: 2,
+              content: 'https://example.com/ko',
+            },
           ],
         },
       );

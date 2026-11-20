@@ -168,6 +168,22 @@ describe('markdown-to-html', () => {
 
       assert.strictEqual(await markdownToHtml(markdown, { lang: 'ko' }), html);
     });
+
+    it('should append localized references with a permalink and shortened GitHub issue links before footnotes', async () => {
+      const url = 'https://github.com/octocat/Hello-World/issues/42';
+      const html = await markdownToHtml('Body.[^1]\n\n[^1]: A note.', {
+        lang: 'ko',
+        references: [url],
+      });
+
+      assert.include(
+        html,
+        '<h2 id="references"><a aria-hidden="true" tabindex="-1" href="#references"></a>참고 링크</h2>',
+      );
+      assert.include(html, `<li><a href="${url}">octocat/Hello-World#42</a></li>`);
+      assert.include(html, 'data-footnotes');
+      assert.isBelow(html.indexOf('id="references"'), html.indexOf('data-footnotes'));
+    });
   });
 
   describe('HTML', () => {
