@@ -1,0 +1,26 @@
+.dialog {
+  max-width: calc(100vw - var(--size-16));
+  max-height: calc(100dvh - var(--size-16));
+  padding: 0;
+  background: transparent;
+  border: 0;
+
+  &::backdrop {
+    background-color: rgb(1 4 9 / 80%);
+  }
+
+  button {
+    display: block;
+    padding: 0;
+    cursor: zoom-out;
+    background: transparent;
+    border: 0;
+  }
+
+  img {
+    display: block;
+    width: calc(100vw - var(--size-16));
+    max-height: calc(100dvh - var(--size-16));
+    object-fit: contain;
+  }
+}
