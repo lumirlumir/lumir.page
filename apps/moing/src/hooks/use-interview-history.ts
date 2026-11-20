@@ -50,14 +50,13 @@ export default function useInterviewHistory() {
     let str = '';
 
     const printAllStrings = (obj: InterviewObj) => {
-      Object.values(obj).map(val => {
+      for (const val of Object.values(obj)) {
         if (typeof val === 'string') {
           str += `---\n\n${val}\n\n`;
         } else if (typeof val === 'object') {
           printAllStrings(val);
         }
-        return null;
-      });
+      }
     };
 
     for (let i = 0; i < historyRef.current.length; i += 1) {
