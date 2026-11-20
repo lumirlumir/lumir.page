@@ -38,7 +38,7 @@ interface Mode {
    * - `test`: renders interview questions during the active test flow.
    * - `result`: renders the final interview result.
    */
-  mode?: 'test' | 'result'; // TODO: Remove after the test flow is integrated into the main scenario flow.
+  mode?: 'test' | 'result';
 }
 
 /**
