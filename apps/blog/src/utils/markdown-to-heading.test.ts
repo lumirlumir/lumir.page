@@ -15,12 +15,16 @@ import { markdownToHeading } from './markdown-to-heading.js';
 
 describe('markdown-to-heading', () => {
   it('should return no headings when Markdown has no headings or title', async () => {
-    assert.deepStrictEqual(await markdownToHeading(''), []);
-    assert.deepStrictEqual(await markdownToHeading('Plain body text.'), []);
+    assert.deepStrictEqual(await markdownToHeading('', { lang: 'en' }), []);
+    assert.deepStrictEqual(
+      await markdownToHeading('Plain body text.', { lang: 'en' }),
+      [],
+    );
   });
 
   it('should keep the introduction under the generated title', async () => {
     const headings = await markdownToHeading('Intro.\n\n## Section {#section}\n\nBody.', {
+      lang: 'en',
       title: 'Article {#article}',
     });
 
@@ -32,6 +36,7 @@ describe('markdown-to-heading', () => {
 
   it('should include the description before the introduction under the generated title', async () => {
     const headings = await markdownToHeading('Intro.\n\n## Section {#section}\n\nBody.', {
+      lang: 'en',
       title: 'Article {#article}',
       description: 'A **brief** summary with `code`.\n\nMore details.',
     });
@@ -47,9 +52,44 @@ describe('markdown-to-heading', () => {
     ]);
   });
 
+  it('should collect reference URLs under a Korean heading with a stable ID', async () => {
+    const headings = await markdownToHeading('## Section {#section}\n\nBody.', {
+      lang: 'ko',
+      references: ['https://example.com/first', 'https://example.com/second'],
+    });
+
+    assert.deepStrictEqual(headings, [
+      { id: 'section', text: 'Section', depth: 2, content: 'Body.' },
+      {
+        id: 'references',
+        text: '참고 링크',
+        depth: 2,
+        content: 'https://example.com/first https://example.com/second',
+      },
+    ]);
+  });
+
+  it('should collect reference URLs under an English heading with a stable ID', async () => {
+    const headings = await markdownToHeading('## Section {#section}\n\nBody.', {
+      lang: 'en',
+      references: ['https://example.com/first', 'https://example.com/second'],
+    });
+
+    assert.deepStrictEqual(headings, [
+      { id: 'section', text: 'Section', depth: 2, content: 'Body.' },
+      {
+        id: 'references',
+        text: 'References',
+        depth: 2,
+        content: 'https://example.com/first https://example.com/second',
+      },
+    ]);
+  });
+
   it('should extract flat sections in order and omit text before the first heading', async () => {
     const headings = await markdownToHeading(
       'Intro.\n\n## **First** {#first}\n\nFirst body.\n\n### Child {#child}\n\nChild body.\n\n## Last {#last}',
+      { lang: 'en' },
     );
 
     assert.deepStrictEqual(headings, [
@@ -62,6 +102,7 @@ describe('markdown-to-heading', () => {
   it('should extract nested headings and collect body blocks without treating code as headings', async () => {
     const headings = await markdownToHeading(
       '> ## Quoted {#quoted}\n>\n> Body.\n\n- List item\n\n```md\n## Code\n```',
+      { lang: 'en' },
     );
 
     assert.deepStrictEqual(headings, [
@@ -75,26 +116,28 @@ describe('markdown-to-heading', () => {
   });
 
   it('should encode custom heading IDs for use in URL fragments', async () => {
-    const [heading] = await markdownToHeading('## 소개 {#소개/100%}');
+    const [heading] = await markdownToHeading('## 소개 {#소개/100%}', { lang: 'ko' });
 
     assert.strictEqual(heading.id, '%EC%86%8C%EA%B0%9C%2F100%25');
   });
 
   it('should reject a heading without a custom ID and report its source line', async () => {
-    await expect(markdownToHeading('Intro.\n\n## Missing')).rejects.toThrow(
-      'Heading "Missing" at line 3 needs an explicit custom ID',
-    );
+    await expect(
+      markdownToHeading('Intro.\n\n## Missing', { lang: 'en' }),
+    ).rejects.toThrow('Heading "Missing" at line 3 needs an explicit custom ID');
   });
 
   it('should reject a custom ID inside formatted text', async () => {
-    await expect(markdownToHeading('## **Formatted {#ignored}**')).rejects.toThrow(
+    await expect(
+      markdownToHeading('## **Formatted {#ignored}**', { lang: 'en' }),
+    ).rejects.toThrow(
       'Heading "Formatted {#ignored}" at line 1 needs an explicit custom ID',
     );
   });
 
   it('should reject a supplied title without a custom ID', async () => {
-    await expect(markdownToHeading('Body.', { title: 'Article' })).rejects.toThrow(
-      'Heading "Article" at line 1 needs an explicit custom ID',
-    );
+    await expect(
+      markdownToHeading('Body.', { lang: 'en', title: 'Article' }),
+    ).rejects.toThrow('Heading "Article" at line 1 needs an explicit custom ID');
   });
 });

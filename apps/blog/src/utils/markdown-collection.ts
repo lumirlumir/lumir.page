@@ -308,8 +308,10 @@ class MarkdownCollection {
     return {
       ...vMarkdownFileMeta,
       headings: await markdownToHeading(content, {
+        lang: vMarkdownFileMeta.lang,
         title: `${vMarkdownFileMeta.data.title} {#${vMarkdownFileMeta.slug}}`,
         description: vMarkdownFileMeta.data.description,
+        references: vMarkdownFileMeta.data.references,
       }),
     };
   }
