@@ -105,4 +105,3 @@ export function Sort({ lang }: PropsWithLang) {
     </SortContainer>
   );
 }
-// TODO: add `title` prop for a11y
