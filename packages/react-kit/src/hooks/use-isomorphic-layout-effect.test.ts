@@ -17,7 +17,6 @@ import { useIsomorphicLayoutEffect } from './use-isomorphic-layout-effect.js';
 describe('use-isomorphic-layout-effect', () => {
   it('Should use `useLayoutEffect` when `window` is available', async () => {
     // Vitest runs this file in Browser Mode, so `window` is always available here.
-    // The SSR branch should be tested with a separate Node Vitest config if needed.
     assert.notStrictEqual(window, undefined);
 
     assert.strictEqual(useIsomorphicLayoutEffect, useLayoutEffect);
