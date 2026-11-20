@@ -23,6 +23,7 @@ Before any Next.js work, find and read the relevant doc in `node_modules/next/di
 - Keep changes **small, focused, and local** to the requested scope.
 - Changes under `archives/` do not require review unless the user explicitly asks for one.
 - Refer to at least three similar existing code examples and patterns in the repository for guidance.
+- Follow the section-divider comment patterns in nearby files when organizing code and tests.
 - Prefer editing existing files/patterns instead of introducing new abstractions.
 - When touching package code, check for related workspace dependencies in sibling packages under `packages/` and in `apps/`.
 

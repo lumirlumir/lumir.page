@@ -3,14 +3,27 @@ import { playwright } from '@vitest/browser-playwright';
 
 export default defineConfig({
   test: {
-    browser: {
-      enabled: true,
-      headless: true,
-      provider: playwright(),
-      screenshotFailures: false,
-      instances: [{ browser: 'chromium' }],
-    },
-    include: ['src/**/*.test.{js,mjs,cjs,jsx,ts,mts,cts,tsx}'],
+    projects: [
+      {
+        test: {
+          name: 'node',
+          include: ['src/**/*.test-ssr.{ts,mts,cts,tsx}'],
+        },
+      },
+      {
+        test: {
+          name: 'browser',
+          browser: {
+            enabled: true,
+            headless: true,
+            provider: playwright(),
+            screenshotFailures: false,
+            instances: [{ browser: 'chromium' }],
+          },
+          include: ['src/**/*.test.{js,mjs,cjs,jsx,ts,mts,cts,tsx}'],
+        },
+      },
+    ],
 
     // Vitest's built-in type checking is still experimental, so we intentionally keep it disabled.
     // I prefer the native TypeScript type-checking flow and rely on the repo's project references
