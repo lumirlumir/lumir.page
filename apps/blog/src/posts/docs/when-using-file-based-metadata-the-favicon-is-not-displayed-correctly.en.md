@@ -21,7 +21,7 @@ Because the Favicon is a representative file that browsers cache strongly, this 
 1. Click 'Empty Cache and Hard Reload'.
 1. The updated Favicon is displayed correctly.
 
-## References {#references}
+## References {#screenshots}
 
 - Tooltip when developer tools are not open.
 
