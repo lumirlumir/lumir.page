@@ -60,15 +60,17 @@ export default function Server({ onTestWriteComplete }: ServerProps) {
   const [scrollRef, scroll] = useScroll<HTMLDivElement>({ behavior: 'smooth' });
   const text = useMemo(() => {
     if (mode === 'test') {
-      return question === null
-        ? ''
-        : formatContent(
-            `${getInterviewInfo().questionType.toUpperCase()}분야 ${getInterviewInfo().questionMain}-${getInterviewInfo().questionSub}번 문제입니다. ${question}`,
-          );
+      if (question === null) return '';
+
+      const { questionType, questionMain, questionSub } = getInterviewInfo();
+
+      return formatContent(
+        `${questionType.toUpperCase()}분야 ${questionMain}-${questionSub}번 문제입니다. ${question}`,
+      );
     } else if (mode === 'result') {
       return getInterviewHistory();
     } else {
-      return formatContent(content);
+      return formatContent(content ?? '');
     }
   }, [mode, content, question, getInterviewInfo, getInterviewHistory]);
   const previousHistory = usePreviousDistinct<string>(text, { history: true });
@@ -100,7 +102,7 @@ export default function Server({ onTestWriteComplete }: ServerProps) {
           writePreDelay={2000}
           writePostDelay={1000}
           onWriteComplete={() => {
-            if (mode === 'auto' || mode === 'result') toNextSection();
+            if (content !== null || mode === 'result') toNextSection();
             if (mode === 'test' && text !== '') onTestWriteComplete();
             scroll.intoView({ block: 'end', inline: 'nearest' });
           }}
