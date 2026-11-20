@@ -7,6 +7,7 @@
 // --------------------------------------------------------------------------------
 
 import { useEffect, useRef, useState } from 'react';
+import { useSpeechRecognition } from '@lumir/react-kit/hooks';
 import type {
   ChatCompletion,
   ChatCompletionCreateRequestBody,
@@ -14,7 +15,6 @@ import type {
 } from '@lumir/types/openai';
 
 import type { Config, QuestionType } from '@/contexts/config';
-import useInterviewContent from '@/hooks/use-interview-content';
 import useInterviewHistory from '@/hooks/use-interview-history';
 
 import {
@@ -119,7 +119,14 @@ async function fetchFeedback(answerSystem: string, answerUser: string) {
 // --------------------------------------------------------------------------------
 
 export default function useInterview<T extends HTMLElement>() {
-  const { contentRef, listening, toggleListening } = useInterviewContent<T>();
+  const contentRef = useRef<T | null>(null);
+  const prevContentRef = useRef<string>('');
+  const {
+    listening,
+    transcript,
+    resetTranscript,
+    toggleListening: toggleSpeechRecognition,
+  } = useSpeechRecognition({ continuous: true, lang: 'ko-KR' });
   const {
     interviewHistoryRef,
     initInterviewHistory,
@@ -135,12 +142,24 @@ export default function useInterview<T extends HTMLElement>() {
     submitted: boolean;
   } | null>(null);
 
+  useEffect(() => {
+    if (contentRef.current)
+      contentRef.current.innerText = prevContentRef.current + transcript;
+  }, [transcript]);
+
   useEffect(
     () => () => {
       turnRef.current = null;
     },
     [],
   );
+
+  const toggleListening = () => {
+    if (!listening && contentRef.current)
+      prevContentRef.current = contentRef.current.innerText;
+    toggleSpeechRecognition();
+    if (!listening) resetTranscript();
+  };
 
   const startNextQuestion = () => {
     setQuestion(null);
