@@ -72,5 +72,21 @@ jobs:
       - name: Test pack
         run: node --run pack:pkg
 
-      - name: Test type, unit and browser
-        run: node --run test
+      - name: Check types
+        run: node --run test:types
+
+      - name: Run unit tests
+        run: node --run test:unit
+
+      - name: Cache Next.js build
+        uses: actions/cache@v6
+        with:
+          path: apps/blog/.next/cache
+          key: ${{ runner.os }}-blog-nextjs-${{ hashFiles('package-lock.json', '.nvmrc') }}-${{ github.sha }}
+          restore-keys: ${{ runner.os }}-blog-nextjs-${{ hashFiles('package-lock.json', '.nvmrc') }}-
+
+      - name: Build blog for E2E tests
+        run: npm exec -w apps/blog -- next build
+
+      - name: Run blog E2E tests
+        run: node --run test:e2e

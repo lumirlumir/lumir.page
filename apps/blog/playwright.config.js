@@ -13,7 +13,8 @@ import { defineConfig, devices } from '@playwright/test';
 // --------------------------------------------------------------------------------
 
 const isCI = process.env.CI === 'true';
-const url = 'http://localhost:3000';
+const port = isCI ? 4173 : 3000;
+const url = `http://localhost:${port}`;
 
 // --------------------------------------------------------------------------------
 // Export
@@ -31,7 +32,7 @@ export default defineConfig({
       ],
   retries: isCI ? 1 : 0,
   testDir: './tests/e2e',
-  workers: isCI ? '75%' : 1,
+  workers: 1,
 
   projects: [
     {
@@ -45,7 +46,9 @@ export default defineConfig({
   },
 
   webServer: {
-    command: 'node --run dev',
+    command: isCI
+      ? `vite preview --outDir build --port ${port} --strictPort`
+      : 'node --run dev',
     url,
     reuseExistingServer: !isCI,
   },
