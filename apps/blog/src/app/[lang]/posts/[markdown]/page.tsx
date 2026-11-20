@@ -8,7 +8,6 @@
 
 import type { Metadata } from 'next';
 import { PostBody } from '@/components/post-body';
-import { References } from '@/components/references';
 import type { LangKey } from '@/data/lang';
 import createMarkdownCollection from '@/utils/markdown-collection';
 import { markdownToHtml } from '@/utils/markdown-to-html';
@@ -82,18 +81,16 @@ export default async function Page({ params }: PageProps<'/[lang]/posts/[markdow
   } = await markdownCollection.loadVMarkdownFile(id);
 
   return (
-    <>
-      <PostBody
-        lang={lang}
-        markup={{
-          __html: await markdownToHtml(content, {
-            lang,
-            title: `${title} {#${slug}}`,
-            description,
-          }),
-        }}
-      />
-      <References lang={lang} references={references} />
-    </>
+    <PostBody
+      lang={lang}
+      markup={{
+        __html: await markdownToHtml(content, {
+          lang,
+          title: `${title} {#${slug}}`,
+          description,
+          references,
+        }),
+      }}
+    />
   );
 }

@@ -17,14 +17,12 @@ export default defineConfig({
     },
     projects: [
       {
-        extends: true,
         test: {
           name: 'node',
           include: ['{src,tests/integration}/**/*.test.{js,mjs,cjs,ts,mts,cts}'],
         },
       },
       {
-        extends: true,
         test: {
           name: 'browser',
           browser: {
