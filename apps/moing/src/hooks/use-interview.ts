@@ -6,7 +6,7 @@
 // Import
 // --------------------------------------------------------------------------------
 
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import type {
   ChatCompletion,
   ChatCompletionCreateRequestBody,
@@ -16,9 +16,13 @@ import type {
 import type { Config, QuestionType } from '@/contexts/config';
 import useInterviewContent from '@/hooks/use-interview-content';
 import useInterviewHistory from '@/hooks/use-interview-history';
-import useInterviewObj from '@/hooks/use-interview-obj';
 
-import { questionMain, questionSub, answer, feedback } from '../utils/prompt.js';
+import {
+  questionMain,
+  questionSub,
+  answer,
+  feedback as feedbackPrompt,
+} from '../utils/prompt.js';
 
 // --------------------------------------------------------------------------------
 // Helper
@@ -102,7 +106,7 @@ async function fetchAnswer(question: string) {
 
 async function fetchFeedback(answerSystem: string, answerUser: string) {
   return fetchChatCompletionText([
-    ...feedback.messages,
+    ...feedbackPrompt.messages,
     createMessageObject(
       'user',
       `Correct Answer\n\n${answerSystem}\n\nUSER's Answer\n\n${answerUser}`,
@@ -125,99 +129,92 @@ export default function useInterview<T extends HTMLElement>() {
     getInterviewInfo,
     getInterviewHistory,
   } = useInterviewHistory();
-  const {
-    interviewObj,
-    initInterviewObj,
-    addInterviewObj,
-    isInterviewObjEmpty,
-    isInterviewObjFull,
-    isOnlyFeedbackEmpty,
-  } = useInterviewObj();
-  const [isInterviewStarted, setIsInterviewStarted] = useState<boolean>(false);
+  const [question, setQuestion] = useState<string | null>(null);
+  const turnRef = useRef<{
+    answers: Promise<{ question: string; answerSystem: string } | null>;
+    submitted: boolean;
+  } | null>(null);
 
-  // generateChain
-  const fetchChainFirst = useCallback(() => {
-    const generateQuestion = isQuestionMain()
-      ? // @ts-expect-error -- TODO
-        fetchQuestionMain(getInterviewInfo().questionType, getQuestionMainHistory())
-      : fetchQuestionSub(
-          // @ts-expect-error -- TODO
-          interviewHistoryRef.current.at(-1).question,
-          // @ts-expect-error -- TODO
-          interviewHistoryRef.current.at(-1).answerUser,
-        );
+  useEffect(
+    () => () => {
+      turnRef.current = null;
+    },
+    [],
+  );
 
-    generateQuestion
-      .then(result => {
-        addInterviewObj({ question: result });
+  const startNextQuestion = () => {
+    setQuestion(null);
 
-        return result;
-      })
-      .then(PrevResult => {
-        fetchAnswer(PrevResult).then(result => {
-          addInterviewObj({ answerSystem: result });
-        });
-      });
-  }, [
-    interviewHistoryRef,
-    isQuestionMain,
-    getQuestionMainHistory,
-    getInterviewInfo,
-    addInterviewObj,
-  ]);
-  const fetchChainSecond = useCallback(() => {
-    // @ts-expect-error -- TODO
-    fetchFeedback(interviewObj.answerSystem, interviewObj.answerUser).then(result => {
-      addInterviewObj({ feedback: JSON.parse(result) });
+    if (isInterviewDone()) {
+      turnRef.current = null;
+      return;
+    }
+
+    const previous = interviewHistoryRef.current.at(-1);
+    const request =
+      !previous || isQuestionMain()
+        ? fetchQuestionMain(getInterviewInfo().questionType, getQuestionMainHistory())
+        : fetchQuestionSub(previous.question, previous.answerUser);
+
+    const answers = request.then(async text => {
+      if (!turnRef.current) return null;
+
+      setQuestion(text);
+
+      return { question: text, answerSystem: await fetchAnswer(text) };
     });
-  }, [interviewObj, addInterviewObj]);
 
-  useEffect(() => {
-    if (!isInterviewStarted) return; // before init.
-    if (isInterviewDone()) return; // interview done.
-
-    if (isInterviewObjEmpty()) {
-      // console.log('fetchChainFirst()');
-      fetchChainFirst();
-    }
-    if (isOnlyFeedbackEmpty()) {
-      // console.log('fetchChainSecond()');
-      fetchChainSecond();
-    }
-    if (isInterviewObjFull()) {
-      // console.log('addInterviewHistory()');
-      interviewHistoryRef.current.push(interviewObj);
-      // console.log('initInterviewObj()');
-      initInterviewObj();
-    }
-  }, [
-    interviewHistoryRef,
-    isInterviewDone,
-    interviewObj,
-    initInterviewObj,
-    isInterviewObjEmpty,
-    isInterviewObjFull,
-    isOnlyFeedbackEmpty,
-    fetchChainFirst,
-    fetchChainSecond,
-    isInterviewStarted,
-  ]);
+    turnRef.current = {
+      answers: answers.catch(error => {
+        window.reportError(error);
+        return null;
+      }),
+      submitted: false,
+    };
+  };
 
   const initInterview = (config: Config) => {
-    initInterviewHistory(config);
-    setIsInterviewStarted(true);
-  };
-  const submit = () => {
-    if (contentRef.current === null) return;
+    if (turnRef.current) return;
 
-    addInterviewObj({ answerUser: contentRef.current.innerText });
-    contentRef.current.innerHTML = '';
+    initInterviewHistory(config);
+    startNextQuestion();
+  };
+
+  const submit = async (questionIndex = interviewHistoryRef.current.length) => {
+    const turn = turnRef.current;
+    const input = contentRef.current;
+    if (
+      !input ||
+      !turn ||
+      turn.submitted ||
+      questionIndex !== interviewHistoryRef.current.length
+    )
+      return;
+
+    turn.submitted = true;
+    const answerUser = input.innerText;
+    input.innerHTML = '';
+
+    try {
+      const answers = await turn.answers;
+      if (!answers || turnRef.current !== turn) return;
+
+      const feedback = JSON.parse(await fetchFeedback(answers.answerSystem, answerUser));
+      if (feedback === null || turnRef.current !== turn) return;
+
+      interviewHistoryRef.current.push({ ...answers, answerUser, feedback });
+      startNextQuestion();
+    } catch (error) {
+      window.reportError(error);
+    } finally {
+      turn.submitted = false;
+    }
   };
 
   return {
     contentRef,
     listening,
-    question: interviewObj.question,
+    question,
     toggleListening,
     isInterviewDone,
     getInterviewInfo,

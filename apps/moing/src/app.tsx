@@ -6,7 +6,7 @@
 // Import
 // --------------------------------------------------------------------------------
 
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { useCountdown, useScroll } from '@lumir/react-kit/hooks';
 import {
   CiMicrophoneOn,
@@ -34,11 +34,12 @@ import './app.css';
 
 export default function App() {
   const { config, updateConfig } = useConfigContext();
-  const { listening, submit, toggleListening } = useInterviewContext();
+  const { listening, submit, toggleListening, getInterviewInfo } = useInterviewContext();
   const { section } = useScenarioContext();
   const initialCount = config.time * 60 * 1_000;
+  const timerQuestionIndexRef = useRef(0);
   const [currentCount, setCurrentCount] = useCountdown(initialCount, {
-    onComplete: submit,
+    onComplete: () => submit(timerQuestionIndexRef.current),
   });
   const [scrollRef, scroll] = useScroll<HTMLDivElement>({ behavior: 'smooth' });
 
@@ -90,6 +91,7 @@ export default function App() {
           <Title />
           <Server
             onTestWriteComplete={() => {
+              timerQuestionIndexRef.current = getInterviewInfo().index;
               setCurrentCount(initialCount);
             }}
           />

@@ -8,7 +8,17 @@
 
 import { useRef } from 'react';
 import { questionTypes, type Config, type QuestionType } from '@/contexts/config';
-import type { InterviewObj } from '@/hooks/use-interview-obj';
+
+// --------------------------------------------------------------------------------
+// Typedef
+// --------------------------------------------------------------------------------
+
+export interface InterviewObj {
+  readonly question: string;
+  readonly answerSystem: string;
+  readonly answerUser: string;
+  readonly feedback: unknown; // TODO: remove `unknown`
+}
 
 // --------------------------------------------------------------------------------
 // Export
@@ -41,6 +51,7 @@ export default function useInterviewHistory() {
     return questionMainHistory;
   };
   const getInterviewInfo = (index = historyRef.current.length) => ({
+    index,
     questionType:
       questionTypeRef.current[Math.floor(index / (rowRef.current * colRef.current))],
     questionMain: (Math.floor(index / colRef.current) % rowRef.current) + 1,
