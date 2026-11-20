@@ -35,9 +35,11 @@ import {
   type RehypeLocalizeGitHubAlertTitleOptions,
 } from '@lumir/rehype-plugins';
 import {
+  remarkAppendReferences,
   remarkBlockquoteFromDescription,
   remarkCustomHeadingId,
   remarkHeadingFromTitle,
+  type RemarkAppendReferencesOptions,
   type RemarkBlockquoteFromDescriptionOptions,
   type RemarkHeadingFromTitleOptions,
 } from '@lumir/remark-plugins';
@@ -57,6 +59,7 @@ import rehypeKatex from 'rehype-katex';
 import rehypeStarryNight from 'rehype-starry-night';
 import rehypeStringify from 'rehype-stringify';
 import { unified } from 'unified';
+import { frontmatterMeta } from '@/data/frontmatter';
 import type { LangRecord, PropsWithLang } from '@/data/lang';
 import { githubRepoFullName } from '@/data/site';
 
@@ -65,7 +68,9 @@ import { githubRepoFullName } from '@/data/site';
 // --------------------------------------------------------------------------------
 
 type MarkdownToHtmlOptions = PropsWithLang<
-  RemarkHeadingFromTitleOptions & RemarkBlockquoteFromDescriptionOptions
+  RemarkHeadingFromTitleOptions &
+    RemarkBlockquoteFromDescriptionOptions &
+    Pick<RemarkAppendReferencesOptions, 'references'>
 >;
 
 // --------------------------------------------------------------------------------
@@ -127,7 +132,7 @@ const dictionary = {
  */
 export async function markdownToHtml(
   markdown: string,
-  { lang, title, description }: MarkdownToHtmlOptions,
+  { lang, title, description, references }: MarkdownToHtmlOptions,
 ): Promise<string> {
   const { alertTitles, ...footnotes } = dictionary[lang];
   const file = await unified()
@@ -137,6 +142,10 @@ export async function markdownToHtml(
     .use(remarkBlockquoteFromDescription, { description })
     .use(remarkHeadingFromTitle, { title })
     .use(remarkCustomHeadingId)
+    .use(remarkAppendReferences, {
+      references,
+      referencesHeading: frontmatterMeta.references.name[lang],
+    })
     .use(
       remarkGitHub, // Use after `remarkCustomHeadingId` to avoid converting issue/PR references syntax (e.g., `#1`) used in custom heading IDs into links by mistake.
       { repository: githubRepoFullName },

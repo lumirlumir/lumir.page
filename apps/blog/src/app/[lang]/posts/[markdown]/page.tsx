@@ -7,7 +7,6 @@
 // --------------------------------------------------------------------------------
 
 import type { Metadata } from 'next';
-import { References } from '@/components/references';
 import type { LangKey } from '@/data/lang';
 import createMarkdownCollection from '@/utils/markdown-collection';
 import { markdownToHtml } from '@/utils/markdown-to-html';
@@ -81,19 +80,17 @@ export default async function Page({ params }: PageProps<'/[lang]/posts/[markdow
   } = await markdownCollection.loadVMarkdownFile(id);
 
   return (
-    <>
-      <div
-        className="markdown"
-        // eslint-disable-next-line react-x/dom-no-dangerously-set-innerhtml -- Safe because the content comes from the local file and is controlled.
-        dangerouslySetInnerHTML={{
-          __html: await markdownToHtml(content, {
-            lang,
-            title: `${title} {#${slug}}`,
-            description,
-          }),
-        }}
-      />
-      <References lang={lang} references={references} />
-    </>
+    <div
+      className="markdown"
+      // eslint-disable-next-line react-x/dom-no-dangerously-set-innerhtml -- Safe because the content comes from the local file and is controlled.
+      dangerouslySetInnerHTML={{
+        __html: await markdownToHtml(content, {
+          lang,
+          title: `${title} {#${slug}}`,
+          description,
+          references,
+        }),
+      }}
+    />
   );
 }
