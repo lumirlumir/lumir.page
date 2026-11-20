@@ -12,7 +12,7 @@ import 'server-only';
 // Import
 // --------------------------------------------------------------------------------
 
-import { frontmatterMeta } from '@/data/frontmatter';
+import { frontmatterMeta, type Frontmatter } from '@/data/frontmatter';
 import type { PropsWithLang } from '@/data/lang';
 
 // --------------------------------------------------------------------------------
@@ -22,7 +22,7 @@ import type { PropsWithLang } from '@/data/lang';
 export function References({
   lang,
   references,
-}: PropsWithLang<{ readonly references: readonly string[] }>) {
+}: PropsWithLang<{ readonly references: Frontmatter['references'] }>) {
   if (references.length === 0) return null;
 
   return (

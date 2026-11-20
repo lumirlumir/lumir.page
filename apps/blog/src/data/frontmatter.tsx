@@ -50,12 +50,12 @@ export interface Frontmatter {
   /**
    * The categories of the Markdown document, representing the categories associated with the content.
    */
-  readonly categories: CategoryKey[];
+  readonly categories: readonly CategoryKey[];
 
   /**
    * The reference URLs of the Markdown document.
    */
-  readonly references: string[];
+  readonly references: readonly string[];
 }
 
 /**
