@@ -43,15 +43,12 @@ interface Mode {
 
 /**
  * Shared UI status for scenario-driven components.
+ *
+ * - `hidden`: the element is visually hidden and unavailable.
+ * - `visible`: the element is visible.
+ * - `interactive`: the element is visible and explicitly interactive.
  */
-interface Status {
-  /**
-   * - `hidden`: the element is visually hidden and unavailable.
-   * - `visible`: the element is visible.
-   * - `interactive`: the element is visible and explicitly interactive.
-   */
-  status: 'hidden' | 'visible' | 'interactive';
-}
+type Status = 'hidden' | 'visible' | 'interactive';
 
 /**
  * UI state for a single section in the scenario flow.
@@ -80,7 +77,7 @@ interface Section {
   /**
    * Main action button state and label.
    */
-  'main-button': Status & Content<'PRESS' | 'START'>;
+  'main-button': { status: Status } & Content<'PRESS' | 'START'>;
 
   /**
    * Timer section state.
@@ -100,7 +97,7 @@ interface Section {
   /**
    * Fixed text advances the section after typing. Without a mode, `null` waits for user input.
    */
-  server: Status & Content<string | null> & Mode;
+  server: { status: Status } & Content<string | null> & Mode;
 }
 
 /**
@@ -136,93 +133,51 @@ interface ScenarioContextValue {
 const scenario: Section[][] = [
   [
     {
-      reload: {
-        status: 'hidden',
-      },
-      submit: {
-        status: 'hidden',
-      },
-      config: {
-        status: 'hidden',
-      },
-      speech: {
-        status: 'hidden',
-      },
+      reload: 'hidden',
+      submit: 'hidden',
+      config: 'hidden',
+      speech: 'hidden',
       'main-button': {
         status: 'interactive',
         content: 'PRESS',
       },
-      timer: {
-        status: 'hidden',
-      },
-      title: {
-        status: 'visible',
-      },
-      client: {
-        status: 'hidden',
-      },
+      timer: 'hidden',
+      title: 'visible',
+      client: 'hidden',
       server: {
         status: 'hidden',
         content: null,
       },
     },
     {
-      reload: {
-        status: 'interactive',
-      },
-      submit: {
-        status: 'hidden',
-      },
-      config: {
-        status: 'hidden',
-      },
-      speech: {
-        status: 'hidden',
-      },
+      reload: 'interactive',
+      submit: 'hidden',
+      config: 'hidden',
+      speech: 'hidden',
       'main-button': {
         status: 'hidden',
         content: 'PRESS',
       },
-      timer: {
-        status: 'hidden',
-      },
-      title: {
-        status: 'visible',
-      },
-      client: {
-        status: 'hidden',
-      },
+      timer: 'hidden',
+      title: 'visible',
+      client: 'hidden',
       server: {
         status: 'visible',
         content: '$ Interviewer',
       },
     },
     {
-      reload: {
-        status: 'interactive',
-      },
-      submit: {
-        status: 'hidden',
-      },
-      config: {
-        status: 'hidden',
-      },
-      speech: {
-        status: 'hidden',
-      },
+      reload: 'interactive',
+      submit: 'hidden',
+      config: 'hidden',
+      speech: 'hidden',
       'main-button': {
         status: 'hidden',
         content: 'PRESS',
       },
-      timer: {
-        status: 'hidden',
-      },
-      title: {
-        status: 'visible',
-      },
-      client: {
-        status: 'hidden',
-      },
+      timer: 'hidden',
+      title: 'visible',
+      client: 'hidden',
       server: {
         status: 'visible',
         content:
@@ -230,62 +185,34 @@ const scenario: Section[][] = [
       },
     },
     {
-      reload: {
-        status: 'interactive',
-      },
-      submit: {
-        status: 'hidden',
-      },
-      config: {
-        status: 'hidden',
-      },
-      speech: {
-        status: 'hidden',
-      },
+      reload: 'interactive',
+      submit: 'hidden',
+      config: 'hidden',
+      speech: 'hidden',
       'main-button': {
         status: 'interactive',
         content: 'START',
       },
-      timer: {
-        status: 'hidden',
-      },
-      title: {
-        status: 'visible',
-      },
-      client: {
-        status: 'hidden',
-      },
+      timer: 'hidden',
+      title: 'visible',
+      client: 'hidden',
       server: {
         status: 'visible',
         content: null,
       },
     },
     {
-      reload: {
-        status: 'hidden',
-      },
-      submit: {
-        status: 'hidden',
-      },
-      config: {
-        status: 'hidden',
-      },
-      speech: {
-        status: 'hidden',
-      },
+      reload: 'hidden',
+      submit: 'hidden',
+      config: 'hidden',
+      speech: 'hidden',
       'main-button': {
         status: 'hidden',
         content: 'START',
       },
-      timer: {
-        status: 'hidden',
-      },
-      title: {
-        status: 'visible',
-      },
-      client: {
-        status: 'hidden',
-      },
+      timer: 'hidden',
+      title: 'visible',
+      client: 'hidden',
       server: {
         status: 'visible',
         content:
@@ -293,31 +220,17 @@ const scenario: Section[][] = [
       },
     },
     {
-      reload: {
-        status: 'hidden',
-      },
-      submit: {
-        status: 'hidden',
-      },
-      config: {
-        status: 'hidden',
-      },
-      speech: {
-        status: 'hidden',
-      },
+      reload: 'hidden',
+      submit: 'hidden',
+      config: 'hidden',
+      speech: 'hidden',
       'main-button': {
         status: 'hidden',
         content: 'START',
       },
-      timer: {
-        status: 'hidden',
-      },
-      title: {
-        status: 'visible',
-      },
-      client: {
-        status: 'hidden',
-      },
+      timer: 'hidden',
+      title: 'visible',
+      client: 'hidden',
       server: {
         status: 'visible',
         content:
@@ -325,31 +238,17 @@ const scenario: Section[][] = [
       },
     },
     {
-      reload: {
-        status: 'hidden',
-      },
-      submit: {
-        status: 'hidden',
-      },
-      config: {
-        status: 'hidden',
-      },
-      speech: {
-        status: 'hidden',
-      },
+      reload: 'hidden',
+      submit: 'hidden',
+      config: 'hidden',
+      speech: 'hidden',
       'main-button': {
         status: 'hidden',
         content: 'START',
       },
-      timer: {
-        status: 'hidden',
-      },
-      title: {
-        status: 'visible',
-      },
-      client: {
-        status: 'hidden',
-      },
+      timer: 'hidden',
+      title: 'visible',
+      client: 'hidden',
       server: {
         status: 'visible',
         content:
@@ -357,31 +256,17 @@ const scenario: Section[][] = [
       },
     },
     {
-      reload: {
-        status: 'hidden',
-      },
-      submit: {
-        status: 'hidden',
-      },
-      config: {
-        status: 'hidden',
-      },
-      speech: {
-        status: 'hidden',
-      },
+      reload: 'hidden',
+      submit: 'hidden',
+      config: 'hidden',
+      speech: 'hidden',
       'main-button': {
         status: 'hidden',
         content: 'START',
       },
-      timer: {
-        status: 'hidden',
-      },
-      title: {
-        status: 'visible',
-      },
-      client: {
-        status: 'hidden',
-      },
+      timer: 'hidden',
+      title: 'visible',
+      client: 'hidden',
       server: {
         status: 'visible',
         content:
@@ -389,31 +274,17 @@ const scenario: Section[][] = [
       },
     },
     {
-      reload: {
-        status: 'visible',
-      },
-      submit: {
-        status: 'hidden',
-      },
-      config: {
-        status: 'hidden',
-      },
-      speech: {
-        status: 'hidden',
-      },
+      reload: 'visible',
+      submit: 'hidden',
+      config: 'hidden',
+      speech: 'hidden',
       'main-button': {
         status: 'hidden',
         content: 'START',
       },
-      timer: {
-        status: 'hidden',
-      },
-      title: {
-        status: 'visible',
-      },
-      client: {
-        status: 'hidden',
-      },
+      timer: 'hidden',
+      title: 'visible',
+      client: 'hidden',
       server: {
         status: 'visible',
         content:
@@ -421,31 +292,17 @@ const scenario: Section[][] = [
       },
     },
     {
-      reload: {
-        status: 'visible',
-      },
-      submit: {
-        status: 'hidden',
-      },
-      config: {
-        status: 'visible',
-      },
-      speech: {
-        status: 'hidden',
-      },
+      reload: 'visible',
+      submit: 'hidden',
+      config: 'visible',
+      speech: 'hidden',
       'main-button': {
         status: 'hidden',
         content: 'START',
       },
-      timer: {
-        status: 'hidden',
-      },
-      title: {
-        status: 'visible',
-      },
-      client: {
-        status: 'hidden',
-      },
+      timer: 'hidden',
+      title: 'visible',
+      client: 'hidden',
       server: {
         status: 'visible',
         content:
@@ -453,31 +310,17 @@ const scenario: Section[][] = [
       },
     },
     {
-      reload: {
-        status: 'visible',
-      },
-      submit: {
-        status: 'hidden',
-      },
-      config: {
-        status: 'visible',
-      },
-      speech: {
-        status: 'visible',
-      },
+      reload: 'visible',
+      submit: 'hidden',
+      config: 'visible',
+      speech: 'visible',
       'main-button': {
         status: 'hidden',
         content: 'START',
       },
-      timer: {
-        status: 'hidden',
-      },
-      title: {
-        status: 'visible',
-      },
-      client: {
-        status: 'hidden',
-      },
+      timer: 'hidden',
+      title: 'visible',
+      client: 'hidden',
       server: {
         status: 'visible',
         content:
@@ -485,31 +328,17 @@ const scenario: Section[][] = [
       },
     },
     {
-      reload: {
-        status: 'visible',
-      },
-      submit: {
-        status: 'visible',
-      },
-      config: {
-        status: 'visible',
-      },
-      speech: {
-        status: 'visible',
-      },
+      reload: 'visible',
+      submit: 'visible',
+      config: 'visible',
+      speech: 'visible',
       'main-button': {
         status: 'hidden',
         content: 'START',
       },
-      timer: {
-        status: 'hidden',
-      },
-      title: {
-        status: 'visible',
-      },
-      client: {
-        status: 'hidden',
-      },
+      timer: 'hidden',
+      title: 'visible',
+      client: 'hidden',
       server: {
         status: 'visible',
         content:
@@ -517,31 +346,17 @@ const scenario: Section[][] = [
       },
     },
     {
-      reload: {
-        status: 'visible',
-      },
-      submit: {
-        status: 'visible',
-      },
-      config: {
-        status: 'visible',
-      },
-      speech: {
-        status: 'visible',
-      },
+      reload: 'visible',
+      submit: 'visible',
+      config: 'visible',
+      speech: 'visible',
       'main-button': {
         status: 'hidden',
         content: 'START',
       },
-      timer: {
-        status: 'visible',
-      },
-      title: {
-        status: 'visible',
-      },
-      client: {
-        status: 'hidden',
-      },
+      timer: 'visible',
+      title: 'visible',
+      client: 'hidden',
       server: {
         status: 'visible',
         content:
@@ -549,31 +364,17 @@ const scenario: Section[][] = [
       },
     },
     {
-      reload: {
-        status: 'visible',
-      },
-      submit: {
-        status: 'visible',
-      },
-      config: {
-        status: 'visible',
-      },
-      speech: {
-        status: 'visible',
-      },
+      reload: 'visible',
+      submit: 'visible',
+      config: 'visible',
+      speech: 'visible',
       'main-button': {
         status: 'hidden',
         content: 'START',
       },
-      timer: {
-        status: 'visible',
-      },
-      title: {
-        status: 'hidden',
-      },
-      client: {
-        status: 'interactive',
-      },
+      timer: 'visible',
+      title: 'hidden',
+      client: 'interactive',
       server: {
         status: 'visible',
         content:
@@ -581,31 +382,17 @@ const scenario: Section[][] = [
       },
     },
     {
-      reload: {
-        status: 'visible',
-      },
-      submit: {
-        status: 'hidden',
-      },
-      config: {
-        status: 'visible',
-      },
-      speech: {
-        status: 'hidden',
-      },
+      reload: 'visible',
+      submit: 'hidden',
+      config: 'visible',
+      speech: 'hidden',
       'main-button': {
         status: 'hidden',
         content: 'START',
       },
-      timer: {
-        status: 'hidden',
-      },
-      title: {
-        status: 'visible',
-      },
-      client: {
-        status: 'hidden',
-      },
+      timer: 'hidden',
+      title: 'visible',
+      client: 'hidden',
       server: {
         status: 'visible',
         content:
@@ -613,31 +400,17 @@ const scenario: Section[][] = [
       },
     },
     {
-      reload: {
-        status: 'interactive',
-      },
-      submit: {
-        status: 'hidden',
-      },
-      config: {
-        status: 'interactive',
-      },
-      speech: {
-        status: 'hidden',
-      },
+      reload: 'interactive',
+      submit: 'hidden',
+      config: 'interactive',
+      speech: 'hidden',
       'main-button': {
         status: 'hidden',
         content: 'START',
       },
-      timer: {
-        status: 'hidden',
-      },
-      title: {
-        status: 'visible',
-      },
-      client: {
-        status: 'hidden',
-      },
+      timer: 'hidden',
+      title: 'visible',
+      client: 'hidden',
       server: {
         status: 'visible',
         content: null,
@@ -646,62 +419,34 @@ const scenario: Section[][] = [
   ],
   [
     {
-      reload: {
-        status: 'interactive',
-      },
-      submit: {
-        status: 'interactive',
-      },
-      config: {
-        status: 'visible',
-      },
-      speech: {
-        status: 'interactive',
-      },
+      reload: 'interactive',
+      submit: 'interactive',
+      config: 'visible',
+      speech: 'interactive',
       'main-button': {
         status: 'hidden',
         content: 'START',
       },
-      timer: {
-        status: 'visible',
-      },
-      title: {
-        status: 'hidden',
-      },
-      client: {
-        status: 'interactive',
-      },
+      timer: 'visible',
+      title: 'hidden',
+      client: 'interactive',
       server: {
         status: 'visible',
         content: '지금부터 인터뷰를 진행하도록 하겠습니다.',
       },
     },
     {
-      reload: {
-        status: 'interactive',
-      },
-      submit: {
-        status: 'interactive',
-      },
-      config: {
-        status: 'visible',
-      },
-      speech: {
-        status: 'interactive',
-      },
+      reload: 'interactive',
+      submit: 'interactive',
+      config: 'visible',
+      speech: 'interactive',
       'main-button': {
         status: 'hidden',
         content: 'START',
       },
-      timer: {
-        status: 'visible',
-      },
-      title: {
-        status: 'hidden',
-      },
-      client: {
-        status: 'interactive',
-      },
+      timer: 'visible',
+      title: 'hidden',
+      client: 'interactive',
       server: {
         status: 'visible',
         content: null,
@@ -709,31 +454,17 @@ const scenario: Section[][] = [
       },
     },
     {
-      reload: {
-        status: 'interactive',
-      },
-      submit: {
-        status: 'hidden',
-      },
-      config: {
-        status: 'hidden',
-      },
-      speech: {
-        status: 'hidden',
-      },
+      reload: 'interactive',
+      submit: 'hidden',
+      config: 'hidden',
+      speech: 'hidden',
       'main-button': {
         status: 'hidden',
         content: 'START',
       },
-      timer: {
-        status: 'hidden',
-      },
-      title: {
-        status: 'visible',
-      },
-      client: {
-        status: 'hidden',
-      },
+      timer: 'hidden',
+      title: 'visible',
+      client: 'hidden',
       server: {
         status: 'visible',
         content:
@@ -741,31 +472,17 @@ const scenario: Section[][] = [
       },
     },
     {
-      reload: {
-        status: 'interactive',
-      },
-      submit: {
-        status: 'hidden',
-      },
-      config: {
-        status: 'hidden',
-      },
-      speech: {
-        status: 'hidden',
-      },
+      reload: 'interactive',
+      submit: 'hidden',
+      config: 'hidden',
+      speech: 'hidden',
       'main-button': {
         status: 'hidden',
         content: 'START',
       },
-      timer: {
-        status: 'hidden',
-      },
-      title: {
-        status: 'visible',
-      },
-      client: {
-        status: 'hidden',
-      },
+      timer: 'hidden',
+      title: 'visible',
+      client: 'hidden',
       server: {
         status: 'visible',
         content: null,
