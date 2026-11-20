@@ -13,11 +13,16 @@ import { questionTypes, type Config, type QuestionType } from '@/contexts/config
 // Typedef
 // --------------------------------------------------------------------------------
 
+interface InterviewFeedback {
+  readonly feedback: string;
+  readonly score: 'poor' | 'fair' | 'good';
+}
+
 export interface InterviewObj {
   readonly question: string;
   readonly answerSystem: string;
   readonly answerUser: string;
-  readonly feedback: unknown; // TODO: remove `unknown`
+  readonly feedback: InterviewFeedback;
 }
 
 // --------------------------------------------------------------------------------
@@ -60,7 +65,7 @@ export default function useInterviewHistory() {
   const getInterviewHistory = () => {
     let str = '';
 
-    const printAllStrings = (obj: InterviewObj) => {
+    const printAllStrings = (obj: InterviewObj | InterviewFeedback) => {
       for (const val of Object.values(obj)) {
         if (typeof val === 'string') {
           str += `---\n\n${val}\n\n`;
