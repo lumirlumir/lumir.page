@@ -112,19 +112,18 @@ function fetchFeedback(question: string, answerUser: string) {
 // Export
 // --------------------------------------------------------------------------------
 
-export default function useInterview<T extends HTMLElement>() {
+export default function useInterview<T extends HTMLElement>(config: Config) {
   const contentRef = useRef<T | null>(null);
   const historyRef = useRef<Interview[]>([]);
-  const questionConfigRef = useRef({
-    selectedTypes: [] as QuestionType[],
-    mainQuestionsPerType: 0,
-    questionsPerMain: 0,
-  });
   const turnRef = useRef<{
     question: Promise<string | null>;
     submitted: boolean;
   } | null>(null);
   const [question, setQuestion] = useState<string | null>(null);
+
+  const selectedTypes = questionTypes.filter(type => config[type]);
+  const questionsPerMain = config.sub + 1;
+  const totalQuestions = selectedTypes.length * config.main * questionsPerMain;
 
   useEffect(
     () => () => {
@@ -133,18 +132,10 @@ export default function useInterview<T extends HTMLElement>() {
     [],
   );
 
-  const isInterviewDone = () => {
-    const { selectedTypes, mainQuestionsPerType, questionsPerMain } =
-      questionConfigRef.current;
-    return (
-      historyRef.current.length ===
-      selectedTypes.length * mainQuestionsPerType * questionsPerMain
-    );
-  };
+  const isInterviewDone = () => historyRef.current.length === totalQuestions;
 
   const getQuestionMainHistory = () => {
     const questionMainHistory = [];
-    const { questionsPerMain } = questionConfigRef.current;
 
     for (let i = 0; i < historyRef.current.length; i += questionsPerMain) {
       questionMainHistory.push(historyRef.current[i].question);
@@ -154,14 +145,12 @@ export default function useInterview<T extends HTMLElement>() {
   };
 
   const getInterviewInfo = (index = historyRef.current.length) => {
-    const { selectedTypes, mainQuestionsPerType, questionsPerMain } =
-      questionConfigRef.current;
     const mainIndex = Math.floor(index / questionsPerMain);
 
     return {
       index,
-      questionType: selectedTypes[Math.floor(mainIndex / mainQuestionsPerType)],
-      questionMain: (mainIndex % mainQuestionsPerType) + 1,
+      questionType: selectedTypes[Math.floor(mainIndex / config.main)],
+      questionMain: (mainIndex % config.main) + 1,
       questionSub: (index % questionsPerMain) + 1,
     };
   };
@@ -215,14 +204,8 @@ export default function useInterview<T extends HTMLElement>() {
     if (turnRef.current === turn) setQuestion(text);
   };
 
-  const initInterview = (config: Config) => {
+  const initInterview = () => {
     if (turnRef.current) return;
-
-    questionConfigRef.current = {
-      selectedTypes: questionTypes.filter(key => config[key]),
-      mainQuestionsPerType: config.main,
-      questionsPerMain: config.sub + 1,
-    };
     startNextQuestion();
   };
 

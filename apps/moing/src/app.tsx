@@ -67,7 +67,10 @@ export default function App() {
       <Button
         type="config"
         icon={<GoGear size="35px" />}
-        onClick={() => updateConfig({ visibility: !config.visibility })}
+        onClick={() => {
+          if (section.config === 'interactive')
+            updateConfig({ visibility: !config.visibility });
+        }}
       />
       <Button
         type="speech"
