@@ -90,5 +90,5 @@ jobs:
       - name: Test unit
         run: node --run test:unit
 
-      - name: Test E2E
+      - name: Test e2e
         run: node --run test:e2e
