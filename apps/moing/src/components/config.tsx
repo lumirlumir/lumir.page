@@ -7,6 +7,7 @@
 // --------------------------------------------------------------------------------
 
 import type { ChangeEventHandler, MouseEvent, MouseEventHandler } from 'react';
+import { Dialog } from '@lumir/react-kit/components';
 import { cn } from '@lumir/utils';
 
 import NeonDiv from '@/components/neon-div';
@@ -100,42 +101,43 @@ export default function Config() {
   };
 
   return (
-    <NeonDiv
-      className={cn(
-        styles.config,
-        'custom-scrollbar',
-        'custom-main-section',
-        'select-none',
-        config.visibility || 'custom-invisible-section',
-      )}
-      neonSize="m"
-      neonColor="banana"
-    >
-      <div>
+    <Dialog.Content className={styles.dialog} aria-label="환경설정">
+      <NeonDiv
+        className={cn(
+          styles.config,
+          'custom-scrollbar',
+          'custom-main-section',
+          'select-none',
+        )}
+        neonSize="m"
+        neonColor="banana"
+      >
         <div>
-          {questionTypes.map(key => (
-            <Checkbox
-              key={key}
-              onChange={e => {
-                const { checked } = e.currentTarget;
-                setConfig(prev => ({ ...prev, [key]: checked }));
-              }}
-              isChecked={config[key]}
-              label={key.toUpperCase()}
-            />
-          ))}
+          <div>
+            {questionTypes.map(key => (
+              <Checkbox
+                key={key}
+                onChange={e => {
+                  const { checked } = e.currentTarget;
+                  setConfig(prev => ({ ...prev, [key]: checked }));
+                }}
+                isChecked={config[key]}
+                label={key.toUpperCase()}
+              />
+            ))}
+          </div>
+          <div>
+            {counters.map(({ key, label }) => (
+              <Counter
+                key={key}
+                onClick={e => handleButtonCount(e, key)}
+                count={config[key]}
+                label={label}
+              />
+            ))}
+          </div>
         </div>
-        <div>
-          {counters.map(({ key, label }) => (
-            <Counter
-              key={key}
-              onClick={e => handleButtonCount(e, key)}
-              count={config[key]}
-              label={label}
-            />
-          ))}
-        </div>
-      </div>
-    </NeonDiv>
+      </NeonDiv>
+    </Dialog.Content>
   );
 }

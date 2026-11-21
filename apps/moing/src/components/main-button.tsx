@@ -22,7 +22,7 @@ import styles from './main-button.module.css';
 // --------------------------------------------------------------------------------
 
 export default function ButtonMain() {
-  const { setConfig, isConfigDone } = useConfigContext();
+  const { isConfigDone } = useConfigContext();
   const { startNextQuestion } = useInterviewContext();
   const { section, toNextSection, toLastSection, isLastSection } = useScenarioContext();
   const { content, status } = section['main-button'];
@@ -38,10 +38,7 @@ export default function ButtonMain() {
       return;
     }
 
-    if (isConfigDone) {
-      setConfig(prev => ({ ...prev, visibility: false }));
-      startNextQuestion();
-    }
+    if (isConfigDone) startNextQuestion();
 
     toNextSection();
   };

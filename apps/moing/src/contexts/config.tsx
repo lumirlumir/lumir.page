@@ -24,12 +24,6 @@ import {
  */
 export interface Config extends Record<QuestionType, boolean> {
   /**
-   * Visibility of the configuration.
-   * @default false
-   */
-  visibility: boolean;
-
-  /**
    * Main question number.
    * @default 0
    */
@@ -115,7 +109,6 @@ export function useConfigContext(): ConfigContextValue {
  */
 export function ConfigProvider({ children }: PropsWithChildren) {
   const [config, setConfig] = useState<Config>({
-    visibility: false,
     cs: false,
     fe: false,
     be: false,
