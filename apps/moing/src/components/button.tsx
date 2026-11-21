@@ -37,7 +37,7 @@ interface Props {
 
 export default function Button({ type, icon, onClick, hoverEffect = false }: Props) {
   const { section } = useScenarioContext();
-  const { status } = section[type];
+  const status = section[type];
 
   return (
     <div

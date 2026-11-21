@@ -16,7 +16,7 @@ test.describe('theme', () => {
   test('Invalid document theme should use the default theme and still toggle', async ({
     page,
   }) => {
-    await page.goto('/');
+    await page.goto('/ko');
     await page.evaluate(() => {
       document.documentElement.setAttribute('data-theme', 'unexpected');
     });
@@ -31,7 +31,7 @@ test.describe('theme', () => {
     page,
   }) => {
     await page.emulateMedia({ colorScheme: 'light' });
-    await page.goto('/');
+    await page.goto('/ko');
     await page.evaluate(() => {
       localStorage.setItem('data-theme', 'unexpected');
     });

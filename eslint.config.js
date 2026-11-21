@@ -141,13 +141,6 @@ export default defineConfig([
 
   // ts
   {
-    name: 'ts/global',
-    files: ['**/*.{ts,mts,cts,tsx}'],
-    rules: {
-      'typescript/no-import-type-side-effects': 'error', // TODO: enable this in a shared config.
-    },
-  },
-  {
     name: 'js/global/test-d',
     files: ['**/*.test-d.{ts,mts,cts,tsx}'],
     rules: {

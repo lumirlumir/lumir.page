@@ -22,26 +22,28 @@ import styles from './main-button.module.css';
 // --------------------------------------------------------------------------------
 
 export default function ButtonMain() {
-  const { config, updateConfig, isConfigDone } = useConfigContext();
-  const { initInterview } = useInterviewContext();
+  const { setConfig, isConfigDone } = useConfigContext();
+  const { startNextQuestion } = useInterviewContext();
   const { section, toNextSection, toLastSection, isLastSection } = useScenarioContext();
   const { content, status } = section['main-button'];
 
   const onClick: MouseEventHandler<HTMLButtonElement> = e => {
     if (content === 'PRESS') {
       toNextSection();
+      return;
     }
-    if (content === 'START') {
-      if (e.ctrlKey) {
-        toLastSection();
-        return;
-      }
-      if (isConfigDone()) {
-        updateConfig({ visibility: false });
-        initInterview(config);
-      }
-      toNextSection();
+
+    if (e.ctrlKey) {
+      toLastSection();
+      return;
     }
+
+    if (isConfigDone) {
+      setConfig(prev => ({ ...prev, visibility: false }));
+      startNextQuestion();
+    }
+
+    toNextSection();
   };
 
   return (
@@ -49,7 +51,7 @@ export default function ButtonMain() {
       className={cn(
         styles['main-button'],
         'custom-main-others',
-        (isLastSection() && isConfigDone()) || status !== 'hidden'
+        (isLastSection && isConfigDone) || status !== 'hidden'
           ? ''
           : 'pointer-events-none opacity-0',
       )}

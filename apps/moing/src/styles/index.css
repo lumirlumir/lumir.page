@@ -4,6 +4,5 @@
 @import '@lumir/styles/variables.css';
 
 /* Internal */
-@import './typography.css';
 @import './utilities.css';
 @import './variables.css';
