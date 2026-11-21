@@ -6,8 +6,8 @@
 // Import
 // --------------------------------------------------------------------------------
 
-import { useEffect, useRef } from 'react';
-import { useCountdown, useScroll } from '@lumir/react-kit/hooks';
+import { useEffect, useLayoutEffect, useRef } from 'react';
+import { useCountdown, useScroll, useSpeechRecognition } from '@lumir/react-kit/hooks';
 import {
   CiMicrophoneOn,
   GoGear,
@@ -34,13 +34,25 @@ import './app.css';
 
 export default function App() {
   const { config, updateConfig } = useConfigContext();
-  const { listening, submit, toggleListening, getInterviewInfo } = useInterviewContext();
+  const { contentRef, submit, getInterviewInfo } = useInterviewContext();
   const { section } = useScenarioContext();
   const timerQuestionIndexRef = useRef(0);
   const [currentCount, setCurrentCount] = useCountdown(0, {
     onComplete: () => submit(timerQuestionIndexRef.current),
   });
   const [scrollRef, scroll] = useScroll<HTMLDivElement>({ behavior: 'smooth' });
+  const { listening, transcript, resetTranscript, toggleListening } =
+    useSpeechRecognition({
+      continuous: true,
+      lang: 'ko-KR',
+    });
+
+  useLayoutEffect(() => {
+    if (!transcript || !contentRef.current) return;
+
+    contentRef.current.innerText += transcript;
+    resetTranscript();
+  }, [contentRef, transcript, resetTranscript]);
 
   useEffect(() => {
     const timeout = setTimeout(() => {
