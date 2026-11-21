@@ -13,7 +13,8 @@ import { defineConfig, devices } from '@playwright/test';
 // --------------------------------------------------------------------------------
 
 const isCI = process.env.CI === 'true';
-const url = 'http://localhost:3000';
+const port = isCI ? 3001 : 3000;
+const url = `http://localhost:${port}`;
 
 // --------------------------------------------------------------------------------
 // Export
@@ -45,7 +46,7 @@ export default defineConfig({
   },
 
   webServer: {
-    command: 'node --run dev',
+    command: isCI ? 'node --run start' : 'node --run dev',
     url,
     reuseExistingServer: !isCI,
   },
