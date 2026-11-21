@@ -119,6 +119,12 @@ export function ConfigProvider({ children }: PropsWithChildren) {
     time: 0,
   });
 
+  const isConfigDone =
+    questionTypes.some(key => config[key]) &&
+    config.main > 0 &&
+    config.sub > 0 &&
+    config.time > 0;
+
   const updateConfig = (partialConfig: Partial<Config>) => {
     setConfig(prevState => ({
       ...prevState,
@@ -126,15 +132,9 @@ export function ConfigProvider({ children }: PropsWithChildren) {
     }));
   };
 
-  const isConfigDone =
-    questionTypes.some(key => config[key]) &&
-    config.main > 0 &&
-    config.sub > 0 &&
-    config.time > 0;
-
   return (
     // eslint-disable-next-line react-x/no-unstable-context-value -- React Compiler automatically optimizes context values.
-    <ConfigContext value={{ config, updateConfig, isConfigDone }}>
+    <ConfigContext value={{ config, isConfigDone, updateConfig }}>
       {children}
     </ConfigContext>
   );
