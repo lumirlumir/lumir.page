@@ -19,7 +19,7 @@ import styles from './title.module.css';
 
 export default function Title() {
   const { section } = useScenarioContext();
-  const { status } = section.title;
+  const status = section.title;
 
   return (
     <div

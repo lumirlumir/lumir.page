@@ -24,9 +24,11 @@
 }
 
 .custom-main-section-bash {
+  height: var(--main-section-height);
   font-family: var(--font-ngc);
   white-space: pre-line;
   background-color: var(--color-background-dark);
+  transition: var(--transition);
 }
 
 .custom-invisible-section {

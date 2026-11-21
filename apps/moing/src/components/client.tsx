@@ -21,7 +21,7 @@ import styles from './client.module.css';
 export default function Client() {
   const { contentRef } = useInterviewContext();
   const { section } = useScenarioContext();
-  const { status } = section.client;
+  const status = section.client;
 
   return (
     <NeonDiv

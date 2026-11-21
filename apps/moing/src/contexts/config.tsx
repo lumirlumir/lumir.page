@@ -6,7 +6,14 @@
 // Import
 // --------------------------------------------------------------------------------
 
-import { createContext, use, useState, type PropsWithChildren } from 'react';
+import {
+  createContext,
+  use,
+  useState,
+  type Dispatch,
+  type PropsWithChildren,
+  type SetStateAction,
+} from 'react';
 
 // --------------------------------------------------------------------------------
 // Typedef
@@ -15,42 +22,12 @@ import { createContext, use, useState, type PropsWithChildren } from 'react';
 /**
  * Interview configuration state.
  */
-export interface Config {
+export interface Config extends Record<QuestionType, boolean> {
   /**
    * Visibility of the configuration.
    * @default false
    */
   visibility: boolean;
-
-  /**
-   * Whether the CS question type is selected.
-   * @default false
-   */
-  cs: boolean;
-
-  /**
-   * Whether the FE question type is selected.
-   * @default false
-   */
-  fe: boolean;
-
-  /**
-   * Whether the BE question type is selected.
-   * @default false
-   */
-  be: boolean;
-
-  /**
-   * Whether the DB question type is selected.
-   * @default false
-   */
-  db: boolean;
-
-  /**
-   * Whether the OOP question type is selected.
-   * @default false
-   */
-  oop: boolean;
 
   /**
    * Main question number.
@@ -78,8 +55,7 @@ export type QuestionType = (typeof questionTypes)[number];
 
 /**
  * Defines the shape of the configuration context value provided by the `ConfigContext`,
- * including the current configuration state and helper functions for updating the config
- * and checking if it's complete.
+ * including the current configuration state, its update function, and whether it's complete.
  */
 export interface ConfigContextValue {
   /**
@@ -88,14 +64,14 @@ export interface ConfigContextValue {
   readonly config: Config;
 
   /**
-   * Merges a partial configuration update into the current config state.
+   * Whether the required interview configuration is complete.
    */
-  readonly updateConfig: (partialConfig: Partial<Config>) => void;
+  readonly isConfigDone: boolean;
 
   /**
-   * Returns whether the required interview configuration is complete.
+   * Sets the interview configuration.
    */
-  readonly isConfigDone: () => boolean;
+  readonly setConfig: Dispatch<SetStateAction<Config>>;
 }
 
 // --------------------------------------------------------------------------------
@@ -150,23 +126,14 @@ export function ConfigProvider({ children }: PropsWithChildren) {
     time: 0,
   });
 
-  const updateConfig = (partialConfig: Partial<Config>) => {
-    setConfig(prevState => ({
-      ...prevState,
-      ...partialConfig,
-    }));
-  };
-
-  const isConfigDone = () => {
-    const { cs, fe, be, db, oop, main, sub, time } = config;
-
-    return Boolean((cs || fe || be || db || oop) && main && sub && time);
-  };
+  const isConfigDone =
+    questionTypes.some(key => config[key]) &&
+    config.main > 0 &&
+    config.sub > 0 &&
+    config.time > 0;
 
   return (
     // eslint-disable-next-line react-x/no-unstable-context-value -- React Compiler automatically optimizes context values.
-    <ConfigContext value={{ config, updateConfig, isConfigDone }}>
-      {children}
-    </ConfigContext>
+    <ConfigContext value={{ config, isConfigDone, setConfig }}>{children}</ConfigContext>
   );
 }

@@ -8,6 +8,7 @@
 
 import { assert, describe, it } from 'vitest';
 import {
+  remarkAppendReferences,
   remarkBlockquoteFromDescription,
   customHeadingIdRegex,
   remarkCustomHeadingId,
@@ -27,6 +28,11 @@ describe('index', () => {
   });
 
   describe('exports', () => {
+    it('`remarkAppendReferences` should be defined', () => {
+      assert.isDefined(remarkAppendReferences);
+      assert.strictEqual(typeof remarkAppendReferences, 'function');
+    });
+
     it('`remarkBlockquoteFromDescription` should be defined', () => {
       assert.isDefined(remarkBlockquoteFromDescription);
       assert.strictEqual(typeof remarkBlockquoteFromDescription, 'function');
