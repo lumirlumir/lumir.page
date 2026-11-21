@@ -66,9 +66,11 @@ jobs:
       - name: Install playwright browsers
         run: node --run setup:browser -- --with-deps
 
-      - name: Cache blog build
+      - name: Cache Next.js build
         uses: actions/cache@v6
         with:
+          # Static export writes to `build/`, but Next.js keeps its build cache in `.next/`.
+          # The comparison action builds both refs in place, preserving this cache.
           path: apps/blog/.next/cache
           key: ${{ runner.os }}-blog-nextjs-${{ hashFiles('package-lock.json', '.nvmrc') }}-${{ github.sha }}
           restore-keys: ${{ runner.os }}-blog-nextjs-${{ hashFiles('package-lock.json', '.nvmrc') }}-
