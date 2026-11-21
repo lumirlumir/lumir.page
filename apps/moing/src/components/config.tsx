@@ -85,17 +85,18 @@ function Checkbox({
 // --------------------------------------------------------------------------------
 
 export default function Config() {
-  const { config, updateConfig } = useConfigContext();
+  const { config, setConfig } = useConfigContext();
 
   const handleButtonCount = (
     e: MouseEvent<HTMLInputElement>,
     key: (typeof counters)[number]['key'],
   ) => {
-    const next = config[key] + (e.ctrlKey ? -1 : 1);
+    const delta = e.ctrlKey ? -1 : 1;
 
-    if (next >= 0 && next <= 10) {
-      updateConfig({ [key]: next });
-    }
+    setConfig(prev => {
+      const next = prev[key] + delta;
+      return next >= 0 && next <= 10 ? { ...prev, [key]: next } : prev;
+    });
   };
 
   return (
@@ -115,7 +116,10 @@ export default function Config() {
           {questionTypes.map(key => (
             <Checkbox
               key={key}
-              onChange={e => updateConfig({ [key]: e.currentTarget.checked })}
+              onChange={e => {
+                const { checked } = e.currentTarget;
+                setConfig(prev => ({ ...prev, [key]: checked }));
+              }}
               isChecked={config[key]}
               label={key.toUpperCase()}
             />

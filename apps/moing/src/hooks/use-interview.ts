@@ -7,31 +7,46 @@
 // --------------------------------------------------------------------------------
 
 import { useEffect, useRef, useState } from 'react';
-import { useSpeechRecognition } from '@lumir/react-kit/hooks';
 import type {
   ChatCompletion,
   ChatCompletionCreateRequestBody,
   ChatCompletionMessageParam,
 } from '@lumir/types/openai';
-
 import { questionTypes, type Config, type QuestionType } from '@/contexts/config';
-
 import * as prompts from '../utils/prompt.js';
 
 // --------------------------------------------------------------------------------
 // Typedef
 // --------------------------------------------------------------------------------
 
-interface InterviewFeedback {
-  readonly feedback: string;
-  readonly score: 'poor' | 'fair' | 'good';
-}
-
-interface InterviewObj {
+/**
+ * Represents an interview consisting of a question, the user's answer, and feedback.
+ */
+interface Interview {
+  /**
+   * The question being asked in the interview.
+   */
   readonly question: string;
-  readonly answerSystem: string;
-  readonly answerUser: string;
-  readonly feedback: InterviewFeedback;
+
+  /**
+   * The user's answer to the question.
+   */
+  readonly answer: string;
+
+  /**
+   * The feedback derived from the question and the user's answer.
+   */
+  readonly feedback: {
+    /**
+     * The textual feedback for the question and the user's answer.
+     */
+    readonly feedback: string;
+
+    /**
+     * The score for the user's answer.
+     */
+    readonly score: 'poor' | 'fair' | 'good';
+  };
 }
 
 // --------------------------------------------------------------------------------
@@ -42,7 +57,7 @@ interface InterviewObj {
  * Fetches chat completion text from the backend API.
  */
 async function fetchChatCompletionText(
-  messages: ChatCompletionMessageParam[],
+  ...messages: ChatCompletionMessageParam[]
 ): Promise<string> {
   if (process.env.BACKEND_URL === undefined) {
     throw new Error('BACKEND_URL is not defined');
@@ -72,77 +87,43 @@ async function fetchChatCompletionText(
   return json?.choices?.[0]?.message?.content ?? '';
 }
 
-/**
- * Creates a message object for OpenAI API.
- */
-function createMessageObject(
-  role: ChatCompletionMessageParam['role'],
-  text: string,
-): ChatCompletionMessageParam {
-  return { role, content: text };
-}
-
 function fetchQuestionMain(type: QuestionType, history: string[]): Promise<string> {
-  return fetchChatCompletionText([
+  return fetchChatCompletionText(
     ...prompts.questionMain[type],
-    ...history.map(text => createMessageObject('assistant', text)),
-  ]);
+    ...history.map(content => ({ role: 'assistant' as const, content })),
+  );
 }
 
 function fetchQuestionSub(question: string, answerUser: string) {
-  return fetchChatCompletionText([
-    ...prompts.questionSub,
-    createMessageObject(
-      'user',
-      `Previous Question\n\n${question}\n\nUSER's Answer\n\n${answerUser}`,
-    ),
-  ]);
+  return fetchChatCompletionText(...prompts.questionSub, {
+    role: 'user',
+    content: `Previous Question\n\n${question}\n\nUSER's Answer\n\n${answerUser}`,
+  });
 }
 
-function fetchAnswer(question: string) {
-  return fetchChatCompletionText([
-    ...prompts.answer,
-    createMessageObject('user', question),
-  ]);
-}
-
-function fetchFeedback(answerSystem: string, answerUser: string) {
-  return fetchChatCompletionText([
-    ...prompts.feedback,
-    createMessageObject(
-      'user',
-      `Correct Answer\n\n${answerSystem}\n\nUSER's Answer\n\n${answerUser}`,
-    ),
-  ]);
+function fetchFeedback(question: string, answerUser: string) {
+  return fetchChatCompletionText(...prompts.feedback, {
+    role: 'user',
+    content: `Question\n\n${question}\n\nUSER's Answer\n\n${answerUser}`,
+  });
 }
 
 // --------------------------------------------------------------------------------
 // Export
 // --------------------------------------------------------------------------------
 
-export default function useInterview<T extends HTMLElement>() {
+export default function useInterview<T extends HTMLElement>(config: Config) {
   const contentRef = useRef<T | null>(null);
-  const prevContentRef = useRef<string>('');
-  const {
-    listening,
-    transcript,
-    resetTranscript,
-    toggleListening: toggleSpeechRecognition,
-  } = useSpeechRecognition({ continuous: true, lang: 'ko-KR' });
-  const historyRef = useRef<InterviewObj[]>([]);
-  const questionTypesRef = useRef<QuestionType[]>([]);
-  const mainQuestionsPerTypeRef = useRef(0); // row
-  const questionsPerMainRef = useRef(0); // column
-  const [question, setQuestion] = useState<string | null>(null);
+  const historyRef = useRef<Interview[]>([]);
   const turnRef = useRef<{
-    answers: Promise<{ question: string; answerSystem: string } | null>;
+    question: Promise<string | null>;
     submitted: boolean;
   } | null>(null);
+  const [question, setQuestion] = useState<string | null>(null);
 
-  useEffect(() => {
-    if (contentRef.current)
-      contentRef.current.innerText = prevContentRef.current + transcript;
-  }, [transcript]);
+  const selectedTypes = questionTypes.filter(type => config[type]);
+  const questionsPerMain = config.sub + 1;
+  const totalQuestions = selectedTypes.length * config.main * questionsPerMain;
 
   useEffect(
     () => () => {
@@ -151,38 +132,16 @@ export default function useInterview<T extends HTMLElement>() {
     [],
   );
 
-  const toggleListening = () => {
-    if (!listening && contentRef.current)
-      prevContentRef.current = contentRef.current.innerText;
-    toggleSpeechRecognition();
-    if (!listening) resetTranscript();
-  };
-
-  const isInterviewDone = () =>
-    historyRef.current.length ===
-    questionTypesRef.current.length *
-      mainQuestionsPerTypeRef.current *
-      questionsPerMainRef.current;
-
-  const getQuestionMainHistory = () => {
-    const questionMainHistory = [];
-
-    for (let i = 0; i < historyRef.current.length; i += questionsPerMainRef.current) {
-      questionMainHistory.push(historyRef.current[i].question);
-    }
-
-    return questionMainHistory;
-  };
+  const isInterviewDone = () => historyRef.current.length === totalQuestions;
 
   const getInterviewInfo = (index = historyRef.current.length) => {
-    const mainIndex = Math.floor(index / questionsPerMainRef.current);
+    const mainIndex = Math.floor(index / questionsPerMain);
 
     return {
       index,
-      questionType:
-        questionTypesRef.current[Math.floor(mainIndex / mainQuestionsPerTypeRef.current)],
-      questionMain: (mainIndex % mainQuestionsPerTypeRef.current) + 1,
-      questionSub: (index % questionsPerMainRef.current) + 1,
+      questionType: selectedTypes[Math.floor(mainIndex / config.main)],
+      questionMain: (mainIndex % config.main) + 1,
+      questionSub: (index % questionsPerMain) + 1,
     };
   };
 
@@ -191,22 +150,11 @@ export default function useInterview<T extends HTMLElement>() {
 
     for (let i = 0; i < historyRef.current.length; i += 1) {
       const { questionType, questionMain, questionSub } = getInterviewInfo(i);
-      const {
-        question: questionText,
-        answerSystem,
-        answerUser,
-        feedback,
-      } = historyRef.current[i];
+      const { question: questionText, answer, feedback } = historyRef.current[i];
 
-      str += `> ${questionType.toUpperCase()}분야 ${questionMain}-${questionSub}번 문제, 해설, 사용자 답변, 피드백, 성적입니다.\n\n`;
+      str += `> ${questionType.toUpperCase()}분야 ${questionMain}-${questionSub}번 문제, 사용자 답변, 피드백, 성적입니다.\n\n`;
 
-      for (const text of [
-        questionText,
-        answerSystem,
-        answerUser,
-        feedback.feedback,
-        feedback.score,
-      ]) {
+      for (const text of [questionText, answer, feedback.feedback, feedback.score]) {
         if (typeof text === 'string') {
           str += `---\n\n${text}\n\n`;
         }
@@ -218,45 +166,37 @@ export default function useInterview<T extends HTMLElement>() {
     return str;
   };
 
-  const startNextQuestion = () => {
-    setQuestion(null);
+  const startNextQuestion = async () => {
+    if (turnRef.current) return;
 
-    if (isInterviewDone()) {
-      turnRef.current = null;
-      return;
-    }
+    setQuestion(null);
+    if (isInterviewDone()) return;
 
     const previous = historyRef.current.at(-1);
     const { questionType, questionSub } = getInterviewInfo();
-    const request =
-      !previous || questionSub === 1
-        ? fetchQuestionMain(questionType, getQuestionMainHistory())
-        : fetchQuestionSub(previous.question, previous.answerUser);
+    let request: Promise<string>;
 
-    const answers = request.then(async text => {
-      if (!turnRef.current) return null;
+    if (!previous || questionSub === 1) {
+      const questionMainHistory = historyRef.current
+        .filter((_, index) => index % questionsPerMain === 0)
+        .map(entry => entry.question);
 
-      setQuestion(text);
+      request = fetchQuestionMain(questionType, questionMainHistory);
+    } else {
+      request = fetchQuestionSub(previous.question, previous.answer);
+    }
 
-      return { question: text, answerSystem: await fetchAnswer(text) };
-    });
-
-    turnRef.current = {
-      answers: answers.catch(error => {
+    const turn = {
+      question: request.catch(error => {
         window.reportError(error);
         return null;
       }),
       submitted: false,
     };
-  };
+    turnRef.current = turn;
 
-  const initInterview = (config: Config) => {
-    if (turnRef.current) return;
-
-    questionTypesRef.current = questionTypes.filter(key => config[key]);
-    mainQuestionsPerTypeRef.current = config.main;
-    questionsPerMainRef.current = config.sub + 1;
-    startNextQuestion();
+    const text = await turn.question;
+    if (turnRef.current === turn) setQuestion(text);
   };
 
   const submit = async (questionIndex = historyRef.current.length) => {
@@ -266,17 +206,18 @@ export default function useInterview<T extends HTMLElement>() {
       return;
 
     turn.submitted = true;
-    const answerUser = input.innerText;
+    const answer = input.innerText;
     input.innerHTML = '';
 
     try {
-      const answers = await turn.answers;
-      if (!answers || turnRef.current !== turn) return;
+      const questionText = await turn.question;
+      if (!questionText || turnRef.current !== turn) return;
 
-      const feedback = JSON.parse(await fetchFeedback(answers.answerSystem, answerUser));
+      const feedback = JSON.parse(await fetchFeedback(questionText, answer));
       if (feedback === null || turnRef.current !== turn) return;
 
-      historyRef.current.push({ ...answers, answerUser, feedback });
+      historyRef.current.push({ question: questionText, answer, feedback });
+      turnRef.current = null;
       startNextQuestion();
     } catch (error) {
       window.reportError(error);
@@ -287,13 +228,11 @@ export default function useInterview<T extends HTMLElement>() {
 
   return {
     contentRef,
-    listening,
     question,
-    toggleListening,
-    isInterviewDone,
-    getInterviewInfo,
     getInterviewHistory,
-    initInterview,
+    getInterviewInfo,
+    isInterviewDone,
+    startNextQuestion,
     submit,
   };
 }

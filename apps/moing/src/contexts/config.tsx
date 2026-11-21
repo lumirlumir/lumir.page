@@ -6,7 +6,14 @@
 // Import
 // --------------------------------------------------------------------------------
 
-import { createContext, use, useState, type PropsWithChildren } from 'react';
+import {
+  createContext,
+  use,
+  useState,
+  type Dispatch,
+  type PropsWithChildren,
+  type SetStateAction,
+} from 'react';
 
 // --------------------------------------------------------------------------------
 // Typedef
@@ -57,14 +64,14 @@ export interface ConfigContextValue {
   readonly config: Config;
 
   /**
-   * Merges a partial configuration update into the current config state.
-   */
-  readonly updateConfig: (partialConfig: Partial<Config>) => void;
-
-  /**
    * Whether the required interview configuration is complete.
    */
   readonly isConfigDone: boolean;
+
+  /**
+   * Sets the interview configuration.
+   */
+  readonly setConfig: Dispatch<SetStateAction<Config>>;
 }
 
 // --------------------------------------------------------------------------------
@@ -119,13 +126,6 @@ export function ConfigProvider({ children }: PropsWithChildren) {
     time: 0,
   });
 
-  const updateConfig = (partialConfig: Partial<Config>) => {
-    setConfig(prevState => ({
-      ...prevState,
-      ...partialConfig,
-    }));
-  };
-
   const isConfigDone =
     questionTypes.some(key => config[key]) &&
     config.main > 0 &&
@@ -134,8 +134,6 @@ export function ConfigProvider({ children }: PropsWithChildren) {
 
   return (
     // eslint-disable-next-line react-x/no-unstable-context-value -- React Compiler automatically optimizes context values.
-    <ConfigContext value={{ config, updateConfig, isConfigDone }}>
-      {children}
-    </ConfigContext>
+    <ConfigContext value={{ config, isConfigDone, setConfig }}>{children}</ConfigContext>
   );
 }
