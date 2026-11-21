@@ -33,7 +33,7 @@ import './app.css';
 // --------------------------------------------------------------------------------
 
 export default function App() {
-  const { config, updateConfig } = useConfigContext();
+  const { config, setConfig } = useConfigContext();
   const { contentRef, submit, getInterviewInfo } = useInterviewContext();
   const { section } = useScenarioContext();
   const timerQuestionIndexRef = useRef(0);
@@ -69,7 +69,7 @@ export default function App() {
         icon={<GoGear size="35px" />}
         onClick={() => {
           if (section.config === 'interactive')
-            updateConfig({ visibility: !config.visibility });
+            setConfig(prev => ({ ...prev, visibility: !prev.visibility }));
         }}
       />
       <Button
