@@ -66,27 +66,27 @@ jobs:
       - name: Install playwright browsers
         run: node --run setup:browser -- --with-deps
 
-      - name: Build
-        run: node --run build:pkg
-
-      - name: Test pack
-        run: node --run pack:pkg
-
-      - name: Check types
-        run: node --run test:types
-
-      - name: Run unit tests
-        run: node --run test:unit
-
-      - name: Cache Next.js build
+      - name: Cache blog build
         uses: actions/cache@v6
         with:
           path: apps/blog/.next/cache
           key: ${{ runner.os }}-blog-nextjs-${{ hashFiles('package-lock.json', '.nvmrc') }}-${{ github.sha }}
           restore-keys: ${{ runner.os }}-blog-nextjs-${{ hashFiles('package-lock.json', '.nvmrc') }}-
 
-      - name: Build blog for E2E tests
-        run: npm exec -w apps/blog -- next build
+      - name: Build package
+        run: node --run build:pkg
 
-      - name: Run blog E2E tests
+      - name: Build blog
+        run: node --run build:b
+
+      - name: Test pack
+        run: node --run pack:pkg
+
+      - name: Test types
+        run: node --run test:types
+
+      - name: Test unit
+        run: node --run test:unit
+
+      - name: Test E2E
         run: node --run test:e2e
