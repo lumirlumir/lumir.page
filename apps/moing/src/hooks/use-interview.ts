@@ -134,16 +134,6 @@ export default function useInterview<T extends HTMLElement>(config: Config) {
 
   const isInterviewDone = () => historyRef.current.length === totalQuestions;
 
-  const getQuestionMainHistory = () => {
-    const questionMainHistory = [];
-
-    for (let i = 0; i < historyRef.current.length; i += questionsPerMain) {
-      questionMainHistory.push(historyRef.current[i].question);
-    }
-
-    return questionMainHistory;
-  };
-
   const getInterviewInfo = (index = historyRef.current.length) => {
     const mainIndex = Math.floor(index / questionsPerMain);
 
@@ -177,19 +167,24 @@ export default function useInterview<T extends HTMLElement>(config: Config) {
   };
 
   const startNextQuestion = async () => {
-    setQuestion(null);
+    if (turnRef.current) return;
 
-    if (isInterviewDone()) {
-      turnRef.current = null;
-      return;
-    }
+    setQuestion(null);
+    if (isInterviewDone()) return;
 
     const previous = historyRef.current.at(-1);
     const { questionType, questionSub } = getInterviewInfo();
-    const request =
-      !previous || questionSub === 1
-        ? fetchQuestionMain(questionType, getQuestionMainHistory())
-        : fetchQuestionSub(previous.question, previous.answer);
+    let request: Promise<string>;
+
+    if (!previous || questionSub === 1) {
+      const questionMainHistory = historyRef.current
+        .filter((_, index) => index % questionsPerMain === 0)
+        .map(entry => entry.question);
+
+      request = fetchQuestionMain(questionType, questionMainHistory);
+    } else {
+      request = fetchQuestionSub(previous.question, previous.answer);
+    }
 
     const turn = {
       question: request.catch(error => {
@@ -202,11 +197,6 @@ export default function useInterview<T extends HTMLElement>(config: Config) {
 
     const text = await turn.question;
     if (turnRef.current === turn) setQuestion(text);
-  };
-
-  const initInterview = () => {
-    if (turnRef.current) return;
-    startNextQuestion();
   };
 
   const submit = async (questionIndex = historyRef.current.length) => {
@@ -227,6 +217,7 @@ export default function useInterview<T extends HTMLElement>(config: Config) {
       if (feedback === null || turnRef.current !== turn) return;
 
       historyRef.current.push({ question: questionText, answer, feedback });
+      turnRef.current = null;
       startNextQuestion();
     } catch (error) {
       window.reportError(error);
@@ -238,10 +229,10 @@ export default function useInterview<T extends HTMLElement>(config: Config) {
   return {
     contentRef,
     question,
-    isInterviewDone,
-    getInterviewInfo,
     getInterviewHistory,
-    initInterview,
+    getInterviewInfo,
+    isInterviewDone,
+    startNextQuestion,
     submit,
   };
 }
