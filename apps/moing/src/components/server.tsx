@@ -12,7 +12,6 @@ import { usePreviousDistinct, useScroll } from '@lumir/react-kit/hooks';
 import { cn } from '@lumir/utils';
 
 import NeonDiv from '@/components/neon-div';
-import { useConfigContext } from '@/contexts/config';
 import { useInterviewContext } from '@/contexts/interview';
 import { useScenarioContext } from '@/contexts/scenario';
 
@@ -48,7 +47,6 @@ function formatContent(content: string) {
 // --------------------------------------------------------------------------------
 
 export default function Server({ onTestWriteComplete }: ServerProps) {
-  const { config } = useConfigContext();
   const { question, getInterviewInfo, isInterviewDone, getInterviewHistory } =
     useInterviewContext();
   const { section, toNextSection } = useScenarioContext();
@@ -82,7 +80,7 @@ export default function Server({ onTestWriteComplete }: ServerProps) {
         'custom-scrollbar',
         'custom-main-section',
         'custom-main-section-bash',
-        status !== 'hidden' && !config.visibility ? '' : 'custom-invisible-section',
+        status === 'hidden' && 'custom-invisible-section',
         mode === 'result' && styles.wide,
       )}
       neonColor="black"
