@@ -3,12 +3,10 @@
  */
 
 // --------------------------------------------------------------------------------
-// Typedef
+// Import
 // --------------------------------------------------------------------------------
 
-/**
- * @import { Plugin } from 'vite';
- */
+import type { Plugin } from 'vite';
 
 // --------------------------------------------------------------------------------
 // Export
@@ -16,9 +14,8 @@
 
 /**
  * Creates a Vite plugin that loads Markdown files as default-exported strings.
- * @returns {Promise<Plugin>} A Vite plugin for transforming `.md` files.
  */
-export async function vitePluginMarkdown() {
+export async function vitePluginMarkdown(): Promise<Plugin> {
   return {
     name: 'vite-plugin-markdown',
 

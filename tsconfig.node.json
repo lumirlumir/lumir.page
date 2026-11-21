@@ -22,6 +22,7 @@
   ],
   "compilerOptions": {
     /* Modules */
+    "allowImportingTsExtensions": true,
     "rootDir": ".",
     "types": ["node"],
 

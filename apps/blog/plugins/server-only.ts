@@ -3,12 +3,10 @@
  */
 
 // --------------------------------------------------------------------------------
-// Typedef
+// Import
 // --------------------------------------------------------------------------------
 
-/**
- * @import { Plugin } from 'vite';
- */
+import type { Plugin } from 'vite';
 
 // --------------------------------------------------------------------------------
 // Constant
@@ -23,9 +21,8 @@ const RESOLVED_SERVER_ONLY_MODULE_ID = '\0server-only';
 
 /**
  * Creates a Vite plugin that replaces `server-only` with an empty module.
- * @returns {Plugin} A Vite plugin.
  */
-export function vitePluginServerOnly() {
+export function vitePluginServerOnly(): Plugin {
   return {
     name: 'vite-plugin-server-only',
     enforce: 'pre',
