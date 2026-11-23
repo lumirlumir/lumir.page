@@ -16,8 +16,14 @@ import { questionTypes, useConfigContext } from '@/contexts/config';
 import styles from './config.module.css';
 
 // --------------------------------------------------------------------------------
-// Helpers
+// Helper
 // --------------------------------------------------------------------------------
+
+const counters = [
+  { key: 'main', label: 'QUESTION-MAIN:' },
+  { key: 'sub', label: 'QUESTION-SUB:' },
+  { key: 'time', label: 'TIME-LIMIT:' },
+] as const;
 
 function Counter({
   onClick,
@@ -67,7 +73,7 @@ function Checkbox({
       }}
     >
       <label>
-        <input type="checkbox" onChange={onChange} />
+        <input type="checkbox" checked={isChecked} onChange={onChange} />
         <span>{label}</span>
       </label>
     </NeonFont>
@@ -79,17 +85,18 @@ function Checkbox({
 // --------------------------------------------------------------------------------
 
 export default function Config() {
-  const { config, updateConfig } = useConfigContext();
+  const { config, setConfig } = useConfigContext();
 
   const handleButtonCount = (
     e: MouseEvent<HTMLInputElement>,
-    key: 'main' | 'sub' | 'time',
+    key: (typeof counters)[number]['key'],
   ) => {
-    if (e.ctrlKey && config[key] - 1 >= 0) {
-      updateConfig({ [key]: config[key] - 1 });
-    } else if (!e.ctrlKey && config[key] + 1 <= 10) {
-      updateConfig({ [key]: config[key] + 1 });
-    }
+    const delta = e.ctrlKey ? -1 : 1;
+
+    setConfig(prev => {
+      const next = prev[key] + delta;
+      return next >= 0 && next <= 10 ? { ...prev, [key]: next } : prev;
+    });
   };
 
   return (
@@ -109,32 +116,24 @@ export default function Config() {
           {questionTypes.map(key => (
             <Checkbox
               key={key}
-              onChange={() =>
-                updateConfig({
-                  [key]: !config[key],
-                })
-              }
+              onChange={e => {
+                const { checked } = e.currentTarget;
+                setConfig(prev => ({ ...prev, [key]: checked }));
+              }}
               isChecked={config[key]}
               label={key.toUpperCase()}
             />
           ))}
         </div>
         <div>
-          <Counter
-            onClick={e => handleButtonCount(e, 'main')}
-            count={config.main}
-            label="QUESTION-MAIN:"
-          />
-          <Counter
-            onClick={e => handleButtonCount(e, 'sub')}
-            count={config.sub}
-            label="QUESTION-SUB:"
-          />
-          <Counter
-            onClick={e => handleButtonCount(e, 'time')}
-            count={config.time}
-            label="TIME-LIMIT:"
-          />
+          {counters.map(({ key, label }) => (
+            <Counter
+              key={key}
+              onClick={e => handleButtonCount(e, key)}
+              count={config[key]}
+              label={label}
+            />
+          ))}
         </div>
       </div>
     </NeonDiv>

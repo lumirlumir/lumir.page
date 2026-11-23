@@ -41,6 +41,8 @@ jobs:
         run: node --run build
 
       - name: Lint
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
         run: node --run lint
 
   test:
@@ -64,11 +66,29 @@ jobs:
       - name: Install playwright browsers
         run: node --run setup:browser -- --with-deps
 
-      - name: Build
+      - name: Cache Next.js build
+        uses: actions/cache@v6
+        with:
+          # Static export writes to `build/`, but Next.js keeps its build cache in `.next/`.
+          # The comparison action builds both refs in place, preserving this cache.
+          path: apps/blog/.next/cache
+          key: ${{ runner.os }}-blog-nextjs-${{ hashFiles('package-lock.json', '.nvmrc') }}-${{ github.sha }}
+          restore-keys: ${{ runner.os }}-blog-nextjs-${{ hashFiles('package-lock.json', '.nvmrc') }}-
+
+      - name: Build package
         run: node --run build:pkg
+
+      - name: Build blog
+        run: node --run build:b
 
       - name: Test pack
         run: node --run pack:pkg
 
-      - name: Test type, unit and browser
-        run: node --run test
+      - name: Test types
+        run: node --run test:types
+
+      - name: Test unit
+        run: node --run test:unit
+
+      - name: Test e2e
+        run: node --run test:e2e

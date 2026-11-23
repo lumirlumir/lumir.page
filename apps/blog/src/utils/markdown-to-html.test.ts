@@ -168,6 +168,22 @@ describe('markdown-to-html', () => {
 
       assert.strictEqual(await markdownToHtml(markdown, { lang: 'ko' }), html);
     });
+
+    it('should append localized references with a permalink and shortened GitHub issue links before footnotes', async () => {
+      const url = 'https://github.com/octocat/Hello-World/issues/42';
+      const html = await markdownToHtml('Body.[^1]\n\n[^1]: A note.', {
+        lang: 'ko',
+        references: [url],
+      });
+
+      assert.include(
+        html,
+        '<h2 id="references"><a aria-hidden="true" tabindex="-1" href="#references"></a>참고 링크</h2>',
+      );
+      assert.include(html, `<li><a href="${url}">octocat/Hello-World#42</a></li>`);
+      assert.include(html, 'data-footnotes');
+      assert.isBelow(html.indexOf('id="references"'), html.indexOf('data-footnotes'));
+    });
   });
 
   describe('HTML', () => {
@@ -192,7 +208,31 @@ describe('markdown-to-html', () => {
       const html =
         '<div class="markdown-alert markdown-alert-note"><p class="markdown-alert-title"><svg class="octicon octicon-info mr-2" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg>Note</p><p>This is a note.</p>\n</div>';
 
-      assert.strictEqual(await markdownToHtml(markdown, { lang: 'ko' }), html);
+      assert.strictEqual(await markdownToHtml(markdown, { lang: 'en' }), html);
+    });
+
+    it('should localize all five GitHub Alert titles to the post language', async () => {
+      const markdown = [
+        '> [!NOTE]\n> Note',
+        '> [!TIP]\n> Tip',
+        '> [!IMPORTANT]\n> Important',
+        '> [!WARNING]\n> Warning',
+        '> [!CAUTION]\n> Caution',
+      ].join('\n\n');
+
+      const korean = await markdownToHtml(markdown, { lang: 'ko' });
+      assert.include(korean, '</svg>참고</p><p>Note</p>');
+      assert.include(korean, '</svg>팁</p><p>Tip</p>');
+      assert.include(korean, '</svg>중요</p><p>Important</p>');
+      assert.include(korean, '</svg>경고</p><p>Warning</p>');
+      assert.include(korean, '</svg>주의</p><p>Caution</p>');
+
+      const english = await markdownToHtml(markdown, { lang: 'en' });
+      assert.include(english, '</svg>Note</p><p>Note</p>');
+      assert.include(english, '</svg>Tip</p><p>Tip</p>');
+      assert.include(english, '</svg>Important</p><p>Important</p>');
+      assert.include(english, '</svg>Warning</p><p>Warning</p>');
+      assert.include(english, '</svg>Caution</p><p>Caution</p>');
     });
 
     it('should append a single-class color preview to hexadecimal inline code', async () => {

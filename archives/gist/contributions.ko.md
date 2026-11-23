@@ -11,8 +11,6 @@
     - [`bananass`](#bananass)
     - [`eslint-markdown`](#eslint-markdown)
     - [`textlint-rule-allowed-uris`](#textlint-rule-allowed-uris)
-    <!-- - [`moing.lumir.page` / `lumir.page`](#moinglumirpage--lumirpage) -- TODO -->
-    <!-- - [`lumirlumir-configs`](#lumirlumir-configs) -- TODO -->
 - [Open Source Contributions](#open-source-contributions)
     - [`eslint/eslint`](#eslinteslint)
     - [`eslint/rewrite`](#eslintrewrite)
@@ -50,15 +48,6 @@
     - [`typescript-eslint/typescript-eslint`](#typescript-eslinttypescript-eslint)
     - [`vitejs/vite`](#vitejsvite)
     - [`lerna/lerna`](#lernalerna)
-    <!-- - [`nodejs/node`](#nodejsnode) -- TODO -->
-    <!-- - [`nodejs/nodejs.org`](#nodejsnodejsorg) -- TODO -->
-    <!-- - [`algolia/docsearch`](#algoliadocsearch) -- TODO -->
-    <!-- - [`toss/es-hangul`](#tosseshangul) -- TODO -->
-    <!-- - [`pronist/hello`](#pronisthello) -- TODO -->
-    <!-- - [`pronist/tidory`](#pronisttidory) -- TODO -->
-    <!-- - [`xvzc/boj-cli`](#xvzcboj-cli) -- TODO -->
-    <!-- - [`mdn/translated-content`](#mdntranslated-content) -- TODO -->
-    <!-- - [`actions/runner-images`](#actionsrunner-images) -- TODO -->
 - [이외의 활동](#이외의-활동)
 
 ## Summary

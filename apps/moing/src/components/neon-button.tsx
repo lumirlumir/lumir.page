@@ -16,12 +16,6 @@ import styles from './neon-button.module.css';
 
 interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   /**
-   * Size of the neon effect.
-   * @default '2px'
-   */
-  neonSize?: React.CSSProperties['width'] & React.CSSProperties['height'];
-
-  /**
    * Whether to apply a hover effect.
    * @default false
    */
@@ -36,22 +30,21 @@ interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
  * Component `NeonButton`.
  * @example
  * // Default Values
- * <NeonButton neonSize="2px" hoverEffect={false}>
+ * <NeonButton hoverEffect={false}>
  *   {undefined}
  * </NeonButton>
  */
 export default function NeonButton({
-  neonSize = '2px',
   hoverEffect = false,
   children,
   ...props
 }: React.PropsWithChildren<Props> = {}) {
   return (
     <div className={cn(styles['neon-button'], hoverEffect && styles.hover)}>
-      <span style={{ height: neonSize }} />
-      <span style={{ width: neonSize }} />
-      <span style={{ height: neonSize }} />
-      <span style={{ width: neonSize }} />
+      <span />
+      <span />
+      <span />
+      <span />
       <button type="button" {...props}>
         {children}
       </button>

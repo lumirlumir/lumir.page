@@ -159,11 +159,11 @@
   }
 
   .body:has([data-page='home']) > .main,
-  .body:has([data-page='post']) > .main {
+  .body:has([data-page='post']):not(:has(> .nav-sidebar ul)) > .main {
     grid-column: 1 / -1;
   }
 
-  .body:has([data-page='post']) > .nav-sidebar {
+  .body:has([data-page='post']) > .nav-sidebar:not(:has(ul)) {
     display: none;
   }
 }
@@ -226,7 +226,7 @@
     display: block;
   }
 
-  .body:has([data-page='post']) > .main {
+  .body:has([data-page='post']):not(:has(> .nav-sidebar ul)) > .main {
     grid-column: 3 / 5;
   }
 

@@ -7,7 +7,7 @@
 // --------------------------------------------------------------------------------
 
 import { createContext, use, type PropsWithChildren } from 'react';
-
+import { useConfigContext } from '@/contexts/config';
 import useInterview from '@/hooks/use-interview';
 
 // --------------------------------------------------------------------------------
@@ -54,7 +54,8 @@ export function useInterviewContext(): InterviewContextValue {
  * @returns A context provider wrapping the given children.
  */
 export function InterviewProvider({ children }: PropsWithChildren) {
-  const interview = useInterview<HTMLDivElement>();
+  const { config } = useConfigContext();
+  const interview = useInterview<HTMLDivElement>(config);
 
   return <InterviewContext value={interview}>{children}</InterviewContext>;
 }

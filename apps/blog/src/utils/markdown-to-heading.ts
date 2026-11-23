@@ -13,9 +13,11 @@ import 'server-only';
 // --------------------------------------------------------------------------------
 
 import {
+  remarkAppendReferences,
   remarkBlockquoteFromDescription,
   remarkCustomHeadingId,
   remarkHeadingFromTitle,
+  type RemarkAppendReferencesOptions,
   type RemarkBlockquoteFromDescriptionOptions,
   type RemarkHeadingFromTitleOptions,
 } from '@lumir/remark-plugins';
@@ -24,6 +26,8 @@ import remarkGfm from 'remark-gfm';
 import remarkMath from 'remark-math';
 import remarkParse from 'remark-parse';
 import { unified } from 'unified';
+import { frontmatterMeta } from '@/data/frontmatter';
+import type { PropsWithLang } from '@/data/lang';
 import type { VMarkdownHeading } from '@/data/v-markdown';
 import { mdastToTextSync } from '@/utils/mdast-to-text';
 
@@ -31,8 +35,11 @@ import { mdastToTextSync } from '@/utils/mdast-to-text';
 // Typedef
 // --------------------------------------------------------------------------------
 
-type MarkdownToHeadingOptions = RemarkHeadingFromTitleOptions &
-  RemarkBlockquoteFromDescriptionOptions;
+type MarkdownToHeadingOptions = PropsWithLang<
+  RemarkHeadingFromTitleOptions &
+    RemarkBlockquoteFromDescriptionOptions &
+    Pick<RemarkAppendReferencesOptions, 'references'>
+>;
 
 // --------------------------------------------------------------------------------
 // Export
@@ -49,6 +56,7 @@ type MarkdownToHeadingOptions = RemarkHeadingFromTitleOptions &
  *
  * const markdown = 'Introduction\n\n## Heading {#heading}\n\nSome content';
  * const headings = await markdownToHeading(markdown, {
+ *   lang: 'en',
  *   title: 'Awesome Title {#awesome-title}',
  *   description: 'A brief summary.',
  * });
@@ -73,16 +81,20 @@ type MarkdownToHeadingOptions = RemarkHeadingFromTitleOptions &
  */
 export async function markdownToHeading(
   markdown: string,
-  options?: MarkdownToHeadingOptions,
+  { lang, title, description, references }: MarkdownToHeadingOptions,
 ): Promise<VMarkdownHeading[]> {
   // NOTE: Keep text transformations and heading IDs aligned with `markdownToHtml`.
   const processor = unified()
     .use(remarkParse)
     .use(remarkGfm)
     .use(remarkMath)
-    .use(remarkBlockquoteFromDescription, { description: options?.description })
-    .use(remarkHeadingFromTitle, { title: options?.title })
-    .use(remarkCustomHeadingId);
+    .use(remarkBlockquoteFromDescription, { description })
+    .use(remarkHeadingFromTitle, { title })
+    .use(remarkCustomHeadingId)
+    .use(remarkAppendReferences, {
+      references,
+      referencesHeading: frontmatterMeta.references.name[lang],
+    });
   const tree = (await processor.run(processor.parse(markdown))) as Root;
   const headings: VMarkdownHeading[] = [];
 
@@ -100,7 +112,7 @@ export async function markdownToHeading(
 
       headings.push(
         (vMarkdownHeading = {
-          id,
+          id: encodeURIComponent(id),
           text: mdastToTextSync(node),
           depth: node.depth,
           content: '',

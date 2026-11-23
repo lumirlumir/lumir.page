@@ -11,6 +11,7 @@ import {
   rehypeCommentRemover,
   rehypeImageLazyLoading,
   rehypeImageUrlReplace,
+  rehypeLocalizeGitHubAlertTitle,
 } from './index.js';
 import packageJson from '../package.json' with { type: 'json' };
 
@@ -27,18 +28,19 @@ describe('index', () => {
 
   describe('exports', () => {
     it('`rehypeCommentRemover` should be defined', () => {
-      assert.isDefined(rehypeCommentRemover);
-      assert.strictEqual(typeof rehypeCommentRemover, 'function');
+      assert.isFunction(rehypeCommentRemover);
     });
 
     it('`rehypeImageLazyLoading` should be defined', () => {
-      assert.isDefined(rehypeImageLazyLoading);
-      assert.strictEqual(typeof rehypeImageLazyLoading, 'function');
+      assert.isFunction(rehypeImageLazyLoading);
     });
 
     it('`rehypeImageUrlReplace` should be defined', () => {
-      assert.isDefined(rehypeImageUrlReplace);
-      assert.strictEqual(typeof rehypeImageUrlReplace, 'function');
+      assert.isFunction(rehypeImageUrlReplace);
+    });
+
+    it('`rehypeLocalizeGitHubAlertTitle` should be defined', () => {
+      assert.isFunction(rehypeLocalizeGitHubAlertTitle);
     });
   });
 });

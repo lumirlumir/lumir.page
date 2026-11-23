@@ -9,7 +9,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { categoryMeta } from '@/data/category';
-import { frontmatterMeta } from '@/data/frontmatter';
 import type { LangKey } from '@/data/lang';
 import createMarkdownCollection from '@/utils/markdown-collection';
 import { markdownToHtml } from '@/utils/markdown-to-html';
@@ -131,20 +130,10 @@ export default async function Page({ params }: PageProps<'/[lang]/posts/[markdow
         <div
           className="markdown"
           // eslint-disable-next-line react-x/dom-no-dangerously-set-innerhtml -- Safe because the content comes from the local file and is controlled.
-          dangerouslySetInnerHTML={{ __html: await markdownToHtml(content, { lang }) }}
+          dangerouslySetInnerHTML={{
+            __html: await markdownToHtml(content, { lang, references }),
+          }}
         />
-        {references.length > 0 && (
-          <div className="markdown">
-            <h2>{frontmatterMeta.references.name[lang]}</h2>
-            <ul>
-              {references.map(reference => (
-                <li key={reference}>
-                  <a href={reference}>{reference}</a>
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
       </div>
     </div>
   );

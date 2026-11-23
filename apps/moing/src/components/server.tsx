@@ -36,15 +36,11 @@ interface ServerProps {
  * @returns The formatted content.
  */
 function formatContent(content: string) {
-  if (content === '') {
-    // If content is empty, return an empty string to avoid displaying `'> '` prefix
-    return '';
-  } else if (content.startsWith('$')) {
-    // If content starts with '$', treat it as a command and display without `'> '` prefix
-    return `${content}\n\n`;
-  } else {
-    return `> ${content}\n\n`;
-  }
+  if (content === '') return '';
+
+  const prefix = content.startsWith('$') ? '' : '> ';
+
+  return `${prefix}${content}\n\n`;
 }
 
 // --------------------------------------------------------------------------------
@@ -60,15 +56,17 @@ export default function Server({ onTestWriteComplete }: ServerProps) {
   const [scrollRef, scroll] = useScroll<HTMLDivElement>({ behavior: 'smooth' });
   const text = useMemo(() => {
     if (mode === 'test') {
-      return question === null
-        ? ''
-        : formatContent(
-            `${getInterviewInfo().questionType.toUpperCase()}분야 ${getInterviewInfo().questionMain}-${getInterviewInfo().questionSub}번 문제입니다. ${question}`,
-          );
+      if (question === null) return '';
+
+      const { questionType, questionMain, questionSub } = getInterviewInfo();
+
+      return formatContent(
+        `${questionType.toUpperCase()}분야 ${questionMain}-${questionSub}번 문제입니다. ${question}`,
+      );
     } else if (mode === 'result') {
       return getInterviewHistory();
     } else {
-      return formatContent(content);
+      return formatContent(content ?? '');
     }
   }, [mode, content, question, getInterviewInfo, getInterviewHistory]);
   const previousHistory = usePreviousDistinct<string>(text, { history: true });
@@ -100,7 +98,7 @@ export default function Server({ onTestWriteComplete }: ServerProps) {
           writePreDelay={2000}
           writePostDelay={1000}
           onWriteComplete={() => {
-            if (mode === 'auto' || mode === 'result') toNextSection();
+            if (content !== null || mode === 'result') toNextSection();
             if (mode === 'test' && text !== '') onTestWriteComplete();
             scroll.intoView({ block: 'end', inline: 'nearest' });
           }}

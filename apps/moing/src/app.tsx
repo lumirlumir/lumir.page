@@ -6,8 +6,8 @@
 // Import
 // --------------------------------------------------------------------------------
 
-import { useEffect } from 'react';
-import { useCountdown, useScroll } from '@lumir/react-kit/hooks';
+import { useEffect, useLayoutEffect, useRef } from 'react';
+import { useCountdown, useScroll, useSpeechRecognition } from '@lumir/react-kit/hooks';
 import {
   CiMicrophoneOn,
   GoGear,
@@ -33,14 +33,26 @@ import './app.css';
 // --------------------------------------------------------------------------------
 
 export default function App() {
-  const { config, updateConfig } = useConfigContext();
-  const { listening, submit, toggleListening } = useInterviewContext();
+  const { config, setConfig } = useConfigContext();
+  const { contentRef, submit, getInterviewInfo } = useInterviewContext();
   const { section } = useScenarioContext();
-  const initialCount = config.time * 60 * 1_000;
-  const [currentCount, setCurrentCount] = useCountdown(initialCount, {
-    onComplete: submit,
+  const timerQuestionIndexRef = useRef(0);
+  const [currentCount, setCurrentCount] = useCountdown(0, {
+    onComplete: () => submit(timerQuestionIndexRef.current),
   });
   const [scrollRef, scroll] = useScroll<HTMLDivElement>({ behavior: 'smooth' });
+  const { listening, transcript, resetTranscript, toggleListening } =
+    useSpeechRecognition({
+      continuous: true,
+      lang: 'ko-KR',
+    });
+
+  useLayoutEffect(() => {
+    if (!transcript || !contentRef.current) return;
+
+    contentRef.current.innerText += transcript;
+    resetTranscript();
+  }, [contentRef, transcript, resetTranscript]);
 
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -56,23 +68,20 @@ export default function App() {
         type="config"
         icon={<GoGear size="35px" />}
         onClick={() => {
-          updateConfig({ visibility: !config.visibility });
+          if (section.config === 'interactive')
+            setConfig(prev => ({ ...prev, visibility: !prev.visibility }));
         }}
       />
       <Button
         type="speech"
         icon={<CiMicrophoneOn size="40px" />}
         hoverEffect={listening}
-        onClick={() => {
-          toggleListening();
-        }}
+        onClick={toggleListening}
       />
       <Button
         type="reload"
         icon={<GrPowerReset size="32px" />}
-        onClick={() => {
-          window.location.reload();
-        }}
+        onClick={() => window.location.reload()}
       />
       <Button
         type="submit"
@@ -90,7 +99,8 @@ export default function App() {
           <Title />
           <Server
             onTestWriteComplete={() => {
-              setCurrentCount(initialCount);
+              timerQuestionIndexRef.current = getInterviewInfo().index;
+              setCurrentCount(config.time * 60_000);
             }}
           />
           <Client />

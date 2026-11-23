@@ -31,11 +31,15 @@ import {
   rehypeCommentRemover,
   rehypeImageLazyLoading,
   rehypeImageUrlReplace,
+  rehypeLocalizeGitHubAlertTitle,
+  type RehypeLocalizeGitHubAlertTitleOptions,
 } from '@lumir/rehype-plugins';
 import {
+  remarkAppendReferences,
   remarkBlockquoteFromDescription,
   remarkCustomHeadingId,
   remarkHeadingFromTitle,
+  type RemarkAppendReferencesOptions,
   type RemarkBlockquoteFromDescriptionOptions,
   type RemarkHeadingFromTitleOptions,
 } from '@lumir/remark-plugins';
@@ -55,6 +59,7 @@ import rehypeKatex from 'rehype-katex';
 import rehypeStarryNight from 'rehype-starry-night';
 import rehypeStringify from 'rehype-stringify';
 import { unified } from 'unified';
+import { frontmatterMeta } from '@/data/frontmatter';
 import type { LangRecord, PropsWithLang } from '@/data/lang';
 import { githubRepoFullName } from '@/data/site';
 
@@ -63,7 +68,9 @@ import { githubRepoFullName } from '@/data/site';
 // --------------------------------------------------------------------------------
 
 type MarkdownToHtmlOptions = PropsWithLang<
-  RemarkHeadingFromTitleOptions & RemarkBlockquoteFromDescriptionOptions
+  RemarkHeadingFromTitleOptions &
+    RemarkBlockquoteFromDescriptionOptions &
+    Pick<RemarkAppendReferencesOptions, 'references'>
 >;
 
 // --------------------------------------------------------------------------------
@@ -72,16 +79,25 @@ type MarkdownToHtmlOptions = PropsWithLang<
 
 const dictionary = {
   ko: {
+    alertTitles: {
+      note: '참고',
+      tip: '팁',
+      important: '중요',
+      warning: '경고',
+      caution: '주의',
+    },
     footnoteLabel: '각주',
     footnoteBackLabel: (referenceIndex, rereferenceIndex) =>
       `각주 참조 ${referenceIndex + 1}${rereferenceIndex > 1 ? `-${rereferenceIndex}` : ''}로 돌아가기`,
   },
   en: {
+    alertTitles: {},
     footnoteLabel: 'Footnotes',
     footnoteBackLabel: (referenceIndex, rereferenceIndex) =>
       `Back to reference ${referenceIndex + 1}${rereferenceIndex > 1 ? `-${rereferenceIndex}` : ''}`,
   },
 } as const satisfies LangRecord<{
+  alertTitles: RehypeLocalizeGitHubAlertTitleOptions;
   footnoteLabel: string;
   footnoteBackLabel: FootnoteBackLabelTemplate;
 }>;
@@ -116,8 +132,9 @@ const dictionary = {
  */
 export async function markdownToHtml(
   markdown: string,
-  { lang, title, description }: MarkdownToHtmlOptions,
+  { lang, title, description, references }: MarkdownToHtmlOptions,
 ): Promise<string> {
+  const { alertTitles, ...footnotes } = dictionary[lang];
   const file = await unified()
     .use(remarkParse)
     .use(remarkGfm)
@@ -125,17 +142,22 @@ export async function markdownToHtml(
     .use(remarkBlockquoteFromDescription, { description })
     .use(remarkHeadingFromTitle, { title })
     .use(remarkCustomHeadingId)
+    .use(remarkAppendReferences, {
+      references,
+      referencesHeading: frontmatterMeta.references.name[lang],
+    })
     .use(
       remarkGitHub, // Use after `remarkCustomHeadingId` to avoid converting issue/PR references syntax (e.g., `#1`) used in custom heading IDs into links by mistake.
       { repository: githubRepoFullName },
     )
     .use(remarkRehype, {
       allowDangerousHtml: true,
-      ...dictionary[lang],
+      ...footnotes,
     })
     .use(rehypeRaw)
     .use(rehypeCommentRemover)
     .use(rehypeGitHubAlert)
+    .use(rehypeLocalizeGitHubAlertTitle, alertTitles)
     .use(rehypeGitHubColor, {
       build: value => {
         const node = defaultBuild(value);

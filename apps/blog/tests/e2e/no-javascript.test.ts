@@ -48,6 +48,11 @@ test.describe('no-javascript', () => {
       await expect(
         page.getByRole('heading', { level: 2, name: '참고 링크', exact: true }),
       ).toBeVisible();
+      await expect(
+        page.getByRole('list', { name: '목차' }).getByRole('link', {
+          name: '1-1. 마크다운이란?',
+        }),
+      ).toHaveAttribute('href', '#1-1-what-is-markdown');
     });
 
     test('English post route should render its semantic HTML and heading', async ({
@@ -78,6 +83,11 @@ test.describe('no-javascript', () => {
       await expect(
         page.getByRole('heading', { level: 2, name: 'References', exact: true }),
       ).toBeVisible();
+      await expect(
+        page.getByRole('list', { name: 'Table of contents' }).getByRole('link', {
+          name: '1-1. What Is Markdown?',
+        }),
+      ).toHaveAttribute('href', '#1-1-what-is-markdown');
     });
 
     test('Korean post language toggle should preserve the post pathname', async ({
@@ -151,6 +161,9 @@ test.describe('no-javascript', () => {
       await expect(postLink).toHaveAttribute(
         'href',
         '/en/posts/everything-about-markdown',
+      );
+      await expect(page.getByRole('heading', { name: 'Table of contents' })).toHaveCount(
+        0,
       );
     });
 
