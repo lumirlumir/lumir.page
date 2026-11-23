@@ -87,4 +87,7 @@ export const navMeta = {
       ko: '소개',
     },
   },
-} as const satisfies Record<NavKey, { pathname: '' | `/${string}` } & Meta>;
+} as const satisfies Record<
+  NavKey,
+  { pathname: '' | `/${Exclude<NavKey, 'home'>}` } & Meta
+>;
