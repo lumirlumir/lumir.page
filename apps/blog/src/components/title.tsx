@@ -14,21 +14,9 @@ import 'server-only';
 
 import Link from 'next/link';
 import { author } from '@/data/author';
-import type { LangRecord, PropsWithLang } from '@/data/lang';
+import type { PropsWithLang } from '@/data/lang';
+import { navMeta } from '@/data/nav';
 import styles from './title.module.css';
-
-// --------------------------------------------------------------------------------
-// Helper
-// --------------------------------------------------------------------------------
-
-const dictionary = {
-  ko: {
-    label: (name: string) => `${name} 홈`,
-  },
-  en: {
-    label: (name: string) => `${name} home`,
-  },
-} as const satisfies LangRecord<{ label: (name: string) => string }>;
 
 // --------------------------------------------------------------------------------
 // Export
@@ -37,7 +25,10 @@ const dictionary = {
 export function Title({ lang }: PropsWithLang) {
   return (
     <div className={styles.title}>
-      <Link href={`/${lang}`} aria-label={dictionary[lang].label(author.lumirlumir.name)}>
+      <Link
+        href={`/${lang}${navMeta.home.pathname}`}
+        aria-label={navMeta.home.name[lang]}
+      >
         <span className={styles.wordmark}>{author.lumirlumir.name}</span>
         <span className={styles.subtitle}>{author.lumirlumir.bio}</span>
       </Link>

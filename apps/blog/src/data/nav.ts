@@ -6,7 +6,7 @@
 // Import
 // --------------------------------------------------------------------------------
 
-import type { LangRecord } from './lang';
+import type { Meta } from '@/data/meta';
 
 // --------------------------------------------------------------------------------
 // Typedef
@@ -46,45 +46,45 @@ export const navMeta = {
     },
   },
   posts: {
-    pathname: '',
+    pathname: '/posts',
     name: {
       en: 'posts',
       ko: '긴 글',
     },
   },
   snippet: {
-    pathname: '',
+    pathname: '/snippet',
     name: {
       en: 'snippet',
       ko: '짧은 글',
     },
   },
   contribution: {
-    pathname: '',
+    pathname: '/contribution',
     name: {
       en: 'contribution',
       ko: '오픈소스 기여',
     },
   },
   project: {
-    pathname: '',
+    pathname: '/project',
     name: {
       en: 'project',
       ko: '프로젝트',
     },
   },
   community: {
-    pathname: '',
+    pathname: '/community',
     name: {
       en: 'community',
       ko: '커뮤니티',
     },
   },
   about: {
-    pathname: '',
+    pathname: '/about',
     name: {
       en: 'about',
       ko: '소개',
     },
   },
-} as const satisfies Record<NavKey, { pathname: string; name: LangRecord }>;
+} as const satisfies Record<NavKey, { pathname: '' | `/${string}` } & Meta>;

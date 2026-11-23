@@ -46,7 +46,9 @@ export function SiteNavigation({ lang }: PropsWithLang) {
 
           return (
             <li key={key}>
-              <Link href={`/${lang}${pathname}`}>{name[lang].toUpperCase()}</Link>
+              <Link href={{ pathname: `/${lang}${pathname}` }}>
+                {name[lang].toUpperCase()}
+              </Link>
             </li>
           );
         })}
