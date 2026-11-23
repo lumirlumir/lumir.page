@@ -15,6 +15,7 @@ import 'server-only';
 import Link from 'next/link';
 import { author } from '@/data/author';
 import type { LangRecord, PropsWithLang } from '@/data/lang';
+import { navMeta } from '@/data/nav';
 import styles from './profile.module.css';
 
 // --------------------------------------------------------------------------------
@@ -50,7 +51,7 @@ export function Profile({ lang }: PropsWithLang) {
         alt={dictionary[lang].alt(author.lumirlumir.name)}
       />
       <div className={styles['user-name']}>
-        <Link href={`/${lang}`}>{author.lumirlumir.name}</Link>
+        <Link href={`/${lang}${navMeta.home.pathname}`}>{author.lumirlumir.name}</Link>
       </div>
       <div className={styles['user-bio']}>{author.lumirlumir.bio}</div>
     </div>

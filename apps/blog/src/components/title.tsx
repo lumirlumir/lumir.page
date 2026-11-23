@@ -15,6 +15,7 @@ import 'server-only';
 import Link from 'next/link';
 import { author } from '@/data/author';
 import type { LangRecord, PropsWithLang } from '@/data/lang';
+import { navMeta } from '@/data/nav';
 import styles from './title.module.css';
 
 // --------------------------------------------------------------------------------
@@ -37,7 +38,10 @@ const dictionary = {
 export function Title({ lang }: PropsWithLang) {
   return (
     <div className={styles.title}>
-      <Link href={`/${lang}`}>
+      <Link
+        href={`/${lang}${navMeta.home.pathname}`}
+        aria-label={navMeta.home.name[lang]}
+      >
         <img
           src={(() => {
             // To avoid downloading a much larger image than needed,
@@ -54,7 +58,7 @@ export function Title({ lang }: PropsWithLang) {
 
       <div>
         <div>
-          <Link href={`/${lang}`}>{author.lumirlumir.name}</Link>
+          <Link href={`/${lang}${navMeta.home.pathname}`}>{author.lumirlumir.name}</Link>
         </div>
         <div>{author.lumirlumir.bio}</div>
       </div>

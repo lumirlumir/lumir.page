@@ -41,49 +41,49 @@ export const navMeta = {
   home: {
     pathname: '',
     name: {
-      en: 'home',
+      en: 'Home',
       ko: '처음으로',
     },
   },
   posts: {
     pathname: '/posts',
     name: {
-      en: 'posts',
+      en: 'Posts',
       ko: '긴 글',
     },
   },
   snippets: {
     pathname: '/snippets',
     name: {
-      en: 'snippets',
+      en: 'Snippets',
       ko: '짧은 글',
     },
   },
   contributions: {
     pathname: '/contributions',
     name: {
-      en: 'contributions',
+      en: 'Contributions',
       ko: '오픈소스 기여',
     },
   },
   projects: {
     pathname: '/projects',
     name: {
-      en: 'projects',
+      en: 'Projects',
       ko: '프로젝트',
     },
   },
   community: {
     pathname: '/community',
     name: {
-      en: 'community',
+      en: 'Community',
       ko: '커뮤니티',
     },
   },
   about: {
     pathname: '/about',
     name: {
-      en: 'about',
+      en: 'About',
       ko: '소개',
     },
   },
