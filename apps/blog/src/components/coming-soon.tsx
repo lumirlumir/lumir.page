@@ -6,8 +6,8 @@
 // Import
 // --------------------------------------------------------------------------------
 
+import { Loading } from '@/components/loading';
 import type { LangKey, LangRecord } from '@/data/lang';
-import styles from './loading.module.css';
 
 // --------------------------------------------------------------------------------
 // Helper
@@ -30,14 +30,5 @@ export async function ComingSoon({ params }: PageProps<'/[lang]'>) {
   const awaitedParams = await params;
   const lang = awaitedParams.lang as LangKey;
 
-  return (
-    <div className={styles.loading} role="status">
-      <div>
-        <div>
-          <img src="/images/loading.gif" width={48} height={48} alt="" />
-        </div>
-        <div>{dictionary[lang].message}</div>
-      </div>
-    </div>
-  );
+  return <Loading>{dictionary[lang].message}</Loading>;
 }
