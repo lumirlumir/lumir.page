@@ -43,7 +43,7 @@ function SortContainer({ children, lang }: PropsWithLang<PropsWithChildren>) {
         onClick={toggleIsOpen}
         aria-expanded={isOpen}
       >
-        <span className={styles['react-icons']}>{sortMenuMeta.reactIcons}</span>
+        <span className={styles.icons}>{sortMenuMeta.icons}</span>
         <span className={styles.name}>{sortMenuMeta.name[lang].toUpperCase()}</span>
         <span className={styles.sort}>{isOpen ? <FaAngleUp /> : <FaAngleDown />}</span>
       </button>
@@ -76,11 +76,11 @@ function SortItem({
         className={cn(styles['sort-item'], 'custom-hover-effect')}
         onClick={onClick}
       >
-        <span className={styles['react-icons']}>{frontmatterMeta[field].reactIcons}</span>
+        <span className={styles.icons}>{frontmatterMeta[field].icons}</span>
         <span className={styles.name}>
           {`${frontmatterMeta[field].name[lang]} / ${sortMeta[sort].name[lang]}`.toUpperCase()}
         </span>
-        <span className={styles.sort}>{sortMeta[sort].reactIcons}</span>
+        <span className={styles.sort}>{sortMeta[sort].icons}</span>
       </button>
     </li>
   );

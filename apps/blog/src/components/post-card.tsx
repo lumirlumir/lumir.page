@@ -36,7 +36,7 @@ function PostCardContainer({ children }: PropsWithChildren) {
 function PostCardItem({ icon, text }: { icon: JSX.Element; text: string }) {
   return (
     <span className={styles['post-card-item']}>
-      <span className={styles['react-icons']}>{icon}</span>
+      <span className={styles.icons}>{icon}</span>
       <span>{text}</span>
     </span>
   );
@@ -71,15 +71,15 @@ export async function PostCard({
         />
 
         <PostCardContainer>
-          <PostCardItem icon={frontmatterMeta.created.reactIcons} text={created} />
-          <PostCardItem icon={frontmatterMeta.updated.reactIcons} text={updated} />
+          <PostCardItem icon={frontmatterMeta.created.icons} text={created} />
+          <PostCardItem icon={frontmatterMeta.updated.icons} text={updated} />
         </PostCardContainer>
 
         <PostCardContainer>
           {categories.map(category => (
             <PostCardItem
               key={category}
-              icon={frontmatterMeta.categories.reactIcons}
+              icon={frontmatterMeta.categories.icons}
               text={categoryMeta[category].name[lang]}
             />
           ))}

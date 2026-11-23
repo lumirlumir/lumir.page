@@ -14,7 +14,7 @@ import {
   LuHeading1,
 } from '@lumir/react-kit/svgs';
 import type { CategoryKey } from './category';
-import type { Meta } from './meta';
+import type { MetaWithIcons } from './meta';
 
 // --------------------------------------------------------------------------------
 // Typedef
@@ -94,41 +94,41 @@ export const frontmatterMeta = {
       en: 'Title',
       ko: '제목',
     },
-    reactIcons: <LuHeading1 />,
+    icons: <LuHeading1 />,
   },
   description: {
     name: {
       en: 'Description',
       ko: '설명',
     },
-    reactIcons: <FaBook />,
+    icons: <FaBook />,
   },
   created: {
     name: {
       en: 'Created Date',
       ko: '생성한 날짜',
     },
-    reactIcons: <FaRegCalendarPlus />,
+    icons: <FaRegCalendarPlus />,
   },
   updated: {
     name: {
       en: 'Updated Date',
       ko: '수정한 날짜',
     },
-    reactIcons: <FaRegCalendarXmark />,
+    icons: <FaRegCalendarXmark />,
   },
   categories: {
     name: {
       en: 'Categories',
       ko: '카테고리',
     },
-    reactIcons: <FaTag />,
+    icons: <FaTag />,
   },
   references: {
     name: {
       en: 'References',
       ko: '참고 링크',
     },
-    reactIcons: <span aria-hidden="true" />, // Currently, there is no suitable icon for references, so we use an inline placeholder.
+    icons: <span aria-hidden="true" />, // Currently, there is no suitable icon for references, so we use an inline placeholder.
   },
-} as const satisfies Record<FrontmatterKey, Meta>;
+} as const satisfies Record<FrontmatterKey, MetaWithIcons>;

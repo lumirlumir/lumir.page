@@ -11,7 +11,7 @@
   border: var(--border-default);
   border-radius: var(--border-radius-md);
 
-  & > .react-icons {
+  & > .icons {
     padding-right: var(--spacing-static-xs);
   }
 
