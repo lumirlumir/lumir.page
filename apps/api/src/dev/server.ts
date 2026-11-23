@@ -46,7 +46,7 @@ function sendTextResponse(res: http.ServerResponse, statusCode: number, text: st
 
 http
   .createServer(async (req, res) => {
-    if (Math.random() < 0.1) {
+    if (req.method !== 'OPTIONS' && Math.random() < 0.1) {
       sendTextResponse(res, 500, 'Internal Server Error: Simulated random server error');
       return;
     }
@@ -66,7 +66,7 @@ http
     }
 
     // If the URL has an 'error' query parameter, respond with a 500 Internal Server Error to simulate an error condition.
-    if (url.searchParams.has('error')) {
+    if (req.method !== 'OPTIONS' && url.searchParams.has('error')) {
       sendTextResponse(res, 500, 'Internal Server Error: Simulated server error');
       return;
     }
