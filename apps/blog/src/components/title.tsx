@@ -1,5 +1,5 @@
 /**
- * @fileoverview Editorial wordmark.
+ * @fileoverview title.
  */
 
 // --------------------------------------------------------------------------------
@@ -39,7 +39,7 @@ export function Title({ lang }: PropsWithLang) {
     <div className={styles.title}>
       <Link href={`/${lang}`} aria-label={dictionary[lang].label(author.lumirlumir.name)}>
         <span className={styles.wordmark}>{author.lumirlumir.name}</span>
-        <span className={styles.subtitle}>DEV JOURNAL</span>
+        <span className={styles.subtitle}>{author.lumirlumir.bio}</span>
       </Link>
     </div>
   );

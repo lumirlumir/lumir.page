@@ -29,8 +29,9 @@
 .subtitle {
   margin-top: 7px;
   font-family: var(--font-stack-serif);
-  font-size: 0.56rem;
+  font-size: 0.625rem;
   font-weight: 600;
-  letter-spacing: 0.29em;
-  white-space: nowrap;
+  line-height: 1.3;
+  letter-spacing: 0.1em;
+  text-wrap: balance;
 }
