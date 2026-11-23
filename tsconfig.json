@@ -26,6 +26,9 @@
       "path": "./packages/utils/tsconfig.json"
     },
     {
+      "path": "./packages/vite-plugins/tsconfig.json"
+    },
+    {
       "path": "./playground/tsconfig.json"
     },
     {

@@ -53,6 +53,7 @@
   },
   "devDependencies": {
     "@lumir/types": "*",
+    "@lumir/vite-plugins": "*",
     "@playwright/test": "^1.65.1",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",

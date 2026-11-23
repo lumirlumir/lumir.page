@@ -1,0 +1,37 @@
+{
+  "private": true,
+  "name": "@lumir/vite-plugins",
+  "version": "0.0.0-private",
+  "type": "module",
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "types": "./build/index.d.ts",
+      "default": "./build/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "typesVersions": {
+    "*": {
+      ".": [
+        "./build/index.d.ts"
+      ]
+    }
+  },
+  "files": [
+    "build",
+    "LICENSE.md",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsgo -b tsconfig.build.json",
+    "dev": "tsgo -b tsconfig.build.json --watch",
+    "test": "vitest run"
+  },
+  "peerDependencies": {
+    "vite": "^8.0.0"
+  },
+  "devDependencies": {
+    "vitest": "^5.1.1"
+  }
+}
