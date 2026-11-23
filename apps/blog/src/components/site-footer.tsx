@@ -24,17 +24,14 @@ import styles from './site-footer.module.css';
 
 const dictionary = {
   ko: {
-    label: '개발자의 기록 보관소',
     description: '코드와 시스템, 그리고 그 사이의 사람을 오래 읽히는 글로 기록합니다.',
     backToTop: '맨 위로',
   },
   en: {
-    label: "A developer's record",
     description: 'Notes on code, systems, and the people working between them.',
     backToTop: 'Back to top',
   },
 } as const satisfies LangRecord<{
-  label: string;
   description: string;
   backToTop: string;
 }>;
@@ -48,7 +45,7 @@ export function SiteFooter({ lang }: PropsWithLang) {
 
   return (
     <footer className={styles.footer} id="about">
-      <Title lang={lang} size="large" subtitle={copy.label} />
+      <Title lang={lang} size="large" />
       <p>{copy.description}</p>
       <nav aria-label="Footer">
         <Link href={`/${lang}`}>JOURNAL</Link>
