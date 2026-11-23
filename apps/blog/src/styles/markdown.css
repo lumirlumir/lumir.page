@@ -1,7 +1,6 @@
 .markdown {
-  font-family: var(--font-stack-serif);
-  font-size: clamp(0.98rem, 1.3vw, 1.06rem);
-  line-height: 1.9;
+  font-size: var(--font-size-md);
+  line-height: var(--line-height-normal);
   overflow-wrap: break-word;
 
   a {
@@ -27,13 +26,10 @@
   }
 
   blockquote {
-    padding: 18px 24px;
-    margin: 32px 0;
-    font-size: 1.08em;
-    font-style: italic;
+    padding: 0 1em;
+    margin: 0;
     color: var(--color-fg-muted);
-    background-color: var(--color-bg-muted);
-    border-left: 3px solid var(--color-fg-accent);
+    border-left: 0.25em solid var(--color-border-default);
   }
 
   :is(code, pre) {
@@ -54,7 +50,7 @@
 
   :is(blockquote, details, p, pre, table, ul, ol) {
     margin-top: 0;
-    margin-bottom: 1.45em;
+    margin-bottom: var(--spacing-static-md);
   }
 
   details summary {
@@ -62,11 +58,9 @@
   }
 
   :is(h1, h2, h3, h4, h5, h6) {
-    margin-top: 2.15em;
-    margin-bottom: 0.7em;
-    font-weight: var(--font-weight-semibold);
-    line-height: 1.25;
-    letter-spacing: -0.045em;
+    margin-top: var(--size-24);
+    margin-bottom: var(--spacing-static-md);
+    line-height: var(--line-height-tight);
     scroll-margin-top: calc(
       var(--size-header-height) + var(--size-16)
     ); /* Keep linked headings visible below the sticky header. */
@@ -98,21 +92,22 @@
     }
   }
 
+  :is(h1, h2) {
+    padding-bottom: 0.3em;
+    border-bottom: 1px solid var(--color-border-muted);
+  }
+
   h1 {
-    padding-bottom: 0.35em;
-    margin: 0.75em 0;
-    font-size: clamp(2.25rem, 5vw, 4rem);
-    border-bottom: 3px double var(--color-hairline-strong);
+    margin: 0.67em 0;
+    font-size: var(--font-size-3xl);
   }
 
   h2 {
-    padding-bottom: 0.42em;
-    font-size: clamp(1.65rem, 3.4vw, 2.55rem);
-    border-bottom: 1px solid var(--color-hairline-strong);
+    font-size: var(--font-size-xl);
   }
 
   h3 {
-    font-size: clamp(1.28rem, 2.6vw, 1.72rem);
+    font-size: var(--font-size-lg);
   }
 
   h4 {
@@ -129,18 +124,13 @@
   }
 
   hr {
-    height: 3px;
-    margin: 44px 0;
-    background-color: transparent;
-    border: 0;
-    border-top: 3px double var(--color-hairline-strong);
+    margin: var(--size-24) 0;
+    border: 1px solid var(--color-border-muted);
   }
 
   img {
     max-width: 100%;
-    padding: 6px;
-    background-color: var(--color-bg-muted);
-    border: var(--border-default);
+    border-radius: var(--border-radius-md);
   }
 
   kbd {
@@ -167,14 +157,12 @@
   }
 
   pre {
-    padding: 20px;
+    padding: var(--spacing-static-md);
     overflow: auto;
-    line-height: 1.45;
+    line-height: var(--line-height-normal);
     color: var(--color-fg-default);
     overflow-wrap: normal;
     background-color: var(--color-bg-muted);
-    border: var(--border-default);
-    border-radius: 0;
 
     code {
       padding: 0;
@@ -187,25 +175,12 @@
     }
   }
 
-  :is(b, strong) {
-    font-weight: var(--font-weight-semibold);
-  }
-
-  [type='checkbox'] {
-    box-sizing: border-box;
-    padding: 0;
-  }
-
   table {
     display: block;
     width: max-content;
     max-width: 100%;
     overflow: auto;
     border-collapse: collapse;
-
-    th {
-      font-weight: var(--font-weight-semibold);
-    }
 
     :is(th, td) {
       padding: 6px 13px;
@@ -214,7 +189,6 @@
 
     tr {
       background-color: var(--color-bg-default);
-      border-top: 1px solid var(--color-border-muted);
 
       &:nth-child(2n) {
         background-color: var(--color-bg-muted);
@@ -357,9 +331,7 @@
   }
 
   .octicon {
-    display: inline-block;
     overflow: visible;
-    vertical-align: text-bottom;
     fill: currentcolor;
   }
 
