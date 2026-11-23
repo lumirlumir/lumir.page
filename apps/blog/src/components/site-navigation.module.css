@@ -19,7 +19,7 @@
   }
 
   & li:not(:last-child)::after {
-    color: var(--color-ink-soft);
+    color: var(--color-fg-muted);
     content: '|' / '';
     opacity: 0.72;
   }

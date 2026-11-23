@@ -38,16 +38,16 @@ function SortContainer({ children, lang }: PropsWithLang<PropsWithChildren>) {
   return (
     <div>
       <button
-        className={cn(styles['sort-item'], 'custom-hover-effect')}
         type="button"
+        className={cn(styles['sort-item'], 'custom-hover-effect')}
+        onClick={toggleIsOpen}
         aria-expanded={isOpen}
         aria-label={sortMenuMeta.name[lang]}
-        onClick={toggleIsOpen}
       >
-        <div className={styles['react-icons']}>{sortMenuMeta.reactIcons}</div>
-        <div className={styles['name-en']}>{sortMenuMeta.name.en}</div>
-        <div className={styles['name-ko']}>{sortMenuMeta.name.ko}</div>
-        <div className={styles.sort}>{isOpen ? <FaAngleUp /> : <FaAngleDown />}</div>
+        <span className={styles['react-icons']}>{sortMenuMeta.reactIcons}</span>
+        <span className={styles['name-en']}>{sortMenuMeta.name.en}</span>
+        <span className={styles['name-ko']}>{sortMenuMeta.name.ko}</span>
+        <span className={styles.sort}>{isOpen ? <FaAngleUp /> : <FaAngleDown />}</span>
       </button>
       {isOpen ? <ul className={styles.list}>{children}</ul> : null}
     </div>
@@ -74,19 +74,19 @@ function SortItem({
   return (
     <li>
       <button
-        className={cn(styles['sort-item'], 'custom-hover-effect')}
         type="button"
-        aria-label={`${frontmatterMeta[field].name[lang]} / ${sortMeta[sort].name[lang]}`}
+        className={cn(styles['sort-item'], 'custom-hover-effect')}
         onClick={onClick}
+        aria-label={`${frontmatterMeta[field].name[lang]} / ${sortMeta[sort].name[lang]}`}
       >
-        <div className={styles['react-icons']}>{frontmatterMeta[field].reactIcons}</div>
-        <div
+        <span className={styles['react-icons']}>{frontmatterMeta[field].reactIcons}</span>
+        <span
           className={styles['name-en']}
-        >{`${frontmatterMeta[field].name.en} / ${sortMeta[sort].name.en}`}</div>
-        <div
+        >{`${frontmatterMeta[field].name.en} / ${sortMeta[sort].name.en}`}</span>
+        <span
           className={styles['name-ko']}
-        >{`${frontmatterMeta[field].name.ko} / ${sortMeta[sort].name.ko}`}</div>
-        <div className={styles.sort}>{sortMeta[sort].reactIcons}</div>
+        >{`${frontmatterMeta[field].name.ko} / ${sortMeta[sort].name.ko}`}</span>
+        <span className={styles.sort}>{sortMeta[sort].reactIcons}</span>
       </button>
     </li>
   );

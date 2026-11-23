@@ -13,23 +13,20 @@ import type { PropsWithChildren } from 'react';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 
+import { AsideToggle } from '@/components/aside-toggle';
+import { Categories } from '@/components/categories';
 import { CursorSplash } from '@/components/cursor-splash';
 import { GoogleAnalytics } from '@/components/google-analytics';
-import { ThemeScript } from '@/components/theme-script';
-
-import { AsideToggle } from '@/components/aside-toggle';
-
-import { Categories } from '@/components/categories';
-import { Links } from '@/components/links';
-import { Profile } from '@/components/profile';
-
-import { LocalSearch } from '@/components/localsearch';
-import { SiteNavigation } from '@/components/site-navigation';
 import { LangToggle } from '@/components/lang-toggle';
+import { Links } from '@/components/links';
+import { LocalSearch } from '@/components/localsearch';
+import { Profile } from '@/components/profile';
 import { ScrollProgress } from '@/components/scroll-progress';
 import { SiteFooter } from '@/components/site-footer';
-import { ThemeToggle } from '@/components/theme-toggle';
+import { SiteNavigation } from '@/components/site-navigation';
+import { ThemeScript } from '@/components/theme-script';
 import { Title } from '@/components/title';
+import { ThemeToggle } from '@/components/theme-toggle';
 
 import { ConfigProvider } from '@/contexts/config';
 import { ThemeProvider } from '@/contexts/theme';
@@ -101,26 +98,24 @@ export default async function RootLayout({
           <ThemeProvider>
             <CursorSplash />
             <ScrollProgress className={styles['scroll-progress']} />
-            <header className={styles.header}>
+            <header>
               <Title lang={lang} />
               <SiteNavigation lang={lang} />
-              <div className={styles.tools}>
+              <div>
                 <LocalSearch lang={lang} />
                 <LangToggle lang={lang} />
                 <ThemeToggle lang={lang} />
               </div>
             </header>
-            <aside
-              className={`${styles.sidebar} ${styles['profile-sidebar']} custom-scrollbar-y-regular`}
-            >
+            <aside className="custom-scrollbar-y-regular">
               <Profile lang={lang} />
               <Links lang={lang} />
               <Categories lang={lang} />
             </aside>
             <AsideToggle className={styles['aside-toggle']} lang={lang} />
-            <aside className={`${styles.sidebar} ${styles['nav-sidebar']}`}>{nav}</aside>
-            <main className={styles.main}>
-              <article className={styles.article}>{children}</article>
+            <aside>{nav}</aside>
+            <main>
+              <article>{children}</article>
             </main>
             <SiteFooter lang={lang} />
 

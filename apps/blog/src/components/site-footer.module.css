@@ -10,7 +10,7 @@
     grid-column: 1 / -1;
     height: 1px;
     content: '';
-    background-color: var(--color-hairline);
+    background-color: var(--color-border-default);
   }
 
   & p {
@@ -18,7 +18,7 @@
     margin: 0;
     font-size: 0.86rem;
     line-height: 1.8;
-    color: var(--color-ink-soft);
+    color: var(--color-fg-muted);
   }
 
   & nav {
@@ -36,7 +36,7 @@
     text-decoration: none;
 
     &:is(:hover, :focus-visible) {
-      color: var(--color-vermillion);
+      color: var(--color-fg-accent);
     }
   }
 }
@@ -68,12 +68,12 @@
   padding-top: 18px;
   font-family: var(--font-stack-monospace);
   font-size: 0.58rem;
-  color: var(--color-ink-soft);
+  color: var(--color-fg-muted);
   letter-spacing: 0.08em;
-  border-top: 1px solid var(--color-hairline);
+  border-top: var(--border-default);
 
   & a {
-    color: var(--color-ink);
+    color: var(--color-fg-default);
   }
 }
 

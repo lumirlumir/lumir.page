@@ -19,7 +19,7 @@ import 'client-only';
 // --------------------------------------------------------------------------------
 
 import { useSelectedLayoutSegments } from 'next/navigation';
-import { Fragment, useRef } from 'react';
+import { useRef } from 'react';
 import { useShortcut } from '@lumir/react-kit/hooks';
 import { langDefault, langKeys, type LangRecord, type PropsWithLang } from '@/data/lang';
 import styles from './lang-toggle.module.css';
@@ -53,36 +53,29 @@ export function LangToggle({ lang }: PropsWithLang) {
 
   return (
     <div className={styles['lang-toggle']} role="group" aria-label="Language">
-      {langKeys.map((langKey, index) => (
-        <Fragment key={langKey}>
-          {index > 0 ? <span aria-hidden="true">|</span> : null}
-          {langKey === lang ? (
-            <span className={styles.active} aria-hidden="true">
-              {langKey.toUpperCase()}
-            </span>
-          ) : (
-            /*
-             * Use a native anchor intentionally so switching languages performs a full-page navigation.
-             * Each localized route owns document-level state such as `<html lang>`, and a fresh document
-             * also reruns `ThemeScript` before hydration to restore the persisted `data-theme` safely.
-             */
-            <a
-              ref={anchorRef}
-              className="custom-hover-effect"
-              href={href}
-              onClick={e => {
-                // Preserve search params and hash params when switching language.
-                const url = new URL(window.location.href);
-                url.pathname = url.pathname.replace(`/${lang}`, `/${nextLang}`);
-                e.currentTarget.href = url.href;
-              }}
-              aria-label={dictionary[lang].ariaLabel}
-            >
-              {langKey.toUpperCase()}
-            </a>
-          )}
-        </Fragment>
-      ))}
+      <span className={styles.active} aria-hidden="true">
+        {lang.toUpperCase()}
+      </span>
+      <span aria-hidden="true">|</span>
+      {/*
+       * Use a native anchor intentionally so switching languages performs a full-page navigation.
+       * Each localized route owns document-level state such as `<html lang>`, and a fresh document
+       * also reruns `ThemeScript` before hydration to restore the persisted `data-theme` safely.
+       */}
+      <a
+        ref={anchorRef}
+        className="custom-hover-effect"
+        href={href}
+        onClick={e => {
+          // Preserve search params and hash params when switching language.
+          const url = new URL(window.location.href);
+          url.pathname = url.pathname.replace(`/${lang}`, `/${nextLang}`);
+          e.currentTarget.href = url.href;
+        }}
+        aria-label={dictionary[lang].ariaLabel}
+      >
+        {nextLang.toUpperCase()}
+      </a>
     </div>
   );
 }

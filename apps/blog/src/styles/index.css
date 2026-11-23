@@ -11,8 +11,8 @@
 
 html {
   scroll-behavior: smooth;
-  color: var(--color-ink);
-  background-color: var(--color-paper);
+  color: var(--color-fg-default);
+  background-color: var(--color-bg-inset);
 }
 
 body {
@@ -23,7 +23,7 @@ body {
 
 ::selection {
   color: #fff8ed;
-  background-color: var(--color-vermillion);
+  background-color: var(--color-fg-accent);
 }
 
 :focus-visible {

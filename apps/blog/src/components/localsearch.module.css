@@ -9,11 +9,11 @@
   padding: 0 7px;
   margin: 0;
   font-weight: var(--font-weight-medium);
-  color: var(--color-ink);
+  color: var(--color-fg-default);
   cursor: pointer;
   user-select: none;
   background: transparent;
-  border: 1px solid var(--color-hairline);
+  border: var(--border-default);
   border-radius: 999px;
   transition:
     color 0.16s ease,
@@ -26,8 +26,8 @@
   }
 
   &:hover {
-    color: var(--color-paper);
-    background-color: var(--color-ink);
+    color: var(--color-bg-inset);
+    background-color: var(--color-fg-default);
     transform: translateY(-1px);
   }
 

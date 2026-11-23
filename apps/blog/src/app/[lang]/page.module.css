@@ -1,19 +1,10 @@
 /* stylelint-disable no-descending-specificity -- CSS Modules isolate these independent editorial subtrees. */
 
 .home {
-  --home-paper: var(--color-paper, var(--color-bg-inset));
-  --home-paper-raised: var(--color-paper-raised, var(--color-bg-default));
-  --home-paper-soft: var(--color-paper-soft, var(--color-bg-muted));
-  --home-ink: var(--color-ink, var(--color-fg-default));
-  --home-ink-soft: var(--color-ink-soft, var(--color-fg-muted));
-  --home-hairline: var(--color-hairline, var(--color-border-default));
-  --home-hairline-strong: var(--color-hairline-strong, var(--color-border-default));
-  --home-vermillion: var(--color-vermillion, var(--color-fg-accent));
-
   overflow: clip;
   font-family: var(--font-stack-serif);
-  color: var(--home-ink);
-  background: var(--home-paper);
+  color: var(--color-fg-default);
+  background: var(--color-bg-inset);
   text-rendering: optimizelegibility;
 }
 
@@ -27,18 +18,18 @@
   align-items: center;
   justify-content: space-between;
   font-size: 0.6rem;
-  color: var(--home-ink-soft);
+  color: var(--color-fg-muted);
   letter-spacing: 0.13em;
 }
 
 .hero-rail {
   padding-bottom: 16px;
-  border-bottom: 1px solid var(--home-hairline-strong);
+  border-bottom: 1px solid var(--color-hairline-strong);
 }
 
 .hero-rail p {
   margin: 0;
-  color: var(--home-ink);
+  color: var(--color-fg-default);
 }
 
 .hero-grid {
@@ -56,7 +47,7 @@
   font-size: 0.64rem;
   font-weight: 700;
   line-height: 1.7;
-  color: var(--home-vermillion);
+  color: var(--color-fg-accent);
   letter-spacing: 0.13em;
   writing-mode: vertical-rl;
 }
@@ -78,7 +69,7 @@
 
 .hero h1 span:nth-child(2) {
   color: transparent;
-  -webkit-text-stroke: 1px var(--home-ink);
+  -webkit-text-stroke: 1px var(--color-fg-default);
 }
 
 .hero-aside {
@@ -87,8 +78,8 @@
   align-self: end;
   padding: 18px 0;
   margin-top: 34px;
-  border-top: 1px solid var(--home-hairline);
-  border-bottom: 1px solid var(--home-hairline);
+  border-top: var(--border-default);
+  border-bottom: var(--border-default);
 }
 
 .hero-aside p {
@@ -102,7 +93,7 @@
   font-size: 0.62rem;
   font-style: italic;
   line-height: 1.7;
-  color: var(--home-ink-soft);
+  color: var(--color-fg-muted);
 }
 
 .text-link {
@@ -114,7 +105,7 @@
   font-size: 0.72rem;
   color: inherit;
   text-decoration: none;
-  border-bottom: 1px solid var(--home-ink);
+  border-bottom: 1px solid var(--color-fg-default);
 }
 
 .text-link span {
@@ -130,10 +121,11 @@
 
 .hero-folio {
   padding-top: 12px;
-  border-top: 3px double var(--home-hairline-strong);
+  border-top: 3px double var(--color-hairline-strong);
 }
 
-.hero-folio span:nth-child(2) {
+.hero-folio span:nth-child(2),
+.photo-essay-folio span:nth-child(2) {
   display: none;
 }
 
@@ -145,16 +137,16 @@
 
 .post-section {
   padding: 66px 16px 76px;
-  border-top: 1px solid var(--home-hairline-strong);
+  border-top: 1px solid var(--color-hairline-strong);
 }
 
 .series-section,
 .latest-section {
-  background: var(--home-paper);
+  background: var(--color-bg-inset);
 }
 
 .popular-section {
-  background: var(--home-paper-soft);
+  background: var(--color-bg-muted);
 }
 
 .section-heading {
@@ -164,14 +156,14 @@
   align-items: end;
   padding-bottom: 24px;
   margin-bottom: 58px;
-  border-bottom: 3px double var(--home-hairline-strong);
+  border-bottom: 3px double var(--color-hairline-strong);
 }
 
 .section-number {
   font-size: 3.2rem;
   font-weight: 300;
   line-height: 0.75;
-  color: var(--home-vermillion);
+  color: var(--color-fg-accent);
   letter-spacing: -0.08em;
 }
 
@@ -180,11 +172,12 @@
   margin: 0 0 10px;
   font-size: 0.6rem;
   font-weight: 600;
-  color: var(--home-ink-soft);
+  color: var(--color-fg-muted);
   letter-spacing: 0.17em;
 }
 
 .section-heading h2,
+.photo-essay-heading h2,
 .field-notes h2 {
   margin: 0;
   font-size: 2.15rem;
@@ -201,18 +194,13 @@
   font-size: 0.82rem;
   font-style: italic;
   line-height: 1.85;
-  color: var(--home-ink-soft);
+  color: var(--color-fg-muted);
 }
 
 .post-grid {
   display: grid;
-  gap: 28px;
-}
-
-.series-grid,
-.popular-grid,
-.latest-grid {
   grid-template-columns: minmax(0, 1fr);
+  gap: 28px;
 }
 
 .series-grid > :not(:first-child),
@@ -249,15 +237,6 @@
   letter-spacing: 0.17em;
 }
 
-.photo-essay-heading h2 {
-  margin: 0;
-  font-size: 2.15rem;
-  font-weight: 500;
-  line-height: 1.08;
-  letter-spacing: -0.055em;
-  text-wrap: balance;
-}
-
 .photo-essay-heading > span {
   max-width: 390px;
   font-size: 0.8rem;
@@ -276,12 +255,6 @@
 .photo-plate {
   min-width: 0;
   margin: 0;
-}
-
-.photo-plate-1,
-.photo-plate-2,
-.photo-plate-3 {
-  width: auto;
 }
 
 .photo-plate-image {
@@ -370,13 +343,9 @@
   border-top: 3px double rgb(238 233 222 / 68%);
 }
 
-.photo-essay-folio span:nth-child(2) {
-  display: none;
-}
-
 .field-notes {
   padding: 100px 16px;
-  border-top: 1px solid var(--home-hairline-strong);
+  border-top: 1px solid var(--color-hairline-strong);
 }
 
 .field-notes > header {
@@ -385,11 +354,11 @@
   gap: 14px;
   align-items: end;
   padding-bottom: 30px;
-  border-bottom: 3px double var(--home-hairline-strong);
+  border-bottom: 3px double var(--color-hairline-strong);
 }
 
 .field-notes > header > p {
-  color: var(--home-vermillion);
+  color: var(--color-fg-accent);
 }
 
 .field-notes > header > span {
@@ -397,7 +366,7 @@
   font-size: 0.8rem;
   font-style: italic;
   line-height: 1.8;
-  color: var(--home-ink-soft);
+  color: var(--color-fg-muted);
 }
 
 .field-grid {
@@ -411,9 +380,9 @@
   padding: 28px;
   color: inherit;
   text-decoration: none;
-  border-right: 1px solid var(--home-hairline);
-  border-bottom: 1px solid var(--home-hairline);
-  border-left: 1px solid var(--home-hairline);
+  border-right: var(--border-default);
+  border-bottom: var(--border-default);
+  border-left: var(--border-default);
   transition:
     color 180ms ease,
     background 180ms ease;
@@ -421,8 +390,8 @@
 
 .field-grid a:hover,
 .field-grid a:focus-visible {
-  color: var(--home-paper);
-  background: var(--home-ink);
+  color: var(--color-bg-inset);
+  background: var(--color-fg-default);
 }
 
 .field-grid a > span {
@@ -441,12 +410,12 @@
   margin: 0;
   font-size: 0.77rem;
   line-height: 1.9;
-  color: var(--home-ink-soft);
+  color: var(--color-fg-muted);
 }
 
 .field-grid a:hover p,
 .field-grid a:focus-visible p {
-  color: color-mix(in srgb, var(--home-paper) 72%, transparent);
+  color: color-mix(in srgb, var(--color-bg-inset) 72%, transparent);
 }
 
 .field-grid i {
@@ -478,18 +447,11 @@
   .hero-grid {
     grid-template-rows: auto auto;
     grid-template-columns: 0.3fr 2.3fr 0.9fr;
-    gap: 0 24px;
     padding: 46px 0 42px;
-  }
-
-  .hero-kicker {
-    grid-row: 1;
-    grid-column: 1;
   }
 
   .hero h1 {
     grid-row: 1 / span 2;
-    grid-column: 2;
     font-size: clamp(3.3rem, 6.2vw, 7.6rem);
     letter-spacing: -0.075em;
   }
@@ -510,7 +472,8 @@
     place-self: end;
   }
 
-  .hero-folio span:nth-child(2) {
+  .hero-folio span:nth-child(2),
+  .photo-essay-folio span:nth-child(2) {
     display: inline;
   }
 
@@ -528,6 +491,7 @@
   }
 
   .section-heading h2,
+  .photo-essay-heading h2,
   .field-notes h2 {
     font-size: clamp(2.15rem, 4vw, 4.5rem);
   }
@@ -575,10 +539,6 @@
     gap: 30px;
   }
 
-  .photo-essay-heading h2 {
-    font-size: clamp(2.15rem, 4vw, 4.5rem);
-  }
-
   .photo-essay-heading > span {
     justify-self: end;
   }
@@ -614,10 +574,6 @@
     width: 88%;
   }
 
-  .photo-essay-folio span:nth-child(2) {
-    display: inline;
-  }
-
   .field-notes {
     padding: 100px 30px;
   }
@@ -641,7 +597,7 @@
   }
 
   .field-grid a:last-child {
-    border-right: 1px solid var(--home-hairline);
+    border-right: var(--border-default);
   }
 }
 

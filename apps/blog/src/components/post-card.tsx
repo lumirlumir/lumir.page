@@ -14,7 +14,6 @@ import 'server-only';
 
 import Link from 'next/link';
 import { categoryMeta } from '@/data/category';
-import type { PropsWithLang } from '@/data/lang';
 import type { VMarkdownFileMeta } from '@/data/v-markdown';
 import { markdownToText } from '@/utils/markdown-to-text';
 import styles from './post-card.module.css';
@@ -23,12 +22,9 @@ import styles from './post-card.module.css';
 // Typedef
 // --------------------------------------------------------------------------------
 
-type PostCardVariant = 'series' | 'popular' | 'latest' | 'archive';
-
 interface PostCardProps {
   readonly marker?: string;
-  readonly position?: number;
-  readonly variant?: PostCardVariant;
+  readonly variant?: 'series' | 'popular' | 'latest' | 'archive';
   readonly vMarkdownFileMeta: VMarkdownFileMeta;
 }
 
@@ -37,15 +33,14 @@ interface PostCardProps {
 // --------------------------------------------------------------------------------
 
 export async function PostCard({
-  lang,
   marker,
-  position,
   variant = 'archive',
   vMarkdownFileMeta: {
+    lang,
     url,
     data: { title, description, updated, categories },
   },
-}: PropsWithLang<PostCardProps>) {
+}: PostCardProps) {
   const [plainTitle, plainDescription] = await Promise.all([
     markdownToText(title),
     markdownToText(description),
@@ -55,11 +50,7 @@ export async function PostCard({
 
   return (
     <Link className={styles.link} href={url}>
-      <article
-        className={styles['post-card']}
-        data-position={position}
-        data-variant={variant}
-      >
+      <div className={styles['post-card']} data-variant={variant}>
         <div className={styles['art-frame']}>
           <div className={styles.mat}>
             <img
@@ -86,7 +77,7 @@ export async function PostCard({
             <time dateTime={updated}>{updated}</time>
           </footer>
         </div>
-      </article>
+      </div>
     </Link>
   );
 }

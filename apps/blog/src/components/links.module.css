@@ -32,10 +32,9 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      width: auto;
       font-family: var(--font-stack-monospace);
       font-size: 0.58rem;
-      color: var(--color-ink-soft);
+      color: var(--color-fg-muted);
       letter-spacing: 0.06em;
       white-space: nowrap;
     }

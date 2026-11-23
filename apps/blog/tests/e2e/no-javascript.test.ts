@@ -120,22 +120,22 @@ test.describe('no-javascript', () => {
       expect(response?.status()).toBe(200);
       await expect(page.locator('html')).toHaveAttribute('lang', 'ko');
       await expect(page.locator('main')).toBeVisible();
+      await expect(page.locator('article')).toBeVisible();
 
-      const categoryPage = page.locator('[data-page="category"]');
+      const postLink = page
+        .locator('article')
+        .getByRole('link', { name: /마크다운.*모든 것/ });
 
-      await expect(categoryPage).toBeVisible();
-
-      const postLink = categoryPage.locator(
-        'a[href="/ko/posts/everything-about-markdown"]',
-      );
-
-      await expect(postLink).toHaveCount(1);
       await expect(postLink).toBeVisible();
-      await expect(postLink).toContainText(/마크다운.*모든 것/);
       await expect(postLink).toHaveAttribute(
         'href',
         '/ko/posts/everything-about-markdown',
       );
+      await expect(
+        page.locator(
+          '[data-page="category"] a[href="/ko/posts/everything-about-markdown"]',
+        ),
+      ).toHaveCount(1);
     });
 
     test('English category route should render a localized post link', async ({
@@ -146,22 +146,22 @@ test.describe('no-javascript', () => {
       expect(response?.status()).toBe(200);
       await expect(page.locator('html')).toHaveAttribute('lang', 'en');
       await expect(page.locator('main')).toBeVisible();
+      await expect(page.locator('article')).toBeVisible();
 
-      const categoryPage = page.locator('[data-page="category"]');
+      const postLink = page
+        .locator('article')
+        .getByRole('link', { name: /Everything about Markdown/ });
 
-      await expect(categoryPage).toBeVisible();
-
-      const postLink = categoryPage.locator(
-        'a[href="/en/posts/everything-about-markdown"]',
-      );
-
-      await expect(postLink).toHaveCount(1);
       await expect(postLink).toBeVisible();
-      await expect(postLink).toContainText(/Everything about Markdown/);
       await expect(postLink).toHaveAttribute(
         'href',
         '/en/posts/everything-about-markdown',
       );
+      await expect(
+        page.locator(
+          '[data-page="category"] a[href="/en/posts/everything-about-markdown"]',
+        ),
+      ).toHaveCount(1);
       await expect(page.getByRole('heading', { name: 'Table of contents' })).toHaveCount(
         0,
       );

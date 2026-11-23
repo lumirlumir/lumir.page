@@ -17,7 +17,7 @@
   height: 100%;
   overflow: hidden;
   background-color: var(--color-bg-default);
-  border: 1px solid var(--color-border-default);
+  border: var(--border-default);
   transition:
     border-color 0.25s ease,
     box-shadow 0.25s ease,
@@ -37,7 +37,7 @@
   position: relative;
   padding: var(--spacing-static-sm);
   background-color: var(--color-bg-muted);
-  border-bottom: 1px solid var(--color-border-default);
+  border-bottom: var(--border-default);
 
   &::before {
     position: absolute;
@@ -54,7 +54,7 @@
   padding: var(--spacing-static-xs);
   overflow: hidden;
   background-color: var(--color-bg-inset);
-  border: 1px solid var(--color-border-default);
+  border: var(--border-default);
 }
 
 .image {
@@ -81,7 +81,7 @@
   text-align: center;
   letter-spacing: var(--letter-spacing-tight);
   background-color: var(--color-fg-default);
-  border: 1px solid var(--color-border-default);
+  border: var(--border-default);
 }
 
 .content {
@@ -104,14 +104,14 @@
 .title,
 .description {
   display: -webkit-box;
+  margin: 0;
   overflow: hidden;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
   -webkit-box-orient: vertical;
 }
 
 .title {
-  margin: 0;
-  -webkit-line-clamp: 3;
-  line-clamp: 3;
   font-size: var(--font-size-xl);
   font-weight: var(--font-weight-semibold);
   line-height: var(--line-height-tight);
@@ -120,9 +120,6 @@
 }
 
 .description {
-  margin: 0;
-  -webkit-line-clamp: 3;
-  line-clamp: 3;
   font-size: var(--font-size-sm);
   line-height: var(--line-height-normal);
   color: var(--color-fg-muted);
@@ -175,7 +172,7 @@
 
   & .art-frame {
     min-width: 0;
-    border-right: 1px solid var(--color-border-default);
+    border-right: var(--border-default);
     border-bottom: 0;
   }
 
@@ -190,11 +187,7 @@
     padding: var(--spacing-static-md);
   }
 
-  & .title {
-    -webkit-line-clamp: 2;
-    line-clamp: 2;
-  }
-
+  & .title,
   & .description {
     -webkit-line-clamp: 2;
     line-clamp: 2;
@@ -203,12 +196,6 @@
   & .byline {
     flex-direction: column;
     align-items: flex-start;
-  }
-}
-
-.post-card[data-variant='archive'] {
-  & .mat {
-    aspect-ratio: 16 / 10;
   }
 }
 

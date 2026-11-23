@@ -21,7 +21,7 @@
     padding: 18px 0 8px;
     font-size: 1.65rem;
     font-style: italic;
-    font-weight: 600;
+    font-weight: var(--font-weight-semibold);
     letter-spacing: -0.05em;
 
     & a {
@@ -34,7 +34,7 @@
     font-family: var(--font-stack-monospace);
     font-size: 0.55rem;
     line-height: 1.6;
-    color: var(--color-ink-soft);
+    color: var(--color-fg-muted);
     letter-spacing: 0.08em;
   }
 }
