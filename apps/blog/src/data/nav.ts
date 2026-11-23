@@ -27,9 +27,9 @@ export type NavKey = (typeof navKeys)[number];
 export const navKeys = [
   'home',
   'posts',
-  'snippet',
-  'contribution',
-  'project',
+  'snippets',
+  'contributions',
+  'projects',
   'community',
   'about',
 ] as const;
@@ -52,24 +52,24 @@ export const navMeta = {
       ko: '긴 글',
     },
   },
-  snippet: {
-    pathname: '/snippet',
+  snippets: {
+    pathname: '/snippets',
     name: {
-      en: 'snippet',
+      en: 'snippets',
       ko: '짧은 글',
     },
   },
-  contribution: {
-    pathname: '/contribution',
+  contributions: {
+    pathname: '/contributions',
     name: {
-      en: 'contribution',
+      en: 'contributions',
       ko: '오픈소스 기여',
     },
   },
-  project: {
-    pathname: '/project',
+  projects: {
+    pathname: '/projects',
     name: {
-      en: 'project',
+      en: 'projects',
       ko: '프로젝트',
     },
   },
