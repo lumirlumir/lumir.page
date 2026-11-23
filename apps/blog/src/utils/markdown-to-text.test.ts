@@ -130,7 +130,7 @@ describe('markdown-to-text', () => {
 
   it('should preserve GFM table row breaks and surrounding text', async () => {
     const markdown = 'Before\n\n| Name |\n| --- |\n| Value |\n\nAfter';
-    const text = 'Before\n\nName \n Value\n\nAfter';
+    const text = 'Before\n\nName\nValue\n\nAfter';
 
     assert.strictEqual(await markdownToText(markdown), text);
     assert.strictEqual(markdownToTextSync(markdown), text);
