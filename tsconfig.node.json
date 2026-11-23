@@ -20,9 +20,13 @@
     "**/scripts/**/*.mts",
     "**/scripts/**/*.cts"
   ],
+  "references": [
+    {
+      "path": "./packages/vite-plugins/tsconfig.build.json"
+    }
+  ],
   "compilerOptions": {
     /* Modules */
-    "allowImportingTsExtensions": true,
     "rootDir": ".",
     "types": ["node"],
 
