@@ -6,37 +6,24 @@
 // Import
 // --------------------------------------------------------------------------------
 
-import type { PropsWithLang, LangRecord } from '@/data/lang';
+import type { PropsWithChildren } from 'react';
 import styles from './loading.module.css';
-
-// --------------------------------------------------------------------------------
-// Helper
-// --------------------------------------------------------------------------------
-
-const dictionary = {
-  ko: {
-    content: (content: string) => `${content} 불러오는 중` as const,
-  },
-  en: {
-    content: (content: string) => `Loading ${content}` as const,
-  },
-} as const satisfies LangRecord<{ content: (content: string) => string }>;
 
 // --------------------------------------------------------------------------------
 // Export
 // --------------------------------------------------------------------------------
 
 /**
- * Renders a localized loading indicator for the provided content.
+ * Displays the provided content below the loading image.
  */
-export function Loading({ content, lang }: PropsWithLang<{ content: string }>) {
+export function Loading({ children }: PropsWithChildren) {
   return (
     <div className={styles.loading} role="status">
       <div>
         <div>
           <img src="/images/loading.gif" width={48} height={48} alt="" />
         </div>
-        <div>{dictionary[lang].content(content)}...</div>
+        <div>{children}</div>
       </div>
     </div>
   );
