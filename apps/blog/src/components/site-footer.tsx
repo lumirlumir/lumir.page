@@ -13,6 +13,7 @@ import 'server-only';
 // --------------------------------------------------------------------------------
 
 import Link from 'next/link';
+import { Title } from '@/components/title';
 import { author } from '@/data/author';
 import type { LangRecord, PropsWithLang } from '@/data/lang';
 import styles from './site-footer.module.css';
@@ -47,10 +48,7 @@ export function SiteFooter({ lang }: PropsWithLang) {
 
   return (
     <footer className={styles.footer} id="about">
-      <div className={styles.brand}>
-        <strong>lumir</strong>
-        <span>{copy.label}</span>
-      </div>
+      <Title lang={lang} size="large" subtitle={copy.label} />
       <p>{copy.description}</p>
       <nav aria-label="Footer">
         <Link href={`/${lang}`}>JOURNAL</Link>

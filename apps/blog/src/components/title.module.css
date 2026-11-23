@@ -35,3 +35,26 @@
   letter-spacing: 0.1em;
   text-wrap: balance;
 }
+
+.title[data-size='small'] {
+  & .wordmark {
+    font-size: 1.65rem;
+  }
+
+  & .subtitle {
+    margin-top: 8px;
+    font-size: 0.55rem;
+  }
+}
+
+.title[data-size='large'] {
+  & .wordmark {
+    font-size: clamp(2.7rem, 8vw, 5.5rem);
+  }
+
+  & .subtitle {
+    margin-top: 14px;
+    font-size: 0.62rem;
+    letter-spacing: 0.22em;
+  }
+}

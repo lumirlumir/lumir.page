@@ -41,25 +41,6 @@
   }
 }
 
-.brand {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-
-  & strong {
-    font-size: clamp(2.7rem, 8vw, 5.5rem);
-    font-style: italic;
-    line-height: 0.8;
-    letter-spacing: -0.08em;
-  }
-
-  & span {
-    margin-top: 14px;
-    font-size: 0.62rem;
-    letter-spacing: 0.22em;
-  }
-}
-
 .folio {
   display: grid;
   grid-template-columns: 1fr;

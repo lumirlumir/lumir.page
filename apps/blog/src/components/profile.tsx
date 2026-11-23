@@ -12,10 +12,9 @@ import 'server-only';
 // Import
 // --------------------------------------------------------------------------------
 
-import Link from 'next/link';
+import { Title } from '@/components/title';
 import { author } from '@/data/author';
 import type { LangRecord, PropsWithLang } from '@/data/lang';
-import { navMeta } from '@/data/nav';
 import styles from './profile.module.css';
 
 // --------------------------------------------------------------------------------
@@ -50,10 +49,7 @@ export function Profile({ lang }: PropsWithLang) {
         height={96}
         alt={dictionary[lang].alt(author.lumirlumir.name)}
       />
-      <div className={styles['user-name']}>
-        <Link href={`/${lang}${navMeta.home.pathname}`}>{author.lumirlumir.name}</Link>
-      </div>
-      <div className={styles['user-bio']}>{author.lumirlumir.bio}</div>
+      <Title lang={lang} size="small" />
     </div>
   );
 }
