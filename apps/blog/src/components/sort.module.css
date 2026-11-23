@@ -1,4 +1,4 @@
-.react-icons {
+.icons {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -31,7 +31,7 @@
   background: none;
   border: 0;
 
-  & > span.react-icons {
+  & > span.icons {
     grid-area: 1 / 1 / 2 / 2;
 
     & > svg {
@@ -60,7 +60,7 @@
   }
 
   &:hover {
-    & > span.react-icons > svg {
+    & > span.icons > svg {
       animation: var(--animation-shake);
     }
   }

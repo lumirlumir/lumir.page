@@ -31,7 +31,7 @@ import {
   SiThealgorithms,
   TbBrandNextjs,
 } from '@lumir/react-kit/svgs';
-import type { Meta } from './meta';
+import type { MetaWithIcons } from './meta';
 
 // --------------------------------------------------------------------------------
 // Typedef
@@ -86,160 +86,160 @@ export const categoryMeta = {
       en: 'HTML',
       ko: 'HTML',
     },
-    reactIcons: <FaHtml5 />,
+    icons: <FaHtml5 />,
   },
   markdown: {
     name: {
       en: 'Markdown',
       ko: 'Markdown',
     },
-    reactIcons: <FaMarkdown />,
+    icons: <FaMarkdown />,
   },
   css: {
     name: {
       en: 'CSS',
       ko: 'CSS',
     },
-    reactIcons: <FaCss3Alt />,
+    icons: <FaCss3Alt />,
   },
   cpp: {
     name: {
       en: 'C/C++',
       ko: 'C/C++',
     },
-    reactIcons: <SiCplusplus />,
+    icons: <SiCplusplus />,
   },
   javascript: {
     name: {
       en: 'JavaScript',
       ko: 'JavaScript',
     },
-    reactIcons: <RiJavascriptFill />,
+    icons: <RiJavascriptFill />,
   },
   nodejs: {
     name: {
       en: 'Node.js',
       ko: 'Node.js',
     },
-    reactIcons: <FaNodeJs />,
+    icons: <FaNodeJs />,
   },
   npm: {
     name: {
       en: 'npm',
       ko: 'npm',
     },
-    reactIcons: <FaNpm />,
+    icons: <FaNpm />,
   },
   react: {
     name: {
       en: 'React',
       ko: 'React',
     },
-    reactIcons: <FaReact />,
+    icons: <FaReact />,
   },
   nextjs: {
     name: {
       en: 'Next.js',
       ko: 'Next.js',
     },
-    reactIcons: <TbBrandNextjs />,
+    icons: <TbBrandNextjs />,
   },
   linux: {
     name: {
       en: 'Linux',
       ko: 'Linux',
     },
-    reactIcons: <FaLinux />,
+    icons: <FaLinux />,
   },
   data: {
     name: {
       en: 'Data Format',
       ko: '데이터 형식',
     },
-    reactIcons: <MdDataObject />,
+    icons: <MdDataObject />,
   },
   database: {
     name: {
       en: 'Database',
       ko: '데이터베이스',
     },
-    reactIcons: <FaDatabase />,
+    icons: <FaDatabase />,
   },
   git: {
     name: {
       en: 'Git/GitHub',
       ko: '깃/깃허브',
     },
-    reactIcons: <FaGithub />,
+    icons: <FaGithub />,
   },
   vscode: {
     name: {
       en: 'VS Code',
       ko: 'VS Code',
     },
-    reactIcons: <BiLogoVisualStudio />,
+    icons: <BiLogoVisualStudio />,
   },
   openai: {
     name: {
       en: 'OpenAI',
       ko: 'OpenAI',
     },
-    reactIcons: <SiOpenai />,
+    icons: <SiOpenai />,
   },
   baekjoon: {
     name: {
       en: 'Baekjoon',
       ko: '백준',
     },
-    reactIcons: <FaCode />,
+    icons: <FaCode />,
   },
   programmers: {
     name: {
       en: 'Programmers',
       ko: '프로그래머스',
     },
-    reactIcons: <GiHummingbird />,
+    icons: <GiHummingbird />,
   },
   algorithm: {
     name: {
       en: 'Algorithm',
       ko: '알고리즘',
     },
-    reactIcons: <SiThealgorithms />,
+    icons: <SiThealgorithms />,
   },
   network: {
     name: {
       en: 'Network',
       ko: '네트워크',
     },
-    reactIcons: <LuNetwork />,
+    icons: <LuNetwork />,
   },
   convention: {
     name: {
       en: 'Coding Convention',
       ko: '코딩 컨벤션',
     },
-    reactIcons: <FaScrewdriverWrench />,
+    icons: <FaScrewdriverWrench />,
   },
   cs: {
     name: {
       en: 'Computer Science',
       ko: '컴퓨터 과학',
     },
-    reactIcons: <FaLaptopCode />,
+    icons: <FaLaptopCode />,
   },
   synology: {
     name: {
       en: 'Synology NAS',
       ko: 'Synology NAS',
     },
-    reactIcons: <SiSynology />,
+    icons: <SiSynology />,
   },
   essay: {
     name: {
       en: 'Essay',
       ko: '수필',
     },
-    reactIcons: <FaBookOpen />,
+    icons: <FaBookOpen />,
   },
-} as const satisfies Record<CategoryKey, Meta>;
+} as const satisfies Record<CategoryKey, MetaWithIcons>;

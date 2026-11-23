@@ -35,7 +35,7 @@ export async function Categories({ lang }: PropsWithLang) {
       {markdownCollection.nonEmptyCategoryKeys[lang].map(categoryKey => {
         const {
           name: { en, ko },
-          reactIcons,
+          icons,
         } = categoryMeta[categoryKey];
 
         return (
@@ -44,7 +44,7 @@ export async function Categories({ lang }: PropsWithLang) {
               className="custom-hover-effect"
               href={`/${lang}/categories/${categoryKey}`}
             >
-              <div className={styles['react-icons']}>{reactIcons}</div>
+              <div className={styles.icons}>{icons}</div>
               <div className={styles['name-en']}>{en}</div>
               <div className={styles['name-ko']}>{ko}</div>
               <div className={styles['count-docs']}>

@@ -7,7 +7,7 @@
 // --------------------------------------------------------------------------------
 
 import { FaArrowDownWideShort, FaArrowUpShortWide, GrSort } from '@lumir/react-kit/svgs';
-import type { Meta } from './meta';
+import type { MetaWithIcons } from './meta';
 
 // --------------------------------------------------------------------------------
 // Typedef
@@ -30,8 +30,8 @@ export const sortMenuMeta = {
     en: 'Sort',
     ko: '정렬',
   },
-  reactIcons: <GrSort />,
-} as const satisfies Meta;
+  icons: <GrSort />,
+} as const satisfies MetaWithIcons;
 
 /**
  * An object containing metadata for the sort fields,
@@ -43,13 +43,13 @@ export const sortMeta = {
       en: 'Asc',
       ko: '오름차순',
     },
-    reactIcons: <FaArrowUpShortWide />,
+    icons: <FaArrowUpShortWide />,
   },
   desc: {
     name: {
       en: 'Desc',
       ko: '내림차순',
     },
-    reactIcons: <FaArrowDownWideShort />,
+    icons: <FaArrowDownWideShort />,
   },
-} as const satisfies Record<string, Meta>;
+} as const satisfies Record<string, MetaWithIcons>;
