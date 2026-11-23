@@ -162,11 +162,11 @@ describe('mdast-to-text', () => {
 
     assert.strictEqual(
       await mdastToText(tree),
-      'First Second \n Left Right\n\tindented();\n',
+      'First Second\nLeft Right\n\tindented();\n',
     );
     assert.strictEqual(
       mdastToTextSync(tree),
-      'First Second \n Left Right\n\tindented();\n',
+      'First Second\nLeft Right\n\tindented();\n',
     );
   });
 

@@ -1,8 +1,7 @@
 import { fileURLToPath } from 'node:url';
 import { defineConfig } from 'vitest/config';
 import { playwright } from '@vitest/browser-playwright';
-import { vitePluginMarkdown } from './plugins/markdown-loader.ts';
-import { vitePluginServerOnly } from './plugins/server-only.ts';
+import { vitePluginMarkdown, vitePluginServerOnly } from '@lumir/vite-plugins';
 
 export default defineConfig({
   plugins: [vitePluginMarkdown(), vitePluginServerOnly()],
