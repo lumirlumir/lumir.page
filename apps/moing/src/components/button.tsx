@@ -49,6 +49,7 @@ export default function Button({ type, icon, onClick, hoverEffect = false }: Pro
       )}
     >
       <NeonButton
+        disabled={status !== 'interactive'}
         hoverEffect={hoverEffect}
         style={{ width: '60px', height: '60px' }}
         onClick={onClick}

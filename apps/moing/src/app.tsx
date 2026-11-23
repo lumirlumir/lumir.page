@@ -7,6 +7,7 @@
 // --------------------------------------------------------------------------------
 
 import { useEffect, useLayoutEffect, useRef } from 'react';
+import { Dialog, type DialogHandle } from '@lumir/react-kit/components';
 import { useCountdown, useScroll, useSpeechRecognition } from '@lumir/react-kit/hooks';
 import {
   CiMicrophoneOn,
@@ -33,9 +34,10 @@ import './app.css';
 // --------------------------------------------------------------------------------
 
 export default function App() {
-  const { config, setConfig } = useConfigContext();
+  const { config } = useConfigContext();
   const { contentRef, submit, getInterviewInfo } = useInterviewContext();
   const { section } = useScenarioContext();
+  const configDialogRef = useRef<DialogHandle>(null);
   const timerQuestionIndexRef = useRef(0);
   const [currentCount, setCurrentCount] = useCountdown(0, {
     onComplete: () => submit(timerQuestionIndexRef.current),
@@ -64,14 +66,14 @@ export default function App() {
 
   return (
     <>
-      <Button
-        type="config"
-        icon={<GoGear size="35px" />}
-        onClick={() => {
-          if (section.config === 'interactive')
-            setConfig(prev => ({ ...prev, visibility: !prev.visibility }));
-        }}
-      />
+      <Dialog.Root ref={configDialogRef}>
+        <Button
+          type="config"
+          icon={<GoGear size="35px" role="img" aria-label="환경설정" />}
+          onClick={() => configDialogRef.current?.open()}
+        />
+        <Config />
+      </Dialog.Root>
       <Button
         type="speech"
         icon={<CiMicrophoneOn size="40px" />}
@@ -104,7 +106,6 @@ export default function App() {
             }}
           />
           <Client />
-          <Config />
           <MainButton />
         </div>
       </main>
