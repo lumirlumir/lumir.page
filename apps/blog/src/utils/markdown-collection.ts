@@ -16,6 +16,7 @@ import { frontmatter, readtime } from '@lumir/utils';
 import { categoryKeys, type CategoryKey } from '@/data/category';
 import type { Frontmatter } from '@/data/frontmatter';
 import { langKeys, type LangKey, type LangRecord } from '@/data/lang';
+import { navMeta } from '@/data/nav';
 import type {
   VMarkdownFileMeta,
   VMarkdownFile,
@@ -85,7 +86,7 @@ Received id: \`${String(id)}\`
     id: `${slug}.${lang}`,
     slug,
     lang,
-    url: `/${lang}/posts/${slug}`,
+    url: `/${lang}${navMeta.posts.pathname}/${slug}`,
   };
 }
 

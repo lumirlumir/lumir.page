@@ -8,6 +8,7 @@
 
 import type { Frontmatter } from '@/data/frontmatter';
 import type { LangKey } from '@/data/lang';
+import type { navMeta } from '@/data/nav';
 
 // --------------------------------------------------------------------------------
 // Export
@@ -63,7 +64,7 @@ export interface VMarkdownFileMeta {
   /**
    * The URL of the Markdown file, constructed based on its language key and slug (e.g., `/ko/posts/example` for `./example.ko.md`).
    */
-  readonly url: `/${VMarkdownFileMeta['lang']}/posts/${VMarkdownFileMeta['slug']}`;
+  readonly url: `/${VMarkdownFileMeta['lang']}${typeof navMeta.posts.pathname}/${VMarkdownFileMeta['slug']}`;
 
   /**
    * Estimated reading time of the Markdown body in display minutes, excluding frontmatter.

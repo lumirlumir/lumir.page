@@ -6,9 +6,9 @@
   & > button {
     --light-color: var(--color-fg-default);
     --dark-color: var(--color-bg-inset);
-    --sun-color: #f9d71c;
+    --sun-color: #f9cb12;
     --circle-size: 2rem;
-    --duration: 0.5s;
+    --duration: 0.6s;
     --timing: cubic-bezier(0.68, -0.55, 0.265, 1.55);
 
     position: relative;
