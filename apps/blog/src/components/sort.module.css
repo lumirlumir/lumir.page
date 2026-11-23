@@ -1,4 +1,4 @@
-.react-icons,
+.icons,
 .sort {
   display: flex;
   align-items: center;
@@ -30,7 +30,7 @@
   border: 0;
   border-radius: 0;
 
-  & > span.react-icons {
+  & > span.icons {
     grid-area: 1 / 1 / 3 / 2;
 
     & > svg {
@@ -64,7 +64,7 @@
   }
 
   &:hover {
-    & > span.react-icons > svg {
+    & > span.icons > svg {
       animation: var(--animation-shake);
     }
   }

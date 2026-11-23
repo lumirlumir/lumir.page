@@ -44,7 +44,7 @@ function SortContainer({ children, lang }: PropsWithLang<PropsWithChildren>) {
         aria-expanded={isOpen}
         aria-label={sortMenuMeta.name[lang]}
       >
-        <span className={styles['react-icons']}>{sortMenuMeta.reactIcons}</span>
+        <span className={styles.icons}>{sortMenuMeta.icons}</span>
         <span className={styles['name-en']}>{sortMenuMeta.name.en}</span>
         <span className={styles['name-ko']}>{sortMenuMeta.name.ko}</span>
         <span className={styles.sort}>{isOpen ? <FaAngleUp /> : <FaAngleDown />}</span>
@@ -79,14 +79,14 @@ function SortItem({
         onClick={onClick}
         aria-label={`${frontmatterMeta[field].name[lang]} / ${sortMeta[sort].name[lang]}`}
       >
-        <span className={styles['react-icons']}>{frontmatterMeta[field].reactIcons}</span>
+        <span className={styles.icons}>{frontmatterMeta[field].icons}</span>
         <span
           className={styles['name-en']}
         >{`${frontmatterMeta[field].name.en} / ${sortMeta[sort].name.en}`}</span>
         <span
           className={styles['name-ko']}
         >{`${frontmatterMeta[field].name.ko} / ${sortMeta[sort].name.ko}`}</span>
-        <span className={styles.sort}>{sortMeta[sort].reactIcons}</span>
+        <span className={styles.sort}>{sortMeta[sort].icons}</span>
       </button>
     </li>
   );

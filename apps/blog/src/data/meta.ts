@@ -14,16 +14,21 @@ import type { LangRecord } from '@/data/lang';
 // --------------------------------------------------------------------------------
 
 /**
- * Represents shared metadata with localized display names and an associated React icon.
+ * Represents shared metadata with localized display names.
  */
 export interface Meta {
   /**
    * The localized display name in English and Korean.
    */
   readonly name: LangRecord<string>;
+}
 
+/**
+ * Represents metadata with an associated React icon.
+ */
+export interface MetaWithIcons extends Meta {
   /**
    * The React icon associated with the metadata item, represented as a JSX element.
    */
-  readonly reactIcons: JSX.Element;
+  readonly icons: JSX.Element;
 }
