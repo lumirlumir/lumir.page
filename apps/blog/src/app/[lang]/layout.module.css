@@ -95,32 +95,43 @@
     }
   }
 
-  & > aside {
-    position: fixed;
-    top: calc(var(--size-content-top-offset) + 8px);
-    z-index: 3;
-    box-sizing: border-box;
-    width: var(--size-sidebar-width);
-    height: calc(100vh - var(--size-content-top-offset) - 8px);
-    overflow-y: auto;
-    background-color: var(--color-bg-inset);
-    transition: transform 0.35s ease;
+  & > aside:first-of-type {
+    grid-area: 3 / 1;
 
-    & > ul:not(:last-child) {
-      margin: var(--spacing-static-md) 0;
-      border-bottom: var(--border-default);
+    > div {
+      position: sticky;
+      top: 0;
+      max-height: 100dvh;
+      background-color: var(--color-bg-inset);
+
+      > ul:not(:last-child) {
+        margin: var(--spacing-static-md) 0;
+        border-bottom: var(--border-default);
+      }
+    }
+
+    @media (width < 1280px) {
+      z-index: 3;
+      width: var(--size-sidebar-width);
+      overflow: clip;
+      pointer-events: none;
+
+      > div {
+        --sidebar-top: calc(var(--size-content-top-offset) + 8px);
+
+        top: var(--sidebar-top);
+        height: calc(100dvh - var(--sidebar-top));
+        pointer-events: auto;
+        border-right: var(--border-default);
+        transform: translateX(-100%);
+        transition: transform 0.35s ease;
+      }
     }
   }
 
-  & > aside:first-of-type {
-    left: 8px;
-    border-right: var(--border-default);
-    transform: translateX(calc(-100% - 8px));
-  }
-
   & > aside:last-of-type {
-    right: 8px;
-    transform: translateX(calc(100% + 8px));
+    display: none;
+    background-color: var(--color-bg-inset);
   }
 
   & > main {
@@ -153,8 +164,8 @@
     }
   }
 
-  &:has(> .aside-toggle[aria-expanded='true']) > aside:first-of-type {
-    transform: translateX(0);
+  &:has(> .aside-toggle[aria-expanded='true']) > aside:first-of-type > div {
+    transform: none;
   }
 
   @media (width >= 768px) {
@@ -167,12 +178,9 @@
     margin: 17px auto;
 
     & > aside:last-of-type {
-      position: static;
+      display: block;
       grid-area: 3 / 3 / 4 / 4;
-      width: auto;
-      height: auto;
-      overflow: visible;
-      transform: none;
+      min-width: 0;
     }
 
     & > main {
@@ -197,24 +205,11 @@
       var(--size-sidebar-width)
       minmax(0, 1fr);
 
-    & > aside {
-      position: sticky;
-      top: 0;
-      z-index: 0;
-      width: auto;
-      height: auto;
-      min-height: 0;
-      max-height: 100vh;
-    }
-
     & > aside:first-of-type {
-      grid-area: 3 / 2 / 4 / 3;
-      border-right: none;
-      transform: none;
+      grid-column: 2;
     }
 
     & > aside:last-of-type {
-      position: sticky;
       grid-area: 3 / 4 / 4 / 5;
     }
 

@@ -107,13 +107,15 @@ export default async function RootLayout({
                 <ThemeToggle lang={lang} />
               </div>
             </header>
-            <aside className="custom-scrollbar-y-regular">
-              <div className={styles['sidebar-profile']}>
-                <Profile lang={lang} size={96} />
-                <Title lang={lang} />
+            <aside>
+              <div className="custom-scrollbar-y-regular">
+                <div className={styles['sidebar-profile']}>
+                  <Profile lang={lang} size={96} />
+                  <Title lang={lang} />
+                </div>
+                <Links lang={lang} />
+                <Categories lang={lang} />
               </div>
-              <Links lang={lang} />
-              <Categories lang={lang} />
             </aside>
             <AsideToggle className={styles['aside-toggle']} lang={lang} />
             <aside>{nav}</aside>

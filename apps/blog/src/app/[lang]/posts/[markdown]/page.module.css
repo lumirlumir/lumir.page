@@ -25,6 +25,7 @@
     line-height: 1.03;
     letter-spacing: -0.055em;
     text-wrap: balance;
+    overflow-wrap: anywhere;
   }
 
   & > p {

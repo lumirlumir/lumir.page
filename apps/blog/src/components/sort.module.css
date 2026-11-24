@@ -1,60 +1,21 @@
-.icons,
 .sort {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.list {
-  padding: 4px 0 0;
-  margin: 0;
-  list-style: none;
-
-  > li:not(:last-child) {
-    border-bottom: var(--border-default);
-  }
-}
-
-.sort-item {
-  display: grid;
-  grid-template-columns: 25px minmax(0, 1fr) 25px;
-  column-gap: 7px;
-  align-items: center;
-  width: 100%;
-  padding: 10px 6px;
-  font: inherit;
-  color: inherit;
-  text-align: left;
-  cursor: pointer;
-  background: none;
-  border: 0;
-  border-radius: 0;
-
-  > span.icons {
-    > svg {
-      width: 15px;
-      height: 15px;
-      transform-origin: center;
-      transform-box: fill-box;
-    }
+  & button {
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    gap: var(--spacing-static-sm);
+    align-items: center;
+    width: 100%;
+    padding: 0;
+    text-align: start;
+    cursor: pointer;
+    background: none;
+    border: 0;
   }
 
-  > span.name {
-    font-size: 0.72rem;
-    font-weight: 600;
-    letter-spacing: -0.02em;
-  }
-
-  > span.sort {
-    > svg {
-      width: 15px;
-      height: 15px;
-    }
-  }
-
-  &:hover {
-    > span.icons > svg {
-      animation: var(--animation-shake);
-    }
+  & svg {
+    display: block;
+    width: var(--size-14);
+    height: var(--size-14);
   }
 }
