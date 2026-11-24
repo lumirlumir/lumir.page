@@ -1,11 +1,11 @@
 .open {
-  box-sizing: border-box;
+  box-sizing: content-box;
   display: flex;
   flex-shrink: 0;
   align-items: center;
   justify-content: center;
   width: 32px;
-  height: 32px;
+  height: var(--size-40);
   padding: 0 7px;
   margin: 0;
   font-weight: var(--font-weight-medium);
@@ -22,7 +22,7 @@
 
   @media (width >= 640px) {
     width: 76px;
-    height: 36px;
+    height: var(--size-40);
   }
 
   &:hover {

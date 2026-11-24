@@ -52,7 +52,7 @@ export function LangToggle({ lang }: PropsWithLang) {
   });
 
   return (
-    <div className={styles['lang-toggle']} role="group" aria-label="Language">
+    <div className={styles['lang-toggle']}>
       <span className={styles.active} aria-hidden="true">
         {lang.toUpperCase()}
       </span>

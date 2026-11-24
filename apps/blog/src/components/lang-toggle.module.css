@@ -2,10 +2,10 @@
   display: inline-flex;
   gap: var(--spacing-static-sm);
   align-items: center;
-  height: var(--size-36);
+  height: var(--size-40);
   padding: 0 var(--spacing-fluid-sm);
   font-size: var(--font-size-xs);
-  font-weight: var(--font-weight-medium);
+  font-weight: var(--font-weight-semibold);
   color: var(--color-fg-muted);
   letter-spacing: var(--letter-spacing-wider);
   border: var(--border-default);
@@ -15,14 +15,14 @@
     flex-direction: row-reverse;
   }
 
-  & > .active {
-    font-weight: var(--font-weight-semibold);
+  > .active {
+    font-weight: var(--font-weight-bold);
     color: var(--color-fg-default);
     text-decoration: underline;
     text-underline-offset: var(--spacing-static-xs);
   }
 
-  & > a:hover {
+  > a:hover {
     color: var(--color-fg-default);
   }
 }
