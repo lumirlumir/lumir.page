@@ -1,5 +1,18 @@
 [
   {
+    "repositoryUrl": "https://api.github.com/repos/llvm/llvm-project",
+    "htmlUrl": "https://github.com/llvm/llvm-project/pull/241793",
+    "id": 6348485345,
+    "nodeId": "PR_kwDOBITxeM8AAAABOn2y_w",
+    "number": 241793,
+    "title": "[clang-format] fix: add missing extensions to `clang-format-diff.py`'s default filter",
+    "createdAt": "2026-11-12T11:11:18Z",
+    "closedAt": "2026-11-19T21:34:12Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
     "repositoryUrl": "https://api.github.com/repos/eslint/json",
     "htmlUrl": "https://github.com/eslint/json/pull/296",
     "id": 6310528582,
@@ -34,6 +47,32 @@
     "title": "feat: preserve HTML anchor values in `no-missing-link-fragments`",
     "createdAt": "2026-11-10T09:41:47Z",
     "closedAt": "2026-11-16T13:13:35Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/shell",
+    "htmlUrl": "https://github.com/eslint/shell/pull/34",
+    "id": 6301948742,
+    "nodeId": "PR_kwDOUgPO6s8AAAABOCkxsQ",
+    "number": 34,
+    "title": "fix: `validateLanguageOptions` type signature and add type checks",
+    "createdAt": "2026-11-10T06:57:43Z",
+    "closedAt": "2026-11-18T22:48:16Z",
+    "reactions": {
+      "+1": 0
+    }
+  },
+  {
+    "repositoryUrl": "https://api.github.com/repos/eslint/eslint",
+    "htmlUrl": "https://github.com/eslint/eslint/pull/21516",
+    "id": 6301772986,
+    "nodeId": "PR_kwDOAKjKDc8AAAABOCb6Wg",
+    "number": 21516,
+    "title": "ci: add `@eslint/shell` in ecosystem tests and types integration",
+    "createdAt": "2026-11-10T06:42:55Z",
+    "closedAt": "2026-11-22T14:04:06Z",
     "reactions": {
       "+1": 0
     }
