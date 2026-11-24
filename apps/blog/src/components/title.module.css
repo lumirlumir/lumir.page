@@ -15,6 +15,8 @@
 
     > strong,
     > span {
+      /* Use the same Korean OpenType shaping for the wordmark in both locales. */
+      font-language-override: 'KOR';
       line-height: var(--line-height-tighter);
     }
 
