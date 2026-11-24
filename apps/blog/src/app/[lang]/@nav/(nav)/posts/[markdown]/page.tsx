@@ -43,10 +43,10 @@ export default async function Page({ params }: PageProps<'/[lang]/posts/[markdow
   return (
     // TODO: Move this into a separate `TOC` component.
     <div className={styles.toc}>
-      <h2>
+      <p>
         {dictionary[lang].title}
         <FaBookOpen aria-hidden="true" />
-      </h2>
+      </p>
       <ul aria-label={dictionary[lang].title}>
         {headings.map(({ id, text, depth }) => (
           <li key={id} data-depth={depth}>
