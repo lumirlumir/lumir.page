@@ -10,16 +10,16 @@
   margin: 0;
   list-style: none;
 
-  & > li:not(:last-child) {
+  > li:not(:last-child) {
     border-bottom: var(--border-default);
   }
 }
 
 .sort-item {
   display: grid;
-  grid-template-rows: auto auto;
   grid-template-columns: 25px minmax(0, 1fr) 25px;
-  gap: 1px 7px;
+  column-gap: 7px;
+  align-items: center;
   width: 100%;
   padding: 10px 6px;
   font: inherit;
@@ -30,10 +30,8 @@
   border: 0;
   border-radius: 0;
 
-  & > span.icons {
-    grid-area: 1 / 1 / 3 / 2;
-
-    & > svg {
+  > span.icons {
+    > svg {
       width: 15px;
       height: 15px;
       transform-origin: center;
@@ -41,30 +39,21 @@
     }
   }
 
-  & > span.name-en {
-    grid-area: 1 / 2 / 2 / 3;
+  > span.name {
     font-size: 0.72rem;
     font-weight: 600;
     letter-spacing: -0.02em;
   }
 
-  & > span.name-ko {
-    grid-area: 2 / 2 / 3 / 3;
-    font-size: 0.56rem;
-    color: var(--color-fg-muted);
-  }
-
-  & > span.sort {
-    grid-area: 1 / 3 / 3 / 4;
-
-    & > svg {
+  > span.sort {
+    > svg {
       width: 15px;
       height: 15px;
     }
   }
 
   &:hover {
-    & > span.icons > svg {
+    > span.icons > svg {
       animation: var(--animation-shake);
     }
   }

@@ -42,11 +42,9 @@ function SortContainer({ children, lang }: PropsWithLang<PropsWithChildren>) {
         className={cn(styles['sort-item'], 'custom-hover-effect')}
         onClick={toggleIsOpen}
         aria-expanded={isOpen}
-        aria-label={sortMenuMeta.name[lang]}
       >
         <span className={styles.icons}>{sortMenuMeta.icons}</span>
-        <span className={styles['name-en']}>{sortMenuMeta.name.en}</span>
-        <span className={styles['name-ko']}>{sortMenuMeta.name.ko}</span>
+        <span className={styles.name}>{sortMenuMeta.name[lang].toUpperCase()}</span>
         <span className={styles.sort}>{isOpen ? <FaAngleUp /> : <FaAngleDown />}</span>
       </button>
       {isOpen ? <ul className={styles.list}>{children}</ul> : null}
@@ -77,15 +75,11 @@ function SortItem({
         type="button"
         className={cn(styles['sort-item'], 'custom-hover-effect')}
         onClick={onClick}
-        aria-label={`${frontmatterMeta[field].name[lang]} / ${sortMeta[sort].name[lang]}`}
       >
         <span className={styles.icons}>{frontmatterMeta[field].icons}</span>
-        <span
-          className={styles['name-en']}
-        >{`${frontmatterMeta[field].name.en} / ${sortMeta[sort].name.en}`}</span>
-        <span
-          className={styles['name-ko']}
-        >{`${frontmatterMeta[field].name.ko} / ${sortMeta[sort].name.ko}`}</span>
+        <span className={styles.name}>
+          {`${frontmatterMeta[field].name[lang]} / ${sortMeta[sort].name[lang]}`.toUpperCase()}
+        </span>
         <span className={styles.sort}>{sortMeta[sort].icons}</span>
       </button>
     </li>
@@ -97,7 +91,7 @@ function SortItem({
 // --------------------------------------------------------------------------------
 
 /**
- * Renders the bilingual sort menu with localized accessible labels.
+ * Renders a localized sort menu for the post list.
  */
 export function Sort({ lang }: PropsWithLang) {
   return (
