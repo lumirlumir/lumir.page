@@ -22,14 +22,9 @@ import styles from './title.module.css';
 // Export
 // --------------------------------------------------------------------------------
 
-export function Title({
-  lang,
-  size = 'medium',
-}: PropsWithLang<{
-  readonly size?: 'small' | 'medium' | 'large';
-}>) {
+export function Title({ lang }: PropsWithLang) {
   return (
-    <div className={styles.title} data-size={size}>
+    <div className={styles.title}>
       <Link
         href={`/${lang}${navMeta.home.pathname}`}
         aria-label={navMeta.home.name[lang]}

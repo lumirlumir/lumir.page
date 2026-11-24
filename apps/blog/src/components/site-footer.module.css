@@ -3,7 +3,6 @@
   grid-template-columns: 1fr;
   gap: 28px;
   padding: 46px 16px 28px;
-  font-family: var(--font-stack-serif);
   border-top: 3px double var(--color-hairline-strong);
 
   &::before {
@@ -26,18 +25,12 @@
     flex-wrap: wrap;
     gap: 10px 20px;
     align-content: start;
+    font-family: var(--font-stack-monospace);
   }
 
   & a {
-    font-family: var(--font-stack-monospace);
     font-size: 0.65rem;
-    color: inherit;
     letter-spacing: 0.1em;
-    text-decoration: none;
-
-    &:is(:hover, :focus-visible) {
-      color: var(--color-fg-accent);
-    }
   }
 }
 

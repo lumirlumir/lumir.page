@@ -49,7 +49,7 @@ export function Profile({ lang }: PropsWithLang) {
         height={96}
         alt={dictionary[lang].alt(author.lumirlumir.name)}
       />
-      <Title lang={lang} size="small" />
+      <Title lang={lang} />
     </div>
   );
 }

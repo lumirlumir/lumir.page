@@ -51,6 +51,8 @@
   --font-size-xl: var(--size-24);
   --font-size-2xl: var(--size-28);
   --font-size-3xl: var(--size-32);
+  --font-size-4xl: var(--size-48);
+  --font-size-5xl: var(--size-64);
 
   --font-weight-medium: 500;
   --font-weight-semibold: 600;

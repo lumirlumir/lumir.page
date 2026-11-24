@@ -6,7 +6,6 @@
   justify-content: center;
   padding: 42px 18px 24px;
   margin: 0;
-  font-family: var(--font-stack-serif);
   border-bottom: 3px double var(--color-hairline-strong);
 
   & > img {

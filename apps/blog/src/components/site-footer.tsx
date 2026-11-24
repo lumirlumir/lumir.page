@@ -45,7 +45,7 @@ export function SiteFooter({ lang }: PropsWithLang) {
 
   return (
     <footer className={styles.footer} id="about">
-      <Title lang={lang} size="large" />
+      <Title lang={lang} />
       <p>{copy.description}</p>
       <nav aria-label="Footer">
         <Link href={`/${lang}`}>JOURNAL</Link>
