@@ -108,7 +108,10 @@ export default async function RootLayout({
               </div>
             </header>
             <aside className="custom-scrollbar-y-regular">
-              <Profile lang={lang} />
+              <div className={styles['sidebar-profile']}>
+                <Profile lang={lang} size={96} />
+                <Title lang={lang} />
+              </div>
               <Links lang={lang} />
               <Categories lang={lang} />
             </aside>

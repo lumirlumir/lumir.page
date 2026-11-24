@@ -12,7 +12,6 @@ import 'server-only';
 // Import
 // --------------------------------------------------------------------------------
 
-import { Title } from '@/components/title';
 import { author } from '@/data/author';
 import type { LangRecord, PropsWithLang } from '@/data/lang';
 import styles from './profile.module.css';
@@ -34,22 +33,26 @@ const dictionary = {
 // Export
 // --------------------------------------------------------------------------------
 
-export function Profile({ lang }: PropsWithLang) {
+export function Profile({ lang, size }: PropsWithLang<{ readonly size: number }>) {
   return (
-    <div className={styles.profile}>
+    <a
+      className={styles.profile}
+      href={author.lumirlumir.htmlUrl}
+      target="_blank"
+      rel="noopener"
+    >
       <img
         src={(() => {
           // To avoid downloading a much larger image than needed,
           // we can add a query parameter to the avatar URL to request a smaller size.
           const url = new URL(author.lumirlumir.avatarUrl);
-          url.searchParams.set('s', '96');
+          url.searchParams.set('s', String(size));
           return url.toString();
         })()}
-        width={96}
-        height={96}
+        width={size}
+        height={size}
         alt={dictionary[lang].alt(author.lumirlumir.name)}
       />
-      <Title lang={lang} />
-    </div>
+    </a>
   );
 }
