@@ -35,27 +35,22 @@ export default async function Page({ params }: PageProps<'/[lang]/posts/[markdow
   const { headings } = await markdownCollection.loadVMarkdownFileMetaWithHeadings(
     `${awaitedParams.markdown}.${lang}`,
   );
-  const sections = headings.slice(1); // The first heading is the post title.
 
-  if (sections.length === 0) {
+  if (headings.length === 0) {
     return null;
   }
 
   return (
+    // TODO: Move this into a separate `TOC` component.
     <div className={styles.toc}>
-      <h2 id="post-toc-title">
+      <h2>
         {dictionary[lang].title}
         <FaBookOpen aria-hidden="true" />
       </h2>
-      <ul aria-labelledby="post-toc-title">
-        {sections.map(({ id, text, depth }) => (
-          <li
-            key={id}
-            style={{ marginInlineStart: `${Math.max(0, depth - 2) * 0.5}rem` }}
-          >
-            <a className="custom-hover-effect" href={`#${id}`}>
-              {text}
-            </a>
+      <ul aria-label={dictionary[lang].title}>
+        {headings.map(({ id, text, depth }) => (
+          <li key={id} data-depth={depth}>
+            <a href={`#${id}`}>{text}</a>
           </li>
         ))}
       </ul>
