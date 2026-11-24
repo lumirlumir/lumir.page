@@ -131,6 +131,10 @@
   img {
     max-width: 100%;
     border-radius: var(--border-radius-md);
+
+    &[aria-haspopup='dialog'] {
+      cursor: zoom-in;
+    }
   }
 
   kbd {
