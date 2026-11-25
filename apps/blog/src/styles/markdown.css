@@ -7,7 +7,7 @@
     color: var(--color-fg-accent);
 
     &:focus-visible {
-      outline: 2px solid var(--color-focus-outline);
+      outline: 2px solid var(--color-fg-accent);
       outline-offset: -2px;
 
       &:not([class]) {
@@ -141,9 +141,9 @@
     vertical-align: middle;
     color: var(--color-fg-default);
     background-color: var(--color-bg-muted);
-    border: solid 1px var(--color-border-neutral-muted);
+    border: var(--border-default);
     border-radius: var(--border-radius-md);
-    box-shadow: inset 0 -1px 0 var(--color-border-neutral-muted);
+    box-shadow: inset 0 -1px 0 var(--color-border-default);
   }
 
   li {
