@@ -33,7 +33,7 @@
       align-items: center;
       justify-content: center;
       font-family: var(--font-stack-monospace);
-      font-size: 0.58rem;
+      font-size: var(--font-size-xs);
       color: var(--color-fg-muted);
       letter-spacing: 0.06em;
       white-space: nowrap;

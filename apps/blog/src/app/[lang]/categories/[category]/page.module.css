@@ -12,7 +12,7 @@
   & > p:not(.description) {
     margin: 0;
     font-family: var(--font-stack-monospace);
-    font-size: 0.62rem;
+    font-size: var(--font-size-xs);
     color: var(--color-fg-accent);
     letter-spacing: 0.12em;
   }
@@ -43,7 +43,7 @@
   display: flex;
   justify-content: space-between;
   font-family: var(--font-stack-monospace);
-  font-size: 0.56rem;
+  font-size: var(--font-size-xs);
   color: var(--color-fg-muted);
   letter-spacing: 0.08em;
 }

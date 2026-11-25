@@ -48,7 +48,7 @@
 
     & > div.name-ko {
       grid-area: 2 / 2 / 3 / 3;
-      font-size: 0.58rem;
+      font-size: var(--font-size-xs);
       color: var(--color-fg-muted);
       letter-spacing: -0.02em;
     }
@@ -63,7 +63,7 @@
         width: 22px;
         height: 22px;
         font-family: var(--font-stack-monospace);
-        font-size: 0.56rem;
+        font-size: var(--font-size-xs);
         border: var(--border-default);
         border-radius: var(--border-radius-circle);
       }

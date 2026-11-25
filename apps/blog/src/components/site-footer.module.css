@@ -30,7 +30,7 @@
 
   & a,
   & button {
-    font-size: 0.65rem;
+    font-size: var(--font-size-xs);
     letter-spacing: 0.1em;
   }
 }
@@ -42,7 +42,7 @@
   gap: 8px;
   padding-top: 18px;
   font-family: var(--font-stack-monospace);
-  font-size: 0.58rem;
+  font-size: var(--font-size-xs);
   color: var(--color-fg-muted);
   letter-spacing: 0.08em;
   border-top: var(--border-default);

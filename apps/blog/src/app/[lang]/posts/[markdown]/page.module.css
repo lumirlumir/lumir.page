@@ -11,7 +11,7 @@
   & > a {
     width: fit-content;
     font-family: var(--font-stack-monospace);
-    font-size: 0.62rem;
+    font-size: var(--font-size-xs);
     color: var(--color-fg-accent);
     letter-spacing: 0.1em;
     text-decoration: none;
@@ -51,7 +51,7 @@
     & :is(dt, dd) {
       margin: 0;
       font-family: var(--font-stack-monospace);
-      font-size: 0.55rem;
+      font-size: var(--font-size-xs);
       letter-spacing: 0.06em;
       overflow-wrap: anywhere;
     }
@@ -68,7 +68,7 @@
   justify-content: space-between;
   padding-bottom: 10px;
   font-family: var(--font-stack-monospace);
-  font-size: 0.55rem;
+  font-size: var(--font-size-xs);
   color: var(--color-fg-muted);
   letter-spacing: 0.08em;
   border-bottom: var(--border-default);
@@ -91,7 +91,7 @@
     justify-content: space-between;
     padding: 9px 2px 0;
     font-family: var(--font-stack-monospace);
-    font-size: 0.54rem;
+    font-size: var(--font-size-xs);
     color: var(--color-fg-muted);
     letter-spacing: 0.08em;
   }

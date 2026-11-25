@@ -17,7 +17,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font-size: 0.6rem;
+  font-size: var(--font-size-xs);
   color: var(--color-fg-muted);
   letter-spacing: 0.13em;
 }
@@ -44,7 +44,7 @@
   grid-column: 1;
   align-self: start;
   margin: 10px 0 0;
-  font-size: 0.64rem;
+  font-size: var(--font-size-xs);
   font-weight: 700;
   line-height: 1.7;
   color: var(--color-fg-accent);
@@ -90,7 +90,7 @@
 }
 
 .hero-aside span {
-  font-size: 0.62rem;
+  font-size: var(--font-size-xs);
   font-style: italic;
   line-height: 1.7;
   color: var(--color-fg-muted);
@@ -102,7 +102,7 @@
   place-self: end start;
   padding-bottom: 3px;
   margin-top: 26px;
-  font-size: 0.72rem;
+  font-size: var(--font-size-xs);
   color: inherit;
   text-decoration: none;
   border-bottom: 1px solid var(--color-fg-default);
@@ -170,7 +170,7 @@
 .section-heading > div p,
 .field-notes > header > p {
   margin: 0 0 10px;
-  font-size: 0.6rem;
+  font-size: var(--font-size-xs);
   font-weight: 600;
   color: var(--color-fg-muted);
   letter-spacing: 0.17em;
@@ -225,7 +225,7 @@
 
 .photo-essay-heading > p {
   margin: 0;
-  font-size: 0.6rem;
+  font-size: var(--font-size-xs);
   font-weight: 600;
   line-height: 1.7;
   color: #cf795f;
@@ -275,7 +275,7 @@
   top: 16px;
   left: 16px;
   padding: 5px 8px;
-  font-size: 0.5rem;
+  font-size: var(--font-size-xs);
   color: #f1ede4;
   letter-spacing: 0.13em;
   background: rgb(15 16 14 / 72%);
@@ -303,7 +303,7 @@
 
 .photo-plate figcaption p {
   margin: 0;
-  font-size: 0.55rem;
+  font-size: var(--font-size-xs);
   font-weight: 600;
   color: #cf795f;
   letter-spacing: 0.14em;
@@ -319,7 +319,7 @@
 }
 
 .photo-plate figcaption > span {
-  font-size: 0.72rem;
+  font-size: var(--font-size-xs);
   font-style: italic;
   line-height: 1.8;
   color: #aaa69d;
@@ -329,7 +329,7 @@
   display: flex;
   justify-content: space-between;
   padding-top: 15px;
-  font-size: 0.52rem;
+  font-size: var(--font-size-xs);
   color: #87847d;
   letter-spacing: 0.13em;
   border-top: 3px double rgb(238 233 222 / 68%);
@@ -387,7 +387,7 @@
 }
 
 .field-grid a > span {
-  font-size: 0.6rem;
+  font-size: var(--font-size-xs);
   letter-spacing: 0.12em;
 }
 
