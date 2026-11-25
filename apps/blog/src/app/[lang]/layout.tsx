@@ -92,7 +92,7 @@ export default async function RootLayout({
       lang={lang}
       suppressHydrationWarning
     >
-      <body className={styles.body} id="top">
+      <body className={styles.body}>
         <ThemeScript />
         <ConfigProvider>
           <ThemeProvider>

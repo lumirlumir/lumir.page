@@ -28,7 +28,8 @@
     font-family: var(--font-stack-monospace);
   }
 
-  & a {
+  & a,
+  & button {
     font-size: 0.65rem;
     letter-spacing: 0.1em;
   }
@@ -46,8 +47,14 @@
   letter-spacing: 0.08em;
   border-top: var(--border-default);
 
-  & a {
+  & button {
+    justify-self: start;
+    padding: 0;
+    font-family: inherit;
     color: var(--color-fg-default);
+    cursor: pointer;
+    background: none;
+    border: 0;
   }
 }
 
@@ -68,8 +75,8 @@
       text-align: center;
     }
 
-    & > :last-child {
-      text-align: right;
+    & > button {
+      justify-self: end;
     }
   }
 }

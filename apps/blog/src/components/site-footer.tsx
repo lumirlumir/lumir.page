@@ -13,6 +13,7 @@ import 'server-only';
 // --------------------------------------------------------------------------------
 
 import Link from 'next/link';
+import { BackToTop } from '@/components/back-to-top';
 import { Title } from '@/components/title';
 import { author } from '@/data/author';
 import type { LangRecord, PropsWithLang } from '@/data/lang';
@@ -55,9 +56,9 @@ export function SiteFooter({ lang }: PropsWithLang) {
       <div className={styles.folio}>
         <span>© 2026 LUMIR DEV JOURNAL</span>
         <span>SEOUL · KR</span>
-        <a href={`/${lang}#top`}>
+        <BackToTop>
           {copy.backToTop} <span aria-hidden="true">↑</span>
-        </a>
+        </BackToTop>
       </div>
     </footer>
   );
