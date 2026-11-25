@@ -171,7 +171,7 @@ describe('localsearch', () => {
       assert.strictEqual(fetchSearch.mock.calls.length, 0);
       await screen.getByRole('button', { name: 'Search', exact: true }).click();
       assert.deepStrictEqual(fetchSearch.mock.calls, [['/en/search.json']]);
-      assert.include(screen.container.textContent, 'Loading search data...');
+      assert.ok(screen.getByRole('status', { name: 'Loading search data.' }).element());
 
       await userEvent.keyboard('{Escape}/');
       assert.strictEqual(fetchSearch.mock.calls.length, 1);
@@ -197,7 +197,7 @@ describe('localsearch', () => {
 
       await screen.getByRole('button', { name: 'Search', exact: true }).click();
       await screen.getByRole('searchbox', { name: 'Search' }).fill('React');
-      assert.include(screen.container.textContent, 'Loading search data...');
+      assert.ok(screen.getByRole('status', { name: 'Loading search data.' }).element());
       assert.notInclude(screen.container.textContent, 'No search results.');
 
       response.resolve(Response.json([article]));
