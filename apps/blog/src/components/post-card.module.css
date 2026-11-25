@@ -113,21 +113,17 @@
   }
 }
 
-.post-card[data-variant='series'] {
-  & .art-frame {
-    aspect-ratio: 3 / 2;
-  }
+.post-card:is([data-variant='series'], [data-variant='popular']) .art-frame {
+  aspect-ratio: 3 / 2;
+}
 
+.post-card[data-variant='series'] {
   & .title {
     font-size: var(--font-size-2xl);
   }
 }
 
 .post-card[data-variant='popular'] {
-  & .art-frame {
-    aspect-ratio: 4 / 3;
-  }
-
   & .title {
     -webkit-line-clamp: 2;
     line-clamp: 2;
