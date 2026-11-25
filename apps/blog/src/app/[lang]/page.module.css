@@ -209,7 +209,7 @@
 }
 
 .latest-grid {
-  gap: 0;
+  gap: var(--size-24);
 }
 
 .photo-essay {
@@ -260,10 +260,8 @@
 .photo-plate-image {
   position: relative;
   aspect-ratio: 1;
-  padding: 8px;
   overflow: hidden;
-  background: #242520;
-  border: 1px solid rgb(238 233 222 / 48%);
+  border-radius: var(--border-radius-md);
 }
 
 .photo-plate-image img {
@@ -300,7 +298,6 @@
   grid-template-columns: auto 1fr;
   gap: 8px 20px;
   padding-top: 16px;
-  border-top: 1px solid rgb(238 233 222 / 28%);
 }
 
 .photo-plate figcaption p,

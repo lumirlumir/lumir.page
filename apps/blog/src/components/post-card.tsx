@@ -52,15 +52,13 @@ export async function PostCard({
     <Link className={styles.link} href={url}>
       <div className={styles['post-card']} data-variant={variant}>
         <div className={styles['art-frame']}>
-          <div className={styles.mat}>
-            <img
-              className={styles.image}
-              src="/images/editorial/placeholder.webp"
-              width={1536}
-              height={1024}
-              alt=""
-            />
-          </div>
+          <img
+            className={styles.image}
+            src="/images/editorial/placeholder.webp"
+            width={1536}
+            height={1024}
+            alt=""
+          />
           {marker ? (
             <span className={styles.marker} aria-hidden="true">
               {marker}
