@@ -1,5 +1,5 @@
 /**
- * @fileoverview Scroll the current page to the top.
+ * @fileoverview back-to-top.
  */
 
 // --------------------------------------------------------------------------------
