@@ -16,11 +16,15 @@ import type { MetaWithIcons } from './meta';
 /**
  * Represents the key of the sort defined in the `sortMeta` object.
  */
-export type SortKey = keyof typeof sortMeta;
+export type SortKey = (typeof sortKeys)[number];
 
 // --------------------------------------------------------------------------------
 // Export
 // --------------------------------------------------------------------------------
+
+export const sortKeyDefault = 'desc' as const satisfies SortKey;
+
+export const sortKeys = ['asc', 'desc'] as const;
 
 /**
  * Metadata for the sort menu.
@@ -52,4 +56,4 @@ export const sortMeta = {
     },
     icons: <FaArrowDownWideShort />,
   },
-} as const satisfies Record<string, MetaWithIcons>;
+} as const satisfies Record<SortKey, MetaWithIcons>;

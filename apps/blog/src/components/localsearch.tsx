@@ -24,6 +24,7 @@ import { LmSearch } from '@lumir/react-kit/svgs';
 import { Search, type Match } from '@lumir/utils';
 import Link from 'next/link';
 import { useDeferredValue, useMemo, useRef, useState, type KeyboardEvent } from 'react';
+import { Spinner } from '@/components/spinner';
 import { useConfigContext } from '@/contexts/config';
 import { categoryMeta } from '@/data/category';
 import type { LangRecord, PropsWithLang } from '@/data/lang';
@@ -39,7 +40,7 @@ const icon = <LmSearch aria-hidden="true" size={28} strokeWidth="1.5" />;
 const dictionary = {
   ko: {
     search: '검색',
-    loading: '검색 데이터를 불러오는 중입니다...',
+    loading: '검색 데이터를 불러오는 중입니다.',
     error: '검색 데이터를 불러오지 못했습니다.',
     retry: '다시 시도',
     title: '문서 검색',
@@ -54,7 +55,7 @@ const dictionary = {
   },
   en: {
     search: 'Search',
-    loading: 'Loading search data...',
+    loading: 'Loading search data.',
     error: 'Failed to load search data.',
     retry: 'Retry',
     title: 'Search docs',
@@ -282,7 +283,9 @@ export function LocalSearch({ lang }: PropsWithLang) {
               <section>
                 {searchData === null ? (
                   <>
-                    <h3>{failed ? labels.error : labels.loading}</h3>
+                    <h3>
+                      {failed ? labels.error : <Spinner aria-label={labels.loading} />}
+                    </h3>
                     {failed ? (
                       <button type="button" onClick={loadSearch}>
                         {labels.retry}

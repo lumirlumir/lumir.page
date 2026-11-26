@@ -7,6 +7,7 @@
 // --------------------------------------------------------------------------------
 
 import type { Metadata } from 'next';
+import { Noto_Serif_KR as NotoSerifKr } from 'next/font/google';
 import type { PropsWithChildren } from 'react';
 
 import { Analytics } from '@vercel/analytics/react';
@@ -21,6 +22,8 @@ import { Links } from '@/components/links';
 import { LocalSearch } from '@/components/localsearch';
 import { Profile } from '@/components/profile';
 import { ScrollProgress } from '@/components/scroll-progress';
+import { SiteFooter } from '@/components/site-footer';
+import { SiteNavigation } from '@/components/site-navigation';
 import { ThemeScript } from '@/components/theme-script';
 import { Title } from '@/components/title';
 import { ThemeToggle } from '@/components/theme-toggle';
@@ -34,6 +37,13 @@ import { googleGaId } from '@/data/site';
 
 import '@/styles/index.css';
 import styles from './layout.module.css';
+
+const notoSerifKr = NotoSerifKr({
+  weight: 'variable',
+  display: 'swap',
+  preload: false,
+  variable: '--font-noto-serif-kr',
+});
 
 // --------------------------------------------------------------------------------
 // Named Export
@@ -77,7 +87,11 @@ export default async function RootLayout({
   return (
     // Use `suppressHydrationWarning` because `ThemeScript` may change the initial `data-theme`.
     // https://react.dev/reference/react-dom/client/hydrateRoot#suppressing-unavoidable-hydration-mismatch-errors
-    <html className="custom-scrollbar-y-bold" lang={lang} suppressHydrationWarning>
+    <html
+      className={`${notoSerifKr.variable} custom-scrollbar-y-bold`}
+      lang={lang}
+      suppressHydrationWarning
+    >
       <body className={styles.body}>
         <ThemeScript />
         <ConfigProvider>
@@ -86,22 +100,29 @@ export default async function RootLayout({
             <ScrollProgress className={styles['scroll-progress']} />
             <header>
               <Title lang={lang} />
+              <SiteNavigation lang={lang} />
               <div>
                 <LocalSearch lang={lang} />
                 <LangToggle lang={lang} />
                 <ThemeToggle lang={lang} />
               </div>
             </header>
-            <aside className="custom-scrollbar-y-regular">
-              <Profile lang={lang} />
-              <Links lang={lang} />
-              <Categories lang={lang} />
+            <aside>
+              <div className="custom-scrollbar-y-regular">
+                <div className={styles['sidebar-profile']}>
+                  <Profile lang={lang} size={96} />
+                  <Title lang={lang} />
+                </div>
+                <Links lang={lang} />
+                <Categories lang={lang} />
+              </div>
             </aside>
             <AsideToggle className={styles['aside-toggle']} lang={lang} />
             <aside>{nav}</aside>
             <main>
               <article>{children}</article>
             </main>
+            <SiteFooter lang={lang} />
 
             <Analytics />
             <SpeedInsights />

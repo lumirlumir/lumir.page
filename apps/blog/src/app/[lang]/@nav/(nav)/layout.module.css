@@ -1,26 +1,48 @@
 .nav {
   position: sticky;
-  top: calc(var(--size-scroll-progress-height) + var(--size-header-height));
+  top: 0;
   box-sizing: border-box;
-  height: calc(100vh - var(--size-scroll-progress-height) - var(--size-header-height));
-  padding: var(--size-article-padding-large) var(--size-article-padding-small);
-  background-color: var(--color-bg-inset);
-  border-left: var(--border-default);
+  max-height: 100dvh;
+  padding: var(--spacing-static-lg) var(--spacing-static-md);
+  overscroll-behavior-y: contain;
 
-  & > div {
-    padding: var(--spacing-static-xs) var(--spacing-static-sm);
-    background-color: var(--color-bg-default);
-    border: var(--border-default);
-    border-radius: var(--border-radius-md);
+  & p {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0;
+    font-family: var(--font-stack-monospace);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-semibold);
+    line-height: var(--line-height-normal);
+    color: var(--color-fg-muted);
+    text-transform: uppercase;
+    letter-spacing: var(--letter-spacing-widest);
+
+    svg {
+      display: block;
+      width: var(--font-size-md);
+      height: var(--font-size-md);
+    }
   }
 
-  @media (width >= 768px) {
-    background-color: inherit;
-    border-left: none;
+  & ul {
+    padding: 0;
+    margin: var(--spacing-static-md) 0 0;
+    list-style: none;
+    border-inline-start: var(--border-default);
   }
 
-  @media (width >= 1024px) {
-    padding: var(--size-article-padding-large) calc(var(--size-article-padding-small) * 2)
-      0 0;
+  & li > :is(a, button) {
+    padding: var(--spacing-static-xs) 0 var(--spacing-static-xs) var(--spacing-static-md);
+    font-family: system-ui, sans-serif;
+    font-size: var(--font-size-sm);
+    line-height: var(--line-height-normal);
+    color: var(--color-fg-muted);
+    overflow-wrap: anywhere;
+  }
+
+  & :is(a, button):is(:hover, :focus-visible, [aria-pressed='true']) {
+    color: var(--color-fg-default);
   }
 }

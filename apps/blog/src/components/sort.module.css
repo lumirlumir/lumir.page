@@ -1,67 +1,29 @@
-.icons {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
 .sort {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.list {
-  padding: 0;
-  margin: 0;
-  list-style: none;
-}
-
-.sort-item {
-  --grid-template-columns: calc(var(--size-40) + var(--size-2));
-
-  display: grid;
-  grid-template-rows: var(--size-24);
-  grid-template-columns: var(--grid-template-columns) 1fr var(--grid-template-columns);
-  width: 100%;
-  padding: var(--spacing-static-sm) 0;
-  margin: var(--spacing-static-xs) 0;
-  color: inherit;
-  text-align: left;
-  cursor: pointer;
-  background: none;
-  border: 0;
-
-  & > span.icons {
-    grid-area: 1 / 1 / 2 / 2;
-
-    & > svg {
-      width: var(--size-24);
-      height: var(--size-24);
-      transform-origin: center;
-      transform-box: fill-box;
-    }
+  & hr {
+    margin: var(--spacing-static-sm) 0;
+    border: 0;
+    border-block-start: var(--border-default);
   }
 
-  & > span.name {
-    grid-area: 1 / 2 / 2 / 3;
-    align-self: center;
-    font-size: var(--font-size-sm);
-    font-weight: var(--font-weight-medium);
-    letter-spacing: var(--letter-spacing-tightest);
+  & hr + ul {
+    margin-block-start: 0;
   }
 
-  & > span.sort {
-    grid-area: 1 / 3 / 2 / 4;
-
-    & > svg {
-      width: var(--size-24);
-      height: var(--size-24);
-    }
+  & button {
+    display: flex;
+    gap: var(--spacing-static-sm);
+    align-items: center;
+    width: 100%;
+    padding: 0;
+    text-align: start;
+    cursor: pointer;
+    background: none;
+    border: 0;
   }
 
-  &:hover {
-    & > span.icons > svg {
-      animation: var(--animation-shake);
-    }
+  & button svg {
+    display: block;
+    width: var(--size-14);
+    height: var(--size-14);
   }
 }

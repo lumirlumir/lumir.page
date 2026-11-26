@@ -7,10 +7,13 @@
 // --------------------------------------------------------------------------------
 
 import type { Metadata } from 'next';
+import Link from 'next/link';
+import { categoryMeta } from '@/data/category';
 import type { LangKey } from '@/data/lang';
 import createMarkdownCollection from '@/utils/markdown-collection';
 import { markdownToHtml } from '@/utils/markdown-to-html';
 import { markdownToText } from '@/utils/markdown-to-text';
+import styles from './page.module.css';
 
 // --------------------------------------------------------------------------------
 // Helper
@@ -75,22 +78,63 @@ export default async function Page({ params }: PageProps<'/[lang]/posts/[markdow
   const id = `${markdown}.${lang}` as const;
   const {
     content,
-    data: { title, description, references },
+    data: { categories, created, description, references, title, updated },
     slug,
   } = await markdownCollection.loadVMarkdownFile(id);
+  const [plainTitle, plainDescription] = await Promise.all([
+    markdownToText(title),
+    markdownToText(description),
+  ]);
+  const primaryCategory = categories[0];
 
   return (
-    <div
-      className="markdown"
-      // eslint-disable-next-line react-x/dom-no-dangerously-set-innerhtml -- Safe because the content comes from the local file and is controlled.
-      dangerouslySetInnerHTML={{
-        __html: await markdownToHtml(content, {
-          lang,
-          title: `${title} {#${slug}}`,
-          description,
-          references,
-        }),
-      }}
-    />
+    <div className={styles.post} data-page="post">
+      <header className={styles.masthead}>
+        <div className={styles.rail}>
+          <span>JOURNAL ENTRY · {created.slice(0, 4)}</span>
+          <span>READ / RECORD / RETURN</span>
+        </div>
+        {primaryCategory ? (
+          <Link href={`/${lang}/categories/${primaryCategory}`}>
+            {categoryMeta[primaryCategory].name.en} /{' '}
+            {categoryMeta[primaryCategory].name[lang]}
+          </Link>
+        ) : null}
+        <h1 id={slug}>{plainTitle}</h1>
+        <p>{plainDescription}</p>
+        <dl>
+          <div>
+            <dt>WRITTEN BY</dt>
+            <dd>LUMIR</dd>
+          </div>
+          <div>
+            <dt>PUBLISHED</dt>
+            <dd>{created}</dd>
+          </div>
+          <div>
+            <dt>UPDATED</dt>
+            <dd>{updated}</dd>
+          </div>
+        </dl>
+      </header>
+
+      <figure className={styles.lead}>
+        <img src="/images/editorial/placeholder.webp" width={1536} height={1024} alt="" />
+        <figcaption>
+          <span>EDITORIAL PLATE · 01</span>
+          <span>LUMIR DEV JOURNAL</span>
+        </figcaption>
+      </figure>
+
+      <div className={styles.prose}>
+        <div
+          className="markdown"
+          // eslint-disable-next-line react-x/dom-no-dangerously-set-innerhtml -- Safe because the content comes from the local file and is controlled.
+          dangerouslySetInnerHTML={{
+            __html: await markdownToHtml(content, { lang, references }),
+          }}
+        />
+      </div>
+    </div>
   );
 }

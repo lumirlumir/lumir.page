@@ -1,37 +1,36 @@
 .toc {
-  font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-medium);
-  letter-spacing: var(--letter-spacing-tightest);
-  overflow-wrap: anywhere;
+  > ul {
+    scroll-target-group: auto;
 
-  & > h2,
-  & a {
-    display: grid;
-    grid-auto-rows: minmax(var(--size-24), auto);
-    align-items: center;
-    padding-block: var(--spacing-static-sm);
-    margin-block: var(--spacing-static-xs);
-  }
+    > li {
+      > a {
+        display: block;
 
-  & > h2 {
-    grid-template-columns: 1fr calc(var(--size-40) + var(--size-2));
-    font: inherit;
-    text-transform: uppercase;
+        /* stylelint-disable-next-line selector-pseudo-class-no-unknown -- Native scroll marker for the current heading. */
+        &:target-current {
+          color: var(--color-fg-default);
+        }
+      }
 
-    & > svg {
-      justify-self: center;
-      width: var(--size-20);
-      height: var(--size-20);
+      &[data-depth='2'] {
+        margin-inline-start: var(--size-8);
+      }
+
+      &[data-depth='3'] {
+        margin-inline-start: var(--size-16);
+      }
+
+      &[data-depth='4'] {
+        margin-inline-start: var(--size-24);
+      }
+
+      &[data-depth='5'] {
+        margin-inline-start: var(--size-32);
+      }
+
+      &[data-depth='6'] {
+        margin-inline-start: var(--size-40);
+      }
     }
-  }
-
-  & > ul {
-    padding: 0;
-    margin: 0;
-    list-style: none;
-  }
-
-  & a {
-    padding-inline-end: var(--spacing-static-sm);
   }
 }

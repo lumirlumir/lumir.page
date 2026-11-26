@@ -53,6 +53,10 @@ export function LangToggle({ lang }: PropsWithLang) {
 
   return (
     <div className={styles['lang-toggle']}>
+      <span className={styles.active} aria-hidden="true">
+        {lang.toUpperCase()}
+      </span>
+      <span aria-hidden="true">|</span>
       {/*
        * Use a native anchor intentionally so switching languages performs a full-page navigation.
        * Each localized route owns document-level state such as `<html lang>`, and a fresh document
@@ -70,7 +74,7 @@ export function LangToggle({ lang }: PropsWithLang) {
         }}
         aria-label={dictionary[lang].ariaLabel}
       >
-        {nextLang}
+        {nextLang.toUpperCase()}
       </a>
     </div>
   );

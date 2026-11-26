@@ -1,16 +1,28 @@
 .lang-toggle {
-  display: flex;
+  display: inline-flex;
+  gap: var(--spacing-static-sm);
   align-items: center;
-  justify-content: center;
+  height: var(--size-40);
+  padding: 0 var(--spacing-fluid-sm);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-fg-muted);
+  letter-spacing: var(--letter-spacing-wider);
+  border: var(--border-default);
+  border-radius: var(--border-radius-pill);
 
-  > a {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: var(--size-32);
-    height: var(--size-32);
-    font-size: var(--font-size-md);
-    font-weight: var(--font-weight-semibold);
-    text-decoration: none;
+  &:lang(en) {
+    flex-direction: row-reverse;
+  }
+
+  > .active {
+    font-weight: var(--font-weight-bold);
+    color: var(--color-fg-default);
+    text-decoration: underline;
+    text-underline-offset: var(--spacing-static-xs);
+  }
+
+  > a:hover {
+    color: var(--color-fg-default);
   }
 }

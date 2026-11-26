@@ -1,33 +1,37 @@
 .title {
   display: flex;
   align-items: center;
-  justify-content: center;
+  inline-size: 100%;
+  container-type: inline-size;
 
-  & > a > img {
-    border-radius: var(--border-radius-circle);
-  }
+  > a {
+    display: inline-flex;
+    flex-direction: column;
+    gap: var(--spacing-static-xs);
 
-  & > div {
-    display: none;
-  }
+    &:is(:hover, :focus-visible) {
+      color: var(--color-fg-accent);
+    }
 
-  @media (width >= 640px) {
-    & > div {
-      display: grid;
-      grid-template-rows: 2fr 1fr;
-      padding-left: var(--spacing-static-md);
+    > strong,
+    > span {
+      /* Use the same Korean OpenType shaping for the wordmark in both locales. */
+      font-language-override: 'KOR';
+      line-height: var(--line-height-tighter);
+    }
 
-      & > :first-child {
-        padding-bottom: var(--spacing-static-xs);
-        font-size: var(--font-size-lg);
-        font-weight: var(--font-weight-semibold);
-      }
+    > strong {
+      font-size: clamp(var(--font-size-3xl), 20cqi, var(--font-size-4xl));
+      font-style: italic;
+      letter-spacing: var(--letter-spacing-tighter);
+      transform: rotate(-1.5deg);
+      transform-origin: left center;
+    }
 
-      & > :last-child {
-        font-size: var(--font-size-xs);
-        color: var(--color-fg-muted);
-        letter-spacing: var(--letter-spacing-tight);
-      }
+    > span {
+      font-size: clamp(var(--font-size-xs), 2cqi, var(--font-size-sm));
+      font-weight: var(--font-weight-semibold);
+      letter-spacing: var(--letter-spacing-tightest);
     }
   }
 }

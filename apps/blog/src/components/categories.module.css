@@ -1,9 +1,4 @@
-.icons {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
+.icons,
 .count-docs {
   display: flex;
   align-items: center;
@@ -11,33 +6,33 @@
 }
 
 .categories {
-  --grid-template-rows-1: var(--size-24);
-  --grid-template-rows-2: var(--size-16);
-  --grid-template-columns: calc(
-    var(--grid-template-rows-1) + var(--grid-template-rows-2) + var(--size-8)
-  );
-
-  /* properties */
   display: flex;
   flex-direction: column;
-  padding: 0;
+  padding: 12px 10px 34px;
   margin: 0;
   list-style: none;
 
-  /* selectors */
+  & > li:not(:last-child) {
+    border-bottom: var(--border-default);
+  }
+
   & > li > a {
     display: grid;
-    grid-template-rows: var(--grid-template-rows-1) var(--grid-template-rows-2);
-    grid-template-columns: var(--grid-template-columns) 1fr var(--grid-template-columns);
-    padding: var(--spacing-static-sm) var(--spacing-static-xs);
-    margin: var(--spacing-static-xs) var(--spacing-static-sm);
+    grid-template-rows: auto auto;
+    grid-template-columns: 25px minmax(0, 1fr) 30px;
+    gap: 1px 8px;
+    padding: 10px 7px;
+    margin: 0;
+    color: inherit;
+    text-decoration: none;
+    border-radius: 0;
 
     & > div.icons {
       grid-area: 1 / 1 / 3 / 2;
 
       & > svg {
-        width: var(--size-24);
-        height: var(--size-24);
+        width: 15px;
+        height: 15px;
         transform-origin: center;
         transform-box: fill-box;
       }
@@ -45,15 +40,17 @@
 
     & > div.name-en {
       grid-area: 1 / 2 / 2 / 3;
-      font-weight: var(--font-weight-medium);
-      letter-spacing: var(--letter-spacing-tighter);
+      font-family: var(--font-stack-serif);
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
     }
 
     & > div.name-ko {
       grid-area: 2 / 2 / 3 / 3;
       font-size: var(--font-size-xs);
       color: var(--color-fg-muted);
-      letter-spacing: var(--letter-spacing-tighter);
+      letter-spacing: -0.02em;
     }
 
     & > div.count-docs {
@@ -63,23 +60,22 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        width: var(--size-20);
-        height: var(--size-20);
+        width: 22px;
+        height: 22px;
+        font-family: var(--font-stack-monospace);
         font-size: var(--font-size-xs);
-        font-weight: var(--font-weight-semibold);
-        letter-spacing: var(--letter-spacing-tighter);
         border: var(--border-default);
         border-radius: var(--border-radius-circle);
       }
 
       & > svg {
-        width: var(--size-10);
-        height: var(--size-10);
-        transform: translate(-3px, -10px);
+        display: none;
       }
     }
 
     &:hover {
+      background-color: var(--color-bg-muted);
+
       & > div.icons > svg {
         animation: var(--animation-shake);
       }
