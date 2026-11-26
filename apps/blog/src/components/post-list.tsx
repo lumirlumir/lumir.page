@@ -24,9 +24,13 @@ import 'client-only';
 
 import { useSearchParams } from 'next/navigation';
 import { Fragment, Suspense, type ReactNode } from 'react';
-import type { SortableFrontmatterKey } from '@/data/frontmatter';
+import {
+  sortableFrontmatterKeyDefault,
+  sortableFrontmatterKeys,
+  type SortableFrontmatterKey,
+} from '@/data/frontmatter';
 import type { PropsWithLang } from '@/data/lang';
-import type { SortKey } from '@/data/sort';
+import { sortKeyDefault, sortKeys, type SortKey } from '@/data/sort';
 import type { VMarkdownFileMeta } from '@/data/v-markdown';
 import { compareMarkdownDocument } from '@/utils/compare';
 import styles from './post-list.module.css';
@@ -74,19 +78,6 @@ interface SortedPostListProps extends PostListProps {
 // Helper
 // --------------------------------------------------------------------------------
 
-const DEFAULT_FIELD = 'updated' satisfies SortableFrontmatterKey;
-const DEFAULT_SORT = 'desc' satisfies SortKey;
-
-function normalizeField(field: string | null): SortableFrontmatterKey {
-  return field === 'title' || field === 'created' || field === 'updated'
-    ? field
-    : DEFAULT_FIELD;
-}
-
-function normalizeSort(sort: string | null): SortKey {
-  return sort === 'asc' || sort === 'desc' ? sort : DEFAULT_SORT;
-}
-
 function SortedPostList({
   items,
   field,
@@ -108,14 +99,15 @@ function SortedPostList({
 
 function SortedPostListSearchParams({ items, lang }: PropsWithLang<PostListProps>) {
   const searchParams = useSearchParams();
+  const fieldParam = searchParams.get('field');
+  const sortParam = searchParams.get('sort');
+  const selectedField =
+    sortableFrontmatterKeys.find(key => key === fieldParam) ??
+    sortableFrontmatterKeyDefault;
+  const selectedSort = sortKeys.find(key => key === sortParam) ?? sortKeyDefault;
 
   return (
-    <SortedPostList
-      items={items}
-      field={normalizeField(searchParams.get('field'))}
-      sort={normalizeSort(searchParams.get('sort'))}
-      lang={lang}
-    />
+    <SortedPostList items={items} field={selectedField} sort={selectedSort} lang={lang} />
   );
 }
 
@@ -129,8 +121,8 @@ export function PostList({ items, lang }: PropsWithLang<PostListProps>) {
       fallback={
         <SortedPostList
           items={items}
-          field={DEFAULT_FIELD}
-          sort={DEFAULT_SORT}
+          field={sortableFrontmatterKeyDefault}
+          sort={sortKeyDefault}
           lang={lang}
         />
       }

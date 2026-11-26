@@ -59,29 +59,34 @@ export interface Frontmatter {
 }
 
 /**
+ * Represents the keys of the frontmatter that can be sorted,
+ * excluding some properties which are not typically used for sorting.
+ */
+export type SortableFrontmatterKey = (typeof sortableFrontmatterKeys)[number];
+
+/**
  * Represents the key of the frontmatter defined in the `frontmatterMeta` object.
  */
 export type FrontmatterKey = (typeof frontmatterKeys)[number];
-
-/**
- * Represents the keys of the frontmatter that can be sorted, excluding `description` and `categories` which are not typically used for sorting.
- */
-export type SortableFrontmatterKey = Exclude<
-  FrontmatterKey,
-  'description' | 'categories' | 'references'
->;
 
 // --------------------------------------------------------------------------------
 // Export
 // --------------------------------------------------------------------------------
 
-export const frontmatterKeys = [
+export const sortableFrontmatterKeyDefault =
+  'updated' as const satisfies SortableFrontmatterKey;
+
+export const sortableFrontmatterKeys = [
   'title',
-  'description',
   'created',
   'updated',
+] as const satisfies readonly (keyof Frontmatter)[];
+
+export const frontmatterKeys = [
+  'description',
   'categories',
   'references',
+  ...sortableFrontmatterKeys,
 ] as const satisfies readonly (keyof Frontmatter)[];
 
 /**

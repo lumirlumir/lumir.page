@@ -6,7 +6,10 @@
   padding: var(--spacing-static-lg) var(--spacing-static-md);
   overscroll-behavior-y: contain;
 
-  & :is(p, button[aria-expanded]) {
+  & p {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     margin: 0;
     font-family: var(--font-stack-monospace);
     font-size: var(--font-size-xs);
@@ -15,6 +18,12 @@
     color: var(--color-fg-muted);
     text-transform: uppercase;
     letter-spacing: var(--letter-spacing-widest);
+
+    svg {
+      display: block;
+      width: var(--font-size-md);
+      height: var(--font-size-md);
+    }
   }
 
   & ul {

@@ -1,8 +1,16 @@
 .sort {
+  & hr {
+    margin: var(--spacing-static-sm) 0;
+    border: 0;
+    border-block-start: var(--border-default);
+  }
+
+  & hr + ul {
+    margin-block-start: 0;
+  }
+
   & button {
-    box-sizing: border-box;
-    display: grid;
-    grid-template-columns: auto minmax(0, 1fr) auto;
+    display: flex;
     gap: var(--spacing-static-sm);
     align-items: center;
     width: 100%;
@@ -13,7 +21,7 @@
     border: 0;
   }
 
-  & svg {
+  & button svg {
     display: block;
     width: var(--size-14);
     height: var(--size-14);
